@@ -284,8 +284,8 @@ if.then67:                                        ; preds = %if.else65
   br label %if.end79
 
 if.end79:                                         ; preds = %if.then16, %if.then12, %if.then32, %if.then44, %if.then67, %if.then62, %if.then58, %if.then49, %if.then53, %if.then38, %if.then22, %if.then26, %if.then9
-  %prot.0 = phi i32 [ %dec, %if.then9 ], [ %p.0.lcssa.i, %if.then16 ], [ %p.0.lcssa.i, %if.then12 ], [ %p.0.lcssa.i, %if.then26 ], [ %p.0.lcssa.i, %if.then22 ], [ %p.0.lcssa.i, %if.then32 ], [ %p.0.lcssa.i, %if.then38 ], [ %p.0.lcssa.i, %if.then44 ], [ %p.0.lcssa.i, %if.then53 ], [ %p.0.lcssa.i, %if.then49 ], [ %p.0.lcssa.i, %if.then62 ], [ %p.0.lcssa.i, %if.then58 ], [ %dec68, %if.then67 ]
-  %safe.0 = phi i32 [ %add, %if.then9 ], [ %inc14, %if.then16 ], [ %inc14, %if.then12 ], [ %inc24, %if.then26 ], [ %inc24, %if.then22 ], [ %0, %if.then32 ], [ %0, %if.then38 ], [ %0, %if.then44 ], [ %inc51, %if.then53 ], [ %inc51, %if.then49 ], [ %inc60, %if.then62 ], [ %inc60, %if.then58 ], [ %add69, %if.then67 ]
+  %prot.0 = phi i32 [ %dec, %if.then9 ], [ %p.0.lcssa.i, %if.then49 ], [ %p.0.lcssa.i, %if.then53 ], [ %p.0.lcssa.i, %if.then58 ], [ %p.0.lcssa.i, %if.then62 ], [ %dec68, %if.then67 ], [ %p.0.lcssa.i, %if.then44 ], [ %p.0.lcssa.i, %if.then38 ], [ %p.0.lcssa.i, %if.then32 ], [ %p.0.lcssa.i, %if.then22 ], [ %p.0.lcssa.i, %if.then26 ], [ %p.0.lcssa.i, %if.then12 ], [ %p.0.lcssa.i, %if.then16 ]
+  %safe.0 = phi i32 [ %add, %if.then9 ], [ %inc51, %if.then49 ], [ %inc51, %if.then53 ], [ %inc60, %if.then58 ], [ %inc60, %if.then62 ], [ %add69, %if.then67 ], [ %0, %if.then44 ], [ %0, %if.then38 ], [ %0, %if.then32 ], [ %inc24, %if.then22 ], [ %inc24, %if.then26 ], [ %inc14, %if.then12 ], [ %inc14, %if.then16 ]
   %50 = and i32 %prot.0, -2147483647
   %cmp81 = icmp eq i32 %50, 1
   %51 = load i32, ptr %vuln2, align 4
@@ -589,8 +589,8 @@ if.then102:                                       ; preds = %if.else97
   %12 = or i32 %and45, %11
   %or108 = or i32 %12, %shr46
   store i32 %or108, ptr %arrayidx33, align 4, !tbaa !5
-  %13 = or i32 %and45, %shr46
-  %14 = and i32 %or25, %13
+  %13 = or i32 %shr46, %and45
+  %14 = and i32 %13, %or25
   %or.cond302 = icmp eq i32 %14, 0
   br i1 %or.cond302, label %if.else117, label %if.then115
 

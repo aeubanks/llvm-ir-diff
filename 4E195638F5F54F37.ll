@@ -39,7 +39,7 @@ if.end:                                           ; preds = %if.then, %entry
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+alpha_ep_extbl_i_eq_0.exit:
   store i64 3160194, ptr getelementptr inbounds ([32 x i64], ptr @b, i64 0, i64 17), align 8, !tbaa !11
   store i64 6003104017374052362, ptr getelementptr inbounds ([32 x i64], ptr @b, i64 0, i64 2), align 16, !tbaa !11
   store i64 2281701442, ptr @pars, align 8, !tbaa !5
@@ -57,11 +57,11 @@ entry:
   %cmp.not = icmp eq i64 %3, 77
   br i1 %cmp.not, label %if.end, label %if.then
 
-if.then:                                          ; preds = %entry
+if.then:                                          ; preds = %alpha_ep_extbl_i_eq_0.exit
   tail call void @abort() #3
   unreachable
 
-if.end:                                           ; preds = %entry
+if.end:                                           ; preds = %alpha_ep_extbl_i_eq_0.exit
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

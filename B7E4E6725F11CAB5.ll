@@ -10,8 +10,8 @@ define dso_local void @_ZN10CTempFiles5ClearEv(ptr noundef nonnull align 8 deref
 entry:
   %_size.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 2
   %0 = load i32, ptr %_size.i, align 4, !tbaa !5
-  %cmp.i.not8 = icmp eq i32 %0, 0
-  br i1 %cmp.i.not8, label %while.end, label %while.body.lr.ph
+  %cmp.i8 = icmp eq i32 %0, 0
+  br i1 %cmp.i8, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %_items.i.i.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
@@ -28,8 +28,8 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   %call5 = tail call noundef zeroext i1 @_ZN8NWindows5NFile10NDirectory16DeleteFileAlwaysEPKw(ptr noundef %4)
   tail call void @_ZN17CBaseRecordVector10DeleteBackEv(ptr noundef nonnull align 8 dereferenceable(32) %this)
   %5 = load i32, ptr %_size.i, align 4, !tbaa !5
-  %cmp.i.not = icmp eq i32 %5, 0
-  br i1 %cmp.i.not, label %while.end, label %while.body, !llvm.loop !16
+  %cmp.i = icmp eq i32 %5, 0
+  br i1 %cmp.i, label %while.end, label %while.body, !llvm.loop !16
 
 while.end:                                        ; preds = %while.body, %entry
   ret void

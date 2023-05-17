@@ -96,16 +96,16 @@ if.then.i:                                        ; preds = %_Z10cmplx_testv.exi
 _Z4condv.exit:                                    ; preds = %_Z10cmplx_testv.exit, %if.then.i
   %2 = load i32, ptr @global, align 4, !tbaa !5
   %tobool.not = icmp eq i32 %2, 0
-  br i1 %tobool.not, label %_Z4condv.exit.cont, label %_Z4condv.exit.then
+  br i1 %tobool.not, label %_Z4condv.exit.cont, label %_Z4condv.exit.else
 
-_Z4condv.exit.then:                               ; preds = %_Z4condv.exit
+_Z4condv.exit.else:                               ; preds = %_Z4condv.exit
   %3 = add nsw i32 %2, 1
   store i32 %3, ptr @global, align 4, !tbaa !5
   %4 = add nsw i32 %2, -1
   br label %_Z4condv.exit.cont
 
-_Z4condv.exit.cont:                               ; preds = %_Z4condv.exit, %_Z4condv.exit.then
-  %sub = phi i32 [ -2, %_Z4condv.exit ], [ %4, %_Z4condv.exit.then ]
+_Z4condv.exit.cont:                               ; preds = %_Z4condv.exit, %_Z4condv.exit.else
+  %sub = phi i32 [ -2, %_Z4condv.exit ], [ %4, %_Z4condv.exit.else ]
   ret i32 %sub
 }
 

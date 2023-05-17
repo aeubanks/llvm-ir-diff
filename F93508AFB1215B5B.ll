@@ -207,44 +207,44 @@ entry:
 
 for.cond.preheader:                               ; preds = %entry
   %2 = load i64, ptr %numBlocks, align 8, !tbaa !24
-  %cmp5152.not = icmp eq i64 %2, 0
-  br i1 %cmp5152.not, label %for.end, label %for.body.lr.ph
+  %cmp5151.not = icmp eq i64 %2, 0
+  br i1 %cmp5151.not, label %for.end, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %for.cond.preheader
   %blocks = getelementptr inbounds %struct.CXzStream, ptr %p, i64 0, i32 3
   br label %for.body
 
-for.cond:                                         ; preds = %for.body
-  %add15 = add i64 %globalPos.0155, %conv14
-  %inc = add nuw i64 %i.0154, 1
-  %3 = load i64, ptr %numBlocks, align 8, !tbaa !24
-  %cmp5 = icmp ult i64 %inc, %3
-  br i1 %cmp5, label %for.body, label %for.end, !llvm.loop !28
-
-for.body:                                         ; preds = %for.body.lr.ph, %for.cond
-  %globalPos.0155 = phi i64 [ %conv, %for.body.lr.ph ], [ %add15, %for.cond ]
-  %i.0154 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.cond ]
-  %crc.0153 = phi i32 [ %call.i, %for.body.lr.ph ], [ %call.i129, %for.cond ]
-  %4 = load ptr, ptr %blocks, align 8, !tbaa !29
-  %arrayidx7 = getelementptr inbounds %struct.CXzBlockSizes, ptr %4, i64 %i.0154
-  %totalSize = getelementptr inbounds %struct.CXzBlockSizes, ptr %4, i64 %i.0154, i32 1
-  %5 = load i64, ptr %totalSize, align 8, !tbaa !30
-  %call9 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %buf, i64 noundef %5) #5
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %globalPos.0154 = phi i64 [ %conv, %for.body.lr.ph ], [ %add15, %for.inc ]
+  %i.0153 = phi i64 [ 0, %for.body.lr.ph ], [ %inc, %for.inc ]
+  %crc.0152 = phi i32 [ %call.i, %for.body.lr.ph ], [ %call.i130, %for.inc ]
+  %3 = load ptr, ptr %blocks, align 8, !tbaa !28
+  %arrayidx7 = getelementptr inbounds %struct.CXzBlockSizes, ptr %3, i64 %i.0153
+  %totalSize = getelementptr inbounds %struct.CXzBlockSizes, ptr %3, i64 %i.0153, i32 1
+  %4 = load i64, ptr %totalSize, align 8, !tbaa !29
+  %call9 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %buf, i64 noundef %4) #5
   %idx.ext = zext i32 %call9 to i64
   %add.ptr11 = getelementptr inbounds i8, ptr %buf, i64 %idx.ext
-  %6 = load i64, ptr %arrayidx7, align 8, !tbaa !32
-  %call12 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %add.ptr11, i64 noundef %6) #5
+  %5 = load i64, ptr %arrayidx7, align 8, !tbaa !31
+  %call12 = call i32 @Xz_WriteVarInt(ptr noundef nonnull %add.ptr11, i64 noundef %5) #5
   %add13 = add i32 %call12, %call9
   %conv14 = zext i32 %add13 to i64
-  %call.i129 = call i32 @CrcUpdate(i32 noundef %crc.0153, ptr noundef nonnull %buf, i64 noundef %conv14) #5
-  %7 = load ptr, ptr %s, align 8, !tbaa !10
-  %call.i.i130 = call i64 %7(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef %conv14) #5
-  %cmp.i.i131 = icmp eq i64 %call.i.i130, %conv14
-  br i1 %cmp.i.i131, label %for.cond, label %cleanup89
+  %call.i130 = call i32 @CrcUpdate(i32 noundef %crc.0152, ptr noundef nonnull %buf, i64 noundef %conv14) #5
+  %6 = load ptr, ptr %s, align 8, !tbaa !10
+  %call.i.i131 = call i64 %6(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef %conv14) #5
+  %cmp.i.i132 = icmp eq i64 %call.i.i131, %conv14
+  br i1 %cmp.i.i132, label %for.inc, label %cleanup89
 
-for.end:                                          ; preds = %for.cond, %for.cond.preheader
-  %crc.0.lcssa = phi i32 [ %call.i, %for.cond.preheader ], [ %call.i129, %for.cond ]
-  %globalPos.0.lcssa = phi i64 [ %conv, %for.cond.preheader ], [ %add15, %for.cond ]
+for.inc:                                          ; preds = %for.body
+  %add15 = add i64 %globalPos.0154, %conv14
+  %inc = add nuw i64 %i.0153, 1
+  %7 = load i64, ptr %numBlocks, align 8, !tbaa !24
+  %cmp5 = icmp ult i64 %inc, %7
+  br i1 %cmp5, label %for.body, label %for.end, !llvm.loop !32
+
+for.end:                                          ; preds = %for.inc, %for.cond.preheader
+  %crc.0.lcssa = phi i32 [ %call.i, %for.cond.preheader ], [ %call.i130, %for.inc ]
+  %globalPos.0.lcssa = phi i64 [ %conv, %for.cond.preheader ], [ %add15, %for.inc ]
   %conv29 = trunc i64 %globalPos.0.lcssa to i32
   %and = and i32 %conv29, 3
   %cmp30.not = icmp eq i32 %and, 0
@@ -256,25 +256,25 @@ if.then32:                                        ; preds = %for.end
   store i8 0, ptr %add.ptr, align 1, !tbaa !5
   store i8 0, ptr %buf, align 16, !tbaa !5
   %sub = sub nuw nsw i32 4, %and
-  %conv.i133 = zext i32 %sub to i64
-  %call.i134 = call i32 @CrcUpdate(i32 noundef %crc.0.lcssa, ptr noundef nonnull %buf, i64 noundef %conv.i133) #5
+  %conv.i134 = zext i32 %sub to i64
+  %call.i135 = call i32 @CrcUpdate(i32 noundef %crc.0.lcssa, ptr noundef nonnull %buf, i64 noundef %conv.i134) #5
   %8 = load ptr, ptr %s, align 8, !tbaa !10
-  %call.i.i135 = call i64 %8(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef %conv.i133) #5
-  %cmp.i.i136 = icmp eq i64 %call.i.i135, %conv.i133
-  br i1 %cmp.i.i136, label %cleanup.cont45, label %cleanup89
+  %call.i.i136 = call i64 %8(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef %conv.i134) #5
+  %cmp.i.i137 = icmp eq i64 %call.i.i136, %conv.i134
+  br i1 %cmp.i.i137, label %cleanup.cont45, label %cleanup89
 
 cleanup.cont45:                                   ; preds = %if.then32
-  %add48 = add i64 %globalPos.0.lcssa, %conv.i133
+  %add48 = add i64 %globalPos.0.lcssa, %conv.i134
   br label %cleanup62
 
 cleanup62:                                        ; preds = %for.end, %cleanup.cont45
-  %crc.1 = phi i32 [ %call.i134, %cleanup.cont45 ], [ %crc.0.lcssa, %for.end ]
-  %globalPos.1 = phi i64 [ %add48, %cleanup.cont45 ], [ %globalPos.0.lcssa, %for.end ]
+  %crc.1 = phi i32 [ %crc.0.lcssa, %for.end ], [ %call.i135, %cleanup.cont45 ]
+  %globalPos.1 = phi i64 [ %globalPos.0.lcssa, %for.end ], [ %add48, %cleanup.cont45 ]
   %xor = xor i32 %crc.1, -1
   store i32 %xor, ptr %buf, align 16, !tbaa !8
   %9 = load ptr, ptr %s, align 8, !tbaa !10
-  %call.i138 = call i64 %9(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef 4) #5
-  %cmp.i = icmp eq i64 %call.i138, 4
+  %call.i139 = call i64 %9(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef 4) #5
+  %cmp.i = icmp eq i64 %call.i139, 4
   br i1 %cmp.i, label %cleanup.cont66, label %cleanup89
 
 cleanup.cont66:                                   ; preds = %cleanup62
@@ -298,13 +298,13 @@ cleanup.cont66:                                   ; preds = %cleanup62
   %13 = load i16, ptr @XZ_FOOTER_SIG, align 1
   store i16 %13, ptr %add.ptr85, align 2
   %14 = load ptr, ptr %s, align 8, !tbaa !10
-  %call.i139 = call i64 %14(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef 12) #5
-  %cmp.i140 = icmp eq i64 %call.i139, 12
-  %cond.i141 = select i1 %cmp.i140, i32 0, i32 9
+  %call.i140 = call i64 %14(ptr noundef nonnull %s, ptr noundef nonnull %buf, i64 noundef 12) #5
+  %cmp.i141 = icmp eq i64 %call.i140, 12
+  %cond.i142 = select i1 %cmp.i141, i32 0, i32 9
   br label %cleanup89
 
 cleanup89:                                        ; preds = %for.body, %entry, %if.then32, %cleanup62, %cleanup.cont66
-  %retval.7 = phi i32 [ %cond.i141, %cleanup.cont66 ], [ 9, %cleanup62 ], [ 9, %entry ], [ 9, %if.then32 ], [ 9, %for.body ]
+  %retval.7 = phi i32 [ %cond.i142, %cleanup.cont66 ], [ 9, %cleanup62 ], [ 9, %entry ], [ 9, %if.then32 ], [ 9, %for.body ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %buf) #5
   ret i32 %retval.7
 }
@@ -313,7 +313,7 @@ cleanup89:                                        ; preds = %for.body, %entry, %
 define dso_local i32 @Xz_AddIndexRecord(ptr noundef %p, i64 noundef %unpackSize, i64 noundef %totalSize, ptr noundef %alloc) local_unnamed_addr #0 {
 entry:
   %blocks = getelementptr inbounds %struct.CXzStream, ptr %p, i64 0, i32 3
-  %0 = load ptr, ptr %blocks, align 8, !tbaa !29
+  %0 = load ptr, ptr %blocks, align 8, !tbaa !28
   %cmp = icmp eq ptr %0, null
   br i1 %cmp, label %entry.if.then_crit_edge, label %lor.lhs.false
 
@@ -351,7 +351,7 @@ if.end9:                                          ; preds = %if.end
   br i1 %cmp11.not, label %cleanup, label %if.then12
 
 if.then12:                                        ; preds = %if.end9
-  %6 = load ptr, ptr %blocks, align 8, !tbaa !29
+  %6 = load ptr, ptr %blocks, align 8, !tbaa !28
   %mul15 = shl i64 %5, 4
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %call, ptr align 8 %6, i64 %mul15, i1 false)
   tail call void @Xz_Free(ptr noundef nonnull %p, ptr noundef nonnull %alloc) #5
@@ -360,7 +360,7 @@ if.then12:                                        ; preds = %if.end9
 
 cleanup:                                          ; preds = %if.end9, %if.then12
   %.pre48 = phi i64 [ 0, %if.end9 ], [ %.pre48.pre, %if.then12 ]
-  store ptr %call, ptr %blocks, align 8, !tbaa !29
+  store ptr %call, ptr %blocks, align 8, !tbaa !28
   %numBlocksAllocated18 = getelementptr inbounds %struct.CXzStream, ptr %p, i64 0, i32 2
   store i64 %mul, ptr %numBlocksAllocated18, align 8, !tbaa !34
   br label %if.end21
@@ -373,8 +373,8 @@ if.end21:                                         ; preds = %cleanup, %lor.lhs.f
   store i64 %inc, ptr %numBlocks23, align 8, !tbaa !24
   %arrayidx = getelementptr inbounds %struct.CXzBlockSizes, ptr %8, i64 %7
   %totalSize24 = getelementptr inbounds %struct.CXzBlockSizes, ptr %8, i64 %7, i32 1
-  store i64 %totalSize, ptr %totalSize24, align 8, !tbaa !30
-  store i64 %unpackSize, ptr %arrayidx, align 8, !tbaa !32
+  store i64 %totalSize, ptr %totalSize24, align 8, !tbaa !29
+  store i64 %unpackSize, ptr %arrayidx, align 8, !tbaa !31
   br label %return
 
 return:                                           ; preds = %if.end, %if.then, %if.end21
@@ -503,8 +503,8 @@ cleanup.cont52.i:                                 ; preds = %cleanup.cont35.i
   %6 = load i64, ptr %processed.i, align 8, !tbaa !44
   %sub55.i = sub i64 %6, %4
   call void @llvm.lifetime.start.p0(i64 128, ptr nonnull %buf.i) #5
-  %and63159.i18 = and i64 %sub55.i, 3
-  %cmp64.not160.i = icmp eq i64 %and63159.i18, 0
+  %and63159.i13 = and i64 %sub55.i, 3
+  %cmp64.not160.i = icmp eq i64 %and63159.i13, 0
   br i1 %cmp64.not160.i, label %while.end.i, label %while.body.preheader.i
 
 while.body.preheader.i:                           ; preds = %cleanup.cont52.i
@@ -525,21 +525,21 @@ while.end.i:                                      ; preds = %while.body.preheade
   %padSize.0.lcssa.i = phi i32 [ 0, %cleanup.cont52.i ], [ %16, %while.body.preheader.i ]
   %idx.ext.i = zext i32 %padSize.0.lcssa.i to i64
   %add.ptr.i = getelementptr inbounds i8, ptr %buf.i, i64 %idx.ext.i
-  %call.i147.i = call i32 @XzCheck_Final(ptr noundef nonnull %check.i.i, ptr noundef nonnull %add.ptr.i) #5
+  %call.i149.i = call i32 @XzCheck_Final(ptr noundef nonnull %check.i.i, ptr noundef nonnull %add.ptr.i) #5
   %17 = load i16, ptr %xz, align 8, !tbaa !33
   %call73.i = call i32 @XzFlags_GetCheckSize(i16 noundef zeroext %17) #5
   %add74.i = add i32 %call73.i, %padSize.0.lcssa.i
   %18 = load ptr, ptr %seqSizeOutStream.i, align 8, !tbaa !10
   %conv.i.i = zext i32 %add74.i to i64
-  %call.i148.i = call i64 %18(ptr noundef nonnull %seqSizeOutStream.i, ptr noundef nonnull %buf.i, i64 noundef %conv.i.i) #5
-  %cmp.i.i = icmp eq i64 %call.i148.i, %conv.i.i
+  %call.i150.i = call i64 %18(ptr noundef nonnull %seqSizeOutStream.i, ptr noundef nonnull %buf.i, i64 noundef %conv.i.i) #5
+  %cmp.i.i = icmp eq i64 %call.i150.i, %conv.i.i
   br i1 %cmp.i.i, label %cleanup.cont82.i, label %cleanup100.thread155.i
 
 cleanup.cont82.i:                                 ; preds = %while.end.i
   %19 = load i64, ptr %processed.i, align 8, !tbaa !44
   %sub87.i = sub i64 %19, %idx.ext.i
   %blocks.i = getelementptr inbounds %struct.CXzStream, ptr %xz, i64 0, i32 3
-  %20 = load ptr, ptr %blocks.i, align 8, !tbaa !29
+  %20 = load ptr, ptr %blocks.i, align 8, !tbaa !28
   %cmp.i5 = icmp eq ptr %20, null
   br i1 %cmp.i5, label %entry.if.then_crit_edge.i, label %lor.lhs.false.i
 
@@ -577,7 +577,7 @@ if.end9.i:                                        ; preds = %if.end.i
   br i1 %cmp11.not.i, label %cleanup.i, label %if.then12.i
 
 if.then12.i:                                      ; preds = %if.end9.i
-  %26 = load ptr, ptr %blocks.i, align 8, !tbaa !29
+  %26 = load ptr, ptr %blocks.i, align 8, !tbaa !28
   %mul15.i = shl i64 %25, 4
   call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 8 %call.i7, ptr align 8 %26, i64 %mul15.i, i1 false)
   call void @Xz_Free(ptr noundef nonnull %xz, ptr noundef nonnull @g_Alloc) #5
@@ -586,7 +586,7 @@ if.then12.i:                                      ; preds = %if.end9.i
 
 cleanup.i:                                        ; preds = %if.then12.i, %if.end9.i
   %.pre48.i = phi i64 [ 0, %if.end9.i ], [ %.pre48.pre.i, %if.then12.i ]
-  store ptr %call.i7, ptr %blocks.i, align 8, !tbaa !29
+  store ptr %call.i7, ptr %blocks.i, align 8, !tbaa !28
   %numBlocksAllocated18.i = getelementptr inbounds %struct.CXzStream, ptr %xz, i64 0, i32 2
   store i64 %mul.i, ptr %numBlocksAllocated18.i, align 8, !tbaa !34
   br label %cleanup.cont105.i
@@ -614,8 +614,8 @@ cleanup.cont105.i:                                ; preds = %cleanup.i, %lor.lhs
   store i64 %inc.i, ptr %numBlocks23.i, align 8, !tbaa !24
   %arrayidx.i = getelementptr inbounds %struct.CXzBlockSizes, ptr %28, i64 %27
   %totalSize24.i = getelementptr inbounds %struct.CXzBlockSizes, ptr %28, i64 %27, i32 1
-  store i64 %sub87.i, ptr %totalSize24.i, align 8, !tbaa !30
-  store i64 %5, ptr %arrayidx.i, align 8, !tbaa !32
+  store i64 %sub87.i, ptr %totalSize24.i, align 8, !tbaa !29
+  store i64 %5, ptr %arrayidx.i, align 8, !tbaa !31
   call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %buf.i) #5
   call void @llvm.lifetime.end.p0(i64 152, ptr nonnull %block.i) #5
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %seqSizeOutStream.i) #5
@@ -623,16 +623,16 @@ cleanup.cont105.i:                                ; preds = %cleanup.i, %lor.lhs
   %call106.i = call i32 @Xz_WriteFooter(ptr noundef nonnull %xz, ptr noundef nonnull %outStream), !range !45
   br label %if.then.i
 
-if.then.i:                                        ; preds = %cleanup100.thread155.i, %cleanup.cont105.i, %if.then, %cleanup.cont.i, %cleanup100.thread.i
-  %res.014 = phi i32 [ %retval.7.ph.i, %cleanup100.thread.i ], [ 9, %cleanup.cont.i ], [ %call.i3, %if.then ], [ %call106.i, %cleanup.cont105.i ], [ %retval.6.ph.i, %cleanup100.thread155.i ]
+if.then.i:                                        ; preds = %cleanup.cont105.i, %cleanup100.thread155.i, %cleanup100.thread.i, %cleanup.cont.i, %if.then
+  %res.0.ph = phi i32 [ %retval.6.ph.i, %cleanup100.thread155.i ], [ %retval.7.ph.i, %cleanup100.thread.i ], [ %call106.i, %cleanup.cont105.i ], [ 9, %cleanup.cont.i ], [ %call.i3, %if.then ]
   call void @Lzma2Enc_Destroy(ptr noundef nonnull %call.i) #5
   br label %Lzma2WithFilters_Free.exit
 
 Lzma2WithFilters_Free.exit:                       ; preds = %entry, %if.then.i
-  %res.015 = phi i32 [ %res.014, %if.then.i ], [ 2, %entry ]
+  %res.016 = phi i32 [ %res.0.ph, %if.then.i ], [ 2, %entry ]
   call void @Xz_Free(ptr noundef nonnull %xz, ptr noundef nonnull @g_Alloc) #5
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %xz) #5
-  ret i32 %res.015
+  ret i32 %res.016
 }
 
 declare void @Xz_Construct(ptr noundef) local_unnamed_addr #3
@@ -799,11 +799,11 @@ attributes #5 = { nounwind }
 !25 = !{!"", !26, i64 0, !27, i64 8, !27, i64 16, !12, i64 24, !15, i64 32}
 !26 = !{!"short", !6, i64 0}
 !27 = !{!"long", !6, i64 0}
-!28 = distinct !{!28, !22}
-!29 = !{!25, !12, i64 24}
-!30 = !{!31, !15, i64 8}
-!31 = !{!"", !15, i64 0, !15, i64 8}
-!32 = !{!31, !15, i64 0}
+!28 = !{!25, !12, i64 24}
+!29 = !{!30, !15, i64 8}
+!30 = !{!"", !15, i64 0, !15, i64 8}
+!31 = !{!30, !15, i64 0}
+!32 = distinct !{!32, !22}
 !33 = !{!25, !26, i64 0}
 !34 = !{!25, !27, i64 16}
 !35 = !{!36, !12, i64 0}

@@ -8,7 +8,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-entry:
+if.end:
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(10) @dst, ptr noundef nonnull align 16 dereferenceable(10) @src, i64 10, i1 false)
   tail call void @exit(i32 noundef 0) #4
   unreachable

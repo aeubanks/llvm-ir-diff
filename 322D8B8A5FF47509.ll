@@ -143,8 +143,8 @@ for.body.i:                                       ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i.i to i64
   %sub8.i.i.i.i.i = add i64 %conv5.i.i.i.i.i, 52
   %div9.i.i.i.i.i = udiv i64 %sub8.i.i.i.i.i, %conv5.i.i.i.i.i
-  %.sroa.speculated.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
-  %xtraiter = and i64 %.sroa.speculated.i.i.i.i.i, 1
+  %spec.select.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
+  %xtraiter = and i64 %spec.select.i.i.i.i.i, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.i.i.i.i.prol.loopexit, label %for.body.i.i.i.i.i.prol
 
@@ -153,13 +153,13 @@ for.body.i.i.i.i.i.prol:                          ; preds = %for.body.i
   %rem.i.i.i.i.i.i.i.i.prol = urem i64 %mul.i.i.i.i.i.i.i.i.prol, 2147483647
   %sub13.i.i.i.i.i.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i.prol, -1
   %conv14.i.i.i.i.i.prol = uitofp i64 %sub13.i.i.i.i.i.prol to double
-  %dec.i.i.i.i.i.prol = add i64 %.sroa.speculated.i.i.i.i.i, -1
+  %dec.i.i.i.i.i.prol = add i64 %spec.select.i.i.i.i.i, -1
   br label %for.body.i.i.i.i.i.prol.loopexit
 
 for.body.i.i.i.i.i.prol.loopexit:                 ; preds = %for.body.i.i.i.i.i.prol, %for.body.i
   %rem.i.i.i.i.i.i.i.i.lcssa.unr = phi i64 [ undef, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %.lcssa.unr = phi double [ undef, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
-  %__k.038.i.i.i.i.i.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
+  %__k.038.i.i.i.i.i.unr = phi i64 [ %spec.select.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %__tmp.037.i.i.i.i.i.unr = phi double [ 1.000000e+00, %for.body.i ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i.prol ]
   %__sum.036.i.i.i.i.i.unr = phi double [ 0.000000e+00, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %rem.i.i.i3435.i.i.i.i.i.unr = phi i64 [ %generator.sroa.0.04.i, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
@@ -305,8 +305,8 @@ for.body.i:                                       ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i.i to i64
   %sub8.i.i.i.i.i = add i64 %conv5.i.i.i.i.i, 52
   %div9.i.i.i.i.i = udiv i64 %sub8.i.i.i.i.i, %conv5.i.i.i.i.i
-  %.sroa.speculated.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
-  %xtraiter = and i64 %.sroa.speculated.i.i.i.i.i, 1
+  %spec.select.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
+  %xtraiter = and i64 %spec.select.i.i.i.i.i, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.i.i.i.i.prol.loopexit, label %for.body.i.i.i.i.i.prol
 
@@ -315,13 +315,13 @@ for.body.i.i.i.i.i.prol:                          ; preds = %for.body.i
   %rem.i.i.i.i.i.i.i.i.prol = urem i64 %mul.i.i.i.i.i.i.i.i.prol, 2147483647
   %sub13.i.i.i.i.i.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i.prol, -1
   %conv14.i.i.i.i.i.prol = uitofp i64 %sub13.i.i.i.i.i.prol to double
-  %dec.i.i.i.i.i.prol = add i64 %.sroa.speculated.i.i.i.i.i, -1
+  %dec.i.i.i.i.i.prol = add i64 %spec.select.i.i.i.i.i, -1
   br label %for.body.i.i.i.i.i.prol.loopexit
 
 for.body.i.i.i.i.i.prol.loopexit:                 ; preds = %for.body.i.i.i.i.i.prol, %for.body.i
   %rem.i.i.i.i.i.i.i.i.lcssa.unr = phi i64 [ undef, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %.lcssa.unr = phi double [ undef, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
-  %__k.038.i.i.i.i.i.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
+  %__k.038.i.i.i.i.i.unr = phi i64 [ %spec.select.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %__tmp.037.i.i.i.i.i.unr = phi double [ 1.000000e+00, %for.body.i ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i.prol ]
   %__sum.036.i.i.i.i.i.unr = phi double [ 0.000000e+00, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %rem.i.i.i3435.i.i.i.i.i.unr = phi i64 [ %generator.sroa.0.04.i, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
@@ -593,8 +593,8 @@ for.body.i:                                       ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i.i to i64
   %sub8.i.i.i.i.i = add i64 %conv5.i.i.i.i.i, 52
   %div9.i.i.i.i.i = udiv i64 %sub8.i.i.i.i.i, %conv5.i.i.i.i.i
-  %.sroa.speculated.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
-  %xtraiter = and i64 %.sroa.speculated.i.i.i.i.i, 1
+  %spec.select.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
+  %xtraiter = and i64 %spec.select.i.i.i.i.i, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.i.i.i.i.prol.loopexit, label %for.body.i.i.i.i.i.prol
 
@@ -603,13 +603,13 @@ for.body.i.i.i.i.i.prol:                          ; preds = %for.body.i
   %rem.i.i.i.i.i.i.i.i.prol = urem i64 %mul.i.i.i.i.i.i.i.i.prol, 2147483647
   %sub13.i.i.i.i.i.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i.prol, -1
   %conv14.i.i.i.i.i.prol = uitofp i64 %sub13.i.i.i.i.i.prol to double
-  %dec.i.i.i.i.i.prol = add i64 %.sroa.speculated.i.i.i.i.i, -1
+  %dec.i.i.i.i.i.prol = add i64 %spec.select.i.i.i.i.i, -1
   br label %for.body.i.i.i.i.i.prol.loopexit
 
 for.body.i.i.i.i.i.prol.loopexit:                 ; preds = %for.body.i.i.i.i.i.prol, %for.body.i
   %rem.i.i.i.i.i.i.i.i.lcssa.unr = phi i64 [ undef, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %.lcssa.unr = phi double [ undef, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
-  %__k.038.i.i.i.i.i.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
+  %__k.038.i.i.i.i.i.unr = phi i64 [ %spec.select.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %__tmp.037.i.i.i.i.i.unr = phi double [ 1.000000e+00, %for.body.i ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i.prol ]
   %__sum.036.i.i.i.i.i.unr = phi double [ 0.000000e+00, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %rem.i.i.i3435.i.i.i.i.i.unr = phi i64 [ %generator.sroa.0.04.i, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
@@ -790,8 +790,8 @@ for.body.i:                                       ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i.i to i64
   %sub8.i.i.i.i.i = add i64 %conv5.i.i.i.i.i, 23
   %div9.i.i.i.i.i = udiv i64 %sub8.i.i.i.i.i, %conv5.i.i.i.i.i
-  %.sroa.speculated.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
-  %xtraiter = and i64 %.sroa.speculated.i.i.i.i.i, 1
+  %spec.select.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
+  %xtraiter = and i64 %spec.select.i.i.i.i.i, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.i.i.i.i.prol.loopexit, label %for.body.i.i.i.i.i.prol
 
@@ -800,13 +800,13 @@ for.body.i.i.i.i.i.prol:                          ; preds = %for.body.i
   %rem.i.i.i.i.i.i.i.i.prol = urem i64 %mul.i.i.i.i.i.i.i.i.prol, 2147483647
   %sub13.i.i.i.i.i.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i.prol, -1
   %conv14.i.i.i.i.i.prol = uitofp i64 %sub13.i.i.i.i.i.prol to float
-  %dec.i.i.i.i.i.prol = add i64 %.sroa.speculated.i.i.i.i.i, -1
+  %dec.i.i.i.i.i.prol = add i64 %spec.select.i.i.i.i.i, -1
   br label %for.body.i.i.i.i.i.prol.loopexit
 
 for.body.i.i.i.i.i.prol.loopexit:                 ; preds = %for.body.i.i.i.i.i.prol, %for.body.i
   %rem.i.i.i.i.i.i.i.i.lcssa.unr = phi i64 [ undef, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %.lcssa.unr = phi float [ undef, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
-  %__k.039.i.i.i.i.i.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
+  %__k.039.i.i.i.i.i.unr = phi i64 [ %spec.select.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %__tmp.038.i.i.i.i.i.unr = phi float [ 1.000000e+00, %for.body.i ], [ 0x41E0000000000000, %for.body.i.i.i.i.i.prol ]
   %__sum.037.i.i.i.i.i.unr = phi float [ 0.000000e+00, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %rem.i.i.i3536.i.i.i.i.i.unr = phi i64 [ %generator.sroa.0.04.i, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
@@ -3810,8 +3810,8 @@ for.body.i:                                       ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i.i to i64
   %sub8.i.i.i.i.i = add i64 %conv5.i.i.i.i.i, 52
   %div9.i.i.i.i.i = udiv i64 %sub8.i.i.i.i.i, %conv5.i.i.i.i.i
-  %.sroa.speculated.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
-  %xtraiter = and i64 %.sroa.speculated.i.i.i.i.i, 1
+  %spec.select.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
+  %xtraiter = and i64 %spec.select.i.i.i.i.i, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.i.i.i.i.prol.loopexit, label %for.body.i.i.i.i.i.prol
 
@@ -3820,13 +3820,13 @@ for.body.i.i.i.i.i.prol:                          ; preds = %for.body.i
   %rem.i.i.i.i.i.i.i.i.prol = urem i64 %mul.i.i.i.i.i.i.i.i.prol, 2147483647
   %sub13.i.i.i.i.i.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i.prol, -1
   %conv14.i.i.i.i.i.prol = uitofp i64 %sub13.i.i.i.i.i.prol to double
-  %dec.i.i.i.i.i.prol = add i64 %.sroa.speculated.i.i.i.i.i, -1
+  %dec.i.i.i.i.i.prol = add i64 %spec.select.i.i.i.i.i, -1
   br label %for.body.i.i.i.i.i.prol.loopexit
 
 for.body.i.i.i.i.i.prol.loopexit:                 ; preds = %for.body.i.i.i.i.i.prol, %for.body.i
   %rem.i.i.i.i.i.i.i.i.lcssa.unr = phi i64 [ undef, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %.lcssa172.unr = phi double [ undef, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
-  %__k.038.i.i.i.i.i.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
+  %__k.038.i.i.i.i.i.unr = phi i64 [ %spec.select.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %__tmp.037.i.i.i.i.i.unr = phi double [ 1.000000e+00, %for.body.i ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i.prol ]
   %__sum.036.i.i.i.i.i.unr = phi double [ 0.000000e+00, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %rem.i.i.i3435.i.i.i.i.i.unr = phi i64 [ %generator.sroa.0.04.i, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
@@ -3888,8 +3888,8 @@ for.body.i29:                                     ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i25 = fptoui x86_fp80 %div.i.i.i.i.i24 to i64
   %sub8.i.i.i.i.i26 = add i64 %conv5.i.i.i.i.i25, 52
   %div9.i.i.i.i.i27 = udiv i64 %sub8.i.i.i.i.i26, %conv5.i.i.i.i.i25
-  %.sroa.speculated.i.i.i.i.i28 = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i27, i64 1)
-  %xtraiter173 = and i64 %.sroa.speculated.i.i.i.i.i28, 1
+  %spec.select.i.i.i.i.i28 = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i27, i64 1)
+  %xtraiter173 = and i64 %spec.select.i.i.i.i.i28, 1
   %lcmp.mod174.not = icmp eq i64 %xtraiter173, 0
   br i1 %lcmp.mod174.not, label %for.body.i.i.i.i.i46.prol.loopexit, label %for.body.i.i.i.i.i46.prol
 
@@ -3898,13 +3898,13 @@ for.body.i.i.i.i.i46.prol:                        ; preds = %for.body.i29
   %rem.i.i.i.i.i.i.i.i38.prol = urem i64 %mul.i.i.i.i.i.i.i.i37.prol, 2147483647
   %sub13.i.i.i.i.i39.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i38.prol, -1
   %conv14.i.i.i.i.i40.prol = uitofp i64 %sub13.i.i.i.i.i39.prol to double
-  %dec.i.i.i.i.i44.prol = add i64 %.sroa.speculated.i.i.i.i.i28, -1
+  %dec.i.i.i.i.i44.prol = add i64 %spec.select.i.i.i.i.i28, -1
   br label %for.body.i.i.i.i.i46.prol.loopexit
 
 for.body.i.i.i.i.i46.prol.loopexit:               ; preds = %for.body.i.i.i.i.i46.prol, %for.body.i29
   %rem.i.i.i.i.i.i.i.i38.lcssa.unr = phi i64 [ undef, %for.body.i29 ], [ %rem.i.i.i.i.i.i.i.i38.prol, %for.body.i.i.i.i.i46.prol ]
   %.lcssa.unr = phi double [ undef, %for.body.i29 ], [ %conv14.i.i.i.i.i40.prol, %for.body.i.i.i.i.i46.prol ]
-  %__k.038.i.i.i.i.i33.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i28, %for.body.i29 ], [ %dec.i.i.i.i.i44.prol, %for.body.i.i.i.i.i46.prol ]
+  %__k.038.i.i.i.i.i33.unr = phi i64 [ %spec.select.i.i.i.i.i28, %for.body.i29 ], [ %dec.i.i.i.i.i44.prol, %for.body.i.i.i.i.i46.prol ]
   %__tmp.037.i.i.i.i.i34.unr = phi double [ 1.000000e+00, %for.body.i29 ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i46.prol ]
   %__sum.036.i.i.i.i.i35.unr = phi double [ 0.000000e+00, %for.body.i29 ], [ %conv14.i.i.i.i.i40.prol, %for.body.i.i.i.i.i46.prol ]
   %rem.i.i.i3435.i.i.i.i.i36.unr = phi i64 [ %generator.sroa.0.04.i21, %for.body.i29 ], [ %rem.i.i.i.i.i.i.i.i38.prol, %for.body.i.i.i.i.i46.prol ]
@@ -4205,8 +4205,8 @@ for.body.i:                                       ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i.i to i64
   %sub8.i.i.i.i.i = add i64 %conv5.i.i.i.i.i, 52
   %div9.i.i.i.i.i = udiv i64 %sub8.i.i.i.i.i, %conv5.i.i.i.i.i
-  %.sroa.speculated.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
-  %xtraiter = and i64 %.sroa.speculated.i.i.i.i.i, 1
+  %spec.select.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
+  %xtraiter = and i64 %spec.select.i.i.i.i.i, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.i.i.i.i.prol.loopexit, label %for.body.i.i.i.i.i.prol
 
@@ -4215,13 +4215,13 @@ for.body.i.i.i.i.i.prol:                          ; preds = %for.body.i
   %rem.i.i.i.i.i.i.i.i.prol = urem i64 %mul.i.i.i.i.i.i.i.i.prol, 2147483647
   %sub13.i.i.i.i.i.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i.prol, -1
   %conv14.i.i.i.i.i.prol = uitofp i64 %sub13.i.i.i.i.i.prol to double
-  %dec.i.i.i.i.i.prol = add i64 %.sroa.speculated.i.i.i.i.i, -1
+  %dec.i.i.i.i.i.prol = add i64 %spec.select.i.i.i.i.i, -1
   br label %for.body.i.i.i.i.i.prol.loopexit
 
 for.body.i.i.i.i.i.prol.loopexit:                 ; preds = %for.body.i.i.i.i.i.prol, %for.body.i
   %rem.i.i.i.i.i.i.i.i.lcssa.unr = phi i64 [ undef, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %.lcssa7531.unr = phi double [ undef, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
-  %__k.038.i.i.i.i.i.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
+  %__k.038.i.i.i.i.i.unr = phi i64 [ %spec.select.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %__tmp.037.i.i.i.i.i.unr = phi double [ 1.000000e+00, %for.body.i ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i.prol ]
   %__sum.036.i.i.i.i.i.unr = phi double [ 0.000000e+00, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %rem.i.i.i3435.i.i.i.i.i.unr = phi i64 [ %generator.sroa.0.04.i, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
@@ -4283,8 +4283,8 @@ for.body.i29:                                     ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i25 = fptoui x86_fp80 %div.i.i.i.i.i24 to i64
   %sub8.i.i.i.i.i26 = add i64 %conv5.i.i.i.i.i25, 52
   %div9.i.i.i.i.i27 = udiv i64 %sub8.i.i.i.i.i26, %conv5.i.i.i.i.i25
-  %.sroa.speculated.i.i.i.i.i28 = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i27, i64 1)
-  %xtraiter7532 = and i64 %.sroa.speculated.i.i.i.i.i28, 1
+  %spec.select.i.i.i.i.i28 = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i27, i64 1)
+  %xtraiter7532 = and i64 %spec.select.i.i.i.i.i28, 1
   %lcmp.mod7533.not = icmp eq i64 %xtraiter7532, 0
   br i1 %lcmp.mod7533.not, label %for.body.i.i.i.i.i46.prol.loopexit, label %for.body.i.i.i.i.i46.prol
 
@@ -4293,13 +4293,13 @@ for.body.i.i.i.i.i46.prol:                        ; preds = %for.body.i29
   %rem.i.i.i.i.i.i.i.i38.prol = urem i64 %mul.i.i.i.i.i.i.i.i37.prol, 2147483647
   %sub13.i.i.i.i.i39.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i38.prol, -1
   %conv14.i.i.i.i.i40.prol = uitofp i64 %sub13.i.i.i.i.i39.prol to double
-  %dec.i.i.i.i.i44.prol = add i64 %.sroa.speculated.i.i.i.i.i28, -1
+  %dec.i.i.i.i.i44.prol = add i64 %spec.select.i.i.i.i.i28, -1
   br label %for.body.i.i.i.i.i46.prol.loopexit
 
 for.body.i.i.i.i.i46.prol.loopexit:               ; preds = %for.body.i.i.i.i.i46.prol, %for.body.i29
   %rem.i.i.i.i.i.i.i.i38.lcssa.unr = phi i64 [ undef, %for.body.i29 ], [ %rem.i.i.i.i.i.i.i.i38.prol, %for.body.i.i.i.i.i46.prol ]
   %.lcssa.unr = phi double [ undef, %for.body.i29 ], [ %conv14.i.i.i.i.i40.prol, %for.body.i.i.i.i.i46.prol ]
-  %__k.038.i.i.i.i.i33.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i28, %for.body.i29 ], [ %dec.i.i.i.i.i44.prol, %for.body.i.i.i.i.i46.prol ]
+  %__k.038.i.i.i.i.i33.unr = phi i64 [ %spec.select.i.i.i.i.i28, %for.body.i29 ], [ %dec.i.i.i.i.i44.prol, %for.body.i.i.i.i.i46.prol ]
   %__tmp.037.i.i.i.i.i34.unr = phi double [ 1.000000e+00, %for.body.i29 ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i46.prol ]
   %__sum.036.i.i.i.i.i35.unr = phi double [ 0.000000e+00, %for.body.i29 ], [ %conv14.i.i.i.i.i40.prol, %for.body.i.i.i.i.i46.prol ]
   %rem.i.i.i3435.i.i.i.i.i36.unr = phi i64 [ %generator.sroa.0.04.i21, %for.body.i29 ], [ %rem.i.i.i.i.i.i.i.i38.prol, %for.body.i.i.i.i.i46.prol ]
@@ -10886,8 +10886,8 @@ for.body.i:                                       ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i.i to i64
   %sub8.i.i.i.i.i = add i64 %conv5.i.i.i.i.i, 52
   %div9.i.i.i.i.i = udiv i64 %sub8.i.i.i.i.i, %conv5.i.i.i.i.i
-  %.sroa.speculated.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
-  %xtraiter = and i64 %.sroa.speculated.i.i.i.i.i, 1
+  %spec.select.i.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i, i64 1)
+  %xtraiter = and i64 %spec.select.i.i.i.i.i, 1
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %for.body.i.i.i.i.i.prol.loopexit, label %for.body.i.i.i.i.i.prol
 
@@ -10896,13 +10896,13 @@ for.body.i.i.i.i.i.prol:                          ; preds = %for.body.i
   %rem.i.i.i.i.i.i.i.i.prol = urem i64 %mul.i.i.i.i.i.i.i.i.prol, 2147483647
   %sub13.i.i.i.i.i.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i.prol, -1
   %conv14.i.i.i.i.i.prol = uitofp i64 %sub13.i.i.i.i.i.prol to double
-  %dec.i.i.i.i.i.prol = add i64 %.sroa.speculated.i.i.i.i.i, -1
+  %dec.i.i.i.i.i.prol = add i64 %spec.select.i.i.i.i.i, -1
   br label %for.body.i.i.i.i.i.prol.loopexit
 
 for.body.i.i.i.i.i.prol.loopexit:                 ; preds = %for.body.i.i.i.i.i.prol, %for.body.i
   %rem.i.i.i.i.i.i.i.i.lcssa.unr = phi i64 [ undef, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %.lcssa8361.unr = phi double [ undef, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
-  %__k.038.i.i.i.i.i.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
+  %__k.038.i.i.i.i.i.unr = phi i64 [ %spec.select.i.i.i.i.i, %for.body.i ], [ %dec.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %__tmp.037.i.i.i.i.i.unr = phi double [ 1.000000e+00, %for.body.i ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i.prol ]
   %__sum.036.i.i.i.i.i.unr = phi double [ 0.000000e+00, %for.body.i ], [ %conv14.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
   %rem.i.i.i3435.i.i.i.i.i.unr = phi i64 [ %generator.sroa.0.04.i, %for.body.i ], [ %rem.i.i.i.i.i.i.i.i.prol, %for.body.i.i.i.i.i.prol ]
@@ -10964,8 +10964,8 @@ for.body.i29:                                     ; preds = %_ZNSt25uniform_real
   %conv5.i.i.i.i.i25 = fptoui x86_fp80 %div.i.i.i.i.i24 to i64
   %sub8.i.i.i.i.i26 = add i64 %conv5.i.i.i.i.i25, 52
   %div9.i.i.i.i.i27 = udiv i64 %sub8.i.i.i.i.i26, %conv5.i.i.i.i.i25
-  %.sroa.speculated.i.i.i.i.i28 = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i27, i64 1)
-  %xtraiter8362 = and i64 %.sroa.speculated.i.i.i.i.i28, 1
+  %spec.select.i.i.i.i.i28 = tail call i64 @llvm.umax.i64(i64 %div9.i.i.i.i.i27, i64 1)
+  %xtraiter8362 = and i64 %spec.select.i.i.i.i.i28, 1
   %lcmp.mod8363.not = icmp eq i64 %xtraiter8362, 0
   br i1 %lcmp.mod8363.not, label %for.body.i.i.i.i.i46.prol.loopexit, label %for.body.i.i.i.i.i46.prol
 
@@ -10974,13 +10974,13 @@ for.body.i.i.i.i.i46.prol:                        ; preds = %for.body.i29
   %rem.i.i.i.i.i.i.i.i38.prol = urem i64 %mul.i.i.i.i.i.i.i.i37.prol, 2147483647
   %sub13.i.i.i.i.i39.prol = add nsw i64 %rem.i.i.i.i.i.i.i.i38.prol, -1
   %conv14.i.i.i.i.i40.prol = uitofp i64 %sub13.i.i.i.i.i39.prol to double
-  %dec.i.i.i.i.i44.prol = add i64 %.sroa.speculated.i.i.i.i.i28, -1
+  %dec.i.i.i.i.i44.prol = add i64 %spec.select.i.i.i.i.i28, -1
   br label %for.body.i.i.i.i.i46.prol.loopexit
 
 for.body.i.i.i.i.i46.prol.loopexit:               ; preds = %for.body.i.i.i.i.i46.prol, %for.body.i29
   %rem.i.i.i.i.i.i.i.i38.lcssa.unr = phi i64 [ undef, %for.body.i29 ], [ %rem.i.i.i.i.i.i.i.i38.prol, %for.body.i.i.i.i.i46.prol ]
   %.lcssa.unr = phi double [ undef, %for.body.i29 ], [ %conv14.i.i.i.i.i40.prol, %for.body.i.i.i.i.i46.prol ]
-  %__k.038.i.i.i.i.i33.unr = phi i64 [ %.sroa.speculated.i.i.i.i.i28, %for.body.i29 ], [ %dec.i.i.i.i.i44.prol, %for.body.i.i.i.i.i46.prol ]
+  %__k.038.i.i.i.i.i33.unr = phi i64 [ %spec.select.i.i.i.i.i28, %for.body.i29 ], [ %dec.i.i.i.i.i44.prol, %for.body.i.i.i.i.i46.prol ]
   %__tmp.037.i.i.i.i.i34.unr = phi double [ 1.000000e+00, %for.body.i29 ], [ 0x41DFFFFFFF800000, %for.body.i.i.i.i.i46.prol ]
   %__sum.036.i.i.i.i.i35.unr = phi double [ 0.000000e+00, %for.body.i29 ], [ %conv14.i.i.i.i.i40.prol, %for.body.i.i.i.i.i46.prol ]
   %rem.i.i.i3435.i.i.i.i.i36.unr = phi i64 [ %generator.sroa.0.04.i21, %for.body.i29 ], [ %rem.i.i.i.i.i.i.i.i38.prol, %for.body.i.i.i.i.i46.prol ]
@@ -17700,9 +17700,9 @@ _ZL12multiplyBaseIdLj25ELj19ELj11EEvPT_S1_S1_.exit: ; preds = %for.cond.cleanup3
 ; Function Attrs: mustprogress uwtable
 define linkonce_odr dso_local void @_Z14expectMatrixEQIdLi0EEvPT_S1_jj(ptr noundef %A, ptr noundef %B, i32 noundef %R, i32 noundef %C) local_unnamed_addr #8 comdat {
 entry:
-  %cmp33.not = icmp eq i32 %R, 0
-  %cmp231.not = icmp eq i32 %C, 0
-  %or.cond = or i1 %cmp33.not, %cmp231.not
+  %cmp34.not = icmp eq i32 %R, 0
+  %cmp232.not = icmp eq i32 %C, 0
+  %or.cond = or i1 %cmp34.not, %cmp232.not
   br i1 %or.cond, label %for.cond.cleanup, label %for.cond1.preheader.us.preheader
 
 for.cond1.preheader.us.preheader:                 ; preds = %entry
@@ -17710,14 +17710,14 @@ for.cond1.preheader.us.preheader:                 ; preds = %entry
   br label %for.cond1.preheader.us
 
 for.cond1.preheader.us:                           ; preds = %for.cond1.preheader.us.preheader, %for.cond1.for.cond.cleanup3_crit_edge.us
-  %r.034.us = phi i32 [ %inc15.us, %for.cond1.for.cond.cleanup3_crit_edge.us ], [ 0, %for.cond1.preheader.us.preheader ]
+  %r.035.us = phi i32 [ %inc15.us, %for.cond1.for.cond.cleanup3_crit_edge.us ], [ 0, %for.cond1.preheader.us.preheader ]
   br label %for.body4.us
 
-for.body4.us:                                     ; preds = %for.cond1.preheader.us, %if.end12.i.us
-  %indvars.iv = phi i64 [ 0, %for.cond1.preheader.us ], [ %indvars.iv.next, %if.end12.i.us ]
+for.body4.us:                                     ; preds = %for.cond1.preheader.us, %for.inc.us
+  %indvars.iv = phi i64 [ 0, %for.cond1.preheader.us ], [ %indvars.iv.next, %for.inc.us ]
   %0 = trunc i64 %indvars.iv to i32
   %mul.us = mul i32 %0, %R
-  %add.us = add i32 %mul.us, %r.034.us
+  %add.us = add i32 %mul.us, %r.035.us
   %idxprom.us = zext i32 %add.us to i64
   %arrayidx.us = getelementptr inbounds double, ptr %A, i64 %idxprom.us
   %1 = load double, ptr %arrayidx.us, align 8, !tbaa !8
@@ -17726,7 +17726,7 @@ for.body4.us:                                     ; preds = %for.cond1.preheader
   %sub.i.us = fsub double %1, %2
   %3 = tail call double @llvm.fabs.f64(double %sub.i.us)
   %cmp.i.us = fcmp ogt double %3, 0x3EB0C6F7A0B5ED8D
-  br i1 %cmp.i.us, label %if.then.i.us, label %if.end12.i.us
+  br i1 %cmp.i.us, label %if.then.i.us, label %for.inc.us
 
 if.then.i.us:                                     ; preds = %for.body4.us
   %tobool.i.us = fcmp une double %2, 0.000000e+00
@@ -17734,7 +17734,7 @@ if.then.i.us:                                     ; preds = %for.body4.us
 
 if.else.i.us:                                     ; preds = %if.then.i.us
   %tobool3.i.us = fcmp une double %1, 0.000000e+00
-  br i1 %tobool3.i.us, label %if.then4.i.us, label %if.end12.i.us
+  br i1 %tobool3.i.us, label %if.then4.i.us, label %for.inc.us
 
 if.then4.i.us:                                    ; preds = %if.else.i.us
   %div5.i.us = fdiv double %2, %1
@@ -17749,24 +17749,24 @@ if.end8.i.us:                                     ; preds = %if.then1.i.us, %if.
   %sub2.i.us = fadd double %div.i.us.sink, -1.000000e+00
   %4 = tail call double @llvm.fabs.f64(double %sub2.i.us)
   %cmp9.i.us = fcmp ule double %4, 1.000000e-05
-  br i1 %cmp9.i.us, label %if.end12.i.us, label %if.then.critedge
+  br i1 %cmp9.i.us, label %for.inc.us, label %if.then
 
-if.end12.i.us:                                    ; preds = %if.end8.i.us, %if.else.i.us, %for.body4.us
+for.inc.us:                                       ; preds = %if.end8.i.us, %if.else.i.us, %for.body4.us
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond1.for.cond.cleanup3_crit_edge.us, label %for.body4.us, !llvm.loop !36
 
-for.cond1.for.cond.cleanup3_crit_edge.us:         ; preds = %if.end12.i.us
-  %inc15.us = add nuw i32 %r.034.us, 1
-  %exitcond40.not = icmp eq i32 %inc15.us, %R
-  br i1 %exitcond40.not, label %for.cond.cleanup, label %for.cond1.preheader.us, !llvm.loop !37
+for.cond1.for.cond.cleanup3_crit_edge.us:         ; preds = %for.inc.us
+  %inc15.us = add nuw i32 %r.035.us, 1
+  %exitcond41.not = icmp eq i32 %inc15.us, %R
+  br i1 %exitcond41.not, label %for.cond.cleanup, label %for.cond1.preheader.us, !llvm.loop !37
 
 for.cond.cleanup:                                 ; preds = %for.cond1.for.cond.cleanup3_crit_edge.us, %entry
   ret void
 
-if.then.critedge:                                 ; preds = %if.end8.i.us
+if.then:                                          ; preds = %if.end8.i.us
   %call9 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str)
-  %call10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEj(ptr noundef nonnull align 8 dereferenceable(8) %call9, i32 noundef %r.034.us)
+  %call10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEj(ptr noundef nonnull align 8 dereferenceable(8) %call9, i32 noundef %r.035.us)
   %call11 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %call10, ptr noundef nonnull @.str.1)
   %call12 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEj(ptr noundef nonnull align 8 dereferenceable(8) %call11, i32 noundef %0)
   %call13 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %call12, ptr noundef nonnull @.str.2)
@@ -18076,9 +18076,9 @@ for.cond.cleanup:                                 ; preds = %for.cond1.preheader
 ; Function Attrs: mustprogress uwtable
 define linkonce_odr dso_local void @_Z14expectMatrixEQIfLi0EEvPT_S1_jj(ptr noundef %A, ptr noundef %B, i32 noundef %R, i32 noundef %C) local_unnamed_addr #8 comdat {
 entry:
-  %cmp34.not = icmp eq i32 %R, 0
-  %cmp232.not = icmp eq i32 %C, 0
-  %or.cond = or i1 %cmp34.not, %cmp232.not
+  %cmp35.not = icmp eq i32 %R, 0
+  %cmp233.not = icmp eq i32 %C, 0
+  %or.cond = or i1 %cmp35.not, %cmp233.not
   br i1 %or.cond, label %for.cond.cleanup, label %for.cond1.preheader.us.preheader
 
 for.cond1.preheader.us.preheader:                 ; preds = %entry
@@ -18086,14 +18086,14 @@ for.cond1.preheader.us.preheader:                 ; preds = %entry
   br label %for.cond1.preheader.us
 
 for.cond1.preheader.us:                           ; preds = %for.cond1.preheader.us.preheader, %for.cond1.for.cond.cleanup3_crit_edge.us
-  %r.035.us = phi i32 [ %inc16.us, %for.cond1.for.cond.cleanup3_crit_edge.us ], [ 0, %for.cond1.preheader.us.preheader ]
+  %r.036.us = phi i32 [ %inc16.us, %for.cond1.for.cond.cleanup3_crit_edge.us ], [ 0, %for.cond1.preheader.us.preheader ]
   br label %for.body4.us
 
-for.body4.us:                                     ; preds = %for.cond1.preheader.us, %if.end12.i.us
-  %indvars.iv = phi i64 [ 0, %for.cond1.preheader.us ], [ %indvars.iv.next, %if.end12.i.us ]
+for.body4.us:                                     ; preds = %for.cond1.preheader.us, %for.inc.us
+  %indvars.iv = phi i64 [ 0, %for.cond1.preheader.us ], [ %indvars.iv.next, %for.inc.us ]
   %0 = trunc i64 %indvars.iv to i32
   %mul.us = mul i32 %0, %R
-  %add.us = add i32 %mul.us, %r.035.us
+  %add.us = add i32 %mul.us, %r.036.us
   %idxprom.us = zext i32 %add.us to i64
   %arrayidx.us = getelementptr inbounds float, ptr %A, i64 %idxprom.us
   %1 = load float, ptr %arrayidx.us, align 4, !tbaa !14
@@ -18104,7 +18104,7 @@ for.body4.us:                                     ; preds = %for.cond1.preheader
   %sub.i.us = fsub double %conv.us, %conv9.us
   %3 = tail call double @llvm.fabs.f64(double %sub.i.us)
   %cmp.i.us = fcmp ogt double %3, 0x3EB0C6F7A0B5ED8D
-  br i1 %cmp.i.us, label %if.then.i.us, label %if.end12.i.us
+  br i1 %cmp.i.us, label %if.then.i.us, label %for.inc.us
 
 if.then.i.us:                                     ; preds = %for.body4.us
   %tobool.i.us = fcmp une float %2, 0.000000e+00
@@ -18112,7 +18112,7 @@ if.then.i.us:                                     ; preds = %for.body4.us
 
 if.else.i.us:                                     ; preds = %if.then.i.us
   %tobool3.i.us = fcmp une float %1, 0.000000e+00
-  br i1 %tobool3.i.us, label %if.then4.i.us, label %if.end12.i.us
+  br i1 %tobool3.i.us, label %if.then4.i.us, label %for.inc.us
 
 if.then4.i.us:                                    ; preds = %if.else.i.us
   %div5.i.us = fdiv double %conv9.us, %conv.us
@@ -18127,24 +18127,24 @@ if.end8.i.us:                                     ; preds = %if.then1.i.us, %if.
   %sub2.i.us = fadd double %div.i.us.sink, -1.000000e+00
   %4 = tail call double @llvm.fabs.f64(double %sub2.i.us)
   %cmp9.i.us = fcmp ule double %4, 1.000000e-05
-  br i1 %cmp9.i.us, label %if.end12.i.us, label %if.then.critedge
+  br i1 %cmp9.i.us, label %for.inc.us, label %if.then
 
-if.end12.i.us:                                    ; preds = %if.end8.i.us, %if.else.i.us, %for.body4.us
+for.inc.us:                                       ; preds = %if.end8.i.us, %if.else.i.us, %for.body4.us
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.cond1.for.cond.cleanup3_crit_edge.us, label %for.body4.us, !llvm.loop !39
 
-for.cond1.for.cond.cleanup3_crit_edge.us:         ; preds = %if.end12.i.us
-  %inc16.us = add nuw i32 %r.035.us, 1
-  %exitcond41.not = icmp eq i32 %inc16.us, %R
-  br i1 %exitcond41.not, label %for.cond.cleanup, label %for.cond1.preheader.us, !llvm.loop !40
+for.cond1.for.cond.cleanup3_crit_edge.us:         ; preds = %for.inc.us
+  %inc16.us = add nuw i32 %r.036.us, 1
+  %exitcond42.not = icmp eq i32 %inc16.us, %R
+  br i1 %exitcond42.not, label %for.cond.cleanup, label %for.cond1.preheader.us, !llvm.loop !40
 
 for.cond.cleanup:                                 ; preds = %for.cond1.for.cond.cleanup3_crit_edge.us, %entry
   ret void
 
-if.then.critedge:                                 ; preds = %if.end8.i.us
+if.then:                                          ; preds = %if.end8.i.us
   %call10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cerr, ptr noundef nonnull @.str)
-  %call11 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEj(ptr noundef nonnull align 8 dereferenceable(8) %call10, i32 noundef %r.035.us)
+  %call11 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEj(ptr noundef nonnull align 8 dereferenceable(8) %call10, i32 noundef %r.036.us)
   %call12 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %call11, ptr noundef nonnull @.str.1)
   %call13 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEj(ptr noundef nonnull align 8 dereferenceable(8) %call12, i32 noundef %0)
   %call14 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc(ptr noundef nonnull align 8 dereferenceable(8) %call13, ptr noundef nonnull @.str.2)

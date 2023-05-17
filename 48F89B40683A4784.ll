@@ -55,30 +55,44 @@ if.then6:                                         ; preds = %if.end
 if.end7:                                          ; preds = %if.then6, %if.end
   %5 = phi ptr [ %call, %if.then6 ], [ %4, %if.end ]
   %conv11 = sext i32 %scale_factor to i64
-  %tobool = icmp ne i32 %force_baseline, 0
-  br label %for.body
+  %tobool.not = icmp eq i32 %force_baseline, 0
+  br i1 %tobool.not, label %for.body, label %for.body.us
+
+for.body.us:                                      ; preds = %if.end7, %for.body.us
+  %indvars.iv = phi i64 [ %indvars.iv.next, %for.body.us ], [ 0, %if.end7 ]
+  %arrayidx10.us = getelementptr inbounds i32, ptr %basic_table, i64 %indvars.iv
+  %6 = load i32, ptr %arrayidx10.us, align 4, !tbaa !20
+  %conv.us = zext i32 %6 to i64
+  %mul.us = mul nsw i64 %conv.us, %conv11
+  %add.us = add nsw i64 %mul.us, 50
+  %div.us = sdiv i64 %add.us, 100
+  %spec.store.select.us = tail call i64 @llvm.smax.i64(i64 %div.us, i64 1)
+  %conv24.us46 = tail call i64 @llvm.umin.i64(i64 %spec.store.select.us, i64 255)
+  %conv24.us = trunc i64 %conv24.us46 to i16
+  %arrayidx26.us = getelementptr inbounds [64 x i16], ptr %5, i64 0, i64 %indvars.iv
+  store i16 %conv24.us, ptr %arrayidx26.us, align 2, !tbaa !21
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
+  %exitcond.not = icmp eq i64 %indvars.iv.next, 64
+  br i1 %exitcond.not, label %for.end, label %for.body.us, !llvm.loop !22
 
 for.body:                                         ; preds = %if.end7, %for.body
-  %indvars.iv = phi i64 [ 0, %if.end7 ], [ %indvars.iv.next, %for.body ]
-  %arrayidx10 = getelementptr inbounds i32, ptr %basic_table, i64 %indvars.iv
-  %6 = load i32, ptr %arrayidx10, align 4, !tbaa !20
-  %conv = zext i32 %6 to i64
+  %indvars.iv49 = phi i64 [ %indvars.iv.next50, %for.body ], [ 0, %if.end7 ]
+  %arrayidx10 = getelementptr inbounds i32, ptr %basic_table, i64 %indvars.iv49
+  %7 = load i32, ptr %arrayidx10, align 4, !tbaa !20
+  %conv = zext i32 %7 to i64
   %mul = mul nsw i64 %conv, %conv11
   %add = add nsw i64 %mul, 50
   %div = sdiv i64 %add, 100
   %spec.store.select = tail call i64 @llvm.smax.i64(i64 %div, i64 1)
   %spec.store.select27 = tail call i64 @llvm.umin.i64(i64 %spec.store.select, i64 32767)
-  %cmp20 = icmp ugt i64 %spec.store.select27, 255
-  %or.cond = select i1 %tobool, i1 %cmp20, i1 false
-  %7 = trunc i64 %spec.store.select27 to i16
-  %conv24 = select i1 %or.cond, i16 255, i16 %7
-  %arrayidx26 = getelementptr inbounds [64 x i16], ptr %5, i64 0, i64 %indvars.iv
-  store i16 %conv24, ptr %arrayidx26, align 2, !tbaa !21
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %exitcond.not = icmp eq i64 %indvars.iv.next, 64
-  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !22
+  %8 = trunc i64 %spec.store.select27 to i16
+  %arrayidx26 = getelementptr inbounds [64 x i16], ptr %5, i64 0, i64 %indvars.iv49
+  store i16 %8, ptr %arrayidx26, align 2, !tbaa !21
+  %indvars.iv.next50 = add nuw nsw i64 %indvars.iv49, 1
+  %exitcond52.not = icmp eq i64 %indvars.iv.next50, 64
+  br i1 %exitcond52.not, label %for.end, label %for.body, !llvm.loop !22
 
-for.end:                                          ; preds = %for.body
+for.end:                                          ; preds = %for.body.us, %for.body
   %sent_table = getelementptr inbounds %struct.JQUANT_TBL, ptr %5, i64 0, i32 1
   store i32 0, ptr %sent_table, align 4, !tbaa !24
   ret void
@@ -119,51 +133,65 @@ if.then6.i:                                       ; preds = %if.end.i
 if.end7.i:                                        ; preds = %if.then6.i, %if.end.i
   %5 = phi ptr [ %call.i, %if.then6.i ], [ %4, %if.end.i ]
   %conv11.i = sext i32 %scale_factor to i64
-  %tobool.i = icmp ne i32 %force_baseline, 0
-  br label %for.body.i
+  %tobool.not.i = icmp eq i32 %force_baseline, 0
+  br i1 %tobool.not.i, label %for.body.i, label %for.body.us.i
 
-for.body.i:                                       ; preds = %for.body.i, %if.end7.i
-  %indvars.iv.i = phi i64 [ 0, %if.end7.i ], [ %indvars.iv.next.i, %for.body.i ]
-  %arrayidx10.i = getelementptr inbounds i32, ptr @jpeg_set_linear_quality.std_luminance_quant_tbl, i64 %indvars.iv.i
-  %6 = load i32, ptr %arrayidx10.i, align 4, !tbaa !20
-  %conv.i = zext i32 %6 to i64
+for.body.us.i:                                    ; preds = %if.end7.i, %for.body.us.i
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.body.us.i ], [ 0, %if.end7.i ]
+  %arrayidx10.us.i = getelementptr inbounds i32, ptr @jpeg_set_linear_quality.std_luminance_quant_tbl, i64 %indvars.iv.i
+  %6 = load i32, ptr %arrayidx10.us.i, align 4, !tbaa !20
+  %conv.us.i = zext i32 %6 to i64
+  %mul.us.i = mul nsw i64 %conv.us.i, %conv11.i
+  %add.us.i = add nsw i64 %mul.us.i, 50
+  %div.us.i = sdiv i64 %add.us.i, 100
+  %spec.store.select.us.i = tail call i64 @llvm.smax.i64(i64 %div.us.i, i64 1)
+  %conv24.us46.i = tail call i64 @llvm.umin.i64(i64 %spec.store.select.us.i, i64 255)
+  %conv24.us.i = trunc i64 %conv24.us46.i to i16
+  %arrayidx26.us.i = getelementptr inbounds [64 x i16], ptr %5, i64 0, i64 %indvars.iv.i
+  store i16 %conv24.us.i, ptr %arrayidx26.us.i, align 2, !tbaa !21
+  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 64
+  br i1 %exitcond.not.i, label %jpeg_add_quant_table.exit, label %for.body.us.i, !llvm.loop !22
+
+for.body.i:                                       ; preds = %if.end7.i, %for.body.i
+  %indvars.iv49.i = phi i64 [ %indvars.iv.next50.i, %for.body.i ], [ 0, %if.end7.i ]
+  %arrayidx10.i = getelementptr inbounds i32, ptr @jpeg_set_linear_quality.std_luminance_quant_tbl, i64 %indvars.iv49.i
+  %7 = load i32, ptr %arrayidx10.i, align 4, !tbaa !20
+  %conv.i = zext i32 %7 to i64
   %mul.i = mul nsw i64 %conv.i, %conv11.i
   %add.i = add nsw i64 %mul.i, 50
   %div.i = sdiv i64 %add.i, 100
   %spec.store.select.i = tail call i64 @llvm.smax.i64(i64 %div.i, i64 1)
   %spec.store.select27.i = tail call i64 @llvm.umin.i64(i64 %spec.store.select.i, i64 32767)
-  %cmp20.i = icmp ugt i64 %spec.store.select27.i, 255
-  %or.cond.i = select i1 %tobool.i, i1 %cmp20.i, i1 false
-  %7 = trunc i64 %spec.store.select27.i to i16
-  %conv24.i = select i1 %or.cond.i, i16 255, i16 %7
-  %arrayidx26.i = getelementptr inbounds [64 x i16], ptr %5, i64 0, i64 %indvars.iv.i
-  store i16 %conv24.i, ptr %arrayidx26.i, align 2, !tbaa !21
-  %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
-  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 64
-  br i1 %exitcond.not.i, label %jpeg_add_quant_table.exit, label %for.body.i, !llvm.loop !22
+  %8 = trunc i64 %spec.store.select27.i to i16
+  %arrayidx26.i = getelementptr inbounds [64 x i16], ptr %5, i64 0, i64 %indvars.iv49.i
+  store i16 %8, ptr %arrayidx26.i, align 2, !tbaa !21
+  %indvars.iv.next50.i = add nuw nsw i64 %indvars.iv49.i, 1
+  %exitcond52.not.i = icmp eq i64 %indvars.iv.next50.i, 64
+  br i1 %exitcond52.not.i, label %jpeg_add_quant_table.exit, label %for.body.i, !llvm.loop !22
 
-jpeg_add_quant_table.exit:                        ; preds = %for.body.i
+jpeg_add_quant_table.exit:                        ; preds = %for.body.us.i, %for.body.i
   %sent_table.i = getelementptr inbounds %struct.JQUANT_TBL, ptr %5, i64 0, i32 1
   store i32 0, ptr %sent_table.i, align 4, !tbaa !24
   %arrayidx.i4 = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 15, i64 1
-  %8 = load i32, ptr %global_state.i, align 4, !tbaa !5
-  %cmp.not.i6 = icmp eq i32 %8, 100
+  %9 = load i32, ptr %global_state.i, align 4, !tbaa !5
+  %cmp.not.i6 = icmp eq i32 %9, 100
   br i1 %cmp.not.i6, label %if.end.i11, label %if.then.i9
 
 if.then.i9:                                       ; preds = %jpeg_add_quant_table.exit
-  %9 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %msg_code.i7 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %9, i64 0, i32 5
-  store i32 18, ptr %msg_code.i7, align 8, !tbaa !14
-  %msg_parm.i8 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %9, i64 0, i32 6
-  store i32 %8, ptr %msg_parm.i8, align 4, !tbaa !17
   %10 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %11 = load ptr, ptr %10, align 8, !tbaa !18
-  tail call void %11(ptr noundef nonnull %cinfo) #6
+  %msg_code.i7 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %10, i64 0, i32 5
+  store i32 18, ptr %msg_code.i7, align 8, !tbaa !14
+  %msg_parm.i8 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %10, i64 0, i32 6
+  store i32 %9, ptr %msg_parm.i8, align 4, !tbaa !17
+  %11 = load ptr, ptr %cinfo, align 8, !tbaa !13
+  %12 = load ptr, ptr %11, align 8, !tbaa !18
+  tail call void %12(ptr noundef nonnull %cinfo) #6
   br label %if.end.i11
 
 if.end.i11:                                       ; preds = %if.then.i9, %jpeg_add_quant_table.exit
-  %12 = load ptr, ptr %arrayidx.i4, align 8, !tbaa !19
-  %cmp5.i10 = icmp eq ptr %12, null
+  %13 = load ptr, ptr %arrayidx.i4, align 8, !tbaa !19
+  %cmp5.i10 = icmp eq ptr %13, null
   br i1 %cmp5.i10, label %if.then6.i13, label %if.end7.i16
 
 if.then6.i13:                                     ; preds = %if.end.i11
@@ -172,32 +200,46 @@ if.then6.i13:                                     ; preds = %if.end.i11
   br label %if.end7.i16
 
 if.end7.i16:                                      ; preds = %if.then6.i13, %if.end.i11
-  %13 = phi ptr [ %call.i12, %if.then6.i13 ], [ %12, %if.end.i11 ]
-  br label %for.body.i31
+  %14 = phi ptr [ %call.i12, %if.then6.i13 ], [ %13, %if.end.i11 ]
+  br i1 %tobool.not.i, label %for.body.i41, label %for.body.us.i29
 
-for.body.i31:                                     ; preds = %for.body.i31, %if.end7.i16
-  %indvars.iv.i17 = phi i64 [ 0, %if.end7.i16 ], [ %indvars.iv.next.i29, %for.body.i31 ]
-  %arrayidx10.i18 = getelementptr inbounds i32, ptr @jpeg_set_linear_quality.std_chrominance_quant_tbl, i64 %indvars.iv.i17
-  %14 = load i32, ptr %arrayidx10.i18, align 4, !tbaa !20
-  %conv.i19 = zext i32 %14 to i64
-  %mul.i20 = mul nsw i64 %conv.i19, %conv11.i
-  %add.i21 = add nsw i64 %mul.i20, 50
-  %div.i22 = sdiv i64 %add.i21, 100
-  %spec.store.select.i23 = tail call i64 @llvm.smax.i64(i64 %div.i22, i64 1)
-  %spec.store.select27.i24 = tail call i64 @llvm.umin.i64(i64 %spec.store.select.i23, i64 32767)
-  %cmp20.i25 = icmp ugt i64 %spec.store.select27.i24, 255
-  %or.cond.i26 = select i1 %tobool.i, i1 %cmp20.i25, i1 false
-  %15 = trunc i64 %spec.store.select27.i24 to i16
-  %conv24.i27 = select i1 %or.cond.i26, i16 255, i16 %15
-  %arrayidx26.i28 = getelementptr inbounds [64 x i16], ptr %13, i64 0, i64 %indvars.iv.i17
-  store i16 %conv24.i27, ptr %arrayidx26.i28, align 2, !tbaa !21
-  %indvars.iv.next.i29 = add nuw nsw i64 %indvars.iv.i17, 1
-  %exitcond.not.i30 = icmp eq i64 %indvars.iv.next.i29, 64
-  br i1 %exitcond.not.i30, label %jpeg_add_quant_table.exit33, label %for.body.i31, !llvm.loop !22
+for.body.us.i29:                                  ; preds = %if.end7.i16, %for.body.us.i29
+  %indvars.iv.i17 = phi i64 [ %indvars.iv.next.i27, %for.body.us.i29 ], [ 0, %if.end7.i16 ]
+  %arrayidx10.us.i18 = getelementptr inbounds i32, ptr @jpeg_set_linear_quality.std_chrominance_quant_tbl, i64 %indvars.iv.i17
+  %15 = load i32, ptr %arrayidx10.us.i18, align 4, !tbaa !20
+  %conv.us.i19 = zext i32 %15 to i64
+  %mul.us.i20 = mul nsw i64 %conv.us.i19, %conv11.i
+  %add.us.i21 = add nsw i64 %mul.us.i20, 50
+  %div.us.i22 = sdiv i64 %add.us.i21, 100
+  %spec.store.select.us.i23 = tail call i64 @llvm.smax.i64(i64 %div.us.i22, i64 1)
+  %conv24.us46.i24 = tail call i64 @llvm.umin.i64(i64 %spec.store.select.us.i23, i64 255)
+  %conv24.us.i25 = trunc i64 %conv24.us46.i24 to i16
+  %arrayidx26.us.i26 = getelementptr inbounds [64 x i16], ptr %14, i64 0, i64 %indvars.iv.i17
+  store i16 %conv24.us.i25, ptr %arrayidx26.us.i26, align 2, !tbaa !21
+  %indvars.iv.next.i27 = add nuw nsw i64 %indvars.iv.i17, 1
+  %exitcond.not.i28 = icmp eq i64 %indvars.iv.next.i27, 64
+  br i1 %exitcond.not.i28, label %jpeg_add_quant_table.exit43, label %for.body.us.i29, !llvm.loop !22
 
-jpeg_add_quant_table.exit33:                      ; preds = %for.body.i31
-  %sent_table.i32 = getelementptr inbounds %struct.JQUANT_TBL, ptr %13, i64 0, i32 1
-  store i32 0, ptr %sent_table.i32, align 4, !tbaa !24
+for.body.i41:                                     ; preds = %if.end7.i16, %for.body.i41
+  %indvars.iv49.i30 = phi i64 [ %indvars.iv.next50.i39, %for.body.i41 ], [ 0, %if.end7.i16 ]
+  %arrayidx10.i31 = getelementptr inbounds i32, ptr @jpeg_set_linear_quality.std_chrominance_quant_tbl, i64 %indvars.iv49.i30
+  %16 = load i32, ptr %arrayidx10.i31, align 4, !tbaa !20
+  %conv.i32 = zext i32 %16 to i64
+  %mul.i33 = mul nsw i64 %conv.i32, %conv11.i
+  %add.i34 = add nsw i64 %mul.i33, 50
+  %div.i35 = sdiv i64 %add.i34, 100
+  %spec.store.select.i36 = tail call i64 @llvm.smax.i64(i64 %div.i35, i64 1)
+  %spec.store.select27.i37 = tail call i64 @llvm.umin.i64(i64 %spec.store.select.i36, i64 32767)
+  %17 = trunc i64 %spec.store.select27.i37 to i16
+  %arrayidx26.i38 = getelementptr inbounds [64 x i16], ptr %14, i64 0, i64 %indvars.iv49.i30
+  store i16 %17, ptr %arrayidx26.i38, align 2, !tbaa !21
+  %indvars.iv.next50.i39 = add nuw nsw i64 %indvars.iv49.i30, 1
+  %exitcond52.not.i40 = icmp eq i64 %indvars.iv.next50.i39, 64
+  br i1 %exitcond52.not.i40, label %jpeg_add_quant_table.exit43, label %for.body.i41, !llvm.loop !22
+
+jpeg_add_quant_table.exit43:                      ; preds = %for.body.us.i29, %for.body.i41
+  %sent_table.i42 = getelementptr inbounds %struct.JQUANT_TBL, ptr %14, i64 0, i32 1
+  store i32 0, ptr %sent_table.i42, align 4, !tbaa !24
   ret void
 }
 
@@ -1064,7 +1106,7 @@ for.body.i.i.preheader:                           ; preds = %if.end12.split
   %8 = add i32 %0, -1
   %xtraiter = and i32 %0, 3
   %9 = icmp ult i32 %8, 3
-  br i1 %9, label %if.end12.split.split.loopexit.unr-lcssa, label %for.body.i.i.preheader.new
+  br i1 %9, label %fill_dc_scans.exit.loopexit.unr-lcssa, label %for.body.i.i.preheader.new
 
 for.body.i.i.preheader.new:                       ; preds = %for.body.i.i.preheader
   %unroll_iter = and i32 %0, -4
@@ -1120,7 +1162,7 @@ for.end.i:                                        ; preds = %pred.store.continue
   %Ss.i = getelementptr inbounds %struct.jpeg_scan_info, ptr %call, i64 0, i32 2
   store <4 x i32> <i32 0, i32 0, i32 0, i32 1>, ptr %Ss.i, align 4, !tbaa !20
   %incdec.ptr.i = getelementptr inbounds %struct.jpeg_scan_info, ptr %call, i64 1
-  br label %if.end12.split.split
+  br label %fill_dc_scans.exit
 
 for.body.i.i:                                     ; preds = %for.body.i.i, %for.body.i.i.preheader.new
   %ci.016.i.i = phi i32 [ 0, %for.body.i.i.preheader.new ], [ %inc.i.i.3, %for.body.i.i ]
@@ -1156,19 +1198,19 @@ for.body.i.i:                                     ; preds = %for.body.i.i, %for.
   %inc.i.i.3 = add nuw nsw i32 %ci.016.i.i, 4
   %niter.next.3 = add nuw nsw i32 %niter, 4
   %niter.ncmp.3 = icmp eq i32 %niter.next.3, %unroll_iter
-  br i1 %niter.ncmp.3, label %if.end12.split.split.loopexit.unr-lcssa, label %for.body.i.i, !llvm.loop !50
+  br i1 %niter.ncmp.3, label %fill_dc_scans.exit.loopexit.unr-lcssa, label %for.body.i.i, !llvm.loop !50
 
-if.end12.split.split.loopexit.unr-lcssa:          ; preds = %for.body.i.i, %for.body.i.i.preheader
+fill_dc_scans.exit.loopexit.unr-lcssa:            ; preds = %for.body.i.i, %for.body.i.i.preheader
   %incdec.ptr.i.i.lcssa.ph = phi ptr [ undef, %for.body.i.i.preheader ], [ %incdec.ptr.i.i.3, %for.body.i.i ]
   %ci.016.i.i.unr = phi i32 [ 0, %for.body.i.i.preheader ], [ %inc.i.i.3, %for.body.i.i ]
   %scanptr.addr.015.i.i.unr = phi ptr [ %call, %for.body.i.i.preheader ], [ %incdec.ptr.i.i.3, %for.body.i.i ]
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
-  br i1 %lcmp.mod.not, label %if.end12.split.split, label %for.body.i.i.epil
+  br i1 %lcmp.mod.not, label %fill_dc_scans.exit, label %for.body.i.i.epil
 
-for.body.i.i.epil:                                ; preds = %if.end12.split.split.loopexit.unr-lcssa, %for.body.i.i.epil
-  %ci.016.i.i.epil = phi i32 [ %inc.i.i.epil, %for.body.i.i.epil ], [ %ci.016.i.i.unr, %if.end12.split.split.loopexit.unr-lcssa ]
-  %scanptr.addr.015.i.i.epil = phi ptr [ %incdec.ptr.i.i.epil, %for.body.i.i.epil ], [ %scanptr.addr.015.i.i.unr, %if.end12.split.split.loopexit.unr-lcssa ]
-  %epil.iter = phi i32 [ %epil.iter.next, %for.body.i.i.epil ], [ 0, %if.end12.split.split.loopexit.unr-lcssa ]
+for.body.i.i.epil:                                ; preds = %fill_dc_scans.exit.loopexit.unr-lcssa, %for.body.i.i.epil
+  %ci.016.i.i.epil = phi i32 [ %inc.i.i.epil, %for.body.i.i.epil ], [ %ci.016.i.i.unr, %fill_dc_scans.exit.loopexit.unr-lcssa ]
+  %scanptr.addr.015.i.i.epil = phi ptr [ %incdec.ptr.i.i.epil, %for.body.i.i.epil ], [ %scanptr.addr.015.i.i.unr, %fill_dc_scans.exit.loopexit.unr-lcssa ]
+  %epil.iter = phi i32 [ %epil.iter.next, %for.body.i.i.epil ], [ 0, %fill_dc_scans.exit.loopexit.unr-lcssa ]
   store i32 1, ptr %scanptr.addr.015.i.i.epil, align 4, !tbaa !48
   %component_index.i.i.epil = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.addr.015.i.i.epil, i64 0, i32 1
   store i32 %ci.016.i.i.epil, ptr %component_index.i.i.epil, align 4, !tbaa !20
@@ -1178,14 +1220,14 @@ for.body.i.i.epil:                                ; preds = %if.end12.split.spli
   %inc.i.i.epil = add nuw nsw i32 %ci.016.i.i.epil, 1
   %epil.iter.next = add i32 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %if.end12.split.split, label %for.body.i.i.epil, !llvm.loop !51
+  br i1 %epil.iter.cmp.not, label %fill_dc_scans.exit, label %for.body.i.i.epil, !llvm.loop !51
 
-if.end12.split.split:                             ; preds = %if.end12.split.split.loopexit.unr-lcssa, %for.body.i.i.epil, %for.end.i
-  %scanptr.addr.0.i = phi ptr [ %incdec.ptr.i, %for.end.i ], [ %incdec.ptr.i.i.lcssa.ph, %if.end12.split.split.loopexit.unr-lcssa ], [ %incdec.ptr.i.i.epil, %for.body.i.i.epil ]
+fill_dc_scans.exit:                               ; preds = %fill_dc_scans.exit.loopexit.unr-lcssa, %for.body.i.i.epil, %for.end.i
+  %scanptr.addr.0.i = phi ptr [ %incdec.ptr.i, %for.end.i ], [ %incdec.ptr.i.i.lcssa.ph, %fill_dc_scans.exit.loopexit.unr-lcssa ], [ %incdec.ptr.i.i.epil, %for.body.i.i.epil ]
   %cmp14.i = icmp sgt i32 %0, 0
   br i1 %cmp14.i, label %for.body.i96.preheader, label %if.then.i130.thread
 
-for.body.i96.preheader:                           ; preds = %if.end12.split.split
+for.body.i96.preheader:                           ; preds = %fill_dc_scans.exit
   %19 = add i32 %0, -1
   %xtraiter400 = and i32 %0, 3
   %20 = icmp ult i32 %0, 4
@@ -1256,7 +1298,7 @@ for.body.i96.epil:                                ; preds = %for.body.i109.prehe
 for.body.i109.preheader:                          ; preds = %for.body.i96.epil, %for.body.i109.preheader.unr-lcssa
   %incdec.ptr.i94.lcssa = phi ptr [ %incdec.ptr.i94.lcssa.ph, %for.body.i109.preheader.unr-lcssa ], [ %incdec.ptr.i94.epil, %for.body.i96.epil ]
   %xtraiter406 = and i32 %0, 3
-  %21 = icmp ult i32 %19, 3
+  %21 = icmp ult i32 %0, 4
   br i1 %21, label %for.body.i124.preheader.unr-lcssa, label %for.body.i109.preheader.new
 
 for.body.i109.preheader.new:                      ; preds = %for.body.i109.preheader
@@ -1325,7 +1367,7 @@ for.body.i124.preheader:                          ; preds = %for.body.i109.epil,
   %incdec.ptr.i106.lcssa = phi ptr [ %incdec.ptr.i106.lcssa.ph, %for.body.i124.preheader.unr-lcssa ], [ %incdec.ptr.i106.epil, %for.body.i109.epil ]
   %xtraiter412 = and i32 %0, 3
   %22 = icmp ult i32 %19, 3
-  br i1 %22, label %if.end12.split.split.split.split.split.unr-lcssa, label %for.body.i124.preheader.new
+  br i1 %22, label %fill_scans.exit127.unr-lcssa, label %for.body.i124.preheader.new
 
 for.body.i124.preheader.new:                      ; preds = %for.body.i124.preheader
   %unroll_iter417 = and i32 %0, -4
@@ -1365,28 +1407,28 @@ for.body.i124:                                    ; preds = %for.body.i124, %for
   %inc.i122.3 = add nuw nsw i32 %ci.016.i114, 4
   %niter418.next.3 = add i32 %niter418, 4
   %niter418.ncmp.3 = icmp eq i32 %niter418.next.3, %unroll_iter417
-  br i1 %niter418.ncmp.3, label %if.end12.split.split.split.split.split.unr-lcssa.loopexit, label %for.body.i124, !llvm.loop !50
+  br i1 %niter418.ncmp.3, label %fill_scans.exit127.unr-lcssa.loopexit, label %for.body.i124, !llvm.loop !50
 
-if.then.i130.thread:                              ; preds = %if.end12.split.split
+if.then.i130.thread:                              ; preds = %fill_dc_scans.exit
   store i32 %0, ptr %scanptr.addr.0.i, align 4, !tbaa !48
   br label %for.end.i143
 
-if.end12.split.split.split.split.split.unr-lcssa.loopexit: ; preds = %for.body.i124
+fill_scans.exit127.unr-lcssa.loopexit:            ; preds = %for.body.i124
   %incdec.ptr.i121.2.le = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.addr.015.i115, i64 3
-  br label %if.end12.split.split.split.split.split.unr-lcssa
+  br label %fill_scans.exit127.unr-lcssa
 
-if.end12.split.split.split.split.split.unr-lcssa: ; preds = %if.end12.split.split.split.split.split.unr-lcssa.loopexit, %for.body.i124.preheader
-  %scanptr.addr.015.i115.lcssa.ph = phi ptr [ undef, %for.body.i124.preheader ], [ %incdec.ptr.i121.2.le, %if.end12.split.split.split.split.split.unr-lcssa.loopexit ]
-  %incdec.ptr.i121.lcssa.ph = phi ptr [ undef, %for.body.i124.preheader ], [ %incdec.ptr.i121.3, %if.end12.split.split.split.split.split.unr-lcssa.loopexit ]
-  %ci.016.i114.unr = phi i32 [ 0, %for.body.i124.preheader ], [ %inc.i122.3, %if.end12.split.split.split.split.split.unr-lcssa.loopexit ]
-  %scanptr.addr.015.i115.unr = phi ptr [ %incdec.ptr.i106.lcssa, %for.body.i124.preheader ], [ %incdec.ptr.i121.3, %if.end12.split.split.split.split.split.unr-lcssa.loopexit ]
+fill_scans.exit127.unr-lcssa:                     ; preds = %fill_scans.exit127.unr-lcssa.loopexit, %for.body.i124.preheader
+  %scanptr.addr.015.i115.lcssa.ph = phi ptr [ undef, %for.body.i124.preheader ], [ %incdec.ptr.i121.2.le, %fill_scans.exit127.unr-lcssa.loopexit ]
+  %incdec.ptr.i121.lcssa.ph = phi ptr [ undef, %for.body.i124.preheader ], [ %incdec.ptr.i121.3, %fill_scans.exit127.unr-lcssa.loopexit ]
+  %ci.016.i114.unr = phi i32 [ 0, %for.body.i124.preheader ], [ %inc.i122.3, %fill_scans.exit127.unr-lcssa.loopexit ]
+  %scanptr.addr.015.i115.unr = phi ptr [ %incdec.ptr.i106.lcssa, %for.body.i124.preheader ], [ %incdec.ptr.i121.3, %fill_scans.exit127.unr-lcssa.loopexit ]
   %lcmp.mod414.not = icmp eq i32 %xtraiter412, 0
-  br i1 %lcmp.mod414.not, label %if.end12.split.split.split.split.split, label %for.body.i124.epil
+  br i1 %lcmp.mod414.not, label %fill_scans.exit127, label %for.body.i124.epil
 
-for.body.i124.epil:                               ; preds = %if.end12.split.split.split.split.split.unr-lcssa, %for.body.i124.epil
-  %ci.016.i114.epil = phi i32 [ %inc.i122.epil, %for.body.i124.epil ], [ %ci.016.i114.unr, %if.end12.split.split.split.split.split.unr-lcssa ]
-  %scanptr.addr.015.i115.epil = phi ptr [ %incdec.ptr.i121.epil, %for.body.i124.epil ], [ %scanptr.addr.015.i115.unr, %if.end12.split.split.split.split.split.unr-lcssa ]
-  %epil.iter413 = phi i32 [ %epil.iter413.next, %for.body.i124.epil ], [ 0, %if.end12.split.split.split.split.split.unr-lcssa ]
+for.body.i124.epil:                               ; preds = %fill_scans.exit127.unr-lcssa, %for.body.i124.epil
+  %ci.016.i114.epil = phi i32 [ %inc.i122.epil, %for.body.i124.epil ], [ %ci.016.i114.unr, %fill_scans.exit127.unr-lcssa ]
+  %scanptr.addr.015.i115.epil = phi ptr [ %incdec.ptr.i121.epil, %for.body.i124.epil ], [ %scanptr.addr.015.i115.unr, %fill_scans.exit127.unr-lcssa ]
+  %epil.iter413 = phi i32 [ %epil.iter413.next, %for.body.i124.epil ], [ 0, %fill_scans.exit127.unr-lcssa ]
   store i32 1, ptr %scanptr.addr.015.i115.epil, align 4, !tbaa !48
   %component_index.i116.epil = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.addr.015.i115.epil, i64 0, i32 1
   store i32 %ci.016.i114.epil, ptr %component_index.i116.epil, align 4, !tbaa !20
@@ -1396,23 +1438,23 @@ for.body.i124.epil:                               ; preds = %if.end12.split.spli
   %inc.i122.epil = add nuw nsw i32 %ci.016.i114.epil, 1
   %epil.iter413.next = add i32 %epil.iter413, 1
   %epil.iter413.cmp.not = icmp eq i32 %epil.iter413.next, %xtraiter412
-  br i1 %epil.iter413.cmp.not, label %if.end12.split.split.split.split.split, label %for.body.i124.epil, !llvm.loop !55
+  br i1 %epil.iter413.cmp.not, label %fill_scans.exit127, label %for.body.i124.epil, !llvm.loop !55
 
-if.end12.split.split.split.split.split:           ; preds = %for.body.i124.epil, %if.end12.split.split.split.split.split.unr-lcssa
-  %scanptr.addr.015.i115.lcssa = phi ptr [ %scanptr.addr.015.i115.lcssa.ph, %if.end12.split.split.split.split.split.unr-lcssa ], [ %scanptr.addr.015.i115.epil, %for.body.i124.epil ]
-  %incdec.ptr.i121.lcssa = phi ptr [ %incdec.ptr.i121.lcssa.ph, %if.end12.split.split.split.split.split.unr-lcssa ], [ %incdec.ptr.i121.epil, %for.body.i124.epil ]
+fill_scans.exit127:                               ; preds = %for.body.i124.epil, %fill_scans.exit127.unr-lcssa
+  %scanptr.addr.015.i115.lcssa = phi ptr [ %scanptr.addr.015.i115.lcssa.ph, %fill_scans.exit127.unr-lcssa ], [ %scanptr.addr.015.i115.epil, %for.body.i124.epil ]
+  %incdec.ptr.i121.lcssa = phi ptr [ %incdec.ptr.i121.lcssa.ph, %fill_scans.exit127.unr-lcssa ], [ %incdec.ptr.i121.epil, %for.body.i124.epil ]
   br i1 %cmp.i, label %for.body.preheader.i132, label %for.body.i.i154.preheader
 
-for.body.i.i154.preheader:                        ; preds = %if.end12.split.split.split.split.split
+for.body.i.i154.preheader:                        ; preds = %fill_scans.exit127
   %xtraiter419 = and i32 %0, 3
   %23 = icmp ult i32 %19, 3
-  br i1 %23, label %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa, label %for.body.i.i154.preheader.new
+  br i1 %23, label %fill_dc_scans.exit156.loopexit.unr-lcssa, label %for.body.i.i154.preheader.new
 
 for.body.i.i154.preheader.new:                    ; preds = %for.body.i.i154.preheader
   %unroll_iter423 = and i32 %0, -4
   br label %for.body.i.i154
 
-for.body.preheader.i132:                          ; preds = %if.end12.split.split.split.split.split
+for.body.preheader.i132:                          ; preds = %fill_scans.exit127
   store i32 %0, ptr %incdec.ptr.i121.lcssa, align 4, !tbaa !48
   %wide.trip.count.i131 = zext i32 %0 to i64
   %n.rnd.up379 = add nuw nsw i64 %wide.trip.count.i131, 3
@@ -1479,7 +1521,7 @@ for.end.i143:                                     ; preds = %pred.store.continue
   %Ss.i139 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.addr.0.lcssa.i125340342, i64 0, i32 2
   store <4 x i32> <i32 0, i32 0, i32 1, i32 0>, ptr %Ss.i139, align 4, !tbaa !20
   %incdec.ptr.i142 = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.addr.0.lcssa.i125340342, i64 1
-  br label %if.end12.split.split.split.split.split.split
+  br label %fill_dc_scans.exit156
 
 for.body.i.i154:                                  ; preds = %for.body.i.i154, %for.body.i.i154.preheader.new
   %ci.016.i.i144 = phi i32 [ 0, %for.body.i.i154.preheader.new ], [ %inc.i.i152.3, %for.body.i.i154 ]
@@ -1515,19 +1557,19 @@ for.body.i.i154:                                  ; preds = %for.body.i.i154, %f
   %inc.i.i152.3 = add nuw nsw i32 %ci.016.i.i144, 4
   %niter424.next.3 = add nuw nsw i32 %niter424, 4
   %niter424.ncmp.3 = icmp eq i32 %niter424.next.3, %unroll_iter423
-  br i1 %niter424.ncmp.3, label %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa, label %for.body.i.i154, !llvm.loop !50
+  br i1 %niter424.ncmp.3, label %fill_dc_scans.exit156.loopexit.unr-lcssa, label %for.body.i.i154, !llvm.loop !50
 
-if.end12.split.split.split.split.split.split.loopexit.unr-lcssa: ; preds = %for.body.i.i154, %for.body.i.i154.preheader
+fill_dc_scans.exit156.loopexit.unr-lcssa:         ; preds = %for.body.i.i154, %for.body.i.i154.preheader
   %incdec.ptr.i.i151.lcssa.ph = phi ptr [ undef, %for.body.i.i154.preheader ], [ %incdec.ptr.i.i151.3, %for.body.i.i154 ]
   %ci.016.i.i144.unr = phi i32 [ 0, %for.body.i.i154.preheader ], [ %inc.i.i152.3, %for.body.i.i154 ]
   %scanptr.addr.015.i.i145.unr = phi ptr [ %incdec.ptr.i121.lcssa, %for.body.i.i154.preheader ], [ %incdec.ptr.i.i151.3, %for.body.i.i154 ]
   %lcmp.mod421.not = icmp eq i32 %xtraiter419, 0
-  br i1 %lcmp.mod421.not, label %if.end12.split.split.split.split.split.split, label %for.body.i.i154.epil
+  br i1 %lcmp.mod421.not, label %fill_dc_scans.exit156, label %for.body.i.i154.epil
 
-for.body.i.i154.epil:                             ; preds = %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa, %for.body.i.i154.epil
-  %ci.016.i.i144.epil = phi i32 [ %inc.i.i152.epil, %for.body.i.i154.epil ], [ %ci.016.i.i144.unr, %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa ]
-  %scanptr.addr.015.i.i145.epil = phi ptr [ %incdec.ptr.i.i151.epil, %for.body.i.i154.epil ], [ %scanptr.addr.015.i.i145.unr, %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa ]
-  %epil.iter420 = phi i32 [ %epil.iter420.next, %for.body.i.i154.epil ], [ 0, %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa ]
+for.body.i.i154.epil:                             ; preds = %fill_dc_scans.exit156.loopexit.unr-lcssa, %for.body.i.i154.epil
+  %ci.016.i.i144.epil = phi i32 [ %inc.i.i152.epil, %for.body.i.i154.epil ], [ %ci.016.i.i144.unr, %fill_dc_scans.exit156.loopexit.unr-lcssa ]
+  %scanptr.addr.015.i.i145.epil = phi ptr [ %incdec.ptr.i.i151.epil, %for.body.i.i154.epil ], [ %scanptr.addr.015.i.i145.unr, %fill_dc_scans.exit156.loopexit.unr-lcssa ]
+  %epil.iter420 = phi i32 [ %epil.iter420.next, %for.body.i.i154.epil ], [ 0, %fill_dc_scans.exit156.loopexit.unr-lcssa ]
   store i32 1, ptr %scanptr.addr.015.i.i145.epil, align 4, !tbaa !48
   %component_index.i.i146.epil = getelementptr inbounds %struct.jpeg_scan_info, ptr %scanptr.addr.015.i.i145.epil, i64 0, i32 1
   store i32 %ci.016.i.i144.epil, ptr %component_index.i.i146.epil, align 4, !tbaa !20
@@ -1537,13 +1579,13 @@ for.body.i.i154.epil:                             ; preds = %if.end12.split.spli
   %inc.i.i152.epil = add nuw nsw i32 %ci.016.i.i144.epil, 1
   %epil.iter420.next = add i32 %epil.iter420, 1
   %epil.iter420.cmp.not = icmp eq i32 %epil.iter420.next, %xtraiter419
-  br i1 %epil.iter420.cmp.not, label %if.end12.split.split.split.split.split.split, label %for.body.i.i154.epil, !llvm.loop !59
+  br i1 %epil.iter420.cmp.not, label %fill_dc_scans.exit156, label %for.body.i.i154.epil, !llvm.loop !59
 
-if.end12.split.split.split.split.split.split:     ; preds = %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa, %for.body.i.i154.epil, %for.end.i143
-  %scanptr.addr.0.i155 = phi ptr [ %incdec.ptr.i142, %for.end.i143 ], [ %incdec.ptr.i.i151.lcssa.ph, %if.end12.split.split.split.split.split.split.loopexit.unr-lcssa ], [ %incdec.ptr.i.i151.epil, %for.body.i.i154.epil ]
+fill_dc_scans.exit156:                            ; preds = %fill_dc_scans.exit156.loopexit.unr-lcssa, %for.body.i.i154.epil, %for.end.i143
+  %scanptr.addr.0.i155 = phi ptr [ %incdec.ptr.i142, %for.end.i143 ], [ %incdec.ptr.i.i151.lcssa.ph, %fill_dc_scans.exit156.loopexit.unr-lcssa ], [ %incdec.ptr.i.i151.epil, %for.body.i.i154.epil ]
   br i1 %cmp14.i, label %for.body.i168.preheader, label %if.end38
 
-for.body.i168.preheader:                          ; preds = %if.end12.split.split.split.split.split.split
+for.body.i168.preheader:                          ; preds = %fill_dc_scans.exit156
   %xtraiter425 = and i32 %0, 3
   %41 = icmp ult i32 %0, 4
   br i1 %41, label %if.end38.loopexit.unr-lcssa, label %for.body.i168.preheader.new
@@ -1730,7 +1772,7 @@ for.body.i168.epil:                               ; preds = %if.end38.loopexit.u
   %epil.iter426.cmp.not = icmp eq i32 %epil.iter426.next, %xtraiter425
   br i1 %epil.iter426.cmp.not, label %if.end38, label %for.body.i168.epil, !llvm.loop !60
 
-if.end38:                                         ; preds = %if.end38.loopexit.unr-lcssa, %for.body.i168.epil, %if.end38.sink.split, %if.end12.split.split.split.split.split.split
+if.end38:                                         ; preds = %if.end38.loopexit.unr-lcssa, %for.body.i168.epil, %if.end38.sink.split, %fill_dc_scans.exit156
   ret void
 }
 

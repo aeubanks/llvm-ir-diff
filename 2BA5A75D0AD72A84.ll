@@ -199,8 +199,8 @@ entry:
   %0 = load i32, ptr @symbol_ACTINDEX, align 4
   %cmp = icmp sgt i32 %0, 3999
   %1 = load ptr, ptr @symbol_FREEDSYMBOLS, align 8
-  %cmp.i = icmp eq ptr %1, null
-  %or.cond = select i1 %cmp, i1 %cmp.i, i1 false
+  %cmp.i.not = icmp eq ptr %1, null
+  %or.cond = select i1 %cmp, i1 %cmp.i.not, i1 false
   br i1 %or.cond, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
@@ -250,8 +250,8 @@ if.end6:                                          ; preds = %if.end
   %generatedBy = getelementptr inbounds %struct.signature, ptr %call.i43, i64 0, i32 6
   store ptr null, ptr %generatedBy, align 8
   %10 = load ptr, ptr @symbol_FREEDSYMBOLS, align 8
-  %cmp.i44 = icmp eq ptr %10, null
-  br i1 %cmp.i44, label %if.then12, label %if.else
+  %cmp.i44.not = icmp eq ptr %10, null
+  br i1 %cmp.i44.not, label %if.then12, label %if.else
 
 if.then12:                                        ; preds = %if.end6
   %11 = load i32, ptr @symbol_ACTINDEX, align 4
@@ -349,8 +349,8 @@ for.body.i.us:                                    ; preds = %for.inc.i.us, %for.
 land.lhs.true.i.us:                               ; preds = %for.body.i.us
   %5 = load ptr, ptr %4, align 8
   %call.i.i.us = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %newname, ptr noundef nonnull dereferenceable(1) %5) #22
-  %cmp.i.i.us = icmp eq i32 %call.i.i.us, 0
-  br i1 %cmp.i.i.us, label %symbol_Lookup.exit.us, label %for.inc.i.us
+  %cmp.i.not.i.us = icmp eq i32 %call.i.i.us, 0
+  br i1 %cmp.i.not.i.us, label %symbol_Lookup.exit.us, label %for.inc.i.us
 
 symbol_Lookup.exit.us:                            ; preds = %land.lhs.true.i.us
   %info.i.us = getelementptr inbounds %struct.signature, ptr %4, i64 0, i32 5
@@ -403,8 +403,8 @@ for.body.i:                                       ; preds = %for.inc.i, %for.bod
 land.lhs.true.i:                                  ; preds = %for.body.i
   %12 = load ptr, ptr %11, align 8
   %call.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %newname, ptr noundef nonnull dereferenceable(1) %12) #22
-  %cmp.i.i = icmp eq i32 %call.i.i, 0
-  br i1 %cmp.i.i, label %symbol_Lookup.exit, label %for.inc.i
+  %cmp.i.not.i = icmp eq i32 %call.i.i, 0
+  br i1 %cmp.i.not.i, label %symbol_Lookup.exit, label %for.inc.i
 
 for.inc.i:                                        ; preds = %land.lhs.true.i, %for.body.i
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
@@ -474,8 +474,8 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
 land.lhs.true:                                    ; preds = %for.body
   %4 = load ptr, ptr %3, align 8
   %call.i = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %String, ptr noundef nonnull dereferenceable(1) %4) #22
-  %cmp.i = icmp eq i32 %call.i, 0
-  br i1 %cmp.i, label %cleanup, label %for.inc
+  %cmp.i.not = icmp eq i32 %call.i, 0
+  br i1 %cmp.i.not, label %cleanup, label %for.inc
 
 for.inc:                                          ; preds = %for.body, %land.lhs.true
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
@@ -538,8 +538,8 @@ for.body.i.us:                                    ; preds = %for.inc.i.us, %for.
 land.lhs.true.i.us:                               ; preds = %for.body.i.us
   %5 = load ptr, ptr %4, align 8
   %call.i.i.us = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %newname, ptr noundef nonnull dereferenceable(1) %5) #22
-  %cmp.i.i.us = icmp eq i32 %call.i.i.us, 0
-  br i1 %cmp.i.i.us, label %symbol_Lookup.exit.us, label %for.inc.i.us
+  %cmp.i.not.i.us = icmp eq i32 %call.i.i.us, 0
+  br i1 %cmp.i.not.i.us, label %symbol_Lookup.exit.us, label %for.inc.i.us
 
 symbol_Lookup.exit.us:                            ; preds = %land.lhs.true.i.us
   %info.i.us = getelementptr inbounds %struct.signature, ptr %4, i64 0, i32 5
@@ -592,8 +592,8 @@ for.body.i:                                       ; preds = %for.inc.i, %for.bod
 land.lhs.true.i:                                  ; preds = %for.body.i
   %12 = load ptr, ptr %11, align 8
   %call.i.i = call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %newname, ptr noundef nonnull dereferenceable(1) %12) #22
-  %cmp.i.i = icmp eq i32 %call.i.i, 0
-  br i1 %cmp.i.i, label %symbol_Lookup.exit, label %for.inc.i
+  %cmp.i.not.i = icmp eq i32 %call.i.i, 0
+  br i1 %cmp.i.not.i, label %symbol_Lookup.exit, label %for.inc.i
 
 for.inc.i:                                        ; preds = %land.lhs.true.i, %for.body.i
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
@@ -640,8 +640,8 @@ entry:
   br i1 %tobool.not, label %lor.end13, label %lor.rhs
 
 lor.rhs:                                          ; preds = %entry
-  %cmp.i = icmp eq i32 %Symbol, 0
-  br i1 %cmp.i, label %lor.end13, label %land.rhs
+  %cmp.i.not = icmp eq i32 %Symbol, 0
+  br i1 %cmp.i.not, label %lor.end13, label %land.rhs
 
 land.rhs:                                         ; preds = %lor.rhs
   %or.cond = icmp ult i32 %Symbol, 3001
@@ -674,8 +674,8 @@ entry:
 ; Function Attrs: nounwind uwtable
 define dso_local void @symbol_Delete(i32 noundef %Symbol) local_unnamed_addr #3 {
 entry:
-  %cmp.i = icmp sgt i32 %Symbol, 0
-  br i1 %cmp.i, label %if.end, label %if.then
+  %cmp.i = icmp slt i32 %Symbol, 1
+  br i1 %cmp.i, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   %sub.i = sub nsw i32 0, %Symbol
@@ -710,8 +710,8 @@ if.then:                                          ; preds = %entry
   br i1 %cmp.i.not5.i.i, label %symbol_FreeSignature.exit, label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %if.then, %while.body.i.i
-  %Current.06.i.i = phi ptr [ %L.addr.0.val.i.i, %while.body.i.i ], [ %10, %if.then ]
-  %L.addr.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
+  %Current.06.i.i = phi ptr [ %Current.0.val.i.i, %while.body.i.i ], [ %10, %if.then ]
+  %Current.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
   %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %11, i64 0, i32 4
   %12 = load i32, ptr %total_size.i.i.i.i, align 8
@@ -723,7 +723,7 @@ while.body.i.i:                                   ; preds = %if.then, %while.bod
   store ptr %14, ptr %Current.06.i.i, align 8
   %15 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i.i, ptr %15, align 8
-  %cmp.i.not.i.i = icmp eq ptr %L.addr.0.val.i.i, null
+  %cmp.i.not.i.i = icmp eq ptr %Current.0.val.i.i, null
   br i1 %cmp.i.not.i.i, label %symbol_FreeSignature.exit, label %while.body.i.i, !llvm.loop !10
 
 symbol_FreeSignature.exit:                        ; preds = %while.body.i.i, %if.then
@@ -824,10 +824,10 @@ land.lhs.true:                                    ; preds = %for.body
   %5 = load i32, ptr %info.i, align 8
   %sub.i.i = sub nsw i32 0, %5
   %and.i.i = and i32 %sub.i.i, 3
-  %cmp.i = icmp eq i32 %and.i.i, 2
-  %tobool.not.inv.i = icmp slt i32 %5, 0
-  %narrow.i = select i1 %tobool.not.inv.i, i1 %cmp.i, i1 false
-  br i1 %narrow.i, label %if.then7, label %for.inc
+  %cmp.i = icmp ne i32 %and.i.i, 2
+  %tobool.not.inv.i = icmp sgt i32 %5, -1
+  %narrow.i.not = select i1 %tobool.not.inv.i, i1 true, i1 %cmp.i
+  br i1 %narrow.i.not, label %for.inc, label %if.then7
 
 if.then7:                                         ; preds = %land.lhs.true
   %conv = sext i32 %5 to i64
@@ -963,8 +963,8 @@ if.then3:                                         ; preds = %for.body
   br i1 %cmp.i.not5.i.i, label %symbol_FreeSignature.exit, label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %if.then3, %while.body.i.i
-  %Current.06.i.i = phi ptr [ %L.addr.0.val.i.i, %while.body.i.i ], [ %10, %if.then3 ]
-  %L.addr.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
+  %Current.06.i.i = phi ptr [ %Current.0.val.i.i, %while.body.i.i ], [ %10, %if.then3 ]
+  %Current.0.val.i.i = load ptr, ptr %Current.06.i.i, align 8
   %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %11, i64 0, i32 4
   %12 = load i32, ptr %total_size.i.i.i.i, align 8
@@ -976,7 +976,7 @@ while.body.i.i:                                   ; preds = %if.then3, %while.bo
   store ptr %14, ptr %Current.06.i.i, align 8
   %15 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i.i, ptr %15, align 8
-  %cmp.i.not.i.i = icmp eq ptr %L.addr.0.val.i.i, null
+  %cmp.i.not.i.i = icmp eq ptr %Current.0.val.i.i, null
   br i1 %cmp.i.not.i.i, label %symbol_FreeSignature.exit, label %while.body.i.i, !llvm.loop !10
 
 symbol_FreeSignature.exit:                        ; preds = %while.body.i.i, %if.then3
@@ -1006,43 +1006,43 @@ for.end:                                          ; preds = %for.inc, %for.cond.
   %rem2.i.i.i = urem i32 32000, %23
   %tobool3.not.i.i.i = icmp eq i32 %rem2.i.i.i, 0
   %sub6.i.i.i = add i32 %23, 32000
-  %add7.i.i.i = sub i32 %sub6.i.i.i, %rem2.i.i.i
-  %RealSize.1.i.i.i = select i1 %tobool3.not.i.i.i, i32 32000, i32 %add7.i.i.i
-  %24 = load i32, ptr @memory_OFFSET, align 4
-  %idx.ext.i = zext i32 %24 to i64
+  %24 = sub i32 %sub6.i.i.i, %rem2.i.i.i
+  %RealSize.1.i.i.i = select i1 %tobool3.not.i.i.i, i32 32000, i32 %24
+  %25 = load i32, ptr @memory_OFFSET, align 4
+  %idx.ext.i = zext i32 %25 to i64
   %idx.neg.i = sub nsw i64 0, %idx.ext.i
   %add.ptr.i = getelementptr inbounds i8, ptr %22, i64 %idx.neg.i
   %add.ptr1.i = getelementptr inbounds i8, ptr %add.ptr.i, i64 -16
-  %25 = load ptr, ptr %add.ptr1.i, align 8
-  %cmp2.not.i = icmp eq ptr %25, null
+  %26 = load ptr, ptr %add.ptr1.i, align 8
+  %cmp2.not.i = icmp eq ptr %26, null
   %next6.i = getelementptr inbounds i8, ptr %add.ptr.i, i64 -8
-  %26 = load ptr, ptr %next6.i, align 8
-  %next5.i = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %25, i64 0, i32 1
-  %memory_BIGBLOCKS.sink.i = select i1 %cmp2.not.i, ptr @memory_BIGBLOCKS, ptr %next5.i
-  store ptr %26, ptr %memory_BIGBLOCKS.sink.i, align 8
   %27 = load ptr, ptr %next6.i, align 8
-  %cmp8.not.i = icmp eq ptr %27, null
+  %next5.i = getelementptr inbounds %struct.MEMORY_BIGBLOCKHEADERHELP, ptr %26, i64 0, i32 1
+  %memory_BIGBLOCKS.sink.i = select i1 %cmp2.not.i, ptr @memory_BIGBLOCKS, ptr %next5.i
+  store ptr %27, ptr %memory_BIGBLOCKS.sink.i, align 8
+  %28 = load ptr, ptr %next6.i, align 8
+  %cmp8.not.i = icmp eq ptr %28, null
   br i1 %cmp8.not.i, label %if.end13.i, label %if.then9.i
 
 if.then9.i:                                       ; preds = %for.end
-  %28 = load ptr, ptr %add.ptr1.i, align 8
-  store ptr %28, ptr %27, align 8
+  %29 = load ptr, ptr %add.ptr1.i, align 8
+  store ptr %29, ptr %28, align 8
   br label %if.end13.i
 
 if.end13.i:                                       ; preds = %if.then9.i, %for.end
-  %29 = load i32, ptr @memory_MARKSIZE, align 4
-  %add.i = add i32 %29, %RealSize.1.i.i.i
+  %30 = load i32, ptr @memory_MARKSIZE, align 4
+  %add.i = add i32 %30, %RealSize.1.i.i.i
   %conv.i = zext i32 %add.i to i64
   %add14.i = add nuw nsw i64 %conv.i, 16
-  %30 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add15.i = add i64 %add14.i, %30
+  %31 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add15.i = add i64 %add14.i, %31
   store i64 %add15.i, ptr @memory_FREEDBYTES, align 8
-  %31 = load i64, ptr @memory_MAXMEM, align 8
-  %cmp16.i = icmp sgt i64 %31, -1
+  %32 = load i64, ptr @memory_MAXMEM, align 8
+  %cmp16.i = icmp sgt i64 %32, -1
   br i1 %cmp16.i, label %if.then18.i, label %memory_Free.exit
 
 if.then18.i:                                      ; preds = %if.end13.i
-  %add22.i = add nuw i64 %31, %add14.i
+  %add22.i = add nuw i64 %32, %add14.i
   store i64 %add22.i, ptr @memory_MAXMEM, align 8
   br label %memory_Free.exit
 
@@ -1052,37 +1052,37 @@ memory_Free.exit:                                 ; preds = %if.end13.i, %if.the
   br label %if.end4
 
 if.end4:                                          ; preds = %memory_Free.exit, %entry
-  %32 = load ptr, ptr @symbol_VARSTRING, align 8
-  %33 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 64), align 8
-  %total_size.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %33, i64 0, i32 4
-  %34 = load i32, ptr %total_size.i, align 8
-  %conv26.i = sext i32 %34 to i64
-  %35 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i = add i64 %35, %conv26.i
+  %33 = load ptr, ptr @symbol_VARSTRING, align 8
+  %34 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 64), align 8
+  %total_size.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %34, i64 0, i32 4
+  %35 = load i32, ptr %total_size.i, align 8
+  %conv26.i = sext i32 %35 to i64
+  %36 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i = add i64 %36, %conv26.i
   store i64 %add27.i, ptr @memory_FREEDBYTES, align 8
-  %36 = load ptr, ptr %33, align 8
-  store ptr %36, ptr %32, align 8
-  %37 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 64), align 8
-  store ptr %32, ptr %37, align 8
-  %38 = load ptr, ptr @symbol_FREEDSYMBOLS, align 8
-  %cmp.i.not5.i = icmp eq ptr %38, null
+  %37 = load ptr, ptr %34, align 8
+  store ptr %37, ptr %33, align 8
+  %38 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 64), align 8
+  store ptr %33, ptr %38, align 8
+  %39 = load ptr, ptr @symbol_FREEDSYMBOLS, align 8
+  %cmp.i.not5.i = icmp eq ptr %39, null
   br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %if.end4, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %38, %if.end4 ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
-  %39 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %39, i64 0, i32 4
-  %40 = load i32, ptr %total_size.i.i.i, align 8
-  %conv26.i.i.i = sext i32 %40 to i64
-  %41 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i = add i64 %41, %conv26.i.i.i
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %39, %if.end4 ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %40 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %40, i64 0, i32 4
+  %41 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %41 to i64
+  %42 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %42, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %42 = load ptr, ptr %39, align 8
-  store ptr %42, ptr %Current.06.i, align 8
-  %43 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Current.06.i, ptr %43, align 8
-  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  %43 = load ptr, ptr %40, align 8
+  store ptr %43, ptr %Current.06.i, align 8
+  %44 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Current.06.i, ptr %44, align 8
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !10
 
 list_Delete.exit:                                 ; preds = %while.body.i, %if.end4
@@ -1257,16 +1257,16 @@ declare i32 @string_StringIsNumber(ptr noundef) local_unnamed_addr #5
 define dso_local void @symbol_LowerSignature() local_unnamed_addr #3 {
 entry:
   %0 = load i32, ptr @symbol_ACTINDEX, align 4
-  %cmp42 = icmp sgt i32 %0, 1
-  br i1 %cmp42, label %for.body.preheader, label %for.end
+  %cmp43 = icmp sgt i32 %0, 1
+  br i1 %cmp43, label %for.body.preheader, label %for.end
 
 for.body.preheader:                               ; preds = %entry
-  %.pre45 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %.pre46 = load ptr, ptr @symbol_SIGNATURE, align 8
   br label %for.body
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
   %1 = phi i32 [ %0, %for.body.preheader ], [ %13, %for.inc ]
-  %2 = phi ptr [ %.pre45, %for.body.preheader ], [ %14, %for.inc ]
+  %2 = phi ptr [ %.pre46, %for.body.preheader ], [ %14, %for.inc ]
   %indvars.iv = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
   %arrayidx.i = getelementptr inbounds ptr, ptr %2, i64 %indvars.iv
   %3 = load ptr, ptr %arrayidx.i, align 8
@@ -1278,16 +1278,16 @@ if.then:                                          ; preds = %for.body
   %4 = load i32, ptr %info, align 8
   %sub.i.i = sub nsw i32 0, %4
   %and.i.i = and i32 %sub.i.i, 3
-  %cmp.i = icmp eq i32 %and.i.i, 2
-  %tobool.not.inv.i = icmp slt i32 %4, 0
-  %narrow.i = select i1 %tobool.not.inv.i, i1 %cmp.i, i1 false
-  br i1 %narrow.i, label %if.then5, label %lor.lhs.false
+  %cmp.i = icmp ne i32 %and.i.i, 2
+  %tobool.not.inv.i = icmp sgt i32 %4, -1
+  %narrow.i.not = select i1 %tobool.not.inv.i, i1 true, i1 %cmp.i
+  br i1 %narrow.i.not, label %lor.lhs.false, label %if.then5
 
 lor.lhs.false:                                    ; preds = %if.then
   %tobool.not.i = icmp slt i32 %4, 0
   %switch = icmp ult i32 %and.i.i, 2
-  %or.cond47 = select i1 %tobool.not.i, i1 %switch, i1 false
-  br i1 %or.cond47, label %if.then5, label %for.inc
+  %or.cond42 = select i1 %tobool.not.i, i1 %switch, i1 false
+  br i1 %or.cond42, label %if.then5, label %for.inc
 
 if.then5:                                         ; preds = %lor.lhs.false, %if.then
   %5 = load ptr, ptr %3, align 8
@@ -1316,11 +1316,11 @@ if.then12:                                        ; preds = %if.then5
   %12 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 64), align 8
   store ptr %5, ptr %12, align 8
   %.pre = load ptr, ptr @symbol_SIGNATURE, align 8
-  %.pre46 = load i32, ptr @symbol_ACTINDEX, align 4
+  %.pre47 = load i32, ptr @symbol_ACTINDEX, align 4
   br label %for.inc
 
 for.inc:                                          ; preds = %lor.lhs.false, %for.body, %if.then5, %if.then12
-  %13 = phi i32 [ %1, %lor.lhs.false ], [ %1, %for.body ], [ %1, %if.then5 ], [ %.pre46, %if.then12 ]
+  %13 = phi i32 [ %1, %lor.lhs.false ], [ %1, %for.body ], [ %1, %if.then5 ], [ %.pre47, %if.then12 ]
   %14 = phi ptr [ %2, %lor.lhs.false ], [ %2, %for.body ], [ %2, %if.then5 ], [ %.pre, %if.then12 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %15 = sext i32 %13 to i64
@@ -1429,8 +1429,8 @@ for.body6:                                        ; preds = %for.body6.lr.ph, %f
   %idxprom.i5.i = sext i32 %shr.i.i4.i to i64
   %arrayidx.i6.i = getelementptr inbounds i32, ptr %Precedence, i64 %idxprom.i5.i
   %7 = load i32, ptr %arrayidx.i6.i, align 4
-  %cmp.i34 = icmp slt i32 %6, %7
-  br i1 %cmp.i34, label %if.then, label %for.inc
+  %cmp.i34.not = icmp slt i32 %6, %7
+  br i1 %cmp.i34.not, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body6
   store ptr %Scan2.0.val28, ptr %0, align 8
@@ -1521,8 +1521,8 @@ while.body.i.preheader:                           ; preds = %for.end.thread, %wh
   br label %while.body.i
 
 while.body.i:                                     ; preds = %while.body.i.preheader, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %Current.06.i.ph, %while.body.i.preheader ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %Current.06.i.ph, %while.body.i.preheader ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %11 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %11, i64 0, i32 4
   %12 = load i32, ptr %total_size.i.i.i, align 8
@@ -1534,7 +1534,7 @@ while.body.i:                                     ; preds = %while.body.i.prehea
   store ptr %14, ptr %Current.06.i, align 8
   %15 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %15, align 8
-  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !10
 
 list_Delete.exit:                                 ; preds = %while.body.i, %for.end.thread, %while.end
@@ -1574,10 +1574,10 @@ land.lhs.true:                                    ; preds = %for.body
   %5 = load i32, ptr %info, align 8
   %sub.i.i = sub nsw i32 0, %5
   %and.i.i = and i32 %sub.i.i, 3
-  %cmp.i = icmp eq i32 %and.i.i, 2
-  %tobool.not.inv.i = icmp slt i32 %5, 0
-  %narrow.i = select i1 %tobool.not.inv.i, i1 %cmp.i, i1 false
-  br i1 %narrow.i, label %if.then9, label %lor.lhs.false
+  %cmp.i = icmp ne i32 %and.i.i, 2
+  %tobool.not.inv.i = icmp sgt i32 %5, -1
+  %narrow.i.not = select i1 %tobool.not.inv.i, i1 true, i1 %cmp.i
+  br i1 %narrow.i.not, label %lor.lhs.false, label %if.then9
 
 lor.lhs.false:                                    ; preds = %land.lhs.true
   %tobool.not.i = icmp slt i32 %5, 0
@@ -1638,8 +1638,8 @@ for.body6.i:                                      ; preds = %for.inc.i, %for.bod
   %idxprom.i5.i.i = sext i32 %shr.i.i4.i.i to i64
   %arrayidx.i6.i.i = getelementptr inbounds i32, ptr %Precedence, i64 %idxprom.i5.i.i
   %17 = load i32, ptr %arrayidx.i6.i.i, align 4
-  %cmp.i34.i = icmp slt i32 %16, %17
-  br i1 %cmp.i34.i, label %if.then.i, label %for.inc.i
+  %cmp.i34.not.i = icmp slt i32 %16, %17
+  br i1 %cmp.i34.not.i, label %if.then.i, label %for.inc.i
 
 if.then.i:                                        ; preds = %for.body6.i
   store ptr %Scan2.0.val28.i, ptr %10, align 8
@@ -1675,8 +1675,8 @@ for.body16:                                       ; preds = %symbol_SortByPreced
   %24 = load ptr, ptr @stdout, align 8
   %call20 = tail call i32 @fputs(ptr noundef %23, ptr noundef %24)
   %Scan.0.val44 = load ptr, ptr %Scan.064, align 8
-  %cmp.i52 = icmp eq ptr %Scan.0.val44, null
-  br i1 %cmp.i52, label %for.inc27.thread, label %for.inc27
+  %cmp.i52.not = icmp eq ptr %Scan.0.val44, null
+  br i1 %cmp.i52.not, label %for.inc27.thread, label %for.inc27
 
 for.inc27.thread:                                 ; preds = %for.body16
   br i1 %cmp.i.not40.i, label %if.end30, label %while.body.i.preheader
@@ -1695,8 +1695,8 @@ while.body.i.preheader:                           ; preds = %for.inc27.thread, %
   br label %while.body.i
 
 while.body.i:                                     ; preds = %while.body.i.preheader, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %Symbols.1, %while.body.i.preheader ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %Symbols.1, %while.body.i.preheader ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %27 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %27, i64 0, i32 4
   %28 = load i32, ptr %total_size.i.i.i, align 8
@@ -1708,7 +1708,7 @@ while.body.i:                                     ; preds = %while.body.i.prehea
   store ptr %30, ptr %Current.06.i, align 8
   %31 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %31, align 8
-  %cmp.i.not.i54 = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i54 = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i54, label %if.end30, label %while.body.i, !llvm.loop !10
 
 if.end30:                                         ; preds = %while.body.i, %for.cond.preheader, %for.end, %symbol_SortByPrecedence.exit, %for.inc27.thread, %for.end29, %entry
@@ -1746,10 +1746,10 @@ land.lhs.true:                                    ; preds = %for.body
   %5 = load i32, ptr %info, align 8
   %sub.i.i = sub nsw i32 0, %5
   %and.i.i = and i32 %sub.i.i, 3
-  %cmp.i = icmp eq i32 %and.i.i, 2
-  %tobool.not.inv.i = icmp slt i32 %5, 0
-  %narrow.i = select i1 %tobool.not.inv.i, i1 %cmp.i, i1 false
-  br i1 %narrow.i, label %if.then9, label %lor.lhs.false
+  %cmp.i = icmp ne i32 %and.i.i, 2
+  %tobool.not.inv.i = icmp sgt i32 %5, -1
+  %narrow.i.not = select i1 %tobool.not.inv.i, i1 true, i1 %cmp.i
+  br i1 %narrow.i.not, label %lor.lhs.false, label %if.then9
 
 lor.lhs.false:                                    ; preds = %land.lhs.true
   %tobool.not.i = icmp slt i32 %5, 0
@@ -1810,8 +1810,8 @@ for.body6.i:                                      ; preds = %for.inc.i, %for.bod
   %idxprom.i5.i.i = sext i32 %shr.i.i4.i.i to i64
   %arrayidx.i6.i.i = getelementptr inbounds i32, ptr %Precedence, i64 %idxprom.i5.i.i
   %17 = load i32, ptr %arrayidx.i6.i.i, align 4
-  %cmp.i34.i = icmp slt i32 %16, %17
-  br i1 %cmp.i34.i, label %if.then.i, label %for.inc.i
+  %cmp.i34.not.i = icmp slt i32 %16, %17
+  br i1 %cmp.i34.not.i, label %if.then.i, label %for.inc.i
 
 if.then.i:                                        ; preds = %for.body6.i
   store ptr %Scan2.0.val28.i, ptr %10, align 8
@@ -1852,8 +1852,8 @@ for.body17:                                       ; preds = %symbol_SortByPreced
   %25 = load ptr, ptr %24, align 8
   %call21 = tail call i32 @fputs(ptr noundef %25, ptr noundef %File)
   %Scan.0.val58 = load ptr, ptr %Scan.078, align 8
-  %cmp.i66 = icmp eq ptr %Scan.0.val58, null
-  br i1 %cmp.i66, label %if.end27, label %if.then25
+  %cmp.i66.not = icmp eq ptr %Scan.0.val58, null
+  br i1 %cmp.i66.not, label %if.end27, label %if.then25
 
 if.then25:                                        ; preds = %for.body17
   %call26 = tail call i32 @putc(i32 noundef 44, ptr noundef %File)
@@ -1886,8 +1886,8 @@ for.end36:                                        ; preds = %for.inc34
   br i1 %cmp.i.not40.i, label %if.end38, label %while.body.i
 
 while.body.i:                                     ; preds = %for.end36, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %Symbols.1, %for.end36 ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %Symbols.1, %for.end36 ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %29 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %29, i64 0, i32 4
   %30 = load i32, ptr %total_size.i.i.i, align 8
@@ -1899,7 +1899,7 @@ while.body.i:                                     ; preds = %for.end36, %while.b
   store ptr %32, ptr %Current.06.i, align 8
   %33 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %33, align 8
-  %cmp.i.not.i68 = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i68 = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i68, label %if.end38, label %while.body.i, !llvm.loop !10
 
 if.end38:                                         ; preds = %while.body.i, %for.end36.thread, %for.end36, %entry
@@ -1942,70 +1942,71 @@ entry:
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @symbol_FPrint(ptr nocapture noundef %File, i32 noundef %Symbol) local_unnamed_addr #10 {
 entry:
-  %cmp.i = icmp eq i32 %Symbol, 0
-  br i1 %cmp.i, label %if.then, label %if.else
+  %cmp.i.not = icmp eq i32 %Symbol, 0
+  br i1 %cmp.i.not, label %if.then, label %if.else
 
 if.then:                                          ; preds = %entry
   %0 = tail call i64 @fwrite(ptr nonnull @.str.7, i64 4, i64 1, ptr %File)
   br label %if.end33
 
 if.else:                                          ; preds = %entry
-  %cmp.i46 = icmp sgt i32 %Symbol, 0
-  br i1 %cmp.i46, label %if.then5, label %if.else23
+  %cmp.i46 = icmp slt i32 %Symbol, 1
+  br i1 %cmp.i46, label %if.else23, label %if.then5
 
 if.then5:                                         ; preds = %if.else
   %cmp.i48 = icmp ult i32 %Symbol, 2001
   %sub.i = add nsw i32 %Symbol, -2000
   %cond.i = select i1 %cmp.i48, i32 %Symbol, i32 %sub.i
-  br i1 %cmp.i48, label %if.then9, label %if.else15
+  %1 = icmp ugt i32 %Symbol, 2000
+  br i1 %1, label %if.else15, label %if.then9
 
 if.then9:                                         ; preds = %if.then5
   %cmp = icmp ult i32 %Symbol, 7
-  %1 = load ptr, ptr @symbol_VARSTRING, align 8
+  %2 = load ptr, ptr @symbol_VARSTRING, align 8
   br i1 %cmp, label %if.then10, label %if.else12
 
 if.then10:                                        ; preds = %if.then9
-  %2 = trunc i32 %cond.i to i8
-  %char = add i8 %2, 84
-  store i8 %char, ptr %1, align 1
-  %nul = getelementptr inbounds i8, ptr %1, i64 1
+  %3 = trunc i32 %cond.i to i8
+  %char = add i8 %3, 84
+  store i8 %char, ptr %2, align 1
+  %nul = getelementptr inbounds i8, ptr %2, i64 1
   store i8 0, ptr %nul, align 1
   br label %if.end21
 
 if.else12:                                        ; preds = %if.then9
   %sub13 = add nsw i32 %cond.i, -6
-  %call14 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %sub13) #20
+  %call14 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %2, ptr noundef nonnull dereferenceable(1) @.str.9, i32 noundef %sub13) #20
   br label %if.end21
 
 if.else15:                                        ; preds = %if.then5
-  %3 = add nsw i32 %Symbol, -2001
-  %4 = icmp ult i32 %3, 1000
-  br i1 %4, label %if.then18, label %if.end21
+  %4 = add nsw i32 %Symbol, -3001
+  %5 = icmp ult i32 %4, -1000
+  br i1 %5, label %if.end21, label %if.then18
 
 if.then18:                                        ; preds = %if.else15
-  %5 = load ptr, ptr @symbol_VARSTRING, align 8
-  %call19 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %cond.i) #20
+  %6 = load ptr, ptr @symbol_VARSTRING, align 8
+  %call19 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %6, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %cond.i) #20
   br label %if.end21
 
 if.end21:                                         ; preds = %if.else15, %if.then18, %if.then10, %if.else12
-  %6 = load ptr, ptr @symbol_VARSTRING, align 8
-  %call22 = tail call i32 @fputs(ptr noundef %6, ptr noundef %File)
+  %7 = load ptr, ptr @symbol_VARSTRING, align 8
+  %call22 = tail call i32 @fputs(ptr noundef %7, ptr noundef %File)
   br label %if.end33
 
 if.else23:                                        ; preds = %if.else
-  %7 = load i32, ptr @symbol_HASSIGNATURE, align 4
-  %tobool25.not = icmp eq i32 %7, 0
+  %8 = load i32, ptr @symbol_HASSIGNATURE, align 4
+  %tobool25.not = icmp eq i32 %8, 0
   br i1 %tobool25.not, label %if.else29, label %if.then26
 
 if.then26:                                        ; preds = %if.else23
   %sub.i.i = sub nsw i32 0, %Symbol
   %shr.i.i = lshr i32 %sub.i.i, 3
-  %8 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %9 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i = zext i32 %shr.i.i to i64
-  %arrayidx.i.i = getelementptr inbounds ptr, ptr %8, i64 %idxprom.i.i
-  %9 = load ptr, ptr %arrayidx.i.i, align 8
-  %10 = load ptr, ptr %9, align 8
-  %call28 = tail call i32 @fputs(ptr noundef %10, ptr noundef %File)
+  %arrayidx.i.i = getelementptr inbounds ptr, ptr %9, i64 %idxprom.i.i
+  %10 = load ptr, ptr %arrayidx.i.i, align 8
+  %11 = load ptr, ptr %10, align 8
+  %call28 = tail call i32 @fputs(ptr noundef %11, ptr noundef %File)
   br label %if.end33
 
 if.else29:                                        ; preds = %if.else23
@@ -2022,51 +2023,52 @@ declare noundef i32 @fprintf(ptr nocapture noundef, ptr nocapture noundef readon
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @symbol_FPrintOtter(ptr nocapture noundef %File, i32 noundef %Symbol) local_unnamed_addr #10 {
 entry:
-  %cmp.i = icmp sgt i32 %Symbol, 0
-  br i1 %cmp.i, label %if.then, label %if.else16
+  %cmp.i = icmp slt i32 %Symbol, 1
+  br i1 %cmp.i, label %if.else16, label %if.then
 
 if.then:                                          ; preds = %entry
   %cmp.i66 = icmp ult i32 %Symbol, 2001
   %sub.i = add nsw i32 %Symbol, -2000
   %cond.i = select i1 %cmp.i66, i32 %Symbol, i32 %sub.i
-  br i1 %cmp.i66, label %if.then4, label %if.else8
+  %0 = icmp ugt i32 %Symbol, 2000
+  br i1 %0, label %if.else8, label %if.then4
 
 if.then4:                                         ; preds = %if.then
   %cmp = icmp ult i32 %Symbol, 7
-  %0 = load ptr, ptr @symbol_VARSTRING, align 8
+  %1 = load ptr, ptr @symbol_VARSTRING, align 8
   br i1 %cmp, label %if.then5, label %if.else
 
 if.then5:                                         ; preds = %if.then4
-  %1 = trunc i32 %cond.i to i8
-  %char = add i8 %1, 116
-  store i8 %char, ptr %0, align 1
-  %nul = getelementptr inbounds i8, ptr %0, i64 1
+  %2 = trunc i32 %cond.i to i8
+  %char = add i8 %2, 116
+  store i8 %char, ptr %1, align 1
+  %nul = getelementptr inbounds i8, ptr %1, i64 1
   store i8 0, ptr %nul, align 1
   br label %if.end14
 
 if.else:                                          ; preds = %if.then4
   %sub = add nsw i32 %cond.i, -6
-  %call7 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %0, ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %sub) #20
+  %call7 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(1) @.str.12, i32 noundef %sub) #20
   br label %if.end14
 
 if.else8:                                         ; preds = %if.then
-  %2 = add nsw i32 %Symbol, -2001
-  %3 = icmp ult i32 %2, 1000
-  br i1 %3, label %if.then11, label %if.end14
+  %3 = add nsw i32 %Symbol, -3001
+  %4 = icmp ult i32 %3, -1000
+  br i1 %4, label %if.end14, label %if.then11
 
 if.then11:                                        ; preds = %if.else8
-  %4 = load ptr, ptr @symbol_VARSTRING, align 8
-  %call12 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %4, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %cond.i) #20
+  %5 = load ptr, ptr @symbol_VARSTRING, align 8
+  %call12 = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %5, ptr noundef nonnull dereferenceable(1) @.str.10, i32 noundef %cond.i) #20
   br label %if.end14
 
 if.end14:                                         ; preds = %if.else8, %if.then11, %if.then5, %if.else
-  %5 = load ptr, ptr @symbol_VARSTRING, align 8
-  %call15 = tail call i32 @fputs(ptr noundef %5, ptr noundef %File)
+  %6 = load ptr, ptr @symbol_VARSTRING, align 8
+  %call15 = tail call i32 @fputs(ptr noundef %6, ptr noundef %File)
   br label %if.end46
 
 if.else16:                                        ; preds = %entry
-  %6 = load i32, ptr @symbol_HASSIGNATURE, align 4
-  %tobool18.not = icmp eq i32 %6, 0
+  %7 = load i32, ptr @symbol_HASSIGNATURE, align 4
+  %tobool18.not = icmp eq i32 %7, 0
   br i1 %tobool18.not, label %if.else43, label %if.then19
 
 if.then19:                                        ; preds = %if.else16
@@ -2079,12 +2081,12 @@ if.then19:                                        ; preds = %if.else16
 
 if.then22:                                        ; preds = %if.then19
   %shr.i.i = lshr i32 %sub.i.i, 3
-  %7 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %8 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i = zext i32 %shr.i.i to i64
-  %arrayidx.i.i = getelementptr inbounds ptr, ptr %7, i64 %idxprom.i.i
-  %8 = load ptr, ptr %arrayidx.i.i, align 8
-  %9 = load ptr, ptr %8, align 8
-  %call24 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %File, ptr noundef nonnull @.str.13, ptr noundef %9)
+  %arrayidx.i.i = getelementptr inbounds ptr, ptr %8, i64 %idxprom.i.i
+  %9 = load ptr, ptr %arrayidx.i.i, align 8
+  %10 = load ptr, ptr %9, align 8
+  %call24 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %File, ptr noundef nonnull @.str.13, ptr noundef %10)
   br label %if.end46
 
 if.else25:                                        ; preds = %if.then19
@@ -2092,42 +2094,43 @@ if.else25:                                        ; preds = %if.then19
   br i1 %tobool.not.i, label %if.else37, label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %if.else25
-  %spec.select = icmp ugt i32 %and.i.i, 1
-  br i1 %spec.select, label %if.else31, label %if.then28
+  %cmp.i73 = icmp ne i32 %and.i.i, 1
+  %or.cond = xor i1 %cmp.i68, %cmp.i73
+  br i1 %or.cond, label %if.else31, label %if.then28
 
 if.then28:                                        ; preds = %land.rhs.i
   %shr.i.i76 = lshr i32 %sub.i.i, 3
-  %10 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %11 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i77 = zext i32 %shr.i.i76 to i64
-  %arrayidx.i.i78 = getelementptr inbounds ptr, ptr %10, i64 %idxprom.i.i77
-  %11 = load ptr, ptr %arrayidx.i.i78, align 8
-  %12 = load ptr, ptr %11, align 8
-  %call30 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %File, ptr noundef nonnull @.str.14, ptr noundef %12)
+  %arrayidx.i.i78 = getelementptr inbounds ptr, ptr %11, i64 %idxprom.i.i77
+  %12 = load ptr, ptr %arrayidx.i.i78, align 8
+  %13 = load ptr, ptr %12, align 8
+  %call30 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %File, ptr noundef nonnull @.str.14, ptr noundef %13)
   br label %if.end46
 
 if.else31:                                        ; preds = %land.rhs.i
   %cmp.i81 = icmp eq i32 %and.i.i, 2
-  %narrow.i83 = select i1 %tobool.not.inv.i, i1 %cmp.i81, i1 false
-  br i1 %narrow.i83, label %if.then34, label %if.else37
+  %narrow.i83.not = select i1 %tobool.not.inv.i, i1 %cmp.i81, i1 false
+  br i1 %narrow.i83.not, label %if.then34, label %if.else37
 
 if.then34:                                        ; preds = %if.else31
   %shr.i.i86 = lshr i32 %sub.i.i, 3
-  %13 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %14 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i87 = zext i32 %shr.i.i86 to i64
-  %arrayidx.i.i88 = getelementptr inbounds ptr, ptr %13, i64 %idxprom.i.i87
-  %14 = load ptr, ptr %arrayidx.i.i88, align 8
-  %15 = load ptr, ptr %14, align 8
-  %call36 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %File, ptr noundef nonnull @.str.15, ptr noundef %15)
+  %arrayidx.i.i88 = getelementptr inbounds ptr, ptr %14, i64 %idxprom.i.i87
+  %15 = load ptr, ptr %arrayidx.i.i88, align 8
+  %16 = load ptr, ptr %15, align 8
+  %call36 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %File, ptr noundef nonnull @.str.15, ptr noundef %16)
   br label %if.end46
 
 if.else37:                                        ; preds = %if.else25, %if.else31
   %shr.i.i90 = lshr i32 %sub.i.i, 3
-  %16 = load ptr, ptr @symbol_SIGNATURE, align 8
+  %17 = load ptr, ptr @symbol_SIGNATURE, align 8
   %idxprom.i.i91 = zext i32 %shr.i.i90 to i64
-  %arrayidx.i.i92 = getelementptr inbounds ptr, ptr %16, i64 %idxprom.i.i91
-  %17 = load ptr, ptr %arrayidx.i.i92, align 8
-  %18 = load ptr, ptr %17, align 8
-  %call39 = tail call i32 @fputs(ptr noundef %18, ptr noundef %File)
+  %arrayidx.i.i92 = getelementptr inbounds ptr, ptr %17, i64 %idxprom.i.i91
+  %18 = load ptr, ptr %arrayidx.i.i92, align 8
+  %19 = load ptr, ptr %18, align 8
+  %call39 = tail call i32 @fputs(ptr noundef %19, ptr noundef %File)
   br label %if.end46
 
 if.else43:                                        ; preds = %if.else16
@@ -2165,533 +2168,533 @@ if.then:                                          ; preds = %entry
   %5 = load ptr, ptr @stdout, align 8
   %call.i = tail call i32 @putc(i32 noundef 43, ptr noundef %5)
   %6 = load ptr, ptr @stdout, align 8
-  %call.i.i152 = tail call i32 @putc(i32 noundef 45, ptr noundef %6)
+  %call.i.i153 = tail call i32 @putc(i32 noundef 45, ptr noundef %6)
   %7 = load ptr, ptr @stdout, align 8
-  %call.i.i152.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %7)
+  %call.i.i153.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %7)
   %8 = load ptr, ptr @stdout, align 8
-  %call.i.i152.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %8)
+  %call.i.i153.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %8)
   %9 = load ptr, ptr @stdout, align 8
-  %call.i.i152.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %9)
+  %call.i.i153.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %9)
   %10 = load ptr, ptr @stdout, align 8
-  %call.i.i152.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %10)
+  %call.i.i153.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %10)
   %11 = load ptr, ptr @stdout, align 8
-  %call.i.i152.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %11)
+  %call.i.i153.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %11)
   %12 = load ptr, ptr @stdout, align 8
-  %call.i157 = tail call i32 @putc(i32 noundef 43, ptr noundef %12)
+  %call.i158 = tail call i32 @putc(i32 noundef 43, ptr noundef %12)
   %13 = load ptr, ptr @stdout, align 8
-  %call.i.i159 = tail call i32 @putc(i32 noundef 45, ptr noundef %13)
+  %call.i.i160 = tail call i32 @putc(i32 noundef 45, ptr noundef %13)
   %14 = load ptr, ptr @stdout, align 8
-  %call.i.i159.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %14)
+  %call.i.i160.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %14)
   %15 = load ptr, ptr @stdout, align 8
-  %call.i.i159.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %15)
+  %call.i.i160.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %15)
   %16 = load ptr, ptr @stdout, align 8
-  %call.i.i159.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %16)
+  %call.i.i160.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %16)
   %17 = load ptr, ptr @stdout, align 8
-  %call.i.i159.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %17)
+  %call.i.i160.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %17)
   %18 = load ptr, ptr @stdout, align 8
-  %call.i.i159.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %18)
+  %call.i.i160.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %18)
   %19 = load ptr, ptr @stdout, align 8
-  %call.i.i159.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %19)
+  %call.i.i160.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %19)
   %20 = load ptr, ptr @stdout, align 8
-  %call.i164 = tail call i32 @putc(i32 noundef 43, ptr noundef %20)
+  %call.i165 = tail call i32 @putc(i32 noundef 43, ptr noundef %20)
   %21 = load ptr, ptr @stdout, align 8
-  %call.i.i166 = tail call i32 @putc(i32 noundef 45, ptr noundef %21)
+  %call.i.i167 = tail call i32 @putc(i32 noundef 45, ptr noundef %21)
   %22 = load ptr, ptr @stdout, align 8
-  %call.i.i166.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %22)
+  %call.i.i167.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %22)
   %23 = load ptr, ptr @stdout, align 8
-  %call.i.i166.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %23)
+  %call.i.i167.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %23)
   %24 = load ptr, ptr @stdout, align 8
-  %call.i.i166.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %24)
+  %call.i.i167.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %24)
   %25 = load ptr, ptr @stdout, align 8
-  %call.i.i166.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %25)
+  %call.i.i167.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %25)
   %26 = load ptr, ptr @stdout, align 8
-  %call.i.i166.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %26)
+  %call.i.i167.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %26)
   %27 = load ptr, ptr @stdout, align 8
-  %call.i171 = tail call i32 @putc(i32 noundef 43, ptr noundef %27)
+  %call.i172 = tail call i32 @putc(i32 noundef 43, ptr noundef %27)
   %28 = load ptr, ptr @stdout, align 8
-  %call.i.i173 = tail call i32 @putc(i32 noundef 45, ptr noundef %28)
+  %call.i.i174 = tail call i32 @putc(i32 noundef 45, ptr noundef %28)
   %29 = load ptr, ptr @stdout, align 8
-  %call.i.i173.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %29)
+  %call.i.i174.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %29)
   %30 = load ptr, ptr @stdout, align 8
-  %call.i.i173.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %30)
+  %call.i.i174.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %30)
   %31 = load ptr, ptr @stdout, align 8
-  %call.i.i173.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %31)
+  %call.i.i174.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %31)
   %32 = load ptr, ptr @stdout, align 8
-  %call.i.i173.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %32)
+  %call.i.i174.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %32)
   %33 = load ptr, ptr @stdout, align 8
-  %call.i.i173.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %33)
+  %call.i.i174.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %33)
   %34 = load ptr, ptr @stdout, align 8
-  %call.i.i173.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %34)
+  %call.i.i174.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %34)
   %35 = load ptr, ptr @stdout, align 8
-  %call.i.i173.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %35)
+  %call.i.i174.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %35)
   %36 = load ptr, ptr @stdout, align 8
-  %call.i178 = tail call i32 @putc(i32 noundef 43, ptr noundef %36)
+  %call.i179 = tail call i32 @putc(i32 noundef 43, ptr noundef %36)
   %37 = load ptr, ptr @stdout, align 8
-  %call.i.i180 = tail call i32 @putc(i32 noundef 45, ptr noundef %37)
+  %call.i.i181 = tail call i32 @putc(i32 noundef 45, ptr noundef %37)
   %38 = load ptr, ptr @stdout, align 8
-  %call.i.i180.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %38)
+  %call.i.i181.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %38)
   %39 = load ptr, ptr @stdout, align 8
-  %call.i.i180.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %39)
+  %call.i.i181.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %39)
   %40 = load ptr, ptr @stdout, align 8
-  %call.i.i180.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %40)
+  %call.i.i181.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %40)
   %41 = load ptr, ptr @stdout, align 8
-  %call.i.i180.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %41)
+  %call.i.i181.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %41)
   %42 = load ptr, ptr @stdout, align 8
-  %call.i.i180.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %42)
+  %call.i.i181.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %42)
   %43 = load ptr, ptr @stdout, align 8
-  %call.i.i180.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %43)
+  %call.i.i181.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %43)
   %44 = load ptr, ptr @stdout, align 8
-  %call.i.i180.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %44)
+  %call.i.i181.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %44)
   %45 = load ptr, ptr @stdout, align 8
-  %call.i.i180.8 = tail call i32 @putc(i32 noundef 45, ptr noundef %45)
+  %call.i.i181.8 = tail call i32 @putc(i32 noundef 45, ptr noundef %45)
   %46 = load ptr, ptr @stdout, align 8
-  %call.i.i180.9 = tail call i32 @putc(i32 noundef 45, ptr noundef %46)
+  %call.i.i181.9 = tail call i32 @putc(i32 noundef 45, ptr noundef %46)
   %47 = load ptr, ptr @stdout, align 8
-  %call.i.i180.10 = tail call i32 @putc(i32 noundef 45, ptr noundef %47)
+  %call.i.i181.10 = tail call i32 @putc(i32 noundef 45, ptr noundef %47)
   %48 = load ptr, ptr @stdout, align 8
-  %call.i.i180.11 = tail call i32 @putc(i32 noundef 45, ptr noundef %48)
+  %call.i.i181.11 = tail call i32 @putc(i32 noundef 45, ptr noundef %48)
   %49 = load ptr, ptr @stdout, align 8
-  %call.i.i180.12 = tail call i32 @putc(i32 noundef 45, ptr noundef %49)
+  %call.i.i181.12 = tail call i32 @putc(i32 noundef 45, ptr noundef %49)
   %50 = load ptr, ptr @stdout, align 8
-  %call.i.i180.13 = tail call i32 @putc(i32 noundef 45, ptr noundef %50)
+  %call.i.i181.13 = tail call i32 @putc(i32 noundef 45, ptr noundef %50)
   %51 = load ptr, ptr @stdout, align 8
-  %call.i.i180.14 = tail call i32 @putc(i32 noundef 45, ptr noundef %51)
+  %call.i.i181.14 = tail call i32 @putc(i32 noundef 45, ptr noundef %51)
   %52 = load ptr, ptr @stdout, align 8
-  %call.i.i180.15 = tail call i32 @putc(i32 noundef 45, ptr noundef %52)
+  %call.i.i181.15 = tail call i32 @putc(i32 noundef 45, ptr noundef %52)
   %53 = load ptr, ptr @stdout, align 8
-  %call.i.i180.16 = tail call i32 @putc(i32 noundef 45, ptr noundef %53)
+  %call.i.i181.16 = tail call i32 @putc(i32 noundef 45, ptr noundef %53)
   %54 = load ptr, ptr @stdout, align 8
-  %call.i.i180.17 = tail call i32 @putc(i32 noundef 45, ptr noundef %54)
+  %call.i.i181.17 = tail call i32 @putc(i32 noundef 45, ptr noundef %54)
   %55 = load ptr, ptr @stdout, align 8
-  %call.i.i180.18 = tail call i32 @putc(i32 noundef 45, ptr noundef %55)
+  %call.i.i181.18 = tail call i32 @putc(i32 noundef 45, ptr noundef %55)
   %56 = load ptr, ptr @stdout, align 8
-  %call.i.i180.19 = tail call i32 @putc(i32 noundef 45, ptr noundef %56)
+  %call.i.i181.19 = tail call i32 @putc(i32 noundef 45, ptr noundef %56)
   %57 = load ptr, ptr @stdout, align 8
-  %call.i.i180.20 = tail call i32 @putc(i32 noundef 45, ptr noundef %57)
+  %call.i.i181.20 = tail call i32 @putc(i32 noundef 45, ptr noundef %57)
   %58 = load ptr, ptr @stdout, align 8
-  %call.i.i180.21 = tail call i32 @putc(i32 noundef 45, ptr noundef %58)
+  %call.i.i181.21 = tail call i32 @putc(i32 noundef 45, ptr noundef %58)
   %59 = load ptr, ptr @stdout, align 8
-  %call.i.i180.22 = tail call i32 @putc(i32 noundef 45, ptr noundef %59)
+  %call.i.i181.22 = tail call i32 @putc(i32 noundef 45, ptr noundef %59)
   %60 = load ptr, ptr @stdout, align 8
-  %call.i.i180.23 = tail call i32 @putc(i32 noundef 45, ptr noundef %60)
+  %call.i.i181.23 = tail call i32 @putc(i32 noundef 45, ptr noundef %60)
   %61 = load ptr, ptr @stdout, align 8
-  %call.i.i180.24 = tail call i32 @putc(i32 noundef 45, ptr noundef %61)
+  %call.i.i181.24 = tail call i32 @putc(i32 noundef 45, ptr noundef %61)
   %62 = load ptr, ptr @stdout, align 8
-  %call.i.i180.25 = tail call i32 @putc(i32 noundef 45, ptr noundef %62)
+  %call.i.i181.25 = tail call i32 @putc(i32 noundef 45, ptr noundef %62)
   %63 = load ptr, ptr @stdout, align 8
-  %call.i.i180.26 = tail call i32 @putc(i32 noundef 45, ptr noundef %63)
+  %call.i.i181.26 = tail call i32 @putc(i32 noundef 45, ptr noundef %63)
   %64 = load ptr, ptr @stdout, align 8
-  %call.i.i180.27 = tail call i32 @putc(i32 noundef 45, ptr noundef %64)
+  %call.i.i181.27 = tail call i32 @putc(i32 noundef 45, ptr noundef %64)
   %65 = load ptr, ptr @stdout, align 8
-  %call.i.i180.28 = tail call i32 @putc(i32 noundef 45, ptr noundef %65)
+  %call.i.i181.28 = tail call i32 @putc(i32 noundef 45, ptr noundef %65)
   %66 = load ptr, ptr @stdout, align 8
-  %call.i.i180.29 = tail call i32 @putc(i32 noundef 45, ptr noundef %66)
+  %call.i.i181.29 = tail call i32 @putc(i32 noundef 45, ptr noundef %66)
   %67 = load ptr, ptr @stdout, align 8
-  %call.i.i180.30 = tail call i32 @putc(i32 noundef 45, ptr noundef %67)
+  %call.i.i181.30 = tail call i32 @putc(i32 noundef 45, ptr noundef %67)
   %68 = load ptr, ptr @stdout, align 8
-  %call.i.i180.31 = tail call i32 @putc(i32 noundef 45, ptr noundef %68)
+  %call.i.i181.31 = tail call i32 @putc(i32 noundef 45, ptr noundef %68)
   %69 = load ptr, ptr @stdout, align 8
-  %call.i.i180.32 = tail call i32 @putc(i32 noundef 45, ptr noundef %69)
+  %call.i.i181.32 = tail call i32 @putc(i32 noundef 45, ptr noundef %69)
   %70 = load ptr, ptr @stdout, align 8
-  %call.i.i180.33 = tail call i32 @putc(i32 noundef 45, ptr noundef %70)
+  %call.i.i181.33 = tail call i32 @putc(i32 noundef 45, ptr noundef %70)
   %71 = load ptr, ptr @stdout, align 8
-  %call.i.i180.34 = tail call i32 @putc(i32 noundef 45, ptr noundef %71)
+  %call.i.i181.34 = tail call i32 @putc(i32 noundef 45, ptr noundef %71)
   %72 = load ptr, ptr @stdout, align 8
-  %call.i.i180.35 = tail call i32 @putc(i32 noundef 45, ptr noundef %72)
+  %call.i.i181.35 = tail call i32 @putc(i32 noundef 45, ptr noundef %72)
   %73 = load ptr, ptr @stdout, align 8
-  %call.i185 = tail call i32 @putc(i32 noundef 43, ptr noundef %73)
+  %call.i186 = tail call i32 @putc(i32 noundef 43, ptr noundef %73)
   %74 = load ptr, ptr @stdout, align 8
-  %call.i186 = tail call i32 @putc(i32 noundef 10, ptr noundef %74)
+  %call.i187 = tail call i32 @putc(i32 noundef 10, ptr noundef %74)
   %75 = load ptr, ptr @stdout, align 8
-  %call.i.i188 = tail call i32 @putc(i32 noundef 32, ptr noundef %75)
+  %call.i.i189 = tail call i32 @putc(i32 noundef 32, ptr noundef %75)
   %76 = load ptr, ptr @stdout, align 8
-  %call.i.i188.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %76)
+  %call.i.i189.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %76)
   %77 = load ptr, ptr @stdout, align 8
-  %call.i193 = tail call i32 @putc(i32 noundef 124, ptr noundef %77)
+  %call.i194 = tail call i32 @putc(i32 noundef 124, ptr noundef %77)
   %78 = load ptr, ptr @stdout, align 8
   %call20 = tail call i32 @fputs(ptr noundef nonnull @.str.17, ptr noundef %78)
   %sub = sub i32 6, %call20
   %cmp.not2.i = icmp eq i32 %call20, 6
-  br i1 %cmp.not2.i, label %misc_PrintChar.exit199, label %for.body.i198
+  br i1 %cmp.not2.i, label %misc_PrintChar.exit200, label %for.body.i199
 
-for.body.i198:                                    ; preds = %if.then, %for.body.i198
-  %Counter.03.i194 = phi i32 [ %inc.i196, %for.body.i198 ], [ 1, %if.then ]
+for.body.i199:                                    ; preds = %if.then, %for.body.i199
+  %Counter.03.i195 = phi i32 [ %inc.i197, %for.body.i199 ], [ 1, %if.then ]
   %79 = load ptr, ptr @stdout, align 8
-  %call.i.i195 = tail call i32 @putc(i32 noundef 32, ptr noundef %79)
-  %inc.i196 = add i32 %Counter.03.i194, 1
-  %cmp.not.i197 = icmp ugt i32 %inc.i196, %sub
-  br i1 %cmp.not.i197, label %misc_PrintChar.exit199, label %for.body.i198, !llvm.loop !26
+  %call.i.i196 = tail call i32 @putc(i32 noundef 32, ptr noundef %79)
+  %inc.i197 = add i32 %Counter.03.i195, 1
+  %cmp.not.i198 = icmp ugt i32 %inc.i197, %sub
+  br i1 %cmp.not.i198, label %misc_PrintChar.exit200, label %for.body.i199, !llvm.loop !26
 
-misc_PrintChar.exit199:                           ; preds = %for.body.i198, %if.then
+misc_PrintChar.exit200:                           ; preds = %for.body.i199, %if.then
   %80 = load ptr, ptr @stdout, align 8
-  %call.i200 = tail call i32 @putc(i32 noundef 124, ptr noundef %80)
+  %call.i201 = tail call i32 @putc(i32 noundef 124, ptr noundef %80)
   %81 = load ptr, ptr @stdout, align 8
   %call24 = tail call i32 @fputs(ptr noundef nonnull @.str.18, ptr noundef %81)
   %sub26 = sub i32 7, %call24
-  %cmp.not2.i201 = icmp eq i32 %call24, 7
-  br i1 %cmp.not2.i201, label %misc_PrintChar.exit208, label %for.body.i207
+  %cmp.not2.i202 = icmp eq i32 %call24, 7
+  br i1 %cmp.not2.i202, label %misc_PrintChar.exit209, label %for.body.i208
 
-for.body.i207:                                    ; preds = %misc_PrintChar.exit199, %for.body.i207
-  %Counter.03.i203 = phi i32 [ %inc.i205, %for.body.i207 ], [ 1, %misc_PrintChar.exit199 ]
+for.body.i208:                                    ; preds = %misc_PrintChar.exit200, %for.body.i208
+  %Counter.03.i204 = phi i32 [ %inc.i206, %for.body.i208 ], [ 1, %misc_PrintChar.exit200 ]
   %82 = load ptr, ptr @stdout, align 8
-  %call.i.i204 = tail call i32 @putc(i32 noundef 32, ptr noundef %82)
-  %inc.i205 = add i32 %Counter.03.i203, 1
-  %cmp.not.i206 = icmp ugt i32 %inc.i205, %sub26
-  br i1 %cmp.not.i206, label %misc_PrintChar.exit208, label %for.body.i207, !llvm.loop !26
+  %call.i.i205 = tail call i32 @putc(i32 noundef 32, ptr noundef %82)
+  %inc.i206 = add i32 %Counter.03.i204, 1
+  %cmp.not.i207 = icmp ugt i32 %inc.i206, %sub26
+  br i1 %cmp.not.i207, label %misc_PrintChar.exit209, label %for.body.i208, !llvm.loop !26
 
-misc_PrintChar.exit208:                           ; preds = %for.body.i207, %misc_PrintChar.exit199
+misc_PrintChar.exit209:                           ; preds = %for.body.i208, %misc_PrintChar.exit200
   %83 = load ptr, ptr @stdout, align 8
-  %call.i209 = tail call i32 @putc(i32 noundef 124, ptr noundef %83)
+  %call.i210 = tail call i32 @putc(i32 noundef 124, ptr noundef %83)
   %84 = load ptr, ptr @stdout, align 8
   %call29 = tail call i32 @fputs(ptr noundef nonnull @.str.19, ptr noundef %84)
   %sub31 = sub i32 6, %call29
-  %cmp.not2.i210 = icmp eq i32 %call29, 6
-  br i1 %cmp.not2.i210, label %misc_PrintChar.exit217, label %for.body.i216
+  %cmp.not2.i211 = icmp eq i32 %call29, 6
+  br i1 %cmp.not2.i211, label %misc_PrintChar.exit218, label %for.body.i217
 
-for.body.i216:                                    ; preds = %misc_PrintChar.exit208, %for.body.i216
-  %Counter.03.i212 = phi i32 [ %inc.i214, %for.body.i216 ], [ 1, %misc_PrintChar.exit208 ]
+for.body.i217:                                    ; preds = %misc_PrintChar.exit209, %for.body.i217
+  %Counter.03.i213 = phi i32 [ %inc.i215, %for.body.i217 ], [ 1, %misc_PrintChar.exit209 ]
   %85 = load ptr, ptr @stdout, align 8
-  %call.i.i213 = tail call i32 @putc(i32 noundef 32, ptr noundef %85)
-  %inc.i214 = add i32 %Counter.03.i212, 1
-  %cmp.not.i215 = icmp ugt i32 %inc.i214, %sub31
-  br i1 %cmp.not.i215, label %misc_PrintChar.exit217, label %for.body.i216, !llvm.loop !26
+  %call.i.i214 = tail call i32 @putc(i32 noundef 32, ptr noundef %85)
+  %inc.i215 = add i32 %Counter.03.i213, 1
+  %cmp.not.i216 = icmp ugt i32 %inc.i215, %sub31
+  br i1 %cmp.not.i216, label %misc_PrintChar.exit218, label %for.body.i217, !llvm.loop !26
 
-misc_PrintChar.exit217:                           ; preds = %for.body.i216, %misc_PrintChar.exit208
+misc_PrintChar.exit218:                           ; preds = %for.body.i217, %misc_PrintChar.exit209
   %86 = load ptr, ptr @stdout, align 8
-  %call.i218 = tail call i32 @putc(i32 noundef 124, ptr noundef %86)
+  %call.i219 = tail call i32 @putc(i32 noundef 124, ptr noundef %86)
   %87 = load ptr, ptr @stdout, align 8
   %call34 = tail call i32 @fputs(ptr noundef nonnull @.str.20, ptr noundef %87)
   %sub36 = sub i32 8, %call34
-  %cmp.not2.i219 = icmp eq i32 %call34, 8
-  br i1 %cmp.not2.i219, label %misc_PrintChar.exit226, label %for.body.i225
+  %cmp.not2.i220 = icmp eq i32 %call34, 8
+  br i1 %cmp.not2.i220, label %misc_PrintChar.exit227, label %for.body.i226
 
-for.body.i225:                                    ; preds = %misc_PrintChar.exit217, %for.body.i225
-  %Counter.03.i221 = phi i32 [ %inc.i223, %for.body.i225 ], [ 1, %misc_PrintChar.exit217 ]
+for.body.i226:                                    ; preds = %misc_PrintChar.exit218, %for.body.i226
+  %Counter.03.i222 = phi i32 [ %inc.i224, %for.body.i226 ], [ 1, %misc_PrintChar.exit218 ]
   %88 = load ptr, ptr @stdout, align 8
-  %call.i.i222 = tail call i32 @putc(i32 noundef 32, ptr noundef %88)
-  %inc.i223 = add i32 %Counter.03.i221, 1
-  %cmp.not.i224 = icmp ugt i32 %inc.i223, %sub36
-  br i1 %cmp.not.i224, label %misc_PrintChar.exit226, label %for.body.i225, !llvm.loop !26
+  %call.i.i223 = tail call i32 @putc(i32 noundef 32, ptr noundef %88)
+  %inc.i224 = add i32 %Counter.03.i222, 1
+  %cmp.not.i225 = icmp ugt i32 %inc.i224, %sub36
+  br i1 %cmp.not.i225, label %misc_PrintChar.exit227, label %for.body.i226, !llvm.loop !26
 
-misc_PrintChar.exit226:                           ; preds = %for.body.i225, %misc_PrintChar.exit217
+misc_PrintChar.exit227:                           ; preds = %for.body.i226, %misc_PrintChar.exit218
   %89 = load ptr, ptr @stdout, align 8
-  %call.i227 = tail call i32 @putc(i32 noundef 124, ptr noundef %89)
+  %call.i228 = tail call i32 @putc(i32 noundef 124, ptr noundef %89)
   %90 = load ptr, ptr @stdout, align 8
   %call39 = tail call i32 @fputs(ptr noundef nonnull @.str.21, ptr noundef %90)
   %sub41 = sub i32 36, %call39
-  %cmp.not2.i228 = icmp eq i32 %call39, 36
-  br i1 %cmp.not2.i228, label %misc_PrintChar.exit235, label %for.body.i234
+  %cmp.not2.i229 = icmp eq i32 %call39, 36
+  br i1 %cmp.not2.i229, label %misc_PrintChar.exit236, label %for.body.i235
 
-for.body.i234:                                    ; preds = %misc_PrintChar.exit226, %for.body.i234
-  %Counter.03.i230 = phi i32 [ %inc.i232, %for.body.i234 ], [ 1, %misc_PrintChar.exit226 ]
+for.body.i235:                                    ; preds = %misc_PrintChar.exit227, %for.body.i235
+  %Counter.03.i231 = phi i32 [ %inc.i233, %for.body.i235 ], [ 1, %misc_PrintChar.exit227 ]
   %91 = load ptr, ptr @stdout, align 8
-  %call.i.i231 = tail call i32 @putc(i32 noundef 32, ptr noundef %91)
-  %inc.i232 = add i32 %Counter.03.i230, 1
-  %cmp.not.i233 = icmp ugt i32 %inc.i232, %sub41
-  br i1 %cmp.not.i233, label %misc_PrintChar.exit235, label %for.body.i234, !llvm.loop !26
+  %call.i.i232 = tail call i32 @putc(i32 noundef 32, ptr noundef %91)
+  %inc.i233 = add i32 %Counter.03.i231, 1
+  %cmp.not.i234 = icmp ugt i32 %inc.i233, %sub41
+  br i1 %cmp.not.i234, label %misc_PrintChar.exit236, label %for.body.i235, !llvm.loop !26
 
-misc_PrintChar.exit235:                           ; preds = %for.body.i234, %misc_PrintChar.exit226
+misc_PrintChar.exit236:                           ; preds = %for.body.i235, %misc_PrintChar.exit227
   %92 = load ptr, ptr @stdout, align 8
-  %call.i236 = tail call i32 @putc(i32 noundef 124, ptr noundef %92)
+  %call.i237 = tail call i32 @putc(i32 noundef 124, ptr noundef %92)
   %93 = load ptr, ptr @stdout, align 8
-  %call.i237 = tail call i32 @putc(i32 noundef 10, ptr noundef %93)
+  %call.i238 = tail call i32 @putc(i32 noundef 10, ptr noundef %93)
   %94 = load ptr, ptr @stdout, align 8
-  %call.i.i240 = tail call i32 @putc(i32 noundef 32, ptr noundef %94)
+  %call.i.i241 = tail call i32 @putc(i32 noundef 32, ptr noundef %94)
   %95 = load ptr, ptr @stdout, align 8
-  %call.i.i240.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %95)
+  %call.i.i241.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %95)
   %96 = load ptr, ptr @stdout, align 8
-  %call.i245 = tail call i32 @putc(i32 noundef 43, ptr noundef %96)
+  %call.i246 = tail call i32 @putc(i32 noundef 43, ptr noundef %96)
   %97 = load ptr, ptr @stdout, align 8
-  %call.i.i248 = tail call i32 @putc(i32 noundef 45, ptr noundef %97)
+  %call.i.i249 = tail call i32 @putc(i32 noundef 45, ptr noundef %97)
   %98 = load ptr, ptr @stdout, align 8
-  %call.i.i248.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %98)
+  %call.i.i249.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %98)
   %99 = load ptr, ptr @stdout, align 8
-  %call.i.i248.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %99)
+  %call.i.i249.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %99)
   %100 = load ptr, ptr @stdout, align 8
-  %call.i.i248.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %100)
+  %call.i.i249.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %100)
   %101 = load ptr, ptr @stdout, align 8
-  %call.i.i248.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %101)
+  %call.i.i249.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %101)
   %102 = load ptr, ptr @stdout, align 8
-  %call.i.i248.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %102)
+  %call.i.i249.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %102)
   %103 = load ptr, ptr @stdout, align 8
-  %call.i253 = tail call i32 @putc(i32 noundef 43, ptr noundef %103)
+  %call.i254 = tail call i32 @putc(i32 noundef 43, ptr noundef %103)
   %104 = load ptr, ptr @stdout, align 8
-  %call.i.i256 = tail call i32 @putc(i32 noundef 45, ptr noundef %104)
+  %call.i.i257 = tail call i32 @putc(i32 noundef 45, ptr noundef %104)
   %105 = load ptr, ptr @stdout, align 8
-  %call.i.i256.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %105)
+  %call.i.i257.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %105)
   %106 = load ptr, ptr @stdout, align 8
-  %call.i.i256.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %106)
+  %call.i.i257.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %106)
   %107 = load ptr, ptr @stdout, align 8
-  %call.i.i256.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %107)
+  %call.i.i257.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %107)
   %108 = load ptr, ptr @stdout, align 8
-  %call.i.i256.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %108)
+  %call.i.i257.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %108)
   %109 = load ptr, ptr @stdout, align 8
-  %call.i.i256.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %109)
+  %call.i.i257.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %109)
   %110 = load ptr, ptr @stdout, align 8
-  %call.i.i256.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %110)
+  %call.i.i257.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %110)
   %111 = load ptr, ptr @stdout, align 8
-  %call.i261 = tail call i32 @putc(i32 noundef 43, ptr noundef %111)
+  %call.i262 = tail call i32 @putc(i32 noundef 43, ptr noundef %111)
   %112 = load ptr, ptr @stdout, align 8
-  %call.i.i264 = tail call i32 @putc(i32 noundef 45, ptr noundef %112)
+  %call.i.i265 = tail call i32 @putc(i32 noundef 45, ptr noundef %112)
   %113 = load ptr, ptr @stdout, align 8
-  %call.i.i264.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %113)
+  %call.i.i265.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %113)
   %114 = load ptr, ptr @stdout, align 8
-  %call.i.i264.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %114)
+  %call.i.i265.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %114)
   %115 = load ptr, ptr @stdout, align 8
-  %call.i.i264.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %115)
+  %call.i.i265.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %115)
   %116 = load ptr, ptr @stdout, align 8
-  %call.i.i264.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %116)
+  %call.i.i265.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %116)
   %117 = load ptr, ptr @stdout, align 8
-  %call.i.i264.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %117)
+  %call.i.i265.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %117)
   %118 = load ptr, ptr @stdout, align 8
-  %call.i269 = tail call i32 @putc(i32 noundef 43, ptr noundef %118)
+  %call.i270 = tail call i32 @putc(i32 noundef 43, ptr noundef %118)
   %119 = load ptr, ptr @stdout, align 8
-  %call.i.i272 = tail call i32 @putc(i32 noundef 45, ptr noundef %119)
+  %call.i.i273 = tail call i32 @putc(i32 noundef 45, ptr noundef %119)
   %120 = load ptr, ptr @stdout, align 8
-  %call.i.i272.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %120)
+  %call.i.i273.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %120)
   %121 = load ptr, ptr @stdout, align 8
-  %call.i.i272.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %121)
+  %call.i.i273.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %121)
   %122 = load ptr, ptr @stdout, align 8
-  %call.i.i272.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %122)
+  %call.i.i273.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %122)
   %123 = load ptr, ptr @stdout, align 8
-  %call.i.i272.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %123)
+  %call.i.i273.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %123)
   %124 = load ptr, ptr @stdout, align 8
-  %call.i.i272.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %124)
+  %call.i.i273.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %124)
   %125 = load ptr, ptr @stdout, align 8
-  %call.i.i272.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %125)
+  %call.i.i273.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %125)
   %126 = load ptr, ptr @stdout, align 8
-  %call.i.i272.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %126)
+  %call.i.i273.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %126)
   %127 = load ptr, ptr @stdout, align 8
-  %call.i277 = tail call i32 @putc(i32 noundef 43, ptr noundef %127)
+  %call.i278 = tail call i32 @putc(i32 noundef 43, ptr noundef %127)
   %128 = load ptr, ptr @stdout, align 8
-  %call.i.i280 = tail call i32 @putc(i32 noundef 45, ptr noundef %128)
+  %call.i.i281 = tail call i32 @putc(i32 noundef 45, ptr noundef %128)
   %129 = load ptr, ptr @stdout, align 8
-  %call.i.i280.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %129)
+  %call.i.i281.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %129)
   %130 = load ptr, ptr @stdout, align 8
-  %call.i.i280.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %130)
+  %call.i.i281.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %130)
   %131 = load ptr, ptr @stdout, align 8
-  %call.i.i280.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %131)
+  %call.i.i281.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %131)
   %132 = load ptr, ptr @stdout, align 8
-  %call.i.i280.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %132)
+  %call.i.i281.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %132)
   %133 = load ptr, ptr @stdout, align 8
-  %call.i.i280.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %133)
+  %call.i.i281.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %133)
   %134 = load ptr, ptr @stdout, align 8
-  %call.i.i280.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %134)
+  %call.i.i281.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %134)
   %135 = load ptr, ptr @stdout, align 8
-  %call.i.i280.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %135)
+  %call.i.i281.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %135)
   %136 = load ptr, ptr @stdout, align 8
-  %call.i.i280.8 = tail call i32 @putc(i32 noundef 45, ptr noundef %136)
+  %call.i.i281.8 = tail call i32 @putc(i32 noundef 45, ptr noundef %136)
   %137 = load ptr, ptr @stdout, align 8
-  %call.i.i280.9 = tail call i32 @putc(i32 noundef 45, ptr noundef %137)
+  %call.i.i281.9 = tail call i32 @putc(i32 noundef 45, ptr noundef %137)
   %138 = load ptr, ptr @stdout, align 8
-  %call.i.i280.10 = tail call i32 @putc(i32 noundef 45, ptr noundef %138)
+  %call.i.i281.10 = tail call i32 @putc(i32 noundef 45, ptr noundef %138)
   %139 = load ptr, ptr @stdout, align 8
-  %call.i.i280.11 = tail call i32 @putc(i32 noundef 45, ptr noundef %139)
+  %call.i.i281.11 = tail call i32 @putc(i32 noundef 45, ptr noundef %139)
   %140 = load ptr, ptr @stdout, align 8
-  %call.i.i280.12 = tail call i32 @putc(i32 noundef 45, ptr noundef %140)
+  %call.i.i281.12 = tail call i32 @putc(i32 noundef 45, ptr noundef %140)
   %141 = load ptr, ptr @stdout, align 8
-  %call.i.i280.13 = tail call i32 @putc(i32 noundef 45, ptr noundef %141)
+  %call.i.i281.13 = tail call i32 @putc(i32 noundef 45, ptr noundef %141)
   %142 = load ptr, ptr @stdout, align 8
-  %call.i.i280.14 = tail call i32 @putc(i32 noundef 45, ptr noundef %142)
+  %call.i.i281.14 = tail call i32 @putc(i32 noundef 45, ptr noundef %142)
   %143 = load ptr, ptr @stdout, align 8
-  %call.i.i280.15 = tail call i32 @putc(i32 noundef 45, ptr noundef %143)
+  %call.i.i281.15 = tail call i32 @putc(i32 noundef 45, ptr noundef %143)
   %144 = load ptr, ptr @stdout, align 8
-  %call.i.i280.16 = tail call i32 @putc(i32 noundef 45, ptr noundef %144)
+  %call.i.i281.16 = tail call i32 @putc(i32 noundef 45, ptr noundef %144)
   %145 = load ptr, ptr @stdout, align 8
-  %call.i.i280.17 = tail call i32 @putc(i32 noundef 45, ptr noundef %145)
+  %call.i.i281.17 = tail call i32 @putc(i32 noundef 45, ptr noundef %145)
   %146 = load ptr, ptr @stdout, align 8
-  %call.i.i280.18 = tail call i32 @putc(i32 noundef 45, ptr noundef %146)
+  %call.i.i281.18 = tail call i32 @putc(i32 noundef 45, ptr noundef %146)
   %147 = load ptr, ptr @stdout, align 8
-  %call.i.i280.19 = tail call i32 @putc(i32 noundef 45, ptr noundef %147)
+  %call.i.i281.19 = tail call i32 @putc(i32 noundef 45, ptr noundef %147)
   %148 = load ptr, ptr @stdout, align 8
-  %call.i.i280.20 = tail call i32 @putc(i32 noundef 45, ptr noundef %148)
+  %call.i.i281.20 = tail call i32 @putc(i32 noundef 45, ptr noundef %148)
   %149 = load ptr, ptr @stdout, align 8
-  %call.i.i280.21 = tail call i32 @putc(i32 noundef 45, ptr noundef %149)
+  %call.i.i281.21 = tail call i32 @putc(i32 noundef 45, ptr noundef %149)
   %150 = load ptr, ptr @stdout, align 8
-  %call.i.i280.22 = tail call i32 @putc(i32 noundef 45, ptr noundef %150)
+  %call.i.i281.22 = tail call i32 @putc(i32 noundef 45, ptr noundef %150)
   %151 = load ptr, ptr @stdout, align 8
-  %call.i.i280.23 = tail call i32 @putc(i32 noundef 45, ptr noundef %151)
+  %call.i.i281.23 = tail call i32 @putc(i32 noundef 45, ptr noundef %151)
   %152 = load ptr, ptr @stdout, align 8
-  %call.i.i280.24 = tail call i32 @putc(i32 noundef 45, ptr noundef %152)
+  %call.i.i281.24 = tail call i32 @putc(i32 noundef 45, ptr noundef %152)
   %153 = load ptr, ptr @stdout, align 8
-  %call.i.i280.25 = tail call i32 @putc(i32 noundef 45, ptr noundef %153)
+  %call.i.i281.25 = tail call i32 @putc(i32 noundef 45, ptr noundef %153)
   %154 = load ptr, ptr @stdout, align 8
-  %call.i.i280.26 = tail call i32 @putc(i32 noundef 45, ptr noundef %154)
+  %call.i.i281.26 = tail call i32 @putc(i32 noundef 45, ptr noundef %154)
   %155 = load ptr, ptr @stdout, align 8
-  %call.i.i280.27 = tail call i32 @putc(i32 noundef 45, ptr noundef %155)
+  %call.i.i281.27 = tail call i32 @putc(i32 noundef 45, ptr noundef %155)
   %156 = load ptr, ptr @stdout, align 8
-  %call.i.i280.28 = tail call i32 @putc(i32 noundef 45, ptr noundef %156)
+  %call.i.i281.28 = tail call i32 @putc(i32 noundef 45, ptr noundef %156)
   %157 = load ptr, ptr @stdout, align 8
-  %call.i.i280.29 = tail call i32 @putc(i32 noundef 45, ptr noundef %157)
+  %call.i.i281.29 = tail call i32 @putc(i32 noundef 45, ptr noundef %157)
   %158 = load ptr, ptr @stdout, align 8
-  %call.i.i280.30 = tail call i32 @putc(i32 noundef 45, ptr noundef %158)
+  %call.i.i281.30 = tail call i32 @putc(i32 noundef 45, ptr noundef %158)
   %159 = load ptr, ptr @stdout, align 8
-  %call.i.i280.31 = tail call i32 @putc(i32 noundef 45, ptr noundef %159)
+  %call.i.i281.31 = tail call i32 @putc(i32 noundef 45, ptr noundef %159)
   %160 = load ptr, ptr @stdout, align 8
-  %call.i.i280.32 = tail call i32 @putc(i32 noundef 45, ptr noundef %160)
+  %call.i.i281.32 = tail call i32 @putc(i32 noundef 45, ptr noundef %160)
   %161 = load ptr, ptr @stdout, align 8
-  %call.i.i280.33 = tail call i32 @putc(i32 noundef 45, ptr noundef %161)
+  %call.i.i281.33 = tail call i32 @putc(i32 noundef 45, ptr noundef %161)
   %162 = load ptr, ptr @stdout, align 8
-  %call.i.i280.34 = tail call i32 @putc(i32 noundef 45, ptr noundef %162)
+  %call.i.i281.34 = tail call i32 @putc(i32 noundef 45, ptr noundef %162)
   %163 = load ptr, ptr @stdout, align 8
-  %call.i.i280.35 = tail call i32 @putc(i32 noundef 45, ptr noundef %163)
+  %call.i.i281.35 = tail call i32 @putc(i32 noundef 45, ptr noundef %163)
   %164 = load ptr, ptr @stdout, align 8
-  %call.i285 = tail call i32 @putc(i32 noundef 43, ptr noundef %164)
+  %call.i286 = tail call i32 @putc(i32 noundef 43, ptr noundef %164)
   %165 = load ptr, ptr @stdout, align 8
-  %call.i286 = tail call i32 @putc(i32 noundef 10, ptr noundef %165)
+  %call.i287 = tail call i32 @putc(i32 noundef 10, ptr noundef %165)
   %166 = load i32, ptr @symbol_ACTINDEX, align 4
   %cmp395 = icmp sgt i32 %166, 1
-  br i1 %cmp395, label %for.body.preheader, label %for.body.i350.preheader
+  br i1 %cmp395, label %for.body.preheader, label %for.body.i351.preheader
 
-for.body.preheader:                               ; preds = %misc_PrintChar.exit235
+for.body.preheader:                               ; preds = %misc_PrintChar.exit236
   %.pre398 = load ptr, ptr @symbol_SIGNATURE, align 8
   br label %for.body
 
-for.body.i350.preheader:                          ; preds = %for.inc, %misc_PrintChar.exit235
+for.body.i351.preheader:                          ; preds = %for.inc, %misc_PrintChar.exit236
   %167 = load ptr, ptr @stdout, align 8
-  %call.i.i347 = tail call i32 @putc(i32 noundef 32, ptr noundef %167)
+  %call.i.i348 = tail call i32 @putc(i32 noundef 32, ptr noundef %167)
   %168 = load ptr, ptr @stdout, align 8
-  %call.i.i347.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %168)
+  %call.i.i348.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %168)
   %169 = load ptr, ptr @stdout, align 8
-  %call.i352 = tail call i32 @putc(i32 noundef 43, ptr noundef %169)
+  %call.i353 = tail call i32 @putc(i32 noundef 43, ptr noundef %169)
   %170 = load ptr, ptr @stdout, align 8
-  %call.i.i355 = tail call i32 @putc(i32 noundef 45, ptr noundef %170)
+  %call.i.i356 = tail call i32 @putc(i32 noundef 45, ptr noundef %170)
   %171 = load ptr, ptr @stdout, align 8
-  %call.i.i355.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %171)
+  %call.i.i356.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %171)
   %172 = load ptr, ptr @stdout, align 8
-  %call.i.i355.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %172)
+  %call.i.i356.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %172)
   %173 = load ptr, ptr @stdout, align 8
-  %call.i.i355.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %173)
+  %call.i.i356.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %173)
   %174 = load ptr, ptr @stdout, align 8
-  %call.i.i355.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %174)
+  %call.i.i356.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %174)
   %175 = load ptr, ptr @stdout, align 8
-  %call.i.i355.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %175)
+  %call.i.i356.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %175)
   %176 = load ptr, ptr @stdout, align 8
-  %call.i360 = tail call i32 @putc(i32 noundef 43, ptr noundef %176)
+  %call.i361 = tail call i32 @putc(i32 noundef 43, ptr noundef %176)
   %177 = load ptr, ptr @stdout, align 8
-  %call.i.i363 = tail call i32 @putc(i32 noundef 45, ptr noundef %177)
+  %call.i.i364 = tail call i32 @putc(i32 noundef 45, ptr noundef %177)
   %178 = load ptr, ptr @stdout, align 8
-  %call.i.i363.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %178)
+  %call.i.i364.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %178)
   %179 = load ptr, ptr @stdout, align 8
-  %call.i.i363.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %179)
+  %call.i.i364.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %179)
   %180 = load ptr, ptr @stdout, align 8
-  %call.i.i363.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %180)
+  %call.i.i364.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %180)
   %181 = load ptr, ptr @stdout, align 8
-  %call.i.i363.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %181)
+  %call.i.i364.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %181)
   %182 = load ptr, ptr @stdout, align 8
-  %call.i.i363.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %182)
+  %call.i.i364.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %182)
   %183 = load ptr, ptr @stdout, align 8
-  %call.i.i363.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %183)
+  %call.i.i364.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %183)
   %184 = load ptr, ptr @stdout, align 8
-  %call.i368 = tail call i32 @putc(i32 noundef 43, ptr noundef %184)
+  %call.i369 = tail call i32 @putc(i32 noundef 43, ptr noundef %184)
   %185 = load ptr, ptr @stdout, align 8
-  %call.i.i371 = tail call i32 @putc(i32 noundef 45, ptr noundef %185)
+  %call.i.i372 = tail call i32 @putc(i32 noundef 45, ptr noundef %185)
   %186 = load ptr, ptr @stdout, align 8
-  %call.i.i371.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %186)
+  %call.i.i372.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %186)
   %187 = load ptr, ptr @stdout, align 8
-  %call.i.i371.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %187)
+  %call.i.i372.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %187)
   %188 = load ptr, ptr @stdout, align 8
-  %call.i.i371.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %188)
+  %call.i.i372.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %188)
   %189 = load ptr, ptr @stdout, align 8
-  %call.i.i371.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %189)
+  %call.i.i372.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %189)
   %190 = load ptr, ptr @stdout, align 8
-  %call.i.i371.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %190)
+  %call.i.i372.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %190)
   %191 = load ptr, ptr @stdout, align 8
-  %call.i376 = tail call i32 @putc(i32 noundef 43, ptr noundef %191)
+  %call.i377 = tail call i32 @putc(i32 noundef 43, ptr noundef %191)
   %192 = load ptr, ptr @stdout, align 8
-  %call.i.i379 = tail call i32 @putc(i32 noundef 45, ptr noundef %192)
+  %call.i.i380 = tail call i32 @putc(i32 noundef 45, ptr noundef %192)
   %193 = load ptr, ptr @stdout, align 8
-  %call.i.i379.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %193)
+  %call.i.i380.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %193)
   %194 = load ptr, ptr @stdout, align 8
-  %call.i.i379.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %194)
+  %call.i.i380.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %194)
   %195 = load ptr, ptr @stdout, align 8
-  %call.i.i379.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %195)
+  %call.i.i380.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %195)
   %196 = load ptr, ptr @stdout, align 8
-  %call.i.i379.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %196)
+  %call.i.i380.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %196)
   %197 = load ptr, ptr @stdout, align 8
-  %call.i.i379.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %197)
+  %call.i.i380.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %197)
   %198 = load ptr, ptr @stdout, align 8
-  %call.i.i379.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %198)
+  %call.i.i380.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %198)
   %199 = load ptr, ptr @stdout, align 8
-  %call.i.i379.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %199)
+  %call.i.i380.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %199)
   %200 = load ptr, ptr @stdout, align 8
-  %call.i384 = tail call i32 @putc(i32 noundef 124, ptr noundef %200)
+  %call.i385 = tail call i32 @putc(i32 noundef 124, ptr noundef %200)
   %201 = load ptr, ptr @stdout, align 8
-  %call.i.i387 = tail call i32 @putc(i32 noundef 45, ptr noundef %201)
+  %call.i.i388 = tail call i32 @putc(i32 noundef 45, ptr noundef %201)
   %202 = load ptr, ptr @stdout, align 8
-  %call.i.i387.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %202)
+  %call.i.i388.1 = tail call i32 @putc(i32 noundef 45, ptr noundef %202)
   %203 = load ptr, ptr @stdout, align 8
-  %call.i.i387.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %203)
+  %call.i.i388.2 = tail call i32 @putc(i32 noundef 45, ptr noundef %203)
   %204 = load ptr, ptr @stdout, align 8
-  %call.i.i387.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %204)
+  %call.i.i388.3 = tail call i32 @putc(i32 noundef 45, ptr noundef %204)
   %205 = load ptr, ptr @stdout, align 8
-  %call.i.i387.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %205)
+  %call.i.i388.4 = tail call i32 @putc(i32 noundef 45, ptr noundef %205)
   %206 = load ptr, ptr @stdout, align 8
-  %call.i.i387.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %206)
+  %call.i.i388.5 = tail call i32 @putc(i32 noundef 45, ptr noundef %206)
   %207 = load ptr, ptr @stdout, align 8
-  %call.i.i387.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %207)
+  %call.i.i388.6 = tail call i32 @putc(i32 noundef 45, ptr noundef %207)
   %208 = load ptr, ptr @stdout, align 8
-  %call.i.i387.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %208)
+  %call.i.i388.7 = tail call i32 @putc(i32 noundef 45, ptr noundef %208)
   %209 = load ptr, ptr @stdout, align 8
-  %call.i.i387.8 = tail call i32 @putc(i32 noundef 45, ptr noundef %209)
+  %call.i.i388.8 = tail call i32 @putc(i32 noundef 45, ptr noundef %209)
   %210 = load ptr, ptr @stdout, align 8
-  %call.i.i387.9 = tail call i32 @putc(i32 noundef 45, ptr noundef %210)
+  %call.i.i388.9 = tail call i32 @putc(i32 noundef 45, ptr noundef %210)
   %211 = load ptr, ptr @stdout, align 8
-  %call.i.i387.10 = tail call i32 @putc(i32 noundef 45, ptr noundef %211)
+  %call.i.i388.10 = tail call i32 @putc(i32 noundef 45, ptr noundef %211)
   %212 = load ptr, ptr @stdout, align 8
-  %call.i.i387.11 = tail call i32 @putc(i32 noundef 45, ptr noundef %212)
+  %call.i.i388.11 = tail call i32 @putc(i32 noundef 45, ptr noundef %212)
   %213 = load ptr, ptr @stdout, align 8
-  %call.i.i387.12 = tail call i32 @putc(i32 noundef 45, ptr noundef %213)
+  %call.i.i388.12 = tail call i32 @putc(i32 noundef 45, ptr noundef %213)
   %214 = load ptr, ptr @stdout, align 8
-  %call.i.i387.13 = tail call i32 @putc(i32 noundef 45, ptr noundef %214)
+  %call.i.i388.13 = tail call i32 @putc(i32 noundef 45, ptr noundef %214)
   %215 = load ptr, ptr @stdout, align 8
-  %call.i.i387.14 = tail call i32 @putc(i32 noundef 45, ptr noundef %215)
+  %call.i.i388.14 = tail call i32 @putc(i32 noundef 45, ptr noundef %215)
   %216 = load ptr, ptr @stdout, align 8
-  %call.i.i387.15 = tail call i32 @putc(i32 noundef 45, ptr noundef %216)
+  %call.i.i388.15 = tail call i32 @putc(i32 noundef 45, ptr noundef %216)
   %217 = load ptr, ptr @stdout, align 8
-  %call.i.i387.16 = tail call i32 @putc(i32 noundef 45, ptr noundef %217)
+  %call.i.i388.16 = tail call i32 @putc(i32 noundef 45, ptr noundef %217)
   %218 = load ptr, ptr @stdout, align 8
-  %call.i.i387.17 = tail call i32 @putc(i32 noundef 45, ptr noundef %218)
+  %call.i.i388.17 = tail call i32 @putc(i32 noundef 45, ptr noundef %218)
   %219 = load ptr, ptr @stdout, align 8
-  %call.i.i387.18 = tail call i32 @putc(i32 noundef 45, ptr noundef %219)
+  %call.i.i388.18 = tail call i32 @putc(i32 noundef 45, ptr noundef %219)
   %220 = load ptr, ptr @stdout, align 8
-  %call.i.i387.19 = tail call i32 @putc(i32 noundef 45, ptr noundef %220)
+  %call.i.i388.19 = tail call i32 @putc(i32 noundef 45, ptr noundef %220)
   %221 = load ptr, ptr @stdout, align 8
-  %call.i.i387.20 = tail call i32 @putc(i32 noundef 45, ptr noundef %221)
+  %call.i.i388.20 = tail call i32 @putc(i32 noundef 45, ptr noundef %221)
   %222 = load ptr, ptr @stdout, align 8
-  %call.i.i387.21 = tail call i32 @putc(i32 noundef 45, ptr noundef %222)
+  %call.i.i388.21 = tail call i32 @putc(i32 noundef 45, ptr noundef %222)
   %223 = load ptr, ptr @stdout, align 8
-  %call.i.i387.22 = tail call i32 @putc(i32 noundef 45, ptr noundef %223)
+  %call.i.i388.22 = tail call i32 @putc(i32 noundef 45, ptr noundef %223)
   %224 = load ptr, ptr @stdout, align 8
-  %call.i.i387.23 = tail call i32 @putc(i32 noundef 45, ptr noundef %224)
+  %call.i.i388.23 = tail call i32 @putc(i32 noundef 45, ptr noundef %224)
   %225 = load ptr, ptr @stdout, align 8
-  %call.i.i387.24 = tail call i32 @putc(i32 noundef 45, ptr noundef %225)
+  %call.i.i388.24 = tail call i32 @putc(i32 noundef 45, ptr noundef %225)
   %226 = load ptr, ptr @stdout, align 8
-  %call.i.i387.25 = tail call i32 @putc(i32 noundef 45, ptr noundef %226)
+  %call.i.i388.25 = tail call i32 @putc(i32 noundef 45, ptr noundef %226)
   %227 = load ptr, ptr @stdout, align 8
-  %call.i.i387.26 = tail call i32 @putc(i32 noundef 45, ptr noundef %227)
+  %call.i.i388.26 = tail call i32 @putc(i32 noundef 45, ptr noundef %227)
   %228 = load ptr, ptr @stdout, align 8
-  %call.i.i387.27 = tail call i32 @putc(i32 noundef 45, ptr noundef %228)
+  %call.i.i388.27 = tail call i32 @putc(i32 noundef 45, ptr noundef %228)
   %229 = load ptr, ptr @stdout, align 8
-  %call.i.i387.28 = tail call i32 @putc(i32 noundef 45, ptr noundef %229)
+  %call.i.i388.28 = tail call i32 @putc(i32 noundef 45, ptr noundef %229)
   %230 = load ptr, ptr @stdout, align 8
-  %call.i.i387.29 = tail call i32 @putc(i32 noundef 45, ptr noundef %230)
+  %call.i.i388.29 = tail call i32 @putc(i32 noundef 45, ptr noundef %230)
   %231 = load ptr, ptr @stdout, align 8
-  %call.i.i387.30 = tail call i32 @putc(i32 noundef 45, ptr noundef %231)
+  %call.i.i388.30 = tail call i32 @putc(i32 noundef 45, ptr noundef %231)
   %232 = load ptr, ptr @stdout, align 8
-  %call.i.i387.31 = tail call i32 @putc(i32 noundef 45, ptr noundef %232)
+  %call.i.i388.31 = tail call i32 @putc(i32 noundef 45, ptr noundef %232)
   %233 = load ptr, ptr @stdout, align 8
-  %call.i.i387.32 = tail call i32 @putc(i32 noundef 45, ptr noundef %233)
+  %call.i.i388.32 = tail call i32 @putc(i32 noundef 45, ptr noundef %233)
   %234 = load ptr, ptr @stdout, align 8
-  %call.i.i387.33 = tail call i32 @putc(i32 noundef 45, ptr noundef %234)
+  %call.i.i388.33 = tail call i32 @putc(i32 noundef 45, ptr noundef %234)
   %235 = load ptr, ptr @stdout, align 8
-  %call.i.i387.34 = tail call i32 @putc(i32 noundef 45, ptr noundef %235)
+  %call.i.i388.34 = tail call i32 @putc(i32 noundef 45, ptr noundef %235)
   %236 = load ptr, ptr @stdout, align 8
-  %call.i.i387.35 = tail call i32 @putc(i32 noundef 45, ptr noundef %236)
+  %call.i.i388.35 = tail call i32 @putc(i32 noundef 45, ptr noundef %236)
   %237 = load ptr, ptr @stdout, align 8
-  %call.i392 = tail call i32 @putc(i32 noundef 43, ptr noundef %237)
+  %call.i393 = tail call i32 @putc(i32 noundef 43, ptr noundef %237)
   %238 = load ptr, ptr @stdout, align 8
-  %call.i393 = tail call i32 @putc(i32 noundef 10, ptr noundef %238)
+  %call.i394 = tail call i32 @putc(i32 noundef 10, ptr noundef %238)
   br label %if.end108
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
@@ -2707,11 +2710,11 @@ if.then53:                                        ; preds = %for.body
   %info = getelementptr inbounds %struct.signature, ptr %241, i64 0, i32 5
   %242 = load i32, ptr %info, align 8
   %243 = load ptr, ptr @stdout, align 8
-  %call.i.i289 = tail call i32 @putc(i32 noundef 32, ptr noundef %243)
+  %call.i.i290 = tail call i32 @putc(i32 noundef 32, ptr noundef %243)
   %244 = load ptr, ptr @stdout, align 8
-  %call.i.i289.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %244)
+  %call.i.i290.1 = tail call i32 @putc(i32 noundef 32, ptr noundef %244)
   %245 = load ptr, ptr @stdout, align 8
-  %call.i294 = tail call i32 @putc(i32 noundef 124, ptr noundef %245)
+  %call.i295 = tail call i32 @putc(i32 noundef 124, ptr noundef %245)
   %sub.i = sub nsw i32 0, %242
   %and.i = and i32 %sub.i, 3
   %246 = zext i32 %and.i to i64
@@ -2720,116 +2723,116 @@ if.then53:                                        ; preds = %for.body
   %247 = load ptr, ptr @stdout, align 8
   %call66 = tail call i32 @fputs(ptr noundef nonnull %reltable.intrinsic, ptr noundef %247)
   %sub68 = sub i32 6, %call66
-  %cmp.not2.i295 = icmp eq i32 %call66, 6
-  br i1 %cmp.not2.i295, label %misc_PrintChar.exit302, label %for.body.i301
+  %cmp.not2.i296 = icmp eq i32 %call66, 6
+  br i1 %cmp.not2.i296, label %misc_PrintChar.exit303, label %for.body.i302
 
-for.body.i301:                                    ; preds = %if.then53, %for.body.i301
-  %Counter.03.i297 = phi i32 [ %inc.i299, %for.body.i301 ], [ 1, %if.then53 ]
+for.body.i302:                                    ; preds = %if.then53, %for.body.i302
+  %Counter.03.i298 = phi i32 [ %inc.i300, %for.body.i302 ], [ 1, %if.then53 ]
   %248 = load ptr, ptr @stdout, align 8
-  %call.i.i298 = tail call i32 @putc(i32 noundef 32, ptr noundef %248)
-  %inc.i299 = add i32 %Counter.03.i297, 1
-  %cmp.not.i300 = icmp ugt i32 %inc.i299, %sub68
-  br i1 %cmp.not.i300, label %misc_PrintChar.exit302, label %for.body.i301, !llvm.loop !26
+  %call.i.i299 = tail call i32 @putc(i32 noundef 32, ptr noundef %248)
+  %inc.i300 = add i32 %Counter.03.i298, 1
+  %cmp.not.i301 = icmp ugt i32 %inc.i300, %sub68
+  br i1 %cmp.not.i301, label %misc_PrintChar.exit303, label %for.body.i302, !llvm.loop !26
 
-misc_PrintChar.exit302:                           ; preds = %for.body.i301, %if.then53
+misc_PrintChar.exit303:                           ; preds = %for.body.i302, %if.then53
   %249 = load ptr, ptr @stdout, align 8
-  %call.i303 = tail call i32 @putc(i32 noundef 124, ptr noundef %249)
+  %call.i304 = tail call i32 @putc(i32 noundef 124, ptr noundef %249)
   %arity = getelementptr inbounds %struct.signature, ptr %241, i64 0, i32 3
   %250 = load i32, ptr %arity, align 8
   %call71 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.26, i32 noundef %250)
   %sub73 = sub i32 7, %call71
-  %cmp.not2.i304 = icmp eq i32 %call71, 7
-  br i1 %cmp.not2.i304, label %misc_PrintChar.exit311, label %for.body.i310
+  %cmp.not2.i305 = icmp eq i32 %call71, 7
+  br i1 %cmp.not2.i305, label %misc_PrintChar.exit312, label %for.body.i311
 
-for.body.i310:                                    ; preds = %misc_PrintChar.exit302, %for.body.i310
-  %Counter.03.i306 = phi i32 [ %inc.i308, %for.body.i310 ], [ 1, %misc_PrintChar.exit302 ]
+for.body.i311:                                    ; preds = %misc_PrintChar.exit303, %for.body.i311
+  %Counter.03.i307 = phi i32 [ %inc.i309, %for.body.i311 ], [ 1, %misc_PrintChar.exit303 ]
   %251 = load ptr, ptr @stdout, align 8
-  %call.i.i307 = tail call i32 @putc(i32 noundef 32, ptr noundef %251)
-  %inc.i308 = add i32 %Counter.03.i306, 1
-  %cmp.not.i309 = icmp ugt i32 %inc.i308, %sub73
-  br i1 %cmp.not.i309, label %misc_PrintChar.exit311, label %for.body.i310, !llvm.loop !26
+  %call.i.i308 = tail call i32 @putc(i32 noundef 32, ptr noundef %251)
+  %inc.i309 = add i32 %Counter.03.i307, 1
+  %cmp.not.i310 = icmp ugt i32 %inc.i309, %sub73
+  br i1 %cmp.not.i310, label %misc_PrintChar.exit312, label %for.body.i311, !llvm.loop !26
 
-misc_PrintChar.exit311:                           ; preds = %for.body.i310, %misc_PrintChar.exit302
+misc_PrintChar.exit312:                           ; preds = %for.body.i311, %misc_PrintChar.exit303
   %252 = load ptr, ptr @stdout, align 8
-  %call.i312 = tail call i32 @putc(i32 noundef 124, ptr noundef %252)
+  %call.i313 = tail call i32 @putc(i32 noundef 124, ptr noundef %252)
   %cmp77 = icmp eq i32 %and.i, 1
-  br i1 %cmp77, label %if.then78, label %for.body.i323.preheader
+  br i1 %cmp77, label %if.then78, label %for.body.i324.preheader
 
-if.then78:                                        ; preds = %misc_PrintChar.exit311
+if.then78:                                        ; preds = %misc_PrintChar.exit312
   %253 = and i32 %sub.i, 4
   %trunc.not = icmp eq i32 %253, 0
   %254 = load ptr, ptr @stdout, align 8
   %.str.27..str.28 = select i1 %trunc.not, ptr @.str.27, ptr @.str.28
   %call81 = tail call i32 @fputs(ptr noundef nonnull %.str.27..str.28, ptr noundef %254)
   %sub87 = sub i32 6, %call81
-  %cmp.not2.i317 = icmp eq i32 %call81, 6
-  br i1 %cmp.not2.i317, label %misc_PrintChar.exit324, label %for.body.i323.preheader
+  %cmp.not2.i318 = icmp eq i32 %call81, 6
+  br i1 %cmp.not2.i318, label %misc_PrintChar.exit325, label %for.body.i324.preheader
 
-for.body.i323.preheader:                          ; preds = %misc_PrintChar.exit311, %if.then78
-  %sub87403 = phi i32 [ %sub87, %if.then78 ], [ 6, %misc_PrintChar.exit311 ]
-  br label %for.body.i323
+for.body.i324.preheader:                          ; preds = %misc_PrintChar.exit312, %if.then78
+  %sub87403 = phi i32 [ %sub87, %if.then78 ], [ 6, %misc_PrintChar.exit312 ]
+  br label %for.body.i324
 
-for.body.i323:                                    ; preds = %for.body.i323.preheader, %for.body.i323
-  %Counter.03.i319 = phi i32 [ %inc.i321, %for.body.i323 ], [ 1, %for.body.i323.preheader ]
+for.body.i324:                                    ; preds = %for.body.i324.preheader, %for.body.i324
+  %Counter.03.i320 = phi i32 [ %inc.i322, %for.body.i324 ], [ 1, %for.body.i324.preheader ]
   %255 = load ptr, ptr @stdout, align 8
-  %call.i.i320 = tail call i32 @putc(i32 noundef 32, ptr noundef %255)
-  %inc.i321 = add i32 %Counter.03.i319, 1
-  %cmp.not.i322 = icmp ugt i32 %inc.i321, %sub87403
-  br i1 %cmp.not.i322, label %misc_PrintChar.exit324, label %for.body.i323, !llvm.loop !26
+  %call.i.i321 = tail call i32 @putc(i32 noundef 32, ptr noundef %255)
+  %inc.i322 = add i32 %Counter.03.i320, 1
+  %cmp.not.i323 = icmp ugt i32 %inc.i322, %sub87403
+  br i1 %cmp.not.i323, label %misc_PrintChar.exit325, label %for.body.i324, !llvm.loop !26
 
-misc_PrintChar.exit324:                           ; preds = %for.body.i323, %if.then78
+misc_PrintChar.exit325:                           ; preds = %for.body.i324, %if.then78
   %256 = load ptr, ptr @stdout, align 8
-  %call.i325 = tail call i32 @putc(i32 noundef 124, ptr noundef %256)
+  %call.i326 = tail call i32 @putc(i32 noundef 124, ptr noundef %256)
   %props = getelementptr inbounds %struct.signature, ptr %241, i64 0, i32 4
   %257 = load i32, ptr %props, align 4
   %call90 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.29, i32 noundef %257)
   %sub92 = sub i32 8, %call90
-  %cmp.not2.i326 = icmp eq i32 %call90, 8
-  br i1 %cmp.not2.i326, label %misc_PrintChar.exit333, label %for.body.i332
+  %cmp.not2.i327 = icmp eq i32 %call90, 8
+  br i1 %cmp.not2.i327, label %misc_PrintChar.exit334, label %for.body.i333
 
-for.body.i332:                                    ; preds = %misc_PrintChar.exit324, %for.body.i332
-  %Counter.03.i328 = phi i32 [ %inc.i330, %for.body.i332 ], [ 1, %misc_PrintChar.exit324 ]
+for.body.i333:                                    ; preds = %misc_PrintChar.exit325, %for.body.i333
+  %Counter.03.i329 = phi i32 [ %inc.i331, %for.body.i333 ], [ 1, %misc_PrintChar.exit325 ]
   %258 = load ptr, ptr @stdout, align 8
-  %call.i.i329 = tail call i32 @putc(i32 noundef 32, ptr noundef %258)
-  %inc.i330 = add i32 %Counter.03.i328, 1
-  %cmp.not.i331 = icmp ugt i32 %inc.i330, %sub92
-  br i1 %cmp.not.i331, label %misc_PrintChar.exit333, label %for.body.i332, !llvm.loop !26
+  %call.i.i330 = tail call i32 @putc(i32 noundef 32, ptr noundef %258)
+  %inc.i331 = add i32 %Counter.03.i329, 1
+  %cmp.not.i332 = icmp ugt i32 %inc.i331, %sub92
+  br i1 %cmp.not.i332, label %misc_PrintChar.exit334, label %for.body.i333, !llvm.loop !26
 
-misc_PrintChar.exit333:                           ; preds = %for.body.i332, %misc_PrintChar.exit324
+misc_PrintChar.exit334:                           ; preds = %for.body.i333, %misc_PrintChar.exit325
   %259 = load ptr, ptr @stdout, align 8
-  %call.i334 = tail call i32 @putc(i32 noundef 124, ptr noundef %259)
+  %call.i335 = tail call i32 @putc(i32 noundef 124, ptr noundef %259)
   %260 = load ptr, ptr %241, align 8
   %call95 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.30, ptr noundef %260)
   %sub97 = sub i32 36, %call95
-  %cmp.not2.i335 = icmp eq i32 %call95, 36
-  br i1 %cmp.not2.i335, label %misc_PrintChar.exit342, label %for.body.i341
+  %cmp.not2.i336 = icmp eq i32 %call95, 36
+  br i1 %cmp.not2.i336, label %misc_PrintChar.exit343, label %for.body.i342
 
-for.body.i341:                                    ; preds = %misc_PrintChar.exit333, %for.body.i341
-  %Counter.03.i337 = phi i32 [ %inc.i339, %for.body.i341 ], [ 1, %misc_PrintChar.exit333 ]
+for.body.i342:                                    ; preds = %misc_PrintChar.exit334, %for.body.i342
+  %Counter.03.i338 = phi i32 [ %inc.i340, %for.body.i342 ], [ 1, %misc_PrintChar.exit334 ]
   %261 = load ptr, ptr @stdout, align 8
-  %call.i.i338 = tail call i32 @putc(i32 noundef 32, ptr noundef %261)
-  %inc.i339 = add i32 %Counter.03.i337, 1
-  %cmp.not.i340 = icmp ugt i32 %inc.i339, %sub97
-  br i1 %cmp.not.i340, label %misc_PrintChar.exit342, label %for.body.i341, !llvm.loop !26
+  %call.i.i339 = tail call i32 @putc(i32 noundef 32, ptr noundef %261)
+  %inc.i340 = add i32 %Counter.03.i338, 1
+  %cmp.not.i341 = icmp ugt i32 %inc.i340, %sub97
+  br i1 %cmp.not.i341, label %misc_PrintChar.exit343, label %for.body.i342, !llvm.loop !26
 
-misc_PrintChar.exit342:                           ; preds = %for.body.i341, %misc_PrintChar.exit333
+misc_PrintChar.exit343:                           ; preds = %for.body.i342, %misc_PrintChar.exit334
   %262 = load ptr, ptr @stdout, align 8
-  %call.i343 = tail call i32 @putc(i32 noundef 124, ptr noundef %262)
+  %call.i344 = tail call i32 @putc(i32 noundef 124, ptr noundef %262)
   %263 = load ptr, ptr @stdout, align 8
-  %call.i344 = tail call i32 @putc(i32 noundef 10, ptr noundef %263)
+  %call.i345 = tail call i32 @putc(i32 noundef 10, ptr noundef %263)
   %.pre = load ptr, ptr @symbol_SIGNATURE, align 8
   %.pre399 = load i32, ptr @symbol_ACTINDEX, align 4
   br label %for.inc
 
-for.inc:                                          ; preds = %for.body, %misc_PrintChar.exit342
-  %264 = phi i32 [ %239, %for.body ], [ %.pre399, %misc_PrintChar.exit342 ]
-  %265 = phi ptr [ %240, %for.body ], [ %.pre, %misc_PrintChar.exit342 ]
+for.inc:                                          ; preds = %for.body, %misc_PrintChar.exit343
+  %264 = phi i32 [ %239, %for.body ], [ %.pre399, %misc_PrintChar.exit343 ]
+  %265 = phi ptr [ %240, %for.body ], [ %.pre, %misc_PrintChar.exit343 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %266 = sext i32 %264 to i64
   %cmp = icmp slt i64 %indvars.iv.next, %266
-  br i1 %cmp, label %for.body, label %for.body.i350.preheader, !llvm.loop !27
+  br i1 %cmp, label %for.body, label %for.body.i351.preheader, !llvm.loop !27
 
-if.end108:                                        ; preds = %for.body.i350.preheader, %entry
+if.end108:                                        ; preds = %for.body.i351.preheader, %entry
   ret void
 }
 
@@ -2852,14 +2855,14 @@ declare i64 @strtol(ptr noundef readonly, ptr nocapture noundef, i32 noundef) lo
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i32 @strcmp(ptr nocapture noundef, ptr nocapture noundef) local_unnamed_addr #9
 
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #16
+
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #16
+declare i32 @llvm.umax.i32(i32, i32) #17
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #18
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #18
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #19
@@ -2880,9 +2883,9 @@ attributes #12 = { mustprogress nofree norecurse nosync nounwind willreturn memo
 attributes #13 = { noreturn nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #17 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #18 = { nofree nounwind }
+attributes #16 = { nofree nounwind }
+attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #18 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #19 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
 attributes #20 = { nounwind }
 attributes #21 = { noreturn nounwind }

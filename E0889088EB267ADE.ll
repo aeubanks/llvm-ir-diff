@@ -118,22 +118,22 @@ if.then53:                                        ; preds = %if.then45
   %11 = load i32, ptr @mymove, align 4, !tbaa !5
   tail call void @countlib(i32 noundef %add, i32 noundef %n, i32 noundef %11) #4
   %12 = load i32, ptr @lib, align 4, !tbaa !5
-  %cmp.not.i277 = icmp sgt i32 %12, %minlib
-  br i1 %cmp.not.i277, label %if.else.i284, label %fval.exit286
+  %cmp.not.i281 = icmp sgt i32 %12, %minlib
+  br i1 %cmp.not.i281, label %if.else.i288, label %fval.exit290
 
-if.else.i284:                                     ; preds = %if.then53
+if.else.i288:                                     ; preds = %if.then53
   %13 = xor i32 %minlib, -1
-  %sub1.i278 = add i32 %12, %13
-  %mul.i279 = mul nsw i32 %sub1.i278, 50
-  %mul2.i280 = mul nsw i32 %minlib, %minlib
-  %mul3.i281 = mul nsw i32 %mul2.i280, %minlib
-  %div.i282 = sdiv i32 %mul.i279, %mul3.i281
-  %add.i283 = add nsw i32 %div.i282, 40
-  br label %fval.exit286
+  %sub1.i282 = add i32 %12, %13
+  %mul.i283 = mul nsw i32 %sub1.i282, 50
+  %mul2.i284 = mul nsw i32 %minlib, %minlib
+  %mul3.i285 = mul nsw i32 %mul2.i284, %minlib
+  %div.i286 = sdiv i32 %mul.i283, %mul3.i285
+  %add.i287 = add nsw i32 %div.i286, 40
+  br label %fval.exit290
 
-fval.exit286:                                     ; preds = %if.then53, %if.else.i284
-  %val.0.i285 = phi i32 [ %add.i283, %if.else.i284 ], [ -1, %if.then53 ]
-  store i32 %val.0.i285, ptr %tval, align 4, !tbaa !5
+fval.exit290:                                     ; preds = %if.then53, %if.else.i288
+  %val.0.i289 = phi i32 [ %add.i287, %if.else.i288 ], [ -1, %if.then53 ]
+  store i32 %val.0.i289, ptr %tval, align 4, !tbaa !5
   br label %if.then82
 
 if.else56:                                        ; preds = %if.then45
@@ -157,8 +157,8 @@ if.then72.if.then82_crit_edge:                    ; preds = %if.then72
   %.pre311 = load i32, ptr %tval, align 4, !tbaa !5
   br label %if.then82
 
-if.then82:                                        ; preds = %if.then72.if.then82_crit_edge, %fval.exit286
-  %16 = phi i32 [ %.pre311, %if.then72.if.then82_crit_edge ], [ %val.0.i285, %fval.exit286 ]
+if.then82:                                        ; preds = %if.then72.if.then82_crit_edge, %fval.exit290
+  %16 = phi i32 [ %.pre311, %if.then72.if.then82_crit_edge ], [ %val.0.i289, %fval.exit290 ]
   %17 = load i32, ptr %val, align 4, !tbaa !5
   %cmp83 = icmp sgt i32 %16, %17
   br i1 %cmp83, label %if.then85, label %if.end86
@@ -176,8 +176,8 @@ if.end86:                                         ; preds = %if.then85, %if.then
   br i1 %cmp87, label %cleanup, label %if.end91
 
 if.end91:                                         ; preds = %land.lhs.true65, %if.else56, %if.end42, %if.end86, %if.then72
-  %cond310 = icmp eq i32 %n, 0
-  br i1 %cond310, label %if.then144, label %if.then94
+  %cond280 = icmp eq i32 %n, 0
+  br i1 %cond280, label %if.then144, label %if.then94
 
 if.then94:                                        ; preds = %if.end91
   %sub97 = add nsw i32 %n, -1
@@ -194,22 +194,22 @@ if.then103:                                       ; preds = %if.then94
   %21 = load i32, ptr @mymove, align 4, !tbaa !5
   tail call void @countlib(i32 noundef %m, i32 noundef %sub97, i32 noundef %21) #4
   %22 = load i32, ptr @lib, align 4, !tbaa !5
-  %cmp.not.i287 = icmp sgt i32 %22, %minlib
-  br i1 %cmp.not.i287, label %if.else.i294, label %fval.exit296
+  %cmp.not.i291 = icmp sgt i32 %22, %minlib
+  br i1 %cmp.not.i291, label %if.else.i298, label %fval.exit300
 
-if.else.i294:                                     ; preds = %if.then103
+if.else.i298:                                     ; preds = %if.then103
   %23 = xor i32 %minlib, -1
-  %sub1.i288 = add i32 %22, %23
-  %mul.i289 = mul nsw i32 %sub1.i288, 50
-  %mul2.i290 = mul nsw i32 %minlib, %minlib
-  %mul3.i291 = mul nsw i32 %mul2.i290, %minlib
-  %div.i292 = sdiv i32 %mul.i289, %mul3.i291
-  %add.i293 = add nsw i32 %div.i292, 40
-  br label %fval.exit296
+  %sub1.i292 = add i32 %22, %23
+  %mul.i293 = mul nsw i32 %sub1.i292, 50
+  %mul2.i294 = mul nsw i32 %minlib, %minlib
+  %mul3.i295 = mul nsw i32 %mul2.i294, %minlib
+  %div.i296 = sdiv i32 %mul.i293, %mul3.i295
+  %add.i297 = add nsw i32 %div.i296, 40
+  br label %fval.exit300
 
-fval.exit296:                                     ; preds = %if.then103, %if.else.i294
-  %val.0.i295 = phi i32 [ %add.i293, %if.else.i294 ], [ -1, %if.then103 ]
-  store i32 %val.0.i295, ptr %tval, align 4, !tbaa !5
+fval.exit300:                                     ; preds = %if.then103, %if.else.i298
+  %val.0.i299 = phi i32 [ %add.i297, %if.else.i298 ], [ -1, %if.then103 ]
+  store i32 %val.0.i299, ptr %tval, align 4, !tbaa !5
   br label %if.then132
 
 if.else106:                                       ; preds = %if.then94
@@ -233,8 +233,8 @@ if.then122.if.then132_crit_edge:                  ; preds = %if.then122
   %.pre312 = load i32, ptr %tval, align 4, !tbaa !5
   br label %if.then132
 
-if.then132:                                       ; preds = %if.then122.if.then132_crit_edge, %fval.exit296
-  %26 = phi i32 [ %.pre312, %if.then122.if.then132_crit_edge ], [ %val.0.i295, %fval.exit296 ]
+if.then132:                                       ; preds = %if.then122.if.then132_crit_edge, %fval.exit300
+  %26 = phi i32 [ %.pre312, %if.then122.if.then132_crit_edge ], [ %val.0.i299, %fval.exit300 ]
   %27 = load i32, ptr %val, align 4, !tbaa !5
   %cmp133 = icmp sgt i32 %26, %27
   br i1 %cmp133, label %if.then135, label %if.end136
@@ -270,17 +270,17 @@ if.then153:                                       ; preds = %if.then144
   %31 = load i32, ptr @mymove, align 4, !tbaa !5
   tail call void @countlib(i32 noundef %m, i32 noundef %add147, i32 noundef %31) #4
   %32 = load i32, ptr @lib, align 4, !tbaa !5
-  %cmp.not.i297 = icmp sgt i32 %32, %minlib
-  br i1 %cmp.not.i297, label %if.else.i304, label %if.then182
+  %cmp.not.i301 = icmp sgt i32 %32, %minlib
+  br i1 %cmp.not.i301, label %if.else.i308, label %if.then182
 
-if.else.i304:                                     ; preds = %if.then153
+if.else.i308:                                     ; preds = %if.then153
   %33 = xor i32 %minlib, -1
-  %sub1.i298 = add i32 %32, %33
-  %mul.i299 = mul nsw i32 %sub1.i298, 50
-  %mul2.i300 = mul nsw i32 %minlib, %minlib
-  %mul3.i301 = mul nsw i32 %mul2.i300, %minlib
-  %div.i302 = sdiv i32 %mul.i299, %mul3.i301
-  %add.i303 = add nsw i32 %div.i302, 40
+  %sub1.i302 = add i32 %32, %33
+  %mul.i303 = mul nsw i32 %sub1.i302, 50
+  %mul2.i304 = mul nsw i32 %minlib, %minlib
+  %mul3.i305 = mul nsw i32 %mul2.i304, %minlib
+  %div.i306 = sdiv i32 %mul.i303, %mul3.i305
+  %add.i307 = add nsw i32 %div.i306, 40
   br label %if.then182
 
 if.else156:                                       ; preds = %if.then144
@@ -304,8 +304,8 @@ if.then172.if.then182_crit_edge:                  ; preds = %if.then172
   %.pre313 = load i32, ptr %tval, align 4, !tbaa !5
   br label %if.then182
 
-if.then182:                                       ; preds = %if.else.i304, %if.then153, %if.then172.if.then182_crit_edge
-  %36 = phi i32 [ %.pre313, %if.then172.if.then182_crit_edge ], [ %add.i303, %if.else.i304 ], [ -1, %if.then153 ]
+if.then182:                                       ; preds = %if.else.i308, %if.then153, %if.then172.if.then182_crit_edge
+  %36 = phi i32 [ %.pre313, %if.then172.if.then182_crit_edge ], [ %add.i307, %if.else.i308 ], [ -1, %if.then153 ]
   %37 = load i32, ptr %val, align 4, !tbaa !5
   %cmp183 = icmp sgt i32 %36, %37
   br i1 %cmp183, label %if.then185, label %if.end186

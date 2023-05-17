@@ -12,10 +12,10 @@ entry:
   %0 = load i32, ptr @next, align 4, !tbaa !5
   %cmp = icmp slt i32 %0, 3
   %cond.v = select i1 %cmp, i32 341, i32 -3
-  %cond = add nsw i32 %0, %cond.v
+  %cond = add nsw i32 %cond.v, %0
   %cmp2 = icmp slt i32 %0, 31
   %cond9.v = select i1 %cmp2, i32 313, i32 -31
-  %cond9 = add nsw i32 %0, %cond9.v
+  %cond9 = add nsw i32 %cond9.v, %0
   %idxprom = sext i32 %cond to i64
   %arrayidx = getelementptr inbounds [344 x i32], ptr @table, i64 0, i64 %idxprom
   %1 = load i32, ptr %arrayidx, align 4, !tbaa !5

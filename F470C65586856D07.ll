@@ -66,7 +66,7 @@ cleanup20:                                        ; preds = %for.cond8.preheader
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-for.end19.i:
+f.exit:
   store i16 10, ptr @d, align 2, !tbaa !11
   store i8 0, ptr @b, align 1, !tbaa !13
   store i32 0, ptr @e, align 4, !tbaa !5

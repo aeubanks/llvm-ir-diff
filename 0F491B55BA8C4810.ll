@@ -177,47 +177,85 @@ entry:
 
 for.body.lr.ph:                                   ; preds = %entry
   %cmp1 = icmp eq i32 %sizeOfScalingList, 16
+  br i1 %cmp1, label %for.body.us, label %for.body.preheader
+
+for.body.preheader:                               ; preds = %for.body.lr.ph
   %wide.trip.count = zext i32 %sizeOfScalingList to i64
   br label %for.body
 
-for.body:                                         ; preds = %for.body.lr.ph, %for.cond
-  %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.cond ]
-  %nextScale.041 = phi i32 [ 8, %for.body.lr.ph ], [ %nextScale.136, %for.cond ]
-  %lastScale.040 = phi i32 [ 8, %for.body.lr.ph ], [ %1, %for.cond ]
-  %arrayidx = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv
+for.body.us:                                      ; preds = %for.body.lr.ph, %for.cond.us
+  %indvars.iv44 = phi i64 [ %indvars.iv.next45, %for.cond.us ], [ 0, %for.body.lr.ph ]
+  %nextScale.041.us = phi i32 [ %nextScale.136.us, %for.cond.us ], [ 8, %for.body.lr.ph ]
+  %lastScale.040.us = phi i32 [ %3, %for.cond.us ], [ 8, %for.body.lr.ph ]
+  %arrayidx.us = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv44
+  %cond.in.us = load i8, ptr %arrayidx.us, align 1, !tbaa !5
+  %cmp5.not.us = icmp eq i32 %nextScale.041.us, 0
+  br i1 %cmp5.not.us, label %if.end.thread.us, label %if.end.us
+
+if.end.us:                                        ; preds = %for.body.us
+  %call.us = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %s) #10
+  %add.us = add nsw i32 %call.us, %lastScale.040.us
+  %add.fr.us = freeze i32 %add.us
+  %add7.us = add i32 %add.fr.us, 256
+  %rem.us = srem i32 %add7.us, 256
+  %0 = trunc i64 %indvars.iv44 to i32
+  %1 = or i32 %rem.us, %0
+  %2 = icmp eq i32 %1, 0
+  %land.ext.us = zext i1 %2 to i32
+  store i32 %land.ext.us, ptr %UseDefaultScalingMatrix, align 4, !tbaa !5
+  %cmp12.us = icmp eq i32 %rem.us, 0
+  br i1 %cmp12.us, label %if.end.thread.us, label %for.cond.us
+
+if.end.thread.us:                                 ; preds = %for.body.us, %if.end.us
+  br label %for.cond.us
+
+for.cond.us:                                      ; preds = %if.end.thread.us, %if.end.us
+  %nextScale.136.us = phi i32 [ 0, %if.end.thread.us ], [ %rem.us, %if.end.us ]
+  %3 = phi i32 [ %lastScale.040.us, %if.end.thread.us ], [ %rem.us, %if.end.us ]
+  %idxprom18.us = zext i8 %cond.in.us to i64
+  %arrayidx19.us = getelementptr inbounds i32, ptr %scalingList, i64 %idxprom18.us
+  store i32 %3, ptr %arrayidx19.us, align 4, !tbaa !8
+  %indvars.iv.next45 = add nuw nsw i64 %indvars.iv44, 1
+  %exitcond48.not = icmp eq i64 %indvars.iv.next45, 16
+  br i1 %exitcond48.not, label %for.end, label %for.body.us, !llvm.loop !10
+
+for.body:                                         ; preds = %for.body.preheader, %for.cond
+  %indvars.iv = phi i64 [ 0, %for.body.preheader ], [ %indvars.iv.next, %for.cond ]
+  %nextScale.041 = phi i32 [ 8, %for.body.preheader ], [ %nextScale.136, %for.cond ]
+  %lastScale.040 = phi i32 [ 8, %for.body.preheader ], [ %7, %for.cond ]
   %arrayidx3 = getelementptr inbounds [64 x i8], ptr @ZZ_SCAN8, i64 0, i64 %indvars.iv
-  %cond.in.in = select i1 %cmp1, ptr %arrayidx, ptr %arrayidx3
-  %cond.in = load i8, ptr %cond.in.in, align 1, !tbaa !5
+  %cond.in = load i8, ptr %arrayidx3, align 1, !tbaa !5
   %cmp5.not = icmp eq i32 %nextScale.041, 0
   br i1 %cmp5.not, label %if.end.thread, label %if.end
 
 if.end:                                           ; preds = %for.body
   %call = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %s) #10
-  %add = add nsw i32 %lastScale.040, 256
-  %add7 = add i32 %add, %call
-  %add7.fr = freeze i32 %add7
-  %rem = srem i32 %add7.fr, 256
-  %cmp8 = icmp eq i8 %cond.in, 0
-  %cmp10 = icmp eq i32 %rem, 0
-  %0 = and i1 %cmp8, %cmp10
-  %land.ext = zext i1 %0 to i32
+  %add = add nsw i32 %call, %lastScale.040
+  %add.fr = freeze i32 %add
+  %add7 = add i32 %add.fr, 256
+  %rem = srem i32 %add7, 256
+  %4 = trunc i64 %indvars.iv to i32
+  %5 = or i32 %rem, %4
+  %6 = icmp eq i32 %5, 0
+  %land.ext = zext i1 %6 to i32
   store i32 %land.ext, ptr %UseDefaultScalingMatrix, align 4, !tbaa !5
-  br i1 %cmp10, label %if.end.thread, label %for.cond
+  %cmp12 = icmp eq i32 %rem, 0
+  br i1 %cmp12, label %if.end.thread, label %for.cond
 
 if.end.thread:                                    ; preds = %for.body, %if.end
   br label %for.cond
 
 for.cond:                                         ; preds = %if.end, %if.end.thread
   %nextScale.136 = phi i32 [ 0, %if.end.thread ], [ %rem, %if.end ]
-  %1 = phi i32 [ %lastScale.040, %if.end.thread ], [ %rem, %if.end ]
+  %7 = phi i32 [ %lastScale.040, %if.end.thread ], [ %rem, %if.end ]
   %idxprom18 = zext i8 %cond.in to i64
   %arrayidx19 = getelementptr inbounds i32, ptr %scalingList, i64 %idxprom18
-  store i32 %1, ptr %arrayidx19, align 4, !tbaa !8
+  store i32 %7, ptr %arrayidx19, align 4, !tbaa !8
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !10
 
-for.end:                                          ; preds = %for.cond, %entry
+for.end:                                          ; preds = %for.cond, %for.cond.us, %entry
   ret void
 }
 
@@ -323,86 +361,88 @@ if.then62:                                        ; preds = %for.body
 if.then64:                                        ; preds = %if.then62
   %arrayidx66 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 11, i64 %indvars.iv
   %arrayidx68 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 13, i64 %indvars.iv
+  br label %for.body.us.i
+
+for.body.us.i:                                    ; preds = %for.cond.us.i, %if.then64
+  %indvars.iv44.i = phi i64 [ %indvars.iv.next45.i, %for.cond.us.i ], [ 0, %if.then64 ]
+  %nextScale.041.us.i = phi i32 [ %nextScale.136.us.i, %for.cond.us.i ], [ 8, %if.then64 ]
+  %lastScale.040.us.i = phi i32 [ %7, %for.cond.us.i ], [ 8, %if.then64 ]
+  %arrayidx.us.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv44.i
+  %cond.in.us.i = load i8, ptr %arrayidx.us.i, align 1, !tbaa !5
+  %cmp5.not.us.i = icmp eq i32 %nextScale.041.us.i, 0
+  br i1 %cmp5.not.us.i, label %if.end.thread.us.i, label %if.end.us.i
+
+if.end.us.i:                                      ; preds = %for.body.us.i
+  %call.us.i = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %0) #10
+  %add.us.i = add nsw i32 %call.us.i, %lastScale.040.us.i
+  %add.fr.us.i = freeze i32 %add.us.i
+  %add7.us.i = add i32 %add.fr.us.i, 256
+  %rem.us.i = srem i32 %add7.us.i, 256
+  %4 = trunc i64 %indvars.iv44.i to i32
+  %5 = or i32 %rem.us.i, %4
+  %6 = icmp eq i32 %5, 0
+  %land.ext.us.i = zext i1 %6 to i32
+  store i32 %land.ext.us.i, ptr %arrayidx68, align 4, !tbaa !5
+  %cmp12.us.i = icmp eq i32 %rem.us.i, 0
+  br i1 %cmp12.us.i, label %if.end.thread.us.i, label %for.cond.us.i
+
+if.end.thread.us.i:                               ; preds = %if.end.us.i, %for.body.us.i
+  br label %for.cond.us.i
+
+for.cond.us.i:                                    ; preds = %if.end.thread.us.i, %if.end.us.i
+  %nextScale.136.us.i = phi i32 [ 0, %if.end.thread.us.i ], [ %rem.us.i, %if.end.us.i ]
+  %7 = phi i32 [ %lastScale.040.us.i, %if.end.thread.us.i ], [ %rem.us.i, %if.end.us.i ]
+  %idxprom18.us.i = zext i8 %cond.in.us.i to i64
+  %arrayidx19.us.i = getelementptr inbounds i32, ptr %arrayidx66, i64 %idxprom18.us.i
+  store i32 %7, ptr %arrayidx19.us.i, align 4, !tbaa !8
+  %indvars.iv.next45.i = add nuw nsw i64 %indvars.iv44.i, 1
+  %exitcond48.not.i = icmp eq i64 %indvars.iv.next45.i, 16
+  br i1 %exitcond48.not.i, label %for.inc, label %for.body.us.i, !llvm.loop !10
+
+if.else:                                          ; preds = %if.then62
+  %8 = add nuw i64 %indvars.iv, 4294967290
+  %idxprom69 = and i64 %8, 4294967295
+  %arrayidx70 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 12, i64 %idxprom69
+  %arrayidx74 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 14, i64 %idxprom69
   br label %for.body.i
 
-for.body.i:                                       ; preds = %for.cond.i, %if.then64
-  %indvars.iv.i = phi i64 [ 0, %if.then64 ], [ %indvars.iv.next.i, %for.cond.i ]
-  %nextScale.041.i = phi i32 [ 8, %if.then64 ], [ %nextScale.136.i, %for.cond.i ]
-  %lastScale.040.i = phi i32 [ 8, %if.then64 ], [ %5, %for.cond.i ]
-  %arrayidx.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv.i
-  %cond.in.i = load i8, ptr %arrayidx.i, align 1, !tbaa !5
+for.body.i:                                       ; preds = %for.cond.i, %if.else
+  %indvars.iv.i = phi i64 [ 0, %if.else ], [ %indvars.iv.next.i, %for.cond.i ]
+  %nextScale.041.i = phi i32 [ 8, %if.else ], [ %nextScale.136.i, %for.cond.i ]
+  %lastScale.040.i = phi i32 [ 8, %if.else ], [ %12, %for.cond.i ]
+  %arrayidx3.i = getelementptr inbounds [64 x i8], ptr @ZZ_SCAN8, i64 0, i64 %indvars.iv.i
+  %cond.in.i = load i8, ptr %arrayidx3.i, align 1, !tbaa !5
   %cmp5.not.i = icmp eq i32 %nextScale.041.i, 0
   br i1 %cmp5.not.i, label %if.end.thread.i, label %if.end.i
 
 if.end.i:                                         ; preds = %for.body.i
   %call.i = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %0) #10
-  %add.i = add nsw i32 %lastScale.040.i, 256
-  %add7.i = add i32 %add.i, %call.i
-  %add7.fr.i = freeze i32 %add7.i
-  %rem.i = srem i32 %add7.fr.i, 256
-  %cmp8.i = icmp eq i64 %indvars.iv.i, 0
-  %cmp10.i = icmp eq i32 %rem.i, 0
-  %4 = and i1 %cmp8.i, %cmp10.i
-  %land.ext.i = zext i1 %4 to i32
-  store i32 %land.ext.i, ptr %arrayidx68, align 4, !tbaa !5
-  br i1 %cmp10.i, label %if.end.thread.i, label %for.cond.i
+  %add.i = add nsw i32 %call.i, %lastScale.040.i
+  %add.fr.i = freeze i32 %add.i
+  %add7.i = add i32 %add.fr.i, 256
+  %rem.i = srem i32 %add7.i, 256
+  %9 = trunc i64 %indvars.iv.i to i32
+  %10 = or i32 %rem.i, %9
+  %11 = icmp eq i32 %10, 0
+  %land.ext.i = zext i1 %11 to i32
+  store i32 %land.ext.i, ptr %arrayidx74, align 4, !tbaa !5
+  %cmp12.i = icmp eq i32 %rem.i, 0
+  br i1 %cmp12.i, label %if.end.thread.i, label %for.cond.i
 
 if.end.thread.i:                                  ; preds = %if.end.i, %for.body.i
   br label %for.cond.i
 
 for.cond.i:                                       ; preds = %if.end.thread.i, %if.end.i
   %nextScale.136.i = phi i32 [ 0, %if.end.thread.i ], [ %rem.i, %if.end.i ]
-  %5 = phi i32 [ %lastScale.040.i, %if.end.thread.i ], [ %rem.i, %if.end.i ]
+  %12 = phi i32 [ %lastScale.040.i, %if.end.thread.i ], [ %rem.i, %if.end.i ]
   %idxprom18.i = zext i8 %cond.in.i to i64
-  %arrayidx19.i = getelementptr inbounds i32, ptr %arrayidx66, i64 %idxprom18.i
-  store i32 %5, ptr %arrayidx19.i, align 4, !tbaa !8
+  %arrayidx19.i = getelementptr inbounds i32, ptr %arrayidx70, i64 %idxprom18.i
+  store i32 %12, ptr %arrayidx19.i, align 4, !tbaa !8
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
-  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 16
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 64
   br i1 %exitcond.not.i, label %for.inc, label %for.body.i, !llvm.loop !10
 
-if.else:                                          ; preds = %if.then62
-  %6 = add nuw i64 %indvars.iv, 4294967290
-  %idxprom69 = and i64 %6, 4294967295
-  %arrayidx70 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 12, i64 %idxprom69
-  %arrayidx74 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 14, i64 %idxprom69
-  br label %for.body.i247
-
-for.body.i247:                                    ; preds = %for.cond.i263, %if.else
-  %indvars.iv.i240 = phi i64 [ 0, %if.else ], [ %indvars.iv.next.i261, %for.cond.i263 ]
-  %nextScale.041.i241 = phi i32 [ 8, %if.else ], [ %nextScale.136.i258, %for.cond.i263 ]
-  %lastScale.040.i242 = phi i32 [ 8, %if.else ], [ %8, %for.cond.i263 ]
-  %arrayidx3.i244 = getelementptr inbounds [64 x i8], ptr @ZZ_SCAN8, i64 0, i64 %indvars.iv.i240
-  %cond.in.i245 = load i8, ptr %arrayidx3.i244, align 1, !tbaa !5
-  %cmp5.not.i246 = icmp eq i32 %nextScale.041.i241, 0
-  br i1 %cmp5.not.i246, label %if.end.thread.i257, label %if.end.i256
-
-if.end.i256:                                      ; preds = %for.body.i247
-  %call.i248 = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %0) #10
-  %add.i249 = add nsw i32 %lastScale.040.i242, 256
-  %add7.i250 = add i32 %add.i249, %call.i248
-  %add7.fr.i251 = freeze i32 %add7.i250
-  %rem.i252 = srem i32 %add7.fr.i251, 256
-  %cmp8.i253 = icmp eq i64 %indvars.iv.i240, 0
-  %cmp10.i254 = icmp eq i32 %rem.i252, 0
-  %7 = and i1 %cmp8.i253, %cmp10.i254
-  %land.ext.i255 = zext i1 %7 to i32
-  store i32 %land.ext.i255, ptr %arrayidx74, align 4, !tbaa !5
-  br i1 %cmp10.i254, label %if.end.thread.i257, label %for.cond.i263
-
-if.end.thread.i257:                               ; preds = %if.end.i256, %for.body.i247
-  br label %for.cond.i263
-
-for.cond.i263:                                    ; preds = %if.end.thread.i257, %if.end.i256
-  %nextScale.136.i258 = phi i32 [ 0, %if.end.thread.i257 ], [ %rem.i252, %if.end.i256 ]
-  %8 = phi i32 [ %lastScale.040.i242, %if.end.thread.i257 ], [ %rem.i252, %if.end.i256 ]
-  %idxprom18.i259 = zext i8 %cond.in.i245 to i64
-  %arrayidx19.i260 = getelementptr inbounds i32, ptr %arrayidx70, i64 %idxprom18.i259
-  store i32 %8, ptr %arrayidx19.i260, align 4, !tbaa !8
-  %indvars.iv.next.i261 = add nuw nsw i64 %indvars.iv.i240, 1
-  %exitcond.not.i262 = icmp eq i64 %indvars.iv.next.i261, 64
-  br i1 %exitcond.not.i262, label %for.inc, label %for.body.i247, !llvm.loop !10
-
-for.inc:                                          ; preds = %for.cond.i263, %for.cond.i, %for.body
+for.inc:                                          ; preds = %for.cond.i, %for.cond.us.i, %for.body
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 8
   br i1 %exitcond.not, label %if.end78, label %for.body, !llvm.loop !36
@@ -438,18 +478,18 @@ if.then88:                                        ; preds = %if.end78
   %call92 = tail call i32 @ue_v(ptr noundef nonnull @.str.23, ptr noundef %0) #10
   %num_ref_frames_in_pic_order_cnt_cycle = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 23
   store i32 %call92, ptr %num_ref_frames_in_pic_order_cnt_cycle, align 4, !tbaa !43
-  %cmp95267.not = icmp eq i32 %call92, 0
-  br i1 %cmp95267.not, label %if.end104, label %for.body96
+  %cmp95243.not = icmp eq i32 %call92, 0
+  br i1 %cmp95243.not, label %if.end104, label %for.body96
 
 for.body96:                                       ; preds = %if.then88, %for.body96
-  %indvars.iv272 = phi i64 [ %indvars.iv.next273, %for.body96 ], [ 0, %if.then88 ]
+  %indvars.iv248 = phi i64 [ %indvars.iv.next249, %for.body96 ], [ 0, %if.then88 ]
   %call97 = tail call i32 @se_v(ptr noundef nonnull @.str.24, ptr noundef %0) #10
-  %arrayidx99 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 24, i64 %indvars.iv272
+  %arrayidx99 = getelementptr inbounds %struct.seq_parameter_set_rbsp_t, ptr %sps, i64 0, i32 24, i64 %indvars.iv248
   store i32 %call97, ptr %arrayidx99, align 4, !tbaa !8
-  %indvars.iv.next273 = add nuw nsw i64 %indvars.iv272, 1
-  %9 = load i32, ptr %num_ref_frames_in_pic_order_cnt_cycle, align 4, !tbaa !43
-  %10 = zext i32 %9 to i64
-  %cmp95 = icmp ult i64 %indvars.iv.next273, %10
+  %indvars.iv.next249 = add nuw nsw i64 %indvars.iv248, 1
+  %13 = load i32, ptr %num_ref_frames_in_pic_order_cnt_cycle, align 4, !tbaa !43
+  %14 = zext i32 %13 to i64
+  %cmp95 = icmp ult i64 %indvars.iv.next249, %14
   br i1 %cmp95, label %for.body96, label %if.end104, !llvm.loop !44
 
 if.end104:                                        ; preds = %for.body96, %if.then88, %if.end78, %if.then83
@@ -808,16 +848,16 @@ if.then:                                          ; preds = %entry
 
 for.cond16.preheader:                             ; preds = %if.then
   %1 = load i32, ptr %num_slice_groups_minus1, align 4, !tbaa !104
-  %cmp18250.not = icmp eq i32 %1, 0
-  br i1 %cmp18250.not, label %if.end69, label %for.body19
+  %cmp18226.not = icmp eq i32 %1, 0
+  br i1 %cmp18226.not, label %if.end69, label %for.body19
 
 for.body:                                         ; preds = %if.then, %for.body
-  %i.0252 = phi i32 [ %inc, %for.body ], [ %call6, %if.then ]
+  %i.0228 = phi i32 [ %inc, %for.body ], [ %call6, %if.then ]
   %call12 = tail call i32 @ue_v(ptr noundef nonnull @.str.86, ptr noundef %0) #10
-  %idxprom = zext i32 %i.0252 to i64
+  %idxprom = zext i32 %i.0228 to i64
   %arrayidx = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 14, i64 %idxprom
   store i32 %call12, ptr %arrayidx, align 4, !tbaa !8
-  %inc = add i32 %i.0252, 1
+  %inc = add i32 %i.0228, 1
   %2 = load i32, ptr %num_slice_groups_minus1, align 4, !tbaa !104
   %cmp11.not = icmp ugt i32 %inc, %2
   br i1 %cmp11.not, label %if.end69, label %for.body, !llvm.loop !106
@@ -859,13 +899,13 @@ if.then43:                                        ; preds = %if.then
   br label %for.body58
 
 for.body58:                                       ; preds = %if.then43, %for.body58
-  %i.2249 = phi i32 [ 0, %if.then43 ], [ %inc63, %for.body58 ]
+  %i.2225 = phi i32 [ 0, %if.then43 ], [ %inc63, %for.body58 ]
   %call59 = tail call i32 @u_v(i32 noundef %NumberBitsPerSliceGroupId.0, ptr noundef nonnull @.str.92, ptr noundef %0) #10
   %6 = load ptr, ptr %slice_group_id, align 8, !tbaa !111
-  %idxprom60 = zext i32 %i.2249 to i64
+  %idxprom60 = zext i32 %i.2225 to i64
   %arrayidx61 = getelementptr inbounds i32, ptr %6, i64 %idxprom60
   store i32 %call59, ptr %arrayidx61, align 4, !tbaa !8
-  %inc63 = add i32 %i.2249, 1
+  %inc63 = add i32 %i.2225, 1
   %7 = load i32, ptr %num_slice_group_map_units_minus1, align 4, !tbaa !110
   %cmp57.not = icmp ugt i32 %inc63, %7
   br i1 %cmp57.not, label %if.end69, label %for.body58, !llvm.loop !112
@@ -923,110 +963,112 @@ if.then81:                                        ; preds = %if.end69
 
 for.cond87.preheader:                             ; preds = %if.then81
   %11 = load i32, ptr %transform_8x8_mode_flag, align 8, !tbaa !127
-  %shl253.mask = and i32 %11, 2147483647
-  %cmp90255.not = icmp eq i32 %shl253.mask, 2147483645
-  br i1 %cmp90255.not, label %if.end118, label %for.body91
+  %shl229.mask = and i32 %11, 2147483647
+  %cmp90231.not = icmp eq i32 %shl229.mask, 2147483645
+  br i1 %cmp90231.not, label %if.end118, label %for.body91
 
 for.body91:                                       ; preds = %for.cond87.preheader, %for.inc115
-  %indvars.iv261 = phi i64 [ %indvars.iv.next262, %for.inc115 ], [ 0, %for.cond87.preheader ]
+  %indvars.iv237 = phi i64 [ %indvars.iv.next238, %for.inc115 ], [ 0, %for.cond87.preheader ]
   %call92 = tail call i32 @u_1(ptr noundef nonnull @.str.105, ptr noundef %0) #10
-  %arrayidx94 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 %indvars.iv261
+  %arrayidx94 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 6, i64 %indvars.iv237
   store i32 %call92, ptr %arrayidx94, align 4, !tbaa !8
   %tobool98.not = icmp eq i32 %call92, 0
   br i1 %tobool98.not, label %for.inc115, label %if.then99
 
 if.then99:                                        ; preds = %for.body91
-  %cmp100 = icmp ult i64 %indvars.iv261, 6
+  %cmp100 = icmp ult i64 %indvars.iv237, 6
   br i1 %cmp100, label %if.then101, label %if.else106
 
 if.then101:                                       ; preds = %if.then99
-  %arrayidx103 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 7, i64 %indvars.iv261
-  %arrayidx105 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 9, i64 %indvars.iv261
+  %arrayidx103 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 7, i64 %indvars.iv237
+  %arrayidx105 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 9, i64 %indvars.iv237
+  br label %for.body.us.i
+
+for.body.us.i:                                    ; preds = %for.cond.us.i, %if.then101
+  %indvars.iv44.i = phi i64 [ %indvars.iv.next45.i, %for.cond.us.i ], [ 0, %if.then101 ]
+  %nextScale.041.us.i = phi i32 [ %nextScale.136.us.i, %for.cond.us.i ], [ 8, %if.then101 ]
+  %lastScale.040.us.i = phi i32 [ %15, %for.cond.us.i ], [ 8, %if.then101 ]
+  %arrayidx.us.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv44.i
+  %cond.in.us.i = load i8, ptr %arrayidx.us.i, align 1, !tbaa !5
+  %cmp5.not.us.i = icmp eq i32 %nextScale.041.us.i, 0
+  br i1 %cmp5.not.us.i, label %if.end.thread.us.i, label %if.end.us.i
+
+if.end.us.i:                                      ; preds = %for.body.us.i
+  %call.us.i = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %0) #10
+  %add.us.i = add nsw i32 %call.us.i, %lastScale.040.us.i
+  %add.fr.us.i = freeze i32 %add.us.i
+  %add7.us.i = add i32 %add.fr.us.i, 256
+  %rem.us.i = srem i32 %add7.us.i, 256
+  %12 = trunc i64 %indvars.iv44.i to i32
+  %13 = or i32 %rem.us.i, %12
+  %14 = icmp eq i32 %13, 0
+  %land.ext.us.i = zext i1 %14 to i32
+  store i32 %land.ext.us.i, ptr %arrayidx105, align 4, !tbaa !5
+  %cmp12.us.i = icmp eq i32 %rem.us.i, 0
+  br i1 %cmp12.us.i, label %if.end.thread.us.i, label %for.cond.us.i
+
+if.end.thread.us.i:                               ; preds = %if.end.us.i, %for.body.us.i
+  br label %for.cond.us.i
+
+for.cond.us.i:                                    ; preds = %if.end.thread.us.i, %if.end.us.i
+  %nextScale.136.us.i = phi i32 [ 0, %if.end.thread.us.i ], [ %rem.us.i, %if.end.us.i ]
+  %15 = phi i32 [ %lastScale.040.us.i, %if.end.thread.us.i ], [ %rem.us.i, %if.end.us.i ]
+  %idxprom18.us.i = zext i8 %cond.in.us.i to i64
+  %arrayidx19.us.i = getelementptr inbounds i32, ptr %arrayidx103, i64 %idxprom18.us.i
+  store i32 %15, ptr %arrayidx19.us.i, align 4, !tbaa !8
+  %indvars.iv.next45.i = add nuw nsw i64 %indvars.iv44.i, 1
+  %exitcond48.not.i = icmp eq i64 %indvars.iv.next45.i, 16
+  br i1 %exitcond48.not.i, label %for.inc115, label %for.body.us.i, !llvm.loop !10
+
+if.else106:                                       ; preds = %if.then99
+  %16 = add nsw i64 %indvars.iv237, -6
+  %arrayidx108 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 8, i64 %16
+  %arrayidx112 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 10, i64 %16
   br label %for.body.i
 
-for.body.i:                                       ; preds = %for.cond.i, %if.then101
-  %indvars.iv.i = phi i64 [ 0, %if.then101 ], [ %indvars.iv.next.i, %for.cond.i ]
-  %nextScale.041.i = phi i32 [ 8, %if.then101 ], [ %nextScale.136.i, %for.cond.i ]
-  %lastScale.040.i = phi i32 [ 8, %if.then101 ], [ %13, %for.cond.i ]
-  %arrayidx.i = getelementptr inbounds [16 x i8], ptr @ZZ_SCAN, i64 0, i64 %indvars.iv.i
-  %cond.in.i = load i8, ptr %arrayidx.i, align 1, !tbaa !5
+for.body.i:                                       ; preds = %for.cond.i, %if.else106
+  %indvars.iv.i = phi i64 [ 0, %if.else106 ], [ %indvars.iv.next.i, %for.cond.i ]
+  %nextScale.041.i = phi i32 [ 8, %if.else106 ], [ %nextScale.136.i, %for.cond.i ]
+  %lastScale.040.i = phi i32 [ 8, %if.else106 ], [ %20, %for.cond.i ]
+  %arrayidx3.i = getelementptr inbounds [64 x i8], ptr @ZZ_SCAN8, i64 0, i64 %indvars.iv.i
+  %cond.in.i = load i8, ptr %arrayidx3.i, align 1, !tbaa !5
   %cmp5.not.i = icmp eq i32 %nextScale.041.i, 0
   br i1 %cmp5.not.i, label %if.end.thread.i, label %if.end.i
 
 if.end.i:                                         ; preds = %for.body.i
   %call.i = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %0) #10
-  %add.i = add nsw i32 %lastScale.040.i, 256
-  %add7.i = add i32 %add.i, %call.i
-  %add7.fr.i = freeze i32 %add7.i
-  %rem.i = srem i32 %add7.fr.i, 256
-  %cmp8.i = icmp eq i64 %indvars.iv.i, 0
-  %cmp10.i = icmp eq i32 %rem.i, 0
-  %12 = and i1 %cmp8.i, %cmp10.i
-  %land.ext.i = zext i1 %12 to i32
-  store i32 %land.ext.i, ptr %arrayidx105, align 4, !tbaa !5
-  br i1 %cmp10.i, label %if.end.thread.i, label %for.cond.i
+  %add.i = add nsw i32 %call.i, %lastScale.040.i
+  %add.fr.i = freeze i32 %add.i
+  %add7.i = add i32 %add.fr.i, 256
+  %rem.i = srem i32 %add7.i, 256
+  %17 = trunc i64 %indvars.iv.i to i32
+  %18 = or i32 %rem.i, %17
+  %19 = icmp eq i32 %18, 0
+  %land.ext.i = zext i1 %19 to i32
+  store i32 %land.ext.i, ptr %arrayidx112, align 4, !tbaa !5
+  %cmp12.i = icmp eq i32 %rem.i, 0
+  br i1 %cmp12.i, label %if.end.thread.i, label %for.cond.i
 
 if.end.thread.i:                                  ; preds = %if.end.i, %for.body.i
   br label %for.cond.i
 
 for.cond.i:                                       ; preds = %if.end.thread.i, %if.end.i
   %nextScale.136.i = phi i32 [ 0, %if.end.thread.i ], [ %rem.i, %if.end.i ]
-  %13 = phi i32 [ %lastScale.040.i, %if.end.thread.i ], [ %rem.i, %if.end.i ]
+  %20 = phi i32 [ %lastScale.040.i, %if.end.thread.i ], [ %rem.i, %if.end.i ]
   %idxprom18.i = zext i8 %cond.in.i to i64
-  %arrayidx19.i = getelementptr inbounds i32, ptr %arrayidx103, i64 %idxprom18.i
-  store i32 %13, ptr %arrayidx19.i, align 4, !tbaa !8
+  %arrayidx19.i = getelementptr inbounds i32, ptr %arrayidx108, i64 %idxprom18.i
+  store i32 %20, ptr %arrayidx19.i, align 4, !tbaa !8
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
-  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 16
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 64
   br i1 %exitcond.not.i, label %for.inc115, label %for.body.i, !llvm.loop !10
 
-if.else106:                                       ; preds = %if.then99
-  %14 = add nsw i64 %indvars.iv261, -6
-  %arrayidx108 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 8, i64 %14
-  %arrayidx112 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 10, i64 %14
-  br label %for.body.i228
-
-for.body.i228:                                    ; preds = %for.cond.i244, %if.else106
-  %indvars.iv.i221 = phi i64 [ 0, %if.else106 ], [ %indvars.iv.next.i242, %for.cond.i244 ]
-  %nextScale.041.i222 = phi i32 [ 8, %if.else106 ], [ %nextScale.136.i239, %for.cond.i244 ]
-  %lastScale.040.i223 = phi i32 [ 8, %if.else106 ], [ %16, %for.cond.i244 ]
-  %arrayidx3.i225 = getelementptr inbounds [64 x i8], ptr @ZZ_SCAN8, i64 0, i64 %indvars.iv.i221
-  %cond.in.i226 = load i8, ptr %arrayidx3.i225, align 1, !tbaa !5
-  %cmp5.not.i227 = icmp eq i32 %nextScale.041.i222, 0
-  br i1 %cmp5.not.i227, label %if.end.thread.i238, label %if.end.i237
-
-if.end.i237:                                      ; preds = %for.body.i228
-  %call.i229 = tail call i32 @se_v(ptr noundef nonnull @.str, ptr noundef %0) #10
-  %add.i230 = add nsw i32 %lastScale.040.i223, 256
-  %add7.i231 = add i32 %add.i230, %call.i229
-  %add7.fr.i232 = freeze i32 %add7.i231
-  %rem.i233 = srem i32 %add7.fr.i232, 256
-  %cmp8.i234 = icmp eq i64 %indvars.iv.i221, 0
-  %cmp10.i235 = icmp eq i32 %rem.i233, 0
-  %15 = and i1 %cmp8.i234, %cmp10.i235
-  %land.ext.i236 = zext i1 %15 to i32
-  store i32 %land.ext.i236, ptr %arrayidx112, align 4, !tbaa !5
-  br i1 %cmp10.i235, label %if.end.thread.i238, label %for.cond.i244
-
-if.end.thread.i238:                               ; preds = %if.end.i237, %for.body.i228
-  br label %for.cond.i244
-
-for.cond.i244:                                    ; preds = %if.end.thread.i238, %if.end.i237
-  %nextScale.136.i239 = phi i32 [ 0, %if.end.thread.i238 ], [ %rem.i233, %if.end.i237 ]
-  %16 = phi i32 [ %lastScale.040.i223, %if.end.thread.i238 ], [ %rem.i233, %if.end.i237 ]
-  %idxprom18.i240 = zext i8 %cond.in.i226 to i64
-  %arrayidx19.i241 = getelementptr inbounds i32, ptr %arrayidx108, i64 %idxprom18.i240
-  store i32 %16, ptr %arrayidx19.i241, align 4, !tbaa !8
-  %indvars.iv.next.i242 = add nuw nsw i64 %indvars.iv.i221, 1
-  %exitcond.not.i243 = icmp eq i64 %indvars.iv.next.i242, 64
-  br i1 %exitcond.not.i243, label %for.inc115, label %for.body.i228, !llvm.loop !10
-
-for.inc115:                                       ; preds = %for.cond.i244, %for.cond.i, %for.body91
-  %indvars.iv.next262 = add nuw nsw i64 %indvars.iv261, 1
-  %17 = load i32, ptr %transform_8x8_mode_flag, align 8, !tbaa !127
-  %shl = shl i32 %17, 1
+for.inc115:                                       ; preds = %for.cond.i, %for.cond.us.i, %for.body91
+  %indvars.iv.next238 = add nuw nsw i64 %indvars.iv237, 1
+  %21 = load i32, ptr %transform_8x8_mode_flag, align 8, !tbaa !127
+  %shl = shl i32 %21, 1
   %add89 = add i32 %shl, 6
-  %18 = zext i32 %add89 to i64
-  %cmp90 = icmp ult i64 %indvars.iv.next262, %18
+  %22 = zext i32 %add89 to i64
+  %cmp90 = icmp ult i64 %indvars.iv.next238, %22
   br i1 %cmp90, label %for.body91, label %if.end118, !llvm.loop !129
 
 if.end118:                                        ; preds = %for.inc115, %for.cond87.preheader, %if.then81
@@ -1034,16 +1076,16 @@ if.end118:                                        ; preds = %for.inc115, %for.co
   br label %if.end123
 
 if.else120:                                       ; preds = %if.end69
-  %19 = load i32, ptr %chroma_qp_index_offset, align 8, !tbaa !119
+  %23 = load i32, ptr %chroma_qp_index_offset, align 8, !tbaa !119
   br label %if.end123
 
 if.end123:                                        ; preds = %if.else120, %if.end118
-  %.sink = phi i32 [ %19, %if.else120 ], [ %call119, %if.end118 ]
+  %.sink = phi i32 [ %23, %if.else120 ], [ %call119, %if.end118 ]
   %second_chroma_qp_index_offset122 = getelementptr inbounds %struct.pic_parameter_set_rbsp_t, ptr %pps, i64 0, i32 28
   store i32 %.sink, ptr %second_chroma_qp_index_offset122, align 4, !tbaa !130
   store i32 1, ptr %pps, align 8, !tbaa !131
-  %20 = load i32, ptr @UsedBits, align 4, !tbaa !8
-  ret i32 %20
+  %24 = load i32, ptr @UsedBits, align 4, !tbaa !8
+  ret i32 %24
 }
 
 declare i32 @more_rbsp_data(ptr noundef, i32 noundef, i32 noundef) local_unnamed_addr #1

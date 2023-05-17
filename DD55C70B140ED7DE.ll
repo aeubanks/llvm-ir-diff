@@ -28,10 +28,10 @@ entry:
   %_M_string_length.i.i.i.i = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %agg.result, i64 0, i32 1
   store i64 0, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !13, !alias.scope !5
   store i8 0, ptr %0, align 8, !tbaa !16, !alias.scope !5
-  %1 = getelementptr %"struct.benchmark::BenchmarkName", ptr %this, i64 0, i32 1, i32 1
-  %ts1.val.i = load i64, ptr %1, align 8, !tbaa !13, !noalias !5
-  %2 = getelementptr i8, ptr %this, i64 8
-  %ts.val.i = load i64, ptr %2, align 8, !tbaa !13, !noalias !5
+  %1 = getelementptr i8, ptr %this, i64 8
+  %ts.val.i = load i64, ptr %1, align 8, !tbaa !13, !noalias !5
+  %2 = getelementptr %"struct.benchmark::BenchmarkName", ptr %this, i64 0, i32 1, i32 1
+  %ts1.val.i = load i64, ptr %2, align 8, !tbaa !13, !noalias !5
   %3 = getelementptr %"struct.benchmark::BenchmarkName", ptr %this, i64 0, i32 2, i32 1
   %ts3.val.i = load i64, ptr %3, align 8, !tbaa !13, !noalias !5
   %4 = getelementptr %"struct.benchmark::BenchmarkName", ptr %this, i64 0, i32 3, i32 1
@@ -42,8 +42,8 @@ entry:
   %ts9.val.i = load i64, ptr %6, align 8, !tbaa !13, !noalias !5
   %7 = getelementptr %"struct.benchmark::BenchmarkName", ptr %this, i64 0, i32 6, i32 1
   %ts11.val.i = load i64, ptr %7, align 8, !tbaa !13, !noalias !5
-  %add.i.i.i.i.i.i.i = add i64 %ts1.val.i, 7
-  %add.i.i.i.i.i.i = add i64 %add.i.i.i.i.i.i.i, %ts.val.i
+  %add.i.i.i.i.i.i.i = add i64 %ts.val.i, 7
+  %add.i.i.i.i.i.i = add i64 %add.i.i.i.i.i.i.i, %ts1.val.i
   %add.i.i.i.i.i = add i64 %add.i.i.i.i.i.i, %ts3.val.i
   %add.i.i.i.i = add i64 %add.i.i.i.i.i, %ts5.val.i
   %add.i.i.i = add i64 %add.i.i.i.i, %ts7.val.i
@@ -55,7 +55,7 @@ entry:
 invoke.cont13.i:                                  ; preds = %entry
   %8 = load i64, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !13, !alias.scope !5
   %cmp.i.i.i = icmp eq i64 %8, 0
-  %9 = load i64, ptr %2, align 8, !noalias !5
+  %9 = load i64, ptr %1, align 8, !noalias !5
   %cmp.i20.i.i = icmp eq i64 %9, 0
   %or.cond.i.i = select i1 %cmp.i.i.i, i1 true, i1 %cmp.i20.i.i
   br i1 %or.cond.i.i, label %if.end.i.i, label %if.then.i.i
@@ -85,7 +85,7 @@ _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLEc.exit.i.i: ; preds = %.
   %13 = load ptr, ptr %agg.result, align 8, !tbaa !17, !alias.scope !5
   %arrayidx.i.i.i.i.i = getelementptr inbounds i8, ptr %13, i64 %add.i.i.i24.i
   store i8 0, ptr %arrayidx.i.i.i.i.i, align 1, !tbaa !16
-  %.pre.i.i = load i64, ptr %2, align 8, !tbaa !13, !noalias !5
+  %.pre.i.i = load i64, ptr %1, align 8, !tbaa !13, !noalias !5
   %.pre30.i.i = load i64, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !13, !alias.scope !5
   br label %if.end.i.i
 
@@ -104,7 +104,7 @@ _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLERKS4_.exit.i.i: ; preds 
 call.i.i.i.i.noexc.i:                             ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLERKS4_.exit.i.i
   %17 = load i64, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !13, !alias.scope !5
   %cmp.i.i24.i.i = icmp eq i64 %17, 0
-  %18 = load i64, ptr %1, align 8, !noalias !5
+  %18 = load i64, ptr %2, align 8, !noalias !5
   %cmp.i18.i.i.i = icmp eq i64 %18, 0
   %or.cond.i.i.i = select i1 %cmp.i.i24.i.i, i1 true, i1 %cmp.i18.i.i.i
   br i1 %or.cond.i.i.i, label %if.end.i.i.i, label %if.then.i.i.i
@@ -134,7 +134,7 @@ _ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEpLEc.exit.i.i.i: ; preds = 
   %22 = load ptr, ptr %agg.result, align 8, !tbaa !17, !alias.scope !5
   %arrayidx.i.i.i.i.i.i = getelementptr inbounds i8, ptr %22, i64 %add.i.i.i.i25.i
   store i8 0, ptr %arrayidx.i.i.i.i.i.i, align 1, !tbaa !16
-  %.pre.i.i.i = load i64, ptr %1, align 8, !tbaa !13, !noalias !5
+  %.pre.i.i.i = load i64, ptr %2, align 8, !tbaa !13, !noalias !5
   %.pre28.i.i.i = load i64, ptr %_M_string_length.i.i.i.i, align 8, !tbaa !13, !alias.scope !5
   br label %if.end.i.i.i
 

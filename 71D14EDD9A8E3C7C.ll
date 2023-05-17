@@ -203,9 +203,9 @@ _ZN11CStringBaseIwEC2EPKw.exit:                   ; preds = %while.cond.i.i
   %_length.i = getelementptr inbounds %class.CStringBase.0, ptr %ref.tmp2, i64 0, i32 1
   store i32 %1, ptr %_length.i, align 8, !tbaa !23
   invoke void @_Z24UnicodeStringToMultiByteRK11CStringBaseIwEj(ptr nonnull sret(%class.CStringBase) align 8 %ref.tmp, ptr noundef nonnull align 8 dereferenceable(16) %ref.tmp2, i32 noundef 1)
-          to label %invoke.cont unwind label %lpad
+          to label %invoke.cont5 unwind label %lpad
 
-invoke.cont:                                      ; preds = %_ZN11CStringBaseIwEC2EPKw.exit
+invoke.cont5:                                     ; preds = %_ZN11CStringBaseIwEC2EPKw.exit
   %6 = load ptr, ptr %ref.tmp, align 8, !tbaa !24
   %_stream.i = getelementptr inbounds %class.CStdOutStream, ptr %this, i64 0, i32 1
   %7 = load ptr, ptr %_stream.i, align 8, !tbaa !13
@@ -214,20 +214,20 @@ invoke.cont:                                      ; preds = %_ZN11CStringBaseIwE
   %isnull.i = icmp eq ptr %8, null
   br i1 %isnull.i, label %_ZN11CStringBaseIcED2Ev.exit, label %delete.notnull.i
 
-delete.notnull.i:                                 ; preds = %invoke.cont
+delete.notnull.i:                                 ; preds = %invoke.cont5
   call void @_ZdaPv(ptr noundef nonnull %8) #14
   br label %_ZN11CStringBaseIcED2Ev.exit
 
-_ZN11CStringBaseIcED2Ev.exit:                     ; preds = %invoke.cont, %delete.notnull.i
+_ZN11CStringBaseIcED2Ev.exit:                     ; preds = %invoke.cont5, %delete.notnull.i
   %9 = load ptr, ptr %ref.tmp2, align 8, !tbaa !18
-  %isnull.i10 = icmp eq ptr %9, null
-  br i1 %isnull.i10, label %_ZN11CStringBaseIwED2Ev.exit, label %delete.notnull.i11
+  %isnull.i11 = icmp eq ptr %9, null
+  br i1 %isnull.i11, label %_ZN11CStringBaseIwED2Ev.exit, label %delete.notnull.i12
 
-delete.notnull.i11:                               ; preds = %_ZN11CStringBaseIcED2Ev.exit
+delete.notnull.i12:                               ; preds = %_ZN11CStringBaseIcED2Ev.exit
   call void @_ZdaPv(ptr noundef nonnull %9) #14
   br label %_ZN11CStringBaseIwED2Ev.exit
 
-_ZN11CStringBaseIwED2Ev.exit:                     ; preds = %_ZN11CStringBaseIcED2Ev.exit, %delete.notnull.i11
+_ZN11CStringBaseIwED2Ev.exit:                     ; preds = %_ZN11CStringBaseIcED2Ev.exit, %delete.notnull.i12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp2) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #12
   ret ptr %this
@@ -236,14 +236,14 @@ lpad:                                             ; preds = %_ZN11CStringBaseIwE
   %10 = landingpad { ptr, i32 }
           cleanup
   %11 = load ptr, ptr %ref.tmp2, align 8, !tbaa !18
-  %isnull.i15 = icmp eq ptr %11, null
-  br i1 %isnull.i15, label %_ZN11CStringBaseIwED2Ev.exit17, label %delete.notnull.i16
+  %isnull.i16 = icmp eq ptr %11, null
+  br i1 %isnull.i16, label %_ZN11CStringBaseIwED2Ev.exit18, label %delete.notnull.i17
 
-delete.notnull.i16:                               ; preds = %lpad
+delete.notnull.i17:                               ; preds = %lpad
   call void @_ZdaPv(ptr noundef nonnull %11) #14
-  br label %_ZN11CStringBaseIwED2Ev.exit17
+  br label %_ZN11CStringBaseIwED2Ev.exit18
 
-_ZN11CStringBaseIwED2Ev.exit17:                   ; preds = %lpad, %delete.notnull.i16
+_ZN11CStringBaseIwED2Ev.exit18:                   ; preds = %lpad, %delete.notnull.i17
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp2) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #12
   resume { ptr, i32 } %10

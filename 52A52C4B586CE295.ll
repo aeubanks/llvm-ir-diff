@@ -48,7 +48,7 @@ define dso_local void @PSEUDO_BYTE(ptr nocapture readnone %LABEL_NAME, ptr nound
 entry:
   %0 = load i32, ptr %LOCATION, align 4, !tbaa !5
   %1 = load i8, ptr %ARGUMENTS, align 1, !tbaa !9
-  %cmp.not.not = icmp eq i8 %1, 88
+  %cmp.not.not = icmp ne i8 %1, 88
   switch i8 %1, label %if.else85 [
     i8 88, label %if.then
     i8 67, label %if.then
@@ -63,26 +63,26 @@ if.then:                                          ; preds = %entry, %entry
   br i1 %cmp8, label %if.then10, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %if.then
-  %conv11161 = sext i8 %2 to i32
-  %call12162 = tail call i32 (i32, ...) @eoln(i32 noundef %conv11161) #7
-  %tobool.not163 = icmp eq i32 %call12162, 0
-  br i1 %tobool.not163, label %land.rhs13.lr.ph, label %while.end.thread
+  %conv11164 = sext i8 %2 to i32
+  %call12165 = tail call i32 (i32, ...) @eoln(i32 noundef %conv11164) #7
+  %tobool.not166 = icmp eq i32 %call12165, 0
+  br i1 %tobool.not166, label %land.rhs13.lr.ph, label %while.end.thread
 
 land.rhs13.lr.ph:                                 ; preds = %while.cond.preheader
-  br i1 %cmp.not.not, label %land.rhs13.us, label %land.rhs13
+  br i1 %cmp.not.not, label %land.rhs13, label %land.rhs13.us
 
 land.rhs13.us:                                    ; preds = %land.rhs13.lr.ph, %lor.end.us
-  %ARGUMENTS.addr.0166.us.idx = phi i64 [ %ARGUMENTS.addr.0166.us.add, %lor.end.us ], [ 2, %land.rhs13.lr.ph ]
-  %SIZE.0165.us = phi i32 [ %spec.select.us, %lor.end.us ], [ 0, %land.rhs13.lr.ph ]
-  %ERROR.0164.us = phi i32 [ %lor.ext.us, %lor.end.us ], [ 0, %land.rhs13.lr.ph ]
-  %ARGUMENTS.addr.0166.us.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0166.us.idx
-  %3 = load i8, ptr %ARGUMENTS.addr.0166.us.ptr, align 1, !tbaa !9
+  %ARGUMENTS.addr.0169.us.idx = phi i64 [ %ARGUMENTS.addr.0169.us.add, %lor.end.us ], [ 2, %land.rhs13.lr.ph ]
+  %SIZE.0168.us = phi i32 [ %spec.select.us, %lor.end.us ], [ 0, %land.rhs13.lr.ph ]
+  %ERROR.0167.us = phi i32 [ %lor.ext.us, %lor.end.us ], [ 0, %land.rhs13.lr.ph ]
+  %ARGUMENTS.addr.0169.us.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0169.us.idx
+  %3 = load i8, ptr %ARGUMENTS.addr.0169.us.ptr, align 1, !tbaa !9
   %conv14.us = sext i8 %3 to i32
   %cmp15.not.us = icmp eq i8 %3, 39
   br i1 %cmp15.not.us, label %while.end, label %while.body.us
 
 while.body.us:                                    ; preds = %land.rhs13.us
-  %tobool21.not.us = icmp eq i32 %ERROR.0164.us, 0
+  %tobool21.not.us = icmp eq i32 %ERROR.0167.us, 0
   br i1 %tobool21.not.us, label %lor.rhs.us, label %lor.end.us
 
 lor.rhs.us:                                       ; preds = %while.body.us
@@ -93,11 +93,11 @@ lor.rhs.us:                                       ; preds = %while.body.us
 lor.end.us:                                       ; preds = %lor.rhs.us, %while.body.us
   %4 = phi i1 [ true, %while.body.us ], [ %cmp24.us, %lor.rhs.us ]
   %lor.ext.us = zext i1 %4 to i32
-  %ARGUMENTS.addr.0166.us.add = add nuw nsw i64 %ARGUMENTS.addr.0166.us.idx, 1
-  %incdec.ptr.us.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0166.us.add
+  %ARGUMENTS.addr.0169.us.add = add nuw nsw i64 %ARGUMENTS.addr.0169.us.idx, 1
+  %incdec.ptr.us.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0169.us.add
   %tobool26.not.us = xor i1 %4, true
   %inc.us = zext i1 %tobool26.not.us to i32
-  %spec.select.us = add nuw nsw i32 %SIZE.0165.us, %inc.us
+  %spec.select.us = add nuw nsw i32 %SIZE.0168.us, %inc.us
   %5 = load i8, ptr %incdec.ptr.us.ptr, align 1, !tbaa !9
   %conv11.us = sext i8 %5 to i32
   %call12.us = tail call i32 (i32, ...) @eoln(i32 noundef %conv11.us) #7
@@ -109,17 +109,17 @@ if.then10:                                        ; preds = %if.then
   br label %if.end87
 
 land.rhs13:                                       ; preds = %land.rhs13.lr.ph, %while.body
-  %ARGUMENTS.addr.0166.idx = phi i64 [ %ARGUMENTS.addr.0166.add, %while.body ], [ 2, %land.rhs13.lr.ph ]
-  %SIZE.0165 = phi i32 [ %inc, %while.body ], [ 0, %land.rhs13.lr.ph ]
-  %ARGUMENTS.addr.0166.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0166.idx
-  %7 = load i8, ptr %ARGUMENTS.addr.0166.ptr, align 1, !tbaa !9
+  %ARGUMENTS.addr.0169.idx = phi i64 [ %ARGUMENTS.addr.0169.add, %while.body ], [ 2, %land.rhs13.lr.ph ]
+  %SIZE.0168 = phi i32 [ %spec.select, %while.body ], [ 0, %land.rhs13.lr.ph ]
+  %ARGUMENTS.addr.0169.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0169.idx
+  %7 = load i8, ptr %ARGUMENTS.addr.0169.ptr, align 1, !tbaa !9
   %cmp15.not = icmp eq i8 %7, 39
   br i1 %cmp15.not, label %while.end.thread, label %while.body
 
 while.body:                                       ; preds = %land.rhs13
-  %ARGUMENTS.addr.0166.add = add nuw nsw i64 %ARGUMENTS.addr.0166.idx, 1
-  %incdec.ptr.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0166.add
-  %inc = add nuw nsw i32 %SIZE.0165, 1
+  %ARGUMENTS.addr.0169.add = add nuw nsw i64 %ARGUMENTS.addr.0169.idx, 1
+  %incdec.ptr.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0169.add
+  %spec.select = add nuw nsw i32 %SIZE.0168, 1
   %8 = load i8, ptr %incdec.ptr.ptr, align 1, !tbaa !9
   %conv11 = sext i8 %8 to i32
   %call12 = tail call i32 (i32, ...) @eoln(i32 noundef %conv11) #7
@@ -127,15 +127,15 @@ while.body:                                       ; preds = %land.rhs13
   br i1 %tobool.not, label %land.rhs13, label %while.end.thread, !llvm.loop !10
 
 while.end.thread:                                 ; preds = %while.body, %land.rhs13, %while.cond.preheader
-  %SIZE.0.lcssa.ph = phi i32 [ 0, %while.cond.preheader ], [ %SIZE.0165, %land.rhs13 ], [ %inc, %while.body ]
-  %ARGUMENTS.addr.0.lcssa.idx.ph = phi i64 [ 2, %while.cond.preheader ], [ %ARGUMENTS.addr.0166.idx, %land.rhs13 ], [ %ARGUMENTS.addr.0166.add, %while.body ]
-  %ARGUMENTS.addr.0.lcssa.ptr185 = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0.lcssa.idx.ph
+  %SIZE.0.lcssa.ph = phi i32 [ 0, %while.cond.preheader ], [ %SIZE.0168, %land.rhs13 ], [ %spec.select, %while.body ]
+  %ARGUMENTS.addr.0.lcssa.idx.ph = phi i64 [ 2, %while.cond.preheader ], [ %ARGUMENTS.addr.0169.idx, %land.rhs13 ], [ %ARGUMENTS.addr.0169.add, %while.body ]
+  %ARGUMENTS.addr.0.lcssa.ptr188 = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0.lcssa.idx.ph
   br label %if.end32
 
 while.end:                                        ; preds = %land.rhs13.us, %lor.end.us
-  %ERROR.0.lcssa = phi i32 [ %ERROR.0164.us, %land.rhs13.us ], [ %lor.ext.us, %lor.end.us ]
-  %SIZE.0.lcssa = phi i32 [ %SIZE.0165.us, %land.rhs13.us ], [ %spec.select.us, %lor.end.us ]
-  %ARGUMENTS.addr.0.lcssa.idx = phi i64 [ %ARGUMENTS.addr.0166.us.idx, %land.rhs13.us ], [ %ARGUMENTS.addr.0166.us.add, %lor.end.us ]
+  %ERROR.0.lcssa = phi i32 [ %ERROR.0167.us, %land.rhs13.us ], [ %lor.ext.us, %lor.end.us ]
+  %SIZE.0.lcssa = phi i32 [ %SIZE.0168.us, %land.rhs13.us ], [ %spec.select.us, %lor.end.us ]
+  %ARGUMENTS.addr.0.lcssa.idx = phi i64 [ %ARGUMENTS.addr.0169.us.idx, %land.rhs13.us ], [ %ARGUMENTS.addr.0169.us.add, %lor.end.us ]
   %ARGUMENTS.addr.0.lcssa.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0.lcssa.idx
   %tobool29.not = icmp eq i32 %ERROR.0.lcssa, 0
   br i1 %tobool29.not, label %if.end32, label %if.then30
@@ -145,67 +145,64 @@ if.then30:                                        ; preds = %while.end
   br label %if.end32
 
 if.end32:                                         ; preds = %while.end.thread, %if.then30, %while.end
-  %tobool29.not190 = phi i1 [ true, %while.end.thread ], [ false, %if.then30 ], [ true, %while.end ]
-  %ARGUMENTS.addr.0.lcssa.ptr189 = phi ptr [ %ARGUMENTS.addr.0.lcssa.ptr185, %while.end.thread ], [ %ARGUMENTS.addr.0.lcssa.ptr, %if.then30 ], [ %ARGUMENTS.addr.0.lcssa.ptr, %while.end ]
-  %ARGUMENTS.addr.0.lcssa.idx188 = phi i64 [ %ARGUMENTS.addr.0.lcssa.idx.ph, %while.end.thread ], [ %ARGUMENTS.addr.0.lcssa.idx, %if.then30 ], [ %ARGUMENTS.addr.0.lcssa.idx, %while.end ]
-  %SIZE.0.lcssa187 = phi i32 [ %SIZE.0.lcssa.ph, %while.end.thread ], [ %SIZE.0.lcssa, %if.then30 ], [ %SIZE.0.lcssa, %while.end ]
-  %10 = load i8, ptr %ARGUMENTS.addr.0.lcssa.ptr189, align 1, !tbaa !9
+  %tobool29.not193 = phi i1 [ true, %while.end.thread ], [ false, %if.then30 ], [ true, %while.end ]
+  %ARGUMENTS.addr.0.lcssa.ptr192 = phi ptr [ %ARGUMENTS.addr.0.lcssa.ptr188, %while.end.thread ], [ %ARGUMENTS.addr.0.lcssa.ptr, %if.then30 ], [ %ARGUMENTS.addr.0.lcssa.ptr, %while.end ]
+  %ARGUMENTS.addr.0.lcssa.idx191 = phi i64 [ %ARGUMENTS.addr.0.lcssa.idx.ph, %while.end.thread ], [ %ARGUMENTS.addr.0.lcssa.idx, %if.then30 ], [ %ARGUMENTS.addr.0.lcssa.idx, %while.end ]
+  %SIZE.0.lcssa190 = phi i32 [ %SIZE.0.lcssa.ph, %while.end.thread ], [ %SIZE.0.lcssa, %if.then30 ], [ %SIZE.0.lcssa, %while.end ]
+  %10 = load i8, ptr %ARGUMENTS.addr.0.lcssa.ptr192, align 1, !tbaa !9
   %cmp34 = icmp eq i8 %10, 39
   br i1 %cmp34, label %if.end40, label %if.end40.thread
 
 if.end40:                                         ; preds = %if.end32
-  %incdec.ptr37 = getelementptr inbounds i8, ptr %ARGUMENTS.addr.0.lcssa.ptr189, i64 1
-  br i1 %cmp.not.not, label %land.lhs.true42, label %if.end47.thread136
+  %incdec.ptr37 = getelementptr inbounds i8, ptr %ARGUMENTS.addr.0.lcssa.ptr192, i64 1
+  br i1 %cmp.not.not, label %if.end47.thread136, label %land.lhs.true42
 
 if.end40.thread:                                  ; preds = %if.end32
   %11 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 73, i64 1, ptr %OUTPUT_STREAM)
-  br i1 %cmp.not.not, label %land.lhs.true42.thread, label %if.end72
+  %div151161 = and i32 %SIZE.0.lcssa190, 2147483646
+  %cmp43.not153 = icmp eq i32 %div151161, %SIZE.0.lcssa190
+  %or.cond = select i1 %cmp.not.not, i1 true, i1 %cmp43.not153
+  br i1 %or.cond, label %if.end72, label %if.end47.thread
 
 land.lhs.true42:                                  ; preds = %if.end40
-  %div = sdiv i32 %SIZE.0.lcssa187, 2
-  %mul = shl nsw i32 %div, 1
-  %cmp43.not = icmp eq i32 %mul, %SIZE.0.lcssa187
+  %div162 = and i32 %SIZE.0.lcssa190, 2147483646
+  %cmp43.not = icmp eq i32 %div162, %SIZE.0.lcssa190
   br i1 %cmp43.not, label %if.end47, label %if.end47.thread
 
-land.lhs.true42.thread:                           ; preds = %if.end40.thread
-  %div151 = sdiv i32 %SIZE.0.lcssa187, 2
-  %mul152 = shl nsw i32 %div151, 1
-  %cmp43.not153 = icmp eq i32 %mul152, %SIZE.0.lcssa187
-  br i1 %cmp43.not153, label %if.end72, label %if.end47.thread
-
-if.end47.thread:                                  ; preds = %land.lhs.true42.thread, %land.lhs.true42
-  %ARGUMENTS.addr.1145155 = phi ptr [ %ARGUMENTS.addr.0.lcssa.ptr189, %land.lhs.true42.thread ], [ %incdec.ptr37, %land.lhs.true42 ]
+if.end47.thread:                                  ; preds = %if.end40.thread, %land.lhs.true42
+  %ARGUMENTS.addr.1145155 = phi ptr [ %incdec.ptr37, %land.lhs.true42 ], [ %ARGUMENTS.addr.0.lcssa.ptr192, %if.end40.thread ]
   %12 = tail call i64 @fwrite(ptr nonnull @.str.3, i64 66, i64 1, ptr %OUTPUT_STREAM)
   br label %if.end72
 
 if.end47:                                         ; preds = %land.lhs.true42
-  br i1 %tobool29.not190, label %if.then56, label %if.end72
+  br i1 %tobool29.not193, label %if.then56, label %if.end72
 
 if.end47.thread136:                               ; preds = %if.end40
-  br i1 %tobool29.not190, label %if.else62, label %if.end72
+  br i1 %tobool29.not193, label %if.else62, label %if.end72
 
 if.then56:                                        ; preds = %if.end47
-  tail call void (ptr, i32, ptr, ...) @CHANGE_LOCATION(ptr noundef nonnull %LOCATION, i32 noundef %div, ptr noundef %OUTPUT_STREAM) #7
-  %13 = load i8, ptr %ARGUMENTS.addr.0.lcssa.ptr189, align 1, !tbaa !9
-  store i8 0, ptr %ARGUMENTS.addr.0.lcssa.ptr189, align 1, !tbaa !9
+  %div52163 = lshr i32 %SIZE.0.lcssa190, 1
+  tail call void (ptr, i32, ptr, ...) @CHANGE_LOCATION(ptr noundef nonnull %LOCATION, i32 noundef %div52163, ptr noundef %OUTPUT_STREAM) #7
+  %13 = load i8, ptr %ARGUMENTS.addr.0.lcssa.ptr192, align 1, !tbaa !9
+  store i8 0, ptr %ARGUMENTS.addr.0.lcssa.ptr192, align 1, !tbaa !9
   %call60 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT_STREAM, ptr noundef nonnull @.str.4, i32 noundef %0, ptr noundef nonnull %add.ptr6.ptr)
-  store i8 %13, ptr %ARGUMENTS.addr.0.lcssa.ptr189, align 1, !tbaa !9
+  store i8 %13, ptr %ARGUMENTS.addr.0.lcssa.ptr192, align 1, !tbaa !9
   br label %if.end72
 
 if.else62:                                        ; preds = %if.end47.thread136
-  tail call void (ptr, i32, ptr, ...) @CHANGE_LOCATION(ptr noundef nonnull %LOCATION, i32 noundef %SIZE.0.lcssa187, ptr noundef %OUTPUT_STREAM) #7
+  tail call void (ptr, i32, ptr, ...) @CHANGE_LOCATION(ptr noundef nonnull %LOCATION, i32 noundef %SIZE.0.lcssa190, ptr noundef %OUTPUT_STREAM) #7
   %call63 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %OUTPUT_STREAM, ptr noundef nonnull @.str.5, i32 noundef %0)
-  %ARGUMENTS.addr.0.lcssa.add = add nsw i64 %ARGUMENTS.addr.0.lcssa.idx188, -1
+  %ARGUMENTS.addr.0.lcssa.add = add nsw i64 %ARGUMENTS.addr.0.lcssa.idx191, -1
   %add.ptr65.ptr = getelementptr inbounds i8, ptr %ARGUMENTS, i64 %ARGUMENTS.addr.0.lcssa.add
-  %cmp66.not177 = icmp slt i64 %ARGUMENTS.addr.0.lcssa.idx188, 3
-  br i1 %cmp66.not177, label %for.end, label %for.body
+  %cmp66.not180 = icmp slt i64 %ARGUMENTS.addr.0.lcssa.idx191, 3
+  br i1 %cmp66.not180, label %for.end, label %for.body
 
 for.body:                                         ; preds = %if.else62, %for.body
-  %LOOP.0178 = phi ptr [ %incdec.ptr69, %for.body ], [ %add.ptr6.ptr, %if.else62 ]
-  %14 = load i8, ptr %LOOP.0178, align 1, !tbaa !9
+  %LOOP.0181 = phi ptr [ %incdec.ptr69, %for.body ], [ %add.ptr6.ptr, %if.else62 ]
+  %14 = load i8, ptr %LOOP.0181, align 1, !tbaa !9
   %conv68 = sext i8 %14 to i32
   tail call void (i32, i32, i32, ptr, ...) @PRT_NUM(i32 noundef %conv68, i32 noundef 16, i32 noundef 2, ptr noundef %OUTPUT_STREAM) #7
-  %incdec.ptr69 = getelementptr inbounds i8, ptr %LOOP.0178, i64 1
+  %incdec.ptr69 = getelementptr inbounds i8, ptr %LOOP.0181, i64 1
   %cmp66.not = icmp ugt ptr %incdec.ptr69, %add.ptr65.ptr
   br i1 %cmp66.not, label %for.end, label %for.body, !llvm.loop !12
 
@@ -213,8 +210,8 @@ for.end:                                          ; preds = %for.body, %if.else6
   %fputc = tail call i32 @fputc(i32 10, ptr %OUTPUT_STREAM)
   br label %if.end72
 
-if.end72:                                         ; preds = %land.lhs.true42.thread, %if.end40.thread, %if.end47.thread136, %if.end47.thread, %if.then56, %for.end, %if.end47
-  %ARGUMENTS.addr.1143 = phi ptr [ %incdec.ptr37, %if.end47.thread136 ], [ %ARGUMENTS.addr.1145155, %if.end47.thread ], [ %incdec.ptr37, %if.then56 ], [ %incdec.ptr37, %for.end ], [ %incdec.ptr37, %if.end47 ], [ %ARGUMENTS.addr.0.lcssa.ptr189, %if.end40.thread ], [ %ARGUMENTS.addr.0.lcssa.ptr189, %land.lhs.true42.thread ]
+if.end72:                                         ; preds = %if.end40.thread, %if.end47.thread136, %if.end47.thread, %if.then56, %for.end, %if.end47
+  %ARGUMENTS.addr.1143 = phi ptr [ %incdec.ptr37, %if.end47.thread136 ], [ %ARGUMENTS.addr.1145155, %if.end47.thread ], [ %incdec.ptr37, %if.then56 ], [ %incdec.ptr37, %for.end ], [ %incdec.ptr37, %if.end47 ], [ %ARGUMENTS.addr.0.lcssa.ptr192, %if.end40.thread ]
   %15 = load i8, ptr %ARGUMENTS.addr.1143, align 1, !tbaa !9
   %conv73 = sext i8 %15 to i32
   %call74 = tail call i32 (i32, ...) @IS_BLANK_OR_TAB(i32 noundef %conv73) #7

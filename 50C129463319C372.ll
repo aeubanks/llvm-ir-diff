@@ -115,8 +115,8 @@ entry.if.end51_crit_edge:                         ; preds = %entry
 if.then:                                          ; preds = %entry
   %b = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 1
   %0 = load i32, ptr %b, align 4
-  %idxprom193 = zext i32 %0 to i64
-  %1 = lshr i64 51087, %idxprom193
+  %idxprom151 = zext i32 %0 to i64
+  %1 = lshr i64 51087, %idxprom151
   %2 = and i64 %1, 1
   %cmp1.not = icmp eq i64 %2, 0
   br i1 %cmp1.not, label %if.end, label %cleanup
@@ -124,8 +124,8 @@ if.then:                                          ; preds = %entry
 if.end:                                           ; preds = %if.then
   %d = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 3
   %3 = load i32, ptr %d, align 4
-  %idxprom3194 = zext i32 %3 to i64
-  %4 = lshr i64 115599, %idxprom3194
+  %idxprom3152 = zext i32 %3 to i64
+  %4 = lshr i64 115599, %idxprom3152
   %5 = and i64 %4, 1
   %cmp6.not = icmp eq i64 %5, 0
   br i1 %cmp6.not, label %if.end8, label %cleanup
@@ -133,8 +133,8 @@ if.end:                                           ; preds = %if.then
 if.end8:                                          ; preds = %if.end
   %bi = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 4
   %6 = load i32, ptr %bi, align 8
-  %idxprom9195 = zext i32 %6 to i64
-  %7 = lshr i64 243824, %idxprom9195
+  %idxprom9153 = zext i32 %6 to i64
+  %7 = lshr i64 243824, %idxprom9153
   %8 = and i64 %7, 1
   %cmp12.not = icmp eq i64 %8, 0
   br i1 %cmp12.not, label %if.end14, label %cleanup
@@ -142,16 +142,16 @@ if.end8:                                          ; preds = %if.end
 if.end14:                                         ; preds = %if.end8
   %ar = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 5
   %9 = load i32, ptr %ar, align 4
-  %idxprom15196 = zext i32 %9 to i64
-  %10 = lshr i64 155761, %idxprom15196
+  %idxprom15154 = zext i32 %9 to i64
+  %10 = lshr i64 155761, %idxprom15154
   %11 = and i64 %10, 1
   %cmp18.not = icmp eq i64 %11, 0
   br i1 %cmp18.not, label %if.end20, label %cleanup
 
 if.end20:                                         ; preds = %if.end14
   %12 = load i32, ptr %p, align 8
-  %idxprom21197 = zext i32 %12 to i64
-  %13 = lshr i64 50055, %idxprom21197
+  %idxprom21155 = zext i32 %12 to i64
+  %13 = lshr i64 50055, %idxprom21155
   %14 = and i64 %13, 1
   %cmp24.not = icmp eq i64 %14, 0
   br i1 %cmp24.not, label %if.end26, label %cleanup
@@ -159,8 +159,8 @@ if.end20:                                         ; preds = %if.end14
 if.end26:                                         ; preds = %if.end20
   %c = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 2
   %15 = load i32, ptr %c, align 8
-  %idxprom27198 = zext i32 %15 to i64
-  %16 = lshr i64 19335, %idxprom27198
+  %idxprom27156 = zext i32 %15 to i64
+  %16 = lshr i64 19335, %idxprom27156
   %17 = and i64 %16, 1
   %cmp30.not = icmp eq i64 %17, 0
   br i1 %cmp30.not, label %if.end32, label %cleanup
@@ -168,8 +168,8 @@ if.end26:                                         ; preds = %if.end20
 if.end32:                                         ; preds = %if.end26
   %g1 = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 6
   %18 = load i32, ptr %g1, align 8
-  %idxprom33199 = zext i32 %18 to i64
-  %19 = lshr i64 145520, %idxprom33199
+  %idxprom33157 = zext i32 %18 to i64
+  %19 = lshr i64 145520, %idxprom33157
   %20 = and i64 %19, 1
   %cmp36.not = icmp eq i64 %20, 0
   br i1 %cmp36.not, label %if.end38, label %cleanup
@@ -177,8 +177,8 @@ if.end32:                                         ; preds = %if.end26
 if.end38:                                         ; preds = %if.end32
   %g2 = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 7
   %21 = load i32, ptr %g2, align 4
-  %idxprom39200 = zext i32 %21 to i64
-  %22 = lshr i64 145520, %idxprom39200
+  %idxprom39158 = zext i32 %21 to i64
+  %22 = lshr i64 145520, %idxprom39158
   %23 = and i64 %22, 1
   %cmp42.not = icmp eq i64 %23, 0
   br i1 %cmp42.not, label %if.end44, label %cleanup
@@ -186,29 +186,29 @@ if.end38:                                         ; preds = %if.end32
 if.end44:                                         ; preds = %if.end38
   %g3 = getelementptr inbounds %struct.p_type, ptr %p, i64 0, i32 8
   %24 = load i32, ptr %g3, align 8
-  %idxprom45201 = zext i32 %24 to i64
-  %25 = lshr i64 145520, %idxprom45201
+  %idxprom45159 = zext i32 %24 to i64
+  %25 = lshr i64 145520, %idxprom45159
   %26 = and i64 %25, 1
   %cmp48.not = icmp eq i64 %26, 0
   br i1 %cmp48.not, label %if.end51, label %cleanup
 
 if.end51:                                         ; preds = %entry.if.end51_crit_edge, %if.end44
-  %p156.sroa.8.0.copyload = phi i32 [ %.pre209, %entry.if.end51_crit_edge ], [ %9, %if.end44 ]
-  %p156.sroa.7.0.copyload = phi i32 [ %.pre208, %entry.if.end51_crit_edge ], [ %6, %if.end44 ]
-  %p156.sroa.6.0.copyload = phi i32 [ %.pre207, %entry.if.end51_crit_edge ], [ %3, %if.end44 ]
-  %p156.sroa.5.0.copyload = phi i32 [ %.pre206, %entry.if.end51_crit_edge ], [ %15, %if.end44 ]
-  %p156.sroa.4.0.copyload = phi i32 [ %.pre205, %entry.if.end51_crit_edge ], [ %0, %if.end44 ]
+  %p166.sroa.8.0.copyload = phi i32 [ %.pre209, %entry.if.end51_crit_edge ], [ %9, %if.end44 ]
+  %p166.sroa.7.0.copyload = phi i32 [ %.pre208, %entry.if.end51_crit_edge ], [ %6, %if.end44 ]
+  %p166.sroa.6.0.copyload = phi i32 [ %.pre207, %entry.if.end51_crit_edge ], [ %3, %if.end44 ]
+  %p166.sroa.5.0.copyload = phi i32 [ %.pre206, %entry.if.end51_crit_edge ], [ %15, %if.end44 ]
+  %p166.sroa.4.0.copyload = phi i32 [ %.pre205, %entry.if.end51_crit_edge ], [ %0, %if.end44 ]
   %27 = phi i32 [ %.pre, %entry.if.end51_crit_edge ], [ %12, %if.end44 ]
   %cmp53 = icmp eq i32 %27, 5
-  %cmp55 = icmp eq i32 %p156.sroa.4.0.copyload, 6
+  %cmp55 = icmp eq i32 %p166.sroa.4.0.copyload, 6
   %or.cond = select i1 %cmp53, i1 %cmp55, i1 false
-  %cmp58 = icmp eq i32 %p156.sroa.5.0.copyload, 12
+  %cmp58 = icmp eq i32 %p166.sroa.5.0.copyload, 12
   %or.cond129 = select i1 %or.cond, i1 %cmp58, i1 false
-  %cmp61 = icmp eq i32 %p156.sroa.6.0.copyload, 13
+  %cmp61 = icmp eq i32 %p166.sroa.6.0.copyload, 13
   %or.cond130 = select i1 %or.cond129, i1 %cmp61, i1 false
-  %cmp64 = icmp eq i32 %p156.sroa.7.0.copyload, 14
+  %cmp64 = icmp eq i32 %p166.sroa.7.0.copyload, 14
   %or.cond131 = select i1 %or.cond130, i1 %cmp64, i1 false
-  %cmp67 = icmp eq i32 %p156.sroa.8.0.copyload, 15
+  %cmp67 = icmp eq i32 %p166.sroa.8.0.copyload, 15
   %or.cond132 = select i1 %or.cond131, i1 %cmp67, i1 false
   br i1 %or.cond132, label %land.lhs.true68, label %if.else
 
@@ -243,52 +243,52 @@ if.end83.cond.false97_crit_edge:                  ; preds = %if.end83
 
 cond.false:                                       ; preds = %if.end83
   tail call void @llvm.experimental.noalias.scope.decl(metadata !10)
-  %p151.sroa.9.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 24
-  %p151.sroa.9.0.copyload = load i32, ptr %p151.sroa.9.0.p.sroa_idx, align 8
-  %p151.sroa.10.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 28
-  %p151.sroa.10.0.copyload = load i32, ptr %p151.sroa.10.0.p.sroa_idx, align 4
-  %p151.sroa.11.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 32
-  %p151.sroa.11.0.copyload = load i32, ptr %p151.sroa.11.0.p.sroa_idx, align 8
+  %p161.sroa.9.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 24
+  %p161.sroa.9.0.copyload = load i32, ptr %p161.sroa.9.0.p.sroa_idx, align 8
+  %p161.sroa.10.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 28
+  %p161.sroa.10.0.copyload = load i32, ptr %p161.sroa.10.0.p.sroa_idx, align 4
+  %p161.sroa.11.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 32
+  %p161.sroa.11.0.copyload = load i32, ptr %p161.sroa.11.0.p.sroa_idx, align 8
   %idxprom.i = sext i32 %27 to i64
   %arrayidx.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom.i
   %31 = load i32, ptr %arrayidx.i, align 4, !tbaa !13, !noalias !10
   store i32 %31, ptr %agg.tmp, align 8, !tbaa !15, !alias.scope !10
-  %idxprom2.i = sext i32 %p156.sroa.4.0.copyload to i64
+  %idxprom2.i = sext i32 %p166.sroa.4.0.copyload to i64
   %arrayidx3.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom2.i
   %32 = load i32, ptr %arrayidx3.i, align 4, !tbaa !13, !noalias !10
   %b4.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 1
   store i32 %32, ptr %b4.i, align 4, !tbaa !17, !alias.scope !10
-  %idxprom5.i = sext i32 %p156.sroa.5.0.copyload to i64
+  %idxprom5.i = sext i32 %p166.sroa.5.0.copyload to i64
   %arrayidx6.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom5.i
   %33 = load i32, ptr %arrayidx6.i, align 4, !tbaa !13, !noalias !10
   %c7.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 2
   store i32 %33, ptr %c7.i, align 8, !tbaa !18, !alias.scope !10
-  %idxprom8.i = sext i32 %p156.sroa.6.0.copyload to i64
+  %idxprom8.i = sext i32 %p166.sroa.6.0.copyload to i64
   %arrayidx9.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom8.i
   %34 = load i32, ptr %arrayidx9.i, align 4, !tbaa !13, !noalias !10
   %d10.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 3
   store i32 %34, ptr %d10.i, align 4, !tbaa !19, !alias.scope !10
-  %idxprom11.i = sext i32 %p156.sroa.7.0.copyload to i64
+  %idxprom11.i = sext i32 %p166.sroa.7.0.copyload to i64
   %arrayidx12.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom11.i
   %35 = load i32, ptr %arrayidx12.i, align 4, !tbaa !13, !noalias !10
   %bi13.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 4
   store i32 %35, ptr %bi13.i, align 8, !tbaa !20, !alias.scope !10
-  %idxprom14.i = sext i32 %p156.sroa.8.0.copyload to i64
+  %idxprom14.i = sext i32 %p166.sroa.8.0.copyload to i64
   %arrayidx15.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom14.i
   %36 = load i32, ptr %arrayidx15.i, align 4, !tbaa !13, !noalias !10
   %ar16.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 5
   store i32 %36, ptr %ar16.i, align 4, !tbaa !21, !alias.scope !10
-  %idxprom17.i = sext i32 %p151.sroa.9.0.copyload to i64
+  %idxprom17.i = sext i32 %p161.sroa.9.0.copyload to i64
   %arrayidx18.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom17.i
   %37 = load i32, ptr %arrayidx18.i, align 4, !tbaa !13, !noalias !10
   %g119.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 6
   store i32 %37, ptr %g119.i, align 8, !tbaa !22, !alias.scope !10
-  %idxprom20.i = sext i32 %p151.sroa.10.0.copyload to i64
+  %idxprom20.i = sext i32 %p161.sroa.10.0.copyload to i64
   %arrayidx21.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom20.i
   %38 = load i32, ptr %arrayidx21.i, align 4, !tbaa !13, !noalias !10
   %g222.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 7
   store i32 %38, ptr %g222.i, align 4, !tbaa !23, !alias.scope !10
-  %idxprom23.i = sext i32 %p151.sroa.11.0.copyload to i64
+  %idxprom23.i = sext i32 %p161.sroa.11.0.copyload to i64
   %arrayidx24.i = getelementptr inbounds [18 x i32], ptr @__const.m0u.m, i64 0, i64 %idxprom23.i
   %39 = load i32, ptr %arrayidx24.i, align 4, !tbaa !13, !noalias !10
   %g325.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 8
@@ -307,12 +307,12 @@ if.then88:                                        ; preds = %cond.false
 
 if.then91:                                        ; preds = %if.then88
   %43 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i152 = tail call i32 @putc(i32 noundef 32, ptr noundef %43)
+  %call.i162 = tail call i32 @putc(i32 noundef 32, ptr noundef %43)
   br label %cleanup
 
 if.else94:                                        ; preds = %cond.false
-  %cond202 = icmp eq i32 %last, 1
-  br i1 %cond202, label %cond.end118, label %cond.false97
+  %cond160 = icmp eq i32 %last, 1
+  br i1 %cond160, label %cond.end118, label %cond.false97
 
 cond.false97:                                     ; preds = %if.end83.cond.false97_crit_edge, %if.else94
   %add99.pre-phi = phi i32 [ %.pre222, %if.end83.cond.false97_crit_edge ], [ %add85, %if.else94 ]
@@ -322,14 +322,14 @@ cond.false97:                                     ; preds = %if.end83.cond.false
 
 if.then104:                                       ; preds = %cond.false97
   %45 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i154 = tail call i32 @putc(i32 noundef 49, ptr noundef %45)
+  %call.i164 = tail call i32 @putc(i32 noundef 49, ptr noundef %45)
   %46 = and i32 %dep, 3
   %cmp107 = icmp eq i32 %46, 0
   br i1 %cmp107, label %if.then108, label %cleanup
 
 if.then108:                                       ; preds = %if.then104
   %47 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i155 = tail call i32 @putc(i32 noundef 32, ptr noundef %47)
+  %call.i165 = tail call i32 @putc(i32 noundef 32, ptr noundef %47)
   br label %cleanup
 
 if.else111:                                       ; preds = %cond.false97
@@ -337,84 +337,84 @@ if.else111:                                       ; preds = %cond.false97
   br i1 %cmp112, label %cleanup, label %if.else111.cond.end118_crit_edge
 
 if.else111.cond.end118_crit_edge:                 ; preds = %if.else111
-  %p156.sroa.9.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 24
-  %p156.sroa.9.0.copyload.pre = load i32, ptr %p156.sroa.9.0.p.sroa_idx.phi.trans.insert, align 8
-  %p156.sroa.10.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 28
-  %p156.sroa.10.0.copyload.pre = load i32, ptr %p156.sroa.10.0.p.sroa_idx.phi.trans.insert, align 4
-  %p156.sroa.11.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 32
-  %p156.sroa.11.0.copyload.pre = load i32, ptr %p156.sroa.11.0.p.sroa_idx.phi.trans.insert, align 8
+  %p166.sroa.9.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 24
+  %p166.sroa.9.0.copyload.pre = load i32, ptr %p166.sroa.9.0.p.sroa_idx.phi.trans.insert, align 8
+  %p166.sroa.10.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 28
+  %p166.sroa.10.0.copyload.pre = load i32, ptr %p166.sroa.10.0.p.sroa_idx.phi.trans.insert, align 4
+  %p166.sroa.11.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 32
+  %p166.sroa.11.0.copyload.pre = load i32, ptr %p166.sroa.11.0.p.sroa_idx.phi.trans.insert, align 8
   %.pre213 = sext i32 %27 to i64
-  %.pre214 = sext i32 %p156.sroa.4.0.copyload to i64
-  %.pre215 = sext i32 %p156.sroa.5.0.copyload to i64
-  %.pre216 = sext i32 %p156.sroa.6.0.copyload to i64
-  %.pre217 = sext i32 %p156.sroa.7.0.copyload to i64
-  %.pre218 = sext i32 %p156.sroa.8.0.copyload to i64
-  %.pre219 = sext i32 %p156.sroa.9.0.copyload.pre to i64
-  %.pre220 = sext i32 %p156.sroa.10.0.copyload.pre to i64
-  %.pre221 = sext i32 %p156.sroa.11.0.copyload.pre to i64
+  %.pre214 = sext i32 %p166.sroa.4.0.copyload to i64
+  %.pre215 = sext i32 %p166.sroa.5.0.copyload to i64
+  %.pre216 = sext i32 %p166.sroa.6.0.copyload to i64
+  %.pre217 = sext i32 %p166.sroa.7.0.copyload to i64
+  %.pre218 = sext i32 %p166.sroa.8.0.copyload to i64
+  %.pre219 = sext i32 %p166.sroa.9.0.copyload.pre to i64
+  %.pre220 = sext i32 %p166.sroa.10.0.copyload.pre to i64
+  %.pre221 = sext i32 %p166.sroa.11.0.copyload.pre to i64
   br label %cond.end118
 
 cond.end118:                                      ; preds = %if.else111.cond.end118_crit_edge, %if.else94
   %add116.pre-phi = phi i32 [ %add99.pre-phi, %if.else111.cond.end118_crit_edge ], [ %add85, %if.else94 ]
-  %idxprom23.i188.pre-phi = phi i64 [ %.pre221, %if.else111.cond.end118_crit_edge ], [ %idxprom23.i, %if.else94 ]
-  %idxprom20.i184.pre-phi = phi i64 [ %.pre220, %if.else111.cond.end118_crit_edge ], [ %idxprom20.i, %if.else94 ]
-  %idxprom17.i180.pre-phi = phi i64 [ %.pre219, %if.else111.cond.end118_crit_edge ], [ %idxprom17.i, %if.else94 ]
-  %idxprom14.i176.pre-phi = phi i64 [ %.pre218, %if.else111.cond.end118_crit_edge ], [ %idxprom14.i, %if.else94 ]
-  %idxprom11.i172.pre-phi = phi i64 [ %.pre217, %if.else111.cond.end118_crit_edge ], [ %idxprom11.i, %if.else94 ]
-  %idxprom8.i168.pre-phi = phi i64 [ %.pre216, %if.else111.cond.end118_crit_edge ], [ %idxprom8.i, %if.else94 ]
-  %idxprom5.i164.pre-phi = phi i64 [ %.pre215, %if.else111.cond.end118_crit_edge ], [ %idxprom5.i, %if.else94 ]
-  %idxprom2.i160.pre-phi = phi i64 [ %.pre214, %if.else111.cond.end118_crit_edge ], [ %idxprom2.i, %if.else94 ]
-  %idxprom.i157.pre-phi = phi i64 [ %.pre213, %if.else111.cond.end118_crit_edge ], [ %idxprom.i, %if.else94 ]
+  %idxprom23.i198.pre-phi = phi i64 [ %.pre221, %if.else111.cond.end118_crit_edge ], [ %idxprom23.i, %if.else94 ]
+  %idxprom20.i194.pre-phi = phi i64 [ %.pre220, %if.else111.cond.end118_crit_edge ], [ %idxprom20.i, %if.else94 ]
+  %idxprom17.i190.pre-phi = phi i64 [ %.pre219, %if.else111.cond.end118_crit_edge ], [ %idxprom17.i, %if.else94 ]
+  %idxprom14.i186.pre-phi = phi i64 [ %.pre218, %if.else111.cond.end118_crit_edge ], [ %idxprom14.i, %if.else94 ]
+  %idxprom11.i182.pre-phi = phi i64 [ %.pre217, %if.else111.cond.end118_crit_edge ], [ %idxprom11.i, %if.else94 ]
+  %idxprom8.i178.pre-phi = phi i64 [ %.pre216, %if.else111.cond.end118_crit_edge ], [ %idxprom8.i, %if.else94 ]
+  %idxprom5.i174.pre-phi = phi i64 [ %.pre215, %if.else111.cond.end118_crit_edge ], [ %idxprom5.i, %if.else94 ]
+  %idxprom2.i170.pre-phi = phi i64 [ %.pre214, %if.else111.cond.end118_crit_edge ], [ %idxprom2.i, %if.else94 ]
+  %idxprom.i167.pre-phi = phi i64 [ %.pre213, %if.else111.cond.end118_crit_edge ], [ %idxprom.i, %if.else94 ]
   tail call void @llvm.experimental.noalias.scope.decl(metadata !25)
-  %arrayidx.i158 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom.i157.pre-phi
-  %48 = load i32, ptr %arrayidx.i158, align 4, !tbaa !13, !noalias !25
+  %arrayidx.i168 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom.i167.pre-phi
+  %48 = load i32, ptr %arrayidx.i168, align 4, !tbaa !13, !noalias !25
   store i32 %48, ptr %agg.tmp115, align 8, !tbaa !15, !alias.scope !25
-  %arrayidx3.i161 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom2.i160.pre-phi
-  %49 = load i32, ptr %arrayidx3.i161, align 4, !tbaa !13, !noalias !25
-  %b4.i162 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 1
-  store i32 %49, ptr %b4.i162, align 4, !tbaa !17, !alias.scope !25
-  %arrayidx6.i165 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom5.i164.pre-phi
-  %50 = load i32, ptr %arrayidx6.i165, align 4, !tbaa !13, !noalias !25
-  %c7.i166 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 2
-  store i32 %50, ptr %c7.i166, align 8, !tbaa !18, !alias.scope !25
-  %arrayidx9.i169 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom8.i168.pre-phi
-  %51 = load i32, ptr %arrayidx9.i169, align 4, !tbaa !13, !noalias !25
-  %d10.i170 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 3
-  store i32 %51, ptr %d10.i170, align 4, !tbaa !19, !alias.scope !25
-  %arrayidx12.i173 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom11.i172.pre-phi
-  %52 = load i32, ptr %arrayidx12.i173, align 4, !tbaa !13, !noalias !25
-  %bi13.i174 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 4
-  store i32 %52, ptr %bi13.i174, align 8, !tbaa !20, !alias.scope !25
-  %arrayidx15.i177 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom14.i176.pre-phi
-  %53 = load i32, ptr %arrayidx15.i177, align 4, !tbaa !13, !noalias !25
-  %ar16.i178 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 5
-  store i32 %53, ptr %ar16.i178, align 4, !tbaa !21, !alias.scope !25
-  %arrayidx18.i181 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom17.i180.pre-phi
-  %54 = load i32, ptr %arrayidx18.i181, align 4, !tbaa !13, !noalias !25
-  %g119.i182 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 6
-  store i32 %54, ptr %g119.i182, align 8, !tbaa !22, !alias.scope !25
-  %arrayidx21.i185 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom20.i184.pre-phi
-  %55 = load i32, ptr %arrayidx21.i185, align 4, !tbaa !13, !noalias !25
-  %g222.i186 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 7
-  store i32 %55, ptr %g222.i186, align 4, !tbaa !23, !alias.scope !25
-  %arrayidx24.i189 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom23.i188.pre-phi
-  %56 = load i32, ptr %arrayidx24.i189, align 4, !tbaa !13, !noalias !25
-  %g325.i190 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 8
-  store i32 %56, ptr %g325.i190, align 8, !tbaa !24, !alias.scope !25
+  %arrayidx3.i171 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom2.i170.pre-phi
+  %49 = load i32, ptr %arrayidx3.i171, align 4, !tbaa !13, !noalias !25
+  %b4.i172 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 1
+  store i32 %49, ptr %b4.i172, align 4, !tbaa !17, !alias.scope !25
+  %arrayidx6.i175 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom5.i174.pre-phi
+  %50 = load i32, ptr %arrayidx6.i175, align 4, !tbaa !13, !noalias !25
+  %c7.i176 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 2
+  store i32 %50, ptr %c7.i176, align 8, !tbaa !18, !alias.scope !25
+  %arrayidx9.i179 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom8.i178.pre-phi
+  %51 = load i32, ptr %arrayidx9.i179, align 4, !tbaa !13, !noalias !25
+  %d10.i180 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 3
+  store i32 %51, ptr %d10.i180, align 4, !tbaa !19, !alias.scope !25
+  %arrayidx12.i183 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom11.i182.pre-phi
+  %52 = load i32, ptr %arrayidx12.i183, align 4, !tbaa !13, !noalias !25
+  %bi13.i184 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 4
+  store i32 %52, ptr %bi13.i184, align 8, !tbaa !20, !alias.scope !25
+  %arrayidx15.i187 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom14.i186.pre-phi
+  %53 = load i32, ptr %arrayidx15.i187, align 4, !tbaa !13, !noalias !25
+  %ar16.i188 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 5
+  store i32 %53, ptr %ar16.i188, align 4, !tbaa !21, !alias.scope !25
+  %arrayidx18.i191 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom17.i190.pre-phi
+  %54 = load i32, ptr %arrayidx18.i191, align 4, !tbaa !13, !noalias !25
+  %g119.i192 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 6
+  store i32 %54, ptr %g119.i192, align 8, !tbaa !22, !alias.scope !25
+  %arrayidx21.i195 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom20.i194.pre-phi
+  %55 = load i32, ptr %arrayidx21.i195, align 4, !tbaa !13, !noalias !25
+  %g222.i196 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 7
+  store i32 %55, ptr %g222.i196, align 4, !tbaa !23, !alias.scope !25
+  %arrayidx24.i199 = getelementptr inbounds [18 x i32], ptr @__const.m2u.m, i64 0, i64 %idxprom23.i198.pre-phi
+  %56 = load i32, ptr %arrayidx24.i199, align 4, !tbaa !13, !noalias !25
+  %g325.i200 = getelementptr inbounds %struct.p_type, ptr %agg.tmp115, i64 0, i32 8
+  store i32 %56, ptr %g325.i200, align 8, !tbaa !24, !alias.scope !25
   %call117 = tail call fastcc i32 @md(ptr noundef nonnull byval(%struct.p_type) align 8 %agg.tmp115, i32 noundef %maxdep, i32 noundef %add116.pre-phi, i32 noundef 2), !range !9
   %cmp120.not = icmp eq i32 %call117, 0
   br i1 %cmp120.not, label %cleanup, label %if.then121
 
 if.then121:                                       ; preds = %cond.end118
   %57 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i191 = tail call i32 @putc(i32 noundef 50, ptr noundef %57)
+  %call.i201 = tail call i32 @putc(i32 noundef 50, ptr noundef %57)
   %58 = and i32 %dep, 3
   %cmp124 = icmp eq i32 %58, 0
   br i1 %cmp124, label %if.then125, label %cleanup
 
 if.then125:                                       ; preds = %if.then121
   %59 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i192 = tail call i32 @putc(i32 noundef 32, ptr noundef %59)
+  %call.i202 = tail call i32 @putc(i32 noundef 32, ptr noundef %59)
   br label %cleanup
 
 cleanup:                                          ; preds = %if.else111, %cond.end118, %if.then125, %if.then121, %if.then104, %if.then108, %if.then88, %if.then91, %if.else, %if.end44, %if.end38, %if.end32, %if.end26, %if.end20, %if.end14, %if.end8, %if.end, %if.then, %if.then74
@@ -443,63 +443,63 @@ if.end.cond.false11_crit_edge:                    ; preds = %if.end
 
 cond.false:                                       ; preds = %if.end
   tail call void @llvm.experimental.noalias.scope.decl(metadata !28)
-  %p59.sroa.0.0.copyload = load i32, ptr %p, align 8
-  %p59.sroa.4.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 4
-  %p59.sroa.4.0.copyload = load i32, ptr %p59.sroa.4.0.p.sroa_idx, align 4
-  %p59.sroa.5.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 8
-  %p59.sroa.5.0.copyload = load i32, ptr %p59.sroa.5.0.p.sroa_idx, align 8
-  %p59.sroa.6.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 12
-  %p59.sroa.6.0.copyload = load i32, ptr %p59.sroa.6.0.p.sroa_idx, align 4
-  %p59.sroa.7.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 16
-  %p59.sroa.7.0.copyload = load i32, ptr %p59.sroa.7.0.p.sroa_idx, align 8
-  %p59.sroa.8.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 20
-  %p59.sroa.8.0.copyload = load i32, ptr %p59.sroa.8.0.p.sroa_idx, align 4
-  %p59.sroa.9.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 24
-  %p59.sroa.9.0.copyload = load i32, ptr %p59.sroa.9.0.p.sroa_idx, align 8
-  %p59.sroa.10.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 28
-  %p59.sroa.10.0.copyload = load i32, ptr %p59.sroa.10.0.p.sroa_idx, align 4
-  %p59.sroa.11.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 32
-  %p59.sroa.11.0.copyload = load i32, ptr %p59.sroa.11.0.p.sroa_idx, align 8
-  %idxprom.i = sext i32 %p59.sroa.0.0.copyload to i64
+  %p60.sroa.0.0.copyload = load i32, ptr %p, align 8
+  %p60.sroa.4.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 4
+  %p60.sroa.4.0.copyload = load i32, ptr %p60.sroa.4.0.p.sroa_idx, align 4
+  %p60.sroa.5.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 8
+  %p60.sroa.5.0.copyload = load i32, ptr %p60.sroa.5.0.p.sroa_idx, align 8
+  %p60.sroa.6.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 12
+  %p60.sroa.6.0.copyload = load i32, ptr %p60.sroa.6.0.p.sroa_idx, align 4
+  %p60.sroa.7.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 16
+  %p60.sroa.7.0.copyload = load i32, ptr %p60.sroa.7.0.p.sroa_idx, align 8
+  %p60.sroa.8.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 20
+  %p60.sroa.8.0.copyload = load i32, ptr %p60.sroa.8.0.p.sroa_idx, align 4
+  %p60.sroa.9.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 24
+  %p60.sroa.9.0.copyload = load i32, ptr %p60.sroa.9.0.p.sroa_idx, align 8
+  %p60.sroa.10.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 28
+  %p60.sroa.10.0.copyload = load i32, ptr %p60.sroa.10.0.p.sroa_idx, align 4
+  %p60.sroa.11.0.p.sroa_idx = getelementptr inbounds i8, ptr %p, i64 32
+  %p60.sroa.11.0.copyload = load i32, ptr %p60.sroa.11.0.p.sroa_idx, align 8
+  %idxprom.i = sext i32 %p60.sroa.0.0.copyload to i64
   %arrayidx.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom.i
   %0 = load i32, ptr %arrayidx.i, align 4, !tbaa !13, !noalias !28
   store i32 %0, ptr %agg.tmp, align 8, !tbaa !15, !alias.scope !28
-  %idxprom2.i = sext i32 %p59.sroa.4.0.copyload to i64
+  %idxprom2.i = sext i32 %p60.sroa.4.0.copyload to i64
   %arrayidx3.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom2.i
   %1 = load i32, ptr %arrayidx3.i, align 4, !tbaa !13, !noalias !28
   %b4.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 1
   store i32 %1, ptr %b4.i, align 4, !tbaa !17, !alias.scope !28
-  %idxprom5.i = sext i32 %p59.sroa.5.0.copyload to i64
+  %idxprom5.i = sext i32 %p60.sroa.5.0.copyload to i64
   %arrayidx6.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom5.i
   %2 = load i32, ptr %arrayidx6.i, align 4, !tbaa !13, !noalias !28
   %c7.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 2
   store i32 %2, ptr %c7.i, align 8, !tbaa !18, !alias.scope !28
-  %idxprom8.i = sext i32 %p59.sroa.6.0.copyload to i64
+  %idxprom8.i = sext i32 %p60.sroa.6.0.copyload to i64
   %arrayidx9.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom8.i
   %3 = load i32, ptr %arrayidx9.i, align 4, !tbaa !13, !noalias !28
   %d10.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 3
   store i32 %3, ptr %d10.i, align 4, !tbaa !19, !alias.scope !28
-  %idxprom11.i = sext i32 %p59.sroa.7.0.copyload to i64
+  %idxprom11.i = sext i32 %p60.sroa.7.0.copyload to i64
   %arrayidx12.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom11.i
   %4 = load i32, ptr %arrayidx12.i, align 4, !tbaa !13, !noalias !28
   %bi13.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 4
   store i32 %4, ptr %bi13.i, align 8, !tbaa !20, !alias.scope !28
-  %idxprom14.i = sext i32 %p59.sroa.8.0.copyload to i64
+  %idxprom14.i = sext i32 %p60.sroa.8.0.copyload to i64
   %arrayidx15.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom14.i
   %5 = load i32, ptr %arrayidx15.i, align 4, !tbaa !13, !noalias !28
   %ar16.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 5
   store i32 %5, ptr %ar16.i, align 4, !tbaa !21, !alias.scope !28
-  %idxprom17.i = sext i32 %p59.sroa.9.0.copyload to i64
+  %idxprom17.i = sext i32 %p60.sroa.9.0.copyload to i64
   %arrayidx18.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom17.i
   %6 = load i32, ptr %arrayidx18.i, align 4, !tbaa !13, !noalias !28
   %g119.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 6
   store i32 %6, ptr %g119.i, align 8, !tbaa !22, !alias.scope !28
-  %idxprom20.i = sext i32 %p59.sroa.10.0.copyload to i64
+  %idxprom20.i = sext i32 %p60.sroa.10.0.copyload to i64
   %arrayidx21.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom20.i
   %7 = load i32, ptr %arrayidx21.i, align 4, !tbaa !13, !noalias !28
   %g222.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 7
   store i32 %7, ptr %g222.i, align 4, !tbaa !23, !alias.scope !28
-  %idxprom23.i = sext i32 %p59.sroa.11.0.copyload to i64
+  %idxprom23.i = sext i32 %p60.sroa.11.0.copyload to i64
   %arrayidx24.i = getelementptr inbounds [18 x i32], ptr @__const.m0d.m, i64 0, i64 %idxprom23.i
   %8 = load i32, ptr %arrayidx24.i, align 4, !tbaa !13, !noalias !28
   %g325.i = getelementptr inbounds %struct.p_type, ptr %agg.tmp, i64 0, i32 8
@@ -517,8 +517,8 @@ if.then3:                                         ; preds = %cond.false
   br i1 %cmp5, label %cleanup.sink.split, label %cleanup
 
 if.else:                                          ; preds = %cond.false
-  %cond101 = icmp eq i32 %last, 1
-  br i1 %cond101, label %cond.end32, label %cond.false11
+  %cond59 = icmp eq i32 %last, 1
+  br i1 %cond59, label %cond.end32, label %cond.false11
 
 cond.false11:                                     ; preds = %if.end.cond.false11_crit_edge, %if.else
   %add13.pre-phi = phi i32 [ %.pre121, %if.end.cond.false11_crit_edge ], [ %add, %if.else ]
@@ -528,7 +528,7 @@ cond.false11:                                     ; preds = %if.end.cond.false11
 
 if.then18:                                        ; preds = %cond.false11
   %13 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i62 = tail call i32 @putc(i32 noundef 49, ptr noundef %13)
+  %call.i63 = tail call i32 @putc(i32 noundef 49, ptr noundef %13)
   %14 = and i32 %dep, 3
   %cmp21 = icmp eq i32 %14, 0
   br i1 %cmp21, label %cleanup.sink.split, label %cleanup
@@ -538,95 +538,95 @@ if.else25:                                        ; preds = %cond.false11
   br i1 %cmp26, label %cleanup, label %if.else25.cond.end32_crit_edge
 
 if.else25.cond.end32_crit_edge:                   ; preds = %if.else25
-  %p64.sroa.0.0.copyload.pre = load i32, ptr %p, align 8
-  %p64.sroa.4.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 4
-  %p64.sroa.4.0.copyload.pre = load i32, ptr %p64.sroa.4.0.p.sroa_idx.phi.trans.insert, align 4
-  %p64.sroa.5.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 8
-  %p64.sroa.5.0.copyload.pre = load i32, ptr %p64.sroa.5.0.p.sroa_idx.phi.trans.insert, align 8
-  %p64.sroa.6.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 12
-  %p64.sroa.6.0.copyload.pre = load i32, ptr %p64.sroa.6.0.p.sroa_idx.phi.trans.insert, align 4
-  %p64.sroa.7.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 16
-  %p64.sroa.7.0.copyload.pre = load i32, ptr %p64.sroa.7.0.p.sroa_idx.phi.trans.insert, align 8
-  %p64.sroa.8.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 20
-  %p64.sroa.8.0.copyload.pre = load i32, ptr %p64.sroa.8.0.p.sroa_idx.phi.trans.insert, align 4
-  %p64.sroa.9.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 24
-  %p64.sroa.9.0.copyload.pre = load i32, ptr %p64.sroa.9.0.p.sroa_idx.phi.trans.insert, align 8
-  %p64.sroa.10.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 28
-  %p64.sroa.10.0.copyload.pre = load i32, ptr %p64.sroa.10.0.p.sroa_idx.phi.trans.insert, align 4
-  %p64.sroa.11.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 32
-  %p64.sroa.11.0.copyload.pre = load i32, ptr %p64.sroa.11.0.p.sroa_idx.phi.trans.insert, align 8
-  %.pre = sext i32 %p64.sroa.0.0.copyload.pre to i64
-  %.pre113 = sext i32 %p64.sroa.4.0.copyload.pre to i64
-  %.pre114 = sext i32 %p64.sroa.5.0.copyload.pre to i64
-  %.pre115 = sext i32 %p64.sroa.6.0.copyload.pre to i64
-  %.pre116 = sext i32 %p64.sroa.7.0.copyload.pre to i64
-  %.pre117 = sext i32 %p64.sroa.8.0.copyload.pre to i64
-  %.pre118 = sext i32 %p64.sroa.9.0.copyload.pre to i64
-  %.pre119 = sext i32 %p64.sroa.10.0.copyload.pre to i64
-  %.pre120 = sext i32 %p64.sroa.11.0.copyload.pre to i64
+  %p65.sroa.0.0.copyload.pre = load i32, ptr %p, align 8
+  %p65.sroa.4.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 4
+  %p65.sroa.4.0.copyload.pre = load i32, ptr %p65.sroa.4.0.p.sroa_idx.phi.trans.insert, align 4
+  %p65.sroa.5.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 8
+  %p65.sroa.5.0.copyload.pre = load i32, ptr %p65.sroa.5.0.p.sroa_idx.phi.trans.insert, align 8
+  %p65.sroa.6.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 12
+  %p65.sroa.6.0.copyload.pre = load i32, ptr %p65.sroa.6.0.p.sroa_idx.phi.trans.insert, align 4
+  %p65.sroa.7.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 16
+  %p65.sroa.7.0.copyload.pre = load i32, ptr %p65.sroa.7.0.p.sroa_idx.phi.trans.insert, align 8
+  %p65.sroa.8.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 20
+  %p65.sroa.8.0.copyload.pre = load i32, ptr %p65.sroa.8.0.p.sroa_idx.phi.trans.insert, align 4
+  %p65.sroa.9.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 24
+  %p65.sroa.9.0.copyload.pre = load i32, ptr %p65.sroa.9.0.p.sroa_idx.phi.trans.insert, align 8
+  %p65.sroa.10.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 28
+  %p65.sroa.10.0.copyload.pre = load i32, ptr %p65.sroa.10.0.p.sroa_idx.phi.trans.insert, align 4
+  %p65.sroa.11.0.p.sroa_idx.phi.trans.insert = getelementptr inbounds i8, ptr %p, i64 32
+  %p65.sroa.11.0.copyload.pre = load i32, ptr %p65.sroa.11.0.p.sroa_idx.phi.trans.insert, align 8
+  %.pre = sext i32 %p65.sroa.0.0.copyload.pre to i64
+  %.pre113 = sext i32 %p65.sroa.4.0.copyload.pre to i64
+  %.pre114 = sext i32 %p65.sroa.5.0.copyload.pre to i64
+  %.pre115 = sext i32 %p65.sroa.6.0.copyload.pre to i64
+  %.pre116 = sext i32 %p65.sroa.7.0.copyload.pre to i64
+  %.pre117 = sext i32 %p65.sroa.8.0.copyload.pre to i64
+  %.pre118 = sext i32 %p65.sroa.9.0.copyload.pre to i64
+  %.pre119 = sext i32 %p65.sroa.10.0.copyload.pre to i64
+  %.pre120 = sext i32 %p65.sroa.11.0.copyload.pre to i64
   br label %cond.end32
 
 cond.end32:                                       ; preds = %if.else25.cond.end32_crit_edge, %if.else
   %add30.pre-phi = phi i32 [ %add13.pre-phi, %if.else25.cond.end32_crit_edge ], [ %add, %if.else ]
-  %idxprom23.i96.pre-phi = phi i64 [ %.pre120, %if.else25.cond.end32_crit_edge ], [ %idxprom23.i, %if.else ]
-  %idxprom20.i92.pre-phi = phi i64 [ %.pre119, %if.else25.cond.end32_crit_edge ], [ %idxprom20.i, %if.else ]
-  %idxprom17.i88.pre-phi = phi i64 [ %.pre118, %if.else25.cond.end32_crit_edge ], [ %idxprom17.i, %if.else ]
-  %idxprom14.i84.pre-phi = phi i64 [ %.pre117, %if.else25.cond.end32_crit_edge ], [ %idxprom14.i, %if.else ]
-  %idxprom11.i80.pre-phi = phi i64 [ %.pre116, %if.else25.cond.end32_crit_edge ], [ %idxprom11.i, %if.else ]
-  %idxprom8.i76.pre-phi = phi i64 [ %.pre115, %if.else25.cond.end32_crit_edge ], [ %idxprom8.i, %if.else ]
-  %idxprom5.i72.pre-phi = phi i64 [ %.pre114, %if.else25.cond.end32_crit_edge ], [ %idxprom5.i, %if.else ]
-  %idxprom2.i68.pre-phi = phi i64 [ %.pre113, %if.else25.cond.end32_crit_edge ], [ %idxprom2.i, %if.else ]
-  %idxprom.i65.pre-phi = phi i64 [ %.pre, %if.else25.cond.end32_crit_edge ], [ %idxprom.i, %if.else ]
+  %idxprom23.i97.pre-phi = phi i64 [ %.pre120, %if.else25.cond.end32_crit_edge ], [ %idxprom23.i, %if.else ]
+  %idxprom20.i93.pre-phi = phi i64 [ %.pre119, %if.else25.cond.end32_crit_edge ], [ %idxprom20.i, %if.else ]
+  %idxprom17.i89.pre-phi = phi i64 [ %.pre118, %if.else25.cond.end32_crit_edge ], [ %idxprom17.i, %if.else ]
+  %idxprom14.i85.pre-phi = phi i64 [ %.pre117, %if.else25.cond.end32_crit_edge ], [ %idxprom14.i, %if.else ]
+  %idxprom11.i81.pre-phi = phi i64 [ %.pre116, %if.else25.cond.end32_crit_edge ], [ %idxprom11.i, %if.else ]
+  %idxprom8.i77.pre-phi = phi i64 [ %.pre115, %if.else25.cond.end32_crit_edge ], [ %idxprom8.i, %if.else ]
+  %idxprom5.i73.pre-phi = phi i64 [ %.pre114, %if.else25.cond.end32_crit_edge ], [ %idxprom5.i, %if.else ]
+  %idxprom2.i69.pre-phi = phi i64 [ %.pre113, %if.else25.cond.end32_crit_edge ], [ %idxprom2.i, %if.else ]
+  %idxprom.i66.pre-phi = phi i64 [ %.pre, %if.else25.cond.end32_crit_edge ], [ %idxprom.i, %if.else ]
   tail call void @llvm.experimental.noalias.scope.decl(metadata !31)
-  %arrayidx.i66 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom.i65.pre-phi
-  %15 = load i32, ptr %arrayidx.i66, align 4, !tbaa !13, !noalias !31
+  %arrayidx.i67 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom.i66.pre-phi
+  %15 = load i32, ptr %arrayidx.i67, align 4, !tbaa !13, !noalias !31
   store i32 %15, ptr %agg.tmp29, align 8, !tbaa !15, !alias.scope !31
-  %arrayidx3.i69 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom2.i68.pre-phi
-  %16 = load i32, ptr %arrayidx3.i69, align 4, !tbaa !13, !noalias !31
-  %b4.i70 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 1
-  store i32 %16, ptr %b4.i70, align 4, !tbaa !17, !alias.scope !31
-  %arrayidx6.i73 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom5.i72.pre-phi
-  %17 = load i32, ptr %arrayidx6.i73, align 4, !tbaa !13, !noalias !31
-  %c7.i74 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 2
-  store i32 %17, ptr %c7.i74, align 8, !tbaa !18, !alias.scope !31
-  %arrayidx9.i77 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom8.i76.pre-phi
-  %18 = load i32, ptr %arrayidx9.i77, align 4, !tbaa !13, !noalias !31
-  %d10.i78 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 3
-  store i32 %18, ptr %d10.i78, align 4, !tbaa !19, !alias.scope !31
-  %arrayidx12.i81 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom11.i80.pre-phi
-  %19 = load i32, ptr %arrayidx12.i81, align 4, !tbaa !13, !noalias !31
-  %bi13.i82 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 4
-  store i32 %19, ptr %bi13.i82, align 8, !tbaa !20, !alias.scope !31
-  %arrayidx15.i85 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom14.i84.pre-phi
-  %20 = load i32, ptr %arrayidx15.i85, align 4, !tbaa !13, !noalias !31
-  %ar16.i86 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 5
-  store i32 %20, ptr %ar16.i86, align 4, !tbaa !21, !alias.scope !31
-  %arrayidx18.i89 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom17.i88.pre-phi
-  %21 = load i32, ptr %arrayidx18.i89, align 4, !tbaa !13, !noalias !31
-  %g119.i90 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 6
-  store i32 %21, ptr %g119.i90, align 8, !tbaa !22, !alias.scope !31
-  %arrayidx21.i93 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom20.i92.pre-phi
-  %22 = load i32, ptr %arrayidx21.i93, align 4, !tbaa !13, !noalias !31
-  %g222.i94 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 7
-  store i32 %22, ptr %g222.i94, align 4, !tbaa !23, !alias.scope !31
-  %arrayidx24.i97 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom23.i96.pre-phi
-  %23 = load i32, ptr %arrayidx24.i97, align 4, !tbaa !13, !noalias !31
-  %g325.i98 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 8
-  store i32 %23, ptr %g325.i98, align 8, !tbaa !24, !alias.scope !31
+  %arrayidx3.i70 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom2.i69.pre-phi
+  %16 = load i32, ptr %arrayidx3.i70, align 4, !tbaa !13, !noalias !31
+  %b4.i71 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 1
+  store i32 %16, ptr %b4.i71, align 4, !tbaa !17, !alias.scope !31
+  %arrayidx6.i74 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom5.i73.pre-phi
+  %17 = load i32, ptr %arrayidx6.i74, align 4, !tbaa !13, !noalias !31
+  %c7.i75 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 2
+  store i32 %17, ptr %c7.i75, align 8, !tbaa !18, !alias.scope !31
+  %arrayidx9.i78 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom8.i77.pre-phi
+  %18 = load i32, ptr %arrayidx9.i78, align 4, !tbaa !13, !noalias !31
+  %d10.i79 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 3
+  store i32 %18, ptr %d10.i79, align 4, !tbaa !19, !alias.scope !31
+  %arrayidx12.i82 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom11.i81.pre-phi
+  %19 = load i32, ptr %arrayidx12.i82, align 4, !tbaa !13, !noalias !31
+  %bi13.i83 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 4
+  store i32 %19, ptr %bi13.i83, align 8, !tbaa !20, !alias.scope !31
+  %arrayidx15.i86 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom14.i85.pre-phi
+  %20 = load i32, ptr %arrayidx15.i86, align 4, !tbaa !13, !noalias !31
+  %ar16.i87 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 5
+  store i32 %20, ptr %ar16.i87, align 4, !tbaa !21, !alias.scope !31
+  %arrayidx18.i90 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom17.i89.pre-phi
+  %21 = load i32, ptr %arrayidx18.i90, align 4, !tbaa !13, !noalias !31
+  %g119.i91 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 6
+  store i32 %21, ptr %g119.i91, align 8, !tbaa !22, !alias.scope !31
+  %arrayidx21.i94 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom20.i93.pre-phi
+  %22 = load i32, ptr %arrayidx21.i94, align 4, !tbaa !13, !noalias !31
+  %g222.i95 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 7
+  store i32 %22, ptr %g222.i95, align 4, !tbaa !23, !alias.scope !31
+  %arrayidx24.i98 = getelementptr inbounds [18 x i32], ptr @__const.m2d.m, i64 0, i64 %idxprom23.i97.pre-phi
+  %23 = load i32, ptr %arrayidx24.i98, align 4, !tbaa !13, !noalias !31
+  %g325.i99 = getelementptr inbounds %struct.p_type, ptr %agg.tmp29, i64 0, i32 8
+  store i32 %23, ptr %g325.i99, align 8, !tbaa !24, !alias.scope !31
   %call31 = tail call fastcc i32 @mu(ptr noundef nonnull byval(%struct.p_type) align 8 %agg.tmp29, i32 noundef %maxdep, i32 noundef %add30.pre-phi, i32 noundef 2), !range !9
   %cmp34.not = icmp eq i32 %call31, 0
   br i1 %cmp34.not, label %cleanup, label %if.then35
 
 if.then35:                                        ; preds = %cond.end32
   %24 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i99 = tail call i32 @putc(i32 noundef 50, ptr noundef %24)
+  %call.i100 = tail call i32 @putc(i32 noundef 50, ptr noundef %24)
   %25 = and i32 %dep, 3
   %cmp38 = icmp eq i32 %25, 0
   br i1 %cmp38, label %cleanup.sink.split, label %cleanup
 
 cleanup.sink.split:                               ; preds = %if.then35, %if.then18, %if.then3
   %26 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call.i100 = tail call i32 @putc(i32 noundef 32, ptr noundef %26)
+  %call.i101 = tail call i32 @putc(i32 noundef 32, ptr noundef %26)
   br label %cleanup
 
 cleanup:                                          ; preds = %cleanup.sink.split, %if.else25, %cond.end32, %if.then35, %if.then18, %if.then3, %entry

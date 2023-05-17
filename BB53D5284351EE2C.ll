@@ -79,15 +79,15 @@ if.end77.i.2:                                     ; preds = %if.then73.i.2, %if.
   %19 = fcmp ult <4 x float> %V0.1.i.2, %18
   %20 = bitcast <4 x i1> %19 to i4
   %cmp87.not.i = icmp eq i4 %20, 0
-  br i1 %cmp87.not.i, label %if.end113.i, label %if.then89.i
+  br i1 %cmp87.not.i, label %if.end93.i, label %if.then89.i
 
 if.then89.i:                                      ; preds = %if.end77.i.2
   %21 = tail call <4 x float> @llvm.x86.sse.max.ps(<4 x float> %V0.1.i.2, <4 x float> %18)
   %22 = select <4 x i1> %19, <4 x float> <float 1.600000e+01, float 1.700000e+01, float 1.800000e+01, float 1.900000e+01>, <4 x float> zeroinitializer
   %23 = tail call <4 x float> @llvm.x86.sse.max.ps(<4 x float> %V7.1.i.2, <4 x float> %22)
-  br label %if.end113.i
+  br label %if.end93.i
 
-if.end113.i:                                      ; preds = %if.end77.i.2, %if.then89.i
+if.end93.i:                                       ; preds = %if.then89.i, %if.end77.i.2
   %V0.2.i = phi <4 x float> [ %21, %if.then89.i ], [ %V0.1.i.2, %if.end77.i.2 ]
   %V7.2.i = phi <4 x float> [ %23, %if.then89.i ], [ %V7.1.i.2, %if.end77.i.2 ]
   %xbig.i.sroa.0.0.vec.extract = extractelement <4 x float> %V0.2.i, i64 0

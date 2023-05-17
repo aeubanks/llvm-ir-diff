@@ -319,35 +319,35 @@ if.end:                                           ; preds = %entry
   store ptr %child, ptr %child, align 8, !tbaa !38
   %_M_size.i.i.i.i.i = getelementptr inbounds %"struct.std::__detail::_List_node_header", ptr %child, i64 0, i32 1
   store i64 0, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !39
-  %call5.i.i.i.i.i.i54 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backERKS2_.exit unwind label %lpad1
+  %call5.i.i.i.i.i.i58 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont2 unwind label %lpad1
 
-_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backERKS2_.exit: ; preds = %if.end
-  %_M_storage.i.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i54, i64 0, i32 1
+invoke.cont2:                                     ; preds = %if.end
+  %_M_storage.i.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i58, i64 0, i32 1
   store ptr %call, ptr %_M_storage.i.i.i.i, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i54, ptr noundef nonnull %child) #18
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i58, ptr noundef nonnull %child) #18
   %0 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
   %add.i.i.i = add i64 %0, 1
   store i64 %add.i.i.i, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
   %mul = fmul double %r, 3.000000e+00
   %div = fdiv double %mul, 0x400BB67AE8584CAA
   %sub = add nsw i32 %level, -1
-  %y.i57 = getelementptr inbounds %struct.Vec, ptr %c, i64 0, i32 1
-  %z.i58 = getelementptr inbounds %struct.Vec, ptr %c, i64 0, i32 2
-  %y.i.i59 = getelementptr inbounds %struct.Vec, ptr %ref.tmp9, i64 0, i32 1
-  %z.i.i60 = getelementptr inbounds %struct.Vec, ptr %ref.tmp9, i64 0, i32 2
+  %y.i61 = getelementptr inbounds %struct.Vec, ptr %c, i64 0, i32 1
+  %z.i62 = getelementptr inbounds %struct.Vec, ptr %c, i64 0, i32 2
+  %y.i.i63 = getelementptr inbounds %struct.Vec, ptr %ref.tmp9, i64 0, i32 1
+  %z.i.i64 = getelementptr inbounds %struct.Vec, ptr %ref.tmp9, i64 0, i32 2
   %div17 = fmul double %r, 5.000000e-01
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !46)
   %1 = load double, ptr %c, align 8, !tbaa !11, !noalias !46
   %add.i = fsub double %1, %div
-  %2 = load double, ptr %y.i57, align 8, !tbaa !49, !noalias !46
+  %2 = load double, ptr %y.i61, align 8, !tbaa !49, !noalias !46
   %add3.i = fadd double %div, %2
-  %3 = load double, ptr %z.i58, align 8, !tbaa !5, !noalias !46
+  %3 = load double, ptr %z.i62, align 8, !tbaa !5, !noalias !46
   %add5.i = fsub double %3, %div
   store double %add.i, ptr %ref.tmp9, align 16, !tbaa !11, !alias.scope !46
-  store double %add3.i, ptr %y.i.i59, align 8, !tbaa !49, !alias.scope !46
-  store double %add5.i, ptr %z.i.i60, align 16, !tbaa !5, !alias.scope !46
+  store double %add3.i, ptr %y.i.i63, align 8, !tbaa !49, !alias.scope !46
+  store double %add5.i, ptr %z.i.i64, align 16, !tbaa !5, !alias.scope !46
   %call19 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
           to label %invoke.cont18 unwind label %lpad13
 
@@ -356,105 +356,105 @@ lpad1:                                            ; preds = %if.end
           cleanup
   br label %ehcleanup39
 
-invoke.cont18:                                    ; preds = %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backERKS2_.exit
-  %call5.i.i.i.i.i.i64 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit unwind label %lpad13
+invoke.cont18:                                    ; preds = %invoke.cont2
+  %call5.i.i.i.i.i.i68 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20 unwind label %lpad13
 
-_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit: ; preds = %invoke.cont18
-  %_M_storage.i.i.i.i61 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i64, i64 0, i32 1
-  store ptr %call19, ptr %_M_storage.i.i.i.i61, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i64, ptr noundef nonnull %child) #18
+invoke.cont20:                                    ; preds = %invoke.cont18
+  %_M_storage.i.i.i.i65 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68, i64 0, i32 1
+  store ptr %call19, ptr %_M_storage.i.i.i.i65, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68, ptr noundef nonnull %child) #18
   %5 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
-  %add.i.i.i63 = add i64 %5, 1
-  store i64 %add.i.i.i63, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67 = add i64 %5, 1
+  store i64 %add.i.i.i67, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !50)
-  %6 = load double, ptr %z.i58, align 8, !tbaa !5, !noalias !50
+  %6 = load double, ptr %z.i62, align 8, !tbaa !5, !noalias !50
   %add5.i.1 = fsub double %6, %div
   %7 = load <2 x double>, ptr %c, align 8, !tbaa !10, !noalias !50
   %8 = insertelement <2 x double> poison, double %div, i64 0
   %9 = shufflevector <2 x double> %8, <2 x double> poison, <2 x i32> zeroinitializer
   %10 = fadd <2 x double> %9, %7
   store <2 x double> %10, ptr %ref.tmp9, align 16, !tbaa !10, !alias.scope !50
-  store double %add5.i.1, ptr %z.i.i60, align 16, !tbaa !5, !alias.scope !50
+  store double %add5.i.1, ptr %z.i.i64, align 16, !tbaa !5, !alias.scope !50
   %call19.1 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
           to label %invoke.cont18.1 unwind label %lpad13
 
-invoke.cont18.1:                                  ; preds = %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit
-  %call5.i.i.i.i.i.i64.1 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1 unwind label %lpad13
+invoke.cont18.1:                                  ; preds = %invoke.cont20
+  %call5.i.i.i.i.i.i68.1 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20.1 unwind label %lpad13
 
-_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1: ; preds = %invoke.cont18.1
-  %_M_storage.i.i.i.i61.1 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i64.1, i64 0, i32 1
-  store ptr %call19.1, ptr %_M_storage.i.i.i.i61.1, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i64.1, ptr noundef nonnull %child) #18
+invoke.cont20.1:                                  ; preds = %invoke.cont18.1
+  %_M_storage.i.i.i.i65.1 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68.1, i64 0, i32 1
+  store ptr %call19.1, ptr %_M_storage.i.i.i.i65.1, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68.1, ptr noundef nonnull %child) #18
   %11 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
-  %add.i.i.i63.1 = add i64 %11, 1
-  store i64 %add.i.i.i63.1, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67.1 = add i64 %11, 1
+  store i64 %add.i.i.i67.1, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !52)
   %12 = load double, ptr %c, align 8, !tbaa !11, !noalias !52
-  %add.i.194 = fsub double %12, %div
-  store double %add.i.194, ptr %ref.tmp9, align 16, !tbaa !11, !alias.scope !52
-  %13 = load <2 x double>, ptr %y.i57, align 8, !tbaa !10, !noalias !52
+  %add.i.195 = fsub double %12, %div
+  store double %add.i.195, ptr %ref.tmp9, align 16, !tbaa !11, !alias.scope !52
+  %13 = load <2 x double>, ptr %y.i61, align 8, !tbaa !10, !noalias !52
   %14 = fadd <2 x double> %9, %13
-  store <2 x double> %14, ptr %y.i.i59, align 8, !tbaa !10, !alias.scope !52
-  %call19.197 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
-          to label %invoke.cont18.199 unwind label %lpad13
+  store <2 x double> %14, ptr %y.i.i63, align 8, !tbaa !10, !alias.scope !52
+  %call19.198 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
+          to label %invoke.cont18.1100 unwind label %lpad13
 
-invoke.cont18.199:                                ; preds = %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1
-  %call5.i.i.i.i.i.i64.198 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1102 unwind label %lpad13
+invoke.cont18.1100:                               ; preds = %invoke.cont20.1
+  %call5.i.i.i.i.i.i68.199 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20.1103 unwind label %lpad13
 
-_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1102: ; preds = %invoke.cont18.199
-  %_M_storage.i.i.i.i61.1100 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i64.198, i64 0, i32 1
-  store ptr %call19.197, ptr %_M_storage.i.i.i.i61.1100, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i64.198, ptr noundef nonnull %child) #18
+invoke.cont20.1103:                               ; preds = %invoke.cont18.1100
+  %_M_storage.i.i.i.i65.1101 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68.199, i64 0, i32 1
+  store ptr %call19.198, ptr %_M_storage.i.i.i.i65.1101, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68.199, ptr noundef nonnull %child) #18
   %15 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
-  %add.i.i.i63.1101 = add i64 %15, 1
-  store i64 %add.i.i.i63.1101, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67.1102 = add i64 %15, 1
+  store i64 %add.i.i.i67.1102, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ref.tmp9) #18
   call void @llvm.experimental.noalias.scope.decl(metadata !54)
-  %16 = load double, ptr %z.i58, align 8, !tbaa !5, !noalias !54
+  %16 = load double, ptr %z.i62, align 8, !tbaa !5, !noalias !54
   %add5.i.1.1 = fadd double %div, %16
   %17 = load <2 x double>, ptr %c, align 8, !tbaa !10, !noalias !54
   %18 = fadd <2 x double> %9, %17
   store <2 x double> %18, ptr %ref.tmp9, align 16, !tbaa !10, !alias.scope !54
-  store double %add5.i.1.1, ptr %z.i.i60, align 16, !tbaa !5, !alias.scope !54
+  store double %add5.i.1.1, ptr %z.i.i64, align 16, !tbaa !5, !alias.scope !54
   %call19.1.1 = invoke noundef ptr @_Z6createiRK3Vecd(i32 noundef %sub, ptr noundef nonnull align 8 dereferenceable(24) %ref.tmp9, double noundef %div17)
           to label %invoke.cont18.1.1 unwind label %lpad13
 
-invoke.cont18.1.1:                                ; preds = %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1102
-  %call5.i.i.i.i.i.i64.1.1 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
-          to label %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1.1 unwind label %lpad13
+invoke.cont18.1.1:                                ; preds = %invoke.cont20.1103
+  %call5.i.i.i.i.i.i68.1.1 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #19
+          to label %invoke.cont20.1.1 unwind label %lpad13
 
-_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1.1: ; preds = %invoke.cont18.1.1
-  %_M_storage.i.i.i.i61.1.1 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i64.1.1, i64 0, i32 1
-  store ptr %call19.1.1, ptr %_M_storage.i.i.i.i61.1.1, align 8, !tbaa !42
-  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i64.1.1, ptr noundef nonnull %child) #18
+invoke.cont20.1.1:                                ; preds = %invoke.cont18.1.1
+  %_M_storage.i.i.i.i65.1.1 = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i68.1.1, i64 0, i32 1
+  store ptr %call19.1.1, ptr %_M_storage.i.i.i.i65.1.1, align 8, !tbaa !42
+  call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i68.1.1, ptr noundef nonnull %child) #18
   %19 = load i64, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
-  %add.i.i.i63.1.1 = add i64 %19, 1
-  store i64 %add.i.i.i63.1.1, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
+  %add.i.i.i67.1.1 = add i64 %19, 1
+  store i64 %add.i.i.i67.1.1, ptr %_M_size.i.i.i.i.i, align 8, !tbaa !43
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
   %call26 = invoke noalias noundef nonnull dereferenceable(72) ptr @_Znwm(i64 noundef 72) #19
           to label %invoke.cont25 unwind label %lpad24
 
-lpad13:                                           ; preds = %invoke.cont18.1.1, %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1102, %invoke.cont18.199, %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1, %invoke.cont18.1, %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit, %invoke.cont18, %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backERKS2_.exit
+lpad13:                                           ; preds = %invoke.cont18.1.1, %invoke.cont20.1103, %invoke.cont18.1100, %invoke.cont20.1, %invoke.cont18.1, %invoke.cont20, %invoke.cont18, %invoke.cont2
   %20 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ref.tmp9) #18
   br label %ehcleanup39
 
-invoke.cont25:                                    ; preds = %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1.1
+invoke.cont25:                                    ; preds = %invoke.cont20.1.1
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %agg.tmp27.sroa.1, ptr noundef nonnull align 8 dereferenceable(24) %c, i64 24, i1 false)
-  %_M_prev.i.i.i.i.i68 = getelementptr inbounds %"struct.std::__detail::_List_node_base", ptr %agg.tmp32, i64 0, i32 1
-  store ptr %agg.tmp32, ptr %_M_prev.i.i.i.i.i68, align 8, !tbaa !35
+  %_M_prev.i.i.i.i.i72 = getelementptr inbounds %"struct.std::__detail::_List_node_base", ptr %agg.tmp32, i64 0, i32 1
+  store ptr %agg.tmp32, ptr %_M_prev.i.i.i.i.i72, align 8, !tbaa !35
   store ptr %agg.tmp32, ptr %agg.tmp32, align 8, !tbaa !38
-  %_M_size.i.i.i.i.i69 = getelementptr inbounds %"struct.std::__detail::_List_node_header", ptr %agg.tmp32, i64 0, i32 1
-  store i64 0, ptr %_M_size.i.i.i.i.i69, align 8, !tbaa !39
+  %_M_size.i.i.i.i.i73 = getelementptr inbounds %"struct.std::__detail::_List_node_header", ptr %agg.tmp32, i64 0, i32 1
+  store i64 0, ptr %_M_size.i.i.i.i.i73, align 8, !tbaa !39
   %21 = load ptr, ptr %child, align 8, !tbaa !38
   %cmp.i.not7.i.i = icmp eq ptr %21, %child
   br i1 %cmp.i.not7.i.i, label %invoke.cont34, label %for.body.i.i
@@ -465,14 +465,14 @@ for.body.i.i:                                     ; preds = %invoke.cont25, %cal
           to label %call5.i.i.i.i.i.i.i.noexc.i unwind label %lpad9.i
 
 call5.i.i.i.i.i.i.i.noexc.i:                      ; preds = %for.body.i.i
-  %_M_storage.i.i.i.i70 = getelementptr inbounds %"struct.std::_List_node", ptr %__first.sroa.0.08.i.i, i64 0, i32 1
+  %_M_storage.i.i.i.i74 = getelementptr inbounds %"struct.std::_List_node", ptr %__first.sroa.0.08.i.i, i64 0, i32 1
   %_M_storage.i.i.i.i.i.i = getelementptr inbounds %"struct.std::_List_node", ptr %call5.i.i.i.i.i.i.i15.i, i64 0, i32 1
-  %22 = load ptr, ptr %_M_storage.i.i.i.i70, align 8, !tbaa !42
+  %22 = load ptr, ptr %_M_storage.i.i.i.i74, align 8, !tbaa !42
   store ptr %22, ptr %_M_storage.i.i.i.i.i.i, align 8, !tbaa !42
   call void @_ZNSt8__detail15_List_node_base7_M_hookEPS0_(ptr noundef nonnull align 8 dereferenceable(16) %call5.i.i.i.i.i.i.i15.i, ptr noundef nonnull %agg.tmp32) #18
-  %23 = load i64, ptr %_M_size.i.i.i.i.i69, align 8, !tbaa !43
+  %23 = load i64, ptr %_M_size.i.i.i.i.i73, align 8, !tbaa !43
   %add.i.i.i.i.i = add i64 %23, 1
-  store i64 %add.i.i.i.i.i, ptr %_M_size.i.i.i.i.i69, align 8, !tbaa !43
+  store i64 %add.i.i.i.i.i, ptr %_M_size.i.i.i.i.i73, align 8, !tbaa !43
   %24 = load ptr, ptr %__first.sroa.0.08.i.i, align 8, !tbaa !38
   %cmp.i.not.i.i = icmp eq ptr %24, %child
   br i1 %cmp.i.not.i.i, label %invoke.cont34.loopexit, label %for.body.i.i, !llvm.loop !56
@@ -482,14 +482,14 @@ lpad9.i:                                          ; preds = %for.body.i.i
           cleanup
   %26 = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
   %cmp.not9.i.i.i = icmp eq ptr %26, %agg.tmp32
-  br i1 %cmp.not9.i.i.i, label %cleanup.action, label %while.body.i.i.i
+  br i1 %cmp.not9.i.i.i, label %ehcleanup, label %while.body.i.i.i
 
 while.body.i.i.i:                                 ; preds = %lpad9.i, %while.body.i.i.i
   %__cur.010.i.i.i = phi ptr [ %27, %while.body.i.i.i ], [ %26, %lpad9.i ]
   %27 = load ptr, ptr %__cur.010.i.i.i, align 8, !tbaa !38
   call void @_ZdlPv(ptr noundef %__cur.010.i.i.i) #20
   %cmp.not.i.i.i = icmp eq ptr %27, %agg.tmp32
-  br i1 %cmp.not.i.i.i, label %cleanup.action, label %while.body.i.i.i, !llvm.loop !58
+  br i1 %cmp.not.i.i.i, label %ehcleanup, label %while.body.i.i.i, !llvm.loop !58
 
 invoke.cont34.loopexit:                           ; preds = %call5.i.i.i.i.i.i.i.noexc.i
   %.pre = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
@@ -546,12 +546,12 @@ while.body.i.i.i.i:                               ; preds = %lpad9.i.i, %while.b
   br i1 %cmp.not.i.i.i.i, label %lpad35.body, label %while.body.i.i.i.i, !llvm.loop !58
 
 invoke.cont36:                                    ; preds = %call5.i.i.i.i.i.i.i.noexc.i.i
-  %.pre103 = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
-  %cmp.not9.i.i = icmp eq ptr %.pre103, %agg.tmp32
+  %.pre104 = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
+  %cmp.not9.i.i = icmp eq ptr %.pre104, %agg.tmp32
   br i1 %cmp.not9.i.i, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, label %while.body.i.i
 
 while.body.i.i:                                   ; preds = %invoke.cont36, %while.body.i.i
-  %__cur.010.i.i = phi ptr [ %35, %while.body.i.i ], [ %.pre103, %invoke.cont36 ]
+  %__cur.010.i.i = phi ptr [ %35, %while.body.i.i ], [ %.pre104, %invoke.cont36 ]
   %35 = load ptr, ptr %__cur.010.i.i, align 8, !tbaa !38
   call void @_ZdlPv(ptr noundef %__cur.010.i.i) #20
   %cmp.not.i.i = icmp eq ptr %35, %agg.tmp32
@@ -559,61 +559,61 @@ while.body.i.i:                                   ; preds = %invoke.cont36, %whi
 
 _ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit: ; preds = %while.body.i.i, %invoke.cont34, %invoke.cont36
   %36 = load ptr, ptr %child, align 8, !tbaa !38
-  %cmp.not9.i.i72 = icmp eq ptr %36, %child
-  br i1 %cmp.not9.i.i72, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit76, label %while.body.i.i75
+  %cmp.not9.i.i76 = icmp eq ptr %36, %child
+  br i1 %cmp.not9.i.i76, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80, label %while.body.i.i79
 
-while.body.i.i75:                                 ; preds = %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, %while.body.i.i75
-  %__cur.010.i.i73 = phi ptr [ %37, %while.body.i.i75 ], [ %36, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit ]
-  %37 = load ptr, ptr %__cur.010.i.i73, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %__cur.010.i.i73) #20
-  %cmp.not.i.i74 = icmp eq ptr %37, %child
-  br i1 %cmp.not.i.i74, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit76, label %while.body.i.i75, !llvm.loop !58
+while.body.i.i79:                                 ; preds = %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit, %while.body.i.i79
+  %__cur.010.i.i77 = phi ptr [ %37, %while.body.i.i79 ], [ %36, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit ]
+  %37 = load ptr, ptr %__cur.010.i.i77, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i77) #20
+  %cmp.not.i.i78 = icmp eq ptr %37, %child
+  br i1 %cmp.not.i.i78, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80, label %while.body.i.i79, !llvm.loop !58
 
-_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit76: ; preds = %while.body.i.i75, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit
+_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80: ; preds = %while.body.i.i79, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %child) #18
   br label %cleanup
 
-lpad24:                                           ; preds = %_ZNSt7__cxx114listIP5SceneSaIS2_EE9push_backEOS2_.exit.1.1
+lpad24:                                           ; preds = %invoke.cont20.1.1
   %38 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup39
 
 lpad35.body:                                      ; preds = %while.body.i.i.i.i, %lpad9.i.i
   %39 = load ptr, ptr %agg.tmp32, align 8, !tbaa !38
-  %cmp.not9.i.i77 = icmp eq ptr %39, %agg.tmp32
-  br i1 %cmp.not9.i.i77, label %cleanup.action, label %while.body.i.i80
+  %cmp.not9.i.i81 = icmp eq ptr %39, %agg.tmp32
+  br i1 %cmp.not9.i.i81, label %ehcleanup, label %while.body.i.i84
 
-while.body.i.i80:                                 ; preds = %lpad35.body, %while.body.i.i80
-  %__cur.010.i.i78 = phi ptr [ %40, %while.body.i.i80 ], [ %39, %lpad35.body ]
-  %40 = load ptr, ptr %__cur.010.i.i78, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %__cur.010.i.i78) #20
-  %cmp.not.i.i79 = icmp eq ptr %40, %agg.tmp32
-  br i1 %cmp.not.i.i79, label %cleanup.action, label %while.body.i.i80, !llvm.loop !58
+while.body.i.i84:                                 ; preds = %lpad35.body, %while.body.i.i84
+  %__cur.010.i.i82 = phi ptr [ %40, %while.body.i.i84 ], [ %39, %lpad35.body ]
+  %40 = load ptr, ptr %__cur.010.i.i82, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i82) #20
+  %cmp.not.i.i83 = icmp eq ptr %40, %agg.tmp32
+  br i1 %cmp.not.i.i83, label %ehcleanup, label %while.body.i.i84, !llvm.loop !58
 
-cleanup.action:                                   ; preds = %while.body.i.i.i, %while.body.i.i80, %lpad9.i, %lpad35.body
-  %eh.lpad-body71.pn = phi { ptr, i32 } [ %25, %lpad9.i ], [ %32, %lpad35.body ], [ %32, %while.body.i.i80 ], [ %25, %while.body.i.i.i ]
+ehcleanup:                                        ; preds = %while.body.i.i.i, %while.body.i.i84, %lpad35.body, %lpad9.i
+  %.pn = phi { ptr, i32 } [ %25, %lpad9.i ], [ %32, %lpad35.body ], [ %32, %while.body.i.i84 ], [ %25, %while.body.i.i.i ]
   call void @_ZdlPv(ptr noundef nonnull %call26) #20
   br label %ehcleanup39
 
-ehcleanup39:                                      ; preds = %lpad13, %lpad24, %cleanup.action, %lpad1
-  %.pn.pn = phi { ptr, i32 } [ %4, %lpad1 ], [ %20, %lpad13 ], [ %eh.lpad-body71.pn, %cleanup.action ], [ %38, %lpad24 ]
+ehcleanup39:                                      ; preds = %lpad13, %lpad24, %ehcleanup, %lpad1
+  %.pn53.pn = phi { ptr, i32 } [ %4, %lpad1 ], [ %20, %lpad13 ], [ %.pn, %ehcleanup ], [ %38, %lpad24 ]
   %41 = load ptr, ptr %child, align 8, !tbaa !38
-  %cmp.not9.i.i82 = icmp eq ptr %41, %child
-  br i1 %cmp.not9.i.i82, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit86, label %while.body.i.i85
+  %cmp.not9.i.i86 = icmp eq ptr %41, %child
+  br i1 %cmp.not9.i.i86, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit90, label %while.body.i.i89
 
-while.body.i.i85:                                 ; preds = %ehcleanup39, %while.body.i.i85
-  %__cur.010.i.i83 = phi ptr [ %42, %while.body.i.i85 ], [ %41, %ehcleanup39 ]
-  %42 = load ptr, ptr %__cur.010.i.i83, align 8, !tbaa !38
-  call void @_ZdlPv(ptr noundef %__cur.010.i.i83) #20
-  %cmp.not.i.i84 = icmp eq ptr %42, %child
-  br i1 %cmp.not.i.i84, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit86, label %while.body.i.i85, !llvm.loop !58
+while.body.i.i89:                                 ; preds = %ehcleanup39, %while.body.i.i89
+  %__cur.010.i.i87 = phi ptr [ %42, %while.body.i.i89 ], [ %41, %ehcleanup39 ]
+  %42 = load ptr, ptr %__cur.010.i.i87, align 8, !tbaa !38
+  call void @_ZdlPv(ptr noundef %__cur.010.i.i87) #20
+  %cmp.not.i.i88 = icmp eq ptr %42, %child
+  br i1 %cmp.not.i.i88, label %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit90, label %while.body.i.i89, !llvm.loop !58
 
-_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit86: ; preds = %while.body.i.i85, %ehcleanup39
+_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit90: ; preds = %while.body.i.i89, %ehcleanup39
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %child) #18
-  resume { ptr, i32 } %.pn.pn
+  resume { ptr, i32 } %.pn53.pn
 
-cleanup:                                          ; preds = %entry, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit76
-  %retval.0 = phi ptr [ %call26, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit76 ], [ %call, %entry ]
+cleanup:                                          ; preds = %entry, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80
+  %retval.0 = phi ptr [ %call26, %_ZNSt7__cxx1110_List_baseIP5SceneSaIS2_EED2Ev.exit80 ], [ %call, %entry ]
   ret ptr %retval.0
 }
 
@@ -694,7 +694,7 @@ for.cond13.preheader:                             ; preds = %for.cond9.preheader
 for.cond.cleanup11:                               ; preds = %_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_c.exit
   %dec = add nsw i32 %y.0119, -1
   %cmp8.not = icmp eq i32 %y.0119, 0
-  br i1 %cmp8.not, label %delete.notnull, label %for.cond9.preheader, !llvm.loop !62
+  br i1 %cmp8.not, label %delete.end, label %for.cond9.preheader, !llvm.loop !62
 
 for.cond17.preheader:                             ; preds = %for.cond13.preheader, %for.cond.cleanup19
   %.pre = phi double [ %.pre.pre, %for.cond13.preheader ], [ %32, %for.cond.cleanup19 ]
@@ -843,7 +843,7 @@ _Z9ray_traceRK3VecRK3RayRK5Scene.exit:            ; preds = %for.body20, %if.end
   %exitcond.not = icmp eq i32 %inc, 4
   br i1 %exitcond.not, label %for.cond.cleanup19, label %for.body20, !llvm.loop !82
 
-delete.notnull:                                   ; preds = %for.cond.cleanup11
+delete.end:                                       ; preds = %for.cond.cleanup11
   %vtable = load ptr, ptr %call2, align 8, !tbaa !17
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
   %33 = load ptr, ptr %vfn, align 8

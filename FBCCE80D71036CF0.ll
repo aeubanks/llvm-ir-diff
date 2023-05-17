@@ -40,7 +40,7 @@ lpad:                                             ; preds = %entry
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL14CreateCodecOutv() #2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(1304) ptr @_Znwm(i64 noundef 1304) #6
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -52,20 +52,20 @@ entry:
   store ptr null, ptr %_buffer2.i.i, align 8, !tbaa !15
   %_callStream.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 4
   store ptr null, ptr %_callStream.i, align 8, !tbaa !19
-  %_pos.i12.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 4, i32 1
-  store i32 0, ptr %_pos.i12.i, align 8, !tbaa !20
-  %_stream.i13.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 4, i32 5
-  store ptr null, ptr %_stream.i13.i, align 8, !tbaa !12
-  %_buffer2.i14.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 4, i32 7
-  store ptr null, ptr %_buffer2.i14.i, align 8, !tbaa !15
+  %_pos.i15.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 4, i32 1
+  store i32 0, ptr %_pos.i15.i, align 8, !tbaa !20
+  %_stream.i16.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 4, i32 5
+  store ptr null, ptr %_stream.i16.i, align 8, !tbaa !12
+  %_buffer2.i17.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 4, i32 7
+  store ptr null, ptr %_buffer2.i17.i, align 8, !tbaa !15
   %_jumpStream.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 5
   store ptr null, ptr %_jumpStream.i, align 8, !tbaa !19
-  %_pos.i15.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 5, i32 1
-  store i32 0, ptr %_pos.i15.i, align 8, !tbaa !20
-  %_stream.i16.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 5, i32 5
-  store ptr null, ptr %_stream.i16.i, align 8, !tbaa !12
-  %_buffer2.i17.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 5, i32 7
-  store ptr null, ptr %_buffer2.i17.i, align 8, !tbaa !15
+  %_pos.i18.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 5, i32 1
+  store i32 0, ptr %_pos.i18.i, align 8, !tbaa !20
+  %_stream.i19.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 5, i32 5
+  store ptr null, ptr %_stream.i19.i, align 8, !tbaa !12
+  %_buffer2.i20.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 5, i32 7
+  store ptr null, ptr %_buffer2.i20.i, align 8, !tbaa !15
   %Stream.i.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 6, i32 5
   store ptr null, ptr %Stream.i.i, align 8, !tbaa !19
   %_pos.i.i.i = getelementptr inbounds %"class.NCompress::NBcj2::CEncoder", ptr %call, i64 0, i32 6, i32 5, i32 1

@@ -42,7 +42,7 @@ $_ZNK11btMatrix3x311getRotationER12btQuaternion = comdat any
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN13btGhostObjectC2Ev(ptr noundef nonnull align 8 dereferenceable(312) %this) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   tail call void @_ZN17btCollisionObjectC2Ev(ptr noundef nonnull align 8 dereferenceable(280) %this)
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV13btGhostObject, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_ownsMemory.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 6
@@ -86,17 +86,17 @@ entry:
   %1 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !24
   %tobool2.not.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %invoke.cont, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit: ; preds = %if.then3.i.i.i, %entry
+invoke.cont:                                      ; preds = %entry, %if.then3.i.i.i
+  %m_size.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !8
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !15
-  %m_size.i4.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i4.i.i, align 4, !tbaa !16
+  store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !16
   %m_capacity.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 3
   store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !17
   tail call void @_ZN17btCollisionObjectD2Ev(ptr noundef nonnull align 8 dereferenceable(280) %this)
@@ -130,17 +130,17 @@ entry:
   %1 = load i8, ptr %m_ownsMemory.i.i.i.i, align 8, !range !24
   %tobool2.not.i.i.i.i = icmp eq i8 %1, 0
   %or.cond.i.i.i = select i1 %tobool.not.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i
-  br i1 %or.cond.i.i.i, label %_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit.i, label %if.then3.i.i.i.i
+  br i1 %or.cond.i.i.i, label %invoke.cont.i, label %if.then3.i.i.i.i
 
 if.then3.i.i.i.i:                                 ; preds = %entry
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %0)
-          to label %_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit.i unwind label %lpad.i
+          to label %invoke.cont.i unwind label %lpad.i
 
-_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit.i: ; preds = %if.then3.i.i.i.i, %entry
+invoke.cont.i:                                    ; preds = %if.then3.i.i.i.i, %entry
+  %m_size.i.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !8
   store ptr null, ptr %m_data.i.i.i.i, align 8, !tbaa !15
-  %m_size.i4.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i4.i.i.i, align 4, !tbaa !16
+  store i32 0, ptr %m_size.i.i.i.i, align 4, !tbaa !16
   %m_capacity.i.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i, align 8, !tbaa !17
   invoke void @_ZN17btCollisionObjectD2Ev(ptr noundef nonnull align 8 dereferenceable(280) %this)
@@ -159,11 +159,11 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   tail call void @__clang_call_terminate(ptr %4) #15
   unreachable
 
-invoke.cont:                                      ; preds = %_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit.i
+invoke.cont:                                      ; preds = %invoke.cont.i
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %this)
   ret void
 
-lpad:                                             ; preds = %_ZN20btAlignedObjectArrayIP17btCollisionObjectED2Ev.exit.i
+lpad:                                             ; preds = %invoke.cont.i
   %5 = landingpad { ptr, i32 }
           cleanup
   br label %lpad.body
@@ -494,10 +494,10 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   unreachable
 
 _ZN13btGhostObjectD2Ev.exit:                      ; preds = %invoke.cont3, %if.then3.i.i.i.i
+  %m_size.i.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !8
   store ptr null, ptr %m_data.i.i.i.i, align 8, !tbaa !15
-  %m_size.i4.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i4.i.i.i, align 4, !tbaa !16
+  store i32 0, ptr %m_size.i.i.i.i, align 4, !tbaa !16
   %m_capacity.i.i.i.i = getelementptr inbounds %class.btGhostObject, ptr %this, i64 0, i32 1, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i, align 8, !tbaa !17
   tail call void @_ZN17btCollisionObjectD2Ev(ptr noundef nonnull align 8 dereferenceable(280) %this)
@@ -1104,13 +1104,15 @@ if.then44:                                        ; preds = %if.else
   %30 = fsub float %fneg49, %mul.i
   %div57 = fdiv float %30, %sub.i173
   %cmp.i191 = fcmp olt float %div57, %28
-  %lambda_exit.2 = select i1 %cmp.i191, float %div57, float %28
+  br i1 %cmp.i191, label %if.then.i, label %if.end59
+
+if.then.i:                                        ; preds = %if.then44
   br label %if.end59
 
-if.end59:                                         ; preds = %if.then26, %if.then35, %if.else, %if.then44
-  %hitNormal.sroa.0.0 = phi float [ 0.000000e+00, %if.else ], [ 0.000000e+00, %if.then44 ], [ 0.000000e+00, %if.then26 ], [ 1.000000e+00, %if.then35 ]
-  %lambda_exit.3 = phi float [ %28, %if.else ], [ %lambda_exit.2, %if.then44 ], [ %28, %if.then26 ], [ %28, %if.then35 ]
-  %lambda_enter.3 = phi float [ 0.000000e+00, %if.else ], [ 0.000000e+00, %if.then44 ], [ 0.000000e+00, %if.then26 ], [ %div, %if.then35 ]
+if.end59:                                         ; preds = %if.then.i, %if.then44, %if.then26, %if.then35, %if.else
+  %hitNormal.sroa.0.0 = phi float [ 0.000000e+00, %if.else ], [ 0.000000e+00, %if.then.i ], [ 0.000000e+00, %if.then44 ], [ 0.000000e+00, %if.then26 ], [ 1.000000e+00, %if.then35 ]
+  %lambda_exit.3 = phi float [ %28, %if.else ], [ %div57, %if.then.i ], [ %28, %if.then44 ], [ %28, %if.then26 ], [ %28, %if.then35 ]
+  %lambda_enter.3 = phi float [ 0.000000e+00, %if.else ], [ 0.000000e+00, %if.then.i ], [ 0.000000e+00, %if.then44 ], [ 0.000000e+00, %if.then26 ], [ %div, %if.then35 ]
   br i1 %18, label %if.else.1, label %if.then26.1
 
 if.then26.1:                                      ; preds = %if.end59
@@ -1131,14 +1133,16 @@ if.then44.1:                                      ; preds = %if.else.1
   %32 = fsub float %fneg49.1, %20
   %div57.1 = fdiv float %32, %sub8.i176
   %cmp.i191.1 = fcmp olt float %div57.1, %lambda_exit.3
-  %lambda_exit.2.1 = select i1 %cmp.i191.1, float %div57.1, float %lambda_exit.3
+  br i1 %cmp.i191.1, label %if.then.i.1, label %if.end59.1
+
+if.then.i.1:                                      ; preds = %if.then44.1
   br label %if.end59.1
 
-if.end59.1:                                       ; preds = %if.then44.1, %if.else.1, %if.then35.1, %if.then26.1
-  %hitNormal.sroa.13.1 = phi float [ 0.000000e+00, %if.else.1 ], [ 0.000000e+00, %if.then44.1 ], [ 0.000000e+00, %if.then26.1 ], [ 1.000000e+00, %if.then35.1 ]
-  %hitNormal.sroa.0.1 = phi float [ %hitNormal.sroa.0.0, %if.else.1 ], [ %hitNormal.sroa.0.0, %if.then44.1 ], [ %hitNormal.sroa.0.0, %if.then26.1 ], [ 0.000000e+00, %if.then35.1 ]
-  %lambda_exit.3.1 = phi float [ %lambda_exit.3, %if.else.1 ], [ %lambda_exit.2.1, %if.then44.1 ], [ %lambda_exit.3, %if.then26.1 ], [ %lambda_exit.3, %if.then35.1 ]
-  %lambda_enter.3.1 = phi float [ %lambda_enter.3, %if.else.1 ], [ %lambda_enter.3, %if.then44.1 ], [ %lambda_enter.3, %if.then26.1 ], [ %div.1, %if.then35.1 ]
+if.end59.1:                                       ; preds = %if.then.i.1, %if.then44.1, %if.else.1, %if.then35.1, %if.then26.1
+  %hitNormal.sroa.13.1 = phi float [ 0.000000e+00, %if.else.1 ], [ 0.000000e+00, %if.then.i.1 ], [ 0.000000e+00, %if.then44.1 ], [ 0.000000e+00, %if.then26.1 ], [ 1.000000e+00, %if.then35.1 ]
+  %hitNormal.sroa.0.1 = phi float [ %hitNormal.sroa.0.0, %if.else.1 ], [ %hitNormal.sroa.0.0, %if.then.i.1 ], [ %hitNormal.sroa.0.0, %if.then44.1 ], [ %hitNormal.sroa.0.0, %if.then26.1 ], [ 0.000000e+00, %if.then35.1 ]
+  %lambda_exit.3.1 = phi float [ %lambda_exit.3, %if.else.1 ], [ %div57.1, %if.then.i.1 ], [ %lambda_exit.3, %if.then44.1 ], [ %lambda_exit.3, %if.then26.1 ], [ %lambda_exit.3, %if.then35.1 ]
+  %lambda_enter.3.1 = phi float [ %lambda_enter.3, %if.else.1 ], [ %lambda_enter.3, %if.then.i.1 ], [ %lambda_enter.3, %if.then44.1 ], [ %lambda_enter.3, %if.then26.1 ], [ %div.1, %if.then35.1 ]
   br i1 %21, label %if.else.2, label %if.then26.2
 
 if.then26.2:                                      ; preds = %if.end59.1
@@ -1159,15 +1163,17 @@ if.then44.2:                                      ; preds = %if.else.2
   %34 = fsub float %fneg49.2, %23
   %div57.2 = fdiv float %34, %sub14.i179
   %cmp.i191.2 = fcmp olt float %div57.2, %lambda_exit.3.1
-  %lambda_exit.2.2 = select i1 %cmp.i191.2, float %div57.2, float %lambda_exit.3.1
+  br i1 %cmp.i191.2, label %if.then.i.2, label %if.end59.2
+
+if.then.i.2:                                      ; preds = %if.then44.2
   br label %if.end59.2
 
-if.end59.2:                                       ; preds = %if.then44.2, %if.else.2, %if.then35.2, %if.then26.2
-  %hitNormal.sroa.22.2 = phi float [ 0.000000e+00, %if.else.2 ], [ 0.000000e+00, %if.then44.2 ], [ 0.000000e+00, %if.then26.2 ], [ 1.000000e+00, %if.then35.2 ]
-  %hitNormal.sroa.13.2 = phi float [ %hitNormal.sroa.13.1, %if.else.2 ], [ %hitNormal.sroa.13.1, %if.then44.2 ], [ %hitNormal.sroa.13.1, %if.then26.2 ], [ 0.000000e+00, %if.then35.2 ]
-  %hitNormal.sroa.0.2 = phi float [ %hitNormal.sroa.0.1, %if.else.2 ], [ %hitNormal.sroa.0.1, %if.then44.2 ], [ %hitNormal.sroa.0.1, %if.then26.2 ], [ 0.000000e+00, %if.then35.2 ]
-  %lambda_exit.3.2 = phi float [ %lambda_exit.3.1, %if.else.2 ], [ %lambda_exit.2.2, %if.then44.2 ], [ %lambda_exit.3.1, %if.then26.2 ], [ %lambda_exit.3.1, %if.then35.2 ]
-  %lambda_enter.3.2 = phi float [ %lambda_enter.3.1, %if.else.2 ], [ %lambda_enter.3.1, %if.then44.2 ], [ %lambda_enter.3.1, %if.then26.2 ], [ %div.2, %if.then35.2 ]
+if.end59.2:                                       ; preds = %if.then.i.2, %if.then44.2, %if.else.2, %if.then35.2, %if.then26.2
+  %hitNormal.sroa.22.2 = phi float [ 0.000000e+00, %if.else.2 ], [ 0.000000e+00, %if.then.i.2 ], [ 0.000000e+00, %if.then44.2 ], [ 0.000000e+00, %if.then26.2 ], [ 1.000000e+00, %if.then35.2 ]
+  %hitNormal.sroa.13.2 = phi float [ %hitNormal.sroa.13.1, %if.else.2 ], [ %hitNormal.sroa.13.1, %if.then.i.2 ], [ %hitNormal.sroa.13.1, %if.then44.2 ], [ %hitNormal.sroa.13.1, %if.then26.2 ], [ 0.000000e+00, %if.then35.2 ]
+  %hitNormal.sroa.0.2 = phi float [ %hitNormal.sroa.0.1, %if.else.2 ], [ %hitNormal.sroa.0.1, %if.then.i.2 ], [ %hitNormal.sroa.0.1, %if.then44.2 ], [ %hitNormal.sroa.0.1, %if.then26.2 ], [ 0.000000e+00, %if.then35.2 ]
+  %lambda_exit.3.2 = phi float [ %lambda_exit.3.1, %if.else.2 ], [ %div57.2, %if.then.i.2 ], [ %lambda_exit.3.1, %if.then44.2 ], [ %lambda_exit.3.1, %if.then26.2 ], [ %lambda_exit.3.1, %if.then35.2 ]
+  %lambda_enter.3.2 = phi float [ %lambda_enter.3.1, %if.else.2 ], [ %lambda_enter.3.1, %if.then.i.2 ], [ %lambda_enter.3.1, %if.then44.2 ], [ %lambda_enter.3.1, %if.then26.2 ], [ %div.2, %if.then35.2 ]
   br i1 %cmp4.i, label %if.else.1225, label %if.then26.1221
 
 if.then26.1221:                                   ; preds = %if.end59.2
@@ -1181,22 +1187,24 @@ if.then35.1222:                                   ; preds = %if.then26.1221
   br label %if.end59.1235
 
 if.else.1225:                                     ; preds = %if.end59.2
-  br i1 %cmp4.i152, label %if.end59.1235, label %if.then44.1231
+  br i1 %cmp4.i152, label %if.end59.1235, label %if.then44.1230
 
-if.then44.1231:                                   ; preds = %if.else.1225
+if.then44.1230:                                   ; preds = %if.else.1225
   %fneg49.1226 = fneg float %sub.i125
   %36 = tail call float @llvm.fmuladd.f32(float %fneg.i, float -1.000000e+00, float %fneg49.1226)
   %div57.1228 = fdiv float %36, %sub.i173
   %cmp.i191.1229 = fcmp olt float %div57.1228, %lambda_exit.3.2
-  %lambda_exit.2.1230 = select i1 %cmp.i191.1229, float %div57.1228, float %lambda_exit.3.2
+  br i1 %cmp.i191.1229, label %if.then.i.1231, label %if.end59.1235
+
+if.then.i.1231:                                   ; preds = %if.then44.1230
   br label %if.end59.1235
 
-if.end59.1235:                                    ; preds = %if.then44.1231, %if.else.1225, %if.then35.1222, %if.then26.1221
-  %hitNormal.sroa.22.3 = phi float [ %hitNormal.sroa.22.2, %if.else.1225 ], [ %hitNormal.sroa.22.2, %if.then44.1231 ], [ %hitNormal.sroa.22.2, %if.then26.1221 ], [ 0.000000e+00, %if.then35.1222 ]
-  %hitNormal.sroa.13.3 = phi float [ %hitNormal.sroa.13.2, %if.else.1225 ], [ %hitNormal.sroa.13.2, %if.then44.1231 ], [ %hitNormal.sroa.13.2, %if.then26.1221 ], [ 0.000000e+00, %if.then35.1222 ]
-  %hitNormal.sroa.0.3 = phi float [ %hitNormal.sroa.0.2, %if.else.1225 ], [ %hitNormal.sroa.0.2, %if.then44.1231 ], [ %hitNormal.sroa.0.2, %if.then26.1221 ], [ -1.000000e+00, %if.then35.1222 ]
-  %lambda_exit.3.1232 = phi float [ %lambda_exit.3.2, %if.else.1225 ], [ %lambda_exit.2.1230, %if.then44.1231 ], [ %lambda_exit.3.2, %if.then26.1221 ], [ %lambda_exit.3.2, %if.then35.1222 ]
-  %lambda_enter.3.1233 = phi float [ %lambda_enter.3.2, %if.else.1225 ], [ %lambda_enter.3.2, %if.then44.1231 ], [ %lambda_enter.3.2, %if.then26.1221 ], [ %div.1219, %if.then35.1222 ]
+if.end59.1235:                                    ; preds = %if.then.i.1231, %if.then44.1230, %if.else.1225, %if.then35.1222, %if.then26.1221
+  %hitNormal.sroa.22.3 = phi float [ %hitNormal.sroa.22.2, %if.else.1225 ], [ %hitNormal.sroa.22.2, %if.then.i.1231 ], [ %hitNormal.sroa.22.2, %if.then44.1230 ], [ %hitNormal.sroa.22.2, %if.then26.1221 ], [ 0.000000e+00, %if.then35.1222 ]
+  %hitNormal.sroa.13.3 = phi float [ %hitNormal.sroa.13.2, %if.else.1225 ], [ %hitNormal.sroa.13.2, %if.then.i.1231 ], [ %hitNormal.sroa.13.2, %if.then44.1230 ], [ %hitNormal.sroa.13.2, %if.then26.1221 ], [ 0.000000e+00, %if.then35.1222 ]
+  %hitNormal.sroa.0.3 = phi float [ %hitNormal.sroa.0.2, %if.else.1225 ], [ %hitNormal.sroa.0.2, %if.then.i.1231 ], [ %hitNormal.sroa.0.2, %if.then44.1230 ], [ %hitNormal.sroa.0.2, %if.then26.1221 ], [ -1.000000e+00, %if.then35.1222 ]
+  %lambda_exit.3.1232 = phi float [ %lambda_exit.3.2, %if.else.1225 ], [ %div57.1228, %if.then.i.1231 ], [ %lambda_exit.3.2, %if.then44.1230 ], [ %lambda_exit.3.2, %if.then26.1221 ], [ %lambda_exit.3.2, %if.then35.1222 ]
+  %lambda_enter.3.1233 = phi float [ %lambda_enter.3.2, %if.else.1225 ], [ %lambda_enter.3.2, %if.then.i.1231 ], [ %lambda_enter.3.2, %if.then44.1230 ], [ %lambda_enter.3.2, %if.then26.1221 ], [ %div.1219, %if.then35.1222 ]
   br i1 %cmp14.i, label %if.else.1.1, label %if.then26.1.1
 
 if.then26.1.1:                                    ; preds = %if.end59.1235
@@ -1219,15 +1227,17 @@ if.then44.1.1:                                    ; preds = %if.else.1.1
   %40 = tail call float @llvm.fmuladd.f32(float %39, float -1.000000e+00, float %fneg49.1.1)
   %div57.1.1 = fdiv float %40, %sub8.i176
   %cmp.i191.1.1 = fcmp olt float %div57.1.1, %lambda_exit.3.1232
-  %lambda_exit.2.1.1 = select i1 %cmp.i191.1.1, float %div57.1.1, float %lambda_exit.3.1232
+  br i1 %cmp.i191.1.1, label %if.then.i.1.1, label %if.end59.1.1
+
+if.then.i.1.1:                                    ; preds = %if.then44.1.1
   br label %if.end59.1.1
 
-if.end59.1.1:                                     ; preds = %if.then44.1.1, %if.else.1.1, %if.then35.1.1, %if.then26.1.1
-  %hitNormal.sroa.22.4 = phi float [ %hitNormal.sroa.22.3, %if.else.1.1 ], [ %hitNormal.sroa.22.3, %if.then44.1.1 ], [ %hitNormal.sroa.22.3, %if.then26.1.1 ], [ 0.000000e+00, %if.then35.1.1 ]
-  %hitNormal.sroa.13.4 = phi float [ %hitNormal.sroa.13.3, %if.else.1.1 ], [ %hitNormal.sroa.13.3, %if.then44.1.1 ], [ %hitNormal.sroa.13.3, %if.then26.1.1 ], [ -1.000000e+00, %if.then35.1.1 ]
-  %hitNormal.sroa.0.4 = phi float [ %hitNormal.sroa.0.3, %if.else.1.1 ], [ %hitNormal.sroa.0.3, %if.then44.1.1 ], [ %hitNormal.sroa.0.3, %if.then26.1.1 ], [ 0.000000e+00, %if.then35.1.1 ]
-  %lambda_exit.3.1.1 = phi float [ %lambda_exit.3.1232, %if.else.1.1 ], [ %lambda_exit.2.1.1, %if.then44.1.1 ], [ %lambda_exit.3.1232, %if.then26.1.1 ], [ %lambda_exit.3.1232, %if.then35.1.1 ]
-  %lambda_enter.3.1.1 = phi float [ %lambda_enter.3.1233, %if.else.1.1 ], [ %lambda_enter.3.1233, %if.then44.1.1 ], [ %lambda_enter.3.1233, %if.then26.1.1 ], [ %div.1.1, %if.then35.1.1 ]
+if.end59.1.1:                                     ; preds = %if.then.i.1.1, %if.then44.1.1, %if.else.1.1, %if.then35.1.1, %if.then26.1.1
+  %hitNormal.sroa.22.4 = phi float [ %hitNormal.sroa.22.3, %if.else.1.1 ], [ %hitNormal.sroa.22.3, %if.then.i.1.1 ], [ %hitNormal.sroa.22.3, %if.then44.1.1 ], [ %hitNormal.sroa.22.3, %if.then26.1.1 ], [ 0.000000e+00, %if.then35.1.1 ]
+  %hitNormal.sroa.13.4 = phi float [ %hitNormal.sroa.13.3, %if.else.1.1 ], [ %hitNormal.sroa.13.3, %if.then.i.1.1 ], [ %hitNormal.sroa.13.3, %if.then44.1.1 ], [ %hitNormal.sroa.13.3, %if.then26.1.1 ], [ -1.000000e+00, %if.then35.1.1 ]
+  %hitNormal.sroa.0.4 = phi float [ %hitNormal.sroa.0.3, %if.else.1.1 ], [ %hitNormal.sroa.0.3, %if.then.i.1.1 ], [ %hitNormal.sroa.0.3, %if.then44.1.1 ], [ %hitNormal.sroa.0.3, %if.then26.1.1 ], [ 0.000000e+00, %if.then35.1.1 ]
+  %lambda_exit.3.1.1 = phi float [ %lambda_exit.3.1232, %if.else.1.1 ], [ %div57.1.1, %if.then.i.1.1 ], [ %lambda_exit.3.1232, %if.then44.1.1 ], [ %lambda_exit.3.1232, %if.then26.1.1 ], [ %lambda_exit.3.1232, %if.then35.1.1 ]
+  %lambda_enter.3.1.1 = phi float [ %lambda_enter.3.1233, %if.else.1.1 ], [ %lambda_enter.3.1233, %if.then.i.1.1 ], [ %lambda_enter.3.1233, %if.then44.1.1 ], [ %lambda_enter.3.1233, %if.then26.1.1 ], [ %div.1.1, %if.then35.1.1 ]
   %tobool.not.2.1 = icmp ult i32 %or27.i, 32
   br i1 %tobool.not.2.1, label %if.else.2.1, label %if.then26.2.1
 
@@ -1252,15 +1262,17 @@ if.then44.2.1:                                    ; preds = %if.else.2.1
   %44 = tail call float @llvm.fmuladd.f32(float %43, float -1.000000e+00, float %fneg49.2.1)
   %div57.2.1 = fdiv float %44, %sub14.i179
   %cmp.i191.2.1 = fcmp olt float %div57.2.1, %lambda_exit.3.1.1
-  %lambda_exit.2.2.1 = select i1 %cmp.i191.2.1, float %div57.2.1, float %lambda_exit.3.1.1
+  br i1 %cmp.i191.2.1, label %if.then.i.2.1, label %if.end59.2.1
+
+if.then.i.2.1:                                    ; preds = %if.then44.2.1
   br label %if.end59.2.1
 
-if.end59.2.1:                                     ; preds = %if.then44.2.1, %if.else.2.1, %if.then35.2.1, %if.then26.2.1
-  %hitNormal.sroa.22.5 = phi float [ %hitNormal.sroa.22.4, %if.else.2.1 ], [ %hitNormal.sroa.22.4, %if.then44.2.1 ], [ %hitNormal.sroa.22.4, %if.then26.2.1 ], [ -1.000000e+00, %if.then35.2.1 ]
-  %hitNormal.sroa.13.5 = phi float [ %hitNormal.sroa.13.4, %if.else.2.1 ], [ %hitNormal.sroa.13.4, %if.then44.2.1 ], [ %hitNormal.sroa.13.4, %if.then26.2.1 ], [ 0.000000e+00, %if.then35.2.1 ]
-  %hitNormal.sroa.0.5 = phi float [ %hitNormal.sroa.0.4, %if.else.2.1 ], [ %hitNormal.sroa.0.4, %if.then44.2.1 ], [ %hitNormal.sroa.0.4, %if.then26.2.1 ], [ 0.000000e+00, %if.then35.2.1 ]
-  %lambda_exit.3.2.1 = phi float [ %lambda_exit.3.1.1, %if.else.2.1 ], [ %lambda_exit.2.2.1, %if.then44.2.1 ], [ %lambda_exit.3.1.1, %if.then26.2.1 ], [ %lambda_exit.3.1.1, %if.then35.2.1 ]
-  %lambda_enter.3.2.1 = phi float [ %lambda_enter.3.1.1, %if.else.2.1 ], [ %lambda_enter.3.1.1, %if.then44.2.1 ], [ %lambda_enter.3.1.1, %if.then26.2.1 ], [ %div.2.1, %if.then35.2.1 ]
+if.end59.2.1:                                     ; preds = %if.then.i.2.1, %if.then44.2.1, %if.else.2.1, %if.then35.2.1, %if.then26.2.1
+  %hitNormal.sroa.22.5 = phi float [ %hitNormal.sroa.22.4, %if.else.2.1 ], [ %hitNormal.sroa.22.4, %if.then.i.2.1 ], [ %hitNormal.sroa.22.4, %if.then44.2.1 ], [ %hitNormal.sroa.22.4, %if.then26.2.1 ], [ -1.000000e+00, %if.then35.2.1 ]
+  %hitNormal.sroa.13.5 = phi float [ %hitNormal.sroa.13.4, %if.else.2.1 ], [ %hitNormal.sroa.13.4, %if.then.i.2.1 ], [ %hitNormal.sroa.13.4, %if.then44.2.1 ], [ %hitNormal.sroa.13.4, %if.then26.2.1 ], [ 0.000000e+00, %if.then35.2.1 ]
+  %hitNormal.sroa.0.5 = phi float [ %hitNormal.sroa.0.4, %if.else.2.1 ], [ %hitNormal.sroa.0.4, %if.then.i.2.1 ], [ %hitNormal.sroa.0.4, %if.then44.2.1 ], [ %hitNormal.sroa.0.4, %if.then26.2.1 ], [ 0.000000e+00, %if.then35.2.1 ]
+  %lambda_exit.3.2.1 = phi float [ %lambda_exit.3.1.1, %if.else.2.1 ], [ %div57.2.1, %if.then.i.2.1 ], [ %lambda_exit.3.1.1, %if.then44.2.1 ], [ %lambda_exit.3.1.1, %if.then26.2.1 ], [ %lambda_exit.3.1.1, %if.then35.2.1 ]
+  %lambda_enter.3.2.1 = phi float [ %lambda_enter.3.1.1, %if.else.2.1 ], [ %lambda_enter.3.1.1, %if.then.i.2.1 ], [ %lambda_enter.3.1.1, %if.then44.2.1 ], [ %lambda_enter.3.1.1, %if.then26.2.1 ], [ %div.2.1, %if.then35.2.1 ]
   %cmp63 = fcmp ugt float %lambda_enter.3.2.1, %lambda_exit.3.2.1
   br i1 %cmp63, label %cleanup73, label %if.then64
 
@@ -1384,12 +1396,12 @@ entry:
   %dmat = alloca %class.btMatrix3x3, align 8
   %dorn = alloca %class.btQuaternion, align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %dmat) #14
+  %arrayidx.i.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform0, i64 0, i64 1
   %arrayidx3.i.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform0, i64 0, i64 1, i32 0, i64 1
+  %arrayidx6.i.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform0, i64 0, i64 2
   %arrayidx9.i.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform0, i64 0, i64 2, i32 0, i64 2
   %0 = load float, ptr %arrayidx9.i.i, align 4, !tbaa !37, !noalias !44
   %arrayidx15.i.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform0, i64 0, i64 1, i32 0, i64 2
-  %arrayidx.i42.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform0, i64 0, i64 1
-  %arrayidx6.i44.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform0, i64 0, i64 2
   %arrayidx5.i53.i = getelementptr inbounds [4 x float], ptr %transform0, i64 0, i64 1
   %arrayidx10.i.i = getelementptr inbounds [4 x float], ptr %transform0, i64 0, i64 2
   tail call void @llvm.experimental.noalias.scope.decl(metadata !47)
@@ -1398,8 +1410,8 @@ entry:
   %2 = load float, ptr %arrayidx.i.i.i, align 4, !tbaa !37, !noalias !47
   %arrayidx.i14.i.i = getelementptr inbounds [4 x float], ptr %transform1, i64 0, i64 2
   %3 = load float, ptr %arrayidx.i14.i.i, align 4, !tbaa !37, !noalias !47
-  %arrayidx.i.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform1, i64 0, i64 1
-  %4 = load float, ptr %arrayidx.i.i, align 4, !tbaa !37, !noalias !47
+  %arrayidx.i.i23 = getelementptr inbounds [3 x %class.btVector3], ptr %transform1, i64 0, i64 1
+  %4 = load float, ptr %arrayidx.i.i23, align 4, !tbaa !37, !noalias !47
   %arrayidx.i.i52.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform1, i64 0, i64 1, i32 0, i64 1
   %5 = load float, ptr %arrayidx.i.i52.i, align 4, !tbaa !37, !noalias !47
   %arrayidx.i14.i55.i = getelementptr inbounds [3 x %class.btVector3], ptr %transform1, i64 0, i64 1, i32 0, i64 2
@@ -1412,9 +1424,9 @@ entry:
   %9 = load float, ptr %arrayidx.i14.i75.i, align 4, !tbaa !37, !noalias !47
   %10 = load float, ptr %arrayidx3.i.i, align 4, !tbaa !37, !noalias !44
   %11 = load float, ptr %arrayidx15.i.i, align 4, !tbaa !37, !noalias !44
-  %12 = load <2 x float>, ptr %arrayidx6.i44.i, align 4, !tbaa !37, !noalias !44
+  %12 = load <2 x float>, ptr %arrayidx6.i.i, align 4, !tbaa !37, !noalias !44
   %13 = shufflevector <2 x float> %12, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %14 = load float, ptr %arrayidx.i42.i, align 4, !tbaa !37, !noalias !44
+  %14 = load float, ptr %arrayidx.i.i, align 4, !tbaa !37, !noalias !44
   %15 = load float, ptr %transform0, align 4, !tbaa !37, !noalias !44
   %16 = load float, ptr %arrayidx5.i53.i, align 4, !tbaa !37, !noalias !44
   %17 = load float, ptr %arrayidx10.i.i, align 4, !tbaa !37, !noalias !44
@@ -1483,11 +1495,11 @@ entry:
   %69 = tail call float @llvm.fmuladd.f32(float %mul15.i, float %7, float %mul7.i87.i)
   %70 = tail call float @llvm.fmuladd.f32(float %mul33.i, float %9, float %69)
   store <2 x float> %64, ptr %dmat, align 8, !tbaa !37, !alias.scope !47
-  %arrayidx5.i.i.i.i24 = getelementptr inbounds [4 x float], ptr %dmat, i64 0, i64 2
-  store float %66, ptr %arrayidx5.i.i.i.i24, align 8, !tbaa !37, !alias.scope !47
-  %arrayidx7.i.i.i.i25 = getelementptr inbounds [4 x float], ptr %dmat, i64 0, i64 3
-  store float 0.000000e+00, ptr %arrayidx7.i.i.i.i25, align 4, !tbaa !37, !alias.scope !47
-  %arrayidx3.i.i.i26 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 1
+  %arrayidx5.i.i.i.i25 = getelementptr inbounds [4 x float], ptr %dmat, i64 0, i64 2
+  store float %66, ptr %arrayidx5.i.i.i.i25, align 8, !tbaa !37, !alias.scope !47
+  %arrayidx7.i.i.i.i26 = getelementptr inbounds [4 x float], ptr %dmat, i64 0, i64 3
+  store float 0.000000e+00, ptr %arrayidx7.i.i.i.i26, align 4, !tbaa !37, !alias.scope !47
+  %arrayidx3.i.i.i27 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 1
   %71 = insertelement <2 x float> poison, float %5, i64 0
   %72 = shufflevector <2 x float> %71, <2 x float> poison, <2 x i32> zeroinitializer
   %73 = fmul <2 x float> %50, %72
@@ -1497,12 +1509,12 @@ entry:
   %77 = insertelement <2 x float> poison, float %6, i64 0
   %78 = shufflevector <2 x float> %77, <2 x float> poison, <2 x i32> zeroinitializer
   %79 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %53, <2 x float> %78, <2 x float> %76)
-  store <2 x float> %79, ptr %arrayidx3.i.i.i26, align 8, !tbaa !37, !alias.scope !47
-  %arrayidx5.i7.i.i.i28 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 1, i32 0, i64 2
-  store float %68, ptr %arrayidx5.i7.i.i.i28, align 8, !tbaa !37, !alias.scope !47
-  %arrayidx7.i8.i.i.i29 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 1, i32 0, i64 3
-  store float 0.000000e+00, ptr %arrayidx7.i8.i.i.i29, align 4, !tbaa !37, !alias.scope !47
-  %arrayidx5.i.i.i30 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 2
+  store <2 x float> %79, ptr %arrayidx3.i.i.i27, align 8, !tbaa !37, !alias.scope !47
+  %arrayidx5.i7.i.i.i29 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 1, i32 0, i64 2
+  store float %68, ptr %arrayidx5.i7.i.i.i29, align 8, !tbaa !37, !alias.scope !47
+  %arrayidx7.i8.i.i.i30 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 1, i32 0, i64 3
+  store float 0.000000e+00, ptr %arrayidx7.i8.i.i.i30, align 4, !tbaa !37, !alias.scope !47
+  %arrayidx5.i.i.i31 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 2
   %80 = insertelement <2 x float> poison, float %8, i64 0
   %81 = shufflevector <2 x float> %80, <2 x float> poison, <2 x i32> zeroinitializer
   %82 = fmul <2 x float> %50, %81
@@ -1512,15 +1524,15 @@ entry:
   %86 = insertelement <2 x float> poison, float %9, i64 0
   %87 = shufflevector <2 x float> %86, <2 x float> poison, <2 x i32> zeroinitializer
   %88 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %53, <2 x float> %87, <2 x float> %85)
-  store <2 x float> %88, ptr %arrayidx5.i.i.i30, align 8, !tbaa !37, !alias.scope !47
-  %arrayidx5.i10.i.i.i32 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 2, i32 0, i64 2
-  store float %70, ptr %arrayidx5.i10.i.i.i32, align 8, !tbaa !37, !alias.scope !47
-  %arrayidx7.i11.i.i.i33 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 2, i32 0, i64 3
-  store float 0.000000e+00, ptr %arrayidx7.i11.i.i.i33, align 4, !tbaa !37, !alias.scope !47
+  store <2 x float> %88, ptr %arrayidx5.i.i.i31, align 8, !tbaa !37, !alias.scope !47
+  %arrayidx5.i10.i.i.i33 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 2, i32 0, i64 2
+  store float %70, ptr %arrayidx5.i10.i.i.i33, align 8, !tbaa !37, !alias.scope !47
+  %arrayidx7.i11.i.i.i34 = getelementptr inbounds [3 x %class.btVector3], ptr %dmat, i64 0, i64 2, i32 0, i64 3
+  store float 0.000000e+00, ptr %arrayidx7.i11.i.i.i34, align 4, !tbaa !37, !alias.scope !47
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %dorn) #14
   call void @_ZNK11btMatrix3x311getRotationER12btQuaternion(ptr noundef nonnull align 4 dereferenceable(48) %dmat, ptr noundef nonnull align 4 dereferenceable(16) %dorn)
-  %arrayidx7.i.i.i.i35 = getelementptr inbounds [4 x float], ptr %dorn, i64 0, i64 2
-  %89 = load float, ptr %arrayidx7.i.i.i.i35, align 8, !tbaa !37
+  %arrayidx7.i.i.i.i36 = getelementptr inbounds [4 x float], ptr %dorn, i64 0, i64 2
+  %89 = load float, ptr %arrayidx7.i.i.i.i36, align 8, !tbaa !37
   %arrayidx10.i.i.i.i = getelementptr inbounds [4 x float], ptr %dorn, i64 0, i64 3
   %90 = load float, ptr %arrayidx10.i.i.i.i, align 4, !tbaa !37
   %91 = load <2 x float>, ptr %dorn, align 8, !tbaa !37
@@ -1537,19 +1549,19 @@ entry:
   %99 = fmul <2 x float> %91, %98
   store <2 x float> %99, ptr %dorn, align 8, !tbaa !37
   %mul7.i.i.i = fmul float %89, %div.i.i
-  store float %mul7.i.i.i, ptr %arrayidx7.i.i.i.i35, align 8, !tbaa !37
+  store float %mul7.i.i.i, ptr %arrayidx7.i.i.i.i36, align 8, !tbaa !37
   %mul10.i.i.i = fmul float %90, %div.i.i
   %call.i.i = call float @acosf(float noundef %mul10.i.i.i) #14
-  %mul.i36 = fmul float %call.i.i, 2.000000e+00
-  store float %mul.i36, ptr %angle, align 4, !tbaa !37
+  %mul.i37 = fmul float %call.i.i, 2.000000e+00
+  store float %mul.i37, ptr %angle, align 4, !tbaa !37
   %100 = load <2 x float>, ptr %dorn, align 8, !tbaa !37
-  %101 = load float, ptr %arrayidx7.i.i.i.i35, align 8, !tbaa !37
+  %101 = load float, ptr %arrayidx7.i.i.i.i36, align 8, !tbaa !37
   %ref.tmp4.sroa.6.0.axis.sroa_idx = getelementptr inbounds i8, ptr %axis, i64 12
   store float 0.000000e+00, ptr %ref.tmp4.sroa.6.0.axis.sroa_idx, align 4, !tbaa !37
   %102 = fmul <2 x float> %100, %100
-  %mul8.i.i39 = extractelement <2 x float> %102, i64 1
+  %mul8.i.i40 = extractelement <2 x float> %102, i64 1
   %103 = extractelement <2 x float> %100, i64 0
-  %104 = call float @llvm.fmuladd.f32(float %103, float %103, float %mul8.i.i39)
+  %104 = call float @llvm.fmuladd.f32(float %103, float %103, float %mul8.i.i40)
   %105 = call float @llvm.fmuladd.f32(float %101, float %101, float %104)
   %cmp = fcmp olt float %105, 0x3D10000000000000
   br i1 %cmp, label %if.then, label %if.else
@@ -1560,18 +1572,18 @@ if.then:                                          ; preds = %entry
 
 if.else:                                          ; preds = %entry
   %sqrt = call float @llvm.sqrt.f32(float %105)
-  %div.i44 = fdiv float 1.000000e+00, %sqrt
-  %106 = insertelement <2 x float> poison, float %div.i44, i64 0
+  %div.i45 = fdiv float 1.000000e+00, %sqrt
+  %106 = insertelement <2 x float> poison, float %div.i45, i64 0
   %107 = shufflevector <2 x float> %106, <2 x float> poison, <2 x i32> zeroinitializer
   %108 = fmul <2 x float> %107, %100
   store <2 x float> %108, ptr %axis, align 4, !tbaa !37
-  %mul7.i.i46 = fmul float %div.i44, %101
+  %mul7.i.i48 = fmul float %div.i45, %101
   br label %if.end
 
 if.end:                                           ; preds = %if.else, %if.then
-  %mul7.i.i46.sink = phi float [ %mul7.i.i46, %if.else ], [ 0.000000e+00, %if.then ]
+  %mul7.i.i48.sink = phi float [ %mul7.i.i48, %if.else ], [ 0.000000e+00, %if.then ]
   %ref.tmp4.sroa.5.0.axis.sroa_idx = getelementptr inbounds i8, ptr %axis, i64 8
-  store float %mul7.i.i46.sink, ptr %ref.tmp4.sroa.5.0.axis.sroa_idx, align 4
+  store float %mul7.i.i48.sink, ptr %ref.tmp4.sroa.5.0.axis.sroa_idx, align 4
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %dorn) #14
   call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %dmat) #14
   ret void

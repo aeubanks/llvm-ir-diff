@@ -4,7 +4,6 @@ target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-f80:128-n8:16
 target triple = "x86_64-unknown-linux-gnu"
 
 @__const.main.y = private unnamed_addr constant [2 x i64] [i64 -1, i64 16000], align 16
-@__const.main.yw = private unnamed_addr constant [2 x i16] [i16 -1, i16 16000], align 2
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind willreturn memory(argmem: read) uwtable
 define dso_local i64 @xb(ptr nocapture noundef readonly %y) local_unnamed_addr #0 {
@@ -16,6 +15,9 @@ entry:
   %add = add nsw i64 %and, %1
   ret i64 %add
 }
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind willreturn memory(argmem: read) uwtable
 define dso_local i64 @xw(ptr nocapture noundef readonly %y) local_unnamed_addr #0 {
@@ -40,8 +42,11 @@ entry:
 }
 
 ; Function Attrs: noreturn nounwind uwtable
-define dso_local i32 @main() local_unnamed_addr #1 {
+define dso_local i32 @main() local_unnamed_addr #2 {
 entry:
+  %yw = alloca [2 x i16], align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %yw) #4
+  store i32 1048641535, ptr %yw, align 4
   %call = tail call i64 @xb(ptr noundef nonnull @__const.main.y)
   %cmp.not = icmp eq i64 %call, 16255
   br i1 %cmp.not, label %lor.lhs.false, label %if.then
@@ -52,29 +57,31 @@ lor.lhs.false:                                    ; preds = %entry
   br i1 %cmp3.not, label %lor.lhs.false4, label %if.then
 
 lor.lhs.false4:                                   ; preds = %lor.lhs.false
-  %call6 = tail call signext i16 @yb(ptr noundef nonnull @__const.main.yw)
+  %call6 = call signext i16 @yb(ptr noundef nonnull %yw)
   %cmp7.not = icmp eq i16 %call6, 16255
   br i1 %cmp7.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %lor.lhs.false4, %lor.lhs.false, %entry
-  tail call void @abort() #3
+  tail call void @abort() #5
   unreachable
 
 if.end:                                           ; preds = %lor.lhs.false4
-  tail call void @exit(i32 noundef 0) #3
+  tail call void @exit(i32 noundef 0) #5
   unreachable
 }
 
 ; Function Attrs: noreturn
-declare void @abort() local_unnamed_addr #2
+declare void @abort() local_unnamed_addr #3
 
 ; Function Attrs: noreturn
-declare void @exit(i32 noundef) local_unnamed_addr #2
+declare void @exit(i32 noundef) local_unnamed_addr #3
 
 attributes #0 = { mustprogress nofree noinline norecurse nosync nounwind willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #1 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #2 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #3 = { noreturn nounwind }
+attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
+attributes #2 = { noreturn nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { nounwind }
+attributes #5 = { noreturn nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}

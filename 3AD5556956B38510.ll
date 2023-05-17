@@ -112,7 +112,7 @@ declare void @_Z11RegisterArcPK8CArcInfo(ptr noundef) local_unnamed_addr #0
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL9CreateArcv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(144) ptr @_Znwm(i64 noundef 144) #10
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5

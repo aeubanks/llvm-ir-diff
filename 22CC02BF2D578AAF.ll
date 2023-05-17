@@ -53,7 +53,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @init_storage() local_unnamed_addr #0 {
-entry:
+for.body10.preheader.i12:
   store i32 0, ptr @f_count, align 4, !tbaa !5
   tail call void @more_functions()
   %0 = load ptr, ptr @f_names, align 8, !tbaa !9
@@ -70,8 +70,79 @@ entry:
   store ptr %call.i4, ptr @arrays, align 8, !tbaa !9
   %call3.i5 = tail call noalias dereferenceable_or_null(256) ptr @malloc(i64 noundef 256) #9
   store ptr %call3.i5, ptr @a_names, align 8, !tbaa !9
-  %arrayidx12.i20 = getelementptr inbounds ptr, ptr %call.i4, i64 1
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(248) %arrayidx12.i20, i8 0, i64 248, i1 false)
+  %1 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20 = getelementptr inbounds ptr, ptr %1, i64 1
+  store ptr null, ptr %arrayidx12.i20, align 8, !tbaa !9
+  %arrayidx12.i20.1 = getelementptr inbounds ptr, ptr %1, i64 2
+  store ptr null, ptr %arrayidx12.i20.1, align 8, !tbaa !9
+  %arrayidx12.i20.2 = getelementptr inbounds ptr, ptr %1, i64 3
+  store ptr null, ptr %arrayidx12.i20.2, align 8, !tbaa !9
+  %2 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.3 = getelementptr inbounds ptr, ptr %2, i64 4
+  store ptr null, ptr %arrayidx12.i20.3, align 8, !tbaa !9
+  %arrayidx12.i20.4 = getelementptr inbounds ptr, ptr %2, i64 5
+  store ptr null, ptr %arrayidx12.i20.4, align 8, !tbaa !9
+  %arrayidx12.i20.5 = getelementptr inbounds ptr, ptr %2, i64 6
+  store ptr null, ptr %arrayidx12.i20.5, align 8, !tbaa !9
+  %3 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.6 = getelementptr inbounds ptr, ptr %3, i64 7
+  store ptr null, ptr %arrayidx12.i20.6, align 8, !tbaa !9
+  %arrayidx12.i20.7 = getelementptr inbounds ptr, ptr %3, i64 8
+  store ptr null, ptr %arrayidx12.i20.7, align 8, !tbaa !9
+  %arrayidx12.i20.8 = getelementptr inbounds ptr, ptr %3, i64 9
+  store ptr null, ptr %arrayidx12.i20.8, align 8, !tbaa !9
+  %4 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.9 = getelementptr inbounds ptr, ptr %4, i64 10
+  store ptr null, ptr %arrayidx12.i20.9, align 8, !tbaa !9
+  %arrayidx12.i20.10 = getelementptr inbounds ptr, ptr %4, i64 11
+  store ptr null, ptr %arrayidx12.i20.10, align 8, !tbaa !9
+  %arrayidx12.i20.11 = getelementptr inbounds ptr, ptr %4, i64 12
+  store ptr null, ptr %arrayidx12.i20.11, align 8, !tbaa !9
+  %5 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.12 = getelementptr inbounds ptr, ptr %5, i64 13
+  store ptr null, ptr %arrayidx12.i20.12, align 8, !tbaa !9
+  %arrayidx12.i20.13 = getelementptr inbounds ptr, ptr %5, i64 14
+  store ptr null, ptr %arrayidx12.i20.13, align 8, !tbaa !9
+  %arrayidx12.i20.14 = getelementptr inbounds ptr, ptr %5, i64 15
+  store ptr null, ptr %arrayidx12.i20.14, align 8, !tbaa !9
+  %6 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.15 = getelementptr inbounds ptr, ptr %6, i64 16
+  store ptr null, ptr %arrayidx12.i20.15, align 8, !tbaa !9
+  %arrayidx12.i20.16 = getelementptr inbounds ptr, ptr %6, i64 17
+  store ptr null, ptr %arrayidx12.i20.16, align 8, !tbaa !9
+  %arrayidx12.i20.17 = getelementptr inbounds ptr, ptr %6, i64 18
+  store ptr null, ptr %arrayidx12.i20.17, align 8, !tbaa !9
+  %7 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.18 = getelementptr inbounds ptr, ptr %7, i64 19
+  store ptr null, ptr %arrayidx12.i20.18, align 8, !tbaa !9
+  %arrayidx12.i20.19 = getelementptr inbounds ptr, ptr %7, i64 20
+  store ptr null, ptr %arrayidx12.i20.19, align 8, !tbaa !9
+  %arrayidx12.i20.20 = getelementptr inbounds ptr, ptr %7, i64 21
+  store ptr null, ptr %arrayidx12.i20.20, align 8, !tbaa !9
+  %8 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.21 = getelementptr inbounds ptr, ptr %8, i64 22
+  store ptr null, ptr %arrayidx12.i20.21, align 8, !tbaa !9
+  %arrayidx12.i20.22 = getelementptr inbounds ptr, ptr %8, i64 23
+  store ptr null, ptr %arrayidx12.i20.22, align 8, !tbaa !9
+  %arrayidx12.i20.23 = getelementptr inbounds ptr, ptr %8, i64 24
+  store ptr null, ptr %arrayidx12.i20.23, align 8, !tbaa !9
+  %9 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.24 = getelementptr inbounds ptr, ptr %9, i64 25
+  store ptr null, ptr %arrayidx12.i20.24, align 8, !tbaa !9
+  %arrayidx12.i20.25 = getelementptr inbounds ptr, ptr %9, i64 26
+  store ptr null, ptr %arrayidx12.i20.25, align 8, !tbaa !9
+  %arrayidx12.i20.26 = getelementptr inbounds ptr, ptr %9, i64 27
+  store ptr null, ptr %arrayidx12.i20.26, align 8, !tbaa !9
+  %10 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.27 = getelementptr inbounds ptr, ptr %10, i64 28
+  store ptr null, ptr %arrayidx12.i20.27, align 8, !tbaa !9
+  %arrayidx12.i20.28 = getelementptr inbounds ptr, ptr %10, i64 29
+  store ptr null, ptr %arrayidx12.i20.28, align 8, !tbaa !9
+  %arrayidx12.i20.29 = getelementptr inbounds ptr, ptr %10, i64 30
+  store ptr null, ptr %arrayidx12.i20.29, align 8, !tbaa !9
+  %11 = load ptr, ptr @arrays, align 8, !tbaa !9
+  %arrayidx12.i20.30 = getelementptr inbounds ptr, ptr %11, i64 31
+  store ptr null, ptr %arrayidx12.i20.30, align 8, !tbaa !9
   store ptr null, ptr @ex_stack, align 8, !tbaa !9
   store ptr null, ptr @fn_stack, align 8, !tbaa !9
   store i32 10, ptr @i_base, align 4, !tbaa !5
@@ -1316,15 +1387,15 @@ define dso_local void @store_array(i32 noundef %var_name) local_unnamed_addr #0 
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %if.then.i, label %while.body.i
+  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %while.body.i
 
 while.body.i:                                     ; preds = %entry
   %s_next.i = getelementptr inbounds %struct.estack_rec, ptr %temp.06.i, i64 0, i32 1
   %temp.0.i = load ptr, ptr %s_next.i, align 8, !tbaa !9
   %cmp.i.not = icmp eq ptr %temp.0.i, null
-  br i1 %cmp.i.not, label %if.then.i, label %if.end
+  br i1 %cmp.i.not, label %check_stack.exit.thread, label %if.end
 
-if.then.i:                                        ; preds = %entry, %while.body.i
+check_stack.exit.thread:                          ; preds = %while.body.i, %entry
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1392,7 +1463,7 @@ if.then.i33:                                      ; preds = %if.then12
   tail call void @free(ptr noundef nonnull %15) #10
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then.i, %if.then9, %if.else, %if.then12, %if.then.i33
+cleanup:                                          ; preds = %if.then.i33, %if.then12, %check_stack.exit.thread, %if.then9, %if.else
   ret void
 }
 
@@ -1485,9 +1556,9 @@ define dso_local void @load_array(i32 noundef %var_name) local_unnamed_addr #0 {
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %if.then.i, label %if.end
+  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %if.end
 
-if.then.i:                                        ; preds = %entry
+check_stack.exit.thread:                          ; preds = %entry
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1546,7 +1617,7 @@ pop.exit:                                         ; preds = %if.then11, %if.then
   store ptr %call.i, ptr @ex_stack, align 8, !tbaa !9
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then.i, %if.then8, %pop.exit, %if.else
+cleanup:                                          ; preds = %check_stack.exit.thread, %if.then8, %pop.exit, %if.else
   ret void
 }
 
@@ -1634,9 +1705,9 @@ define dso_local void @decr_array(i8 noundef signext %var_name) local_unnamed_ad
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %if.then.i, label %if.end
+  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %if.end
 
-if.then.i:                                        ; preds = %entry
+check_stack.exit.thread:                          ; preds = %entry
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1691,7 +1762,7 @@ pop.exit:                                         ; preds = %if.then12, %if.then
   tail call void @bc_sub(ptr noundef %7, ptr noundef %8, ptr noundef nonnull %call925) #10
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then.i, %if.then8, %pop.exit, %if.else
+cleanup:                                          ; preds = %check_stack.exit.thread, %if.then8, %pop.exit, %if.else
   ret void
 }
 
@@ -1779,9 +1850,9 @@ define dso_local void @incr_array(i32 noundef %var_name) local_unnamed_addr #0 {
 entry:
   %temp.06.i = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp7.i.not = icmp eq ptr %temp.06.i, null
-  br i1 %cmp7.i.not, label %if.then.i, label %if.end
+  br i1 %cmp7.i.not, label %check_stack.exit.thread, label %if.end
 
-if.then.i:                                        ; preds = %entry
+check_stack.exit.thread:                          ; preds = %entry
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.1) #10
   br label %cleanup
 
@@ -1835,7 +1906,7 @@ pop.exit:                                         ; preds = %if.then11, %if.then
   tail call void @bc_add(ptr noundef %7, ptr noundef %8, ptr noundef nonnull %call922) #10
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then.i, %if.then8, %pop.exit, %if.else
+cleanup:                                          ; preds = %check_stack.exit.thread, %if.then8, %pop.exit, %if.else
   ret void
 }
 
@@ -2152,8 +2223,8 @@ auto_var.exit:                                    ; preds = %if.then.i, %if.else
   %sub.pre-phi = phi i32 [ %.pre100, %if.then.i ], [ %sub.i, %if.else.i ]
   %cmp31 = icmp eq i32 %sub.pre-phi, %conv27
   %16 = load ptr, ptr @arrays, align 8, !tbaa !9
-  %sext89 = shl i64 %call26, 32
-  %idxprom34 = ashr exact i64 %sext89, 32
+  %sext88 = shl i64 %call26, 32
+  %idxprom34 = ashr exact i64 %sext88, 32
   %arrayidx35 = getelementptr inbounds ptr, ptr %16, i64 %idxprom34
   br i1 %cmp31, label %if.then33, label %if.end
 
@@ -2203,9 +2274,9 @@ if.end57:                                         ; preds = %if.end, %if.end55, 
   %params.1 = phi ptr [ %params.095, %if.then9 ], [ %params.095, %if.end ], [ %incdec.ptr, %if.end55 ]
   %22 = load ptr, ptr @ex_stack, align 8, !tbaa !9
   %cmp.not.i = icmp eq ptr %22, null
-  br i1 %cmp.not.i, label %if.end61, label %if.then.i88
+  br i1 %cmp.not.i, label %if.end61, label %if.then.i89
 
-if.then.i88:                                      ; preds = %if.end57
+if.then.i89:                                      ; preds = %if.end57
   %s_next.i = getelementptr inbounds %struct.estack_rec, ptr %22, i64 0, i32 1
   %23 = load ptr, ptr %s_next.i, align 8, !tbaa !37
   store ptr %23, ptr @ex_stack, align 8, !tbaa !9
@@ -2217,7 +2288,7 @@ if.else58:                                        ; preds = %while.body
   tail call void (ptr, ...) @rt_error(ptr noundef nonnull @.str.19) #10
   unreachable
 
-if.end61:                                         ; preds = %if.then.i88, %if.end57
+if.end61:                                         ; preds = %if.then.i89, %if.end57
   %next = getelementptr inbounds %struct.arg_list, ptr %params.1, i64 0, i32 1
   %params.0 = load ptr, ptr %next, align 8, !tbaa !9
   %call = tail call zeroext i8 @byte(ptr noundef %pc) #10

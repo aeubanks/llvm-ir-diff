@@ -41,7 +41,7 @@ $_ZNK15btCompoundShape9getMarginEv = comdat any
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN15btCompoundShapeC2Eb(ptr noundef nonnull align 8 dereferenceable(120) %this, i1 noundef zeroext %enableDynamicAabbTree) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %m_shapeType.i = getelementptr inbounds %class.btCollisionShape, ptr %this, i64 0, i32 1
   %m_userPointer.i = getelementptr inbounds %class.btCollisionShape, ptr %this, i64 0, i32 2
   store ptr null, ptr %m_userPointer.i, align 8, !tbaa !5
@@ -65,12 +65,12 @@ entry:
   store i32 1, ptr %m_updateRevision, align 8, !tbaa !25
   %m_collisionMargin = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 6
   store <4 x float> <float 0.000000e+00, float 1.000000e+00, float 1.000000e+00, float 1.000000e+00>, ptr %m_collisionMargin, align 4, !tbaa !20
-  %arrayidx7.i29 = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 7, i32 0, i64 3
-  store float 0.000000e+00, ptr %arrayidx7.i29, align 4, !tbaa !20
+  %arrayidx7.i30 = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 7, i32 0, i64 3
+  store float 0.000000e+00, ptr %arrayidx7.i30, align 4, !tbaa !20
   store i32 31, ptr %m_shapeType.i, align 8, !tbaa !26
   br i1 %enableDynamicAabbTree, label %if.then, label %if.end
 
-if.then:                                          ; preds = %entry
+if.then:                                          ; preds = %invoke.cont
   %call = invoke noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 64, i32 noundef 16)
           to label %invoke.cont17 unwind label %lpad16
 
@@ -88,7 +88,7 @@ lpad16:                                           ; preds = %invoke.cont17, %if.
   invoke void @_ZN20btAlignedObjectArrayI20btCompoundShapeChildED2Ev(ptr noundef nonnull align 8 dereferenceable(25) %m_children)
           to label %ehcleanup21 unwind label %terminate.lpad
 
-if.end:                                           ; preds = %invoke.cont18, %entry
+if.end:                                           ; preds = %invoke.cont18, %invoke.cont
   ret void
 
 ehcleanup21:                                      ; preds = %lpad16
@@ -131,10 +131,10 @@ if.then3.i.i:                                     ; preds = %entry
   br label %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE5clearEv.exit
 
 _ZN20btAlignedObjectArrayI20btCompoundShapeChildE5clearEv.exit: ; preds = %entry, %if.then3.i.i
+  %m_size.i.i = getelementptr inbounds %class.btAlignedObjectArray, ptr %this, i64 0, i32 2
   store i8 1, ptr %m_ownsMemory.i.i, align 8, !tbaa !13
   store ptr null, ptr %m_data.i.i, align 8, !tbaa !17
-  %m_size.i4.i = getelementptr inbounds %class.btAlignedObjectArray, ptr %this, i64 0, i32 2
-  store i32 0, ptr %m_size.i4.i, align 4, !tbaa !18
+  store i32 0, ptr %m_size.i.i, align 4, !tbaa !18
   %m_capacity.i.i = getelementptr inbounds %class.btAlignedObjectArray, ptr %this, i64 0, i32 3
   store i32 0, ptr %m_capacity.i.i, align 8, !tbaa !19
   ret void
@@ -184,17 +184,17 @@ if.end:                                           ; preds = %invoke.cont, %entry
   %4 = load i8, ptr %m_ownsMemory.i.i.i, align 8, !range !27
   %tobool2.not.i.i.i = icmp eq i8 %4, 0
   %or.cond.i.i = select i1 %tobool.not.i.i.i, i1 true, i1 %tobool2.not.i.i.i
-  br i1 %or.cond.i.i, label %_ZN20btAlignedObjectArrayI20btCompoundShapeChildED2Ev.exit, label %if.then3.i.i.i
+  br i1 %or.cond.i.i, label %invoke.cont6, label %if.then3.i.i.i
 
 if.then3.i.i.i:                                   ; preds = %if.end
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
-  br label %_ZN20btAlignedObjectArrayI20btCompoundShapeChildED2Ev.exit
+  br label %invoke.cont6
 
-_ZN20btAlignedObjectArrayI20btCompoundShapeChildED2Ev.exit: ; preds = %if.then3.i.i.i, %if.end
+invoke.cont6:                                     ; preds = %if.then3.i.i.i, %if.end
+  %m_size.i.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i, align 8, !tbaa !13
   store ptr null, ptr %m_data.i.i.i, align 8, !tbaa !17
-  %m_size.i4.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i4.i.i, align 4, !tbaa !18
+  store i32 0, ptr %m_size.i.i.i, align 4, !tbaa !18
   %m_capacity.i.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 3
   store i32 0, ptr %m_capacity.i.i.i, align 8, !tbaa !19
   ret void
@@ -247,11 +247,11 @@ if.end.i:                                         ; preds = %invoke.cont.i, %ent
   %4 = load i8, ptr %m_ownsMemory.i.i.i.i, align 8, !range !27
   %tobool2.not.i.i.i.i = icmp eq i8 %4, 0
   %or.cond.i.i.i = select i1 %tobool.not.i.i.i.i, i1 true, i1 %tobool2.not.i.i.i.i
-  br i1 %or.cond.i.i.i, label %_ZN15btCompoundShapeD2Ev.exit, label %if.then3.i.i.i.i
+  br i1 %or.cond.i.i.i, label %invoke.cont, label %if.then3.i.i.i.i
 
 if.then3.i.i.i.i:                                 ; preds = %if.end.i
   invoke void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %3)
-          to label %_ZN15btCompoundShapeD2Ev.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
 terminate.lpad.i:                                 ; preds = %lpad.i
   %5 = landingpad { ptr, i32 }
@@ -260,11 +260,11 @@ terminate.lpad.i:                                 ; preds = %lpad.i
   tail call void @__clang_call_terminate(ptr %6) #10
   unreachable
 
-_ZN15btCompoundShapeD2Ev.exit:                    ; preds = %if.then3.i.i.i.i, %if.end.i
+invoke.cont:                                      ; preds = %if.end.i, %if.then3.i.i.i.i
+  %m_size.i.i.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 2
   store i8 1, ptr %m_ownsMemory.i.i.i.i, align 8, !tbaa !13
   store ptr null, ptr %m_data.i.i.i.i, align 8, !tbaa !17
-  %m_size.i4.i.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 2
-  store i32 0, ptr %m_size.i4.i.i.i, align 4, !tbaa !18
+  store i32 0, ptr %m_size.i.i.i.i, align 4, !tbaa !18
   %m_capacity.i.i.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 3
   store i32 0, ptr %m_capacity.i.i.i.i, align 8, !tbaa !19
   tail call void @_Z21btAlignedFreeInternalPv(ptr noundef nonnull %this)
@@ -414,7 +414,7 @@ if.then35:                                        ; preds = %for.inc.2
   br label %if.end39
 
 if.end39:                                         ; preds = %if.then35, %for.inc.2
-  %child.sroa.14.0 = phi ptr [ %call38, %if.then35 ], [ undef, %for.inc.2 ]
+  %child.sroa.14.0 = phi ptr [ undef, %for.inc.2 ], [ %call38, %if.then35 ]
   %m_size.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 2
   %19 = load i32, ptr %m_size.i.i, align 4, !tbaa !18
   %m_capacity.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 3
@@ -444,15 +444,15 @@ _ZN20btAlignedObjectArrayI20btCompoundShapeChildE8allocateEi.exit.i.i: ; preds =
   %21 = phi i32 [ %.pre.i, %if.then.i.i.i ], [ %19, %if.then.i.i ]
   %retval.0.i.i.i = phi ptr [ %call.i.i.i.i, %if.then.i.i.i ], [ null, %if.then.i.i ]
   %cmp9.i.i.i = icmp sgt i32 %21, 0
-  br i1 %cmp9.i.i.i, label %for.body.lr.ph.i.i.i, label %_ZNK20btAlignedObjectArrayI20btCompoundShapeChildE4copyEiiPS0_.exit.i.i
+  br i1 %cmp9.i.i.i, label %for.inc.lr.ph.i.i.i, label %_ZNK20btAlignedObjectArrayI20btCompoundShapeChildE4copyEiiPS0_.exit.i.i
 
-for.body.lr.ph.i.i.i:                             ; preds = %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE8allocateEi.exit.i.i
+for.inc.lr.ph.i.i.i:                              ; preds = %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE8allocateEi.exit.i.i
   %m_data.i.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 5
   %wide.trip.count.i.i.i = zext i32 %21 to i64
-  br label %for.body.i.i.i
+  br label %for.inc.i.i.i
 
-for.body.i.i.i:                                   ; preds = %for.body.i.i.i, %for.body.lr.ph.i.i.i
-  %indvars.iv.i.i.i = phi i64 [ 0, %for.body.lr.ph.i.i.i ], [ %indvars.iv.next.i.i.i, %for.body.i.i.i ]
+for.inc.i.i.i:                                    ; preds = %for.inc.i.i.i, %for.inc.lr.ph.i.i.i
+  %indvars.iv.i.i.i = phi i64 [ 0, %for.inc.lr.ph.i.i.i ], [ %indvars.iv.next.i.i.i, %for.inc.i.i.i ]
   %arrayidx.i.i.i = getelementptr inbounds %struct.btCompoundShapeChild, ptr %retval.0.i.i.i, i64 %indvars.iv.i.i.i
   %22 = load ptr, ptr %m_data.i.i.i, align 8, !tbaa !17
   %arrayidx3.i.i.i = getelementptr inbounds %struct.btCompoundShapeChild, ptr %22, i64 %indvars.iv.i.i.i
@@ -471,9 +471,9 @@ for.body.i.i.i:                                   ; preds = %for.body.i.i.i, %fo
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %m_childShape.i.i.i.i, ptr noundef nonnull align 8 dereferenceable(24) %m_childShape3.i.i.i.i, i64 24, i1 false)
   %indvars.iv.next.i.i.i = add nuw nsw i64 %indvars.iv.i.i.i, 1
   %exitcond.not.i.i.i = icmp eq i64 %indvars.iv.next.i.i.i, %wide.trip.count.i.i.i
-  br i1 %exitcond.not.i.i.i, label %_ZNK20btAlignedObjectArrayI20btCompoundShapeChildE4copyEiiPS0_.exit.i.i, label %for.body.i.i.i
+  br i1 %exitcond.not.i.i.i, label %_ZNK20btAlignedObjectArrayI20btCompoundShapeChildE4copyEiiPS0_.exit.i.i, label %for.inc.i.i.i
 
-_ZNK20btAlignedObjectArrayI20btCompoundShapeChildE4copyEiiPS0_.exit.i.i: ; preds = %for.body.i.i.i, %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE8allocateEi.exit.i.i
+_ZNK20btAlignedObjectArrayI20btCompoundShapeChildE4copyEiiPS0_.exit.i.i: ; preds = %for.inc.i.i.i, %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE8allocateEi.exit.i.i
   %m_data.i9.i.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 5
   %23 = load ptr, ptr %m_data.i9.i.i, align 8, !tbaa !17
   %tobool.not.i10.i.i = icmp eq ptr %23, null
@@ -495,7 +495,7 @@ _ZN20btAlignedObjectArrayI20btCompoundShapeChildE10deallocateEv.exit.i.i: ; pred
   br label %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE9push_backERKS0_.exit
 
 _ZN20btAlignedObjectArrayI20btCompoundShapeChildE9push_backERKS0_.exit: ; preds = %if.end39, %if.then.i, %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE10deallocateEv.exit.i.i
-  %25 = phi i32 [ %.pre10.i, %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE10deallocateEv.exit.i.i ], [ %19, %if.then.i ], [ %19, %if.end39 ]
+  %25 = phi i32 [ %19, %if.end39 ], [ %19, %if.then.i ], [ %.pre10.i, %_ZN20btAlignedObjectArrayI20btCompoundShapeChildE10deallocateEv.exit.i.i ]
   %m_data.i = getelementptr inbounds %class.btCompoundShape, ptr %this, i64 0, i32 1, i32 5
   %26 = load ptr, ptr %m_data.i, align 8, !tbaa !17
   %idxprom.i = sext i32 %25 to i64
@@ -804,13 +804,13 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %localAabbMin) #11
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %localAabbMax) #11
   %1 = load ptr, ptr %m_data.i, align 8, !tbaa !17
+  %arrayidx.i = getelementptr inbounds %struct.btCompoundShapeChild, ptr %1, i64 %indvars.iv
   %m_childShape = getelementptr inbounds %struct.btCompoundShapeChild, ptr %1, i64 %indvars.iv, i32 1
   %2 = load ptr, ptr %m_childShape, align 8, !tbaa !30
-  %arrayidx.i67 = getelementptr inbounds %struct.btCompoundShapeChild, ptr %1, i64 %indvars.iv
   %vtable = load ptr, ptr %2, align 8, !tbaa !11
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 2
   %3 = load ptr, ptr %vfn, align 8
-  call void %3(ptr noundef nonnull align 8 dereferenceable(24) %2, ptr noundef nonnull align 4 dereferenceable(64) %arrayidx.i67, ptr noundef nonnull align 4 dereferenceable(16) %localAabbMin, ptr noundef nonnull align 4 dereferenceable(16) %localAabbMax)
+  call void %3(ptr noundef nonnull align 8 dereferenceable(24) %2, ptr noundef nonnull align 4 dereferenceable(64) %arrayidx.i, ptr noundef nonnull align 4 dereferenceable(16) %localAabbMin, ptr noundef nonnull align 4 dereferenceable(16) %localAabbMax)
   %4 = load float, ptr %m_localAabbMin, align 8, !tbaa !20
   %5 = load float, ptr %localAabbMin, align 4, !tbaa !20
   %cmp22 = fcmp ogt float %4, %5
@@ -913,10 +913,10 @@ if.then:                                          ; preds = %entry
   br label %if.end
 
 if.end:                                           ; preds = %if.then, %entry
-  %localCenter.sroa.0.0 = phi <2 x float> [ %7, %entry ], [ zeroinitializer, %if.then ]
-  %localCenter.sroa.7.0 = phi <2 x float> [ %retval.sroa.3.12.vec.insert.i.i67, %entry ], [ zeroinitializer, %if.then ]
-  %localHalfExtents.sroa.0.0 = phi <2 x float> [ %5, %entry ], [ zeroinitializer, %if.then ]
-  %localHalfExtents.sroa.15.0 = phi <2 x float> [ %retval.sroa.3.12.vec.insert.i.i, %entry ], [ zeroinitializer, %if.then ]
+  %localCenter.sroa.0.0 = phi <2 x float> [ zeroinitializer, %if.then ], [ %7, %entry ]
+  %localCenter.sroa.7.0 = phi <2 x float> [ zeroinitializer, %if.then ], [ %retval.sroa.3.12.vec.insert.i.i67, %entry ]
+  %localHalfExtents.sroa.0.0 = phi <2 x float> [ zeroinitializer, %if.then ], [ %5, %entry ]
+  %localHalfExtents.sroa.15.0 = phi <2 x float> [ zeroinitializer, %if.then ], [ %retval.sroa.3.12.vec.insert.i.i, %entry ]
   %vtable = load ptr, ptr %this, align 8, !tbaa !11
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 11
   %9 = load ptr, ptr %vfn, align 8

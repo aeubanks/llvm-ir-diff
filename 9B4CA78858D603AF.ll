@@ -864,7 +864,7 @@ while.cond.preheader:                             ; preds = %for.body9, %middle.
   br i1 %cmp17723, label %while.body.lr.ph, label %cleanup
 
 while.body.lr.ph:                                 ; preds = %while.cond.preheader
-  %cmp23688 = icmp sgt i32 %conv, 0
+  %cmp23688 = icmp slt i32 %conv, 1
   %sext = shl i64 %call, 32
   %conv51 = ashr exact i64 %sext, 32
   %cmp78 = icmp eq i32 %D, 1
@@ -935,7 +935,7 @@ if.then19:                                        ; preds = %while.body
   br i1 %tobool20.not, label %if.end45, label %for.cond22.preheader
 
 for.cond22.preheader:                             ; preds = %if.then19
-  br i1 %cmp23688, label %for.body25.preheader, label %for.end39
+  br i1 %cmp23688, label %for.end39, label %for.body25.preheader
 
 for.body25.preheader:                             ; preds = %for.cond22.preheader
   %21 = load i8, ptr %old_D_pat, align 1, !tbaa !5
@@ -946,8 +946,8 @@ for.body25.preheader:                             ; preds = %for.cond22.preheade
 for.cond22:                                       ; preds = %for.body25.preheader, %for.body25
   %indvars.iv738772 = phi i64 [ %indvars.iv.next739, %for.body25 ], [ 0, %for.body25.preheader ]
   %indvars.iv.next739 = add nuw nsw i64 %indvars.iv738772, 1
-  %exitcond742.not = icmp eq i64 %indvars.iv.next739, %wide.trip.count741
-  br i1 %exitcond742.not, label %for.end39.loopexit, label %for.body25, !llvm.loop !32
+  %exitcond742 = icmp eq i64 %indvars.iv.next739, %wide.trip.count741
+  br i1 %exitcond742, label %for.end39.loopexit, label %for.body25, !llvm.loop !32
 
 for.body25:                                       ; preds = %for.cond22
   %arrayidx27 = getelementptr inbounds i8, ptr %old_D_pat, i64 %indvars.iv.next739
@@ -959,13 +959,12 @@ for.body25:                                       ; preds = %for.cond22
   br i1 %cmp33.not, label %for.cond22, label %for.end39.loopexit, !llvm.loop !32
 
 for.end39.loopexit:                               ; preds = %for.cond22, %for.body25
-  %cmp23.le = icmp slt i64 %indvars.iv.next739, %15
+  %cmp23.le = icmp sge i64 %indvars.iv.next739, %15
   br label %for.end39
 
 for.end39:                                        ; preds = %for.end39.loopexit, %for.body25.preheader, %for.cond22.preheader
-  %cmp23.lcssa = phi i1 [ false, %for.cond22.preheader ], [ true, %for.body25.preheader ], [ %cmp23.le, %for.end39.loopexit ]
-  %not.cmp23.lcssa = xor i1 %cmp23.lcssa, true
-  %dec = sext i1 %not.cmp23.lcssa to i32
+  %cmp23.lcssa = phi i1 [ true, %for.cond22.preheader ], [ false, %for.body25.preheader ], [ %cmp23.le, %for.end39.loopexit ]
+  %dec = sext i1 %cmp23.lcssa to i32
   %spec.select = add nsw i32 %j.0734, %dec
   br label %if.end45
 

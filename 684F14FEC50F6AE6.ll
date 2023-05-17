@@ -449,12 +449,12 @@ for.cond614.preheader.lr.ph:                      ; preds = %for.body203
   %mul645 = mul i32 %87, %86
   %sub646 = sub i32 %mul439, %mul645
   %sub649 = sub i32 %cond360, %87
-  %reass.add = sub i32 %spec.select931, %88
-  %reass.mul = mul i32 %reass.add, %cond260
+  %mul654932 = sub i32 %spec.select931, %88
+  %sub655 = mul i32 %mul654932, %cond260
   %mul657 = mul nsw i32 %88, %mul439
   %sub658 = sub i32 %mul476, %mul657
-  %reass.add937 = sub i32 %cond341, %88
-  %reass.mul938 = mul i32 %reass.add937, %cond360
+  %mul660933 = sub i32 %cond341, %88
+  %sub661 = mul i32 %mul660933, %cond360
   %cmp618947 = icmp slt i32 %88, 1
   %or.cond.not1136 = select i1 %cmp615957, i1 true, i1 %cmp618947
   %brmerge = select i1 %or.cond.not1136, i1 true, i1 %cmp621940
@@ -598,9 +598,9 @@ for.cond620.for.end_crit_edge.us.us.us.us.us.us:  ; preds = %for.body622.us.us.u
   br i1 %exitcond1124.not, label %for.cond617.for.end653_crit_edge.split.us.us.us.us.us.us, label %for.cond620.preheader.us.us.us.us.us.us, !llvm.loop !44
 
 for.cond617.for.end653_crit_edge.split.us.us.us.us.us.us: ; preds = %for.cond620.for.end_crit_edge.us.us.us.us.us.us
-  %add656.us.us.us.us.us = add i32 %reass.mul, %add644.us.us.us.us.us.us
+  %add656.us.us.us.us.us = add nsw i32 %add644.us.us.us.us.us.us, %sub655
   %add659.us.us.us.us.us = add nsw i32 %sub658, %add647.us.us.us.us.us.us
-  %add662.us.us.us.us.us = add i32 %reass.mul938, %add650.us.us.us.us.us.us
+  %add662.us.us.us.us.us = add nsw i32 %add650.us.us.us.us.us.us, %sub661
   %inc664.us.us.us.us.us = add nuw nsw i32 %loopk.1958.us.us.us.us.us, 1
   %exitcond1125.not = icmp eq i32 %inc664.us.us.us.us.us, %89
   br i1 %exitcond1125.not, label %for.end668, label %for.cond617.preheader.us.us.us.us.us, !llvm.loop !45

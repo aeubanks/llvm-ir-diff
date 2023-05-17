@@ -45,23 +45,24 @@ entry:
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %size) #8
   %call = tail call i32 @InitMP3(ptr noundef nonnull @mp) #8
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(16384) @buf, i8 0, i64 16384, i1 false)
-  br label %while.cond
+  br label %while.body
 
-while.cond:                                       ; preds = %while.body, %entry
-  %0 = load i8, ptr @buf, align 16, !tbaa !5
-  %cmp.i = icmp ne i8 %0, -1
-  %1 = load i8, ptr getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 1), align 1
-  %cmp4.i = icmp ult i8 %1, -16
-  %narrow.not = select i1 %cmp.i, i1 true, i1 %cmp4.i
-  br i1 %narrow.not, label %while.body, label %while.end
+while.condthread-pre-split:                       ; preds = %while.body
+  %.pr = load i8, ptr @buf, align 16, !tbaa !5
+  %cmp.i = icmp ne i8 %.pr, -1
+  %0 = load i8, ptr getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 1), align 1
+  %cmp4.i = icmp ult i8 %0, -16
+  %or.cond50 = select i1 %cmp.i, i1 true, i1 %cmp4.i
+  br i1 %or.cond50, label %while.body, label %while.end
 
-while.body:                                       ; preds = %while.cond
+while.body:                                       ; preds = %entry, %while.condthread-pre-split
+  %1 = phi i8 [ 0, %entry ], [ %0, %while.condthread-pre-split ]
   store i8 %1, ptr @buf, align 16, !tbaa !5
   %call2 = tail call i64 @fread(ptr noundef nonnull getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 1), i64 noundef 1, i64 noundef 1, ptr noundef %fd)
   %cmp = icmp eq i64 %call2, 0
-  br i1 %cmp, label %cleanup, label %while.cond, !llvm.loop !8
+  br i1 %cmp, label %cleanup, label %while.condthread-pre-split, !llvm.loop !8
 
-while.end:                                        ; preds = %while.cond
+while.end:                                        ; preds = %while.condthread-pre-split
   %call3 = tail call i64 @fread(ptr noundef nonnull getelementptr inbounds ([16384 x i8], ptr @buf, i64 0, i64 2), i64 noundef 1, i64 noundef 46, ptr noundef %fd)
   %cmp4 = icmp eq i64 %call3, 0
   br i1 %cmp4, label %cleanup, label %if.end6

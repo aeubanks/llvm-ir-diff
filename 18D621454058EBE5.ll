@@ -287,9 +287,9 @@ entry:
   %move = alloca %class.HexxagonMove, align 4
   %move418 = alloca %class.HexxagonMove, align 4
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.155)
-  %puts639 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.156)
-  %puts640 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.157)
-  %puts641 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.158)
+  %puts620 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.156)
+  %puts621 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.157)
+  %puts622 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.158)
   %call4 = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #16
   invoke void @_ZN12HexxagonGameC1Ev(ptr noundef nonnull align 8 dereferenceable(24) %call4)
           to label %invoke.cont unwind label %lpad
@@ -375,7 +375,7 @@ if.then40:                                        ; preds = %if.else37
   br i1 %or.cond, label %cleanup, label %if.then49
 
 if.then49:                                        ; preds = %if.then40
-  %puts643 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.159)
+  %puts624 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.159)
   br label %cleanup
 
 if.else56:                                        ; preds = %if.else37
@@ -397,10 +397,10 @@ while.cond:                                       ; preds = %if.else61, %while.c
   %cp.0.ptr = getelementptr inbounds i8, ptr %tmp, i64 %cp.0.idx
   %7 = load i8, ptr %cp.0.ptr, align 1, !tbaa !5
   %conv65 = sext i8 %7 to i32
-  %isdigittmp644 = add nsw i32 %conv65, -48
-  %isdigit645 = icmp ult i32 %isdigittmp644, 10
+  %isdigittmp625 = add nsw i32 %conv65, -48
+  %isdigit626 = icmp ult i32 %isdigittmp625, 10
   %cp.0.add = add nuw nsw i64 %cp.0.idx, 1
-  br i1 %isdigit645, label %while.cond, label %while.end, !llvm.loop !15
+  br i1 %isdigit626, label %while.cond, label %while.end, !llvm.loop !15
 
 while.end:                                        ; preds = %while.cond
   %cp.0.ptr.le = getelementptr inbounds i8, ptr %tmp, i64 %cp.0.idx
@@ -421,7 +421,7 @@ land.lhs.true76:                                  ; preds = %lor.lhs.false70
   br i1 %cmp79, label %if.else82, label %if.then80
 
 if.then80:                                        ; preds = %lor.lhs.false70, %land.lhs.true76, %while.end
-  %puts646 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.160)
+  %puts627 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.160)
   br label %cleanup
 
 if.else82:                                        ; preds = %lor.lhs.false70, %land.lhs.true76
@@ -459,7 +459,7 @@ if.then98:                                        ; preds = %if.else95
   br i1 %tobool100.not, label %if.else103, label %if.then101
 
 if.then101:                                       ; preds = %if.then98
-  %puts647 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.161)
+  %puts628 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.161)
   br label %cleanup
 
 if.else103:                                       ; preds = %if.then98
@@ -479,7 +479,7 @@ if.then108:                                       ; preds = %if.else105
   br i1 %tobool110.not, label %if.else113, label %if.then111
 
 if.then111:                                       ; preds = %if.then108
-  %puts648 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.162)
+  %puts629 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.162)
   br label %cleanup
 
 if.else113:                                       ; preds = %if.then108
@@ -519,22 +519,22 @@ if.then128:                                       ; preds = %if.else125
   ]
 
 if.then132:                                       ; preds = %if.then128
-  %puts652 = call i32 @puts(ptr nonnull dereferenceable(1) @str.166)
+  %puts633 = call i32 @puts(ptr nonnull dereferenceable(1) @str.166)
   %19 = load ptr, ptr %curr.i, align 8, !tbaa !10
   %20 = load i32, ptr %call4, align 8, !tbaa !14
   call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %19, i32 noundef %20)
   br label %cleanup
 
 if.then136:                                       ; preds = %if.then128
-  %puts651 = call i32 @puts(ptr nonnull dereferenceable(1) @str.165)
+  %puts632 = call i32 @puts(ptr nonnull dereferenceable(1) @str.165)
   br label %cleanup
 
 if.then140:                                       ; preds = %if.then128
-  %puts650 = call i32 @puts(ptr nonnull dereferenceable(1) @str.164)
+  %puts631 = call i32 @puts(ptr nonnull dereferenceable(1) @str.164)
   br label %cleanup
 
 if.else142:                                       ; preds = %if.then128
-  %puts649 = call i32 @puts(ptr nonnull dereferenceable(1) @str.163)
+  %puts630 = call i32 @puts(ptr nonnull dereferenceable(1) @str.163)
   br label %cleanup
 
 if.else147:                                       ; preds = %if.else125
@@ -543,7 +543,7 @@ if.else147:                                       ; preds = %if.else125
   br i1 %tobool149.not, label %if.then150, label %if.else152
 
 if.then150:                                       ; preds = %if.else147
-  %puts653 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.167)
+  %puts634 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.167)
   br label %cleanup
 
 if.else152:                                       ; preds = %if.else147
@@ -560,15 +560,15 @@ if.then155:                                       ; preds = %if.else152
   ]
 
 if.then160:                                       ; preds = %if.then155
-  %puts656 = call i32 @puts(ptr nonnull dereferenceable(1) @str.170)
+  %puts637 = call i32 @puts(ptr nonnull dereferenceable(1) @str.170)
   br label %cleanup
 
 if.then164:                                       ; preds = %if.then155
-  %puts655 = call i32 @puts(ptr nonnull dereferenceable(1) @str.169)
+  %puts636 = call i32 @puts(ptr nonnull dereferenceable(1) @str.169)
   br label %cleanup
 
 if.else166:                                       ; preds = %if.then155
-  %puts654 = call i32 @puts(ptr nonnull dereferenceable(1) @str.168)
+  %puts635 = call i32 @puts(ptr nonnull dereferenceable(1) @str.168)
   br label %cleanup
 
 if.else170:                                       ; preds = %if.else152
@@ -577,7 +577,7 @@ if.else170:                                       ; preds = %if.else152
   br i1 %tobool172.not, label %if.then173, label %if.else175
 
 if.then173:                                       ; preds = %if.else170
-  %puts657 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.171)
+  %puts638 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.171)
   br label %cleanup
 
 if.else175:                                       ; preds = %if.else170
@@ -626,8 +626,8 @@ delete.end:                                       ; preds = %land.lhs.true210, %
           to label %invoke.cont225 unwind label %lpad224
 
 invoke.cont225:                                   ; preds = %delete.end
-  %curr.i626 = getelementptr inbounds %class.HexxagonGame, ptr %call223, i64 0, i32 2
-  %25 = load ptr, ptr %curr.i626, align 8, !tbaa !10
+  %curr.i660 = getelementptr inbounds %class.HexxagonGame, ptr %call223, i64 0, i32 2
+  %25 = load ptr, ptr %curr.i660, align 8, !tbaa !10
   %26 = load i32, ptr %call223, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %25, i32 noundef %26)
   switch i8 %21, label %if.else302 [
@@ -665,7 +665,7 @@ land.lhs.true250:                                 ; preds = %invoke.cont225, %in
 
 if.then258:                                       ; preds = %land.lhs.true250, %land.lhs.true250
   %call260 = tail call noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr noundef nonnull align 8 dereferenceable(24) %call223, i32 noundef 4, ptr noundef null, i32 noundef 12000)
-  %28 = load ptr, ptr %curr.i626, align 8, !tbaa !10
+  %28 = load ptr, ptr %curr.i660, align 8, !tbaa !10
   %29 = load i32, ptr %call223, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %28, i32 noundef %29)
   br label %cleanup
@@ -694,27 +694,27 @@ land.lhs.true286:                                 ; preds = %if.else278, %if.els
   ]
 
 if.then294:                                       ; preds = %land.lhs.true286, %land.lhs.true286
-  %30 = load ptr, ptr %curr.i626, align 8, !tbaa !10
-  %call.i629681 = tail call noundef i32 @_ZN13HexxagonBoard9endOfGameEv(ptr noundef nonnull align 4 dereferenceable(16) %30)
-  %tobool297.not682 = icmp eq i32 %call.i629681, 0
-  br i1 %tobool297.not682, label %while.body298, label %cleanup
+  %30 = load ptr, ptr %curr.i660, align 8, !tbaa !10
+  %call.i663687 = tail call noundef i32 @_ZN13HexxagonBoard9endOfGameEv(ptr noundef nonnull align 4 dereferenceable(16) %30)
+  %tobool297.not688 = icmp eq i32 %call.i663687, 0
+  br i1 %tobool297.not688, label %while.body298, label %cleanup
 
 while.body298:                                    ; preds = %if.then294, %while.body298
   %call300 = tail call noundef i32 @_ZN12HexxagonGame12computerMoveEiPFvvEi(ptr noundef nonnull align 8 dereferenceable(24) %call223, i32 noundef 4, ptr noundef null, i32 noundef 12000)
-  %31 = load ptr, ptr %curr.i626, align 8, !tbaa !10
+  %31 = load ptr, ptr %curr.i660, align 8, !tbaa !10
   %32 = load i32, ptr %call223, align 8, !tbaa !14
   tail call void @_ZN13HexxagonBoard16displayBoardTextEi(ptr noundef nonnull align 4 dereferenceable(16) %31, i32 noundef %32)
-  %33 = load ptr, ptr %curr.i626, align 8, !tbaa !10
-  %call.i629 = tail call noundef i32 @_ZN13HexxagonBoard9endOfGameEv(ptr noundef nonnull align 4 dereferenceable(16) %33)
-  %tobool297.not = icmp eq i32 %call.i629, 0
+  %33 = load ptr, ptr %curr.i660, align 8, !tbaa !10
+  %call.i663 = tail call noundef i32 @_ZN13HexxagonBoard9endOfGameEv(ptr noundef nonnull align 4 dereferenceable(16) %33)
+  %tobool297.not = icmp eq i32 %call.i663, 0
   br i1 %tobool297.not, label %while.body298, label %cleanup, !llvm.loop !16
 
 if.else302:                                       ; preds = %if.else278, %invoke.cont225, %if.else242, %if.else261, %land.lhs.true286
-  %puts659 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.173)
+  %puts640 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.173)
   br label %cleanup
 
 if.else308:                                       ; preds = %land.lhs.true194, %land.lhs.true210, %if.then178, %land.lhs.true218
-  %puts658 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.174)
+  %puts639 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.174)
   br label %cleanup
 
 if.else311:                                       ; preds = %if.else175
@@ -723,7 +723,7 @@ if.else311:                                       ; preds = %if.else175
   br i1 %tobool313.not, label %if.then314, label %if.else316
 
 if.then314:                                       ; preds = %if.else311
-  %puts660 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.174)
+  %puts641 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.174)
   br label %cleanup
 
 if.else316:                                       ; preds = %if.else311
@@ -753,8 +753,9 @@ if.end354:                                        ; preds = %if.then322
   %call344 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %cp323.0)
   %conv345 = trunc i32 %call344 to i8
   store i8 %conv345, ptr %move, align 4, !tbaa !17
-  %add.ptr347 = getelementptr inbounds i8, ptr %cp323.0, i64 2
-  %call348 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %add.ptr347)
+  %cp323.0.sroa.sel.v = select i1 %tobool325.not, i64 4, i64 7
+  %cp323.0.sroa.sel = getelementptr inbounds i8, ptr %tmp, i64 %cp323.0.sroa.sel.v
+  %call348 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %cp323.0.sroa.sel)
   %conv349 = trunc i32 %call348 to i8
   store i8 %conv349, ptr %to350, align 1, !tbaa !19
   %34 = icmp ne i8 %conv345, -1
@@ -766,19 +767,20 @@ if.end354.thread:                                 ; preds = %if.then322
   %call336 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %cp323.0)
   %conv337 = trunc i32 %call336 to i8
   store i8 %conv337, ptr %move, align 4, !tbaa !17
-  %add.ptr338 = getelementptr inbounds i8, ptr %cp323.0, i64 3
-  %call339 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %add.ptr338)
+  %cp323.0.sroa.sel678.v = select i1 %tobool325.not, i64 5, i64 8
+  %cp323.0.sroa.sel678 = getelementptr inbounds i8, ptr %tmp, i64 %cp323.0.sroa.sel678.v
+  %call339 = call noundef i32 @_Z10parseCordsPc(ptr noundef nonnull %cp323.0.sroa.sel678)
   %conv340 = trunc i32 %call339 to i8
   store i8 %conv340, ptr %to350, align 1, !tbaa !19
-  %cmp357677 = icmp ne i8 %conv337, -1
-  %cmp361679 = icmp ne i8 %conv340, -1
-  %or.cond680 = and i1 %cmp357677, %cmp361679
-  br i1 %or.cond680, label %if.then362, label %if.then377
+  %cmp357683 = icmp ne i8 %conv337, -1
+  %cmp361685 = icmp ne i8 %conv340, -1
+  %or.cond686 = and i1 %cmp361685, %cmp357683
+  br i1 %or.cond686, label %if.then362, label %if.then377
 
 if.then362:                                       ; preds = %if.end354.thread, %if.end354
   %37 = load ptr, ptr %curr.i, align 8, !tbaa !10
-  %call.i632 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %37, ptr noundef nonnull align 4 dereferenceable(8) %move)
-  %tobool364.not = icmp eq i32 %call.i632, 0
+  %call.i666 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %37, ptr noundef nonnull align 4 dereferenceable(8) %move)
+  %tobool364.not = icmp eq i32 %call.i666, 0
   br i1 %tobool364.not, label %if.else372, label %if.then368
 
 if.then368:                                       ; preds = %if.then362
@@ -793,29 +795,30 @@ if.then368:                                       ; preds = %if.then362
   br label %if.end394
 
 if.else372:                                       ; preds = %if.then362
-  %puts665 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
+  %puts646 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
   br label %if.end394
 
 if.then377:                                       ; preds = %if.end354.thread
-  %arrayidx378 = getelementptr inbounds i8, ptr %cp323.0, i64 2
-  %42 = load i8, ptr %arrayidx378, align 1, !tbaa !5
+  %cp323.0.sroa.sel675.v = select i1 %tobool325.not, i64 4, i64 7
+  %cp323.0.sroa.sel675 = getelementptr inbounds i8, ptr %tmp, i64 %cp323.0.sroa.sel675.v
+  %42 = load i8, ptr %cp323.0.sroa.sel675, align 1, !tbaa !5
   %cmp380 = icmp eq i8 %42, 32
   br i1 %cmp380, label %if.then381, label %if.else383
 
 if.then381:                                       ; preds = %if.then377
-  %puts664 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
+  %puts645 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
   br label %if.end394
 
 if.else383:                                       ; preds = %if.then377
-  %puts663 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
+  %puts644 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
   br label %if.end394
 
 if.then388:                                       ; preds = %if.end354
-  %puts662 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
+  %puts643 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.178)
   br label %if.end394
 
 if.else390:                                       ; preds = %if.then322
-  %puts661 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
+  %puts642 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
   br label %if.end394
 
 if.end394:                                        ; preds = %if.else383, %if.then381, %if.else390, %if.then388, %if.else372, %if.then368
@@ -833,7 +836,7 @@ lor.lhs.false398:                                 ; preds = %if.else395
   br i1 %tobool400.not, label %if.then401, label %if.else403
 
 if.then401:                                       ; preds = %lor.lhs.false398, %if.else395
-  %puts666 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
+  %puts647 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.180)
   br label %cleanup
 
 if.else403:                                       ; preds = %lor.lhs.false398
@@ -867,8 +870,8 @@ if.then421:                                       ; preds = %if.then409
 
 if.then430:                                       ; preds = %if.then421
   %43 = load ptr, ptr %curr.i, align 8, !tbaa !10
-  %call.i636 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %43, ptr noundef nonnull align 4 dereferenceable(8) %move418)
-  %tobool432.not = icmp eq i32 %call.i636, 0
+  %call.i670 = call noundef i32 @_ZN13HexxagonBoard11isMoveValidER12HexxagonMove(ptr noundef nonnull align 4 dereferenceable(16) %43, ptr noundef nonnull align 4 dereferenceable(8) %move418)
+  %tobool432.not = icmp eq i32 %call.i670, 0
   br i1 %tobool432.not, label %if.else440, label %if.then436
 
 if.then436:                                       ; preds = %if.then430
@@ -883,15 +886,15 @@ if.then436:                                       ; preds = %if.then430
   br label %if.end448
 
 if.else440:                                       ; preds = %if.then430
-  %puts669 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
+  %puts650 = call i32 @puts(ptr nonnull dereferenceable(1) @str.183)
   br label %if.end448
 
 if.else443:                                       ; preds = %if.then421
-  %puts668 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.182)
+  %puts649 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.182)
   br label %if.end448
 
 if.else446:                                       ; preds = %if.then409
-  %puts667 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
+  %puts648 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
   br label %if.end448
 
 if.end448:                                        ; preds = %if.else443, %if.then436, %if.else440, %if.else446
@@ -909,11 +912,11 @@ lor.lhs.false452:                                 ; preds = %if.else449
   br i1 %tobool454.not, label %if.then455, label %if.else457
 
 if.then455:                                       ; preds = %lor.lhs.false452, %if.else449
-  %puts670 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
+  %puts651 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.184)
   br label %cleanup
 
 if.else457:                                       ; preds = %lor.lhs.false452
-  %puts671 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.185)
+  %puts652 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.185)
   br label %cleanup
 
 cleanup:                                          ; preds = %while.body298, %if.then40, %if.end, %if.then294, %if.then36, %if.then59, %if.then89, %if.else103, %if.then101, %if.then121, %if.then150, %if.then173, %if.then314, %if.then401, %if.then455, %if.else457, %if.end448, %if.end394, %if.else308, %if.then258, %if.else302, %if.then111, %if.else113, %if.then94, %if.then49, %if.then32, %lor.lhs.false, %if.end23, %if.else82, %if.then80, %if.then136, %if.else142, %if.then140, %if.then132, %if.then164, %if.else166, %if.then160, %land.lhs.true233, %land.lhs.true233, %land.lhs.true269, %land.lhs.true269

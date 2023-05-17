@@ -162,14 +162,14 @@ if.then3.i15.i:                                   ; preds = %if.then.i13.i
   br label %emit_2bytes.exit
 
 emit_2bytes.exit:                                 ; preds = %emit_byte.exit.i18, %if.then.i13.i, %if.then3.i15.i
-  %tobool.not20 = icmp eq i32 %datalen, 0
-  br i1 %tobool.not20, label %if.end, label %while.body
+  %tobool.not19 = icmp eq i32 %datalen, 0
+  br i1 %tobool.not19, label %if.end, label %while.body
 
 while.body:                                       ; preds = %emit_2bytes.exit, %emit_byte.exit
-  %dec22.in = phi i32 [ %dec22, %emit_byte.exit ], [ %datalen, %emit_2bytes.exit ]
-  %dataptr.addr.021 = phi ptr [ %incdec.ptr, %emit_byte.exit ], [ %dataptr, %emit_2bytes.exit ]
-  %dec22 = add i32 %dec22.in, -1
-  %25 = load i8, ptr %dataptr.addr.021, align 1, !tbaa !27
+  %datalen.addr.021 = phi i32 [ %dec, %emit_byte.exit ], [ %datalen, %emit_2bytes.exit ]
+  %dataptr.addr.020 = phi ptr [ %incdec.ptr, %emit_byte.exit ], [ %dataptr, %emit_2bytes.exit ]
+  %dec = add i32 %datalen.addr.021, -1
+  %25 = load i8, ptr %dataptr.addr.020, align 1, !tbaa !27
   %26 = load ptr, ptr %dest1.i.i, align 8, !tbaa !24
   %27 = load ptr, ptr %26, align 8, !tbaa !25
   %incdec.ptr.i = getelementptr inbounds i8, ptr %27, i64 1
@@ -198,8 +198,8 @@ if.then3.i:                                       ; preds = %if.then.i
   br label %emit_byte.exit
 
 emit_byte.exit:                                   ; preds = %while.body, %if.then.i, %if.then3.i
-  %incdec.ptr = getelementptr inbounds i8, ptr %dataptr.addr.021, i64 1
-  %tobool.not = icmp eq i32 %dec22, 0
+  %incdec.ptr = getelementptr inbounds i8, ptr %dataptr.addr.020, i64 1
+  %tobool.not = icmp eq i32 %dec, 0
   br i1 %tobool.not, label %if.end, label %while.body, !llvm.loop !34
 
 if.end:                                           ; preds = %emit_byte.exit, %emit_2bytes.exit, %entry
@@ -2722,62 +2722,62 @@ for.body16:                                       ; preds = %emit_byte.exit, %em
   %idxprom20 = sext i32 %171 to i64
   %arrayidx21 = getelementptr inbounds [64 x i16], ptr %0, i64 0, i64 %idxprom20
   %172 = load i16, ptr %arrayidx21, align 2, !tbaa !65
-  %173 = lshr i16 %172, 8
-  %174 = load ptr, ptr %dest1.i.i, align 8, !tbaa !24
-  %conv.i68 = trunc i16 %173 to i8
-  %175 = load ptr, ptr %174, align 8, !tbaa !25
-  %incdec.ptr.i69 = getelementptr inbounds i8, ptr %175, i64 1
-  store ptr %incdec.ptr.i69, ptr %174, align 8, !tbaa !25
-  store i8 %conv.i68, ptr %175, align 1, !tbaa !27
-  %free_in_buffer.i70 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %174, i64 0, i32 1
-  %176 = load i64, ptr %free_in_buffer.i70, align 8, !tbaa !28
-  %dec.i71 = add i64 %176, -1
+  %shr = lshr i16 %172, 8
+  %173 = load ptr, ptr %dest1.i.i, align 8, !tbaa !24
+  %conv.i68 = trunc i16 %shr to i8
+  %174 = load ptr, ptr %173, align 8, !tbaa !25
+  %incdec.ptr.i69 = getelementptr inbounds i8, ptr %174, i64 1
+  store ptr %incdec.ptr.i69, ptr %173, align 8, !tbaa !25
+  store i8 %conv.i68, ptr %174, align 1, !tbaa !27
+  %free_in_buffer.i70 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %173, i64 0, i32 1
+  %175 = load i64, ptr %free_in_buffer.i70, align 8, !tbaa !28
+  %dec.i71 = add i64 %175, -1
   store i64 %dec.i71, ptr %free_in_buffer.i70, align 8, !tbaa !28
   %cmp.i72 = icmp eq i64 %dec.i71, 0
   br i1 %cmp.i72, label %if.then.i76, label %if.end25
 
 if.then.i76:                                      ; preds = %for.body16
-  %empty_output_buffer.i73 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %174, i64 0, i32 3
-  %177 = load ptr, ptr %empty_output_buffer.i73, align 8, !tbaa !29
-  %call.i74 = tail call i32 %177(ptr noundef nonnull %cinfo) #2
+  %empty_output_buffer.i73 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %173, i64 0, i32 3
+  %176 = load ptr, ptr %empty_output_buffer.i73, align 8, !tbaa !29
+  %call.i74 = tail call i32 %176(ptr noundef nonnull %cinfo) #2
   %tobool.not.i75 = icmp eq i32 %call.i74, 0
   br i1 %tobool.not.i75, label %if.then3.i78, label %if.end25
 
 if.then3.i78:                                     ; preds = %if.then.i76
-  %178 = load ptr, ptr %cinfo, align 8, !tbaa !30
-  %msg_code.i77 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %178, i64 0, i32 5
+  %177 = load ptr, ptr %cinfo, align 8, !tbaa !30
+  %msg_code.i77 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %177, i64 0, i32 5
   store i32 22, ptr %msg_code.i77, align 8, !tbaa !31
-  %179 = load ptr, ptr %178, align 8, !tbaa !33
-  tail call void %179(ptr noundef nonnull %cinfo) #2
+  %178 = load ptr, ptr %177, align 8, !tbaa !33
+  tail call void %178(ptr noundef nonnull %cinfo) #2
   br label %if.end25
 
 if.end25:                                         ; preds = %if.then3.i78, %if.then.i76, %for.body16
-  %180 = load ptr, ptr %dest1.i.i, align 8, !tbaa !24
+  %179 = load ptr, ptr %dest1.i.i, align 8, !tbaa !24
   %conv.i81 = trunc i16 %172 to i8
-  %181 = load ptr, ptr %180, align 8, !tbaa !25
-  %incdec.ptr.i82 = getelementptr inbounds i8, ptr %181, i64 1
-  store ptr %incdec.ptr.i82, ptr %180, align 8, !tbaa !25
-  store i8 %conv.i81, ptr %181, align 1, !tbaa !27
-  %free_in_buffer.i83 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %180, i64 0, i32 1
-  %182 = load i64, ptr %free_in_buffer.i83, align 8, !tbaa !28
-  %dec.i84 = add i64 %182, -1
+  %180 = load ptr, ptr %179, align 8, !tbaa !25
+  %incdec.ptr.i82 = getelementptr inbounds i8, ptr %180, i64 1
+  store ptr %incdec.ptr.i82, ptr %179, align 8, !tbaa !25
+  store i8 %conv.i81, ptr %180, align 1, !tbaa !27
+  %free_in_buffer.i83 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %179, i64 0, i32 1
+  %181 = load i64, ptr %free_in_buffer.i83, align 8, !tbaa !28
+  %dec.i84 = add i64 %181, -1
   store i64 %dec.i84, ptr %free_in_buffer.i83, align 8, !tbaa !28
   %cmp.i85 = icmp eq i64 %dec.i84, 0
   br i1 %cmp.i85, label %if.then.i89, label %emit_byte.exit92
 
 if.then.i89:                                      ; preds = %if.end25
-  %empty_output_buffer.i86 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %180, i64 0, i32 3
-  %183 = load ptr, ptr %empty_output_buffer.i86, align 8, !tbaa !29
-  %call.i87 = tail call i32 %183(ptr noundef nonnull %cinfo) #2
+  %empty_output_buffer.i86 = getelementptr inbounds %struct.jpeg_destination_mgr, ptr %179, i64 0, i32 3
+  %182 = load ptr, ptr %empty_output_buffer.i86, align 8, !tbaa !29
+  %call.i87 = tail call i32 %182(ptr noundef nonnull %cinfo) #2
   %tobool.not.i88 = icmp eq i32 %call.i87, 0
   br i1 %tobool.not.i88, label %if.then3.i91, label %emit_byte.exit92
 
 if.then3.i91:                                     ; preds = %if.then.i89
-  %184 = load ptr, ptr %cinfo, align 8, !tbaa !30
-  %msg_code.i90 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %184, i64 0, i32 5
+  %183 = load ptr, ptr %cinfo, align 8, !tbaa !30
+  %msg_code.i90 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %183, i64 0, i32 5
   store i32 22, ptr %msg_code.i90, align 8, !tbaa !31
-  %185 = load ptr, ptr %184, align 8, !tbaa !33
-  tail call void %185(ptr noundef nonnull %cinfo) #2
+  %184 = load ptr, ptr %183, align 8, !tbaa !33
+  tail call void %184(ptr noundef nonnull %cinfo) #2
   br label %emit_byte.exit92
 
 emit_byte.exit92:                                 ; preds = %if.end25, %if.then.i89, %if.then3.i91
@@ -3263,7 +3263,7 @@ if.then3:                                         ; preds = %entry
   store i32 %index.addr.0, ptr %msg_parm, align 4, !tbaa !27
   %1 = load ptr, ptr %cinfo, align 8, !tbaa !30
   %2 = load ptr, ptr %1, align 8, !tbaa !33
-  tail call void %2(ptr noundef %cinfo) #2
+  tail call void %2(ptr noundef nonnull %cinfo) #2
   br label %if.end7
 
 if.end7:                                          ; preds = %if.then3, %entry

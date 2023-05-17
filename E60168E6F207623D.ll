@@ -91,13 +91,13 @@ LCONT:                                            ; preds = %LCONT.preheader, %i
   store double 4.999750e-01, ptr @T, align 8, !tbaa !12
   store double 5.002500e-01, ptr @T1, align 8, !tbaa !12
   store double 2.000000e+00, ptr @T2, align 8, !tbaa !12
-  %call.i402 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 0, i64 noundef 0, i64 noundef 0, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
+  %call.i404 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 0, i64 noundef 0, i64 noundef 0, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
   store <2 x double> <double 1.000000e+00, double -1.000000e+00>, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 1), align 8, !tbaa !12
   store <2 x double> <double -1.000000e+00, double -1.000000e+00>, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 3), align 8, !tbaa !12
   br i1 %cmp49.not431, label %if.then74.thread, label %for.body51.lr.ph
 
 if.then74.thread:                                 ; preds = %LCONT
-  %call.i403503 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul, i64 noundef %mul20, i64 noundef %mul, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
+  %call.i405503 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul, i64 noundef %mul20, i64 noundef %mul, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
   br label %if.then85.thread
 
 for.body51.lr.ph:                                 ; preds = %LCONT
@@ -135,7 +135,7 @@ if.then74:                                        ; preds = %for.body51
   store double %mul59, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 2), align 16, !tbaa !12
   store double %mul63, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 3), align 8, !tbaa !12
   store double %mul68, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 4), align 16, !tbaa !12
-  %call.i403 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul, i64 noundef %mul20, i64 noundef %mul, double noundef %mul55, double noundef %mul59, double noundef %mul63, double noundef %mul68)
+  %call.i405 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul, i64 noundef %mul20, i64 noundef %mul, double noundef %mul55, double noundef %mul59, double noundef %mul63, double noundef %mul68)
   br i1 %cmp49.not431, label %if.then85.thread, label %for.body79.lr.ph
 
 if.then85.thread:                                 ; preds = %if.then74, %if.then74.thread
@@ -143,7 +143,7 @@ if.then85.thread:                                 ; preds = %if.then74, %if.then
   %.pre500 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 2), align 16, !tbaa !12
   %.pre501 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 3), align 8, !tbaa !12
   %.pre502 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 4), align 16, !tbaa !12
-  %call.i404504 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul20, i64 noundef %mul, i64 noundef %mul, double noundef %.pre, double noundef %.pre500, double noundef %.pre501, double noundef %.pre502)
+  %call.i406504 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul20, i64 noundef %mul, i64 noundef %mul, double noundef %.pre, double noundef %.pre500, double noundef %.pre501, double noundef %.pre502)
   br label %if.then111.sink.split
 
 for.body79.lr.ph:                                 ; preds = %if.then74
@@ -267,7 +267,7 @@ if.then85:                                        ; preds = %for.body79
   store double %mul13.i.5, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 2), align 16, !tbaa !12
   store double %mul22.i.5, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 3), align 8, !tbaa !12
   store double %div.i.5, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 4), align 16, !tbaa !12
-  %call.i404 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul20, i64 noundef %mul, i64 noundef %mul, double noundef %mul.i.5, double noundef %mul13.i.5, double noundef %mul22.i.5, double noundef %div.i.5)
+  %call.i406 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul20, i64 noundef %mul, i64 noundef %mul, double noundef %mul.i.5, double noundef %mul13.i.5, double noundef %mul22.i.5, double noundef %div.i.5)
   store i32 1, ptr @J, align 4, !tbaa !15
   br i1 %cmp49.not431, label %if.then185.thread.critedge.critedge, label %for.body90.preheader
 
@@ -291,22 +291,22 @@ middle.block:                                     ; preds = %vector.body
 
 for.body90.preheader513:                          ; preds = %for.body90.preheader, %middle.block
   %I.3454.ph = phi i64 [ 1, %for.body90.preheader ], [ %ind.end, %middle.block ]
-  %storemerge416451453.ph = phi i32 [ 1, %for.body90.preheader ], [ %11, %middle.block ]
+  %storemerge403451453.ph = phi i32 [ 1, %for.body90.preheader ], [ %11, %middle.block ]
   br label %for.body90
 
 for.body90:                                       ; preds = %for.body90.preheader513, %for.body90
   %I.3454 = phi i64 [ %inc107, %for.body90 ], [ %I.3454.ph, %for.body90.preheader513 ]
-  %storemerge416451453 = phi i32 [ %storemerge416, %for.body90 ], [ %storemerge416451453.ph, %for.body90.preheader513 ]
-  %storemerge416 = xor i32 %storemerge416451453, 1
+  %storemerge403451453 = phi i32 [ %storemerge403, %for.body90 ], [ %storemerge403451453.ph, %for.body90.preheader513 ]
+  %storemerge403 = xor i32 %storemerge403451453, 1
   %inc107 = add nuw i64 %I.3454, 1
   %exitcond491.not = icmp eq i64 %I.3454, %smax490
   br i1 %exitcond491.not, label %if.then111.sink.split, label %for.body90, !llvm.loop !21
 
 if.then111.sink.split:                            ; preds = %for.body90, %middle.block, %if.then85.thread
-  %.sink = phi i32 [ 1, %if.then85.thread ], [ %11, %middle.block ], [ %storemerge416, %for.body90 ]
+  %.sink = phi i32 [ 1, %if.then85.thread ], [ %11, %middle.block ], [ %storemerge403, %for.body90 ]
   store i32 %.sink, ptr @J, align 4, !tbaa !15
   %conv112 = zext i32 %.sink to i64
-  %call.i405 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul21, i64 noundef %conv112, i64 noundef %conv112, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
+  %call.i407 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul21, i64 noundef %conv112, i64 noundef %conv112, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
   store i32 1, ptr @J, align 4, !tbaa !15
   store i32 2, ptr @K, align 4, !tbaa !15
   store i32 3, ptr @L, align 4, !tbaa !15
@@ -320,11 +320,11 @@ for.body118.preheader:                            ; preds = %if.then111.sink.spl
   %12 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 2), align 16, !tbaa !12
   %13 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 3), align 8, !tbaa !12
   %14 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 4), align 16, !tbaa !12
-  %call.i406 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul22, i64 noundef 1, i64 noundef 2, double noundef 6.000000e+00, double noundef %12, double noundef %13, double noundef %14)
+  %call.i408 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul22, i64 noundef 1, i64 noundef 2, double noundef 6.000000e+00, double noundef %12, double noundef %13, double noundef %14)
   br label %for.body154
 
 if.then185.thread.critedge.critedge:              ; preds = %if.then85
-  %call.i405.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul21, i64 noundef 1, i64 noundef 1, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
+  %call.i407.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul21, i64 noundef 1, i64 noundef 1, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
   store i32 1, ptr @J, align 4, !tbaa !15
   store i32 2, ptr @K, align 4, !tbaa !15
   store i32 3, ptr @L, align 4, !tbaa !15
@@ -335,12 +335,12 @@ if.then185.thread.critedge:                       ; preds = %if.then185.thread.c
   %16 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 2), align 16, !tbaa !12
   %17 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 3), align 8, !tbaa !12
   %18 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 4), align 16, !tbaa !12
-  %call.i406.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul22, i64 noundef 1, i64 noundef 2, double noundef %15, double noundef %16, double noundef %17, double noundef %18)
+  %call.i408.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul22, i64 noundef 1, i64 noundef 2, double noundef %15, double noundef %16, double noundef %17, double noundef %18)
   %19 = load i32, ptr @J, align 4, !tbaa !15
   %conv186507 = sext i32 %19 to i64
   %20 = load i32, ptr @K, align 4, !tbaa !15
   %conv187508 = sext i32 %20 to i64
-  %call.i407509 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul23, i64 noundef %conv186507, i64 noundef %conv187508, double noundef 5.000000e-01, double noundef 5.000000e-01, double noundef 5.000000e-01, double noundef 5.000000e-01)
+  %call.i409509 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul23, i64 noundef %conv186507, i64 noundef %conv187508, double noundef 5.000000e-01, double noundef 5.000000e-01, double noundef 5.000000e-01, double noundef 5.000000e-01)
   br label %if.then198
 
 for.body154:                                      ; preds = %for.body118.preheader, %for.body154
@@ -386,26 +386,26 @@ if.then185:                                       ; preds = %for.body154
   %conv186 = sext i32 %25 to i64
   %26 = load i32, ptr @K, align 4, !tbaa !15
   %conv187 = sext i32 %26 to i64
-  %call.i407 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul23, i64 noundef %conv186, i64 noundef %conv187, double noundef %mul166, double noundef %mul166, double noundef %mul179, double noundef %mul179)
+  %call.i409 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul23, i64 noundef %conv186, i64 noundef %conv187, double noundef %mul166, double noundef %mul166, double noundef %mul179, double noundef %mul179)
   br i1 %cmp49.not431, label %if.then246.critedge.critedge, label %for.body192.preheader
 
 for.body192.preheader:                            ; preds = %if.then185
   %27 = load double, ptr @T, align 8, !tbaa !12
-  %mul.i408.le = fmul double %27, 2.000000e+00
-  %add1.i.le = fadd double %mul.i408.le, 1.000000e+00
+  %mul.i410.le = fmul double %27, 2.000000e+00
+  %add1.i.le = fadd double %mul.i410.le, 1.000000e+00
   %mul2.i.le = fmul double %27, %add1.i.le
-  %add3.i409.le = fadd double %mul.i408.le, %mul2.i.le
+  %add3.i411.le = fadd double %mul.i410.le, %mul2.i.le
   %28 = load double, ptr @T2, align 8, !tbaa !12
-  %div.i410.le = fdiv double %add3.i409.le, %28
+  %div.i412.le = fdiv double %add3.i411.le, %28
   br label %if.then198
 
 if.then198:                                       ; preds = %if.then185.thread.critedge, %for.body192.preheader
-  %Z.0.lcssa = phi double [ %div.i410.le, %for.body192.preheader ], [ 1.000000e+00, %if.then185.thread.critedge ]
+  %Z.0.lcssa = phi double [ %div.i412.le, %for.body192.preheader ], [ 1.000000e+00, %if.then185.thread.critedge ]
   %29 = load i32, ptr @J, align 4, !tbaa !15
   %conv199 = sext i32 %29 to i64
   %30 = load i32, ptr @K, align 4, !tbaa !15
   %conv200 = sext i32 %30 to i64
-  %call.i411 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul24, i64 noundef %conv199, i64 noundef %conv200, double noundef 1.000000e+00, double noundef 1.000000e+00, double noundef %Z.0.lcssa, double noundef %Z.0.lcssa)
+  %call.i413 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul24, i64 noundef %conv199, i64 noundef %conv200, double noundef 1.000000e+00, double noundef 1.000000e+00, double noundef %Z.0.lcssa, double noundef %Z.0.lcssa)
   store i32 1, ptr @J, align 4, !tbaa !15
   store i32 2, ptr @K, align 4, !tbaa !15
   store i32 3, ptr @L, align 4, !tbaa !15
@@ -440,10 +440,10 @@ for.cond202.if.then211_crit_edge:                 ; preds = %for.body205.epil, %
   store double %.lcssa, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 2), align 16, !tbaa !12
   store double %.lcssa514, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 3), align 8, !tbaa !12
   %33 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 4), align 16, !tbaa !12
-  %call.i412 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul25, i64 noundef 1, i64 noundef 2, double noundef %.lcssa514, double noundef %.lcssa, double noundef %.lcssa514, double noundef %33)
+  %call.i414 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul25, i64 noundef 1, i64 noundef 2, double noundef %.lcssa514, double noundef %.lcssa, double noundef %.lcssa514, double noundef %33)
   store i32 2, ptr @J, align 4, !tbaa !15
   store i32 3, ptr @K, align 4, !tbaa !15
-  %call.i413 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 0, i64 noundef 2, i64 noundef 3, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
+  %call.i415 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 0, i64 noundef 2, i64 noundef 3, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
   br i1 %cmp49.not431, label %if.then246, label %for.body236
 
 for.body236:                                      ; preds = %for.cond202.if.then211_crit_edge, %for.body236
@@ -463,7 +463,7 @@ if.then246.critedge.critedge:                     ; preds = %if.then185
   %conv199.c = sext i32 %35 to i64
   %36 = load i32, ptr @K, align 4, !tbaa !15
   %conv200.c = sext i32 %36 to i64
-  %call.i411.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul24, i64 noundef %conv199.c, i64 noundef %conv200.c, double noundef 1.000000e+00, double noundef 1.000000e+00, double noundef 1.000000e+00, double noundef 1.000000e+00)
+  %call.i413.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul24, i64 noundef %conv199.c, i64 noundef %conv200.c, double noundef 1.000000e+00, double noundef 1.000000e+00, double noundef 1.000000e+00, double noundef 1.000000e+00)
   store i32 1, ptr @J, align 4, !tbaa !15
   store i32 2, ptr @K, align 4, !tbaa !15
   store i32 3, ptr @L, align 4, !tbaa !15
@@ -473,10 +473,10 @@ if.then246.critedge.critedge:                     ; preds = %if.then185
 
 if.then246.critedge:                              ; preds = %if.then246.critedge.critedge, %if.then198
   %37 = load double, ptr getelementptr inbounds ([5 x double], ptr @E1, i64 0, i64 4), align 16, !tbaa !12
-  %call.i412.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul25, i64 noundef 1, i64 noundef 2, double noundef 1.000000e+00, double noundef 2.000000e+00, double noundef 3.000000e+00, double noundef %37)
+  %call.i414.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul25, i64 noundef 1, i64 noundef 2, double noundef 1.000000e+00, double noundef 2.000000e+00, double noundef 3.000000e+00, double noundef %37)
   store i32 2, ptr @J, align 4, !tbaa !15
   store i32 3, ptr @K, align 4, !tbaa !15
-  %call.i413.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 0, i64 noundef 2, i64 noundef 3, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
+  %call.i415.c = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 0, i64 noundef 2, i64 noundef 3, double noundef 1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00, double noundef -1.000000e+00)
   br label %if.then246
 
 if.then246:                                       ; preds = %for.body236, %if.then246.critedge, %for.cond202.if.then211_crit_edge
@@ -485,7 +485,7 @@ if.then246:                                       ; preds = %for.body236, %if.th
   %conv247 = sext i32 %38 to i64
   %39 = load i32, ptr @K, align 4, !tbaa !15
   %conv248 = sext i32 %39 to i64
-  %call.i414 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul26, i64 noundef %conv247, i64 noundef %conv248, double noundef %X.1.lcssa, double noundef %X.1.lcssa, double noundef %X.1.lcssa, double noundef %X.1.lcssa)
+  %call.i416 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %mul26, i64 noundef %conv247, i64 noundef %conv248, double noundef %X.1.lcssa, double noundef %X.1.lcssa, double noundef %X.1.lcssa, double noundef %X.1.lcssa)
   %call255 = tail call i64 @time(ptr noundef null) #13
   %putchar = tail call i32 @putchar(i32 10)
   br i1 %tobool.not, label %cleanup, label %LCONT

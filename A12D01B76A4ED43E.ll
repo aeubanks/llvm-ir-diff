@@ -68,15 +68,15 @@ if.end6:                                          ; preds = %if.end
 
 if.then9:                                         ; preds = %if.end6
   %call.i = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #13
-  %cond = icmp eq ptr %call.i, null
-  br i1 %cond, label %cleanup, label %if.end.i
+  %tobool.not.i = icmp eq ptr %call.i, null
+  br i1 %tobool.not.i, label %cleanup, label %if.end11
 
-if.end.i:                                         ; preds = %if.then9
+if.end11:                                         ; preds = %if.then9
   store i32 %length, ptr %call.i, align 8, !tbaa !5
   %count.i = getelementptr inbounds %struct.HistogramElementStruct, ptr %call.i, i64 0, i32 1
   store i32 1, ptr %count.i, align 4, !tbaa !11
-  %next.i = getelementptr inbounds %struct.HistogramElementStruct, ptr %call.i, i64 0, i32 2
-  store ptr %current.054, ptr %next.i, align 8, !tbaa !12
+  %next12 = getelementptr inbounds %struct.HistogramElementStruct, ptr %call.i, i64 0, i32 2
+  store ptr %current.054, ptr %next12, align 8, !tbaa !12
   store ptr %call.i, ptr %prev.053, align 8, !tbaa !13
   br label %cleanup
 
@@ -106,8 +106,8 @@ HistogramElement_new.exit46:                      ; preds = %if.then16
   store ptr %call.i41, ptr %prev.0.lcssa, align 8, !tbaa !13
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end.i, %if.then5, %HistogramElement_new.exit46, %HistogramElement_new.exit46.thread, %if.then9
-  %retval.0 = phi i1 [ false, %if.then9 ], [ false, %HistogramElement_new.exit46.thread ], [ true, %HistogramElement_new.exit46 ], [ true, %if.then5 ], [ true, %if.end.i ]
+cleanup:                                          ; preds = %if.then9, %if.end11, %if.then5, %HistogramElement_new.exit46, %HistogramElement_new.exit46.thread
+  %retval.0 = phi i1 [ false, %HistogramElement_new.exit46.thread ], [ true, %HistogramElement_new.exit46 ], [ true, %if.then5 ], [ true, %if.end11 ], [ false, %if.then9 ]
   ret i1 %retval.0
 }
 
@@ -459,8 +459,8 @@ if.then8.i.1:                                     ; preds = %if.end6.i.1
 
 Stats_logPath.exit.1:                             ; preds = %if.end6.i.1, %if.then8.i.1
   %call.i59.1 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre, i32 noundef 3) #14
-  %.pre355 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i.not.2 = icmp eq ptr %.pre355, null
+  %.pre299 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i.not.2 = icmp eq ptr %.pre299, null
   br i1 %tobool1.i.not.2, label %Stats_logPath.exit225, label %if.end.i.2
 
 if.end.i.2:                                       ; preds = %Stats_logPath.exit.1
@@ -482,9 +482,9 @@ if.then8.i.2:                                     ; preds = %if.end6.i.2
   br label %Stats_logPath.exit.2
 
 Stats_logPath.exit.2:                             ; preds = %if.end6.i.2, %if.then8.i.2
-  %call.i59.2 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre355, i32 noundef 4) #14
-  %.pre356 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i.not.3 = icmp eq ptr %.pre356, null
+  %call.i59.2 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre299, i32 noundef 4) #14
+  %.pre300 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i.not.3 = icmp eq ptr %.pre300, null
   br i1 %tobool1.i.not.3, label %Stats_logPath.exit225, label %if.end.i.3
 
 if.end.i.3:                                       ; preds = %Stats_logPath.exit.2
@@ -506,9 +506,9 @@ if.then8.i.3:                                     ; preds = %if.end6.i.3
   br label %Stats_logPath.exit.3
 
 Stats_logPath.exit.3:                             ; preds = %if.end6.i.3, %if.then8.i.3
-  %call.i59.3 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre356, i32 noundef 5) #14
-  %.pre357 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i.not.4 = icmp eq ptr %.pre357, null
+  %call.i59.3 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre300, i32 noundef 5) #14
+  %.pre301 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i.not.4 = icmp eq ptr %.pre301, null
   br i1 %tobool1.i.not.4, label %Stats_logPath.exit225, label %if.end.i.4
 
 if.end.i.4:                                       ; preds = %Stats_logPath.exit.3
@@ -530,9 +530,9 @@ if.then8.i.4:                                     ; preds = %if.end6.i.4
   br label %Stats_logPath.exit.4
 
 Stats_logPath.exit.4:                             ; preds = %if.end6.i.4, %if.then8.i.4
-  %call.i59.4 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre357, i32 noundef 6) #14
-  %.pre358 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i.not.5 = icmp eq ptr %.pre358, null
+  %call.i59.4 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre301, i32 noundef 6) #14
+  %.pre302 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i.not.5 = icmp eq ptr %.pre302, null
   br i1 %tobool1.i.not.5, label %Stats_logPath.exit225, label %if.end.i.5
 
 if.end.i.5:                                       ; preds = %Stats_logPath.exit.4
@@ -554,9 +554,9 @@ if.then8.i.5:                                     ; preds = %if.end6.i.5
   br label %Stats_logPath.exit.5
 
 Stats_logPath.exit.5:                             ; preds = %if.end6.i.5, %if.then8.i.5
-  %call.i59.5 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre358, i32 noundef 7) #14
-  %.pre359 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i.not.6 = icmp eq ptr %.pre359, null
+  %call.i59.5 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre302, i32 noundef 7) #14
+  %.pre303 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i.not.6 = icmp eq ptr %.pre303, null
   br i1 %tobool1.i.not.6, label %Stats_logPath.exit225, label %if.end.i.6
 
 if.end.i.6:                                       ; preds = %Stats_logPath.exit.5
@@ -578,9 +578,9 @@ if.then8.i.6:                                     ; preds = %if.end6.i.6
   br label %Stats_logPath.exit.6
 
 Stats_logPath.exit.6:                             ; preds = %if.end6.i.6, %if.then8.i.6
-  %call.i59.6 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre359, i32 noundef 8) #14
-  %.pre360 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i.not.7 = icmp eq ptr %.pre360, null
+  %call.i59.6 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre303, i32 noundef 8) #14
+  %.pre304 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i.not.7 = icmp eq ptr %.pre304, null
   br i1 %tobool1.i.not.7, label %Stats_logPath.exit225, label %if.end.i.7
 
 if.end.i.7:                                       ; preds = %Stats_logPath.exit.6
@@ -602,9 +602,9 @@ if.then8.i.7:                                     ; preds = %if.end6.i.7
   br label %lor.lhs.false.i63
 
 lor.lhs.false.i63:                                ; preds = %if.end6.i.7, %if.then8.i.7
-  %call.i59.7 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre360, i32 noundef 9) #14
-  %.pr415.pr = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i62.not = icmp eq ptr %.pr415.pr, null
+  %call.i59.7 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pre304, i32 noundef 9) #14
+  %.pr359.pr = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i62.not = icmp eq ptr %.pr359.pr, null
   br i1 %tobool1.i62.not, label %Stats_logPath.exit225, label %if.end.i66
 
 if.end.i66:                                       ; preds = %lor.lhs.false.i63
@@ -626,7 +626,7 @@ if.then8.i71:                                     ; preds = %if.end6.i70
   br label %lor.lhs.false.i78
 
 lor.lhs.false.i78:                                ; preds = %if.end6.i70, %if.then8.i71
-  %call.i72 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr415.pr, i32 noundef 1) #14
+  %call.i72 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr359.pr, i32 noundef 1) #14
   %.pr = load ptr, ptr %call.i, align 8, !tbaa !16
   %tobool1.i77.not = icmp eq ptr %.pr, null
   br i1 %tobool1.i77.not, label %Stats_logPath.exit225, label %if.end.i81
@@ -651,8 +651,8 @@ if.then8.i86:                                     ; preds = %if.end6.i85
 
 lor.lhs.false.i93:                                ; preds = %if.end6.i85, %if.then8.i86
   %call.i87 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr, i32 noundef 4) #14
-  %.pr294 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i92.not = icmp eq ptr %.pr294, null
+  %.pr238 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i92.not = icmp eq ptr %.pr238, null
   br i1 %tobool1.i92.not, label %Stats_logPath.exit225, label %if.end.i96
 
 if.end.i96:                                       ; preds = %lor.lhs.false.i93
@@ -674,9 +674,9 @@ if.then8.i101:                                    ; preds = %if.end6.i100
   br label %lor.lhs.false.i108
 
 lor.lhs.false.i108:                               ; preds = %if.end6.i100, %if.then8.i101
-  %call.i102 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr294, i32 noundef 5) #14
-  %.pr296.pr = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i107.not = icmp eq ptr %.pr296.pr, null
+  %call.i102 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr238, i32 noundef 5) #14
+  %.pr240.pr = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i107.not = icmp eq ptr %.pr240.pr, null
   br i1 %tobool1.i107.not, label %Stats_logPath.exit225, label %if.end.i111
 
 if.end.i111:                                      ; preds = %lor.lhs.false.i108
@@ -698,9 +698,9 @@ if.then8.i116:                                    ; preds = %if.end6.i115
   br label %lor.lhs.false.i123
 
 lor.lhs.false.i123:                               ; preds = %if.end6.i115, %if.then8.i116
-  %call.i117 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr296.pr, i32 noundef 6) #14
-  %.pr298 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i122.not = icmp eq ptr %.pr298, null
+  %call.i117 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr240.pr, i32 noundef 6) #14
+  %.pr242 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i122.not = icmp eq ptr %.pr242, null
   br i1 %tobool1.i122.not, label %Stats_logPath.exit225, label %if.end.i126
 
 if.end.i126:                                      ; preds = %lor.lhs.false.i123
@@ -722,9 +722,9 @@ if.then8.i131:                                    ; preds = %if.end6.i130
   br label %lor.lhs.false.i138
 
 lor.lhs.false.i138:                               ; preds = %if.end6.i130, %if.then8.i131
-  %call.i132 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr298, i32 noundef 5) #14
-  %.pr300.pr.pr = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i137.not = icmp eq ptr %.pr300.pr.pr, null
+  %call.i132 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr242, i32 noundef 5) #14
+  %.pr244.pr.pr = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i137.not = icmp eq ptr %.pr244.pr.pr, null
   br i1 %tobool1.i137.not, label %Stats_logPath.exit225, label %if.end.i141
 
 if.end.i141:                                      ; preds = %lor.lhs.false.i138
@@ -746,9 +746,9 @@ if.then8.i146:                                    ; preds = %if.end6.i145
   br label %lor.lhs.false.i153
 
 lor.lhs.false.i153:                               ; preds = %if.end6.i145, %if.then8.i146
-  %call.i147 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr300.pr.pr, i32 noundef 5) #14
-  %.pr302 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i152.not = icmp eq ptr %.pr302, null
+  %call.i147 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr244.pr.pr, i32 noundef 5) #14
+  %.pr246 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i152.not = icmp eq ptr %.pr246, null
   br i1 %tobool1.i152.not, label %Stats_logPath.exit225, label %if.end.i156
 
 if.end.i156:                                      ; preds = %lor.lhs.false.i153
@@ -770,9 +770,9 @@ if.then8.i161:                                    ; preds = %if.end6.i160
   br label %lor.lhs.false.i168
 
 lor.lhs.false.i168:                               ; preds = %if.end6.i160, %if.then8.i161
-  %call.i162 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr302, i32 noundef 4) #14
-  %.pr304.pr.pr = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i167.not = icmp eq ptr %.pr304.pr.pr, null
+  %call.i162 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr246, i32 noundef 4) #14
+  %.pr248.pr.pr = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i167.not = icmp eq ptr %.pr248.pr.pr, null
   br i1 %tobool1.i167.not, label %Stats_logPath.exit225, label %if.end.i171
 
 if.end.i171:                                      ; preds = %lor.lhs.false.i168
@@ -794,9 +794,9 @@ if.then8.i176:                                    ; preds = %if.end6.i175
   br label %lor.lhs.false.i183
 
 lor.lhs.false.i183:                               ; preds = %if.end6.i175, %if.then8.i176
-  %call.i177 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr304.pr.pr, i32 noundef 5) #14
-  %.pr306 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i182.not = icmp eq ptr %.pr306, null
+  %call.i177 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr248.pr.pr, i32 noundef 5) #14
+  %.pr250 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i182.not = icmp eq ptr %.pr250, null
   br i1 %tobool1.i182.not, label %Stats_logPath.exit225, label %if.end.i186
 
 if.end.i186:                                      ; preds = %lor.lhs.false.i183
@@ -818,9 +818,9 @@ if.then8.i191:                                    ; preds = %if.end6.i190
   br label %lor.lhs.false.i198
 
 lor.lhs.false.i198:                               ; preds = %if.end6.i190, %if.then8.i191
-  %call.i192 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr306, i32 noundef 6) #14
-  %.pr308.pr.pr.pr = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i197.not = icmp eq ptr %.pr308.pr.pr.pr, null
+  %call.i192 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr250, i32 noundef 6) #14
+  %.pr252.pr.pr.pr = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i197.not = icmp eq ptr %.pr252.pr.pr.pr, null
   br i1 %tobool1.i197.not, label %Stats_logPath.exit225, label %if.end.i201
 
 if.end.i201:                                      ; preds = %lor.lhs.false.i198
@@ -842,9 +842,9 @@ if.then8.i206:                                    ; preds = %if.end6.i205
   br label %lor.lhs.false.i213
 
 lor.lhs.false.i213:                               ; preds = %if.end6.i205, %if.then8.i206
-  %call.i207 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr308.pr.pr.pr, i32 noundef 5) #14
-  %.pr310 = load ptr, ptr %call.i, align 8, !tbaa !16
-  %tobool1.i212.not = icmp eq ptr %.pr310, null
+  %call.i207 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr252.pr.pr.pr, i32 noundef 5) #14
+  %.pr254 = load ptr, ptr %call.i, align 8, !tbaa !16
+  %tobool1.i212.not = icmp eq ptr %.pr254, null
   br i1 %tobool1.i212.not, label %Stats_logPath.exit225, label %if.end.i216
 
 if.end.i216:                                      ; preds = %lor.lhs.false.i213
@@ -866,27 +866,27 @@ if.then8.i221:                                    ; preds = %if.end6.i220
   br label %if.end10.i223
 
 if.end10.i223:                                    ; preds = %if.then8.i221, %if.end6.i220
-  %call.i222 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr310, i32 noundef 5) #14
+  %call.i222 = tail call zeroext i1 @IntVector_insertEnd(ptr noundef nonnull %.pr254, i32 noundef 5) #14
   br label %Stats_logPath.exit225
 
 Stats_logPath.exit225:                            ; preds = %Stats_logPath.exit.5, %Stats_logPath.exit.4, %Stats_logPath.exit.3, %Stats_logPath.exit.2, %Stats_logPath.exit.1, %Stats_logPath.exit, %Stats_logPath.exit.6, %Stats_new.exit.split, %if.else.i, %entry, %lor.lhs.false.i78, %lor.lhs.false.i63, %lor.lhs.false.i123, %lor.lhs.false.i138, %lor.lhs.false.i93, %lor.lhs.false.i108, %lor.lhs.false.i168, %lor.lhs.false.i153, %lor.lhs.false.i183, %lor.lhs.false.i198, %lor.lhs.false.i213, %if.end10.i223
-  %retval.0.i365414 = phi ptr [ %call.i, %lor.lhs.false.i78 ], [ %call.i, %lor.lhs.false.i63 ], [ %call.i, %lor.lhs.false.i123 ], [ %call.i, %lor.lhs.false.i138 ], [ %call.i, %lor.lhs.false.i93 ], [ %call.i, %lor.lhs.false.i108 ], [ %call.i, %lor.lhs.false.i168 ], [ %call.i, %lor.lhs.false.i153 ], [ %call.i, %lor.lhs.false.i183 ], [ %call.i, %lor.lhs.false.i198 ], [ %call.i, %lor.lhs.false.i213 ], [ %call.i, %if.end10.i223 ], [ null, %if.else.i ], [ null, %entry ], [ %call.i, %Stats_new.exit.split ], [ %call.i, %Stats_logPath.exit.6 ], [ %call.i, %Stats_logPath.exit ], [ %call.i, %Stats_logPath.exit.1 ], [ %call.i, %Stats_logPath.exit.2 ], [ %call.i, %Stats_logPath.exit.3 ], [ %call.i, %Stats_logPath.exit.4 ], [ %call.i, %Stats_logPath.exit.5 ]
-  %maxLength.i58388 = phi ptr [ %maxLength.i58, %lor.lhs.false.i78 ], [ %maxLength.i58, %lor.lhs.false.i63 ], [ %maxLength.i58, %lor.lhs.false.i123 ], [ %maxLength.i58, %lor.lhs.false.i138 ], [ %maxLength.i58, %lor.lhs.false.i93 ], [ %maxLength.i58, %lor.lhs.false.i108 ], [ %maxLength.i58, %lor.lhs.false.i168 ], [ %maxLength.i58, %lor.lhs.false.i153 ], [ %maxLength.i58, %lor.lhs.false.i183 ], [ %maxLength.i58, %lor.lhs.false.i198 ], [ %maxLength.i58, %lor.lhs.false.i213 ], [ %maxLength.i58, %if.end10.i223 ], [ inttoptr (i64 12 to ptr), %if.else.i ], [ inttoptr (i64 12 to ptr), %entry ], [ %maxLength.i58, %Stats_new.exit.split ], [ %maxLength.i58, %Stats_logPath.exit.6 ], [ %maxLength.i58, %Stats_logPath.exit ], [ %maxLength.i58, %Stats_logPath.exit.1 ], [ %maxLength.i58, %Stats_logPath.exit.2 ], [ %maxLength.i58, %Stats_logPath.exit.3 ], [ %maxLength.i58, %Stats_logPath.exit.4 ], [ %maxLength.i58, %Stats_logPath.exit.5 ]
-  %minLength.i57378 = phi ptr [ %minLength.i57, %lor.lhs.false.i78 ], [ %minLength.i57, %lor.lhs.false.i63 ], [ %minLength.i57, %lor.lhs.false.i123 ], [ %minLength.i57, %lor.lhs.false.i138 ], [ %minLength.i57, %lor.lhs.false.i93 ], [ %minLength.i57, %lor.lhs.false.i108 ], [ %minLength.i57, %lor.lhs.false.i168 ], [ %minLength.i57, %lor.lhs.false.i153 ], [ %minLength.i57, %lor.lhs.false.i183 ], [ %minLength.i57, %lor.lhs.false.i198 ], [ %minLength.i57, %lor.lhs.false.i213 ], [ %minLength.i57, %if.end10.i223 ], [ inttoptr (i64 8 to ptr), %if.else.i ], [ inttoptr (i64 8 to ptr), %entry ], [ %minLength.i57, %Stats_new.exit.split ], [ %minLength.i57, %Stats_logPath.exit.6 ], [ %minLength.i57, %Stats_logPath.exit ], [ %minLength.i57, %Stats_logPath.exit.1 ], [ %minLength.i57, %Stats_logPath.exit.2 ], [ %minLength.i57, %Stats_logPath.exit.3 ], [ %minLength.i57, %Stats_logPath.exit.4 ], [ %minLength.i57, %Stats_logPath.exit.5 ]
-  tail call void @Stats_calculate(ptr noundef %retval.0.i365414)
-  %averageLength = getelementptr inbounds %struct.StatsStruct, ptr %retval.0.i365414, i64 0, i32 3
+  %retval.0.i309358 = phi ptr [ %call.i, %lor.lhs.false.i78 ], [ %call.i, %lor.lhs.false.i63 ], [ %call.i, %lor.lhs.false.i123 ], [ %call.i, %lor.lhs.false.i138 ], [ %call.i, %lor.lhs.false.i93 ], [ %call.i, %lor.lhs.false.i108 ], [ %call.i, %lor.lhs.false.i168 ], [ %call.i, %lor.lhs.false.i153 ], [ %call.i, %lor.lhs.false.i183 ], [ %call.i, %lor.lhs.false.i198 ], [ %call.i, %lor.lhs.false.i213 ], [ %call.i, %if.end10.i223 ], [ null, %if.else.i ], [ null, %entry ], [ %call.i, %Stats_new.exit.split ], [ %call.i, %Stats_logPath.exit.6 ], [ %call.i, %Stats_logPath.exit ], [ %call.i, %Stats_logPath.exit.1 ], [ %call.i, %Stats_logPath.exit.2 ], [ %call.i, %Stats_logPath.exit.3 ], [ %call.i, %Stats_logPath.exit.4 ], [ %call.i, %Stats_logPath.exit.5 ]
+  %maxLength.i58332 = phi ptr [ %maxLength.i58, %lor.lhs.false.i78 ], [ %maxLength.i58, %lor.lhs.false.i63 ], [ %maxLength.i58, %lor.lhs.false.i123 ], [ %maxLength.i58, %lor.lhs.false.i138 ], [ %maxLength.i58, %lor.lhs.false.i93 ], [ %maxLength.i58, %lor.lhs.false.i108 ], [ %maxLength.i58, %lor.lhs.false.i168 ], [ %maxLength.i58, %lor.lhs.false.i153 ], [ %maxLength.i58, %lor.lhs.false.i183 ], [ %maxLength.i58, %lor.lhs.false.i198 ], [ %maxLength.i58, %lor.lhs.false.i213 ], [ %maxLength.i58, %if.end10.i223 ], [ inttoptr (i64 12 to ptr), %if.else.i ], [ inttoptr (i64 12 to ptr), %entry ], [ %maxLength.i58, %Stats_new.exit.split ], [ %maxLength.i58, %Stats_logPath.exit.6 ], [ %maxLength.i58, %Stats_logPath.exit ], [ %maxLength.i58, %Stats_logPath.exit.1 ], [ %maxLength.i58, %Stats_logPath.exit.2 ], [ %maxLength.i58, %Stats_logPath.exit.3 ], [ %maxLength.i58, %Stats_logPath.exit.4 ], [ %maxLength.i58, %Stats_logPath.exit.5 ]
+  %minLength.i57322 = phi ptr [ %minLength.i57, %lor.lhs.false.i78 ], [ %minLength.i57, %lor.lhs.false.i63 ], [ %minLength.i57, %lor.lhs.false.i123 ], [ %minLength.i57, %lor.lhs.false.i138 ], [ %minLength.i57, %lor.lhs.false.i93 ], [ %minLength.i57, %lor.lhs.false.i108 ], [ %minLength.i57, %lor.lhs.false.i168 ], [ %minLength.i57, %lor.lhs.false.i153 ], [ %minLength.i57, %lor.lhs.false.i183 ], [ %minLength.i57, %lor.lhs.false.i198 ], [ %minLength.i57, %lor.lhs.false.i213 ], [ %minLength.i57, %if.end10.i223 ], [ inttoptr (i64 8 to ptr), %if.else.i ], [ inttoptr (i64 8 to ptr), %entry ], [ %minLength.i57, %Stats_new.exit.split ], [ %minLength.i57, %Stats_logPath.exit.6 ], [ %minLength.i57, %Stats_logPath.exit ], [ %minLength.i57, %Stats_logPath.exit.1 ], [ %minLength.i57, %Stats_logPath.exit.2 ], [ %minLength.i57, %Stats_logPath.exit.3 ], [ %minLength.i57, %Stats_logPath.exit.4 ], [ %minLength.i57, %Stats_logPath.exit.5 ]
+  tail call void @Stats_calculate(ptr noundef %retval.0.i309358)
+  %averageLength = getelementptr inbounds %struct.StatsStruct, ptr %retval.0.i309358, i64 0, i32 3
   %40 = load double, ptr %averageLength, align 8, !tbaa !29
-  %standardDeviation = getelementptr inbounds %struct.StatsStruct, ptr %retval.0.i365414, i64 0, i32 4
+  %standardDeviation = getelementptr inbounds %struct.StatsStruct, ptr %retval.0.i309358, i64 0, i32 4
   %41 = load double, ptr %standardDeviation, align 8, !tbaa !31
   %call24 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef %40, double noundef %41)
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %42 = load i32, ptr %minLength.i57378, align 8, !tbaa !19
-  %43 = load i32, ptr %maxLength.i58388, align 4, !tbaa !20
-  %cmp27350 = icmp slt i32 %42, %43
-  br i1 %cmp27350, label %for.body28.lr.ph, label %for.end32
+  %42 = load i32, ptr %minLength.i57322, align 8, !tbaa !19
+  %43 = load i32, ptr %maxLength.i58332, align 4, !tbaa !20
+  %cmp27294 = icmp slt i32 %42, %43
+  br i1 %cmp27294, label %for.body28.lr.ph, label %for.end32
 
 for.body28.lr.ph:                                 ; preds = %Stats_logPath.exit225
-  %histogram = getelementptr inbounds %struct.StatsStruct, ptr %retval.0.i365414, i64 0, i32 5
+  %histogram = getelementptr inbounds %struct.StatsStruct, ptr %retval.0.i309358, i64 0, i32 5
   %44 = sext i32 %42 to i64
   br label %for.body28
 
@@ -898,7 +898,7 @@ for.body28:                                       ; preds = %for.body28.lr.ph, %
   %47 = trunc i64 %indvars.iv to i32
   %call29 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef %47, i32 noundef %46)
   %indvars.iv.next = add nsw i64 %indvars.iv, 1
-  %48 = load i32, ptr %maxLength.i58388, align 4, !tbaa !20
+  %48 = load i32, ptr %maxLength.i58332, align 4, !tbaa !20
   %49 = sext i32 %48 to i64
   %cmp27 = icmp slt i64 %indvars.iv.next, %49
   br i1 %cmp27, label %for.body28, label %for.end32, !llvm.loop !32
@@ -910,11 +910,11 @@ for.end32:                                        ; preds = %for.body28, %Stats_
 ; Function Attrs: nofree nounwind
 declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #10
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #12
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #11
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #12
 
 attributes #0 = { mustprogress nofree nounwind willreturn memory(write, argmem: none, inaccessiblemem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree nounwind willreturn allockind("alloc,uninitialized") allocsize(0) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -927,8 +927,8 @@ attributes #7 = { mustprogress nofree nounwind willreturn allockind("alloc,zeroe
 attributes #8 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #9 = { mustprogress nofree nounwind willreturn memory(write) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #10 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #12 = { nofree nounwind }
+attributes #11 = { nofree nounwind }
+attributes #12 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #13 = { nounwind allocsize(0) }
 attributes #14 = { nounwind }
 attributes #15 = { nounwind allocsize(0,1) }

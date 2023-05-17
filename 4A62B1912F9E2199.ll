@@ -29,8 +29,8 @@ entry:
   call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %ap) #4
   call void @llvm.va_start(ptr nonnull %ap)
   %0 = load i8, ptr %fmt, align 1, !tbaa !5
-  %tobool.not111 = icmp eq i8 %0, 0
-  br i1 %tobool.not111, label %while.end, label %while.body.lr.ph
+  %tobool.not108 = icmp eq i8 %0, 0
+  br i1 %tobool.not108, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %overflow_arg_area_p97 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
@@ -40,8 +40,8 @@ while.body.lr.ph:                                 ; preds = %entry
 
 while.body:                                       ; preds = %while.body.lr.ph, %sw.epilog
   %2 = phi i8 [ %0, %while.body.lr.ph ], [ %35, %sw.epilog ]
-  %fmt.addr.0112 = phi ptr [ %fmt, %while.body.lr.ph ], [ %incdec.ptr, %sw.epilog ]
-  %incdec.ptr = getelementptr inbounds i8, ptr %fmt.addr.0112, i64 1
+  %fmt.addr.0109 = phi ptr [ %fmt, %while.body.lr.ph ], [ %incdec.ptr, %sw.epilog ]
+  %incdec.ptr = getelementptr inbounds i8, ptr %fmt.addr.0109, i64 1
   %conv = sext i8 %2 to i32
   switch i32 %conv, label %sw.epilog [
     i32 115, label %sw.bb
@@ -233,17 +233,17 @@ vaarg.in_reg84:                                   ; preds = %sw.bb76
 
 vaarg.in_mem86:                                   ; preds = %sw.bb76
   %overflow_arg_area88 = load ptr, ptr %overflow_arg_area_p97, align 8
-  %overflow_arg_area88.sroa.gep110 = getelementptr inbounds i8, ptr %overflow_arg_area88, i64 8
+  %overflow_arg_area88.sroa.gep = getelementptr inbounds i8, ptr %overflow_arg_area88, i64 8
   %overflow_arg_area.next89 = getelementptr i8, ptr %overflow_arg_area88, i64 16
   store ptr %overflow_arg_area.next89, ptr %overflow_arg_area_p97, align 8
-  %vaarg.addr91.sroa.phi108.sroa.speculate.load.vaarg.in_mem86 = load double, ptr %overflow_arg_area88.sroa.gep110, align 8, !tbaa.struct !12
+  %vaarg.addr91.sroa.phi.sroa.speculate.load.vaarg.in_mem86 = load double, ptr %overflow_arg_area88.sroa.gep, align 8, !tbaa.struct !12
   %vaarg.addr91.sroa.speculate.load.vaarg.in_mem86 = load i32, ptr %overflow_arg_area88, align 8, !tbaa.struct !15
   br label %vaarg.end90
 
 vaarg.end90:                                      ; preds = %vaarg.in_mem86, %vaarg.in_reg84
   %vaarg.addr91.sroa.speculated = phi i32 [ %31, %vaarg.in_reg84 ], [ %vaarg.addr91.sroa.speculate.load.vaarg.in_mem86, %vaarg.in_mem86 ]
-  %vaarg.addr91.sroa.phi108.sroa.speculated = phi double [ %32, %vaarg.in_reg84 ], [ %vaarg.addr91.sroa.phi108.sroa.speculate.load.vaarg.in_mem86, %vaarg.in_mem86 ]
-  %call94 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %vaarg.addr91.sroa.speculated, double noundef %vaarg.addr91.sroa.phi108.sroa.speculated)
+  %vaarg.addr91.sroa.phi.sroa.speculated = phi double [ %32, %vaarg.in_reg84 ], [ %vaarg.addr91.sroa.phi.sroa.speculate.load.vaarg.in_mem86, %vaarg.in_mem86 ]
+  %call94 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %vaarg.addr91.sroa.speculated, double noundef %vaarg.addr91.sroa.phi.sroa.speculated)
   br label %sw.epilog
 
 sw.bb95:                                          ; preds = %while.body

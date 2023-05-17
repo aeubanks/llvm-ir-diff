@@ -123,7 +123,7 @@ j.exit:                                           ; preds = %entry, %for.cond.fo
 
 ; Function Attrs: nofree nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+k.exit:
   %temp_2 = alloca i8, align 1
   %temp_1 = alloca i32, align 4
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %temp_2) #4

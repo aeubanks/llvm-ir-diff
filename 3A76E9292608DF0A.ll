@@ -103,7 +103,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.85 = private unnamed_addr constant [28 x i8] c"\0A        $%s = &$this;\0A    \00", align 1
 @.str.86 = private unnamed_addr constant [7 x i8] c") {}\0A\0A\00", align 1
 @.str.87 = private unnamed_addr constant [4 x i8] c"\0A?>\00", align 1
-@switch.table.PHP_GenEndSwitch.94 = private unnamed_addr constant [3 x ptr] [ptr @.str.13, ptr @.str.14, ptr @.str.15], align 8
+@switch.table.PHP_GenEndSwitch.92 = private unnamed_addr constant [3 x ptr] [ptr @.str.13, ptr @.str.14, ptr @.str.15], align 8
 
 ; Function Attrs: nounwind uwtable
 define internal void @PHP_GenStart(ptr nocapture readnone %context, ptr noundef %stream, ptr nocapture noundef readonly %oper) #0 {
@@ -163,7 +163,7 @@ while.end.i:                                      ; preds = %while.body.i, %entr
 
 switch.lookup:                                    ; preds = %while.end.i
   %1 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %1
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %1
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit
@@ -189,7 +189,7 @@ while.end.i15:                                    ; preds = %while.body.i13, %In
 
 switch.lookup21:                                  ; preds = %while.end.i15
   %3 = sext i32 %switch.tableidx22 to i64
-  %switch.gep23 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %3
+  %switch.gep23 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %3
   %switch.load24 = load ptr, ptr %switch.gep23, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load24) #3
   br label %Indent.exit20
@@ -229,7 +229,7 @@ while.end.i:                                      ; preds = %while.body.i, %if.t
 
 switch.lookup:                                    ; preds = %while.end.i
   %2 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %2
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %2
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit
@@ -269,7 +269,7 @@ while.end.i24:                                    ; preds = %while.body.i22, %if
 
 switch.lookup30:                                  ; preds = %while.end.i24
   %7 = sext i32 %switch.tableidx31 to i64
-  %switch.gep32 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %7
+  %switch.gep32 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %7
   %switch.load33 = load ptr, ptr %switch.gep32, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load33) #3
   br label %Indent.exit29
@@ -307,7 +307,7 @@ while.end.i:                                      ; preds = %while.body.i, %entr
 
 switch.lookup:                                    ; preds = %while.end.i
   %1 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %1
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %1
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit
@@ -438,7 +438,7 @@ while.end.i:                                      ; preds = %while.body.i, %entr
 
 switch.lookup:                                    ; preds = %while.end.i
   %1 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %1
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %1
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit
@@ -725,7 +725,7 @@ while.end.i59:                                    ; preds = %while.body.i57, %if
 
 switch.lookup:                                    ; preds = %while.end.i59
   %20 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %20
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %20
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit64
@@ -778,7 +778,7 @@ while.end.i:                                      ; preds = %while.body.i, %entr
 
 switch.lookup:                                    ; preds = %while.end.i
   %1 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %1
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %1
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit
@@ -931,7 +931,7 @@ while.end.i:                                      ; preds = %while.body.i, %entr
 
 switch.lookup:                                    ; preds = %while.end.i
   %1 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %1
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %1
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit
@@ -955,7 +955,7 @@ while.end.i13:                                    ; preds = %while.body.i11, %In
 
 switch.lookup19:                                  ; preds = %while.end.i13
   %3 = sext i32 %switch.tableidx20 to i64
-  %switch.gep21 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %3
+  %switch.gep21 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %3
   %switch.load22 = load ptr, ptr %switch.gep21, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load22) #3
   br label %Indent.exit18
@@ -988,7 +988,7 @@ while.end.i:                                      ; preds = %while.body.i, %entr
 
 switch.lookup:                                    ; preds = %while.end.i
   %1 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %1
+  %switch.gep = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %1
   %switch.load = load ptr, ptr %switch.gep, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load) #3
   br label %Indent.exit
@@ -1013,7 +1013,7 @@ while.end.i13:                                    ; preds = %while.body.i11, %In
 
 switch.lookup19:                                  ; preds = %while.end.i13
   %3 = sext i32 %switch.tableidx20 to i64
-  %switch.gep21 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.94, i64 0, i64 %3
+  %switch.gep21 = getelementptr inbounds [3 x ptr], ptr @switch.table.PHP_GenEndSwitch.92, i64 0, i64 %3
   %switch.load22 = load ptr, ptr %switch.gep21, align 8
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %switch.load22) #3
   br label %Indent.exit18
@@ -1071,24 +1071,24 @@ if.end:                                           ; preds = %if.then, %entry
 ; Function Attrs: nounwind uwtable
 define dso_local void @TreeCCGeneratePHP(ptr noundef %context) local_unnamed_addr #0 {
 entry:
-  %0 = getelementptr i8, ptr %context, i64 8200
-  %context.val = load ptr, ptr %0, align 8, !tbaa !41
-  %cmp.not1.i = icmp eq ptr %context.val, null
-  br i1 %cmp.not1.i, label %WritePHPHeaders.exit, label %while.body.i
+  %streamList.i = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 3
+  %stream.016.i = load ptr, ptr %streamList.i, align 8, !tbaa !21
+  %cmp.not17.i = icmp eq ptr %stream.016.i, null
+  br i1 %cmp.not17.i, label %WritePHPHeaders.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %entry, %if.end8.i
-  %stream.02.i = phi ptr [ %2, %if.end8.i ], [ %context.val, %entry ]
-  %isHeader.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.02.i, i64 0, i32 7
+  %stream.018.i = phi ptr [ %stream.0.i, %if.end8.i ], [ %stream.016.i, %entry ]
+  %isHeader.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.018.i, i64 0, i32 7
   %bf.load.i = load i8, ptr %isHeader.i, align 4
   %bf.shl.mask.i = and i8 %bf.load.i, 4
   %tobool.not.i = icmp eq i8 %bf.shl.mask.i, 0
   br i1 %tobool.not.i, label %if.then.i, label %if.end.i
 
 if.then.i:                                        ; preds = %while.body.i
-  %embedName.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.02.i, i64 0, i32 2
-  %1 = load ptr, ptr %embedName.i, align 8, !tbaa !42
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream.02.i, ptr noundef nonnull @.str.35, ptr noundef %1) #3
-  tail call void @TreeCCStreamSourceTopCS(ptr noundef nonnull %stream.02.i) #3
+  %embedName.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.018.i, i64 0, i32 2
+  %0 = load ptr, ptr %embedName.i, align 8, !tbaa !41
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream.018.i, ptr noundef nonnull @.str.35, ptr noundef %0) #3
+  tail call void @TreeCCStreamSourceTopCS(ptr noundef nonnull %stream.018.i) #3
   %bf.load1.pre.i = load i8, ptr %isHeader.i, align 4
   br label %if.end.i
 
@@ -1104,62 +1104,62 @@ if.then6.i:                                       ; preds = %if.end.i
   br label %if.end8.i
 
 if.end8.i:                                        ; preds = %if.then6.i, %if.end.i
-  %nextStream.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.02.i, i64 0, i32 10
-  %2 = load ptr, ptr %nextStream.i, align 8, !tbaa !44
-  %cmp.not.i = icmp eq ptr %2, null
-  br i1 %cmp.not.i, label %WritePHPHeaders.exit, label %while.body.i, !llvm.loop !45
+  %nextStream.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.018.i, i64 0, i32 10
+  %stream.0.i = load ptr, ptr %nextStream.i, align 8, !tbaa !21
+  %cmp.not.i = icmp eq ptr %stream.0.i, null
+  br i1 %cmp.not.i, label %WritePHPHeaders.exit, label %while.body.i, !llvm.loop !43
 
 WritePHPHeaders.exit:                             ; preds = %if.end8.i, %entry
   tail call void @TreeCCNodeVisitAll(ptr noundef %context, ptr noundef nonnull @DeclareTypeDefs) #3
   %commonSource = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 7
-  %3 = load ptr, ptr %commonSource, align 8, !tbaa !46
-  %tobool.not = icmp eq ptr %3, null
+  %1 = load ptr, ptr %commonSource, align 8, !tbaa !44
+  %tobool.not = icmp eq ptr %1, null
   br i1 %tobool.not, label %if.else, label %if.then
 
 if.then:                                          ; preds = %WritePHPHeaders.exit
-  tail call fastcc void @ImplementStateType(ptr noundef nonnull %context, ptr noundef nonnull %3)
+  tail call fastcc void @ImplementStateType(ptr noundef nonnull %context, ptr noundef nonnull %1)
   br label %if.end
 
 if.else:                                          ; preds = %WritePHPHeaders.exit
   %sourceStream = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 5
-  %4 = load ptr, ptr %sourceStream, align 8, !tbaa !47
-  tail call fastcc void @ImplementStateType(ptr noundef nonnull %context, ptr noundef %4)
+  %2 = load ptr, ptr %sourceStream, align 8, !tbaa !45
+  tail call fastcc void @ImplementStateType(ptr noundef nonnull %context, ptr noundef %2)
   br label %if.end
 
 if.end:                                           ; preds = %if.else, %if.then
   tail call void @TreeCCNodeVisitAll(ptr noundef nonnull %context, ptr noundef nonnull @BuildTypeDecls) #3
   tail call void @TreeCCGenerateNonVirtuals(ptr noundef nonnull %context, ptr noundef nonnull @TreeCCNonVirtualFuncsPHP) #3
-  %context.val11 = load ptr, ptr %0, align 8, !tbaa !41
-  %cmp.not1.i12 = icmp eq ptr %context.val11, null
-  br i1 %cmp.not1.i12, label %WritePHPFooters.exit, label %while.body.i15
+  %stream.020.i = load ptr, ptr %streamList.i, align 8, !tbaa !21
+  %cmp.not21.i = icmp eq ptr %stream.020.i, null
+  br i1 %cmp.not21.i, label %WritePHPFooters.exit, label %while.body.i13
 
-while.body.i15:                                   ; preds = %if.end, %if.end12.i
-  %stream.02.i13 = phi ptr [ %6, %if.end12.i ], [ %context.val11, %if.end ]
-  %defaultFile.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.02.i13, i64 0, i32 7
-  %bf.load.i14 = load i8, ptr %defaultFile.i, align 4
-  %5 = and i8 %bf.load.i14, 24
-  %or.cond.i = icmp eq i8 %5, 8
-  br i1 %or.cond.i, label %if.then.i16, label %if.else.i
+while.body.i13:                                   ; preds = %if.end, %if.end12.i
+  %stream.022.i = phi ptr [ %stream.0.i16, %if.end12.i ], [ %stream.020.i, %if.end ]
+  %defaultFile.i = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.022.i, i64 0, i32 7
+  %bf.load.i12 = load i8, ptr %defaultFile.i, align 4
+  %3 = and i8 %bf.load.i12, 24
+  %or.cond.i = icmp eq i8 %3, 8
+  br i1 %or.cond.i, label %if.then.i14, label %if.else.i
 
-if.then.i16:                                      ; preds = %while.body.i15
-  tail call void @TreeCCStreamClear(ptr noundef nonnull %stream.02.i13) #3
+if.then.i14:                                      ; preds = %while.body.i13
+  tail call void @TreeCCStreamClear(ptr noundef nonnull %stream.022.i) #3
   br label %if.end12.i
 
-if.else.i:                                        ; preds = %while.body.i15
-  %bf.shl7.mask.i = and i8 %bf.load.i14, 4
+if.else.i:                                        ; preds = %while.body.i13
+  %bf.shl7.mask.i = and i8 %bf.load.i12, 4
   %tobool10.not.i = icmp eq i8 %bf.shl7.mask.i, 0
   br i1 %tobool10.not.i, label %if.then11.i, label %if.end12.i
 
 if.then11.i:                                      ; preds = %if.else.i
-  tail call void @TreeCCStreamSourceBottom(ptr noundef nonnull %stream.02.i13) #3
+  tail call void @TreeCCStreamSourceBottom(ptr noundef nonnull %stream.022.i) #3
   br label %if.end12.i
 
-if.end12.i:                                       ; preds = %if.then11.i, %if.else.i, %if.then.i16
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream.02.i13, ptr noundef nonnull @.str.87) #3
-  %nextStream.i17 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.02.i13, i64 0, i32 10
-  %6 = load ptr, ptr %nextStream.i17, align 8, !tbaa !44
-  %cmp.not.i18 = icmp eq ptr %6, null
-  br i1 %cmp.not.i18, label %WritePHPFooters.exit, label %while.body.i15, !llvm.loop !48
+if.end12.i:                                       ; preds = %if.then11.i, %if.else.i, %if.then.i14
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef nonnull %stream.022.i, ptr noundef nonnull @.str.87) #3
+  %nextStream.i15 = getelementptr inbounds %struct._tagTreeCCStream, ptr %stream.022.i, i64 0, i32 10
+  %stream.0.i16 = load ptr, ptr %nextStream.i15, align 8, !tbaa !21
+  %cmp.not.i17 = icmp eq ptr %stream.0.i16, null
+  br i1 %cmp.not.i17, label %WritePHPFooters.exit, label %while.body.i13, !llvm.loop !46
 
 WritePHPFooters.exit:                             ; preds = %if.end12.i, %if.end
   ret void
@@ -1178,7 +1178,7 @@ entry:
 
 if.then:                                          ; preds = %entry
   %source = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 14
-  %1 = load ptr, ptr %source, align 8, !tbaa !49
+  %1 = load ptr, ptr %source, align 8, !tbaa !47
   %firstChild = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 1
   %child.016 = load ptr, ptr %firstChild, align 8, !tbaa !21
   %cmp1.not17 = icmp eq ptr %child.016, null
@@ -1210,7 +1210,7 @@ if.end:                                           ; preds = %if.then5, %while.bo
   %nextSibling = getelementptr inbounds %struct._tagTreeCCNode, ptr %child.019, i64 0, i32 3
   %child.0 = load ptr, ptr %nextSibling, align 8, !tbaa !21
   %cmp1.not = icmp eq ptr %child.0, null
-  br i1 %cmp1.not, label %while.end, label %while.body, !llvm.loop !50
+  br i1 %cmp1.not, label %while.end, label %while.body, !llvm.loop !48
 
 while.end:                                        ; preds = %if.end, %if.then
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.37) #3
@@ -1225,7 +1225,7 @@ define internal fastcc void @ImplementStateType(ptr noundef %context, ptr nounde
 entry:
   %reentrant = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
   %state_type = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 10
-  %0 = load ptr, ptr %state_type, align 8, !tbaa !51
+  %0 = load ptr, ptr %state_type, align 8, !tbaa !49
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.38, ptr noundef %0) #3
   %bf.load8 = load i16, ptr %reentrant, align 8
   %bf.shl9.mask = and i16 %bf.load8, 8
@@ -1238,7 +1238,7 @@ if.end15:                                         ; preds = %entry
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.40) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.41) #3
   %state_type14 = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 10
-  %1 = load ptr, ptr %state_type14, align 8, !tbaa !51
+  %1 = load ptr, ptr %state_type14, align 8, !tbaa !49
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.42, ptr noundef %1) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.43) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.44) #3
@@ -1280,13 +1280,13 @@ entry:
 if.end:                                           ; preds = %entry
   %call = tail call i32 @TreeCCNodeHasAbstracts(ptr noundef %context, ptr noundef nonnull %node) #3
   %source = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 14
-  %1 = load ptr, ptr %source, align 8, !tbaa !49
+  %1 = load ptr, ptr %source, align 8, !tbaa !47
   %2 = load ptr, ptr %node, align 8, !tbaa !17
   %tobool.not = icmp eq ptr %2, null
   %name2 = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 4
   %3 = load ptr, ptr %name2, align 8, !tbaa !18
   %number3 = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 6
-  %4 = load i32, ptr %number3, align 4, !tbaa !52
+  %4 = load i32, ptr %number3, align 4, !tbaa !50
   %.str.51..str.50 = select i1 %tobool.not, ptr @.str.51, ptr @.str.50
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull %.str.51..str.50, ptr noundef %3, i32 noundef %4) #3
   %5 = load ptr, ptr %node, align 8, !tbaa !17
@@ -1335,19 +1335,19 @@ if.end35:                                         ; preds = %if.then34, %if.end2
   br label %if.end36
 
 if.end36:                                         ; preds = %if.then7, %if.end35
-  %fields = getelementptr %struct._tagTreeCCNode, ptr %node, i64 0, i32 10
-  %8 = load ptr, ptr %fields, align 8, !tbaa !53
+  %fields = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 10
+  %8 = load ptr, ptr %fields, align 8, !tbaa !21
   %tobool37.not = icmp eq ptr %8, null
   br i1 %tobool37.not, label %if.end39, label %while.body.i
 
 while.body.i:                                     ; preds = %if.end36, %while.body.i
-  %field.02.i = phi ptr [ %10, %while.body.i ], [ %8, %if.end36 ]
-  %9 = load ptr, ptr %field.02.i, align 8, !tbaa !54
+  %field.03.i = phi ptr [ %field.0.i, %while.body.i ], [ %8, %if.end36 ]
+  %9 = load ptr, ptr %field.03.i, align 8, !tbaa !51
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.79, ptr noundef %9) #3
-  %next.i = getelementptr inbounds %struct._tagTreeCCField, ptr %field.02.i, i64 0, i32 6
-  %10 = load ptr, ptr %next.i, align 8, !tbaa !56
-  %cmp.not.i = icmp eq ptr %10, null
-  br i1 %cmp.not.i, label %DeclareFields.exit, label %while.body.i, !llvm.loop !57
+  %next.i = getelementptr inbounds %struct._tagTreeCCField, ptr %field.03.i, i64 0, i32 6
+  %field.0.i = load ptr, ptr %next.i, align 8, !tbaa !21
+  %cmp.not.i = icmp eq ptr %field.0.i, null
+  br i1 %cmp.not.i, label %DeclareFields.exit, label %while.body.i, !llvm.loop !53
 
 DeclareFields.exit:                               ; preds = %while.body.i
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.21) #3
@@ -1356,8 +1356,8 @@ DeclareFields.exit:                               ; preds = %while.body.i
 if.end39:                                         ; preds = %DeclareFields.exit, %if.end36
   %reentrant = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 8
   %name54 = getelementptr inbounds %struct._tagTreeCCNode, ptr %node, i64 0, i32 4
-  %11 = load ptr, ptr %name54, align 8, !tbaa !18
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.62, ptr noundef nonnull @.str.61, ptr noundef %11) #3
+  %10 = load ptr, ptr %name54, align 8, !tbaa !18
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.62, ptr noundef nonnull @.str.61, ptr noundef %10) #3
   %bf.load56 = load i16, ptr %reentrant, align 8
   %bf.shl57.mask = and i16 %bf.load56, 8
   %tobool60.not = icmp eq i16 %bf.shl57.mask, 0
@@ -1369,17 +1369,17 @@ if.then61:                                        ; preds = %if.end39
 
 if.end63:                                         ; preds = %if.end39, %if.then61
   %.sink = phi i32 [ 1, %if.then61 ], [ 0, %if.end39 ]
-  %12 = tail call fastcc i32 @CreateParams(ptr noundef %1, ptr noundef nonnull %node, i32 noundef %.sink)
+  %11 = tail call fastcc i32 @CreateParams(ptr noundef %1, ptr noundef nonnull %node, i32 noundef %.sink)
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.7) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.8) #3
-  %13 = load ptr, ptr %node, align 8, !tbaa !17
-  %tobool66.not = icmp eq ptr %13, null
+  %12 = load ptr, ptr %node, align 8, !tbaa !17
+  %tobool66.not = icmp eq ptr %12, null
   br i1 %tobool66.not, label %if.end81, label %if.then67
 
 if.then67:                                        ; preds = %if.end63
-  %name69 = getelementptr inbounds %struct._tagTreeCCNode, ptr %13, i64 0, i32 4
-  %14 = load ptr, ptr %name69, align 8, !tbaa !18
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.64, ptr noundef %14) #3
+  %name69 = getelementptr inbounds %struct._tagTreeCCNode, ptr %12, i64 0, i32 4
+  %13 = load ptr, ptr %name69, align 8, !tbaa !18
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.64, ptr noundef %13) #3
   %bf.load71 = load i16, ptr %reentrant, align 8
   %bf.shl72.mask = and i16 %bf.load71, 8
   %tobool75.not = icmp eq i16 %bf.shl72.mask, 0
@@ -1391,22 +1391,22 @@ if.then76:                                        ; preds = %if.then67
 
 if.end78:                                         ; preds = %if.then67, %if.then76
   %needComma.1 = phi i32 [ 1, %if.then76 ], [ 0, %if.then67 ]
-  %15 = load ptr, ptr %node, align 8, !tbaa !17
-  %16 = tail call fastcc i32 @InheritParamsSource(ptr noundef %1, ptr noundef %15, i32 noundef %needComma.1)
+  %14 = load ptr, ptr %node, align 8, !tbaa !17
+  %15 = tail call fastcc i32 @InheritParamsSource(ptr noundef %1, ptr noundef %14, i32 noundef %needComma.1)
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.25) #3
   br label %if.end81
 
 if.end81:                                         ; preds = %if.end78, %if.end63
-  %17 = load ptr, ptr %name54, align 8, !tbaa !18
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.65, ptr noundef %17) #3
+  %16 = load ptr, ptr %name54, align 8, !tbaa !18
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.65, ptr noundef %16) #3
   %bf.load84 = load i16, ptr %reentrant, align 8
   %bf.shl85.mask = and i16 %bf.load84, 2
   %tobool88.not = icmp eq i16 %bf.shl85.mask, 0
   br i1 %tobool88.not, label %if.end102, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %if.end81
-  %18 = load ptr, ptr %node, align 8, !tbaa !17
-  %tobool90.not = icmp eq ptr %18, null
+  %17 = load ptr, ptr %node, align 8, !tbaa !17
+  %tobool90.not = icmp eq ptr %17, null
   br i1 %tobool90.not, label %if.then91, label %if.end102
 
 if.then91:                                        ; preds = %land.lhs.true
@@ -1421,10 +1421,10 @@ if.then98:                                        ; preds = %if.then91
 
 if.else99:                                        ; preds = %if.then91
   %state_type = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 10
-  %19 = load ptr, ptr %state_type, align 8, !tbaa !51
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.68, ptr noundef %19) #3
-  %20 = load ptr, ptr %state_type, align 8, !tbaa !51
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.69, ptr noundef %20) #3
+  %18 = load ptr, ptr %state_type, align 8, !tbaa !49
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.68, ptr noundef %18) #3
+  %19 = load ptr, ptr %state_type, align 8, !tbaa !49
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.69, ptr noundef %19) #3
   br label %if.end102
 
 if.end102:                                        ; preds = %if.then98, %if.else99, %land.lhs.true, %if.end81
@@ -1435,51 +1435,51 @@ if.end102:                                        ; preds = %if.then98, %if.else
 while.body:                                       ; preds = %if.end102, %if.end117
   %field.0249 = phi ptr [ %field.0, %if.end117 ], [ %field.0247, %if.end102 ]
   %flags105 = getelementptr inbounds %struct._tagTreeCCField, ptr %field.0249, i64 0, i32 3
-  %21 = load i32, ptr %flags105, align 8, !tbaa !58
-  %and106 = and i32 %21, 1
+  %20 = load i32, ptr %flags105, align 8, !tbaa !54
+  %and106 = and i32 %20, 1
   %cmp107 = icmp eq i32 %and106, 0
   br i1 %cmp107, label %if.then108, label %if.else111
 
 if.then108:                                       ; preds = %while.body
-  %22 = load ptr, ptr %field.0249, align 8, !tbaa !54
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.70, ptr noundef %22, ptr noundef %22) #3
+  %21 = load ptr, ptr %field.0249, align 8, !tbaa !51
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.70, ptr noundef %21, ptr noundef %21) #3
   br label %if.end117
 
 if.else111:                                       ; preds = %while.body
   %value = getelementptr inbounds %struct._tagTreeCCField, ptr %field.0249, i64 0, i32 2
-  %23 = load ptr, ptr %value, align 8, !tbaa !59
-  %tobool112.not = icmp eq ptr %23, null
+  %22 = load ptr, ptr %value, align 8, !tbaa !55
+  %tobool112.not = icmp eq ptr %22, null
   br i1 %tobool112.not, label %if.end117, label %if.then113
 
 if.then113:                                       ; preds = %if.else111
-  %24 = load ptr, ptr %field.0249, align 8, !tbaa !54
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.70, ptr noundef %24, ptr noundef nonnull %23) #3
+  %23 = load ptr, ptr %field.0249, align 8, !tbaa !51
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.70, ptr noundef %23, ptr noundef nonnull %22) #3
   br label %if.end117
 
 if.end117:                                        ; preds = %if.else111, %if.then113, %if.then108
   %next = getelementptr inbounds %struct._tagTreeCCField, ptr %field.0249, i64 0, i32 6
   %field.0 = load ptr, ptr %next, align 8, !tbaa !21
   %cmp104.not = icmp eq ptr %field.0, null
-  br i1 %cmp104.not, label %while.end, label %while.body, !llvm.loop !60
+  br i1 %cmp104.not, label %while.end, label %while.body, !llvm.loop !56
 
 while.end:                                        ; preds = %if.end117, %if.end102
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.44) #3
   tail call fastcc void @ImplementVirtuals(ptr noundef %context, ptr noundef %1, ptr noundef nonnull %node, ptr noundef nonnull %node)
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.71) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.8) #3
-  %25 = load ptr, ptr %name54, align 8, !tbaa !18
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.72, ptr noundef %25) #3
+  %24 = load ptr, ptr %name54, align 8, !tbaa !18
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.72, ptr noundef %24) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.73) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.74) #3
-  %26 = load ptr, ptr %node, align 8, !tbaa !17
-  %tobool125.not = icmp eq ptr %26, null
+  %25 = load ptr, ptr %node, align 8, !tbaa !17
+  %tobool125.not = icmp eq ptr %25, null
   %.str.76..str.75 = select i1 %tobool125.not, ptr @.str.76, ptr @.str.75
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull %.str.76..str.75) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.44) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.77) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.8) #3
-  %27 = load ptr, ptr %name54, align 8, !tbaa !18
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.78, ptr noundef %27) #3
+  %26 = load ptr, ptr %name54, align 8, !tbaa !18
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.78, ptr noundef %26) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.34) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %1, ptr noundef nonnull @.str.47) #3
   br label %cleanup
@@ -1509,12 +1509,12 @@ if.else:                                          ; preds = %entry
 
 if.end:                                           ; preds = %if.else, %if.then
   %params = getelementptr inbounds %struct._tagTreeCCOperation, ptr %oper, i64 0, i32 4
-  %param.033 = load ptr, ptr %params, align 8, !tbaa !21
-  %cmp2.not34 = icmp eq ptr %param.033, null
-  br i1 %cmp2.not34, label %while.end, label %if.end4.peel
+  %param.035 = load ptr, ptr %params, align 8, !tbaa !21
+  %cmp2.not36 = icmp eq ptr %param.035, null
+  br i1 %cmp2.not36, label %while.end, label %if.end4.peel
 
 if.end4.peel:                                     ; preds = %if.end
-  %.pre = load ptr, ptr %param.033, align 8, !tbaa !22
+  %.pre = load ptr, ptr %param.035, align 8, !tbaa !22
   %tobool6.not.peel = icmp eq ptr %.pre, null
   br i1 %tobool6.not.peel, label %if.else9.peel, label %if.then7.peel
 
@@ -1528,41 +1528,41 @@ if.else9.peel:                                    ; preds = %if.end4.peel
 
 if.end10.peel:                                    ; preds = %if.else9.peel, %if.then7.peel
   %num.1.peel = phi i32 [ 1, %if.then7.peel ], [ 2, %if.else9.peel ]
-  %flags.peel = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.033, i64 0, i32 2
+  %flags.peel = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.035, i64 0, i32 2
   %1 = load i32, ptr %flags.peel, align 8, !tbaa !33
   %and.peel = and i32 %1, 1
   %cmp11.not.peel = icmp eq i32 %and.peel, 0
   br i1 %cmp11.not.peel, label %if.end16.peel, label %if.then12.peel
 
 if.then12.peel:                                   ; preds = %if.end10.peel
-  %type.peel = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.033, i64 0, i32 1
-  %2 = load ptr, ptr %type.peel, align 8, !tbaa !61
+  %type.peel = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.035, i64 0, i32 1
+  %2 = load ptr, ptr %type.peel, align 8, !tbaa !57
   %call.i.peel = tail call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %2) #3
   %tobool.not.i.peel = icmp eq ptr %call.i.peel, null
-  br i1 %tobool.not.i.peel, label %if.end2.i.peel, label %if.then.i.peel
+  br i1 %tobool.not.i.peel, label %if.then14.peel, label %if.then.i.peel
 
 if.then.i.peel:                                   ; preds = %if.then12.peel
   %flags.i.peel = getelementptr inbounds %struct._tagTreeCCNode, ptr %call.i.peel, i64 0, i32 5
   %3 = load i32, ptr %flags.i.peel, align 8, !tbaa !15
   %and.i.peel = and i32 %3, 8
   %cmp.not.i.peel = icmp eq i32 %and.i.peel, 0
-  br i1 %cmp.not.i.peel, label %if.end2.i.peel, label %if.end16.peel
+  br i1 %cmp.not.i.peel, label %if.then14.peel, label %if.end16.peel
 
-if.end2.i.peel:                                   ; preds = %if.then.i.peel, %if.then12.peel
+if.then14.peel:                                   ; preds = %if.then.i.peel, %if.then12.peel
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.6) #3
   br label %if.end16.peel
 
-if.end16.peel:                                    ; preds = %if.end2.i.peel, %if.then.i.peel, %if.end10.peel
-  %next.peel = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.033, i64 0, i32 4
+if.end16.peel:                                    ; preds = %if.then14.peel, %if.then.i.peel, %if.end10.peel
+  %next.peel = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.035, i64 0, i32 4
   %param.0.peel = load ptr, ptr %next.peel, align 8, !tbaa !21
   %cmp2.not.peel = icmp eq ptr %param.0.peel, null
   br i1 %cmp2.not.peel, label %while.end, label %if.end4
 
 if.end4:                                          ; preds = %if.end16.peel, %if.end16
-  %param.037 = phi ptr [ %param.0, %if.end16 ], [ %param.0.peel, %if.end16.peel ]
-  %num.035 = phi i32 [ %num.1, %if.end16 ], [ %num.1.peel, %if.end16.peel ]
+  %param.039 = phi ptr [ %param.0, %if.end16 ], [ %param.0.peel, %if.end16.peel ]
+  %num.037 = phi i32 [ %num.1, %if.end16 ], [ %num.1.peel, %if.end16.peel ]
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.3) #3
-  %4 = load ptr, ptr %param.037, align 8, !tbaa !22
+  %4 = load ptr, ptr %param.039, align 8, !tbaa !22
   %tobool6.not = icmp eq ptr %4, null
   br i1 %tobool6.not, label %if.else9, label %if.then7
 
@@ -1571,41 +1571,41 @@ if.then7:                                         ; preds = %if.end4
   br label %if.end10
 
 if.else9:                                         ; preds = %if.end4
-  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.5, i32 noundef %num.035) #3
-  %inc = add nsw i32 %num.035, 1
+  tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.5, i32 noundef %num.037) #3
+  %inc = add nsw i32 %num.037, 1
   br label %if.end10
 
 if.end10:                                         ; preds = %if.else9, %if.then7
-  %num.1 = phi i32 [ %num.035, %if.then7 ], [ %inc, %if.else9 ]
-  %flags = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.037, i64 0, i32 2
+  %num.1 = phi i32 [ %num.037, %if.then7 ], [ %inc, %if.else9 ]
+  %flags = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.039, i64 0, i32 2
   %5 = load i32, ptr %flags, align 8, !tbaa !33
   %and = and i32 %5, 1
   %cmp11.not = icmp eq i32 %and, 0
   br i1 %cmp11.not, label %if.end16, label %if.then12
 
 if.then12:                                        ; preds = %if.end10
-  %type = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.037, i64 0, i32 1
-  %6 = load ptr, ptr %type, align 8, !tbaa !61
+  %type = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.039, i64 0, i32 1
+  %6 = load ptr, ptr %type, align 8, !tbaa !57
   %call.i = tail call ptr @TreeCCNodeFindByType(ptr noundef %context, ptr noundef %6) #3
   %tobool.not.i = icmp eq ptr %call.i, null
-  br i1 %tobool.not.i, label %if.end2.i, label %if.then.i
+  br i1 %tobool.not.i, label %if.then14, label %if.then.i
 
 if.then.i:                                        ; preds = %if.then12
   %flags.i = getelementptr inbounds %struct._tagTreeCCNode, ptr %call.i, i64 0, i32 5
   %7 = load i32, ptr %flags.i, align 8, !tbaa !15
   %and.i = and i32 %7, 8
   %cmp.not.i = icmp eq i32 %and.i, 0
-  br i1 %cmp.not.i, label %if.end2.i, label %if.end16
+  br i1 %cmp.not.i, label %if.then14, label %if.end16
 
-if.end2.i:                                        ; preds = %if.then.i, %if.then12
+if.then14:                                        ; preds = %if.then12, %if.then.i
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.6) #3
   br label %if.end16
 
-if.end16:                                         ; preds = %if.then.i, %if.end2.i, %if.end10
-  %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.037, i64 0, i32 4
+if.end16:                                         ; preds = %if.then.i, %if.then14, %if.end10
+  %next = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.039, i64 0, i32 4
   %param.0 = load ptr, ptr %next, align 8, !tbaa !21
   %cmp2.not = icmp eq ptr %param.0, null
-  br i1 %cmp2.not, label %while.end, label %if.end4, !llvm.loop !62
+  br i1 %cmp2.not, label %while.end, label %if.end4, !llvm.loop !58
 
 while.end:                                        ; preds = %if.end16, %if.end16.peel, %if.end
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.7) #3
@@ -1637,13 +1637,13 @@ entry:
 
 if.end5:                                          ; preds = %entry
   %commonSource = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 7
-  %2 = load ptr, ptr %commonSource, align 8, !tbaa !46
+  %2 = load ptr, ptr %commonSource, align 8, !tbaa !44
   %tobool.not = icmp eq ptr %2, null
   br i1 %tobool.not, label %if.else, label %if.end8
 
 if.else:                                          ; preds = %if.end5
   %sourceStream = getelementptr inbounds %struct._tagTreeCCContext, ptr %context, i64 0, i32 5
-  %3 = load ptr, ptr %sourceStream, align 8, !tbaa !47
+  %3 = load ptr, ptr %sourceStream, align 8, !tbaa !45
   br label %if.end8
 
 if.end8:                                          ; preds = %if.end5, %if.else
@@ -1699,7 +1699,7 @@ while.body:                                       ; preds = %if.end, %if.end7
   %field.020 = phi ptr [ %field.0, %if.end7 ], [ %field.017, %if.end ]
   %needComma.addr.119 = phi i32 [ %needComma.addr.2, %if.end7 ], [ %needComma.addr.0, %if.end ]
   %flags = getelementptr inbounds %struct._tagTreeCCField, ptr %field.020, i64 0, i32 3
-  %1 = load i32, ptr %flags, align 8, !tbaa !58
+  %1 = load i32, ptr %flags, align 8, !tbaa !54
   %and = and i32 %1, 1
   %cmp2 = icmp eq i32 %and, 0
   br i1 %cmp2, label %if.then3, label %if.end7
@@ -1713,7 +1713,7 @@ if.then5:                                         ; preds = %if.then3
   br label %if.end6
 
 if.end6:                                          ; preds = %if.then5, %if.then3
-  %2 = load ptr, ptr %field.020, align 8, !tbaa !54
+  %2 = load ptr, ptr %field.020, align 8, !tbaa !51
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.4, ptr noundef %2) #3
   br label %if.end7
 
@@ -1722,7 +1722,7 @@ if.end7:                                          ; preds = %if.end6, %while.bod
   %next = getelementptr inbounds %struct._tagTreeCCField, ptr %field.020, i64 0, i32 6
   %field.0 = load ptr, ptr %next, align 8, !tbaa !21
   %cmp.not = icmp eq ptr %field.0, null
-  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !63
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !59
 
 while.end:                                        ; preds = %if.end7, %if.end
   %needComma.addr.1.lcssa = phi i32 [ %needComma.addr.0, %if.end ], [ %needComma.addr.2, %if.end7 ]
@@ -1749,14 +1749,14 @@ if.end:                                           ; preds = %if.then, %entry
 while.body:                                       ; preds = %if.end, %if.end7
   %field.019 = phi ptr [ %field.0, %if.end7 ], [ %field.017, %if.end ]
   %flags = getelementptr inbounds %struct._tagTreeCCField, ptr %field.019, i64 0, i32 3
-  %1 = load i32, ptr %flags, align 8, !tbaa !58
+  %1 = load i32, ptr %flags, align 8, !tbaa !54
   %and = and i32 %1, 1
   %cmp2 = icmp eq i32 %and, 0
   br i1 %cmp2, label %if.then5, label %if.end7
 
 if.then5:                                         ; preds = %while.body
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.3) #3
-  %2 = load ptr, ptr %field.019, align 8, !tbaa !54
+  %2 = load ptr, ptr %field.019, align 8, !tbaa !51
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.4, ptr noundef %2) #3
   br label %if.end7
 
@@ -1764,7 +1764,7 @@ if.end7:                                          ; preds = %if.then5, %while.bo
   %next = getelementptr inbounds %struct._tagTreeCCField, ptr %field.019, i64 0, i32 6
   %field.0 = load ptr, ptr %next, align 8, !tbaa !21
   %cmp.not = icmp eq ptr %field.0, null
-  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !64
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !60
 
 while.end:                                        ; preds = %if.end7, %if.end
   ret void
@@ -1794,7 +1794,7 @@ while.body:                                       ; preds = %if.end, %if.end7
   %field.020 = phi ptr [ %field.0, %if.end7 ], [ %field.017, %if.end ]
   %needComma.addr.119 = phi i32 [ %needComma.addr.2, %if.end7 ], [ %needComma.addr.0, %if.end ]
   %flags = getelementptr inbounds %struct._tagTreeCCField, ptr %field.020, i64 0, i32 3
-  %1 = load i32, ptr %flags, align 8, !tbaa !58
+  %1 = load i32, ptr %flags, align 8, !tbaa !54
   %and = and i32 %1, 1
   %cmp2 = icmp eq i32 %and, 0
   br i1 %cmp2, label %if.then3, label %if.end7
@@ -1808,7 +1808,7 @@ if.then5:                                         ; preds = %if.then3
   br label %if.end6
 
 if.end6:                                          ; preds = %if.then5, %if.then3
-  %2 = load ptr, ptr %field.020, align 8, !tbaa !54
+  %2 = load ptr, ptr %field.020, align 8, !tbaa !51
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.80, ptr noundef %2) #3
   br label %if.end7
 
@@ -1817,7 +1817,7 @@ if.end7:                                          ; preds = %if.end6, %while.bod
   %next = getelementptr inbounds %struct._tagTreeCCField, ptr %field.020, i64 0, i32 6
   %field.0 = load ptr, ptr %next, align 8, !tbaa !21
   %cmp.not = icmp eq ptr %field.0, null
-  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !65
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !61
 
 while.end:                                        ; preds = %if.end7, %if.end
   %needComma.addr.1.lcssa = phi i32 [ %needComma.addr.0, %if.end ], [ %needComma.addr.2, %if.end7 ]
@@ -1846,7 +1846,7 @@ while.body:                                       ; preds = %if.end, %if.end7
   %field.020 = phi ptr [ %field.0, %if.end7 ], [ %field.017, %if.end ]
   %needComma.addr.119 = phi i32 [ %needComma.addr.2, %if.end7 ], [ %needComma.addr.0, %if.end ]
   %flags = getelementptr inbounds %struct._tagTreeCCField, ptr %field.020, i64 0, i32 3
-  %1 = load i32, ptr %flags, align 8, !tbaa !58
+  %1 = load i32, ptr %flags, align 8, !tbaa !54
   %and = and i32 %1, 1
   %cmp2 = icmp eq i32 %and, 0
   br i1 %cmp2, label %if.then3, label %if.end7
@@ -1860,7 +1860,7 @@ if.then5:                                         ; preds = %if.then3
   br label %if.end6
 
 if.end6:                                          ; preds = %if.then5, %if.then3
-  %2 = load ptr, ptr %field.020, align 8, !tbaa !54
+  %2 = load ptr, ptr %field.020, align 8, !tbaa !51
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.4, ptr noundef %2) #3
   br label %if.end7
 
@@ -1869,7 +1869,7 @@ if.end7:                                          ; preds = %if.end6, %while.bod
   %next = getelementptr inbounds %struct._tagTreeCCField, ptr %field.020, i64 0, i32 6
   %field.0 = load ptr, ptr %next, align 8, !tbaa !21
   %cmp.not = icmp eq ptr %field.0, null
-  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !66
+  br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !62
 
 while.end:                                        ; preds = %if.end7, %if.end
   %needComma.addr.1.lcssa = phi i32 [ %needComma.addr.0, %if.end ], [ %needComma.addr.2, %if.end7 ]
@@ -1899,7 +1899,7 @@ while.body.lr.ph:                                 ; preds = %if.end
 
 while.body:                                       ; preds = %while.body.lr.ph, %while.cond.backedge
   %virt.0144 = phi ptr [ %virt.0142, %while.body.lr.ph ], [ %virt.0, %while.cond.backedge ]
-  %1 = load ptr, ptr %virt.0144, align 8, !tbaa !67
+  %1 = load ptr, ptr %virt.0144, align 8, !tbaa !63
   %call = tail call ptr @TreeCCOperationFindCase(ptr noundef %context, ptr noundef %actualNode, ptr noundef %1) #3
   %tobool2.not.not = icmp eq ptr %call, null
   br i1 %tobool2.not.not, label %while.cond5, label %if.end26
@@ -1911,10 +1911,10 @@ while.cond5:                                      ; preds = %while.body, %while.
   br i1 %cmp6.not, label %if.then18, label %while.body7
 
 while.body7:                                      ; preds = %while.cond5
-  %2 = load ptr, ptr %virt.0144, align 8, !tbaa !67
+  %2 = load ptr, ptr %virt.0144, align 8, !tbaa !63
   %call9 = tail call ptr @TreeCCOperationFindCase(ptr noundef %context, ptr noundef nonnull %tempNode.0, ptr noundef %2) #3
   %cmp10.not = icmp eq ptr %call9, null
-  br i1 %cmp10.not, label %while.cond5, label %while.cond.backedge, !llvm.loop !69
+  br i1 %cmp10.not, label %while.cond5, label %while.cond.backedge, !llvm.loop !65
 
 if.then18:                                        ; preds = %while.cond5
   br i1 %cmp19, label %if.end26, label %while.cond.backedge
@@ -1928,15 +1928,15 @@ while.cond.backedge:                              ; preds = %while.body7, %while
   %virt.0.in.be = getelementptr inbounds %struct._tagTreeCCVirtual, ptr %virt.0144, i64 0, i32 4
   %virt.0 = load ptr, ptr %virt.0.in.be, align 8, !tbaa !21
   %cmp.not = icmp eq ptr %virt.0, null
-  br i1 %cmp.not, label %while.end72, label %while.body, !llvm.loop !70
+  br i1 %cmp.not, label %while.end72, label %while.body, !llvm.loop !66
 
 if.end26:                                         ; preds = %while.body, %if.then18
   %.str.82.sink = phi ptr [ @.str.81, %if.then18 ], [ @.str.82, %while.body ]
   %operCase.2.ph132 = phi ptr [ null, %if.then18 ], [ %call, %while.body ]
-  %3 = load ptr, ptr %virt.0144, align 8, !tbaa !67
+  %3 = load ptr, ptr %virt.0144, align 8, !tbaa !63
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull %.str.82.sink, ptr noundef %3) #3
   %oper = getelementptr inbounds %struct._tagTreeCCVirtual, ptr %virt.0144, i64 0, i32 3
-  %4 = load ptr, ptr %oper, align 8, !tbaa !71
+  %4 = load ptr, ptr %oper, align 8, !tbaa !67
   %params = getelementptr inbounds %struct._tagTreeCCOperation, ptr %4, i64 0, i32 4
   %param.0136 = load ptr, ptr %params, align 8, !tbaa !21
   %cmp28.not137 = icmp eq ptr %param.0136, null
@@ -1994,7 +1994,7 @@ if.end47:                                         ; preds = %if.then42, %if.else
   %next48 = getelementptr inbounds %struct._tagTreeCCParam, ptr %param.0141, i64 0, i32 4
   %param.0 = load ptr, ptr %next48, align 8, !tbaa !21
   %cmp28.not = icmp eq ptr %param.0, null
-  br i1 %cmp28.not, label %while.end49, label %while.body29, !llvm.loop !72
+  br i1 %cmp28.not, label %while.end49, label %while.body29, !llvm.loop !68
 
 while.end49:                                      ; preds = %if.end47.peel152, %if.end47, %if.end47.peel, %if.end26
   br i1 %tobool2.not.not, label %while.cond.backedge.sink.split, label %if.then51
@@ -2007,9 +2007,9 @@ if.then51:                                        ; preds = %while.end49
   %9 = load ptr, ptr %codeFilename, align 8, !tbaa !29
   tail call void @TreeCCStreamLine(ptr noundef %stream, i64 noundef %8, ptr noundef %9) #3
   tail call void (ptr, ptr, ...) @TreeCCStreamPrint(ptr noundef %stream, ptr noundef nonnull @.str.19) #3
-  %10 = load ptr, ptr %oper, align 8, !tbaa !71
+  %10 = load ptr, ptr %oper, align 8, !tbaa !67
   %params53 = getelementptr inbounds %struct._tagTreeCCOperation, ptr %10, i64 0, i32 4
-  %11 = load ptr, ptr %params53, align 8, !tbaa !74
+  %11 = load ptr, ptr %params53, align 8, !tbaa !70
   %12 = load ptr, ptr %11, align 8, !tbaa !22
   %tobool55.not = icmp eq ptr %12, null
   br i1 %tobool55.not, label %if.end67, label %lor.lhs.false
@@ -2091,37 +2091,33 @@ attributes #4 = { nounwind willreturn memory(read) }
 !38 = distinct !{!38, !14}
 !39 = distinct !{!39, !14, !25}
 !40 = !{!6, !7, i64 24}
-!41 = !{!27, !7, i64 8200}
-!42 = !{!43, !7, i64 16}
-!43 = !{!"_tagTreeCCStream", !7, i64 0, !7, i64 8, !7, i64 16, !11, i64 24, !7, i64 32, !7, i64 40, !10, i64 48, !10, i64 52, !10, i64 52, !10, i64 52, !10, i64 52, !10, i64 52, !7, i64 56, !7, i64 64, !7, i64 72}
-!44 = !{!43, !7, i64 72}
-!45 = distinct !{!45, !14}
-!46 = !{!27, !7, i64 8232}
-!47 = !{!27, !7, i64 8216}
+!41 = !{!42, !7, i64 16}
+!42 = !{!"_tagTreeCCStream", !7, i64 0, !7, i64 8, !7, i64 16, !11, i64 24, !7, i64 32, !7, i64 40, !10, i64 48, !10, i64 52, !10, i64 52, !10, i64 52, !10, i64 52, !10, i64 52, !7, i64 56, !7, i64 64, !7, i64 72}
+!43 = distinct !{!43, !14}
+!44 = !{!27, !7, i64 8232}
+!45 = !{!27, !7, i64 8216}
+!46 = distinct !{!46, !14}
+!47 = !{!16, !7, i64 104}
 !48 = distinct !{!48, !14}
-!49 = !{!16, !7, i64 104}
-!50 = distinct !{!50, !14}
-!51 = !{!27, !7, i64 8256}
-!52 = !{!16, !10, i64 44}
-!53 = !{!16, !7, i64 72}
-!54 = !{!55, !7, i64 0}
-!55 = !{!"_tagTreeCCField", !7, i64 0, !7, i64 8, !7, i64 16, !10, i64 24, !7, i64 32, !11, i64 40, !7, i64 48}
-!56 = !{!55, !7, i64 48}
-!57 = distinct !{!57, !14}
-!58 = !{!55, !10, i64 24}
-!59 = !{!55, !7, i64 16}
+!49 = !{!27, !7, i64 8256}
+!50 = !{!16, !10, i64 44}
+!51 = !{!52, !7, i64 0}
+!52 = !{!"_tagTreeCCField", !7, i64 0, !7, i64 8, !7, i64 16, !10, i64 24, !7, i64 32, !11, i64 40, !7, i64 48}
+!53 = distinct !{!53, !14}
+!54 = !{!52, !10, i64 24}
+!55 = !{!52, !7, i64 16}
+!56 = distinct !{!56, !14}
+!57 = !{!23, !7, i64 8}
+!58 = distinct !{!58, !14, !25}
+!59 = distinct !{!59, !14}
 !60 = distinct !{!60, !14}
-!61 = !{!23, !7, i64 8}
-!62 = distinct !{!62, !14, !25}
-!63 = distinct !{!63, !14}
-!64 = distinct !{!64, !14}
+!61 = distinct !{!61, !14}
+!62 = distinct !{!62, !14}
+!63 = !{!64, !7, i64 0}
+!64 = !{!"_tagTreeCCVirtual", !7, i64 0, !7, i64 8, !7, i64 16, !7, i64 24, !7, i64 32}
 !65 = distinct !{!65, !14}
 !66 = distinct !{!66, !14}
-!67 = !{!68, !7, i64 0}
-!68 = !{!"_tagTreeCCVirtual", !7, i64 0, !7, i64 8, !7, i64 16, !7, i64 24, !7, i64 32}
-!69 = distinct !{!69, !14}
-!70 = distinct !{!70, !14}
-!71 = !{!68, !7, i64 24}
-!72 = distinct !{!72, !14, !73}
-!73 = !{!"llvm.loop.peeled.count", i32 2}
-!74 = !{!6, !7, i64 32}
+!67 = !{!64, !7, i64 24}
+!68 = distinct !{!68, !14, !69}
+!69 = !{!"llvm.loop.peeled.count", i32 2}
+!70 = !{!6, !7, i64 32}

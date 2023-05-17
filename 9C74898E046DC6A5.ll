@@ -15,12 +15,12 @@ cond.true:                                        ; preds = %entry
   %arrayidx = getelementptr inbounds ptr, ptr %argv, i64 1
   %0 = load ptr, ptr %arrayidx, align 8, !tbaa !5
   %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %0, ptr noundef null, i32 noundef 10) #3
-  %1 = trunc i64 %call.i to i32
-  %2 = and i32 %1, 65535
+  %conv.i = trunc i64 %call.i to i32
+  %1 = and i32 %conv.i, 65535
   br label %cond.end
 
 cond.end:                                         ; preds = %entry, %cond.true
-  %cond = phi i32 [ %2, %cond.true ], [ 64767, %entry ]
+  %cond = phi i32 [ %1, %cond.true ], [ 64767, %entry ]
   %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %cond)
   ret i32 0
 }

@@ -113,6 +113,7 @@ entry:
   %osucc239 = getelementptr inbounds %struct.LIST, ptr %hd, i64 0, i32 1
   %sub = xor i32 %bf.cast, 1
   %cmp1061 = icmp eq i32 %sub, 0
+  %or.cond5857.v = select i1 %cmp217.not, i8 17, i8 19
   %idxprom1170 = zext i16 %bf.clear to i64
   %idxprom1178 = zext i32 %sub to i64
   %obfc = getelementptr inbounds %struct.CONSTRAINT, ptr %dest_par_constr, i64 0, i32 1
@@ -125,7 +126,6 @@ entry:
   %oopt_counts = getelementptr inbounds %struct.head_type, ptr %hd, i64 0, i32 10
   %oheaders = getelementptr inbounds %struct.head_type, ptr %hd, i64 0, i32 13
   %oready_galls = getelementptr inbounds %struct.head_type, ptr %hd, i64 0, i32 7
-  %or.cond5863.v = select i1 %cmp217.not, i8 17, i8 19
   %. = select i1 %cmp217.not, i16 8, i16 16
   br label %RESUME
 
@@ -212,8 +212,8 @@ if.then46:                                        ; preds = %sw.bb43
   br label %cleanup5156
 
 sw.bb49:                                          ; preds = %for.end42
-  %tobool.i.not = icmp eq i32 %prnt_flush.0, 0
-  br i1 %tobool.i.not, label %ParentFlush.exit, label %if.then.i
+  %tobool.not.i = icmp eq i32 %prnt_flush.0, 0
+  br i1 %tobool.not.i, label %ParentFlush.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %sw.bb49
   %osucc.i = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.1, i64 0, i64 1, i32 1
@@ -221,8 +221,8 @@ if.then.i:                                        ; preds = %sw.bb49
   br label %for.cond.i
 
 for.cond.i:                                       ; preds = %for.cond.i, %if.then.i
-  %prnt.0.i.in = phi ptr [ %9, %if.then.i ], [ %prnt.0.i, %for.cond.i ]
-  %prnt.0.i = load ptr, ptr %prnt.0.i.in, align 8, !tbaa !5
+  %prnt.0.in.i = phi ptr [ %9, %if.then.i ], [ %prnt.0.i, %for.cond.i ]
+  %prnt.0.i = load ptr, ptr %prnt.0.in.i, align 8, !tbaa !5
   %ou1.i = getelementptr inbounds %struct.word_type, ptr %prnt.0.i, i64 0, i32 1
   %10 = load i8, ptr %ou1.i, align 8, !tbaa !5
   %cmp.i = icmp eq i8 %10, 0
@@ -243,32 +243,32 @@ if.then52:                                        ; preds = %ParentFlush.exit
   br label %cleanup5156
 
 sw.bb55:                                          ; preds = %for.end42
-  %tobool.i5687.not = icmp eq i32 %prnt_flush.0, 0
-  br i1 %tobool.i5687.not, label %ParentFlush.exit5699, label %if.then.i5690
+  %tobool.not.i5805 = icmp eq i32 %prnt_flush.0, 0
+  br i1 %tobool.not.i5805, label %ParentFlush.exit5815, label %if.then.i5807
 
-if.then.i5690:                                    ; preds = %sw.bb55
-  %osucc.i5689 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.1, i64 0, i64 1, i32 1
-  %13 = load ptr, ptr %osucc.i5689, align 8, !tbaa !5
-  br label %for.cond.i5695
+if.then.i5807:                                    ; preds = %sw.bb55
+  %osucc.i5806 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.1, i64 0, i64 1, i32 1
+  %13 = load ptr, ptr %osucc.i5806, align 8, !tbaa !5
+  br label %for.cond.i5812
 
-for.cond.i5695:                                   ; preds = %for.cond.i5695, %if.then.i5690
-  %prnt.0.i5691.in = phi ptr [ %13, %if.then.i5690 ], [ %prnt.0.i5691, %for.cond.i5695 ]
-  %prnt.0.i5691 = load ptr, ptr %prnt.0.i5691.in, align 8, !tbaa !5
-  %ou1.i5692 = getelementptr inbounds %struct.word_type, ptr %prnt.0.i5691, i64 0, i32 1
-  %14 = load i8, ptr %ou1.i5692, align 8, !tbaa !5
-  %cmp.i5694 = icmp eq i8 %14, 0
-  br i1 %cmp.i5694, label %for.cond.i5695, label %for.end.i5697, !llvm.loop !12
+for.cond.i5812:                                   ; preds = %for.cond.i5812, %if.then.i5807
+  %prnt.0.in.i5808 = phi ptr [ %13, %if.then.i5807 ], [ %prnt.0.i5809, %for.cond.i5812 ]
+  %prnt.0.i5809 = load ptr, ptr %prnt.0.in.i5808, align 8, !tbaa !5
+  %ou1.i5810 = getelementptr inbounds %struct.word_type, ptr %prnt.0.i5809, i64 0, i32 1
+  %14 = load i8, ptr %ou1.i5810, align 8, !tbaa !5
+  %cmp.i5811 = icmp eq i8 %14, 0
+  br i1 %cmp.i5811, label %for.cond.i5812, label %for.end.i5813, !llvm.loop !12
 
-for.end.i5697:                                    ; preds = %for.cond.i5695
-  call void @FlushGalley(ptr noundef nonnull %prnt.0.i5691)
-  br label %ParentFlush.exit5699
+for.end.i5813:                                    ; preds = %for.cond.i5812
+  call void @FlushGalley(ptr noundef nonnull %prnt.0.i5809)
+  br label %ParentFlush.exit5815
 
-ParentFlush.exit5699:                             ; preds = %sw.bb55, %for.end.i5697
+ParentFlush.exit5815:                             ; preds = %sw.bb55, %for.end.i5813
   %15 = load ptr, ptr %inners, align 8, !tbaa !8
   %cmp56 = icmp eq ptr %15, null
   br i1 %cmp56, label %cleanup5156, label %if.then58
 
-if.then58:                                        ; preds = %ParentFlush.exit5699
+if.then58:                                        ; preds = %ParentFlush.exit5815
   %16 = load ptr, ptr @no_fpos, align 8, !tbaa !8
   %call59 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %16, ptr noundef nonnull @.str.5) #6
   br label %cleanup5156
@@ -319,11 +319,11 @@ for.end93:                                        ; preds = %for.cond82
 if.then100:                                       ; preds = %for.end93
   %bf.set = or i16 %bf.load95, 1
   store i16 %bf.set, ptr %onon_blocking, align 2
-  %.pre6264 = load ptr, ptr %oux174, align 8, !tbaa !5
+  %.pre6258 = load ptr, ptr %oux174, align 8, !tbaa !5
   br label %if.end105
 
 if.end105:                                        ; preds = %if.then100, %for.end93
-  %24 = phi ptr [ %.pre6264, %if.then100 ], [ %20, %for.end93 ]
+  %24 = phi ptr [ %.pre6258, %if.then100 ], [ %20, %for.end93 ]
   %prnt_flush.1 = phi i32 [ 1, %if.then100 ], [ %prnt_flush.0, %for.end93 ]
   call void @FreeGalley(ptr noundef nonnull %prnt.0, ptr noundef %22, ptr noundef nonnull %inners, ptr noundef %22, ptr noundef %24) #6
   br label %if.end123
@@ -386,7 +386,7 @@ for.end159:                                       ; preds = %for.cond148
   %bf.load162 = load i16, ptr %onon_blocking161, align 2
   %bf.clear163 = and i16 %bf.load162, 1
   %tobool165.not = icmp eq i16 %bf.clear163, 0
-  %spec.select5738 = select i1 %tobool165.not, i32 1, i32 %prnt_flush.0
+  %spec.select5699 = select i1 %tobool165.not, i32 1, i32 %prnt_flush.0
   %33 = load ptr, ptr %oux174, align 8, !tbaa !5
   call void @FreeGalley(ptr noundef nonnull %prnt.1, ptr noundef %31, ptr noundef nonnull %inners, ptr noundef %31, ptr noundef %33) #6
   br label %if.end184
@@ -408,7 +408,7 @@ lor.end:                                          ; preds = %lor.rhs, %if.else17
   br label %if.end184
 
 if.end184:                                        ; preds = %lor.end, %for.end159
-  %prnt_flush.4 = phi i32 [ %spec.select5738, %for.end159 ], [ %lor.ext, %lor.end ]
+  %prnt_flush.4 = phi i32 [ %spec.select5699, %for.end159 ], [ %lor.ext, %lor.end ]
   %36 = load ptr, ptr %inners, align 8, !tbaa !8
   %cmp185.not = icmp eq ptr %36, null
   br i1 %cmp185.not, label %RESUME.backedge, label %if.then187
@@ -432,30 +432,30 @@ sw.bb190:                                         ; preds = %for.cond
   br i1 %cmp193, label %if.then195, label %sw.epilog203
 
 if.then195:                                       ; preds = %sw.bb190
-  %tobool.i5700.not = icmp eq i32 %prnt_flush.0, 0
-  br i1 %tobool.i5700.not, label %cleanup5156, label %if.then.i5703
+  %tobool.not.i5816 = icmp eq i32 %prnt_flush.0, 0
+  br i1 %tobool.not.i5816, label %cleanup5156, label %if.then.i5818
 
-if.then.i5703:                                    ; preds = %if.then195
-  %osucc.i5702 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.0, i64 0, i64 1, i32 1
-  %41 = load ptr, ptr %osucc.i5702, align 8, !tbaa !5
-  br label %for.cond.i5708
+if.then.i5818:                                    ; preds = %if.then195
+  %osucc.i5817 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.0, i64 0, i64 1, i32 1
+  %41 = load ptr, ptr %osucc.i5817, align 8, !tbaa !5
+  br label %for.cond.i5823
 
-for.cond.i5708:                                   ; preds = %for.cond.i5708, %if.then.i5703
-  %prnt.0.i5704.in = phi ptr [ %41, %if.then.i5703 ], [ %prnt.0.i5704, %for.cond.i5708 ]
-  %prnt.0.i5704 = load ptr, ptr %prnt.0.i5704.in, align 8, !tbaa !5
-  %ou1.i5705 = getelementptr inbounds %struct.word_type, ptr %prnt.0.i5704, i64 0, i32 1
-  %42 = load i8, ptr %ou1.i5705, align 8, !tbaa !5
-  %cmp.i5707 = icmp eq i8 %42, 0
-  br i1 %cmp.i5707, label %for.cond.i5708, label %for.end.i5710, !llvm.loop !12
+for.cond.i5823:                                   ; preds = %for.cond.i5823, %if.then.i5818
+  %prnt.0.in.i5819 = phi ptr [ %41, %if.then.i5818 ], [ %prnt.0.i5820, %for.cond.i5823 ]
+  %prnt.0.i5820 = load ptr, ptr %prnt.0.in.i5819, align 8, !tbaa !5
+  %ou1.i5821 = getelementptr inbounds %struct.word_type, ptr %prnt.0.i5820, i64 0, i32 1
+  %42 = load i8, ptr %ou1.i5821, align 8, !tbaa !5
+  %cmp.i5822 = icmp eq i8 %42, 0
+  br i1 %cmp.i5822, label %for.cond.i5823, label %for.end.i5824, !llvm.loop !12
 
-for.end.i5710:                                    ; preds = %for.cond.i5708
-  call void @FlushGalley(ptr noundef nonnull %prnt.0.i5704)
+for.end.i5824:                                    ; preds = %for.cond.i5823
+  call void @FlushGalley(ptr noundef nonnull %prnt.0.i5820)
   br label %cleanup5156
 
 sw.default197:                                    ; preds = %for.cond
-  %conv14.le = zext i8 %4 to i32
+  %conv14 = zext i8 %4 to i32
   %43 = load ptr, ptr @no_fpos, align 8, !tbaa !8
-  %call201 = call ptr @Image(i32 noundef %conv14.le) #6
+  %call201 = call ptr @Image(i32 noundef %conv14) #6
   %call202 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 3, ptr noundef nonnull @.str.7, i32 noundef 0, ptr noundef %43, ptr noundef nonnull @.str.8, ptr noundef %call201) #6
   br label %sw.epilog203
 
@@ -482,9 +482,9 @@ if.end216:                                        ; preds = %if.then211, %sw.epi
   %46 = and i16 %., %bf.load230
   %47 = icmp eq i16 %46, 0
   store ptr null, ptr %inners, align 8, !tbaa !8
-  %link.06015 = load ptr, ptr %osucc239, align 8, !tbaa !5
-  %cmp241.not6016 = icmp eq ptr %link.06015, %hd
-  br i1 %cmp241.not6016, label %if.end1762, label %for.cond247.preheader.lr.ph
+  %link.06009 = load ptr, ptr %osucc239, align 8, !tbaa !5
+  %cmp241.not6010 = icmp eq ptr %link.06009, %hd
+  br i1 %cmp241.not6010, label %if.end1762, label %for.cond247.preheader.lr.ph
 
 for.cond247.preheader.lr.ph:                      ; preds = %if.end216
   %osucc1066 = getelementptr inbounds [2 x %struct.LIST], ptr %44, i64 0, i64 1, i32 1
@@ -495,25 +495,25 @@ for.cond247.preheader.lr.ph:                      ; preds = %if.end216
   br label %for.cond247.preheader
 
 for.cond247.preheader:                            ; preds = %for.cond247.preheader.lr.ph, %for.inc1753
-  %link.06037 = phi ptr [ %link.06015, %for.cond247.preheader.lr.ph ], [ %link.0, %for.inc1753 ]
-  %dest_encl.16035 = phi ptr [ null, %for.cond247.preheader.lr.ph ], [ %dest_encl.5, %for.inc1753 ]
-  %need_adjust.16034 = phi i32 [ 0, %for.cond247.preheader.lr.ph ], [ %need_adjust.3, %for.inc1753 ]
-  %dest_back.16032 = phi i32 [ %dest_back.0, %for.cond247.preheader.lr.ph ], [ %dest_back.4, %for.inc1753 ]
-  %dest_fwd.16030 = phi i32 [ %dest_fwd.0, %for.cond247.preheader.lr.ph ], [ %dest_fwd.4, %for.inc1753 ]
-  %frame_size.16028 = phi i32 [ %frame_size.0, %for.cond247.preheader.lr.ph ], [ %frame_size.4, %for.inc1753 ]
-  %perp_fwd.16026 = phi i32 [ %perp_fwd.0, %for.cond247.preheader.lr.ph ], [ %perp_fwd.4, %for.inc1753 ]
-  %perp_back.16024 = phi i32 [ %perp_back.0, %for.cond247.preheader.lr.ph ], [ %perp_back.4, %for.inc1753 ]
-  %stop_link.06023 = phi ptr [ null, %for.cond247.preheader.lr.ph ], [ %stop_link.2, %for.inc1753 ]
-  %stop_back.16022 = phi i32 [ %stop_back.0, %for.cond247.preheader.lr.ph ], [ %stop_back.3, %for.inc1753 ]
-  %headers_seen.06021 = phi i32 [ 0, %for.cond247.preheader.lr.ph ], [ %headers_seen.1, %for.inc1753 ]
-  %stop_fwd.16020 = phi i32 [ %stop_fwd.0, %for.cond247.preheader.lr.ph ], [ %stop_fwd.3, %for.inc1753 ]
-  %prnt_flush.56019 = phi i32 [ %prnt_flush.0, %for.cond247.preheader.lr.ph ], [ %prnt_flush.6, %for.inc1753 ]
-  %stop_perp_fwd.16018 = phi i32 [ %stop_perp_fwd.0, %for.cond247.preheader.lr.ph ], [ %stop_perp_fwd.3, %for.inc1753 ]
-  %stop_perp_back.16017 = phi i32 [ %stop_perp_back.0, %for.cond247.preheader.lr.ph ], [ %stop_perp_back.3, %for.inc1753 ]
+  %link.06031 = phi ptr [ %link.06009, %for.cond247.preheader.lr.ph ], [ %link.0, %for.inc1753 ]
+  %dest_encl.16029 = phi ptr [ null, %for.cond247.preheader.lr.ph ], [ %dest_encl.5, %for.inc1753 ]
+  %need_adjust.16028 = phi i32 [ 0, %for.cond247.preheader.lr.ph ], [ %need_adjust.3, %for.inc1753 ]
+  %dest_back.16026 = phi i32 [ %dest_back.0, %for.cond247.preheader.lr.ph ], [ %dest_back.4, %for.inc1753 ]
+  %dest_fwd.16024 = phi i32 [ %dest_fwd.0, %for.cond247.preheader.lr.ph ], [ %dest_fwd.4, %for.inc1753 ]
+  %frame_size.16022 = phi i32 [ %frame_size.0, %for.cond247.preheader.lr.ph ], [ %frame_size.4, %for.inc1753 ]
+  %perp_fwd.16020 = phi i32 [ %perp_fwd.0, %for.cond247.preheader.lr.ph ], [ %perp_fwd.4, %for.inc1753 ]
+  %perp_back.16018 = phi i32 [ %perp_back.0, %for.cond247.preheader.lr.ph ], [ %perp_back.4, %for.inc1753 ]
+  %stop_link.06017 = phi ptr [ null, %for.cond247.preheader.lr.ph ], [ %stop_link.2, %for.inc1753 ]
+  %stop_back.16016 = phi i32 [ %stop_back.0, %for.cond247.preheader.lr.ph ], [ %stop_back.3, %for.inc1753 ]
+  %headers_seen.06015 = phi i32 [ 0, %for.cond247.preheader.lr.ph ], [ %headers_seen.1, %for.inc1753 ]
+  %stop_fwd.16014 = phi i32 [ %stop_fwd.0, %for.cond247.preheader.lr.ph ], [ %stop_fwd.3, %for.inc1753 ]
+  %prnt_flush.56013 = phi i32 [ %prnt_flush.0, %for.cond247.preheader.lr.ph ], [ %prnt_flush.6, %for.inc1753 ]
+  %stop_perp_fwd.16012 = phi i32 [ %stop_perp_fwd.0, %for.cond247.preheader.lr.ph ], [ %stop_perp_fwd.3, %for.inc1753 ]
+  %stop_perp_back.16011 = phi i32 [ %stop_perp_back.0, %for.cond247.preheader.lr.ph ], [ %stop_perp_back.3, %for.inc1753 ]
   br label %for.cond247
 
 for.cond247:                                      ; preds = %for.cond247.preheader, %for.cond247
-  %link.0.pn = phi ptr [ %storemerge, %for.cond247 ], [ %link.06037, %for.cond247.preheader ]
+  %link.0.pn = phi ptr [ %storemerge, %for.cond247 ], [ %link.06031, %for.cond247.preheader ]
   %storemerge.in = getelementptr inbounds [2 x %struct.LIST], ptr %link.0.pn, i64 0, i64 1
   %storemerge = load ptr, ptr %storemerge.in, align 8, !tbaa !5
   %ou1248 = getelementptr inbounds %struct.word_type, ptr %storemerge, i64 0, i32 1
@@ -531,18 +531,18 @@ if.then264:                                       ; preds = %for.cond247
   br label %for.cond276
 
 for.cond276:                                      ; preds = %for.cond276, %if.then264
-  %cond.pn = phi ptr [ %cond, %if.then264 ], [ %storemerge5737, %for.cond276 ]
-  %storemerge5737.in = getelementptr inbounds [2 x %struct.LIST], ptr %cond.pn, i64 0, i64 1
-  %storemerge5737 = load ptr, ptr %storemerge5737.in, align 8, !tbaa !5
-  %ou1277 = getelementptr inbounds %struct.word_type, ptr %storemerge5737, i64 0, i32 1
+  %cond.pn = phi ptr [ %cond, %if.then264 ], [ %storemerge5698, %for.cond276 ]
+  %storemerge5698.in = getelementptr inbounds [2 x %struct.LIST], ptr %cond.pn, i64 0, i64 1
+  %storemerge5698 = load ptr, ptr %storemerge5698.in, align 8, !tbaa !5
+  %ou1277 = getelementptr inbounds %struct.word_type, ptr %storemerge5698, i64 0, i32 1
   %49 = load i8, ptr %ou1277, align 8, !tbaa !5
   %cmp280 = icmp eq i8 %49, 0
   br i1 %cmp280, label %for.cond276, label %if.end288, !llvm.loop !15
 
 if.end288:                                        ; preds = %for.cond247, %for.cond276
   %50 = phi i8 [ %49, %for.cond276 ], [ %48, %for.cond247 ]
-  %storemerge6083 = phi ptr [ %storemerge5737, %for.cond276 ], [ %storemerge, %for.cond247 ]
-  store ptr %storemerge6083, ptr %y, align 8, !tbaa !8
+  %storemerge6077 = phi ptr [ %storemerge5698, %for.cond276 ], [ %storemerge, %for.cond247 ]
+  store ptr %storemerge6077, ptr %y, align 8, !tbaa !8
   switch i8 %50, label %sw.default1746 [
     i8 1, label %sw.bb292
     i8 -120, label %sw.bb328
@@ -613,20 +613,20 @@ if.end288:                                        ; preds = %for.cond247, %for.c
 sw.bb292:                                         ; preds = %if.end288
   %bf.load294 = load i32, ptr %ou2205, align 8
   %bf.clear296 = and i32 %bf.load294, 1610612736
-  %ou2297 = getelementptr inbounds %struct.word_type, ptr %storemerge6083, i64 0, i32 2
+  %ou2297 = getelementptr inbounds %struct.word_type, ptr %storemerge6077, i64 0, i32 2
   %bf.load298 = load i32, ptr %ou2297, align 8
   %bf.clear299 = and i32 %bf.load298, -1610612737
   %bf.set300 = or i32 %bf.clear299, %bf.clear296
   store i32 %bf.set300, ptr %ou2297, align 8
-  store ptr %storemerge6083, ptr %prec_gap, align 8, !tbaa !8
+  store ptr %storemerge6077, ptr %prec_gap, align 8, !tbaa !8
   br i1 %47, label %if.then302, label %if.end314
 
 if.then302:                                       ; preds = %sw.bb292
-  %cmp303.not = icmp eq ptr %dest_encl.16035, null
+  %cmp303.not = icmp eq ptr %dest_encl.16029, null
   br i1 %cmp303.not, label %if.end314, label %land.lhs.true305
 
 land.lhs.true305:                                 ; preds = %if.then302
-  %ogap = getelementptr inbounds %struct.gapobj_type, ptr %storemerge6083, i64 0, i32 3
+  %ogap = getelementptr inbounds %struct.gapobj_type, ptr %storemerge6077, i64 0, i32 3
   %bf.load306 = load i16, ptr %ogap, align 4
   %51 = and i16 %bf.load306, 128
   %tobool310.not = icmp eq i16 %51, 0
@@ -636,12 +636,12 @@ if.then311:                                       ; preds = %land.lhs.true305
   br label %if.end314
 
 if.end314:                                        ; preds = %sw.bb292, %if.then302, %land.lhs.true305, %if.then311
-  %stop_perp_back.2 = phi i32 [ %stop_perp_back.16017, %land.lhs.true305 ], [ %perp_back.16024, %if.then311 ], [ %stop_perp_back.16017, %if.then302 ], [ %stop_perp_back.16017, %sw.bb292 ]
-  %stop_perp_fwd.2 = phi i32 [ %stop_perp_fwd.16018, %land.lhs.true305 ], [ %perp_fwd.16026, %if.then311 ], [ %stop_perp_fwd.16018, %if.then302 ], [ %stop_perp_fwd.16018, %sw.bb292 ]
-  %stop_fwd.2 = phi i32 [ %stop_fwd.16020, %land.lhs.true305 ], [ %dest_fwd.16030, %if.then311 ], [ %stop_fwd.16020, %if.then302 ], [ %stop_fwd.16020, %sw.bb292 ]
-  %stop_back.2 = phi i32 [ %stop_back.16022, %land.lhs.true305 ], [ %dest_back.16032, %if.then311 ], [ %stop_back.16022, %if.then302 ], [ %stop_back.16022, %sw.bb292 ]
-  %stop_link.1 = phi ptr [ %stop_link.06023, %land.lhs.true305 ], [ %link.06037, %if.then311 ], [ %stop_link.06023, %if.then302 ], [ %link.06037, %sw.bb292 ]
-  %ogap315 = getelementptr inbounds %struct.gapobj_type, ptr %storemerge6083, i64 0, i32 3
+  %stop_perp_back.2 = phi i32 [ %stop_perp_back.16011, %land.lhs.true305 ], [ %perp_back.16018, %if.then311 ], [ %stop_perp_back.16011, %if.then302 ], [ %stop_perp_back.16011, %sw.bb292 ]
+  %stop_perp_fwd.2 = phi i32 [ %stop_perp_fwd.16012, %land.lhs.true305 ], [ %perp_fwd.16020, %if.then311 ], [ %stop_perp_fwd.16012, %if.then302 ], [ %stop_perp_fwd.16012, %sw.bb292 ]
+  %stop_fwd.2 = phi i32 [ %stop_fwd.16014, %land.lhs.true305 ], [ %dest_fwd.16024, %if.then311 ], [ %stop_fwd.16014, %if.then302 ], [ %stop_fwd.16014, %sw.bb292 ]
+  %stop_back.2 = phi i32 [ %stop_back.16016, %land.lhs.true305 ], [ %dest_back.16026, %if.then311 ], [ %stop_back.16016, %if.then302 ], [ %stop_back.16016, %sw.bb292 ]
+  %stop_link.1 = phi ptr [ %stop_link.06017, %land.lhs.true305 ], [ %link.06031, %if.then311 ], [ %stop_link.06017, %if.then302 ], [ %link.06031, %sw.bb292 ]
+  %ogap315 = getelementptr inbounds %struct.gapobj_type, ptr %storemerge6077, i64 0, i32 3
   %bf.load316 = load i16, ptr %ogap315, align 4
   %52 = and i16 %bf.load316, 512
   %tobool320.not = icmp eq i16 %52, 0
@@ -656,7 +656,7 @@ if.then321:                                       ; preds = %if.end314
 sw.bb328:                                         ; preds = %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288
   %bf.load330 = load i32, ptr %ou2205, align 8
   %bf.clear332 = and i32 %bf.load330, 1610612736
-  %ou2333 = getelementptr inbounds %struct.word_type, ptr %storemerge6083, i64 0, i32 2
+  %ou2333 = getelementptr inbounds %struct.word_type, ptr %storemerge6077, i64 0, i32 2
   %bf.load334 = load i32, ptr %ou2333, align 8
   %bf.clear337 = and i32 %bf.load334, -1610612737
   %bf.set338 = or i32 %bf.clear337, %bf.clear332
@@ -759,18 +759,18 @@ cond.false424:                                    ; preds = %if.end402
   %72 = load ptr, ptr @zz_tmp, align 8, !tbaa !8
   %osucc445 = getelementptr inbounds %struct.LIST, ptr %72, i64 0, i32 1
   store ptr %71, ptr %osucc445, align 8, !tbaa !5
-  %.pre6294 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6288 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end448
 
 cond.end448:                                      ; preds = %if.end402, %cond.false424
-  %73 = phi ptr [ %63, %if.end402 ], [ %.pre6294, %cond.false424 ]
+  %73 = phi ptr [ %63, %if.end402 ], [ %.pre6288, %cond.false424 ]
   store ptr %73, ptr @zz_res, align 8, !tbaa !8
   %74 = load ptr, ptr %y, align 8, !tbaa !8
   store ptr %74, ptr @zz_hold, align 8, !tbaa !8
   %cmp450 = icmp eq ptr %74, null
   %cmp454 = icmp eq ptr %73, null
-  %or.cond5752 = select i1 %cmp450, i1 true, i1 %cmp454
-  br i1 %or.cond5752, label %for.inc1753, label %cond.false457
+  %or.cond5713 = select i1 %cmp450, i1 true, i1 %cmp454
+  br i1 %or.cond5713, label %for.inc1753, label %cond.false457
 
 cond.false457:                                    ; preds = %cond.end448
   %arrayidx459 = getelementptr inbounds [2 x %struct.LIST], ptr %74, i64 0, i64 1
@@ -788,13 +788,13 @@ cond.false457:                                    ; preds = %cond.end448
   br label %for.inc1753
 
 sw.bb484:                                         ; preds = %if.end288
-  %osucc487 = getelementptr inbounds %struct.LIST, ptr %storemerge6083, i64 0, i32 1
+  %osucc487 = getelementptr inbounds %struct.LIST, ptr %storemerge6077, i64 0, i32 1
   %78 = load ptr, ptr %osucc487, align 8, !tbaa !5
   br label %for.cond491
 
 for.cond491:                                      ; preds = %for.cond491, %sw.bb484
-  %.pn5736 = phi ptr [ %78, %sw.bb484 ], [ %tmp.0, %for.cond491 ]
-  %tmp.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5736, i64 0, i64 1
+  %.pn5697 = phi ptr [ %78, %sw.bb484 ], [ %tmp.0, %for.cond491 ]
+  %tmp.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5697, i64 0, i64 1
   %tmp.0 = load ptr, ptr %tmp.0.in, align 8, !tbaa !5
   %ou1492 = getelementptr inbounds %struct.word_type, ptr %tmp.0, i64 0, i32 1
   %79 = load i8, ptr %ou1492, align 8, !tbaa !5
@@ -810,7 +810,7 @@ for.end502:                                       ; preds = %for.cond491
   br i1 %cmp509, label %if.then511, label %for.cond622
 
 if.then511:                                       ; preds = %for.end502
-  %82 = load ptr, ptr %link.06037, align 8, !tbaa !5
+  %82 = load ptr, ptr %link.06031, align 8, !tbaa !5
   %osucc517 = getelementptr inbounds %struct.LIST, ptr %82, i64 0, i32 1
   %83 = load ptr, ptr %osucc517, align 8, !tbaa !5
   store ptr %83, ptr @xx_link, align 8, !tbaa !8
@@ -853,20 +853,20 @@ cond.false554:                                    ; preds = %cond.end546
   %osucc572 = getelementptr inbounds %struct.LIST, ptr %90, i64 0, i32 1
   store ptr %90, ptr %osucc572, align 8, !tbaa !5
   store ptr %90, ptr %90, align 8, !tbaa !5
-  %.pre6277 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6271 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end576
 
 cond.end576:                                      ; preds = %cond.end546, %cond.false554
-  %92 = phi ptr [ %83, %cond.end546 ], [ %.pre6277, %cond.false554 ]
+  %92 = phi ptr [ %83, %cond.end546 ], [ %.pre6271, %cond.false554 ]
   store ptr %92, ptr @zz_hold, align 8, !tbaa !8
   %ou1578 = getelementptr inbounds %struct.word_type, ptr %92, i64 0, i32 1
   %93 = load i8, ptr %ou1578, align 8, !tbaa !5
   %.off = add i8 %93, -11
-  %switch5753 = icmp ult i8 %.off, 2
+  %switch5714 = icmp ult i8 %.off, 2
   %orec_size = getelementptr inbounds %struct.word_type, ptr %92, i64 0, i32 1, i32 0, i32 1
   %idxprom595 = zext i8 %93 to i64
   %arrayidx596 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom595
-  %cond599.in.in = select i1 %switch5753, ptr %orec_size, ptr %arrayidx596
+  %cond599.in.in = select i1 %switch5714, ptr %orec_size, ptr %arrayidx596
   %cond599.in = load i8, ptr %cond599.in.in, align 1, !tbaa !5
   %cond599 = zext i8 %cond599.in to i32
   store i32 %cond599, ptr @zz_size, align 4, !tbaa !16
@@ -914,17 +914,17 @@ if.end641:                                        ; preds = %for.cond622, %if.th
 
 sw.bb643:                                         ; preds = %if.end641
   store ptr %tmp.1, ptr @xx_hold, align 8, !tbaa !8
-  %osucc6466011 = getelementptr inbounds [2 x %struct.LIST], ptr %tmp.1, i64 0, i64 1, i32 1
-  %101 = load ptr, ptr %osucc6466011, align 8, !tbaa !5
-  %cmp647.not6012 = icmp eq ptr %101, %tmp.1
-  br i1 %cmp647.not6012, label %while.cond742.preheader, label %while.body
+  %osucc6466005 = getelementptr inbounds [2 x %struct.LIST], ptr %tmp.1, i64 0, i64 1, i32 1
+  %101 = load ptr, ptr %osucc6466005, align 8, !tbaa !5
+  %cmp647.not6006 = icmp eq ptr %101, %tmp.1
+  br i1 %cmp647.not6006, label %while.cond742.preheader, label %while.body
 
 while.cond742.preheader:                          ; preds = %cond.end710, %sw.bb643
   %102 = phi ptr [ %tmp.1, %sw.bb643 ], [ %118, %cond.end710 ]
-  %osucc7456013 = getelementptr inbounds %struct.LIST, ptr %102, i64 0, i32 1
-  %103 = load ptr, ptr %osucc7456013, align 8, !tbaa !5
-  %cmp746.not6014 = icmp eq ptr %103, %102
-  br i1 %cmp746.not6014, label %while.end842, label %while.body748
+  %osucc7456007 = getelementptr inbounds %struct.LIST, ptr %102, i64 0, i32 1
+  %103 = load ptr, ptr %osucc7456007, align 8, !tbaa !5
+  %cmp746.not6008 = icmp eq ptr %103, %102
+  br i1 %cmp746.not6008, label %while.end842, label %while.body748
 
 while.body:                                       ; preds = %sw.bb643, %cond.end710
   %104 = phi ptr [ %119, %cond.end710 ], [ %101, %sw.bb643 ]
@@ -966,20 +966,20 @@ cond.false688:                                    ; preds = %cond.end680
   %osucc706 = getelementptr inbounds %struct.LIST, ptr %111, i64 0, i32 1
   store ptr %111, ptr %osucc706, align 8, !tbaa !5
   store ptr %111, ptr %111, align 8, !tbaa !5
-  %.pre6274 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6268 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end710
 
 cond.end710:                                      ; preds = %cond.end680, %cond.false688
-  %113 = phi ptr [ %104, %cond.end680 ], [ %.pre6274, %cond.false688 ]
+  %113 = phi ptr [ %104, %cond.end680 ], [ %.pre6268, %cond.false688 ]
   store ptr %113, ptr @zz_hold, align 8, !tbaa !8
   %ou1712 = getelementptr inbounds %struct.word_type, ptr %113, i64 0, i32 1
   %114 = load i8, ptr %ou1712, align 8, !tbaa !5
-  %.off5754 = add i8 %114, -11
-  %switch5755 = icmp ult i8 %.off5754, 2
+  %.off5715 = add i8 %114, -11
+  %switch5716 = icmp ult i8 %.off5715, 2
   %orec_size725 = getelementptr inbounds %struct.word_type, ptr %113, i64 0, i32 1, i32 0, i32 1
   %idxprom730 = zext i8 %114 to i64
   %arrayidx731 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom730
-  %cond734.in.in = select i1 %switch5755, ptr %orec_size725, ptr %arrayidx731
+  %cond734.in.in = select i1 %switch5716, ptr %orec_size725, ptr %arrayidx731
   %cond734.in = load i8, ptr %cond734.in.in, align 1, !tbaa !5
   %cond734 = zext i8 %cond734.in to i32
   store i32 %cond734, ptr @zz_size, align 4, !tbaa !16
@@ -1038,20 +1038,20 @@ cond.false788:                                    ; preds = %cond.end780
   %osucc806 = getelementptr inbounds %struct.LIST, ptr %127, i64 0, i32 1
   store ptr %127, ptr %osucc806, align 8, !tbaa !5
   store ptr %127, ptr %127, align 8, !tbaa !5
-  %.pre6275 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6269 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end810
 
 cond.end810:                                      ; preds = %cond.end780, %cond.false788
-  %129 = phi ptr [ %120, %cond.end780 ], [ %.pre6275, %cond.false788 ]
+  %129 = phi ptr [ %120, %cond.end780 ], [ %.pre6269, %cond.false788 ]
   store ptr %129, ptr @zz_hold, align 8, !tbaa !8
   %ou1812 = getelementptr inbounds %struct.word_type, ptr %129, i64 0, i32 1
   %130 = load i8, ptr %ou1812, align 8, !tbaa !5
-  %.off5756 = add i8 %130, -11
-  %switch5757 = icmp ult i8 %.off5756, 2
+  %.off5717 = add i8 %130, -11
+  %switch5718 = icmp ult i8 %.off5717, 2
   %orec_size825 = getelementptr inbounds %struct.word_type, ptr %129, i64 0, i32 1, i32 0, i32 1
   %idxprom830 = zext i8 %130 to i64
   %arrayidx831 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom830
-  %cond834.in.in = select i1 %switch5757, ptr %orec_size825, ptr %arrayidx831
+  %cond834.in.in = select i1 %switch5718, ptr %orec_size825, ptr %arrayidx831
   %cond834.in = load i8, ptr %cond834.in.in, align 1, !tbaa !5
   %cond834 = zext i8 %cond834.in to i32
   store i32 %cond834, ptr @zz_size, align 4, !tbaa !16
@@ -1071,29 +1071,29 @@ cond.end810:                                      ; preds = %cond.end780, %cond.
   br i1 %cmp746.not, label %while.end842, label %while.body748, !llvm.loop !20
 
 while.end842:                                     ; preds = %cond.end810, %while.cond742.preheader
-  %.lcssa5882 = phi ptr [ %102, %while.cond742.preheader ], [ %134, %cond.end810 ]
-  store ptr %.lcssa5882, ptr @zz_hold, align 8, !tbaa !8
-  %ou1843 = getelementptr inbounds %struct.word_type, ptr %.lcssa5882, i64 0, i32 1
+  %.lcssa5877 = phi ptr [ %102, %while.cond742.preheader ], [ %134, %cond.end810 ]
+  store ptr %.lcssa5877, ptr @zz_hold, align 8, !tbaa !8
+  %ou1843 = getelementptr inbounds %struct.word_type, ptr %.lcssa5877, i64 0, i32 1
   %136 = load i8, ptr %ou1843, align 8, !tbaa !5
-  %.off5758 = add i8 %136, -11
-  %switch5759 = icmp ult i8 %.off5758, 2
-  %orec_size856 = getelementptr inbounds %struct.word_type, ptr %.lcssa5882, i64 0, i32 1, i32 0, i32 1
+  %.off5719 = add i8 %136, -11
+  %switch5720 = icmp ult i8 %.off5719, 2
+  %orec_size856 = getelementptr inbounds %struct.word_type, ptr %.lcssa5877, i64 0, i32 1, i32 0, i32 1
   %idxprom861 = zext i8 %136 to i64
   %arrayidx862 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom861
-  %cond865.in.in = select i1 %switch5759, ptr %orec_size856, ptr %arrayidx862
+  %cond865.in.in = select i1 %switch5720, ptr %orec_size856, ptr %arrayidx862
   %cond865.in = load i8, ptr %cond865.in.in, align 1, !tbaa !5
   %cond865 = zext i8 %cond865.in to i32
   store i32 %cond865, ptr @zz_size, align 4, !tbaa !16
   %idxprom866 = zext i8 %cond865.in to i64
   %arrayidx867 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %idxprom866
   %137 = load ptr, ptr %arrayidx867, align 8, !tbaa !8
-  store ptr %137, ptr %.lcssa5882, align 8, !tbaa !5
+  store ptr %137, ptr %.lcssa5877, align 8, !tbaa !5
   %138 = load ptr, ptr @zz_hold, align 8, !tbaa !8
   %139 = load i32, ptr @zz_size, align 4, !tbaa !16
   %idxprom871 = sext i32 %139 to i64
   %arrayidx872 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %idxprom871
   store ptr %138, ptr %arrayidx872, align 8, !tbaa !8
-  %140 = load ptr, ptr %link.06037, align 8, !tbaa !5
+  %140 = load ptr, ptr %link.06031, align 8, !tbaa !5
   %osucc878 = getelementptr inbounds %struct.LIST, ptr %140, i64 0, i32 1
   %141 = load ptr, ptr %osucc878, align 8, !tbaa !5
   store ptr %141, ptr @xx_link, align 8, !tbaa !8
@@ -1136,20 +1136,20 @@ cond.false915:                                    ; preds = %cond.end907
   %osucc933 = getelementptr inbounds %struct.LIST, ptr %148, i64 0, i32 1
   store ptr %148, ptr %osucc933, align 8, !tbaa !5
   store ptr %148, ptr %148, align 8, !tbaa !5
-  %.pre6276 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6270 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end937
 
 cond.end937:                                      ; preds = %cond.end907, %cond.false915
-  %150 = phi ptr [ %141, %cond.end907 ], [ %.pre6276, %cond.false915 ]
+  %150 = phi ptr [ %141, %cond.end907 ], [ %.pre6270, %cond.false915 ]
   store ptr %150, ptr @zz_hold, align 8, !tbaa !8
   %ou1939 = getelementptr inbounds %struct.word_type, ptr %150, i64 0, i32 1
   %151 = load i8, ptr %ou1939, align 8, !tbaa !5
-  %.off5760 = add i8 %151, -11
-  %switch5761 = icmp ult i8 %.off5760, 2
+  %.off5721 = add i8 %151, -11
+  %switch5722 = icmp ult i8 %.off5721, 2
   %orec_size952 = getelementptr inbounds %struct.word_type, ptr %150, i64 0, i32 1, i32 0, i32 1
   %idxprom957 = zext i8 %151 to i64
   %arrayidx958 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom957
-  %cond961.in.in = select i1 %switch5761, ptr %orec_size952, ptr %arrayidx958
+  %cond961.in.in = select i1 %switch5722, ptr %orec_size952, ptr %arrayidx958
   %cond961.in = load i8, ptr %cond961.in.in, align 1, !tbaa !5
   %cond961 = zext i8 %cond961.in to i32
   store i32 %cond961, ptr @zz_size, align 4, !tbaa !16
@@ -1185,7 +1185,7 @@ if.then981:                                       ; preds = %sw.bb978
 sw.bb988:                                         ; preds = %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288, %if.end288
   %bf.load990 = load i32, ptr %ou2205, align 8
   %bf.clear992 = and i32 %bf.load990, 1610612736
-  %ou2993 = getelementptr inbounds %struct.word_type, ptr %storemerge6083, i64 0, i32 2
+  %ou2993 = getelementptr inbounds %struct.word_type, ptr %storemerge6077, i64 0, i32 2
   %bf.load994 = load i32, ptr %ou2993, align 8
   %bf.clear997 = and i32 %bf.load994, -1610612737
   %bf.set998 = or i32 %bf.clear997, %bf.clear992
@@ -1193,17 +1193,17 @@ sw.bb988:                                         ; preds = %if.end288, %if.end2
   br i1 %cmp217.not, label %if.end1055, label %for.cond1005.preheader
 
 for.cond1005.preheader:                           ; preds = %sw.bb988
-  %zlink.0.in6007 = getelementptr inbounds %struct.LIST, ptr %link.06037, i64 0, i32 1
-  %zlink.06008 = load ptr, ptr %zlink.0.in6007, align 8, !tbaa !5
-  %cmp1006.not6009 = icmp eq ptr %zlink.06008, %hd
-  br i1 %cmp1006.not6009, label %for.end1046, label %for.cond1012.preheader
+  %zlink.0.in6001 = getelementptr inbounds %struct.LIST, ptr %link.06031, i64 0, i32 1
+  %zlink.06002 = load ptr, ptr %zlink.0.in6001, align 8, !tbaa !5
+  %cmp1006.not6003 = icmp eq ptr %zlink.06002, %hd
+  br i1 %cmp1006.not6003, label %for.end1046, label %for.cond1012.preheader
 
 for.cond1012.preheader:                           ; preds = %for.cond1005.preheader, %for.inc1042
-  %zlink.06010 = phi ptr [ %zlink.0, %for.inc1042 ], [ %zlink.06008, %for.cond1005.preheader ]
+  %zlink.06004 = phi ptr [ %zlink.0, %for.inc1042 ], [ %zlink.06002, %for.cond1005.preheader ]
   br label %for.cond1012
 
 for.cond1012:                                     ; preds = %for.cond1012.preheader, %for.cond1012
-  %zlink.0.pn = phi ptr [ %z.0, %for.cond1012 ], [ %zlink.06010, %for.cond1012.preheader ]
+  %zlink.0.pn = phi ptr [ %z.0, %for.cond1012 ], [ %zlink.06004, %for.cond1012.preheader ]
   %z.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %zlink.0.pn, i64 0, i64 1
   %z.0 = load ptr, ptr %z.0.in, align 8, !tbaa !5
   %ou11013 = getelementptr inbounds %struct.word_type, ptr %z.0, i64 0, i32 1
@@ -1231,7 +1231,7 @@ if.then1035:                                      ; preds = %sw.bb1028
   br label %for.inc1042
 
 for.inc1042:                                      ; preds = %for.cond1012, %if.then1035, %sw.bb1028
-  %zlink.1 = phi ptr [ %zlink.06010, %sw.bb1028 ], [ %160, %if.then1035 ], [ %zlink.06010, %for.cond1012 ]
+  %zlink.1 = phi ptr [ %zlink.06004, %sw.bb1028 ], [ %160, %if.then1035 ], [ %zlink.06004, %for.cond1012 ]
   %zlink.0.in = getelementptr inbounds %struct.LIST, ptr %zlink.1, i64 0, i32 1
   %zlink.0 = load ptr, ptr %zlink.0.in, align 8, !tbaa !5
   %cmp1006.not = icmp eq ptr %zlink.0, %hd
@@ -1242,14 +1242,14 @@ for.end1046:                                      ; preds = %for.inc1042, %for.c
   br i1 %cmp1050, label %if.then1052, label %if.end1055
 
 if.then1052:                                      ; preds = %for.end1046
-  %call1053 = call i32 @VerticalHyphenate(ptr noundef %storemerge6083) #6
+  %call1053 = call i32 @VerticalHyphenate(ptr noundef %storemerge6077) #6
   br label %if.end1055
 
 if.end1055:                                       ; preds = %for.end1046, %if.then1052, %sw.bb988
   br i1 %47, label %if.then1057, label %if.end1675
 
 if.then1057:                                      ; preds = %if.end1055
-  %cmp1058 = icmp eq ptr %dest_encl.16035, null
+  %cmp1058 = icmp eq ptr %dest_encl.16029, null
   br i1 %cmp1058, label %if.then1060, label %if.end1199
 
 if.then1060:                                      ; preds = %if.then1057
@@ -1276,17 +1276,17 @@ for.cond1096:                                     ; preds = %for.cond1096, %if.e
   br i1 %cmp1100, label %for.cond1096, label %for.end1107, !llvm.loop !22
 
 for.end1107:                                      ; preds = %for.cond1096
-  %or.cond5863 = icmp eq i8 %163, %or.cond5863.v
-  br i1 %or.cond5863, label %if.end1127, label %if.then1125
+  %or.cond5857 = icmp eq i8 %163, %or.cond5857.v
+  br i1 %or.cond5857, label %if.end1127, label %if.then1125
 
 if.then1125:                                      ; preds = %for.end1107
   %164 = load ptr, ptr @no_fpos, align 8, !tbaa !8
   %call1126 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %164, ptr noundef nonnull @.str.12) #6
-  %.pre6267 = load ptr, ptr %osucc1066, align 8, !tbaa !5
+  %.pre6261 = load ptr, ptr %osucc1066, align 8, !tbaa !5
   br label %if.end1127
 
 if.end1127:                                       ; preds = %for.end1107, %if.then1125
-  %165 = phi ptr [ %162, %for.end1107 ], [ %.pre6267, %if.then1125 ]
+  %165 = phi ptr [ %162, %for.end1107 ], [ %.pre6261, %if.then1125 ]
   call void @SetNeighbours(ptr noundef %165, i32 noundef 0, ptr noundef nonnull %prec_gap, ptr noundef nonnull %prec_def, ptr noundef nonnull %succ_gap, ptr noundef nonnull %succ_def, ptr noundef nonnull %dest_side) #6
   %166 = load ptr, ptr %prec_gap, align 8, !tbaa !8
   %cmp1131.not = icmp eq ptr %166, null
@@ -1297,8 +1297,8 @@ lor.lhs.false1133:                                ; preds = %if.end1127
   %ou11134 = getelementptr inbounds %struct.word_type, ptr %167, i64 0, i32 1
   %168 = load i8, ptr %ou11134, align 8, !tbaa !5
   %169 = add i8 %168, -2
-  %or.cond5740 = icmp ult i8 %169, 7
-  br i1 %or.cond5740, label %if.end1147, label %if.then1145
+  %or.cond5701 = icmp ult i8 %169, 7
+  br i1 %or.cond5701, label %if.end1147, label %if.then1145
 
 if.then1145:                                      ; preds = %lor.lhs.false1133
   %170 = load ptr, ptr @no_fpos, align 8, !tbaa !8
@@ -1325,8 +1325,8 @@ lor.lhs.false1155:                                ; preds = %if.end1152
   %ou11156 = getelementptr inbounds %struct.word_type, ptr %174, i64 0, i32 1
   %175 = load i8, ptr %ou11156, align 8, !tbaa !5
   %176 = add i8 %175, -2
-  %or.cond5741 = icmp ult i8 %176, 7
-  br i1 %or.cond5741, label %if.end1169, label %if.then1167
+  %or.cond5702 = icmp ult i8 %176, 7
+  br i1 %or.cond5702, label %if.end1169, label %if.then1167
 
 if.then1167:                                      ; preds = %lor.lhs.false1155
   %177 = load ptr, ptr @no_fpos, align 8, !tbaa !8
@@ -1358,18 +1358,18 @@ if.end1169:                                       ; preds = %lor.lhs.false1155, 
   br label %if.end1199
 
 if.end1199:                                       ; preds = %if.end1169, %if.then1057
-  %perp_back.2 = phi i32 [ %180, %if.end1169 ], [ %perp_back.16024, %if.then1057 ]
-  %perp_fwd.2 = phi i32 [ %181, %if.end1169 ], [ %perp_fwd.16026, %if.then1057 ]
-  %frame_size.2 = phi i32 [ %cond1198, %if.end1169 ], [ %frame_size.16028, %if.then1057 ]
-  %dest_fwd.2 = phi i32 [ %179, %if.end1169 ], [ %dest_fwd.16030, %if.then1057 ]
-  %dest_back.2 = phi i32 [ %178, %if.end1169 ], [ %dest_back.16032, %if.then1057 ]
-  %dest_encl.3 = phi ptr [ %dest_encl.2, %if.end1169 ], [ %dest_encl.16035, %if.then1057 ]
+  %perp_back.2 = phi i32 [ %180, %if.end1169 ], [ %perp_back.16018, %if.then1057 ]
+  %perp_fwd.2 = phi i32 [ %181, %if.end1169 ], [ %perp_fwd.16020, %if.then1057 ]
+  %frame_size.2 = phi i32 [ %cond1198, %if.end1169 ], [ %frame_size.16022, %if.then1057 ]
+  %dest_fwd.2 = phi i32 [ %179, %if.end1169 ], [ %dest_fwd.16024, %if.then1057 ]
+  %dest_back.2 = phi i32 [ %178, %if.end1169 ], [ %dest_back.16026, %if.then1057 ]
+  %dest_encl.3 = phi ptr [ %dest_encl.2, %if.end1169 ], [ %dest_encl.16029, %if.then1057 ]
   %185 = load ptr, ptr %y, align 8, !tbaa !8
   %ou11200 = getelementptr inbounds %struct.word_type, ptr %185, i64 0, i32 1
   %186 = load i8, ptr %ou11200, align 8, !tbaa !5
   %187 = add i8 %186, -2
-  %or.cond5742 = icmp ult i8 %187, 7
-  br i1 %or.cond5742, label %if.end1675, label %if.then1211
+  %or.cond5703 = icmp ult i8 %187, 7
+  br i1 %or.cond5703, label %if.end1675, label %if.then1211
 
 if.then1211:                                      ; preds = %if.end1199
   %ou31212 = getelementptr inbounds %struct.word_type, ptr %185, i64 0, i32 3
@@ -1403,8 +1403,8 @@ land.lhs.true1249:                                ; preds = %if.then1211
   %cmp1252 = icmp sgt i16 %195, 4096
   %196 = load i32, ptr %dest_par_constr, align 8
   %cmp1256.not = icmp sgt i32 %dest_back.2, %196
-  %or.cond5743 = select i1 %cmp1252, i1 true, i1 %cmp1256.not
-  br i1 %or.cond5743, label %if.then1274, label %land.lhs.true1258
+  %or.cond5704 = select i1 %cmp1252, i1 true, i1 %cmp1256.not
+  br i1 %or.cond5704, label %if.then1274, label %land.lhs.true1258
 
 lor.lhs.false1254:                                ; preds = %if.then1211
   %.old = load i32, ptr %dest_par_constr, align 8, !tbaa !23
@@ -1417,8 +1417,8 @@ land.lhs.true1258:                                ; preds = %land.lhs.true1249, 
   %cmp1261.not = icmp sgt i32 %add1259, %197
   %198 = load i32, ptr %ofc, align 8
   %cmp1265.not = icmp sgt i32 %add1241, %198
-  %or.cond5745 = select i1 %cmp1261.not, i1 true, i1 %cmp1265.not
-  br i1 %or.cond5745, label %if.then1274, label %lor.lhs.false1267
+  %or.cond5706 = select i1 %cmp1261.not, i1 true, i1 %cmp1265.not
+  br i1 %or.cond5706, label %if.then1274, label %lor.lhs.false1267
 
 lor.lhs.false1267:                                ; preds = %land.lhs.true1258
   %199 = load ptr, ptr %oopt_components1268, align 8, !tbaa !5
@@ -1431,8 +1431,8 @@ land.lhs.true1271:                                ; preds = %lor.lhs.false1267
   br i1 %cmp1272, label %if.then1278, label %if.end1569
 
 if.then1274:                                      ; preds = %land.lhs.true1258, %lor.lhs.false1254, %land.lhs.true1249
-  %.pr6297 = load ptr, ptr %oopt_components1268, align 8, !tbaa !5
-  %cmp1276.not = icmp eq ptr %.pr6297, null
+  %.pr6291 = load ptr, ptr %oopt_components1268, align 8, !tbaa !5
+  %cmp1276.not = icmp eq ptr %.pr6291, null
   br i1 %cmp1276.not, label %REJECT, label %if.then1278
 
 if.then1278:                                      ; preds = %land.lhs.true1271, %if.then1274
@@ -1532,14 +1532,14 @@ cond.end1393:                                     ; preds = %if.end1347
   %221 = load ptr, ptr @zz_tmp, align 8, !tbaa !8
   %osucc1390 = getelementptr inbounds %struct.LIST, ptr %221, i64 0, i32 1
   store ptr %220, ptr %osucc1390, align 8, !tbaa !5
-  %.pre6268 = load ptr, ptr @xx_link, align 8, !tbaa !8
-  store ptr %.pre6268, ptr @zz_res, align 8, !tbaa !8
+  %.pre6262 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  store ptr %.pre6262, ptr @zz_res, align 8, !tbaa !8
   store ptr %205, ptr @zz_hold, align 8, !tbaa !8
-  %cmp1399 = icmp eq ptr %.pre6268, null
+  %cmp1399 = icmp eq ptr %.pre6262, null
   br i1 %cmp1399, label %cond.end1426, label %cond.false1402
 
 cond.false1402:                                   ; preds = %cond.end1393.thread, %cond.end1393
-  %222 = phi ptr [ %212, %cond.end1393.thread ], [ %.pre6268, %cond.end1393 ]
+  %222 = phi ptr [ %212, %cond.end1393.thread ], [ %.pre6262, %cond.end1393 ]
   %223 = load ptr, ptr %arrayidx1306, align 8, !tbaa !5
   store ptr %223, ptr @zz_tmp, align 8, !tbaa !8
   %arrayidx1407 = getelementptr inbounds [2 x %struct.LIST], ptr %222, i64 0, i64 1
@@ -1565,8 +1565,8 @@ land.lhs.true1430:                                ; preds = %cond.end1426
   br i1 %cmp1436.not, label %if.else1565, label %for.cond1446
 
 for.cond1446:                                     ; preds = %land.lhs.true1430, %for.cond1446
-  %.pn5729 = phi ptr [ %z1279.0, %for.cond1446 ], [ %227, %land.lhs.true1430 ]
-  %z1279.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5729, i64 0, i64 1
+  %.pn5690 = phi ptr [ %z1279.0, %for.cond1446 ], [ %227, %land.lhs.true1430 ]
+  %z1279.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5690, i64 0, i64 1
   %z1279.0 = load ptr, ptr %z1279.0.in, align 8, !tbaa !5
   %ou11447 = getelementptr inbounds %struct.word_type, ptr %z1279.0, i64 0, i32 1
   %228 = load i8, ptr %ou11447, align 8, !tbaa !5
@@ -1622,20 +1622,20 @@ cond.false1503:                                   ; preds = %cond.end1495
   %osucc1521 = getelementptr inbounds %struct.LIST, ptr %238, i64 0, i32 1
   store ptr %238, ptr %osucc1521, align 8, !tbaa !5
   store ptr %238, ptr %238, align 8, !tbaa !5
-  %.pre6269 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6263 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end1525
 
 cond.end1525:                                     ; preds = %cond.end1495, %cond.false1503
-  %240 = phi ptr [ %231, %cond.end1495 ], [ %.pre6269, %cond.false1503 ]
+  %240 = phi ptr [ %231, %cond.end1495 ], [ %.pre6263, %cond.false1503 ]
   store ptr %240, ptr @zz_hold, align 8, !tbaa !8
   %ou11527 = getelementptr inbounds %struct.word_type, ptr %240, i64 0, i32 1
   %241 = load i8, ptr %ou11527, align 8, !tbaa !5
-  %.off5766 = add i8 %241, -11
-  %switch5767 = icmp ult i8 %.off5766, 2
+  %.off5727 = add i8 %241, -11
+  %switch5728 = icmp ult i8 %.off5727, 2
   %orec_size1540 = getelementptr inbounds %struct.word_type, ptr %240, i64 0, i32 1, i32 0, i32 1
   %idxprom1545 = zext i8 %241 to i64
   %arrayidx1546 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom1545
-  %cond1549.in.in = select i1 %switch5767, ptr %orec_size1540, ptr %arrayidx1546
+  %cond1549.in.in = select i1 %switch5728, ptr %orec_size1540, ptr %arrayidx1546
   %cond1549.in = load i8, ptr %cond1549.in.in, align 1, !tbaa !5
   %cond1549 = zext i8 %cond1549.in to i32
   store i32 %cond1549, ptr @zz_size, align 4, !tbaa !16
@@ -1687,9 +1687,9 @@ if.else1606:                                      ; preds = %if.end1569
   br label %if.end1639
 
 if.end1639:                                       ; preds = %if.else1606, %if.then1577
-  %.sink6596 = phi i32 [ %251, %if.else1606 ], [ %add1588, %if.then1577 ]
+  %.sink6590 = phi i32 [ %251, %if.else1606 ], [ %add1588, %if.then1577 ]
   %pb.0 = phi i32 [ %.perp_back.2, %if.else1606 ], [ 0, %if.then1577 ]
-  %cond1638 = call i32 @llvm.smax.i32(i32 %perp_fwd.2, i32 %.sink6596)
+  %cond1638 = call i32 @llvm.smax.i32(i32 %perp_fwd.2, i32 %.sink6590)
   %252 = load i32, ptr %dest_perp_constr, align 4, !tbaa !23
   %cmp1641.not = icmp sgt i32 %pb.0, %252
   br i1 %cmp1641.not, label %if.then1652, label %land.lhs.true1643
@@ -1700,8 +1700,8 @@ land.lhs.true1643:                                ; preds = %if.end1639
   %cmp1646.not = icmp sgt i32 %add1644, %253
   %254 = load i32, ptr %ofc1649, align 4
   %cmp1650.not = icmp sgt i32 %cond1638, %254
-  %or.cond5747 = select i1 %cmp1646.not, i1 true, i1 %cmp1650.not
-  br i1 %or.cond5747, label %if.then1652, label %if.end1667
+  %or.cond5708 = select i1 %cmp1646.not, i1 true, i1 %cmp1650.not
+  br i1 %or.cond5708, label %if.then1652, label %if.end1667
 
 if.then1652:                                      ; preds = %land.lhs.true1643, %if.end1639
   br i1 %cmp1269.not, label %if.end1660, label %if.then1656
@@ -1731,14 +1731,14 @@ if.then1671:                                      ; preds = %if.end1667
   br label %if.end1675
 
 if.end1675:                                       ; preds = %if.end1199, %if.then1671, %if.end1667, %if.end1055
-  %perp_back.3 = phi i32 [ %pb.0, %if.then1671 ], [ %pb.0, %if.end1667 ], [ %perp_back.16024, %if.end1055 ], [ %perp_back.2, %if.end1199 ]
-  %perp_fwd.3 = phi i32 [ %cond1638, %if.then1671 ], [ %cond1638, %if.end1667 ], [ %perp_fwd.16026, %if.end1055 ], [ %perp_fwd.2, %if.end1199 ]
-  %frame_size.3 = phi i32 [ %frame_size.2, %if.then1671 ], [ %frame_size.2, %if.end1667 ], [ %frame_size.16028, %if.end1055 ], [ %frame_size.2, %if.end1199 ]
-  %dest_fwd.3 = phi i32 [ %add1241, %if.then1671 ], [ %add1241, %if.end1667 ], [ %dest_fwd.16030, %if.end1055 ], [ %dest_fwd.2, %if.end1199 ]
-  %dest_back.3 = phi i32 [ %dest_back.2, %if.then1671 ], [ %dest_back.2, %if.end1667 ], [ %dest_back.16032, %if.end1055 ], [ %dest_back.2, %if.end1199 ]
-  %need_adjust.2 = phi i32 [ 1, %if.then1671 ], [ 1, %if.end1667 ], [ %need_adjust.16034, %if.end1055 ], [ %need_adjust.16034, %if.end1199 ]
-  %dest_encl.4 = phi ptr [ %dest_encl.3, %if.then1671 ], [ %dest_encl.3, %if.end1667 ], [ %dest_encl.16035, %if.end1055 ], [ %dest_encl.3, %if.end1199 ]
-  %tobool1676.not = icmp eq i32 %prnt_flush.56019, 0
+  %perp_back.3 = phi i32 [ %pb.0, %if.then1671 ], [ %pb.0, %if.end1667 ], [ %perp_back.16018, %if.end1055 ], [ %perp_back.2, %if.end1199 ]
+  %perp_fwd.3 = phi i32 [ %cond1638, %if.then1671 ], [ %cond1638, %if.end1667 ], [ %perp_fwd.16020, %if.end1055 ], [ %perp_fwd.2, %if.end1199 ]
+  %frame_size.3 = phi i32 [ %frame_size.2, %if.then1671 ], [ %frame_size.2, %if.end1667 ], [ %frame_size.16022, %if.end1055 ], [ %frame_size.2, %if.end1199 ]
+  %dest_fwd.3 = phi i32 [ %add1241, %if.then1671 ], [ %add1241, %if.end1667 ], [ %dest_fwd.16024, %if.end1055 ], [ %dest_fwd.2, %if.end1199 ]
+  %dest_back.3 = phi i32 [ %dest_back.2, %if.then1671 ], [ %dest_back.2, %if.end1667 ], [ %dest_back.16026, %if.end1055 ], [ %dest_back.2, %if.end1199 ]
+  %need_adjust.2 = phi i32 [ 1, %if.then1671 ], [ 1, %if.end1667 ], [ %need_adjust.16028, %if.end1055 ], [ %need_adjust.16028, %if.end1199 ]
+  %dest_encl.4 = phi ptr [ %dest_encl.3, %if.then1671 ], [ %dest_encl.3, %if.end1667 ], [ %dest_encl.16029, %if.end1055 ], [ %dest_encl.3, %if.end1199 ]
+  %tobool1676.not = icmp eq i32 %prnt_flush.56013, 0
   br i1 %tobool1676.not, label %lor.rhs1677, label %lor.end1685
 
 lor.rhs1677:                                      ; preds = %if.end1675
@@ -1755,7 +1755,7 @@ lor.end1685:                                      ; preds = %lor.rhs1677, %if.en
   br i1 %cmp1687.not, label %for.inc1753, label %if.then1689
 
 if.then1689:                                      ; preds = %lor.end1685
-  %osucc1692 = getelementptr inbounds %struct.LIST, ptr %link.06037, i64 0, i32 1
+  %osucc1692 = getelementptr inbounds %struct.LIST, ptr %link.06031, i64 0, i32 1
   %260 = load ptr, ptr %osucc1692, align 8, !tbaa !5
   %ou11693 = getelementptr inbounds %struct.word_type, ptr %260, i64 0, i32 1
   %261 = load i8, ptr %ou11693, align 8, !tbaa !5
@@ -1786,12 +1786,12 @@ if.end1724:                                       ; preds = %for.cond1705, %if.t
   br i1 %tobool1730.not, label %if.end1724.if.then1735_crit_edge, label %for.inc1753
 
 if.end1724.if.then1735_crit_edge:                 ; preds = %if.end1724
-  %osucc1692.le = getelementptr inbounds %struct.LIST, ptr %link.06037, i64 0, i32 1
-  %.pre6270 = load ptr, ptr %osucc1692.le, align 8, !tbaa !5
+  %osucc1692.le = getelementptr inbounds %struct.LIST, ptr %link.06031, i64 0, i32 1
+  %.pre6264 = load ptr, ptr %osucc1692.le, align 8, !tbaa !5
   br label %if.then1735
 
 if.then1735:                                      ; preds = %if.then1689, %if.end1724.if.then1735_crit_edge
-  %265 = phi ptr [ %.pre6270, %if.end1724.if.then1735_crit_edge ], [ %260, %if.then1689 ]
+  %265 = phi ptr [ %.pre6264, %if.end1724.if.then1735_crit_edge ], [ %260, %if.then1689 ]
   call void @Promote(ptr noundef %hd, ptr noundef %265, ptr noundef %dest_index.2, i32 noundef 1) #6
   %tobool1739.not = icmp eq i32 %need_adjust.2, 0
   br i1 %tobool1739.not, label %cleanup, label %if.then1740
@@ -1814,55 +1814,55 @@ sw.default1746:                                   ; preds = %if.end288
   br label %for.inc1753
 
 for.inc1753:                                      ; preds = %if.end1724, %if.end288, %if.end288, %if.end288, %if.end288, %cond.end448, %sw.bb328, %sw.default1746, %if.then321, %if.end314, %cond.false457, %if.then612, %cond.end576, %cond.end937, %if.then974, %if.end641, %lor.end1685
-  %stop_perp_back.3 = phi i32 [ %stop_perp_back.16017, %sw.default1746 ], [ %stop_perp_back.16017, %lor.end1685 ], [ %stop_perp_back.16017, %if.then612 ], [ %stop_perp_back.16017, %cond.end576 ], [ %stop_perp_back.16017, %if.end641 ], [ %stop_perp_back.16017, %if.then974 ], [ %stop_perp_back.16017, %cond.end937 ], [ %stop_perp_back.16017, %cond.false457 ], [ %stop_perp_back.16017, %sw.bb328 ], [ %stop_perp_back.2, %if.end314 ], [ %stop_perp_back.2, %if.then321 ], [ %stop_perp_back.16017, %cond.end448 ], [ %stop_perp_back.16017, %if.end288 ], [ %stop_perp_back.16017, %if.end288 ], [ %stop_perp_back.16017, %if.end288 ], [ %stop_perp_back.16017, %if.end288 ], [ %stop_perp_back.16017, %if.end1724 ]
-  %stop_perp_fwd.3 = phi i32 [ %stop_perp_fwd.16018, %sw.default1746 ], [ %stop_perp_fwd.16018, %lor.end1685 ], [ %stop_perp_fwd.16018, %if.then612 ], [ %stop_perp_fwd.16018, %cond.end576 ], [ %stop_perp_fwd.16018, %if.end641 ], [ %stop_perp_fwd.16018, %if.then974 ], [ %stop_perp_fwd.16018, %cond.end937 ], [ %stop_perp_fwd.16018, %cond.false457 ], [ %stop_perp_fwd.16018, %sw.bb328 ], [ %stop_perp_fwd.2, %if.end314 ], [ %stop_perp_fwd.2, %if.then321 ], [ %stop_perp_fwd.16018, %cond.end448 ], [ %stop_perp_fwd.16018, %if.end288 ], [ %stop_perp_fwd.16018, %if.end288 ], [ %stop_perp_fwd.16018, %if.end288 ], [ %stop_perp_fwd.16018, %if.end288 ], [ %stop_perp_fwd.16018, %if.end1724 ]
-  %prnt_flush.6 = phi i32 [ %prnt_flush.56019, %sw.default1746 ], [ %lor.ext1686, %lor.end1685 ], [ %prnt_flush.56019, %if.then612 ], [ %prnt_flush.56019, %cond.end576 ], [ %prnt_flush.56019, %if.end641 ], [ %prnt_flush.56019, %if.then974 ], [ %prnt_flush.56019, %cond.end937 ], [ %prnt_flush.56019, %cond.false457 ], [ %prnt_flush.56019, %sw.bb328 ], [ %prnt_flush.56019, %if.end314 ], [ %prnt_flush.56019, %if.then321 ], [ %prnt_flush.56019, %cond.end448 ], [ %prnt_flush.56019, %if.end288 ], [ %prnt_flush.56019, %if.end288 ], [ %prnt_flush.56019, %if.end288 ], [ %prnt_flush.56019, %if.end288 ], [ %lor.ext1686, %if.end1724 ]
-  %stop_fwd.3 = phi i32 [ %stop_fwd.16020, %sw.default1746 ], [ %stop_fwd.16020, %lor.end1685 ], [ %stop_fwd.16020, %if.then612 ], [ %stop_fwd.16020, %cond.end576 ], [ %stop_fwd.16020, %if.end641 ], [ %stop_fwd.16020, %if.then974 ], [ %stop_fwd.16020, %cond.end937 ], [ %stop_fwd.16020, %cond.false457 ], [ %stop_fwd.16020, %sw.bb328 ], [ %stop_fwd.2, %if.end314 ], [ %stop_fwd.2, %if.then321 ], [ %stop_fwd.16020, %cond.end448 ], [ %stop_fwd.16020, %if.end288 ], [ %stop_fwd.16020, %if.end288 ], [ %stop_fwd.16020, %if.end288 ], [ %stop_fwd.16020, %if.end288 ], [ %stop_fwd.16020, %if.end1724 ]
-  %headers_seen.1 = phi i32 [ %headers_seen.06021, %sw.default1746 ], [ %headers_seen.06021, %lor.end1685 ], [ %headers_seen.06021, %if.then612 ], [ %headers_seen.06021, %cond.end576 ], [ %headers_seen.06021, %if.end641 ], [ %headers_seen.06021, %if.then974 ], [ %headers_seen.06021, %cond.end937 ], [ %headers_seen.06021, %cond.false457 ], [ %headers_seen.06021, %sw.bb328 ], [ %headers_seen.06021, %if.end314 ], [ %headers_seen.06021, %if.then321 ], [ %headers_seen.06021, %cond.end448 ], [ 1, %if.end288 ], [ 1, %if.end288 ], [ 1, %if.end288 ], [ 1, %if.end288 ], [ %headers_seen.06021, %if.end1724 ]
-  %stop_back.3 = phi i32 [ %stop_back.16022, %sw.default1746 ], [ %stop_back.16022, %lor.end1685 ], [ %stop_back.16022, %if.then612 ], [ %stop_back.16022, %cond.end576 ], [ %stop_back.16022, %if.end641 ], [ %stop_back.16022, %if.then974 ], [ %stop_back.16022, %cond.end937 ], [ %stop_back.16022, %cond.false457 ], [ %stop_back.16022, %sw.bb328 ], [ %stop_back.2, %if.end314 ], [ %stop_back.2, %if.then321 ], [ %stop_back.16022, %cond.end448 ], [ %stop_back.16022, %if.end288 ], [ %stop_back.16022, %if.end288 ], [ %stop_back.16022, %if.end288 ], [ %stop_back.16022, %if.end288 ], [ %stop_back.16022, %if.end1724 ]
-  %stop_link.2 = phi ptr [ %stop_link.06023, %sw.default1746 ], [ %stop_link.06023, %lor.end1685 ], [ %stop_link.06023, %if.then612 ], [ %stop_link.06023, %cond.end576 ], [ %stop_link.06023, %if.end641 ], [ %stop_link.06023, %if.then974 ], [ %stop_link.06023, %cond.end937 ], [ %stop_link.06023, %cond.false457 ], [ %stop_link.06023, %sw.bb328 ], [ %stop_link.1, %if.end314 ], [ %stop_link.1, %if.then321 ], [ %stop_link.06023, %cond.end448 ], [ %stop_link.06023, %if.end288 ], [ %stop_link.06023, %if.end288 ], [ %stop_link.06023, %if.end288 ], [ %stop_link.06023, %if.end288 ], [ %stop_link.06023, %if.end1724 ]
-  %perp_back.4 = phi i32 [ %perp_back.16024, %sw.default1746 ], [ %perp_back.3, %lor.end1685 ], [ %perp_back.16024, %if.then612 ], [ %perp_back.16024, %cond.end576 ], [ %perp_back.16024, %if.end641 ], [ %perp_back.16024, %if.then974 ], [ %perp_back.16024, %cond.end937 ], [ %perp_back.16024, %cond.false457 ], [ %perp_back.16024, %sw.bb328 ], [ %perp_back.16024, %if.end314 ], [ %perp_back.16024, %if.then321 ], [ %perp_back.16024, %cond.end448 ], [ %perp_back.16024, %if.end288 ], [ %perp_back.16024, %if.end288 ], [ %perp_back.16024, %if.end288 ], [ %perp_back.16024, %if.end288 ], [ %perp_back.3, %if.end1724 ]
-  %perp_fwd.4 = phi i32 [ %perp_fwd.16026, %sw.default1746 ], [ %perp_fwd.3, %lor.end1685 ], [ %perp_fwd.16026, %if.then612 ], [ %perp_fwd.16026, %cond.end576 ], [ %perp_fwd.16026, %if.end641 ], [ %perp_fwd.16026, %if.then974 ], [ %perp_fwd.16026, %cond.end937 ], [ %perp_fwd.16026, %cond.false457 ], [ %perp_fwd.16026, %sw.bb328 ], [ %perp_fwd.16026, %if.end314 ], [ %perp_fwd.16026, %if.then321 ], [ %perp_fwd.16026, %cond.end448 ], [ %perp_fwd.16026, %if.end288 ], [ %perp_fwd.16026, %if.end288 ], [ %perp_fwd.16026, %if.end288 ], [ %perp_fwd.16026, %if.end288 ], [ %perp_fwd.3, %if.end1724 ]
-  %frame_size.4 = phi i32 [ %frame_size.16028, %sw.default1746 ], [ %frame_size.3, %lor.end1685 ], [ %frame_size.16028, %if.then612 ], [ %frame_size.16028, %cond.end576 ], [ %frame_size.16028, %if.end641 ], [ %frame_size.16028, %if.then974 ], [ %frame_size.16028, %cond.end937 ], [ %frame_size.16028, %cond.false457 ], [ %frame_size.16028, %sw.bb328 ], [ %frame_size.16028, %if.end314 ], [ %frame_size.16028, %if.then321 ], [ %frame_size.16028, %cond.end448 ], [ %frame_size.16028, %if.end288 ], [ %frame_size.16028, %if.end288 ], [ %frame_size.16028, %if.end288 ], [ %frame_size.16028, %if.end288 ], [ %frame_size.3, %if.end1724 ]
-  %dest_fwd.4 = phi i32 [ %dest_fwd.16030, %sw.default1746 ], [ %dest_fwd.3, %lor.end1685 ], [ %dest_fwd.16030, %if.then612 ], [ %dest_fwd.16030, %cond.end576 ], [ %dest_fwd.16030, %if.end641 ], [ %dest_fwd.16030, %if.then974 ], [ %dest_fwd.16030, %cond.end937 ], [ %dest_fwd.16030, %cond.false457 ], [ %dest_fwd.16030, %sw.bb328 ], [ %dest_fwd.16030, %if.end314 ], [ %dest_fwd.16030, %if.then321 ], [ %dest_fwd.16030, %cond.end448 ], [ %dest_fwd.16030, %if.end288 ], [ %dest_fwd.16030, %if.end288 ], [ %dest_fwd.16030, %if.end288 ], [ %dest_fwd.16030, %if.end288 ], [ %dest_fwd.3, %if.end1724 ]
-  %dest_back.4 = phi i32 [ %dest_back.16032, %sw.default1746 ], [ %dest_back.3, %lor.end1685 ], [ %dest_back.16032, %if.then612 ], [ %dest_back.16032, %cond.end576 ], [ %dest_back.16032, %if.end641 ], [ %dest_back.16032, %if.then974 ], [ %dest_back.16032, %cond.end937 ], [ %dest_back.16032, %cond.false457 ], [ %dest_back.16032, %sw.bb328 ], [ %dest_back.16032, %if.end314 ], [ %dest_back.16032, %if.then321 ], [ %dest_back.16032, %cond.end448 ], [ %dest_back.16032, %if.end288 ], [ %dest_back.16032, %if.end288 ], [ %dest_back.16032, %if.end288 ], [ %dest_back.16032, %if.end288 ], [ %dest_back.3, %if.end1724 ]
-  %need_adjust.3 = phi i32 [ %need_adjust.16034, %sw.default1746 ], [ %need_adjust.2, %lor.end1685 ], [ %need_adjust.16034, %if.then612 ], [ %need_adjust.16034, %cond.end576 ], [ %need_adjust.16034, %if.end641 ], [ %need_adjust.16034, %if.then974 ], [ %need_adjust.16034, %cond.end937 ], [ %need_adjust.16034, %cond.false457 ], [ %need_adjust.16034, %sw.bb328 ], [ %need_adjust.16034, %if.end314 ], [ %need_adjust.16034, %if.then321 ], [ %need_adjust.16034, %cond.end448 ], [ %need_adjust.16034, %if.end288 ], [ %need_adjust.16034, %if.end288 ], [ %need_adjust.16034, %if.end288 ], [ %need_adjust.16034, %if.end288 ], [ %need_adjust.2, %if.end1724 ]
-  %dest_encl.5 = phi ptr [ %dest_encl.16035, %sw.default1746 ], [ %dest_encl.4, %lor.end1685 ], [ %dest_encl.16035, %if.then612 ], [ %dest_encl.16035, %cond.end576 ], [ %dest_encl.16035, %if.end641 ], [ %dest_encl.16035, %if.then974 ], [ %dest_encl.16035, %cond.end937 ], [ %dest_encl.16035, %cond.false457 ], [ %dest_encl.16035, %sw.bb328 ], [ %dest_encl.16035, %if.end314 ], [ %dest_encl.16035, %if.then321 ], [ %dest_encl.16035, %cond.end448 ], [ %dest_encl.16035, %if.end288 ], [ %dest_encl.16035, %if.end288 ], [ %dest_encl.16035, %if.end288 ], [ %dest_encl.16035, %if.end288 ], [ %dest_encl.4, %if.end1724 ]
-  %link.1 = phi ptr [ %link.06037, %sw.default1746 ], [ %link.06037, %lor.end1685 ], [ %82, %if.then612 ], [ %82, %cond.end576 ], [ %link.06037, %if.end641 ], [ %140, %if.then974 ], [ %140, %cond.end937 ], [ %link.06037, %cond.false457 ], [ %link.06037, %sw.bb328 ], [ %link.06037, %if.end314 ], [ %link.06037, %if.then321 ], [ %link.06037, %cond.end448 ], [ %link.06037, %if.end288 ], [ %link.06037, %if.end288 ], [ %link.06037, %if.end288 ], [ %link.06037, %if.end288 ], [ %link.06037, %if.end1724 ]
+  %stop_perp_back.3 = phi i32 [ %stop_perp_back.16011, %sw.default1746 ], [ %stop_perp_back.16011, %lor.end1685 ], [ %stop_perp_back.16011, %if.then612 ], [ %stop_perp_back.16011, %cond.end576 ], [ %stop_perp_back.16011, %if.end641 ], [ %stop_perp_back.16011, %if.then974 ], [ %stop_perp_back.16011, %cond.end937 ], [ %stop_perp_back.16011, %cond.false457 ], [ %stop_perp_back.16011, %sw.bb328 ], [ %stop_perp_back.2, %if.end314 ], [ %stop_perp_back.2, %if.then321 ], [ %stop_perp_back.16011, %cond.end448 ], [ %stop_perp_back.16011, %if.end288 ], [ %stop_perp_back.16011, %if.end288 ], [ %stop_perp_back.16011, %if.end288 ], [ %stop_perp_back.16011, %if.end288 ], [ %stop_perp_back.16011, %if.end1724 ]
+  %stop_perp_fwd.3 = phi i32 [ %stop_perp_fwd.16012, %sw.default1746 ], [ %stop_perp_fwd.16012, %lor.end1685 ], [ %stop_perp_fwd.16012, %if.then612 ], [ %stop_perp_fwd.16012, %cond.end576 ], [ %stop_perp_fwd.16012, %if.end641 ], [ %stop_perp_fwd.16012, %if.then974 ], [ %stop_perp_fwd.16012, %cond.end937 ], [ %stop_perp_fwd.16012, %cond.false457 ], [ %stop_perp_fwd.16012, %sw.bb328 ], [ %stop_perp_fwd.2, %if.end314 ], [ %stop_perp_fwd.2, %if.then321 ], [ %stop_perp_fwd.16012, %cond.end448 ], [ %stop_perp_fwd.16012, %if.end288 ], [ %stop_perp_fwd.16012, %if.end288 ], [ %stop_perp_fwd.16012, %if.end288 ], [ %stop_perp_fwd.16012, %if.end288 ], [ %stop_perp_fwd.16012, %if.end1724 ]
+  %prnt_flush.6 = phi i32 [ %prnt_flush.56013, %sw.default1746 ], [ %lor.ext1686, %lor.end1685 ], [ %prnt_flush.56013, %if.then612 ], [ %prnt_flush.56013, %cond.end576 ], [ %prnt_flush.56013, %if.end641 ], [ %prnt_flush.56013, %if.then974 ], [ %prnt_flush.56013, %cond.end937 ], [ %prnt_flush.56013, %cond.false457 ], [ %prnt_flush.56013, %sw.bb328 ], [ %prnt_flush.56013, %if.end314 ], [ %prnt_flush.56013, %if.then321 ], [ %prnt_flush.56013, %cond.end448 ], [ %prnt_flush.56013, %if.end288 ], [ %prnt_flush.56013, %if.end288 ], [ %prnt_flush.56013, %if.end288 ], [ %prnt_flush.56013, %if.end288 ], [ %lor.ext1686, %if.end1724 ]
+  %stop_fwd.3 = phi i32 [ %stop_fwd.16014, %sw.default1746 ], [ %stop_fwd.16014, %lor.end1685 ], [ %stop_fwd.16014, %if.then612 ], [ %stop_fwd.16014, %cond.end576 ], [ %stop_fwd.16014, %if.end641 ], [ %stop_fwd.16014, %if.then974 ], [ %stop_fwd.16014, %cond.end937 ], [ %stop_fwd.16014, %cond.false457 ], [ %stop_fwd.16014, %sw.bb328 ], [ %stop_fwd.2, %if.end314 ], [ %stop_fwd.2, %if.then321 ], [ %stop_fwd.16014, %cond.end448 ], [ %stop_fwd.16014, %if.end288 ], [ %stop_fwd.16014, %if.end288 ], [ %stop_fwd.16014, %if.end288 ], [ %stop_fwd.16014, %if.end288 ], [ %stop_fwd.16014, %if.end1724 ]
+  %headers_seen.1 = phi i32 [ %headers_seen.06015, %sw.default1746 ], [ %headers_seen.06015, %lor.end1685 ], [ %headers_seen.06015, %if.then612 ], [ %headers_seen.06015, %cond.end576 ], [ %headers_seen.06015, %if.end641 ], [ %headers_seen.06015, %if.then974 ], [ %headers_seen.06015, %cond.end937 ], [ %headers_seen.06015, %cond.false457 ], [ %headers_seen.06015, %sw.bb328 ], [ %headers_seen.06015, %if.end314 ], [ %headers_seen.06015, %if.then321 ], [ %headers_seen.06015, %cond.end448 ], [ 1, %if.end288 ], [ 1, %if.end288 ], [ 1, %if.end288 ], [ 1, %if.end288 ], [ %headers_seen.06015, %if.end1724 ]
+  %stop_back.3 = phi i32 [ %stop_back.16016, %sw.default1746 ], [ %stop_back.16016, %lor.end1685 ], [ %stop_back.16016, %if.then612 ], [ %stop_back.16016, %cond.end576 ], [ %stop_back.16016, %if.end641 ], [ %stop_back.16016, %if.then974 ], [ %stop_back.16016, %cond.end937 ], [ %stop_back.16016, %cond.false457 ], [ %stop_back.16016, %sw.bb328 ], [ %stop_back.2, %if.end314 ], [ %stop_back.2, %if.then321 ], [ %stop_back.16016, %cond.end448 ], [ %stop_back.16016, %if.end288 ], [ %stop_back.16016, %if.end288 ], [ %stop_back.16016, %if.end288 ], [ %stop_back.16016, %if.end288 ], [ %stop_back.16016, %if.end1724 ]
+  %stop_link.2 = phi ptr [ %stop_link.06017, %sw.default1746 ], [ %stop_link.06017, %lor.end1685 ], [ %stop_link.06017, %if.then612 ], [ %stop_link.06017, %cond.end576 ], [ %stop_link.06017, %if.end641 ], [ %stop_link.06017, %if.then974 ], [ %stop_link.06017, %cond.end937 ], [ %stop_link.06017, %cond.false457 ], [ %stop_link.06017, %sw.bb328 ], [ %stop_link.1, %if.end314 ], [ %stop_link.1, %if.then321 ], [ %stop_link.06017, %cond.end448 ], [ %stop_link.06017, %if.end288 ], [ %stop_link.06017, %if.end288 ], [ %stop_link.06017, %if.end288 ], [ %stop_link.06017, %if.end288 ], [ %stop_link.06017, %if.end1724 ]
+  %perp_back.4 = phi i32 [ %perp_back.16018, %sw.default1746 ], [ %perp_back.3, %lor.end1685 ], [ %perp_back.16018, %if.then612 ], [ %perp_back.16018, %cond.end576 ], [ %perp_back.16018, %if.end641 ], [ %perp_back.16018, %if.then974 ], [ %perp_back.16018, %cond.end937 ], [ %perp_back.16018, %cond.false457 ], [ %perp_back.16018, %sw.bb328 ], [ %perp_back.16018, %if.end314 ], [ %perp_back.16018, %if.then321 ], [ %perp_back.16018, %cond.end448 ], [ %perp_back.16018, %if.end288 ], [ %perp_back.16018, %if.end288 ], [ %perp_back.16018, %if.end288 ], [ %perp_back.16018, %if.end288 ], [ %perp_back.3, %if.end1724 ]
+  %perp_fwd.4 = phi i32 [ %perp_fwd.16020, %sw.default1746 ], [ %perp_fwd.3, %lor.end1685 ], [ %perp_fwd.16020, %if.then612 ], [ %perp_fwd.16020, %cond.end576 ], [ %perp_fwd.16020, %if.end641 ], [ %perp_fwd.16020, %if.then974 ], [ %perp_fwd.16020, %cond.end937 ], [ %perp_fwd.16020, %cond.false457 ], [ %perp_fwd.16020, %sw.bb328 ], [ %perp_fwd.16020, %if.end314 ], [ %perp_fwd.16020, %if.then321 ], [ %perp_fwd.16020, %cond.end448 ], [ %perp_fwd.16020, %if.end288 ], [ %perp_fwd.16020, %if.end288 ], [ %perp_fwd.16020, %if.end288 ], [ %perp_fwd.16020, %if.end288 ], [ %perp_fwd.3, %if.end1724 ]
+  %frame_size.4 = phi i32 [ %frame_size.16022, %sw.default1746 ], [ %frame_size.3, %lor.end1685 ], [ %frame_size.16022, %if.then612 ], [ %frame_size.16022, %cond.end576 ], [ %frame_size.16022, %if.end641 ], [ %frame_size.16022, %if.then974 ], [ %frame_size.16022, %cond.end937 ], [ %frame_size.16022, %cond.false457 ], [ %frame_size.16022, %sw.bb328 ], [ %frame_size.16022, %if.end314 ], [ %frame_size.16022, %if.then321 ], [ %frame_size.16022, %cond.end448 ], [ %frame_size.16022, %if.end288 ], [ %frame_size.16022, %if.end288 ], [ %frame_size.16022, %if.end288 ], [ %frame_size.16022, %if.end288 ], [ %frame_size.3, %if.end1724 ]
+  %dest_fwd.4 = phi i32 [ %dest_fwd.16024, %sw.default1746 ], [ %dest_fwd.3, %lor.end1685 ], [ %dest_fwd.16024, %if.then612 ], [ %dest_fwd.16024, %cond.end576 ], [ %dest_fwd.16024, %if.end641 ], [ %dest_fwd.16024, %if.then974 ], [ %dest_fwd.16024, %cond.end937 ], [ %dest_fwd.16024, %cond.false457 ], [ %dest_fwd.16024, %sw.bb328 ], [ %dest_fwd.16024, %if.end314 ], [ %dest_fwd.16024, %if.then321 ], [ %dest_fwd.16024, %cond.end448 ], [ %dest_fwd.16024, %if.end288 ], [ %dest_fwd.16024, %if.end288 ], [ %dest_fwd.16024, %if.end288 ], [ %dest_fwd.16024, %if.end288 ], [ %dest_fwd.3, %if.end1724 ]
+  %dest_back.4 = phi i32 [ %dest_back.16026, %sw.default1746 ], [ %dest_back.3, %lor.end1685 ], [ %dest_back.16026, %if.then612 ], [ %dest_back.16026, %cond.end576 ], [ %dest_back.16026, %if.end641 ], [ %dest_back.16026, %if.then974 ], [ %dest_back.16026, %cond.end937 ], [ %dest_back.16026, %cond.false457 ], [ %dest_back.16026, %sw.bb328 ], [ %dest_back.16026, %if.end314 ], [ %dest_back.16026, %if.then321 ], [ %dest_back.16026, %cond.end448 ], [ %dest_back.16026, %if.end288 ], [ %dest_back.16026, %if.end288 ], [ %dest_back.16026, %if.end288 ], [ %dest_back.16026, %if.end288 ], [ %dest_back.3, %if.end1724 ]
+  %need_adjust.3 = phi i32 [ %need_adjust.16028, %sw.default1746 ], [ %need_adjust.2, %lor.end1685 ], [ %need_adjust.16028, %if.then612 ], [ %need_adjust.16028, %cond.end576 ], [ %need_adjust.16028, %if.end641 ], [ %need_adjust.16028, %if.then974 ], [ %need_adjust.16028, %cond.end937 ], [ %need_adjust.16028, %cond.false457 ], [ %need_adjust.16028, %sw.bb328 ], [ %need_adjust.16028, %if.end314 ], [ %need_adjust.16028, %if.then321 ], [ %need_adjust.16028, %cond.end448 ], [ %need_adjust.16028, %if.end288 ], [ %need_adjust.16028, %if.end288 ], [ %need_adjust.16028, %if.end288 ], [ %need_adjust.16028, %if.end288 ], [ %need_adjust.2, %if.end1724 ]
+  %dest_encl.5 = phi ptr [ %dest_encl.16029, %sw.default1746 ], [ %dest_encl.4, %lor.end1685 ], [ %dest_encl.16029, %if.then612 ], [ %dest_encl.16029, %cond.end576 ], [ %dest_encl.16029, %if.end641 ], [ %dest_encl.16029, %if.then974 ], [ %dest_encl.16029, %cond.end937 ], [ %dest_encl.16029, %cond.false457 ], [ %dest_encl.16029, %sw.bb328 ], [ %dest_encl.16029, %if.end314 ], [ %dest_encl.16029, %if.then321 ], [ %dest_encl.16029, %cond.end448 ], [ %dest_encl.16029, %if.end288 ], [ %dest_encl.16029, %if.end288 ], [ %dest_encl.16029, %if.end288 ], [ %dest_encl.16029, %if.end288 ], [ %dest_encl.4, %if.end1724 ]
+  %link.1 = phi ptr [ %link.06031, %sw.default1746 ], [ %link.06031, %lor.end1685 ], [ %82, %if.then612 ], [ %82, %cond.end576 ], [ %link.06031, %if.end641 ], [ %140, %if.then974 ], [ %140, %cond.end937 ], [ %link.06031, %cond.false457 ], [ %link.06031, %sw.bb328 ], [ %link.06031, %if.end314 ], [ %link.06031, %if.then321 ], [ %link.06031, %cond.end448 ], [ %link.06031, %if.end288 ], [ %link.06031, %if.end288 ], [ %link.06031, %if.end288 ], [ %link.06031, %if.end288 ], [ %link.06031, %if.end1724 ]
   %osucc1756 = getelementptr inbounds %struct.LIST, ptr %link.1, i64 0, i32 1
   %link.0 = load ptr, ptr %osucc1756, align 8, !tbaa !5
   %cmp241.not = icmp eq ptr %link.0, %hd
   br i1 %cmp241.not, label %for.end1757, label %for.cond247.preheader, !llvm.loop !28
 
 for.end1757:                                      ; preds = %for.inc1753
-  %.pre6295 = load ptr, ptr %inners, align 8, !tbaa !8
-  %cmp1758.not = icmp eq ptr %.pre6295, null
+  %.pre6289 = load ptr, ptr %inners, align 8, !tbaa !8
+  %cmp1758.not = icmp eq ptr %.pre6289, null
   br i1 %cmp1758.not, label %if.end1762, label %if.then1760
 
 if.then1760:                                      ; preds = %for.end1757
-  %call1761 = call i32 @DisposeObject(ptr noundef nonnull %.pre6295) #6
+  %call1761 = call i32 @DisposeObject(ptr noundef nonnull %.pre6289) #6
   br label %if.end1762
 
 if.end1762:                                       ; preds = %if.end216, %if.then1760, %for.end1757
-  %dest_encl.1.lcssa6314 = phi ptr [ %dest_encl.5, %if.then1760 ], [ %dest_encl.5, %for.end1757 ], [ null, %if.end216 ]
-  %need_adjust.1.lcssa6313 = phi i32 [ %need_adjust.3, %if.then1760 ], [ %need_adjust.3, %for.end1757 ], [ 0, %if.end216 ]
-  %dest_back.1.lcssa6312 = phi i32 [ %dest_back.4, %if.then1760 ], [ %dest_back.4, %for.end1757 ], [ %dest_back.0, %if.end216 ]
-  %dest_fwd.1.lcssa6311 = phi i32 [ %dest_fwd.4, %if.then1760 ], [ %dest_fwd.4, %for.end1757 ], [ %dest_fwd.0, %if.end216 ]
-  %perp_fwd.1.lcssa6310 = phi i32 [ %perp_fwd.4, %if.then1760 ], [ %perp_fwd.4, %for.end1757 ], [ %perp_fwd.0, %if.end216 ]
-  %perp_back.1.lcssa6309 = phi i32 [ %perp_back.4, %if.then1760 ], [ %perp_back.4, %for.end1757 ], [ %perp_back.0, %if.end216 ]
-  %prnt_flush.5.lcssa6308 = phi i32 [ %prnt_flush.6, %if.then1760 ], [ %prnt_flush.6, %for.end1757 ], [ %prnt_flush.0, %if.end216 ]
+  %dest_encl.1.lcssa6308 = phi ptr [ %dest_encl.5, %if.then1760 ], [ %dest_encl.5, %for.end1757 ], [ null, %if.end216 ]
+  %need_adjust.1.lcssa6307 = phi i32 [ %need_adjust.3, %if.then1760 ], [ %need_adjust.3, %for.end1757 ], [ 0, %if.end216 ]
+  %dest_back.1.lcssa6306 = phi i32 [ %dest_back.4, %if.then1760 ], [ %dest_back.4, %for.end1757 ], [ %dest_back.0, %if.end216 ]
+  %dest_fwd.1.lcssa6305 = phi i32 [ %dest_fwd.4, %if.then1760 ], [ %dest_fwd.4, %for.end1757 ], [ %dest_fwd.0, %if.end216 ]
+  %perp_fwd.1.lcssa6304 = phi i32 [ %perp_fwd.4, %if.then1760 ], [ %perp_fwd.4, %for.end1757 ], [ %perp_fwd.0, %if.end216 ]
+  %perp_back.1.lcssa6303 = phi i32 [ %perp_back.4, %if.then1760 ], [ %perp_back.4, %for.end1757 ], [ %perp_back.0, %if.end216 ]
+  %prnt_flush.5.lcssa6302 = phi i32 [ %prnt_flush.6, %if.then1760 ], [ %prnt_flush.6, %for.end1757 ], [ %prnt_flush.0, %if.end216 ]
   %268 = load ptr, ptr %osucc239, align 8, !tbaa !5
   %cmp1766.not = icmp eq ptr %268, %hd
   br i1 %cmp1766.not, label %if.end1773, label %if.then1768
 
 if.then1768:                                      ; preds = %if.end1762
   call void @Promote(ptr noundef nonnull %hd, ptr noundef nonnull %hd, ptr noundef %dest_index.2, i32 noundef 1) #6
-  %tobool1769.not = icmp eq i32 %need_adjust.1.lcssa6313, 0
+  %tobool1769.not = icmp eq i32 %need_adjust.1.lcssa6307, 0
   br i1 %tobool1769.not, label %if.end1773, label %if.then1770
 
 if.then1770:                                      ; preds = %if.then1768
-  call void @AdjustSize(ptr noundef %dest_encl.1.lcssa6314, i32 noundef %dest_back.1.lcssa6312, i32 noundef %dest_fwd.1.lcssa6311, i32 noundef %bf.cast) #6
-  call void @AdjustSize(ptr noundef %dest_encl.1.lcssa6314, i32 noundef %perp_back.1.lcssa6309, i32 noundef %perp_fwd.1.lcssa6310, i32 noundef %sub) #6
+  call void @AdjustSize(ptr noundef %dest_encl.1.lcssa6308, i32 noundef %dest_back.1.lcssa6306, i32 noundef %dest_fwd.1.lcssa6305, i32 noundef %bf.cast) #6
+  call void @AdjustSize(ptr noundef %dest_encl.1.lcssa6308, i32 noundef %perp_back.1.lcssa6303, i32 noundef %perp_fwd.1.lcssa6304, i32 noundef %sub) #6
   br label %if.end1773
 
 if.end1773:                                       ; preds = %if.then1768, %if.then1770, %if.end1762
@@ -1903,17 +1903,17 @@ if.end1801:                                       ; preds = %if.then1790, %if.el
   %osucc1812 = getelementptr inbounds %struct.LIST, ptr %274, i64 0, i32 1
   store ptr %274, ptr %osucc1812, align 8, !tbaa !5
   store ptr %274, ptr %274, align 8, !tbaa !5
-  %cmp1816.not = icmp eq ptr %dest_encl.1.lcssa6314, null
+  %cmp1816.not = icmp eq ptr %dest_encl.1.lcssa6308, null
   %275 = load i32, ptr %dest_par_constr, align 8
   %276 = load i32, ptr %obfc, align 4
   %277 = load i32, ptr %ofc, align 8
-  %.sink6263 = select i1 %cmp1816.not, i32 8388607, i32 %275
-  %.sink6262 = select i1 %cmp1816.not, i32 8388607, i32 %276
+  %.sink6257 = select i1 %cmp1816.not, i32 8388607, i32 %275
+  %.sink6256 = select i1 %cmp1816.not, i32 8388607, i32 %276
   %.sink = select i1 %cmp1816.not, i32 8388607, i32 %277
   %278 = getelementptr inbounds %struct.closure_type, ptr %274, i64 0, i32 4
-  store i32 %.sink6263, ptr %278, align 8
+  store i32 %.sink6257, ptr %278, align 8
   %279 = getelementptr inbounds %struct.closure_type, ptr %274, i64 0, i32 4, i32 0, i32 1
-  store i32 %.sink6262, ptr %279, align 4
+  store i32 %.sink6256, ptr %279, align 4
   %280 = getelementptr inbounds %struct.closure_type, ptr %274, i64 0, i32 4, i32 0, i32 2
   store i32 %.sink, ptr %280, align 8
   %281 = load i8, ptr @zz_lengths, align 1, !tbaa !5
@@ -1974,14 +1974,14 @@ cond.end1905:                                     ; preds = %if.end1858
   %294 = load ptr, ptr @zz_tmp, align 8, !tbaa !8
   %osucc1902 = getelementptr inbounds %struct.LIST, ptr %294, i64 0, i32 1
   store ptr %293, ptr %osucc1902, align 8, !tbaa !5
-  %.pre6296 = load ptr, ptr @xx_link, align 8, !tbaa !8
-  store ptr %.pre6296, ptr @zz_res, align 8, !tbaa !8
+  %.pre6290 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  store ptr %.pre6290, ptr @zz_res, align 8, !tbaa !8
   store ptr %274, ptr @zz_hold, align 8, !tbaa !8
-  %cmp1911 = icmp eq ptr %.pre6296, null
+  %cmp1911 = icmp eq ptr %.pre6290, null
   br i1 %cmp1911, label %if.end1940, label %cond.false1914
 
 cond.false1914:                                   ; preds = %cond.end1905.thread, %cond.end1905
-  %295 = phi ptr [ %285, %cond.end1905.thread ], [ %.pre6296, %cond.end1905 ]
+  %295 = phi ptr [ %285, %cond.end1905.thread ], [ %.pre6290, %cond.end1905 ]
   %296 = load ptr, ptr %arrayidx1805, align 8, !tbaa !5
   store ptr %296, ptr @zz_tmp, align 8, !tbaa !8
   %arrayidx1919 = getelementptr inbounds [2 x %struct.LIST], ptr %295, i64 0, i64 1
@@ -1998,16 +1998,16 @@ cond.false1914:                                   ; preds = %cond.end1905.thread
 if.end1940:                                       ; preds = %cond.false1914, %cond.end1905, %if.end1773
   call void @DetachGalley(ptr noundef nonnull %hd) #6
   call void @KillGalley(ptr noundef nonnull %hd, i32 noundef 1) #6
-  call fastcc void @ParentFlush(i32 noundef %prnt_flush.5.lcssa6308, ptr noundef %dest_index.2, i32 noundef 1)
+  call fastcc void @ParentFlush(i32 noundef %prnt_flush.5.lcssa6302, ptr noundef %dest_index.2, i32 noundef 1)
   br label %cleanup5156
 
 REJECT:                                           ; preds = %if.else1565, %if.then1562, %cond.end1525, %if.end1660, %if.then1663, %if.then1274, %sw.bb978, %if.then981
-  %perp_back.5 = phi i32 [ %perp_back.2, %if.then1274 ], [ %perp_back.2, %if.then1663 ], [ %perp_back.2, %if.end1660 ], [ %perp_back.16024, %if.then981 ], [ %perp_back.16024, %sw.bb978 ], [ %perp_back.2, %cond.end1525 ], [ %perp_back.2, %if.then1562 ], [ %perp_back.2, %if.else1565 ]
-  %perp_fwd.5 = phi i32 [ %perp_fwd.2, %if.then1274 ], [ %perp_fwd.2, %if.then1663 ], [ %perp_fwd.2, %if.end1660 ], [ %perp_fwd.16026, %if.then981 ], [ %perp_fwd.16026, %sw.bb978 ], [ %perp_fwd.2, %cond.end1525 ], [ %perp_fwd.2, %if.then1562 ], [ %perp_fwd.2, %if.else1565 ]
-  %frame_size.5 = phi i32 [ %frame_size.2, %if.then1274 ], [ %frame_size.2, %if.then1663 ], [ %frame_size.2, %if.end1660 ], [ %frame_size.16028, %if.then981 ], [ %frame_size.16028, %sw.bb978 ], [ %frame_size.2, %cond.end1525 ], [ %frame_size.2, %if.then1562 ], [ %frame_size.2, %if.else1565 ]
-  %dest_fwd.5 = phi i32 [ %dest_fwd.2, %if.then1274 ], [ %dest_fwd.2, %if.then1663 ], [ %dest_fwd.2, %if.end1660 ], [ %dest_fwd.16030, %if.then981 ], [ %dest_fwd.16030, %sw.bb978 ], [ %dest_fwd.2, %cond.end1525 ], [ %dest_fwd.2, %if.then1562 ], [ %dest_fwd.2, %if.else1565 ]
-  %dest_back.5 = phi i32 [ %dest_back.2, %if.then1274 ], [ %dest_back.2, %if.then1663 ], [ %dest_back.2, %if.end1660 ], [ %dest_back.16032, %if.then981 ], [ %dest_back.16032, %sw.bb978 ], [ %dest_back.2, %cond.end1525 ], [ %dest_back.2, %if.then1562 ], [ %dest_back.2, %if.else1565 ]
-  %dest_encl.6 = phi ptr [ %dest_encl.3, %if.then1274 ], [ %dest_encl.3, %if.then1663 ], [ %dest_encl.3, %if.end1660 ], [ %dest_encl.16035, %if.then981 ], [ %dest_encl.16035, %sw.bb978 ], [ %dest_encl.3, %cond.end1525 ], [ %dest_encl.3, %if.then1562 ], [ %dest_encl.3, %if.else1565 ]
+  %perp_back.5 = phi i32 [ %perp_back.2, %if.then1274 ], [ %perp_back.2, %if.then1663 ], [ %perp_back.2, %if.end1660 ], [ %perp_back.16018, %if.then981 ], [ %perp_back.16018, %sw.bb978 ], [ %perp_back.2, %cond.end1525 ], [ %perp_back.2, %if.then1562 ], [ %perp_back.2, %if.else1565 ]
+  %perp_fwd.5 = phi i32 [ %perp_fwd.2, %if.then1274 ], [ %perp_fwd.2, %if.then1663 ], [ %perp_fwd.2, %if.end1660 ], [ %perp_fwd.16020, %if.then981 ], [ %perp_fwd.16020, %sw.bb978 ], [ %perp_fwd.2, %cond.end1525 ], [ %perp_fwd.2, %if.then1562 ], [ %perp_fwd.2, %if.else1565 ]
+  %frame_size.5 = phi i32 [ %frame_size.2, %if.then1274 ], [ %frame_size.2, %if.then1663 ], [ %frame_size.2, %if.end1660 ], [ %frame_size.16022, %if.then981 ], [ %frame_size.16022, %sw.bb978 ], [ %frame_size.2, %cond.end1525 ], [ %frame_size.2, %if.then1562 ], [ %frame_size.2, %if.else1565 ]
+  %dest_fwd.5 = phi i32 [ %dest_fwd.2, %if.then1274 ], [ %dest_fwd.2, %if.then1663 ], [ %dest_fwd.2, %if.end1660 ], [ %dest_fwd.16024, %if.then981 ], [ %dest_fwd.16024, %sw.bb978 ], [ %dest_fwd.2, %cond.end1525 ], [ %dest_fwd.2, %if.then1562 ], [ %dest_fwd.2, %if.else1565 ]
+  %dest_back.5 = phi i32 [ %dest_back.2, %if.then1274 ], [ %dest_back.2, %if.then1663 ], [ %dest_back.2, %if.end1660 ], [ %dest_back.16026, %if.then981 ], [ %dest_back.16026, %sw.bb978 ], [ %dest_back.2, %cond.end1525 ], [ %dest_back.2, %if.then1562 ], [ %dest_back.2, %if.else1565 ]
+  %dest_encl.6 = phi ptr [ %dest_encl.3, %if.then1274 ], [ %dest_encl.3, %if.then1663 ], [ %dest_encl.3, %if.end1660 ], [ %dest_encl.16029, %if.then981 ], [ %dest_encl.16029, %sw.bb978 ], [ %dest_encl.3, %cond.end1525 ], [ %dest_encl.3, %if.then1562 ], [ %dest_encl.3, %if.else1565 ]
   %oactual1941 = getelementptr inbounds %struct.closure_type, ptr %44, i64 0, i32 5
   %299 = load ptr, ptr %oactual1941, align 8, !tbaa !5
   %300 = load ptr, ptr @PrintSym, align 8, !tbaa !8
@@ -2029,37 +2029,37 @@ if.then1949:                                      ; preds = %if.end1946
   br label %if.end1951
 
 if.end1951:                                       ; preds = %if.then1949, %if.end1946
-  %cmp1952.not = icmp eq ptr %stop_link.06023, null
+  %cmp1952.not = icmp eq ptr %stop_link.06017, null
   br i1 %cmp1952.not, label %if.end1959, label %if.then1954
 
 if.then1954:                                      ; preds = %if.end1951
-  call void @Promote(ptr noundef nonnull %hd, ptr noundef nonnull %stop_link.06023, ptr noundef %dest_index.2, i32 noundef 1) #6
-  %tobool1955.not = icmp eq i32 %need_adjust.16034, 0
+  call void @Promote(ptr noundef nonnull %hd, ptr noundef nonnull %stop_link.06017, ptr noundef %dest_index.2, i32 noundef 1) #6
+  %tobool1955.not = icmp eq i32 %need_adjust.16028, 0
   br i1 %tobool1955.not, label %if.end1959, label %if.then1956
 
 if.then1956:                                      ; preds = %if.then1954
-  call void @AdjustSize(ptr noundef %dest_encl.6, i32 noundef %stop_back.16022, i32 noundef %stop_fwd.16020, i32 noundef %bf.cast) #6
-  call void @AdjustSize(ptr noundef %dest_encl.6, i32 noundef %stop_perp_back.16017, i32 noundef %stop_perp_fwd.16018, i32 noundef %sub) #6
+  call void @AdjustSize(ptr noundef %dest_encl.6, i32 noundef %stop_back.16016, i32 noundef %stop_fwd.16014, i32 noundef %bf.cast) #6
+  call void @AdjustSize(ptr noundef %dest_encl.6, i32 noundef %stop_perp_back.16011, i32 noundef %stop_perp_fwd.16012, i32 noundef %sub) #6
   br label %if.end1959
 
 if.end1959:                                       ; preds = %if.then1954, %if.then1956, %if.end1951
-  %tobool1962 = icmp ne i32 %headers_seen.06021, 0
+  %tobool1962 = icmp ne i32 %headers_seen.06015, 0
   %or.cond5197 = select i1 %47, i1 %tobool1962, i1 false
   br i1 %or.cond5197, label %for.cond1966.preheader, label %if.end2048
 
 for.cond1966.preheader:                           ; preds = %if.end1959
   %303 = load ptr, ptr %osucc239, align 8, !tbaa !5
-  %cmp1970.not6057 = icmp eq ptr %303, %link.06037
-  br i1 %cmp1970.not6057, label %if.end2048, label %for.cond1979.preheader
+  %cmp1970.not6051 = icmp eq ptr %303, %link.06031
+  br i1 %cmp1970.not6051, label %if.end2048, label %for.cond1979.preheader
 
 for.cond1979.preheader:                           ; preds = %for.cond1966.preheader, %if.end2046
   %304 = phi ptr [ %310, %if.end2046 ], [ %303, %for.cond1966.preheader ]
-  %zlink1965.06058 = phi ptr [ %zlink1965.1, %if.end2046 ], [ %hd, %for.cond1966.preheader ]
+  %zlink1965.06052 = phi ptr [ %zlink1965.1, %if.end2046 ], [ %hd, %for.cond1966.preheader ]
   br label %for.cond1979
 
 for.cond1979:                                     ; preds = %for.cond1979.preheader, %for.cond1979
-  %.pn5728 = phi ptr [ %z1964.0, %for.cond1979 ], [ %304, %for.cond1979.preheader ]
-  %z1964.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5728, i64 0, i64 1
+  %.pn5689 = phi ptr [ %z1964.0, %for.cond1979 ], [ %304, %for.cond1979.preheader ]
+  %z1964.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5689, i64 0, i64 1
   %z1964.0 = load ptr, ptr %z1964.0.in, align 8, !tbaa !5
   %ou11980 = getelementptr inbounds %struct.word_type, ptr %z1964.0, i64 0, i32 1
   %305 = load i8, ptr %ou11980, align 8, !tbaa !5
@@ -2087,8 +2087,8 @@ if.end2024:                                       ; preds = %for.cond1979, %for.
   %307 = phi i8 [ %306, %for.cond2012 ], [ %305, %for.cond1979 ]
   %z1964.2 = phi ptr [ %z1964.1, %for.cond2012 ], [ %z1964.0, %for.cond1979 ]
   %308 = and i8 %307, -4
-  %or.cond5748 = icmp eq i8 %308, 20
-  br i1 %or.cond5748, label %if.then2036, label %if.end2046
+  %or.cond5709 = icmp eq i8 %308, 20
+  br i1 %or.cond5709, label %if.then2036, label %if.end2046
 
 if.then2036:                                      ; preds = %if.end2024
   %cmp2037 = icmp eq ptr %z1964.0, %z1964.2
@@ -2104,10 +2104,10 @@ if.end2041:                                       ; preds = %if.then2039, %if.th
   br label %if.end2046
 
 if.end2046:                                       ; preds = %if.end2024, %if.end2041
-  %zlink1965.1 = phi ptr [ %zlink1965.06058, %if.end2041 ], [ %304, %if.end2024 ]
+  %zlink1965.1 = phi ptr [ %zlink1965.06052, %if.end2041 ], [ %304, %if.end2024 ]
   %osucc1969 = getelementptr inbounds %struct.LIST, ptr %zlink1965.1, i64 0, i32 1
   %310 = load ptr, ptr %osucc1969, align 8, !tbaa !5
-  %cmp1970.not = icmp eq ptr %310, %link.06037
+  %cmp1970.not = icmp eq ptr %310, %link.06031
   br i1 %cmp1970.not, label %if.end2048, label %for.cond1979.preheader, !llvm.loop !30
 
 if.end2048:                                       ; preds = %if.end2046, %for.cond1966.preheader, %if.end1959
@@ -2138,25 +2138,25 @@ if.then2067:                                      ; preds = %if.end2061
 
 if.end2069:                                       ; preds = %if.then2067, %if.end2061
   %316 = load ptr, ptr %oheaders, align 8, !tbaa !5
-  %link.2.in6060 = getelementptr inbounds %struct.LIST, ptr %316, i64 0, i32 1
-  %link.26061 = load ptr, ptr %link.2.in6060, align 8, !tbaa !5
-  %cmp2076.not6062 = icmp eq ptr %link.26061, %316
-  br i1 %cmp2076.not6062, label %if.end2221, label %for.cond2082.preheader.lr.ph
+  %link.2.in6054 = getelementptr inbounds %struct.LIST, ptr %316, i64 0, i32 1
+  %link.26055 = load ptr, ptr %link.2.in6054, align 8, !tbaa !5
+  %cmp2076.not6056 = icmp eq ptr %link.26055, %316
+  br i1 %cmp2076.not6056, label %if.end2221, label %for.cond2082.preheader.lr.ph
 
 for.cond2082.preheader.lr.ph:                     ; preds = %if.end2069
   %cmp2145 = icmp eq ptr %314, null
   br label %for.cond2082.preheader
 
 for.cond2082.preheader:                           ; preds = %for.cond2082.preheader.lr.ph, %cond.end2209
-  %link.26064 = phi ptr [ %link.26061, %for.cond2082.preheader.lr.ph ], [ %link.2, %cond.end2209 ]
-  %headers_count.06063 = phi i32 [ 0, %for.cond2082.preheader.lr.ph ], [ %inc, %cond.end2209 ]
+  %link.26058 = phi ptr [ %link.26055, %for.cond2082.preheader.lr.ph ], [ %link.2, %cond.end2209 ]
+  %headers_count.06057 = phi i32 [ 0, %for.cond2082.preheader.lr.ph ], [ %inc, %cond.end2209 ]
   br label %for.cond2082
 
 for.cond2082:                                     ; preds = %for.cond2082.preheader, %for.cond2082
-  %link.2.pn = phi ptr [ %storemerge5726, %for.cond2082 ], [ %link.26064, %for.cond2082.preheader ]
-  %storemerge5726.in = getelementptr inbounds [2 x %struct.LIST], ptr %link.2.pn, i64 0, i64 1
-  %storemerge5726 = load ptr, ptr %storemerge5726.in, align 8, !tbaa !5
-  %ou12083 = getelementptr inbounds %struct.word_type, ptr %storemerge5726, i64 0, i32 1
+  %link.2.pn = phi ptr [ %storemerge5687, %for.cond2082 ], [ %link.26058, %for.cond2082.preheader ]
+  %storemerge5687.in = getelementptr inbounds [2 x %struct.LIST], ptr %link.2.pn, i64 0, i64 1
+  %storemerge5687 = load ptr, ptr %storemerge5687.in, align 8, !tbaa !5
+  %ou12083 = getelementptr inbounds %struct.word_type, ptr %storemerge5687, i64 0, i32 1
   %317 = load i8, ptr %ou12083, align 8, !tbaa !5
   switch i8 %317, label %if.end2107.loopexit [
     i8 0, label %for.cond2082
@@ -2165,13 +2165,13 @@ for.cond2082:                                     ; preds = %for.cond2082.prehea
   ]
 
 if.then2105:                                      ; preds = %for.cond2082, %for.cond2082
-  store ptr %storemerge5726, ptr %y, align 8, !tbaa !8
+  store ptr %storemerge5687, ptr %y, align 8, !tbaa !8
   %318 = load ptr, ptr @no_fpos, align 8, !tbaa !8
   %call2106 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %318, ptr noundef nonnull @.str.23) #6
   br label %if.end2107
 
 if.end2107.loopexit:                              ; preds = %for.cond2082
-  store ptr %storemerge5726, ptr %y, align 8, !tbaa !8
+  store ptr %storemerge5687, ptr %y, align 8, !tbaa !8
   br label %if.end2107
 
 if.end2107:                                       ; preds = %if.end2107.loopexit, %if.then2105
@@ -2227,18 +2227,18 @@ cond.false2152:                                   ; preds = %if.end2130
   %331 = load ptr, ptr @zz_tmp, align 8, !tbaa !8
   %osucc2173 = getelementptr inbounds %struct.LIST, ptr %331, i64 0, i32 1
   store ptr %330, ptr %osucc2173, align 8, !tbaa !5
-  %.pre6271 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6265 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end2176
 
 cond.end2176:                                     ; preds = %if.end2130, %cond.false2152
-  %332 = phi ptr [ %323, %if.end2130 ], [ %.pre6271, %cond.false2152 ]
+  %332 = phi ptr [ %323, %if.end2130 ], [ %.pre6265, %cond.false2152 ]
   store ptr %332, ptr @zz_res, align 8, !tbaa !8
   %333 = load ptr, ptr %y, align 8, !tbaa !8
   store ptr %333, ptr @zz_hold, align 8, !tbaa !8
   %cmp2178 = icmp eq ptr %333, null
   %cmp2182 = icmp eq ptr %332, null
-  %or.cond5775 = select i1 %cmp2178, i1 true, i1 %cmp2182
-  br i1 %or.cond5775, label %cond.end2209, label %cond.false2185
+  %or.cond5736 = select i1 %cmp2178, i1 true, i1 %cmp2182
+  br i1 %or.cond5736, label %cond.end2209, label %cond.false2185
 
 cond.false2185:                                   ; preds = %cond.end2176
   %arrayidx2187 = getelementptr inbounds [2 x %struct.LIST], ptr %333, i64 0, i64 1
@@ -2256,8 +2256,8 @@ cond.false2185:                                   ; preds = %cond.end2176
   br label %cond.end2209
 
 cond.end2209:                                     ; preds = %cond.end2176, %cond.false2185
-  %inc = add nuw nsw i32 %headers_count.06063, 1
-  %link.2.in = getelementptr inbounds %struct.LIST, ptr %link.26064, i64 0, i32 1
+  %inc = add nuw nsw i32 %headers_count.06057, 1
+  %link.2.in = getelementptr inbounds %struct.LIST, ptr %link.26058, i64 0, i32 1
   %link.2 = load ptr, ptr %link.2.in, align 8, !tbaa !5
   %337 = load ptr, ptr %oheaders, align 8, !tbaa !5
   %cmp2076.not = icmp eq ptr %link.2, %337
@@ -2286,7 +2286,7 @@ if.then2227:                                      ; preds = %if.end2221
   br label %if.end2229
 
 if.end2229:                                       ; preds = %if.then2227, %if.end2221
-  %tobool2230.not = icmp eq i32 %prnt_flush.56019, 0
+  %tobool2230.not = icmp eq i32 %prnt_flush.56013, 0
   br i1 %tobool2230.not, label %lor.rhs2231, label %lor.end2239
 
 lor.rhs2231:                                      ; preds = %if.end2229
@@ -2299,17 +2299,17 @@ lor.end2239:                                      ; preds = %lor.rhs2231, %if.en
   %342 = phi i1 [ true, %if.end2229 ], [ %tobool2238, %lor.rhs2231 ]
   %lor.ext2240 = zext i1 %342 to i32
   store ptr %dest_index.2, ptr @xx_hold, align 8, !tbaa !8
-  %osucc22446066 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.2, i64 0, i64 1, i32 1
-  %343 = load ptr, ptr %osucc22446066, align 8, !tbaa !5
-  %cmp2245.not6067 = icmp eq ptr %343, %dest_index.2
-  br i1 %cmp2245.not6067, label %while.cond2342.preheader, label %while.body2247
+  %osucc22446060 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.2, i64 0, i64 1, i32 1
+  %343 = load ptr, ptr %osucc22446060, align 8, !tbaa !5
+  %cmp2245.not6061 = icmp eq ptr %343, %dest_index.2
+  br i1 %cmp2245.not6061, label %while.cond2342.preheader, label %while.body2247
 
 while.cond2342.preheader:                         ; preds = %cond.end2309, %lor.end2239
   %344 = phi ptr [ %dest_index.2, %lor.end2239 ], [ %360, %cond.end2309 ]
-  %osucc23456068 = getelementptr inbounds %struct.LIST, ptr %344, i64 0, i32 1
-  %345 = load ptr, ptr %osucc23456068, align 8, !tbaa !5
-  %cmp2346.not6069 = icmp eq ptr %345, %344
-  br i1 %cmp2346.not6069, label %while.end2442, label %while.body2348
+  %osucc23456062 = getelementptr inbounds %struct.LIST, ptr %344, i64 0, i32 1
+  %345 = load ptr, ptr %osucc23456062, align 8, !tbaa !5
+  %cmp2346.not6063 = icmp eq ptr %345, %344
+  br i1 %cmp2346.not6063, label %while.end2442, label %while.body2348
 
 while.body2247:                                   ; preds = %lor.end2239, %cond.end2309
   %346 = phi ptr [ %361, %cond.end2309 ], [ %343, %lor.end2239 ]
@@ -2351,20 +2351,20 @@ cond.false2287:                                   ; preds = %cond.end2279
   %osucc2305 = getelementptr inbounds %struct.LIST, ptr %353, i64 0, i32 1
   store ptr %353, ptr %osucc2305, align 8, !tbaa !5
   store ptr %353, ptr %353, align 8, !tbaa !5
-  %.pre6272 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6266 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end2309
 
 cond.end2309:                                     ; preds = %cond.end2279, %cond.false2287
-  %355 = phi ptr [ %346, %cond.end2279 ], [ %.pre6272, %cond.false2287 ]
+  %355 = phi ptr [ %346, %cond.end2279 ], [ %.pre6266, %cond.false2287 ]
   store ptr %355, ptr @zz_hold, align 8, !tbaa !8
   %ou12311 = getelementptr inbounds %struct.word_type, ptr %355, i64 0, i32 1
   %356 = load i8, ptr %ou12311, align 8, !tbaa !5
-  %.off5776 = add i8 %356, -11
-  %switch5777 = icmp ult i8 %.off5776, 2
+  %.off5737 = add i8 %356, -11
+  %switch5738 = icmp ult i8 %.off5737, 2
   %orec_size2324 = getelementptr inbounds %struct.word_type, ptr %355, i64 0, i32 1, i32 0, i32 1
   %idxprom2329 = zext i8 %356 to i64
   %arrayidx2330 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom2329
-  %cond2333.in.in = select i1 %switch5777, ptr %orec_size2324, ptr %arrayidx2330
+  %cond2333.in.in = select i1 %switch5738, ptr %orec_size2324, ptr %arrayidx2330
   %cond2333.in = load i8, ptr %cond2333.in.in, align 1, !tbaa !5
   %cond2333 = zext i8 %cond2333.in to i32
   store i32 %cond2333, ptr @zz_size, align 4, !tbaa !16
@@ -2423,20 +2423,20 @@ cond.false2388:                                   ; preds = %cond.end2380
   %osucc2406 = getelementptr inbounds %struct.LIST, ptr %369, i64 0, i32 1
   store ptr %369, ptr %osucc2406, align 8, !tbaa !5
   store ptr %369, ptr %369, align 8, !tbaa !5
-  %.pre6273 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6267 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end2410
 
 cond.end2410:                                     ; preds = %cond.end2380, %cond.false2388
-  %371 = phi ptr [ %362, %cond.end2380 ], [ %.pre6273, %cond.false2388 ]
+  %371 = phi ptr [ %362, %cond.end2380 ], [ %.pre6267, %cond.false2388 ]
   store ptr %371, ptr @zz_hold, align 8, !tbaa !8
   %ou12412 = getelementptr inbounds %struct.word_type, ptr %371, i64 0, i32 1
   %372 = load i8, ptr %ou12412, align 8, !tbaa !5
-  %.off5778 = add i8 %372, -11
-  %switch5779 = icmp ult i8 %.off5778, 2
+  %.off5739 = add i8 %372, -11
+  %switch5740 = icmp ult i8 %.off5739, 2
   %orec_size2425 = getelementptr inbounds %struct.word_type, ptr %371, i64 0, i32 1, i32 0, i32 1
   %idxprom2430 = zext i8 %372 to i64
   %arrayidx2431 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom2430
-  %cond2434.in.in = select i1 %switch5779, ptr %orec_size2425, ptr %arrayidx2431
+  %cond2434.in.in = select i1 %switch5740, ptr %orec_size2425, ptr %arrayidx2431
   %cond2434.in = load i8, ptr %cond2434.in.in, align 1, !tbaa !5
   %cond2434 = zext i8 %cond2434.in to i32
   store i32 %cond2434, ptr @zz_size, align 4, !tbaa !16
@@ -2456,23 +2456,23 @@ cond.end2410:                                     ; preds = %cond.end2380, %cond
   br i1 %cmp2346.not, label %while.end2442, label %while.body2348, !llvm.loop !33
 
 while.end2442:                                    ; preds = %cond.end2410, %while.cond2342.preheader
-  %.lcssa5991 = phi ptr [ %344, %while.cond2342.preheader ], [ %376, %cond.end2410 ]
-  store ptr %.lcssa5991, ptr @zz_hold, align 8, !tbaa !8
-  %ou12443 = getelementptr inbounds %struct.word_type, ptr %.lcssa5991, i64 0, i32 1
+  %.lcssa5986 = phi ptr [ %344, %while.cond2342.preheader ], [ %376, %cond.end2410 ]
+  store ptr %.lcssa5986, ptr @zz_hold, align 8, !tbaa !8
+  %ou12443 = getelementptr inbounds %struct.word_type, ptr %.lcssa5986, i64 0, i32 1
   %378 = load i8, ptr %ou12443, align 8, !tbaa !5
-  %.off5780 = add i8 %378, -11
-  %switch5781 = icmp ult i8 %.off5780, 2
-  %orec_size2456 = getelementptr inbounds %struct.word_type, ptr %.lcssa5991, i64 0, i32 1, i32 0, i32 1
+  %.off5741 = add i8 %378, -11
+  %switch5742 = icmp ult i8 %.off5741, 2
+  %orec_size2456 = getelementptr inbounds %struct.word_type, ptr %.lcssa5986, i64 0, i32 1, i32 0, i32 1
   %idxprom2461 = zext i8 %378 to i64
   %arrayidx2462 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom2461
-  %cond2465.in.in = select i1 %switch5781, ptr %orec_size2456, ptr %arrayidx2462
+  %cond2465.in.in = select i1 %switch5742, ptr %orec_size2456, ptr %arrayidx2462
   %cond2465.in = load i8, ptr %cond2465.in.in, align 1, !tbaa !5
   %cond2465 = zext i8 %cond2465.in to i32
   store i32 %cond2465, ptr @zz_size, align 4, !tbaa !16
   %idxprom2466 = zext i8 %cond2465.in to i64
   %arrayidx2467 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %idxprom2466
   %379 = load ptr, ptr %arrayidx2467, align 8, !tbaa !8
-  store ptr %379, ptr %.lcssa5991, align 8, !tbaa !5
+  store ptr %379, ptr %.lcssa5986, align 8, !tbaa !5
   %380 = load ptr, ptr @zz_hold, align 8, !tbaa !8
   %381 = load i32, ptr @zz_size, align 4, !tbaa !16
   %idxprom2471 = sext i32 %381 to i64
@@ -2481,19 +2481,19 @@ while.end2442:                                    ; preds = %cond.end2410, %whil
   br label %RESUME.backedge
 
 SUSPEND:                                          ; preds = %if.end641, %if.end288, %if.end288, %sw.bb61, %sw.bb1027
-  %stop_perp_back.4 = phi i32 [ %stop_perp_back.16017, %sw.bb1027 ], [ %stop_perp_back.0, %sw.bb61 ], [ %stop_perp_back.16017, %if.end288 ], [ %stop_perp_back.16017, %if.end288 ], [ %stop_perp_back.16017, %if.end641 ]
-  %stop_perp_fwd.4 = phi i32 [ %stop_perp_fwd.16018, %sw.bb1027 ], [ %stop_perp_fwd.0, %sw.bb61 ], [ %stop_perp_fwd.16018, %if.end288 ], [ %stop_perp_fwd.16018, %if.end288 ], [ %stop_perp_fwd.16018, %if.end641 ]
-  %prnt_flush.7 = phi i32 [ %prnt_flush.56019, %sw.bb1027 ], [ %prnt_flush.0, %sw.bb61 ], [ %prnt_flush.56019, %if.end288 ], [ %prnt_flush.56019, %if.end288 ], [ %prnt_flush.56019, %if.end641 ]
-  %stop_fwd.4 = phi i32 [ %stop_fwd.16020, %sw.bb1027 ], [ %stop_fwd.0, %sw.bb61 ], [ %stop_fwd.16020, %if.end288 ], [ %stop_fwd.16020, %if.end288 ], [ %stop_fwd.16020, %if.end641 ]
-  %stop_back.4 = phi i32 [ %stop_back.16022, %sw.bb1027 ], [ %stop_back.0, %sw.bb61 ], [ %stop_back.16022, %if.end288 ], [ %stop_back.16022, %if.end288 ], [ %stop_back.16022, %if.end641 ]
-  %stop_link.3 = phi ptr [ %stop_link.06023, %sw.bb1027 ], [ null, %sw.bb61 ], [ %stop_link.06023, %if.end288 ], [ %stop_link.06023, %if.end288 ], [ %stop_link.06023, %if.end641 ]
-  %perp_back.6 = phi i32 [ %perp_back.16024, %sw.bb1027 ], [ %perp_back.0, %sw.bb61 ], [ %perp_back.16024, %if.end288 ], [ %perp_back.16024, %if.end288 ], [ %perp_back.16024, %if.end641 ]
-  %perp_fwd.6 = phi i32 [ %perp_fwd.16026, %sw.bb1027 ], [ %perp_fwd.0, %sw.bb61 ], [ %perp_fwd.16026, %if.end288 ], [ %perp_fwd.16026, %if.end288 ], [ %perp_fwd.16026, %if.end641 ]
-  %frame_size.6 = phi i32 [ %frame_size.16028, %sw.bb1027 ], [ %frame_size.0, %sw.bb61 ], [ %frame_size.16028, %if.end288 ], [ %frame_size.16028, %if.end288 ], [ %frame_size.16028, %if.end641 ]
-  %dest_fwd.6 = phi i32 [ %dest_fwd.16030, %sw.bb1027 ], [ %dest_fwd.0, %sw.bb61 ], [ %dest_fwd.16030, %if.end288 ], [ %dest_fwd.16030, %if.end288 ], [ %dest_fwd.16030, %if.end641 ]
-  %dest_back.6 = phi i32 [ %dest_back.16032, %sw.bb1027 ], [ %dest_back.0, %sw.bb61 ], [ %dest_back.16032, %if.end288 ], [ %dest_back.16032, %if.end288 ], [ %dest_back.16032, %if.end641 ]
-  %need_adjust.4 = phi i32 [ %need_adjust.16034, %sw.bb1027 ], [ %need_adjust.0, %sw.bb61 ], [ %need_adjust.16034, %if.end288 ], [ %need_adjust.16034, %if.end288 ], [ %need_adjust.16034, %if.end641 ]
-  %dest_encl.7 = phi ptr [ %dest_encl.16035, %sw.bb1027 ], [ %dest_encl.0, %sw.bb61 ], [ %dest_encl.16035, %if.end288 ], [ %dest_encl.16035, %if.end288 ], [ %dest_encl.16035, %if.end641 ]
+  %stop_perp_back.4 = phi i32 [ %stop_perp_back.16011, %sw.bb1027 ], [ %stop_perp_back.0, %sw.bb61 ], [ %stop_perp_back.16011, %if.end288 ], [ %stop_perp_back.16011, %if.end288 ], [ %stop_perp_back.16011, %if.end641 ]
+  %stop_perp_fwd.4 = phi i32 [ %stop_perp_fwd.16012, %sw.bb1027 ], [ %stop_perp_fwd.0, %sw.bb61 ], [ %stop_perp_fwd.16012, %if.end288 ], [ %stop_perp_fwd.16012, %if.end288 ], [ %stop_perp_fwd.16012, %if.end641 ]
+  %prnt_flush.7 = phi i32 [ %prnt_flush.56013, %sw.bb1027 ], [ %prnt_flush.0, %sw.bb61 ], [ %prnt_flush.56013, %if.end288 ], [ %prnt_flush.56013, %if.end288 ], [ %prnt_flush.56013, %if.end641 ]
+  %stop_fwd.4 = phi i32 [ %stop_fwd.16014, %sw.bb1027 ], [ %stop_fwd.0, %sw.bb61 ], [ %stop_fwd.16014, %if.end288 ], [ %stop_fwd.16014, %if.end288 ], [ %stop_fwd.16014, %if.end641 ]
+  %stop_back.4 = phi i32 [ %stop_back.16016, %sw.bb1027 ], [ %stop_back.0, %sw.bb61 ], [ %stop_back.16016, %if.end288 ], [ %stop_back.16016, %if.end288 ], [ %stop_back.16016, %if.end641 ]
+  %stop_link.3 = phi ptr [ %stop_link.06017, %sw.bb1027 ], [ null, %sw.bb61 ], [ %stop_link.06017, %if.end288 ], [ %stop_link.06017, %if.end288 ], [ %stop_link.06017, %if.end641 ]
+  %perp_back.6 = phi i32 [ %perp_back.16018, %sw.bb1027 ], [ %perp_back.0, %sw.bb61 ], [ %perp_back.16018, %if.end288 ], [ %perp_back.16018, %if.end288 ], [ %perp_back.16018, %if.end641 ]
+  %perp_fwd.6 = phi i32 [ %perp_fwd.16020, %sw.bb1027 ], [ %perp_fwd.0, %sw.bb61 ], [ %perp_fwd.16020, %if.end288 ], [ %perp_fwd.16020, %if.end288 ], [ %perp_fwd.16020, %if.end641 ]
+  %frame_size.6 = phi i32 [ %frame_size.16022, %sw.bb1027 ], [ %frame_size.0, %sw.bb61 ], [ %frame_size.16022, %if.end288 ], [ %frame_size.16022, %if.end288 ], [ %frame_size.16022, %if.end641 ]
+  %dest_fwd.6 = phi i32 [ %dest_fwd.16024, %sw.bb1027 ], [ %dest_fwd.0, %sw.bb61 ], [ %dest_fwd.16024, %if.end288 ], [ %dest_fwd.16024, %if.end288 ], [ %dest_fwd.16024, %if.end641 ]
+  %dest_back.6 = phi i32 [ %dest_back.16026, %sw.bb1027 ], [ %dest_back.0, %sw.bb61 ], [ %dest_back.16026, %if.end288 ], [ %dest_back.16026, %if.end288 ], [ %dest_back.16026, %if.end641 ]
+  %need_adjust.4 = phi i32 [ %need_adjust.16028, %sw.bb1027 ], [ %need_adjust.0, %sw.bb61 ], [ %need_adjust.16028, %if.end288 ], [ %need_adjust.16028, %if.end288 ], [ %need_adjust.16028, %if.end641 ]
+  %dest_encl.7 = phi ptr [ %dest_encl.16029, %sw.bb1027 ], [ %dest_encl.0, %sw.bb61 ], [ %dest_encl.16029, %if.end288 ], [ %dest_encl.16029, %if.end288 ], [ %dest_encl.16029, %if.end641 ]
   %dest_index.3 = phi ptr [ %dest_index.2, %sw.bb1027 ], [ %dest_index.1, %sw.bb61 ], [ %dest_index.2, %if.end288 ], [ %dest_index.2, %if.end288 ], [ %dest_index.2, %if.end641 ]
   %382 = load ptr, ptr %inners, align 8, !tbaa !8
   %cmp2473.not = icmp eq ptr %382, null
@@ -2542,8 +2542,8 @@ if.then2496:                                      ; preds = %land.lhs.true2491
   br label %for.cond2504
 
 for.cond2504:                                     ; preds = %for.cond2504, %if.then2496
-  %.pn5733 = phi ptr [ %387, %if.then2496 ], [ %eg.0, %for.cond2504 ]
-  %eg.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5733, i64 0, i64 1
+  %.pn5694 = phi ptr [ %387, %if.then2496 ], [ %eg.0, %for.cond2504 ]
+  %eg.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5694, i64 0, i64 1
   %eg.0 = load ptr, ptr %eg.0.in, align 8, !tbaa !5
   %ou12505 = getelementptr inbounds %struct.word_type, ptr %eg.0, i64 0, i32 1
   %388 = load i8, ptr %ou12505, align 8, !tbaa !5
@@ -2811,8 +2811,8 @@ cond.end2827:                                     ; preds = %if.then2770, %if.el
   store ptr %439, ptr @zz_res, align 8, !tbaa !8
   store ptr %call2516, ptr @zz_hold, align 8, !tbaa !8
   %cmp2833 = icmp eq ptr %439, null
-  %or.cond5789 = select i1 %cmp2517, i1 true, i1 %cmp2833
-  br i1 %or.cond5789, label %cond.end2860, label %cond.false2836
+  %or.cond5750 = select i1 %cmp2517, i1 true, i1 %cmp2833
+  br i1 %or.cond5750, label %cond.end2860, label %cond.false2836
 
 cond.false2836:                                   ; preds = %cond.end2827
   %arrayidx2838 = getelementptr inbounds [2 x %struct.LIST], ptr %call2516, i64 0, i64 1
@@ -2909,14 +2909,14 @@ cond.end2946:                                     ; preds = %if.end2897
   %459 = load ptr, ptr @zz_tmp, align 8, !tbaa !8
   %osucc2943 = getelementptr inbounds %struct.LIST, ptr %459, i64 0, i32 1
   store ptr %458, ptr %osucc2943, align 8, !tbaa !5
-  %.pre6288 = load ptr, ptr @xx_link, align 8, !tbaa !8
-  store ptr %.pre6288, ptr @zz_res, align 8, !tbaa !8
+  %.pre6282 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  store ptr %.pre6282, ptr @zz_res, align 8, !tbaa !8
   store ptr %400, ptr @zz_hold, align 8, !tbaa !8
-  %cmp2952 = icmp eq ptr %.pre6288, null
+  %cmp2952 = icmp eq ptr %.pre6282, null
   br i1 %cmp2952, label %cond.end2979, label %cond.false2955
 
 cond.false2955:                                   ; preds = %cond.end2946.thread, %cond.end2946
-  %460 = phi ptr [ %449, %cond.end2946.thread ], [ %.pre6288, %cond.end2946 ]
+  %460 = phi ptr [ %449, %cond.end2946.thread ], [ %.pre6282, %cond.end2946 ]
   %461 = load ptr, ptr %arrayidx2559, align 8, !tbaa !5
   store ptr %461, ptr @zz_tmp, align 8, !tbaa !8
   %arrayidx2960 = getelementptr inbounds [2 x %struct.LIST], ptr %460, i64 0, i64 1
@@ -2936,8 +2936,8 @@ cond.end2979:                                     ; preds = %cond.end2946, %cond
   br label %for.cond2987
 
 for.cond2987:                                     ; preds = %for.cond2987, %cond.end2979
-  %.pn5734 = phi ptr [ %464, %cond.end2979 ], [ %tag.0, %for.cond2987 ]
-  %tag.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5734, i64 0, i64 1
+  %.pn5695 = phi ptr [ %464, %cond.end2979 ], [ %tag.0, %for.cond2987 ]
+  %tag.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5695, i64 0, i64 1
   %tag.0 = load ptr, ptr %tag.0.in, align 8, !tbaa !5
   %ou12988 = getelementptr inbounds %struct.word_type, ptr %tag.0, i64 0, i32 1
   %465 = load i8, ptr %ou12988, align 8, !tbaa !5
@@ -2949,8 +2949,8 @@ for.end2998:                                      ; preds = %for.cond2987
   br label %for.cond3005
 
 for.cond3005:                                     ; preds = %for.cond3005, %for.end2998
-  %.pn5735 = phi ptr [ %466, %for.end2998 ], [ %seq.0, %for.cond3005 ]
-  %seq.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5735, i64 0, i64 1
+  %.pn5696 = phi ptr [ %466, %for.end2998 ], [ %seq.0, %for.cond3005 ]
+  %seq.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5696, i64 0, i64 1
   %seq.0 = load ptr, ptr %seq.0.in, align 8, !tbaa !5
   %ou13006 = getelementptr inbounds %struct.word_type, ptr %seq.0, i64 0, i32 1
   %467 = load i8, ptr %ou13006, align 8, !tbaa !5
@@ -2971,8 +2971,8 @@ do.body:                                          ; preds = %do.body.preheader, 
   %tobool3022.not = icmp eq i32 %call3021, 0
   %469 = load i32, ptr %gall, align 4
   %tobool3024.not = icmp eq i32 %469, 0
-  %or.cond5862 = select i1 %tobool3022.not, i1 true, i1 %tobool3024.not
-  br i1 %or.cond5862, label %if.else3817, label %land.lhs.true3025
+  %or.cond5856 = select i1 %tobool3022.not, i1 true, i1 %tobool3024.not
+  br i1 %or.cond5856, label %if.else3817, label %land.lhs.true3025
 
 land.lhs.true3025:                                ; preds = %do.body
   %470 = load ptr, ptr %newsym, align 8, !tbaa !8
@@ -3079,23 +3079,23 @@ if.end3103:                                       ; preds = %if.then3092, %if.el
   %488 = load ptr, ptr %osucc3123, align 8, !tbaa !5
   %cmp3124 = icmp eq ptr %488, %487
   %arrayidx3163.phi.trans.insert = getelementptr inbounds [2 x %struct.LIST], ptr %487, i64 0, i64 1
-  %.pre6290 = load ptr, ptr %arrayidx3163.phi.trans.insert, align 8, !tbaa !5
+  %.pre6284 = load ptr, ptr %arrayidx3163.phi.trans.insert, align 8, !tbaa !5
   br i1 %cmp3124, label %cond.end3182, label %cond.false3127
 
 cond.false3127:                                   ; preds = %if.end3103
   %arrayidx3135 = getelementptr inbounds [2 x %struct.LIST], ptr %488, i64 0, i64 1
-  store ptr %.pre6290, ptr %arrayidx3135, align 8, !tbaa !5
+  store ptr %.pre6284, ptr %arrayidx3135, align 8, !tbaa !5
   %489 = load ptr, ptr %arrayidx3163.phi.trans.insert, align 8, !tbaa !5
   %osucc3142 = getelementptr inbounds [2 x %struct.LIST], ptr %489, i64 0, i64 1, i32 1
   store ptr %488, ptr %osucc3142, align 8, !tbaa !5
   store ptr %487, ptr %osucc3123, align 8, !tbaa !5
   store ptr %487, ptr %arrayidx3163.phi.trans.insert, align 8, !tbaa !5
-  %.pre6289 = load ptr, ptr %arrayidx3107, align 8, !tbaa !5
+  %.pre6283 = load ptr, ptr %arrayidx3107, align 8, !tbaa !5
   br label %cond.end3182
 
 cond.end3182:                                     ; preds = %if.end3103, %cond.false3127
-  %490 = phi ptr [ %487, %cond.false3127 ], [ %.pre6290, %if.end3103 ]
-  %491 = phi ptr [ %.pre6289, %cond.false3127 ], [ %486, %if.end3103 ]
+  %490 = phi ptr [ %487, %cond.false3127 ], [ %.pre6284, %if.end3103 ]
+  %491 = phi ptr [ %.pre6283, %cond.false3127 ], [ %486, %if.end3103 ]
   store ptr %487, ptr @zz_res, align 8, !tbaa !8
   store ptr %486, ptr @zz_hold, align 8, !tbaa !8
   store ptr %491, ptr @zz_tmp, align 8, !tbaa !8
@@ -3231,8 +3231,8 @@ cond.end3356:                                     ; preds = %if.then3299, %if.el
   store ptr %523, ptr @zz_res, align 8, !tbaa !8
   store ptr %call3048, ptr @zz_hold, align 8, !tbaa !8
   %cmp3362 = icmp eq ptr %523, null
-  %or.cond5803 = select i1 %cmp3049, i1 true, i1 %cmp3362
-  br i1 %or.cond5803, label %land.rhs3394, label %cond.false3365
+  %or.cond5764 = select i1 %cmp3049, i1 true, i1 %cmp3362
+  br i1 %or.cond5764, label %land.rhs3394, label %cond.false3365
 
 cond.false3365:                                   ; preds = %cond.end3356
   %arrayidx3367 = getelementptr inbounds [2 x %struct.LIST], ptr %call3048, i64 0, i64 1
@@ -3298,20 +3298,20 @@ cond.false3444:                                   ; preds = %cond.end3436
   %osucc3462 = getelementptr inbounds %struct.LIST, ptr %534, i64 0, i32 1
   store ptr %534, ptr %osucc3462, align 8, !tbaa !5
   store ptr %534, ptr %534, align 8, !tbaa !5
-  %.pre6291 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6285 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end3466
 
 cond.end3466:                                     ; preds = %cond.end3436, %cond.false3444
-  %536 = phi ptr [ %527, %cond.end3436 ], [ %.pre6291, %cond.false3444 ]
+  %536 = phi ptr [ %527, %cond.end3436 ], [ %.pre6285, %cond.false3444 ]
   store ptr %536, ptr @zz_hold, align 8, !tbaa !8
   %ou13468 = getelementptr inbounds %struct.word_type, ptr %536, i64 0, i32 1
   %537 = load i8, ptr %ou13468, align 8, !tbaa !5
-  %.off5804 = add i8 %537, -11
-  %switch5805 = icmp ult i8 %.off5804, 2
+  %.off5765 = add i8 %537, -11
+  %switch5766 = icmp ult i8 %.off5765, 2
   %orec_size3481 = getelementptr inbounds %struct.word_type, ptr %536, i64 0, i32 1, i32 0, i32 1
   %idxprom3486 = zext i8 %537 to i64
   %arrayidx3487 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom3486
-  %cond3490.in.in = select i1 %switch5805, ptr %orec_size3481, ptr %arrayidx3487
+  %cond3490.in.in = select i1 %switch5766, ptr %orec_size3481, ptr %arrayidx3487
   %cond3490.in = load i8, ptr %cond3490.in.in, align 1, !tbaa !5
   %cond3490 = zext i8 %cond3490.in to i32
   store i32 %cond3490, ptr @zz_size, align 4, !tbaa !16
@@ -3377,20 +3377,20 @@ cond.false3545:                                   ; preds = %cond.end3537
   %osucc3563 = getelementptr inbounds %struct.LIST, ptr %550, i64 0, i32 1
   store ptr %550, ptr %osucc3563, align 8, !tbaa !5
   store ptr %550, ptr %550, align 8, !tbaa !5
-  %.pre6292 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6286 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end3567
 
 cond.end3567:                                     ; preds = %cond.end3537, %cond.false3545
-  %552 = phi ptr [ %543, %cond.end3537 ], [ %.pre6292, %cond.false3545 ]
+  %552 = phi ptr [ %543, %cond.end3537 ], [ %.pre6286, %cond.false3545 ]
   store ptr %552, ptr @zz_hold, align 8, !tbaa !8
   %ou13569 = getelementptr inbounds %struct.word_type, ptr %552, i64 0, i32 1
   %553 = load i8, ptr %ou13569, align 8, !tbaa !5
-  %.off5806 = add i8 %553, -11
-  %switch5807 = icmp ult i8 %.off5806, 2
+  %.off5767 = add i8 %553, -11
+  %switch5768 = icmp ult i8 %.off5767, 2
   %orec_size3582 = getelementptr inbounds %struct.word_type, ptr %552, i64 0, i32 1, i32 0, i32 1
   %idxprom3587 = zext i8 %553 to i64
   %arrayidx3588 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom3587
-  %cond3591.in.in = select i1 %switch5807, ptr %orec_size3582, ptr %arrayidx3588
+  %cond3591.in.in = select i1 %switch5768, ptr %orec_size3582, ptr %arrayidx3588
   %cond3591.in = load i8, ptr %cond3591.in.in, align 1, !tbaa !5
   %cond3591 = zext i8 %cond3591.in to i32
   store i32 %cond3591, ptr @zz_size, align 4, !tbaa !16
@@ -3472,8 +3472,8 @@ cond.end3679:                                     ; preds = %if.then3622, %if.el
   store ptr %call3608, ptr @zz_hold, align 8, !tbaa !8
   %cmp3681 = icmp eq ptr %call3608, null
   %cmp3685 = icmp eq ptr %574, null
-  %or.cond5809 = select i1 %cmp3681, i1 true, i1 %cmp3685
-  br i1 %or.cond5809, label %cond.end3712, label %cond.false3688
+  %or.cond5770 = select i1 %cmp3681, i1 true, i1 %cmp3685
+  br i1 %or.cond5770, label %cond.end3712, label %cond.false3688
 
 cond.false3688:                                   ; preds = %cond.end3679
   %arrayidx3690 = getelementptr inbounds [2 x %struct.LIST], ptr %call3608, i64 0, i64 1
@@ -3545,8 +3545,8 @@ cond.end3782:                                     ; preds = %if.then3725, %if.el
   store ptr %call3610, ptr @zz_hold, align 8, !tbaa !8
   %cmp3784 = icmp eq ptr %call3610, null
   %cmp3788 = icmp eq ptr %591, null
-  %or.cond5811 = select i1 %cmp3784, i1 true, i1 %cmp3788
-  br i1 %or.cond5811, label %if.end3960, label %cond.false3791
+  %or.cond5772 = select i1 %cmp3784, i1 true, i1 %cmp3788
+  br i1 %or.cond5772, label %if.end3960, label %cond.false3791
 
 cond.false3791:                                   ; preds = %cond.end3782
   %arrayidx3793 = getelementptr inbounds [2 x %struct.LIST], ptr %call3610, i64 0, i64 1
@@ -3606,20 +3606,20 @@ cond.false3857:                                   ; preds = %cond.end3849
   %osucc3875 = getelementptr inbounds %struct.LIST, ptr %602, i64 0, i32 1
   store ptr %602, ptr %osucc3875, align 8, !tbaa !5
   store ptr %602, ptr %602, align 8, !tbaa !5
-  %.pre6293 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6287 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end3879
 
 cond.end3879:                                     ; preds = %cond.end3849, %cond.false3857
-  %604 = phi ptr [ %595, %cond.end3849 ], [ %.pre6293, %cond.false3857 ]
+  %604 = phi ptr [ %595, %cond.end3849 ], [ %.pre6287, %cond.false3857 ]
   store ptr %604, ptr @zz_hold, align 8, !tbaa !8
   %ou13881 = getelementptr inbounds %struct.word_type, ptr %604, i64 0, i32 1
   %605 = load i8, ptr %ou13881, align 8, !tbaa !5
-  %.off5812 = add i8 %605, -11
-  %switch5813 = icmp ult i8 %.off5812, 2
+  %.off5773 = add i8 %605, -11
+  %switch5774 = icmp ult i8 %.off5773, 2
   %orec_size3894 = getelementptr inbounds %struct.word_type, ptr %604, i64 0, i32 1, i32 0, i32 1
   %idxprom3899 = zext i8 %605 to i64
   %arrayidx3900 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom3899
-  %cond3903.in.in = select i1 %switch5813, ptr %orec_size3894, ptr %arrayidx3900
+  %cond3903.in.in = select i1 %switch5774, ptr %orec_size3894, ptr %arrayidx3900
   %cond3903.in = load i8, ptr %cond3903.in.in, align 1, !tbaa !5
   %cond3903 = zext i8 %cond3903.in to i32
   store i32 %cond3903, ptr @zz_size, align 4, !tbaa !16
@@ -3653,12 +3653,12 @@ if.then3926:                                      ; preds = %if.end3918
   store ptr %611, ptr @zz_hold, align 8, !tbaa !8
   %ou13928 = getelementptr inbounds %struct.word_type, ptr %611, i64 0, i32 1
   %613 = load i8, ptr %ou13928, align 8, !tbaa !5
-  %.off5814 = add i8 %613, -11
-  %switch5815 = icmp ult i8 %.off5814, 2
+  %.off5775 = add i8 %613, -11
+  %switch5776 = icmp ult i8 %.off5775, 2
   %orec_size3941 = getelementptr inbounds %struct.word_type, ptr %611, i64 0, i32 1, i32 0, i32 1
   %idxprom3946 = zext i8 %613 to i64
   %arrayidx3947 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom3946
-  %cond3950.in.in = select i1 %switch5815, ptr %orec_size3941, ptr %arrayidx3947
+  %cond3950.in.in = select i1 %switch5776, ptr %orec_size3941, ptr %arrayidx3947
   %cond3950.in = load i8, ptr %cond3950.in.in, align 1, !tbaa !5
   %cond3950 = zext i8 %cond3950.in to i32
   store i32 %cond3950, ptr @zz_size, align 4, !tbaa !16
@@ -3675,18 +3675,18 @@ if.then3926:                                      ; preds = %if.end3918
   br label %if.end3960
 
 if.end3960:                                       ; preds = %cond.end3782, %if.end3918, %if.then3926, %cond.false3791
-  %hd2.25855 = phi ptr [ %hd2.2.ph, %cond.end3782 ], [ %hd2.0, %if.end3918 ], [ %hd2.0, %if.then3926 ], [ %hd2.2.ph, %cond.false3791 ]
-  %ou13961 = getelementptr inbounds %struct.word_type, ptr %hd2.25855, i64 0, i32 1
+  %hd2.25849 = phi ptr [ %hd2.2.ph, %cond.end3782 ], [ %hd2.0, %if.end3918 ], [ %hd2.0, %if.then3926 ], [ %hd2.2.ph, %cond.false3791 ]
+  %ou13961 = getelementptr inbounds %struct.word_type, ptr %hd2.25849, i64 0, i32 1
   %617 = load i8, ptr %ou13961, align 8, !tbaa !5
   %cmp3964 = icmp eq i8 %617, 17
   br i1 %cmp3964, label %if.then3966, label %if.end3968
 
 if.then3966:                                      ; preds = %if.end3960
-  %call3967 = call ptr @ConvertGalleyList(ptr noundef nonnull %hd2.25855) #6
+  %call3967 = call ptr @ConvertGalleyList(ptr noundef nonnull %hd2.25849) #6
   br label %if.end3968
 
 if.end3968:                                       ; preds = %if.then3966, %if.end3960
-  %hd2.3 = phi ptr [ %call3967, %if.then3966 ], [ %hd2.25855, %if.end3960 ]
+  %hd2.3 = phi ptr [ %call3967, %if.then3966 ], [ %hd2.25849, %if.end3960 ]
   call void @FlushGalley(ptr noundef %hd2.3)
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %newseq) #6
   call void @llvm.lifetime.end.p0(i64 512, ptr nonnull %newtag) #6
@@ -3714,16 +3714,16 @@ if.then3995:                                      ; preds = %land.lhs.true3986
   %oactual4002 = getelementptr inbounds %struct.closure_type, ptr %619, i64 0, i32 5
   %620 = load ptr, ptr %oactual4002, align 8, !tbaa !5
   %call4003 = call ptr @FirstExternTarget(ptr noundef %620, ptr noundef nonnull %cnt) #6
-  %cmp4005.not6071 = icmp eq ptr %call4003, null
-  br i1 %cmp4005.not6071, label %for.end4598, label %for.body4007
+  %cmp4005.not6065 = icmp eq ptr %call4003, null
+  br i1 %cmp4005.not6065, label %for.end4598, label %for.body4007
 
 for.body4007:                                     ; preds = %if.then3995, %for.inc4594
-  %sym.06072 = phi ptr [ %call4597, %for.inc4594 ], [ %call4003, %if.then3995 ]
+  %sym.06066 = phi ptr [ %call4597, %for.inc4594 ], [ %call4003, %if.then3995 ]
   %621 = load ptr, ptr %y, align 8, !tbaa !8
   %oactual4008 = getelementptr inbounds %struct.closure_type, ptr %621, i64 0, i32 5
   %622 = load ptr, ptr %oactual4008, align 8, !tbaa !5
   %ou14009 = getelementptr inbounds %struct.word_type, ptr %622, i64 0, i32 1
-  %call4010 = call ptr @GallTargEval(ptr noundef nonnull %sym.06072, ptr noundef nonnull %ou14009) #6
+  %call4010 = call ptr @GallTargEval(ptr noundef nonnull %sym.06066, ptr noundef nonnull %ou14009) #6
   %623 = load i8, ptr getelementptr inbounds ([0 x i8], ptr @zz_lengths, i64 0, i64 132), align 1, !tbaa !5
   %conv4011 = zext i8 %623 to i32
   store i32 %conv4011, ptr @zz_size, align 4, !tbaa !16
@@ -3822,14 +3822,14 @@ cond.end4120:                                     ; preds = %if.end4071
   %642 = load ptr, ptr @zz_tmp, align 8, !tbaa !8
   %osucc4117 = getelementptr inbounds %struct.LIST, ptr %642, i64 0, i32 1
   store ptr %641, ptr %osucc4117, align 8, !tbaa !5
-  %.pre6278 = load ptr, ptr @xx_link, align 8, !tbaa !8
-  store ptr %.pre6278, ptr @zz_res, align 8, !tbaa !8
+  %.pre6272 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  store ptr %.pre6272, ptr @zz_res, align 8, !tbaa !8
   store ptr %627, ptr @zz_hold, align 8, !tbaa !8
-  %cmp4126 = icmp eq ptr %.pre6278, null
+  %cmp4126 = icmp eq ptr %.pre6272, null
   br i1 %cmp4126, label %cond.end4153, label %cond.false4129
 
 cond.false4129:                                   ; preds = %cond.end4120.thread, %cond.end4120
-  %643 = phi ptr [ %632, %cond.end4120.thread ], [ %.pre6278, %cond.end4120 ]
+  %643 = phi ptr [ %632, %cond.end4120.thread ], [ %.pre6272, %cond.end4120 ]
   %644 = load ptr, ptr %arrayidx4037, align 8, !tbaa !5
   store ptr %644, ptr @zz_tmp, align 8, !tbaa !8
   %arrayidx4134 = getelementptr inbounds [2 x %struct.LIST], ptr %643, i64 0, i64 1
@@ -3848,8 +3848,8 @@ cond.end4153:                                     ; preds = %cond.end4120, %cond
   br label %for.cond4161
 
 for.cond4161:                                     ; preds = %for.cond4161, %cond.end4153
-  %.pn5732 = phi ptr [ %647, %cond.end4153 ], [ %tag3996.0, %for.cond4161 ]
-  %tag3996.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5732, i64 0, i64 1
+  %.pn5693 = phi ptr [ %647, %cond.end4153 ], [ %tag3996.0, %for.cond4161 ]
+  %tag3996.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5693, i64 0, i64 1
   %tag3996.0 = load ptr, ptr %tag3996.0.in, align 8, !tbaa !5
   %ou14162 = getelementptr inbounds %struct.word_type, ptr %tag3996.0, i64 0, i32 1
   %648 = load i8, ptr %ou14162, align 8, !tbaa !5
@@ -3867,7 +3867,7 @@ if.then4184:                                      ; preds = %for.cond4161
 if.end4186:                                       ; preds = %for.cond4161, %for.cond4161, %if.then4184
   %650 = load ptr, ptr @OldCrossDb, align 8, !tbaa !8
   %ostring4187 = getelementptr inbounds %struct.word_type, ptr %tag3996.0, i64 0, i32 4
-  %call4190 = call i32 @DbRetrieve(ptr noundef %650, i32 noundef 1, ptr noundef nonnull %sym.06072, ptr noundef nonnull %ostring4187, ptr noundef nonnull %newseq4000, ptr noundef nonnull %tfnum, ptr noundef nonnull %tfpos, ptr noundef nonnull %tlnum, ptr noundef nonnull %tcont) #6
+  %call4190 = call i32 @DbRetrieve(ptr noundef %650, i32 noundef 1, ptr noundef nonnull %sym.06066, ptr noundef nonnull %ostring4187, ptr noundef nonnull %newseq4000, ptr noundef nonnull %tfnum, ptr noundef nonnull %tfpos, ptr noundef nonnull %tlnum, ptr noundef nonnull %tcont) #6
   %tobool4191.not = icmp eq i32 %call4190, 0
   br i1 %tobool4191.not, label %for.inc4594, label %if.then4192
 
@@ -3957,7 +3957,7 @@ if.end4258:                                       ; preds = %if.then4247, %if.el
   %oeg_lnum4275 = getelementptr inbounds %struct.ext_gall_type, ptr %661, i64 0, i32 3
   store i32 %664, ptr %oeg_lnum4275, align 4, !tbaa !5
   %oeg_symbol4276 = getelementptr inbounds %struct.ext_gall_type, ptr %661, i64 0, i32 6
-  store ptr %sym.06072, ptr %oeg_symbol4276, align 8, !tbaa !5
+  store ptr %sym.06066, ptr %oeg_symbol4276, align 8, !tbaa !5
   %665 = load i64, ptr %tcont, align 8, !tbaa !40
   %oeg_cont4277 = getelementptr inbounds %struct.ext_gall_type, ptr %661, i64 0, i32 5
   store i64 %665, ptr %oeg_cont4277, align 8, !tbaa !5
@@ -4019,8 +4019,8 @@ cond.end4349:                                     ; preds = %if.then4292, %if.el
   store ptr %call4280, ptr @zz_hold, align 8, !tbaa !8
   %cmp4351 = icmp eq ptr %call4280, null
   %cmp4355 = icmp eq ptr %680, null
-  %or.cond5823 = select i1 %cmp4351, i1 true, i1 %cmp4355
-  br i1 %or.cond5823, label %cond.end4382, label %cond.false4358
+  %or.cond5784 = select i1 %cmp4351, i1 true, i1 %cmp4355
+  br i1 %or.cond5784, label %cond.end4382, label %cond.false4358
 
 cond.false4358:                                   ; preds = %cond.end4349
   %arrayidx4360 = getelementptr inbounds [2 x %struct.LIST], ptr %call4280, i64 0, i64 1
@@ -4096,8 +4096,8 @@ cond.end4454:                                     ; preds = %if.then4397, %if.el
   store ptr %call4385, ptr @zz_hold, align 8, !tbaa !8
   %cmp4456 = icmp eq ptr %call4385, null
   %cmp4460 = icmp eq ptr %698, null
-  %or.cond5827 = select i1 %cmp4456, i1 true, i1 %cmp4460
-  br i1 %or.cond5827, label %cond.end4487, label %cond.false4463
+  %or.cond5788 = select i1 %cmp4456, i1 true, i1 %cmp4460
+  br i1 %or.cond5788, label %cond.end4487, label %cond.false4463
 
 cond.false4463:                                   ; preds = %cond.end4454
   %arrayidx4465 = getelementptr inbounds [2 x %struct.LIST], ptr %call4385, i64 0, i64 1
@@ -4181,11 +4181,11 @@ cond.end4558:                                     ; preds = %if.end4511
 
 cond.end4558.cond.false4567_crit_edge:            ; preds = %cond.end4558
   %arrayidx4572.phi.trans.insert = getelementptr inbounds [2 x %struct.LIST], ptr %.pr, i64 0, i64 1
-  %.pre6279 = load ptr, ptr %arrayidx4572.phi.trans.insert, align 8, !tbaa !5
+  %.pre6273 = load ptr, ptr %arrayidx4572.phi.trans.insert, align 8, !tbaa !5
   br label %cond.false4567
 
 cond.false4567:                                   ; preds = %cond.end4558.cond.false4567_crit_edge, %cond.end4558.thread
-  %716 = phi ptr [ %706, %cond.end4558.thread ], [ %.pre6279, %cond.end4558.cond.false4567_crit_edge ]
+  %716 = phi ptr [ %706, %cond.end4558.thread ], [ %.pre6273, %cond.end4558.cond.false4567_crit_edge ]
   %717 = phi ptr [ %706, %cond.end4558.thread ], [ %.pr, %cond.end4558.cond.false4567_crit_edge ]
   %718 = load ptr, ptr %arrayidx4262, align 8, !tbaa !5
   store ptr %718, ptr @zz_tmp, align 8, !tbaa !8
@@ -4227,11 +4227,11 @@ for.end4598:                                      ; preds = %for.inc4594, %if.th
 
 for.end4598.if.end4625_crit_edge:                 ; preds = %for.end4598
   %ou14626.phi.trans.insert = getelementptr inbounds %struct.word_type, ptr %723, i64 0, i32 1
-  %.pre6280 = load i8, ptr %ou14626.phi.trans.insert, align 8, !tbaa !5
+  %.pre6274 = load i8, ptr %ou14626.phi.trans.insert, align 8, !tbaa !5
   br label %if.end4625
 
 if.end4625:                                       ; preds = %for.end4598.if.end4625_crit_edge, %if.end2485
-  %725 = phi i8 [ %384, %if.end2485 ], [ %.pre6280, %for.end4598.if.end4625_crit_edge ]
+  %725 = phi i8 [ %384, %if.end2485 ], [ %.pre6274, %for.end4598.if.end4625_crit_edge ]
   %726 = phi ptr [ %383, %if.end2485 ], [ %723, %for.end4598.if.end4625_crit_edge ]
   switch i8 %725, label %if.end4625.if.end5150_crit_edge [
     i8 121, label %land.lhs.true4631
@@ -4253,17 +4253,17 @@ land.lhs.true4631:                                ; preds = %land.lhs.true3986, 
 
 if.then4638:                                      ; preds = %land.lhs.true4631
   store ptr %727, ptr @xx_hold, align 8, !tbaa !8
-  %osucc46426078 = getelementptr inbounds [2 x %struct.LIST], ptr %727, i64 0, i64 1, i32 1
-  %728 = load ptr, ptr %osucc46426078, align 8, !tbaa !5
-  %cmp4643.not6079 = icmp eq ptr %728, %727
-  br i1 %cmp4643.not6079, label %while.cond4740.preheader, label %while.body4645
+  %osucc46426072 = getelementptr inbounds [2 x %struct.LIST], ptr %727, i64 0, i64 1, i32 1
+  %728 = load ptr, ptr %osucc46426072, align 8, !tbaa !5
+  %cmp4643.not6073 = icmp eq ptr %728, %727
+  br i1 %cmp4643.not6073, label %while.cond4740.preheader, label %while.body4645
 
 while.cond4740.preheader:                         ; preds = %cond.end4707, %if.then4638
   %729 = phi ptr [ %727, %if.then4638 ], [ %745, %cond.end4707 ]
-  %osucc47436080 = getelementptr inbounds %struct.LIST, ptr %729, i64 0, i32 1
-  %730 = load ptr, ptr %osucc47436080, align 8, !tbaa !5
-  %cmp4744.not6081 = icmp eq ptr %730, %729
-  br i1 %cmp4744.not6081, label %while.end4840, label %while.body4746
+  %osucc47436074 = getelementptr inbounds %struct.LIST, ptr %729, i64 0, i32 1
+  %730 = load ptr, ptr %osucc47436074, align 8, !tbaa !5
+  %cmp4744.not6075 = icmp eq ptr %730, %729
+  br i1 %cmp4744.not6075, label %while.end4840, label %while.body4746
 
 while.body4645:                                   ; preds = %if.then4638, %cond.end4707
   %731 = phi ptr [ %746, %cond.end4707 ], [ %728, %if.then4638 ]
@@ -4305,20 +4305,20 @@ cond.false4685:                                   ; preds = %cond.end4677
   %osucc4703 = getelementptr inbounds %struct.LIST, ptr %738, i64 0, i32 1
   store ptr %738, ptr %osucc4703, align 8, !tbaa !5
   store ptr %738, ptr %738, align 8, !tbaa !5
-  %.pre6284 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6278 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end4707
 
 cond.end4707:                                     ; preds = %cond.end4677, %cond.false4685
-  %740 = phi ptr [ %731, %cond.end4677 ], [ %.pre6284, %cond.false4685 ]
+  %740 = phi ptr [ %731, %cond.end4677 ], [ %.pre6278, %cond.false4685 ]
   store ptr %740, ptr @zz_hold, align 8, !tbaa !8
   %ou14709 = getelementptr inbounds %struct.word_type, ptr %740, i64 0, i32 1
   %741 = load i8, ptr %ou14709, align 8, !tbaa !5
-  %.off5832 = add i8 %741, -11
-  %switch5833 = icmp ult i8 %.off5832, 2
+  %.off5793 = add i8 %741, -11
+  %switch5794 = icmp ult i8 %.off5793, 2
   %orec_size4722 = getelementptr inbounds %struct.word_type, ptr %740, i64 0, i32 1, i32 0, i32 1
   %idxprom4727 = zext i8 %741 to i64
   %arrayidx4728 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom4727
-  %cond4731.in.in = select i1 %switch5833, ptr %orec_size4722, ptr %arrayidx4728
+  %cond4731.in.in = select i1 %switch5794, ptr %orec_size4722, ptr %arrayidx4728
   %cond4731.in = load i8, ptr %cond4731.in.in, align 1, !tbaa !5
   %cond4731 = zext i8 %cond4731.in to i32
   store i32 %cond4731, ptr @zz_size, align 4, !tbaa !16
@@ -4377,20 +4377,20 @@ cond.false4786:                                   ; preds = %cond.end4778
   %osucc4804 = getelementptr inbounds %struct.LIST, ptr %754, i64 0, i32 1
   store ptr %754, ptr %osucc4804, align 8, !tbaa !5
   store ptr %754, ptr %754, align 8, !tbaa !5
-  %.pre6285 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6279 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end4808
 
 cond.end4808:                                     ; preds = %cond.end4778, %cond.false4786
-  %756 = phi ptr [ %747, %cond.end4778 ], [ %.pre6285, %cond.false4786 ]
+  %756 = phi ptr [ %747, %cond.end4778 ], [ %.pre6279, %cond.false4786 ]
   store ptr %756, ptr @zz_hold, align 8, !tbaa !8
   %ou14810 = getelementptr inbounds %struct.word_type, ptr %756, i64 0, i32 1
   %757 = load i8, ptr %ou14810, align 8, !tbaa !5
-  %.off5834 = add i8 %757, -11
-  %switch5835 = icmp ult i8 %.off5834, 2
+  %.off5795 = add i8 %757, -11
+  %switch5796 = icmp ult i8 %.off5795, 2
   %orec_size4823 = getelementptr inbounds %struct.word_type, ptr %756, i64 0, i32 1, i32 0, i32 1
   %idxprom4828 = zext i8 %757 to i64
   %arrayidx4829 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom4828
-  %cond4832.in.in = select i1 %switch5835, ptr %orec_size4823, ptr %arrayidx4829
+  %cond4832.in.in = select i1 %switch5796, ptr %orec_size4823, ptr %arrayidx4829
   %cond4832.in = load i8, ptr %cond4832.in.in, align 1, !tbaa !5
   %cond4832 = zext i8 %cond4832.in to i32
   store i32 %cond4832, ptr @zz_size, align 4, !tbaa !16
@@ -4410,23 +4410,23 @@ cond.end4808:                                     ; preds = %cond.end4778, %cond
   br i1 %cmp4744.not, label %while.end4840, label %while.body4746, !llvm.loop !44
 
 while.end4840:                                    ; preds = %cond.end4808, %while.cond4740.preheader
-  %.lcssa5995 = phi ptr [ %729, %while.cond4740.preheader ], [ %761, %cond.end4808 ]
-  store ptr %.lcssa5995, ptr @zz_hold, align 8, !tbaa !8
-  %ou14841 = getelementptr inbounds %struct.word_type, ptr %.lcssa5995, i64 0, i32 1
+  %.lcssa5990 = phi ptr [ %729, %while.cond4740.preheader ], [ %761, %cond.end4808 ]
+  store ptr %.lcssa5990, ptr @zz_hold, align 8, !tbaa !8
+  %ou14841 = getelementptr inbounds %struct.word_type, ptr %.lcssa5990, i64 0, i32 1
   %763 = load i8, ptr %ou14841, align 8, !tbaa !5
-  %.off5836 = add i8 %763, -11
-  %switch5837 = icmp ult i8 %.off5836, 2
-  %orec_size4854 = getelementptr inbounds %struct.word_type, ptr %.lcssa5995, i64 0, i32 1, i32 0, i32 1
+  %.off5797 = add i8 %763, -11
+  %switch5798 = icmp ult i8 %.off5797, 2
+  %orec_size4854 = getelementptr inbounds %struct.word_type, ptr %.lcssa5990, i64 0, i32 1, i32 0, i32 1
   %idxprom4859 = zext i8 %763 to i64
   %arrayidx4860 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom4859
-  %cond4863.in.in = select i1 %switch5837, ptr %orec_size4854, ptr %arrayidx4860
+  %cond4863.in.in = select i1 %switch5798, ptr %orec_size4854, ptr %arrayidx4860
   %cond4863.in = load i8, ptr %cond4863.in.in, align 1, !tbaa !5
   %cond4863 = zext i8 %cond4863.in to i32
   store i32 %cond4863, ptr @zz_size, align 4, !tbaa !16
   %idxprom4864 = zext i8 %cond4863.in to i64
   %arrayidx4865 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %idxprom4864
   %764 = load ptr, ptr %arrayidx4865, align 8, !tbaa !8
-  store ptr %764, ptr %.lcssa5995, align 8, !tbaa !5
+  store ptr %764, ptr %.lcssa5990, align 8, !tbaa !5
   %765 = load ptr, ptr @zz_hold, align 8, !tbaa !8
   %766 = load i32, ptr @zz_size, align 4, !tbaa !16
   %idxprom4869 = sext i32 %766 to i64
@@ -4449,16 +4449,16 @@ if.then4884:                                      ; preds = %land.lhs.true4877
 
 if.then4890:                                      ; preds = %if.then4884
   store ptr %726, ptr @xx_hold, align 8, !tbaa !8
-  %osucc48946073 = getelementptr inbounds [2 x %struct.LIST], ptr %726, i64 0, i64 1, i32 1
-  %768 = load ptr, ptr %osucc48946073, align 8, !tbaa !5
-  %cmp4895.not6074 = icmp eq ptr %768, %726
-  br i1 %cmp4895.not6074, label %while.end5092, label %while.body4897
+  %osucc48946067 = getelementptr inbounds [2 x %struct.LIST], ptr %726, i64 0, i64 1, i32 1
+  %768 = load ptr, ptr %osucc48946067, align 8, !tbaa !5
+  %cmp4895.not6068 = icmp eq ptr %768, %726
+  br i1 %cmp4895.not6068, label %while.end5092, label %while.body4897
 
 while.cond4992.preheader:                         ; preds = %cond.end4959
-  %osucc49956075.phi.trans.insert = getelementptr inbounds %struct.LIST, ptr %783, i64 0, i32 1
-  %.pre6282 = load ptr, ptr %osucc49956075.phi.trans.insert, align 8, !tbaa !5
-  %cmp4996.not6076 = icmp eq ptr %.pre6282, %783
-  br i1 %cmp4996.not6076, label %while.end5092, label %while.body4998
+  %osucc49956069.phi.trans.insert = getelementptr inbounds %struct.LIST, ptr %783, i64 0, i32 1
+  %.pre6276 = load ptr, ptr %osucc49956069.phi.trans.insert, align 8, !tbaa !5
+  %cmp4996.not6070 = icmp eq ptr %.pre6276, %783
+  br i1 %cmp4996.not6070, label %while.end5092, label %while.body4998
 
 while.body4897:                                   ; preds = %if.then4890, %cond.end4959
   %769 = phi ptr [ %784, %cond.end4959 ], [ %768, %if.then4890 ]
@@ -4500,20 +4500,20 @@ cond.false4937:                                   ; preds = %cond.end4929
   %osucc4955 = getelementptr inbounds %struct.LIST, ptr %776, i64 0, i32 1
   store ptr %776, ptr %osucc4955, align 8, !tbaa !5
   store ptr %776, ptr %776, align 8, !tbaa !5
-  %.pre6281 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6275 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end4959
 
 cond.end4959:                                     ; preds = %cond.end4929, %cond.false4937
-  %778 = phi ptr [ %769, %cond.end4929 ], [ %.pre6281, %cond.false4937 ]
+  %778 = phi ptr [ %769, %cond.end4929 ], [ %.pre6275, %cond.false4937 ]
   store ptr %778, ptr @zz_hold, align 8, !tbaa !8
   %ou14961 = getelementptr inbounds %struct.word_type, ptr %778, i64 0, i32 1
   %779 = load i8, ptr %ou14961, align 8, !tbaa !5
-  %.off5838 = add i8 %779, -11
-  %switch5839 = icmp ult i8 %.off5838, 2
+  %.off5799 = add i8 %779, -11
+  %switch5800 = icmp ult i8 %.off5799, 2
   %orec_size4974 = getelementptr inbounds %struct.word_type, ptr %778, i64 0, i32 1, i32 0, i32 1
   %idxprom4979 = zext i8 %779 to i64
   %arrayidx4980 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom4979
-  %cond4983.in.in = select i1 %switch5839, ptr %orec_size4974, ptr %arrayidx4980
+  %cond4983.in.in = select i1 %switch5800, ptr %orec_size4974, ptr %arrayidx4980
   %cond4983.in = load i8, ptr %cond4983.in.in, align 1, !tbaa !5
   %cond4983 = zext i8 %cond4983.in to i32
   store i32 %cond4983, ptr @zz_size, align 4, !tbaa !16
@@ -4533,7 +4533,7 @@ cond.end4959:                                     ; preds = %cond.end4929, %cond
   br i1 %cmp4895.not, label %while.cond4992.preheader, label %while.body4897, !llvm.loop !45
 
 while.body4998:                                   ; preds = %while.cond4992.preheader, %cond.end5060
-  %785 = phi ptr [ %800, %cond.end5060 ], [ %.pre6282, %while.cond4992.preheader ]
+  %785 = phi ptr [ %800, %cond.end5060 ], [ %.pre6276, %while.cond4992.preheader ]
   store ptr %785, ptr @xx_link, align 8, !tbaa !8
   %osucc5004 = getelementptr inbounds [2 x %struct.LIST], ptr %785, i64 0, i64 1, i32 1
   %786 = load ptr, ptr %osucc5004, align 8, !tbaa !5
@@ -4572,20 +4572,20 @@ cond.false5038:                                   ; preds = %cond.end5030
   %osucc5056 = getelementptr inbounds %struct.LIST, ptr %792, i64 0, i32 1
   store ptr %792, ptr %osucc5056, align 8, !tbaa !5
   store ptr %792, ptr %792, align 8, !tbaa !5
-  %.pre6283 = load ptr, ptr @xx_link, align 8, !tbaa !8
+  %.pre6277 = load ptr, ptr @xx_link, align 8, !tbaa !8
   br label %cond.end5060
 
 cond.end5060:                                     ; preds = %cond.end5030, %cond.false5038
-  %794 = phi ptr [ %785, %cond.end5030 ], [ %.pre6283, %cond.false5038 ]
+  %794 = phi ptr [ %785, %cond.end5030 ], [ %.pre6277, %cond.false5038 ]
   store ptr %794, ptr @zz_hold, align 8, !tbaa !8
   %ou15062 = getelementptr inbounds %struct.word_type, ptr %794, i64 0, i32 1
   %795 = load i8, ptr %ou15062, align 8, !tbaa !5
-  %.off5840 = add i8 %795, -11
-  %switch5841 = icmp ult i8 %.off5840, 2
+  %.off5801 = add i8 %795, -11
+  %switch5802 = icmp ult i8 %.off5801, 2
   %orec_size5075 = getelementptr inbounds %struct.word_type, ptr %794, i64 0, i32 1, i32 0, i32 1
   %idxprom5080 = zext i8 %795 to i64
   %arrayidx5081 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom5080
-  %cond5084.in.in = select i1 %switch5841, ptr %orec_size5075, ptr %arrayidx5081
+  %cond5084.in.in = select i1 %switch5802, ptr %orec_size5075, ptr %arrayidx5081
   %cond5084.in = load i8, ptr %cond5084.in.in, align 1, !tbaa !5
   %cond5084 = zext i8 %cond5084.in to i32
   store i32 %cond5084, ptr @zz_size, align 4, !tbaa !16
@@ -4605,23 +4605,23 @@ cond.end5060:                                     ; preds = %cond.end5030, %cond
   br i1 %cmp4996.not, label %while.end5092, label %while.body4998, !llvm.loop !46
 
 while.end5092:                                    ; preds = %cond.end5060, %if.then4890, %while.cond4992.preheader
-  %.lcssa5994 = phi ptr [ %.pre6282, %while.cond4992.preheader ], [ %726, %if.then4890 ], [ %799, %cond.end5060 ]
-  store ptr %.lcssa5994, ptr @zz_hold, align 8, !tbaa !8
-  %ou15093 = getelementptr inbounds %struct.word_type, ptr %.lcssa5994, i64 0, i32 1
+  %.lcssa5989 = phi ptr [ %.pre6276, %while.cond4992.preheader ], [ %726, %if.then4890 ], [ %799, %cond.end5060 ]
+  store ptr %.lcssa5989, ptr @zz_hold, align 8, !tbaa !8
+  %ou15093 = getelementptr inbounds %struct.word_type, ptr %.lcssa5989, i64 0, i32 1
   %801 = load i8, ptr %ou15093, align 8, !tbaa !5
-  %.off5842 = add i8 %801, -11
-  %switch5843 = icmp ult i8 %.off5842, 2
-  %orec_size5106 = getelementptr inbounds %struct.word_type, ptr %.lcssa5994, i64 0, i32 1, i32 0, i32 1
+  %.off5803 = add i8 %801, -11
+  %switch5804 = icmp ult i8 %.off5803, 2
+  %orec_size5106 = getelementptr inbounds %struct.word_type, ptr %.lcssa5989, i64 0, i32 1, i32 0, i32 1
   %idxprom5111 = zext i8 %801 to i64
   %arrayidx5112 = getelementptr inbounds [0 x i8], ptr @zz_lengths, i64 0, i64 %idxprom5111
-  %cond5115.in.in = select i1 %switch5843, ptr %orec_size5106, ptr %arrayidx5112
+  %cond5115.in.in = select i1 %switch5804, ptr %orec_size5106, ptr %arrayidx5112
   %cond5115.in = load i8, ptr %cond5115.in.in, align 1, !tbaa !5
   %cond5115 = zext i8 %cond5115.in to i32
   store i32 %cond5115, ptr @zz_size, align 4, !tbaa !16
   %idxprom5116 = zext i8 %cond5115.in to i64
   %arrayidx5117 = getelementptr inbounds [0 x ptr], ptr @zz_free, i64 0, i64 %idxprom5116
   %802 = load ptr, ptr %arrayidx5117, align 8, !tbaa !8
-  store ptr %802, ptr %.lcssa5994, align 8, !tbaa !5
+  store ptr %802, ptr %.lcssa5989, align 8, !tbaa !5
   %803 = load ptr, ptr @zz_hold, align 8, !tbaa !8
   %804 = load i32, ptr @zz_size, align 4, !tbaa !16
   %idxprom5121 = sext i32 %804 to i64
@@ -4630,23 +4630,23 @@ while.end5092:                                    ; preds = %cond.end5060, %if.t
   br label %RESUME.backedge
 
 RESUME.backedge:                                  ; preds = %while.end5092, %if.end5147, %if.end184, %if.then187, %if.then64, %while.end2442, %if.end3968, %while.end4840, %for.end4598, %cleanup
-  %stop_perp_back.0.be = phi i32 [ %stop_perp_back.4, %if.end3968 ], [ %stop_perp_back.4, %for.end4598 ], [ %stop_perp_back.4, %while.end4840 ], [ %stop_perp_back.16017, %cleanup ], [ %stop_perp_back.16017, %while.end2442 ], [ %stop_perp_back.0, %if.then64 ], [ %stop_perp_back.0, %if.then187 ], [ %stop_perp_back.0, %if.end184 ], [ %stop_perp_back.4, %if.end5147 ], [ %stop_perp_back.4, %while.end5092 ]
-  %stop_perp_fwd.0.be = phi i32 [ %stop_perp_fwd.4, %if.end3968 ], [ %stop_perp_fwd.4, %for.end4598 ], [ %stop_perp_fwd.4, %while.end4840 ], [ %stop_perp_fwd.16018, %cleanup ], [ %stop_perp_fwd.16018, %while.end2442 ], [ %stop_perp_fwd.0, %if.then64 ], [ %stop_perp_fwd.0, %if.then187 ], [ %stop_perp_fwd.0, %if.end184 ], [ %stop_perp_fwd.4, %if.end5147 ], [ %stop_perp_fwd.4, %while.end5092 ]
+  %stop_perp_back.0.be = phi i32 [ %stop_perp_back.4, %if.end3968 ], [ %stop_perp_back.4, %for.end4598 ], [ %stop_perp_back.4, %while.end4840 ], [ %stop_perp_back.16011, %cleanup ], [ %stop_perp_back.16011, %while.end2442 ], [ %stop_perp_back.0, %if.then64 ], [ %stop_perp_back.0, %if.then187 ], [ %stop_perp_back.0, %if.end184 ], [ %stop_perp_back.4, %if.end5147 ], [ %stop_perp_back.4, %while.end5092 ]
+  %stop_perp_fwd.0.be = phi i32 [ %stop_perp_fwd.4, %if.end3968 ], [ %stop_perp_fwd.4, %for.end4598 ], [ %stop_perp_fwd.4, %while.end4840 ], [ %stop_perp_fwd.16012, %cleanup ], [ %stop_perp_fwd.16012, %while.end2442 ], [ %stop_perp_fwd.0, %if.then64 ], [ %stop_perp_fwd.0, %if.then187 ], [ %stop_perp_fwd.0, %if.end184 ], [ %stop_perp_fwd.4, %if.end5147 ], [ %stop_perp_fwd.4, %while.end5092 ]
   %prnt_flush.0.be = phi i32 [ %prnt_flush.7, %if.end3968 ], [ %prnt_flush.7, %for.end4598 ], [ %prnt_flush.7, %while.end4840 ], [ %lor.ext1686, %cleanup ], [ %lor.ext2240, %while.end2442 ], [ %prnt_flush.0, %if.then64 ], [ %prnt_flush.4, %if.then187 ], [ %prnt_flush.4, %if.end184 ], [ %prnt_flush.7, %if.end5147 ], [ %prnt_flush.7, %while.end5092 ]
-  %stop_fwd.0.be = phi i32 [ %stop_fwd.4, %if.end3968 ], [ %stop_fwd.4, %for.end4598 ], [ %stop_fwd.4, %while.end4840 ], [ %stop_fwd.16020, %cleanup ], [ %stop_fwd.16020, %while.end2442 ], [ %stop_fwd.0, %if.then64 ], [ %stop_fwd.0, %if.then187 ], [ %stop_fwd.0, %if.end184 ], [ %stop_fwd.4, %if.end5147 ], [ %stop_fwd.4, %while.end5092 ]
-  %stop_back.0.be = phi i32 [ %stop_back.4, %if.end3968 ], [ %stop_back.4, %for.end4598 ], [ %stop_back.4, %while.end4840 ], [ %stop_back.16022, %cleanup ], [ %stop_back.16022, %while.end2442 ], [ %stop_back.0, %if.then64 ], [ %stop_back.0, %if.then187 ], [ %stop_back.0, %if.end184 ], [ %stop_back.4, %if.end5147 ], [ %stop_back.4, %while.end5092 ]
+  %stop_fwd.0.be = phi i32 [ %stop_fwd.4, %if.end3968 ], [ %stop_fwd.4, %for.end4598 ], [ %stop_fwd.4, %while.end4840 ], [ %stop_fwd.16014, %cleanup ], [ %stop_fwd.16014, %while.end2442 ], [ %stop_fwd.0, %if.then64 ], [ %stop_fwd.0, %if.then187 ], [ %stop_fwd.0, %if.end184 ], [ %stop_fwd.4, %if.end5147 ], [ %stop_fwd.4, %while.end5092 ]
+  %stop_back.0.be = phi i32 [ %stop_back.4, %if.end3968 ], [ %stop_back.4, %for.end4598 ], [ %stop_back.4, %while.end4840 ], [ %stop_back.16016, %cleanup ], [ %stop_back.16016, %while.end2442 ], [ %stop_back.0, %if.then64 ], [ %stop_back.0, %if.then187 ], [ %stop_back.0, %if.end184 ], [ %stop_back.4, %if.end5147 ], [ %stop_back.4, %while.end5092 ]
   %perp_back.0.be = phi i32 [ %perp_back.6, %if.end3968 ], [ %perp_back.6, %for.end4598 ], [ %perp_back.6, %while.end4840 ], [ %perp_back.3, %cleanup ], [ %perp_back.5, %while.end2442 ], [ %perp_back.0, %if.then64 ], [ %perp_back.0, %if.then187 ], [ %perp_back.0, %if.end184 ], [ %perp_back.6, %if.end5147 ], [ %perp_back.6, %while.end5092 ]
   %perp_fwd.0.be = phi i32 [ %perp_fwd.6, %if.end3968 ], [ %perp_fwd.6, %for.end4598 ], [ %perp_fwd.6, %while.end4840 ], [ %perp_fwd.3, %cleanup ], [ %perp_fwd.5, %while.end2442 ], [ %perp_fwd.0, %if.then64 ], [ %perp_fwd.0, %if.then187 ], [ %perp_fwd.0, %if.end184 ], [ %perp_fwd.6, %if.end5147 ], [ %perp_fwd.6, %while.end5092 ]
   %frame_size.0.be = phi i32 [ %frame_size.6, %if.end3968 ], [ %frame_size.6, %for.end4598 ], [ %frame_size.6, %while.end4840 ], [ %frame_size.3, %cleanup ], [ %frame_size.5, %while.end2442 ], [ %frame_size.0, %if.then64 ], [ %frame_size.0, %if.then187 ], [ %frame_size.0, %if.end184 ], [ %frame_size.6, %if.end5147 ], [ %frame_size.6, %while.end5092 ]
   %dest_fwd.0.be = phi i32 [ %dest_fwd.6, %if.end3968 ], [ %dest_fwd.6, %for.end4598 ], [ %dest_fwd.6, %while.end4840 ], [ %dest_fwd.3, %cleanup ], [ %dest_fwd.5, %while.end2442 ], [ %dest_fwd.0, %if.then64 ], [ %dest_fwd.0, %if.then187 ], [ %dest_fwd.0, %if.end184 ], [ %dest_fwd.6, %if.end5147 ], [ %dest_fwd.6, %while.end5092 ]
   %dest_back.0.be = phi i32 [ %dest_back.6, %if.end3968 ], [ %dest_back.6, %for.end4598 ], [ %dest_back.6, %while.end4840 ], [ %dest_back.3, %cleanup ], [ %dest_back.5, %while.end2442 ], [ %dest_back.0, %if.then64 ], [ %dest_back.0, %if.then187 ], [ %dest_back.0, %if.end184 ], [ %dest_back.6, %if.end5147 ], [ %dest_back.6, %while.end5092 ]
-  %need_adjust.0.be = phi i32 [ %need_adjust.4, %if.end3968 ], [ %need_adjust.4, %for.end4598 ], [ %need_adjust.4, %while.end4840 ], [ %need_adjust.2, %cleanup ], [ %need_adjust.16034, %while.end2442 ], [ %need_adjust.0, %if.then64 ], [ %need_adjust.0, %if.then187 ], [ %need_adjust.0, %if.end184 ], [ %need_adjust.4, %if.end5147 ], [ %need_adjust.4, %while.end5092 ]
+  %need_adjust.0.be = phi i32 [ %need_adjust.4, %if.end3968 ], [ %need_adjust.4, %for.end4598 ], [ %need_adjust.4, %while.end4840 ], [ %need_adjust.2, %cleanup ], [ %need_adjust.16028, %while.end2442 ], [ %need_adjust.0, %if.then64 ], [ %need_adjust.0, %if.then187 ], [ %need_adjust.0, %if.end184 ], [ %need_adjust.4, %if.end5147 ], [ %need_adjust.4, %while.end5092 ]
   %dest_encl.0.be = phi ptr [ %dest_encl.7, %if.end3968 ], [ %dest_encl.7, %for.end4598 ], [ %dest_encl.7, %while.end4840 ], [ %dest_encl.4, %cleanup ], [ %dest_encl.6, %while.end2442 ], [ %dest_encl.0, %if.then64 ], [ %dest_encl.0, %if.then187 ], [ %dest_encl.0, %if.end184 ], [ %dest_encl.7, %if.end5147 ], [ %dest_encl.7, %while.end5092 ]
   br label %RESUME
 
 for.cond5130:                                     ; preds = %if.then4884, %for.cond5130
-  %.pn5731 = phi ptr [ %z.1, %for.cond5130 ], [ %767, %if.then4884 ]
-  %z.1.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5731, i64 0, i64 1
+  %.pn5692 = phi ptr [ %z.1, %for.cond5130 ], [ %767, %if.then4884 ]
+  %z.1.in = getelementptr inbounds [2 x %struct.LIST], ptr %.pn5692, i64 0, i64 1
   %z.1 = load ptr, ptr %z.1.in, align 8, !tbaa !5
   %ou15131 = getelementptr inbounds %struct.word_type, ptr %z.1, i64 0, i32 1
   %805 = load i8, ptr %ou15131, align 8, !tbaa !5
@@ -4675,27 +4675,27 @@ if.end5150:                                       ; preds = %land.lhs.true4631, 
   %oblocked5152 = getelementptr inbounds i8, ptr %808, i64 42
   %bf.set5155 = or i16 %bf.load5153, 32
   store i16 %bf.set5155, ptr %oblocked5152, align 2
-  %tobool.i5713.not = icmp eq i32 %prnt_flush.7, 0
-  br i1 %tobool.i5713.not, label %cleanup5156, label %if.then.i5716
+  %tobool.not.i5827 = icmp eq i32 %prnt_flush.7, 0
+  br i1 %tobool.not.i5827, label %cleanup5156, label %if.then.i5829
 
-if.then.i5716:                                    ; preds = %if.end5150
-  %osucc.i5715 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.3, i64 0, i64 1, i32 1
-  %809 = load ptr, ptr %osucc.i5715, align 8, !tbaa !5
-  br label %for.cond.i5721
+if.then.i5829:                                    ; preds = %if.end5150
+  %osucc.i5828 = getelementptr inbounds [2 x %struct.LIST], ptr %dest_index.3, i64 0, i64 1, i32 1
+  %809 = load ptr, ptr %osucc.i5828, align 8, !tbaa !5
+  br label %for.cond.i5834
 
-for.cond.i5721:                                   ; preds = %for.cond.i5721, %if.then.i5716
-  %prnt.0.i5717.in = phi ptr [ %809, %if.then.i5716 ], [ %prnt.0.i5717, %for.cond.i5721 ]
-  %prnt.0.i5717 = load ptr, ptr %prnt.0.i5717.in, align 8, !tbaa !5
-  %ou1.i5718 = getelementptr inbounds %struct.word_type, ptr %prnt.0.i5717, i64 0, i32 1
-  %810 = load i8, ptr %ou1.i5718, align 8, !tbaa !5
-  %cmp.i5720 = icmp eq i8 %810, 0
-  br i1 %cmp.i5720, label %for.cond.i5721, label %for.end.i5723, !llvm.loop !12
+for.cond.i5834:                                   ; preds = %for.cond.i5834, %if.then.i5829
+  %prnt.0.in.i5830 = phi ptr [ %809, %if.then.i5829 ], [ %prnt.0.i5831, %for.cond.i5834 ]
+  %prnt.0.i5831 = load ptr, ptr %prnt.0.in.i5830, align 8, !tbaa !5
+  %ou1.i5832 = getelementptr inbounds %struct.word_type, ptr %prnt.0.i5831, i64 0, i32 1
+  %810 = load i8, ptr %ou1.i5832, align 8, !tbaa !5
+  %cmp.i5833 = icmp eq i8 %810, 0
+  br i1 %cmp.i5833, label %for.cond.i5834, label %for.end.i5835, !llvm.loop !12
 
-for.end.i5723:                                    ; preds = %for.cond.i5721
-  call void @FlushGalley(ptr noundef nonnull %prnt.0.i5717)
+for.end.i5835:                                    ; preds = %for.cond.i5834
+  call void @FlushGalley(ptr noundef nonnull %prnt.0.i5831)
   br label %cleanup5156
 
-cleanup5156:                                      ; preds = %for.cond, %for.end.i5723, %if.end5150, %for.end.i5710, %if.then195, %if.then126, %if.else127, %ParentFlush.exit5699, %if.then58, %ParentFlush.exit, %if.then52, %sw.bb43, %if.then46, %if.end1940
+cleanup5156:                                      ; preds = %for.cond, %for.end.i5835, %if.end5150, %for.end.i5824, %if.then195, %if.then126, %if.else127, %ParentFlush.exit5815, %if.then58, %ParentFlush.exit, %if.then52, %sw.bb43, %if.then46, %if.end1940
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %why) #6
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %succ_def) #6
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %succ_gap) #6

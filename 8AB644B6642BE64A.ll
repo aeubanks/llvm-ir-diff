@@ -253,8 +253,8 @@ entry:
   %3 = load i32, ptr %MCU_vert_offset, align 8, !tbaa !38
   %MCU_rows_per_iMCU_row = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 4
   %4 = load i32, ptr %MCU_rows_per_iMCU_row, align 4, !tbaa !34
-  %cmp194 = icmp slt i32 %3, %4
-  br i1 %cmp194, label %for.body.lr.ph, label %for.end95
+  %cmp195 = icmp slt i32 %3, %4
+  br i1 %cmp195, label %for.body.lr.ph, label %for.end95
 
 for.body.lr.ph:                                   ; preds = %entry
   %mcu_ctr = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 2
@@ -267,14 +267,14 @@ for.body.lr.ph:                                   ; preds = %entry
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end91
-  %5 = phi i32 [ %4, %for.body.lr.ph ], [ %67, %for.end91 ]
+  %5 = phi i32 [ %4, %for.body.lr.ph ], [ %124, %for.end91 ]
   %6 = phi i32 [ %.pre, %for.body.lr.ph ], [ 0, %for.end91 ]
-  %yoffset.0195 = phi i32 [ %3, %for.body.lr.ph ], [ %inc94, %for.end91 ]
+  %yoffset.0196 = phi i32 [ %3, %for.body.lr.ph ], [ %inc94, %for.end91 ]
   %cmp4.not192 = icmp ugt i32 %6, %sub
   br i1 %cmp4.not192, label %for.end91, label %for.cond6.preheader.lr.ph
 
 for.cond6.preheader.lr.ph:                        ; preds = %for.body
-  %mul10 = shl nsw i32 %yoffset.0195, 3
+  %mul10 = shl nsw i32 %yoffset.0196, 3
   br label %for.cond6.preheader
 
 for.cond6.preheader:                              ; preds = %for.cond6.preheader.lr.ph, %for.inc89
@@ -285,142 +285,349 @@ for.cond6.preheader:                              ; preds = %for.cond6.preheader
 
 for.body8.lr.ph:                                  ; preds = %for.cond6.preheader
   %cmp9 = icmp ult i32 %MCU_col_num.0193, %sub
-  br label %for.body8
+  %cmp9.fr = freeze i1 %cmp9
+  br i1 %cmp9.fr, label %for.body8.us, label %for.body8
+
+for.body8.us:                                     ; preds = %for.body8.lr.ph, %for.inc81.us
+  %8 = phi i32 [ %12, %for.inc81.us ], [ %7, %for.body8.lr.ph ]
+  %indvars.iv227 = phi i64 [ %indvars.iv.next228, %for.inc81.us ], [ 0, %for.body8.lr.ph ]
+  %blkn.0191.us = phi i32 [ %blkn.1.lcssa.us, %for.inc81.us ], [ 0, %for.body8.lr.ph ]
+  %arrayidx.us = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 42, i64 %indvars.iv227
+  %9 = load ptr, ptr %arrayidx.us, align 8, !tbaa !28
+  %MCU_width.us = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 13
+  %cond.us = load i32, ptr %MCU_width.us, align 4, !tbaa !45
+  %MCU_sample_width.us = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 16
+  %10 = load i32, ptr %MCU_sample_width.us, align 8, !tbaa !46
+  %mul.us = mul i32 %10, %MCU_col_num.0193
+  %MCU_height.us = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 14
+  %11 = load i32, ptr %MCU_height.us, align 8, !tbaa !47
+  %cmp12184.us = icmp sgt i32 %11, 0
+  br i1 %cmp12184.us, label %for.body13.lr.ph.us, label %for.inc81.us
+
+for.inc81.us.loopexit:                            ; preds = %if.end74.us
+  %.pre231 = load i32, ptr %comps_in_scan, align 4, !tbaa !33
+  br label %for.inc81.us
+
+for.inc81.us:                                     ; preds = %for.inc81.us.loopexit, %for.body8.us
+  %12 = phi i32 [ %8, %for.body8.us ], [ %.pre231, %for.inc81.us.loopexit ]
+  %blkn.1.lcssa.us = phi i32 [ %blkn.0191.us, %for.body8.us ], [ %add76.us, %for.inc81.us.loopexit ]
+  %indvars.iv.next228 = add nuw nsw i64 %indvars.iv227, 1
+  %13 = sext i32 %12 to i64
+  %cmp7.us = icmp slt i64 %indvars.iv.next228, %13
+  br i1 %cmp7.us, label %for.body8.us, label %for.end83, !llvm.loop !48
+
+for.body13.us:                                    ; preds = %for.body13.lr.ph.us, %if.end74.us
+  %14 = phi i32 [ %cond.us, %for.body13.lr.ph.us ], [ %49, %if.end74.us ]
+  %ypos.0188.us = phi i32 [ %mul10, %for.body13.lr.ph.us ], [ %add77.us, %if.end74.us ]
+  %blkn.1186.us = phi i32 [ %blkn.0191.us, %for.body13.lr.ph.us ], [ %add76.us, %if.end74.us ]
+  %yindex.0185.us = phi i32 [ 0, %for.body13.lr.ph.us ], [ %inc79.us, %if.end74.us ]
+  %15 = load i32, ptr %iMCU_row_num, align 8, !tbaa !32
+  %cmp14.us = icmp ult i32 %15, %sub2
+  br i1 %cmp14.us, label %if.then.us, label %lor.lhs.false.us
+
+lor.lhs.false.us:                                 ; preds = %for.body13.us
+  %add.us = add nsw i32 %yindex.0185.us, %yoffset.0196
+  %16 = load i32, ptr %last_row_height.us, align 8, !tbaa !36
+  %cmp15.us = icmp slt i32 %add.us, %16
+  br i1 %cmp15.us, label %if.then.us, label %if.else.us
+
+if.else.us:                                       ; preds = %lor.lhs.false.us
+  %idxprom49.us = sext i32 %blkn.1186.us to i64
+  %arrayidx50.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom49.us
+  %17 = load ptr, ptr %arrayidx50.us, align 8, !tbaa !28
+  %conv52.us = sext i32 %14 to i64
+  %mul53.us = shl nsw i64 %conv52.us, 7
+  tail call void @jzero_far(ptr noundef %17, i64 noundef %mul53.us) #4
+  %18 = load i32, ptr %MCU_width.us, align 4, !tbaa !49
+  %cmp56180.us = icmp sgt i32 %18, 0
+  br i1 %cmp56180.us, label %for.body58.lr.ph.us, label %if.end74.us
+
+for.body58.us:                                    ; preds = %for.body58.us, %for.body58.lr.ph.us.new
+  %indvars.iv214 = phi i64 [ 0, %for.body58.lr.ph.us.new ], [ %indvars.iv.next215.3, %for.body58.us ]
+  %niter255 = phi i64 [ 0, %for.body58.lr.ph.us.new ], [ %niter255.next.3, %for.body58.us ]
+  %19 = load i16, ptr %61, align 2, !tbaa !50
+  %20 = add nsw i64 %indvars.iv214, %idxprom49.us
+  %arrayidx68.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %20
+  %21 = load ptr, ptr %arrayidx68.us, align 8, !tbaa !28
+  store i16 %19, ptr %21, align 2, !tbaa !50
+  %indvars.iv.next215 = or i64 %indvars.iv214, 1
+  %22 = load i16, ptr %61, align 2, !tbaa !50
+  %23 = add nsw i64 %indvars.iv.next215, %idxprom49.us
+  %arrayidx68.us.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %23
+  %24 = load ptr, ptr %arrayidx68.us.1, align 8, !tbaa !28
+  store i16 %22, ptr %24, align 2, !tbaa !50
+  %indvars.iv.next215.1 = or i64 %indvars.iv214, 2
+  %25 = load i16, ptr %61, align 2, !tbaa !50
+  %26 = add nsw i64 %indvars.iv.next215.1, %idxprom49.us
+  %arrayidx68.us.2 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %26
+  %27 = load ptr, ptr %arrayidx68.us.2, align 8, !tbaa !28
+  store i16 %25, ptr %27, align 2, !tbaa !50
+  %indvars.iv.next215.2 = or i64 %indvars.iv214, 3
+  %28 = load i16, ptr %61, align 2, !tbaa !50
+  %29 = add nsw i64 %indvars.iv.next215.2, %idxprom49.us
+  %arrayidx68.us.3 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %29
+  %30 = load ptr, ptr %arrayidx68.us.3, align 8, !tbaa !28
+  store i16 %28, ptr %30, align 2, !tbaa !50
+  %indvars.iv.next215.3 = add nuw nsw i64 %indvars.iv214, 4
+  %niter255.next.3 = add i64 %niter255, 4
+  %niter255.ncmp.3 = icmp eq i64 %niter255.next.3, %unroll_iter254
+  br i1 %niter255.ncmp.3, label %if.end74.us.loopexit244.unr-lcssa, label %for.body58.us, !llvm.loop !51
+
+if.then.us:                                       ; preds = %lor.lhs.false.us, %for.body13.us
+  %31 = load ptr, ptr %fdct, align 8, !tbaa !52
+  %forward_DCT.us = getelementptr inbounds %struct.jpeg_forward_dct, ptr %31, i64 0, i32 1
+  %32 = load ptr, ptr %forward_DCT.us, align 8, !tbaa !53
+  %33 = load ptr, ptr %arrayidx17.us, align 8, !tbaa !28
+  %idxprom18.us = sext i32 %blkn.1186.us to i64
+  %arrayidx19.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom18.us
+  %34 = load ptr, ptr %arrayidx19.us, align 8, !tbaa !28
+  tail call void %32(ptr noundef %cinfo, ptr noundef nonnull %9, ptr noundef %33, ptr noundef %34, i32 noundef %ypos.0188.us, i32 noundef %mul.us, i32 noundef %cond.us) #4
+  %35 = load i32, ptr %MCU_width.us, align 4, !tbaa !49
+  %cmp21.us = icmp sgt i32 %35, %cond.us
+  br i1 %cmp21.us, label %if.then22.us, label %if.end74.us
+
+if.then22.us:                                     ; preds = %if.then.us
+  %add24.us = add nsw i32 %blkn.1186.us, %cond.us
+  %idxprom25.us = sext i32 %add24.us to i64
+  %arrayidx26.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom25.us
+  %36 = load ptr, ptr %arrayidx26.us, align 8, !tbaa !28
+  %sub28.us = sub nsw i32 %35, %cond.us
+  %conv.us = sext i32 %sub28.us to i64
+  %mul29.us = shl nsw i64 %conv.us, 7
+  tail call void @jzero_far(ptr noundef %36, i64 noundef %mul29.us) #4
+  %37 = load i32, ptr %MCU_width.us, align 4, !tbaa !49
+  %cmp32182.us = icmp slt i32 %cond.us, %37
+  br i1 %cmp32182.us, label %for.body34.us.preheader, label %if.end74.us
+
+for.body34.us.preheader:                          ; preds = %if.then22.us
+  %wide.trip.count225 = sext i32 %37 to i64
+  %38 = sub nsw i64 %wide.trip.count225, %63
+  %xtraiter256 = and i64 %38, 1
+  %lcmp.mod257.not = icmp eq i64 %xtraiter256, 0
+  br i1 %lcmp.mod257.not, label %for.body34.us.prol.loopexit, label %for.body34.us.prol
+
+for.body34.us.prol:                               ; preds = %for.body34.us.preheader
+  %39 = add nsw i64 %63, %idxprom18.us
+  %40 = add nsw i64 %39, -1
+  %arrayidx39.us.prol = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %40
+  %41 = load ptr, ptr %arrayidx39.us.prol, align 8, !tbaa !28
+  %42 = load i16, ptr %41, align 2, !tbaa !50
+  %arrayidx45.us.prol = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %39
+  %43 = load ptr, ptr %arrayidx45.us.prol, align 8, !tbaa !28
+  store i16 %42, ptr %43, align 2, !tbaa !50
+  br label %for.body34.us.prol.loopexit
+
+for.body34.us.prol.loopexit:                      ; preds = %for.body34.us.prol, %for.body34.us.preheader
+  %indvars.iv220.unr = phi i64 [ %63, %for.body34.us.preheader ], [ %indvars.iv.next221.prol, %for.body34.us.prol ]
+  %44 = sub nsw i64 0, %wide.trip.count225
+  %45 = icmp eq i64 %64, %44
+  br i1 %45, label %if.end74.us, label %for.body34.us
+
+if.end74.us.loopexit244.unr-lcssa:                ; preds = %for.body58.us, %for.body58.lr.ph.us
+  %indvars.iv214.unr = phi i64 [ 0, %for.body58.lr.ph.us ], [ %indvars.iv.next215.3, %for.body58.us ]
+  %lcmp.mod253.not = icmp eq i64 %xtraiter251, 0
+  br i1 %lcmp.mod253.not, label %if.end74.us, label %for.body58.us.epil
+
+for.body58.us.epil:                               ; preds = %if.end74.us.loopexit244.unr-lcssa, %for.body58.us.epil
+  %indvars.iv214.epil = phi i64 [ %indvars.iv.next215.epil, %for.body58.us.epil ], [ %indvars.iv214.unr, %if.end74.us.loopexit244.unr-lcssa ]
+  %epil.iter252 = phi i64 [ %epil.iter252.next, %for.body58.us.epil ], [ 0, %if.end74.us.loopexit244.unr-lcssa ]
+  %46 = load i16, ptr %61, align 2, !tbaa !50
+  %47 = add nsw i64 %indvars.iv214.epil, %idxprom49.us
+  %arrayidx68.us.epil = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %47
+  %48 = load ptr, ptr %arrayidx68.us.epil, align 8, !tbaa !28
+  store i16 %46, ptr %48, align 2, !tbaa !50
+  %indvars.iv.next215.epil = add nuw nsw i64 %indvars.iv214.epil, 1
+  %epil.iter252.next = add i64 %epil.iter252, 1
+  %epil.iter252.cmp.not = icmp eq i64 %epil.iter252.next, %xtraiter251
+  br i1 %epil.iter252.cmp.not, label %if.end74.us, label %for.body58.us.epil, !llvm.loop !55
+
+if.end74.us:                                      ; preds = %if.end74.us.loopexit244.unr-lcssa, %for.body58.us.epil, %for.body34.us.prol.loopexit, %for.body34.us, %if.else.us, %if.then22.us, %if.then.us
+  %49 = load i32, ptr %MCU_width.us, align 4, !tbaa !49
+  %add76.us = add nsw i32 %49, %blkn.1186.us
+  %add77.us = add i32 %ypos.0188.us, 8
+  %inc79.us = add nuw nsw i32 %yindex.0185.us, 1
+  %50 = load i32, ptr %MCU_height.us, align 8, !tbaa !47
+  %cmp12.us = icmp slt i32 %inc79.us, %50
+  br i1 %cmp12.us, label %for.body13.us, label %for.inc81.us.loopexit, !llvm.loop !57
+
+for.body34.us:                                    ; preds = %for.body34.us.prol.loopexit, %for.body34.us
+  %indvars.iv220 = phi i64 [ %indvars.iv.next221.1, %for.body34.us ], [ %indvars.iv220.unr, %for.body34.us.prol.loopexit ]
+  %51 = add nsw i64 %indvars.iv220, %idxprom18.us
+  %52 = add nsw i64 %51, -1
+  %arrayidx39.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %52
+  %53 = load ptr, ptr %arrayidx39.us, align 8, !tbaa !28
+  %54 = load i16, ptr %53, align 2, !tbaa !50
+  %arrayidx45.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %51
+  %55 = load ptr, ptr %arrayidx45.us, align 8, !tbaa !28
+  store i16 %54, ptr %55, align 2, !tbaa !50
+  %indvars.iv.next221 = add nsw i64 %indvars.iv220, 1
+  %56 = add nsw i64 %indvars.iv.next221, %idxprom18.us
+  %57 = add i64 %indvars.iv220, %idxprom18.us
+  %arrayidx39.us.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %57
+  %58 = load ptr, ptr %arrayidx39.us.1, align 8, !tbaa !28
+  %59 = load i16, ptr %58, align 2, !tbaa !50
+  %arrayidx45.us.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %56
+  %60 = load ptr, ptr %arrayidx45.us.1, align 8, !tbaa !28
+  store i16 %59, ptr %60, align 2, !tbaa !50
+  %indvars.iv.next221.1 = add nsw i64 %indvars.iv220, 2
+  %exitcond226.not.1 = icmp eq i64 %indvars.iv.next221.1, %wide.trip.count225
+  br i1 %exitcond226.not.1, label %if.end74.us, label %for.body34.us, !llvm.loop !58
+
+for.body58.lr.ph.us:                              ; preds = %if.else.us
+  %sub60.us = add nsw i32 %blkn.1186.us, -1
+  %idxprom61.us = sext i32 %sub60.us to i64
+  %arrayidx62.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom61.us
+  %61 = load ptr, ptr %arrayidx62.us, align 8, !tbaa !28
+  %wide.trip.count218 = zext i32 %18 to i64
+  %xtraiter251 = and i64 %wide.trip.count218, 3
+  %62 = icmp ult i32 %18, 4
+  br i1 %62, label %if.end74.us.loopexit244.unr-lcssa, label %for.body58.lr.ph.us.new
+
+for.body58.lr.ph.us.new:                          ; preds = %for.body58.lr.ph.us
+  %unroll_iter254 = and i64 %wide.trip.count218, 4294967292
+  br label %for.body58.us
+
+for.body13.lr.ph.us:                              ; preds = %for.body8.us
+  %last_row_height.us = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 18
+  %arrayidx17.us = getelementptr inbounds ptr, ptr %input_buf, i64 %indvars.iv227
+  %63 = sext i32 %cond.us to i64
+  %64 = xor i64 %63, -1
+  %indvars.iv.next221.prol = add nsw i64 %63, 1
+  br label %for.body13.us
 
 for.body8:                                        ; preds = %for.body8.lr.ph, %for.inc81
-  %8 = phi i32 [ %7, %for.body8.lr.ph ], [ %63, %for.inc81 ]
-  %indvars.iv208 = phi i64 [ 0, %for.body8.lr.ph ], [ %indvars.iv.next209, %for.inc81 ]
-  %blkn.0191 = phi i32 [ 0, %for.body8.lr.ph ], [ %blkn.1.lcssa, %for.inc81 ]
-  %arrayidx = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 42, i64 %indvars.iv208
-  %9 = load ptr, ptr %arrayidx, align 8, !tbaa !28
-  %MCU_width = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 13
-  %last_col_width = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 17
-  %cond.in = select i1 %cmp9, ptr %MCU_width, ptr %last_col_width
-  %cond = load i32, ptr %cond.in, align 4, !tbaa !45
-  %MCU_sample_width = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 16
-  %10 = load i32, ptr %MCU_sample_width, align 8, !tbaa !46
-  %mul = mul i32 %10, %MCU_col_num.0193
-  %MCU_height = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 14
-  %11 = load i32, ptr %MCU_height, align 8, !tbaa !47
-  %cmp12184 = icmp sgt i32 %11, 0
+  %65 = phi i32 [ %120, %for.inc81 ], [ %7, %for.body8.lr.ph ]
+  %indvars.iv211 = phi i64 [ %indvars.iv.next212, %for.inc81 ], [ 0, %for.body8.lr.ph ]
+  %blkn.0191 = phi i32 [ %blkn.1.lcssa, %for.inc81 ], [ 0, %for.body8.lr.ph ]
+  %arrayidx = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 42, i64 %indvars.iv211
+  %66 = load ptr, ptr %arrayidx, align 8, !tbaa !28
+  %MCU_width = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 13
+  %last_col_width = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 17
+  %cond = load i32, ptr %last_col_width, align 4, !tbaa !45
+  %MCU_sample_width = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 16
+  %67 = load i32, ptr %MCU_sample_width, align 8, !tbaa !46
+  %mul = mul i32 %67, %MCU_col_num.0193
+  %MCU_height = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 14
+  %68 = load i32, ptr %MCU_height, align 8, !tbaa !47
+  %cmp12184 = icmp sgt i32 %68, 0
   br i1 %cmp12184, label %for.body13.lr.ph, label %for.inc81
 
 for.body13.lr.ph:                                 ; preds = %for.body8
-  %last_row_height = getelementptr inbounds %struct.jpeg_component_info, ptr %9, i64 0, i32 18
-  %arrayidx17 = getelementptr inbounds ptr, ptr %input_buf, i64 %indvars.iv208
-  %12 = sext i32 %cond to i64
-  %13 = xor i64 %12, -1
-  %indvars.iv.next202.prol = add nsw i64 %12, 1
+  %last_row_height = getelementptr inbounds %struct.jpeg_component_info, ptr %66, i64 0, i32 18
+  %arrayidx17 = getelementptr inbounds ptr, ptr %input_buf, i64 %indvars.iv211
+  %69 = sext i32 %cond to i64
+  %70 = xor i64 %69, -1
+  %indvars.iv.next205.prol = add nsw i64 %69, 1
   br label %for.body13
 
 for.body13:                                       ; preds = %for.body13.lr.ph, %if.end74
   %ypos.0188 = phi i32 [ %mul10, %for.body13.lr.ph ], [ %add77, %if.end74 ]
   %blkn.1186 = phi i32 [ %blkn.0191, %for.body13.lr.ph ], [ %add76, %if.end74 ]
   %yindex.0185 = phi i32 [ 0, %for.body13.lr.ph ], [ %inc79, %if.end74 ]
-  %14 = load i32, ptr %iMCU_row_num, align 8, !tbaa !32
-  %cmp14 = icmp ult i32 %14, %sub2
+  %71 = load i32, ptr %iMCU_row_num, align 8, !tbaa !32
+  %cmp14 = icmp ult i32 %71, %sub2
   br i1 %cmp14, label %if.then, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %for.body13
-  %add = add nsw i32 %yindex.0185, %yoffset.0195
-  %15 = load i32, ptr %last_row_height, align 8, !tbaa !36
-  %cmp15 = icmp slt i32 %add, %15
+  %add = add nsw i32 %yindex.0185, %yoffset.0196
+  %72 = load i32, ptr %last_row_height, align 8, !tbaa !36
+  %cmp15 = icmp slt i32 %add, %72
   br i1 %cmp15, label %if.then, label %if.else
 
 if.then:                                          ; preds = %lor.lhs.false, %for.body13
-  %16 = load ptr, ptr %fdct, align 8, !tbaa !48
-  %forward_DCT = getelementptr inbounds %struct.jpeg_forward_dct, ptr %16, i64 0, i32 1
-  %17 = load ptr, ptr %forward_DCT, align 8, !tbaa !49
-  %18 = load ptr, ptr %arrayidx17, align 8, !tbaa !28
+  %73 = load ptr, ptr %fdct, align 8, !tbaa !52
+  %forward_DCT = getelementptr inbounds %struct.jpeg_forward_dct, ptr %73, i64 0, i32 1
+  %74 = load ptr, ptr %forward_DCT, align 8, !tbaa !53
+  %75 = load ptr, ptr %arrayidx17, align 8, !tbaa !28
   %idxprom18 = sext i32 %blkn.1186 to i64
   %arrayidx19 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom18
-  %19 = load ptr, ptr %arrayidx19, align 8, !tbaa !28
-  tail call void %17(ptr noundef %cinfo, ptr noundef nonnull %9, ptr noundef %18, ptr noundef %19, i32 noundef %ypos.0188, i32 noundef %mul, i32 noundef %cond) #4
-  %20 = load i32, ptr %MCU_width, align 4, !tbaa !51
-  %cmp21 = icmp sgt i32 %20, %cond
+  %76 = load ptr, ptr %arrayidx19, align 8, !tbaa !28
+  tail call void %74(ptr noundef %cinfo, ptr noundef nonnull %66, ptr noundef %75, ptr noundef %76, i32 noundef %ypos.0188, i32 noundef %mul, i32 noundef %cond) #4
+  %77 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %cmp21 = icmp sgt i32 %77, %cond
   br i1 %cmp21, label %if.then22, label %if.end74
 
 if.then22:                                        ; preds = %if.then
   %add24 = add nsw i32 %blkn.1186, %cond
   %idxprom25 = sext i32 %add24 to i64
   %arrayidx26 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom25
-  %21 = load ptr, ptr %arrayidx26, align 8, !tbaa !28
-  %sub28 = sub nsw i32 %20, %cond
+  %78 = load ptr, ptr %arrayidx26, align 8, !tbaa !28
+  %sub28 = sub nsw i32 %77, %cond
   %conv = sext i32 %sub28 to i64
   %mul29 = shl nsw i64 %conv, 7
-  tail call void @jzero_far(ptr noundef %21, i64 noundef %mul29) #4
-  %22 = load i32, ptr %MCU_width, align 4, !tbaa !51
-  %cmp32182 = icmp slt i32 %cond, %22
+  tail call void @jzero_far(ptr noundef %78, i64 noundef %mul29) #4
+  %79 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %cmp32182 = icmp slt i32 %cond, %79
   br i1 %cmp32182, label %for.body34.preheader, label %if.end74
 
 for.body34.preheader:                             ; preds = %if.then22
-  %wide.trip.count206 = sext i32 %22 to i64
-  %23 = sub nsw i64 %wide.trip.count206, %12
-  %xtraiter223 = and i64 %23, 1
-  %lcmp.mod224.not = icmp eq i64 %xtraiter223, 0
-  br i1 %lcmp.mod224.not, label %for.body34.prol.loopexit, label %for.body34.prol
+  %wide.trip.count209 = sext i32 %79 to i64
+  %80 = sub nsw i64 %wide.trip.count209, %69
+  %xtraiter249 = and i64 %80, 1
+  %lcmp.mod250.not = icmp eq i64 %xtraiter249, 0
+  br i1 %lcmp.mod250.not, label %for.body34.prol.loopexit, label %for.body34.prol
 
 for.body34.prol:                                  ; preds = %for.body34.preheader
-  %24 = add nsw i64 %12, %idxprom18
-  %25 = add nsw i64 %24, -1
-  %arrayidx39.prol = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %25
-  %26 = load ptr, ptr %arrayidx39.prol, align 8, !tbaa !28
-  %27 = load i16, ptr %26, align 2, !tbaa !52
-  %arrayidx45.prol = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %24
-  %28 = load ptr, ptr %arrayidx45.prol, align 8, !tbaa !28
-  store i16 %27, ptr %28, align 2, !tbaa !52
+  %81 = add nsw i64 %69, %idxprom18
+  %82 = add nsw i64 %81, -1
+  %arrayidx39.prol = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %82
+  %83 = load ptr, ptr %arrayidx39.prol, align 8, !tbaa !28
+  %84 = load i16, ptr %83, align 2, !tbaa !50
+  %arrayidx45.prol = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %81
+  %85 = load ptr, ptr %arrayidx45.prol, align 8, !tbaa !28
+  store i16 %84, ptr %85, align 2, !tbaa !50
   br label %for.body34.prol.loopexit
 
 for.body34.prol.loopexit:                         ; preds = %for.body34.prol, %for.body34.preheader
-  %indvars.iv201.unr = phi i64 [ %12, %for.body34.preheader ], [ %indvars.iv.next202.prol, %for.body34.prol ]
-  %29 = sub nsw i64 0, %wide.trip.count206
-  %30 = icmp eq i64 %13, %29
-  br i1 %30, label %if.end74, label %for.body34
+  %indvars.iv204.unr = phi i64 [ %69, %for.body34.preheader ], [ %indvars.iv.next205.prol, %for.body34.prol ]
+  %86 = sub nsw i64 0, %wide.trip.count209
+  %87 = icmp eq i64 %70, %86
+  br i1 %87, label %if.end74, label %for.body34
 
 for.body34:                                       ; preds = %for.body34.prol.loopexit, %for.body34
-  %indvars.iv201 = phi i64 [ %indvars.iv.next202.1, %for.body34 ], [ %indvars.iv201.unr, %for.body34.prol.loopexit ]
-  %31 = add nsw i64 %indvars.iv201, %idxprom18
-  %32 = add nsw i64 %31, -1
-  %arrayidx39 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %32
-  %33 = load ptr, ptr %arrayidx39, align 8, !tbaa !28
-  %34 = load i16, ptr %33, align 2, !tbaa !52
-  %arrayidx45 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %31
-  %35 = load ptr, ptr %arrayidx45, align 8, !tbaa !28
-  store i16 %34, ptr %35, align 2, !tbaa !52
-  %indvars.iv.next202 = add nsw i64 %indvars.iv201, 1
-  %36 = add nsw i64 %indvars.iv.next202, %idxprom18
-  %37 = add i64 %indvars.iv201, %idxprom18
-  %arrayidx39.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %37
-  %38 = load ptr, ptr %arrayidx39.1, align 8, !tbaa !28
-  %39 = load i16, ptr %38, align 2, !tbaa !52
-  %arrayidx45.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %36
-  %40 = load ptr, ptr %arrayidx45.1, align 8, !tbaa !28
-  store i16 %39, ptr %40, align 2, !tbaa !52
-  %indvars.iv.next202.1 = add nsw i64 %indvars.iv201, 2
-  %exitcond207.not.1 = icmp eq i64 %indvars.iv.next202.1, %wide.trip.count206
-  br i1 %exitcond207.not.1, label %if.end74, label %for.body34, !llvm.loop !53
+  %indvars.iv204 = phi i64 [ %indvars.iv.next205.1, %for.body34 ], [ %indvars.iv204.unr, %for.body34.prol.loopexit ]
+  %88 = add nsw i64 %indvars.iv204, %idxprom18
+  %89 = add nsw i64 %88, -1
+  %arrayidx39 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %89
+  %90 = load ptr, ptr %arrayidx39, align 8, !tbaa !28
+  %91 = load i16, ptr %90, align 2, !tbaa !50
+  %arrayidx45 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %88
+  %92 = load ptr, ptr %arrayidx45, align 8, !tbaa !28
+  store i16 %91, ptr %92, align 2, !tbaa !50
+  %indvars.iv.next205 = add nsw i64 %indvars.iv204, 1
+  %93 = add nsw i64 %indvars.iv.next205, %idxprom18
+  %94 = add i64 %indvars.iv204, %idxprom18
+  %arrayidx39.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %94
+  %95 = load ptr, ptr %arrayidx39.1, align 8, !tbaa !28
+  %96 = load i16, ptr %95, align 2, !tbaa !50
+  %arrayidx45.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %93
+  %97 = load ptr, ptr %arrayidx45.1, align 8, !tbaa !28
+  store i16 %96, ptr %97, align 2, !tbaa !50
+  %indvars.iv.next205.1 = add nsw i64 %indvars.iv204, 2
+  %exitcond210.not.1 = icmp eq i64 %indvars.iv.next205.1, %wide.trip.count209
+  br i1 %exitcond210.not.1, label %if.end74, label %for.body34, !llvm.loop !58
 
 if.else:                                          ; preds = %lor.lhs.false
   %idxprom49 = sext i32 %blkn.1186 to i64
   %arrayidx50 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom49
-  %41 = load ptr, ptr %arrayidx50, align 8, !tbaa !28
-  %42 = load i32, ptr %MCU_width, align 4, !tbaa !51
-  %conv52 = sext i32 %42 to i64
+  %98 = load ptr, ptr %arrayidx50, align 8, !tbaa !28
+  %99 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %conv52 = sext i32 %99 to i64
   %mul53 = shl nsw i64 %conv52, 7
-  tail call void @jzero_far(ptr noundef %41, i64 noundef %mul53) #4
-  %43 = load i32, ptr %MCU_width, align 4, !tbaa !51
-  %cmp56180 = icmp sgt i32 %43, 0
+  tail call void @jzero_far(ptr noundef %98, i64 noundef %mul53) #4
+  %100 = load i32, ptr %MCU_width, align 4, !tbaa !49
+  %cmp56180 = icmp sgt i32 %100, 0
   br i1 %cmp56180, label %for.body58.lr.ph, label %if.end74
 
 for.body58.lr.ph:                                 ; preds = %if.else
   %sub60 = add nsw i32 %blkn.1186, -1
   %idxprom61 = sext i32 %sub60 to i64
   %arrayidx62 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %idxprom61
-  %44 = load ptr, ptr %arrayidx62, align 8, !tbaa !28
-  %wide.trip.count = zext i32 %43 to i64
+  %101 = load ptr, ptr %arrayidx62, align 8, !tbaa !28
+  %wide.trip.count = zext i32 %100 to i64
   %xtraiter = and i64 %wide.trip.count, 3
-  %45 = icmp ult i32 %43, 4
-  br i1 %45, label %if.end74.loopexit220.unr-lcssa, label %for.body58.lr.ph.new
+  %102 = icmp ult i32 %100, 4
+  br i1 %102, label %if.end74.loopexit245.unr-lcssa, label %for.body58.lr.ph.new
 
 for.body58.lr.ph.new:                             ; preds = %for.body58.lr.ph
   %unroll_iter = and i64 %wide.trip.count, 4294967292
@@ -429,149 +636,149 @@ for.body58.lr.ph.new:                             ; preds = %for.body58.lr.ph
 for.body58:                                       ; preds = %for.body58, %for.body58.lr.ph.new
   %indvars.iv = phi i64 [ 0, %for.body58.lr.ph.new ], [ %indvars.iv.next.3, %for.body58 ]
   %niter = phi i64 [ 0, %for.body58.lr.ph.new ], [ %niter.next.3, %for.body58 ]
-  %46 = load i16, ptr %44, align 2, !tbaa !52
-  %47 = add nsw i64 %indvars.iv, %idxprom49
-  %arrayidx68 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %47
-  %48 = load ptr, ptr %arrayidx68, align 8, !tbaa !28
-  store i16 %46, ptr %48, align 2, !tbaa !52
+  %103 = load i16, ptr %101, align 2, !tbaa !50
+  %104 = add nsw i64 %indvars.iv, %idxprom49
+  %arrayidx68 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %104
+  %105 = load ptr, ptr %arrayidx68, align 8, !tbaa !28
+  store i16 %103, ptr %105, align 2, !tbaa !50
   %indvars.iv.next = or i64 %indvars.iv, 1
-  %49 = load i16, ptr %44, align 2, !tbaa !52
-  %50 = add nsw i64 %indvars.iv.next, %idxprom49
-  %arrayidx68.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %50
-  %51 = load ptr, ptr %arrayidx68.1, align 8, !tbaa !28
-  store i16 %49, ptr %51, align 2, !tbaa !52
+  %106 = load i16, ptr %101, align 2, !tbaa !50
+  %107 = add nsw i64 %indvars.iv.next, %idxprom49
+  %arrayidx68.1 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %107
+  %108 = load ptr, ptr %arrayidx68.1, align 8, !tbaa !28
+  store i16 %106, ptr %108, align 2, !tbaa !50
   %indvars.iv.next.1 = or i64 %indvars.iv, 2
-  %52 = load i16, ptr %44, align 2, !tbaa !52
-  %53 = add nsw i64 %indvars.iv.next.1, %idxprom49
-  %arrayidx68.2 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %53
-  %54 = load ptr, ptr %arrayidx68.2, align 8, !tbaa !28
-  store i16 %52, ptr %54, align 2, !tbaa !52
+  %109 = load i16, ptr %101, align 2, !tbaa !50
+  %110 = add nsw i64 %indvars.iv.next.1, %idxprom49
+  %arrayidx68.2 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %110
+  %111 = load ptr, ptr %arrayidx68.2, align 8, !tbaa !28
+  store i16 %109, ptr %111, align 2, !tbaa !50
   %indvars.iv.next.2 = or i64 %indvars.iv, 3
-  %55 = load i16, ptr %44, align 2, !tbaa !52
-  %56 = add nsw i64 %indvars.iv.next.2, %idxprom49
-  %arrayidx68.3 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %56
-  %57 = load ptr, ptr %arrayidx68.3, align 8, !tbaa !28
-  store i16 %55, ptr %57, align 2, !tbaa !52
+  %112 = load i16, ptr %101, align 2, !tbaa !50
+  %113 = add nsw i64 %indvars.iv.next.2, %idxprom49
+  %arrayidx68.3 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %113
+  %114 = load ptr, ptr %arrayidx68.3, align 8, !tbaa !28
+  store i16 %112, ptr %114, align 2, !tbaa !50
   %indvars.iv.next.3 = add nuw nsw i64 %indvars.iv, 4
   %niter.next.3 = add i64 %niter, 4
   %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
-  br i1 %niter.ncmp.3, label %if.end74.loopexit220.unr-lcssa, label %for.body58, !llvm.loop !54
+  br i1 %niter.ncmp.3, label %if.end74.loopexit245.unr-lcssa, label %for.body58, !llvm.loop !51
 
-if.end74.loopexit220.unr-lcssa:                   ; preds = %for.body58, %for.body58.lr.ph
+if.end74.loopexit245.unr-lcssa:                   ; preds = %for.body58, %for.body58.lr.ph
   %indvars.iv.unr = phi i64 [ 0, %for.body58.lr.ph ], [ %indvars.iv.next.3, %for.body58 ]
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod.not, label %if.end74, label %for.body58.epil
 
-for.body58.epil:                                  ; preds = %if.end74.loopexit220.unr-lcssa, %for.body58.epil
-  %indvars.iv.epil = phi i64 [ %indvars.iv.next.epil, %for.body58.epil ], [ %indvars.iv.unr, %if.end74.loopexit220.unr-lcssa ]
-  %epil.iter = phi i64 [ %epil.iter.next, %for.body58.epil ], [ 0, %if.end74.loopexit220.unr-lcssa ]
-  %58 = load i16, ptr %44, align 2, !tbaa !52
-  %59 = add nsw i64 %indvars.iv.epil, %idxprom49
-  %arrayidx68.epil = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %59
-  %60 = load ptr, ptr %arrayidx68.epil, align 8, !tbaa !28
-  store i16 %58, ptr %60, align 2, !tbaa !52
+for.body58.epil:                                  ; preds = %if.end74.loopexit245.unr-lcssa, %for.body58.epil
+  %indvars.iv.epil = phi i64 [ %indvars.iv.next.epil, %for.body58.epil ], [ %indvars.iv.unr, %if.end74.loopexit245.unr-lcssa ]
+  %epil.iter = phi i64 [ %epil.iter.next, %for.body58.epil ], [ 0, %if.end74.loopexit245.unr-lcssa ]
+  %115 = load i16, ptr %101, align 2, !tbaa !50
+  %116 = add nsw i64 %indvars.iv.epil, %idxprom49
+  %arrayidx68.epil = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 5, i64 %116
+  %117 = load ptr, ptr %arrayidx68.epil, align 8, !tbaa !28
+  store i16 %115, ptr %117, align 2, !tbaa !50
   %indvars.iv.next.epil = add nuw nsw i64 %indvars.iv.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %if.end74, label %for.body58.epil, !llvm.loop !55
+  br i1 %epil.iter.cmp.not, label %if.end74, label %for.body58.epil, !llvm.loop !59
 
-if.end74:                                         ; preds = %if.end74.loopexit220.unr-lcssa, %for.body58.epil, %for.body34.prol.loopexit, %for.body34, %if.else, %if.then22, %if.then
-  %61 = phi i32 [ %43, %if.else ], [ %22, %if.then22 ], [ %20, %if.then ], [ %22, %for.body34 ], [ %22, %for.body34.prol.loopexit ], [ %43, %for.body58.epil ], [ %43, %if.end74.loopexit220.unr-lcssa ]
-  %add76 = add nsw i32 %61, %blkn.1186
+if.end74:                                         ; preds = %if.end74.loopexit245.unr-lcssa, %for.body58.epil, %for.body34.prol.loopexit, %for.body34, %if.else, %if.then22, %if.then
+  %118 = phi i32 [ %100, %if.else ], [ %79, %if.then22 ], [ %77, %if.then ], [ %79, %for.body34 ], [ %79, %for.body34.prol.loopexit ], [ %100, %for.body58.epil ], [ %100, %if.end74.loopexit245.unr-lcssa ]
+  %add76 = add nsw i32 %118, %blkn.1186
   %add77 = add i32 %ypos.0188, 8
   %inc79 = add nuw nsw i32 %yindex.0185, 1
-  %62 = load i32, ptr %MCU_height, align 8, !tbaa !47
-  %cmp12 = icmp slt i32 %inc79, %62
+  %119 = load i32, ptr %MCU_height, align 8, !tbaa !47
+  %cmp12 = icmp slt i32 %inc79, %119
   br i1 %cmp12, label %for.body13, label %for.inc81.loopexit, !llvm.loop !57
 
 for.inc81.loopexit:                               ; preds = %if.end74
-  %.pre211 = load i32, ptr %comps_in_scan, align 4, !tbaa !33
+  %.pre230 = load i32, ptr %comps_in_scan, align 4, !tbaa !33
   br label %for.inc81
 
 for.inc81:                                        ; preds = %for.inc81.loopexit, %for.body8
-  %63 = phi i32 [ %8, %for.body8 ], [ %.pre211, %for.inc81.loopexit ]
+  %120 = phi i32 [ %65, %for.body8 ], [ %.pre230, %for.inc81.loopexit ]
   %blkn.1.lcssa = phi i32 [ %blkn.0191, %for.body8 ], [ %add76, %for.inc81.loopexit ]
-  %indvars.iv.next209 = add nuw nsw i64 %indvars.iv208, 1
-  %64 = sext i32 %63 to i64
-  %cmp7 = icmp slt i64 %indvars.iv.next209, %64
-  br i1 %cmp7, label %for.body8, label %for.end83, !llvm.loop !58
+  %indvars.iv.next212 = add nuw nsw i64 %indvars.iv211, 1
+  %121 = sext i32 %120 to i64
+  %cmp7 = icmp slt i64 %indvars.iv.next212, %121
+  br i1 %cmp7, label %for.body8, label %for.end83, !llvm.loop !48
 
-for.end83:                                        ; preds = %for.inc81, %for.cond6.preheader
-  %65 = load ptr, ptr %entropy, align 8, !tbaa !59
-  %encode_mcu = getelementptr inbounds %struct.jpeg_entropy_encoder, ptr %65, i64 0, i32 1
-  %66 = load ptr, ptr %encode_mcu, align 8, !tbaa !60
-  %call = tail call i32 %66(ptr noundef nonnull %cinfo, ptr noundef nonnull %MCU_buffer84) #4
+for.end83:                                        ; preds = %for.inc81, %for.inc81.us, %for.cond6.preheader
+  %122 = load ptr, ptr %entropy, align 8, !tbaa !60
+  %encode_mcu = getelementptr inbounds %struct.jpeg_entropy_encoder, ptr %122, i64 0, i32 1
+  %123 = load ptr, ptr %encode_mcu, align 8, !tbaa !61
+  %call = tail call i32 %123(ptr noundef nonnull %cinfo, ptr noundef nonnull %MCU_buffer84) #4
   %tobool.not = icmp eq i32 %call, 0
   br i1 %tobool.not, label %if.then85, label %for.inc89
 
 if.then85:                                        ; preds = %for.end83
-  store i32 %yoffset.0195, ptr %MCU_vert_offset, align 8, !tbaa !38
+  store i32 %yoffset.0196, ptr %MCU_vert_offset, align 8, !tbaa !38
   store i32 %MCU_col_num.0193, ptr %mcu_ctr, align 4, !tbaa !37
   br label %cleanup
 
 for.inc89:                                        ; preds = %for.end83
   %inc90 = add i32 %MCU_col_num.0193, 1
   %cmp4.not = icmp ugt i32 %inc90, %sub
-  br i1 %cmp4.not, label %for.end91.loopexit, label %for.cond6.preheader, !llvm.loop !62
+  br i1 %cmp4.not, label %for.end91.loopexit, label %for.cond6.preheader, !llvm.loop !63
 
 for.end91.loopexit:                               ; preds = %for.inc89
-  %.pre212 = load i32, ptr %MCU_rows_per_iMCU_row, align 4, !tbaa !34
+  %.pre232 = load i32, ptr %MCU_rows_per_iMCU_row, align 4, !tbaa !34
   br label %for.end91
 
 for.end91:                                        ; preds = %for.end91.loopexit, %for.body
-  %67 = phi i32 [ %.pre212, %for.end91.loopexit ], [ %5, %for.body ]
+  %124 = phi i32 [ %.pre232, %for.end91.loopexit ], [ %5, %for.body ]
   store i32 0, ptr %mcu_ctr, align 4, !tbaa !37
-  %inc94 = add nsw i32 %yoffset.0195, 1
-  %cmp = icmp slt i32 %inc94, %67
-  br i1 %cmp, label %for.body, label %for.end95.loopexit, !llvm.loop !63
+  %inc94 = add nsw i32 %yoffset.0196, 1
+  %cmp = icmp slt i32 %inc94, %124
+  br i1 %cmp, label %for.body, label %for.end95.loopexit, !llvm.loop !64
 
 for.end95.loopexit:                               ; preds = %for.end91
-  %.pre213 = load ptr, ptr %coef1, align 8, !tbaa !16
+  %.pre233 = load ptr, ptr %coef1, align 8, !tbaa !16
   br label %for.end95
 
 for.end95:                                        ; preds = %for.end95.loopexit, %entry
-  %68 = phi ptr [ %.pre213, %for.end95.loopexit ], [ %0, %entry ]
+  %125 = phi ptr [ %.pre233, %for.end95.loopexit ], [ %0, %entry ]
   %iMCU_row_num96 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 1
-  %69 = load i32, ptr %iMCU_row_num96, align 8, !tbaa !32
-  %inc97 = add i32 %69, 1
+  %126 = load i32, ptr %iMCU_row_num96, align 8, !tbaa !32
+  %inc97 = add i32 %126, 1
   store i32 %inc97, ptr %iMCU_row_num96, align 8, !tbaa !32
   %comps_in_scan.i = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 41
-  %70 = load i32, ptr %comps_in_scan.i, align 4, !tbaa !33
-  %cmp.i = icmp sgt i32 %70, 1
+  %127 = load i32, ptr %comps_in_scan.i, align 4, !tbaa !33
+  %cmp.i = icmp sgt i32 %127, 1
   br i1 %cmp.i, label %if.then.i, label %if.else.i
 
 if.then.i:                                        ; preds = %for.end95
-  %MCU_rows_per_iMCU_row.i = getelementptr inbounds %struct.my_coef_controller, ptr %68, i64 0, i32 4
+  %MCU_rows_per_iMCU_row.i = getelementptr inbounds %struct.my_coef_controller, ptr %125, i64 0, i32 4
   store i32 1, ptr %MCU_rows_per_iMCU_row.i, align 4, !tbaa !34
   br label %start_iMCU_row.exit
 
 if.else.i:                                        ; preds = %for.end95
-  %iMCU_row_num.i = getelementptr inbounds %struct.my_coef_controller, ptr %68, i64 0, i32 1
-  %71 = load i32, ptr %iMCU_row_num.i, align 8, !tbaa !32
-  %72 = load i32, ptr %total_iMCU_rows, align 8, !tbaa !35
-  %sub.i = add i32 %72, -1
-  %cmp2.i = icmp ult i32 %71, %sub.i
+  %iMCU_row_num.i = getelementptr inbounds %struct.my_coef_controller, ptr %125, i64 0, i32 1
+  %128 = load i32, ptr %iMCU_row_num.i, align 8, !tbaa !32
+  %129 = load i32, ptr %total_iMCU_rows, align 8, !tbaa !35
+  %sub.i = add i32 %129, -1
+  %cmp2.i = icmp ult i32 %128, %sub.i
   %cur_comp_info.i = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 42
-  %73 = load ptr, ptr %cur_comp_info.i, align 8, !tbaa !28
-  %MCU_rows_per_iMCU_row4.i = getelementptr inbounds %struct.my_coef_controller, ptr %68, i64 0, i32 4
+  %130 = load ptr, ptr %cur_comp_info.i, align 8, !tbaa !28
+  %MCU_rows_per_iMCU_row4.i = getelementptr inbounds %struct.my_coef_controller, ptr %125, i64 0, i32 4
   br i1 %cmp2.i, label %if.then3.i, label %if.else5.i
 
 if.then3.i:                                       ; preds = %if.else.i
-  %v_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %73, i64 0, i32 3
-  %74 = load i32, ptr %v_samp_factor.i, align 4, !tbaa !27
-  store i32 %74, ptr %MCU_rows_per_iMCU_row4.i, align 4, !tbaa !34
+  %v_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %130, i64 0, i32 3
+  %131 = load i32, ptr %v_samp_factor.i, align 4, !tbaa !27
+  store i32 %131, ptr %MCU_rows_per_iMCU_row4.i, align 4, !tbaa !34
   br label %start_iMCU_row.exit
 
 if.else5.i:                                       ; preds = %if.else.i
-  %last_row_height.i = getelementptr inbounds %struct.jpeg_component_info, ptr %73, i64 0, i32 18
-  %75 = load i32, ptr %last_row_height.i, align 8, !tbaa !36
-  store i32 %75, ptr %MCU_rows_per_iMCU_row4.i, align 4, !tbaa !34
+  %last_row_height.i = getelementptr inbounds %struct.jpeg_component_info, ptr %130, i64 0, i32 18
+  %132 = load i32, ptr %last_row_height.i, align 8, !tbaa !36
+  store i32 %132, ptr %MCU_rows_per_iMCU_row4.i, align 4, !tbaa !34
   br label %start_iMCU_row.exit
 
 start_iMCU_row.exit:                              ; preds = %if.then.i, %if.then3.i, %if.else5.i
-  %mcu_ctr.i = getelementptr inbounds %struct.my_coef_controller, ptr %68, i64 0, i32 2
+  %mcu_ctr.i = getelementptr inbounds %struct.my_coef_controller, ptr %125, i64 0, i32 2
   store i32 0, ptr %mcu_ctr.i, align 4, !tbaa !37
-  %MCU_vert_offset.i = getelementptr inbounds %struct.my_coef_controller, ptr %68, i64 0, i32 3
+  %MCU_vert_offset.i = getelementptr inbounds %struct.my_coef_controller, ptr %125, i64 0, i32 3
   store i32 0, ptr %MCU_vert_offset.i, align 8, !tbaa !38
   br label %cleanup
 
@@ -606,7 +813,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %compptr.0183 = phi ptr [ %3, %for.body.lr.ph ], [ %incdec.ptr, %for.inc86 ]
   %4 = load ptr, ptr %mem, align 8, !tbaa !5
   %access_virt_barray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %4, i64 0, i32 8
-  %5 = load ptr, ptr %access_virt_barray, align 8, !tbaa !64
+  %5 = load ptr, ptr %access_virt_barray, align 8, !tbaa !65
   %arrayidx = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 6, i64 %indvars.iv215
   %6 = load ptr, ptr %arrayidx, align 8, !tbaa !28
   %7 = load i32, ptr %iMCU_row_num, align 8, !tbaa !32
@@ -665,9 +872,9 @@ for.body19.us:                                    ; preds = %for.body19.us.prehe
   %indvars.iv195 = phi i64 [ %indvars.iv.next196, %for.cond30.for.inc38.loopexit_crit_edge.us ], [ 0, %for.body19.us.preheader ]
   %arrayidx21.us = getelementptr inbounds ptr, ptr %call, i64 %indvars.iv195
   %16 = load ptr, ptr %arrayidx21.us, align 8, !tbaa !28
-  %17 = load ptr, ptr %fdct, align 8, !tbaa !48
+  %17 = load ptr, ptr %fdct, align 8, !tbaa !52
   %forward_DCT.us = getelementptr inbounds %struct.jpeg_forward_dct, ptr %17, i64 0, i32 1
-  %18 = load ptr, ptr %forward_DCT.us, align 8, !tbaa !49
+  %18 = load ptr, ptr %forward_DCT.us, align 8, !tbaa !53
   %19 = load ptr, ptr %arrayidx23, align 8, !tbaa !28
   %indvars.iv195.tr = trunc i64 %indvars.iv195 to i32
   %20 = shl i32 %indvars.iv195.tr, 3
@@ -675,27 +882,27 @@ for.body19.us:                                    ; preds = %for.body19.us.prehe
   %add.ptr.us = getelementptr inbounds [64 x i16], ptr %16, i64 %idx.ext
   tail call void @jzero_far(ptr noundef %add.ptr.us, i64 noundef %mul27) #4
   %arrayidx28.us = getelementptr inbounds [64 x i16], ptr %add.ptr.us, i64 -1
-  %21 = load i16, ptr %arrayidx28.us, align 2, !tbaa !52
+  %21 = load i16, ptr %arrayidx28.us, align 2, !tbaa !50
   br i1 %15, label %for.cond30.for.inc38.loopexit_crit_edge.us.unr-lcssa, label %for.body33.us
 
 for.body33.us:                                    ; preds = %for.body19.us, %for.body33.us
   %indvars.iv190 = phi i64 [ %indvars.iv.next191.3, %for.body33.us ], [ 0, %for.body19.us ]
   %niter = phi i64 [ %niter.next.3, %for.body33.us ], [ 0, %for.body19.us ]
   %arrayidx35.us = getelementptr inbounds [64 x i16], ptr %add.ptr.us, i64 %indvars.iv190
-  store i16 %21, ptr %arrayidx35.us, align 2, !tbaa !52
+  store i16 %21, ptr %arrayidx35.us, align 2, !tbaa !50
   %indvars.iv.next191 = or i64 %indvars.iv190, 1
   %arrayidx35.us.1 = getelementptr inbounds [64 x i16], ptr %add.ptr.us, i64 %indvars.iv.next191
-  store i16 %21, ptr %arrayidx35.us.1, align 2, !tbaa !52
+  store i16 %21, ptr %arrayidx35.us.1, align 2, !tbaa !50
   %indvars.iv.next191.1 = or i64 %indvars.iv190, 2
   %arrayidx35.us.2 = getelementptr inbounds [64 x i16], ptr %add.ptr.us, i64 %indvars.iv.next191.1
-  store i16 %21, ptr %arrayidx35.us.2, align 2, !tbaa !52
+  store i16 %21, ptr %arrayidx35.us.2, align 2, !tbaa !50
   %indvars.iv.next191.2 = or i64 %indvars.iv190, 3
   %arrayidx35.us.3 = getelementptr inbounds [64 x i16], ptr %add.ptr.us, i64 %indvars.iv.next191.2
-  store i16 %21, ptr %arrayidx35.us.3, align 2, !tbaa !52
+  store i16 %21, ptr %arrayidx35.us.3, align 2, !tbaa !50
   %indvars.iv.next191.3 = add nuw nsw i64 %indvars.iv190, 4
   %niter.next.3 = add i64 %niter, 4
   %niter.ncmp.3 = icmp eq i64 %niter.next.3, %unroll_iter
-  br i1 %niter.ncmp.3, label %for.cond30.for.inc38.loopexit_crit_edge.us.unr-lcssa, label %for.body33.us, !llvm.loop !65
+  br i1 %niter.ncmp.3, label %for.cond30.for.inc38.loopexit_crit_edge.us.unr-lcssa, label %for.body33.us, !llvm.loop !66
 
 for.cond30.for.inc38.loopexit_crit_edge.us.unr-lcssa: ; preds = %for.body33.us, %for.body19.us
   %indvars.iv190.unr = phi i64 [ 0, %for.body19.us ], [ %indvars.iv.next191.3, %for.body33.us ]
@@ -705,31 +912,31 @@ for.body33.us.epil:                               ; preds = %for.cond30.for.inc3
   %indvars.iv190.epil = phi i64 [ %indvars.iv.next191.epil, %for.body33.us.epil ], [ %indvars.iv190.unr, %for.cond30.for.inc38.loopexit_crit_edge.us.unr-lcssa ]
   %epil.iter = phi i64 [ %epil.iter.next, %for.body33.us.epil ], [ 0, %for.cond30.for.inc38.loopexit_crit_edge.us.unr-lcssa ]
   %arrayidx35.us.epil = getelementptr inbounds [64 x i16], ptr %add.ptr.us, i64 %indvars.iv190.epil
-  store i16 %21, ptr %arrayidx35.us.epil, align 2, !tbaa !52
+  store i16 %21, ptr %arrayidx35.us.epil, align 2, !tbaa !50
   %indvars.iv.next191.epil = add nuw nsw i64 %indvars.iv190.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %for.cond30.for.inc38.loopexit_crit_edge.us, label %for.body33.us.epil, !llvm.loop !66
+  br i1 %epil.iter.cmp.not, label %for.cond30.for.inc38.loopexit_crit_edge.us, label %for.body33.us.epil, !llvm.loop !67
 
 for.cond30.for.inc38.loopexit_crit_edge.us:       ; preds = %for.body33.us.epil, %for.cond30.for.inc38.loopexit_crit_edge.us.unr-lcssa
   %indvars.iv.next196 = add nuw nsw i64 %indvars.iv195, 1
   %exitcond200.not = icmp eq i64 %indvars.iv.next196, %wide.trip.count199
-  br i1 %exitcond200.not, label %for.end40, label %for.body19.us, !llvm.loop !67
+  br i1 %exitcond200.not, label %for.end40, label %for.body19.us, !llvm.loop !68
 
 for.body19:                                       ; preds = %for.body19.lr.ph, %for.body19
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body19 ], [ 0, %for.body19.lr.ph ]
   %arrayidx21 = getelementptr inbounds ptr, ptr %call, i64 %indvars.iv
   %22 = load ptr, ptr %arrayidx21, align 8, !tbaa !28
-  %23 = load ptr, ptr %fdct, align 8, !tbaa !48
+  %23 = load ptr, ptr %fdct, align 8, !tbaa !52
   %forward_DCT = getelementptr inbounds %struct.jpeg_forward_dct, ptr %23, i64 0, i32 1
-  %24 = load ptr, ptr %forward_DCT, align 8, !tbaa !49
+  %24 = load ptr, ptr %forward_DCT, align 8, !tbaa !53
   %25 = load ptr, ptr %arrayidx23, align 8, !tbaa !28
   %indvars.iv.tr = trunc i64 %indvars.iv to i32
   %26 = shl i32 %indvars.iv.tr, 3
   tail call void %24(ptr noundef %cinfo, ptr noundef %compptr.0183, ptr noundef %25, ptr noundef %22, i32 noundef %26, i32 noundef 0, i32 noundef %13) #4
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count199
-  br i1 %exitcond.not, label %for.end40, label %for.body19, !llvm.loop !67
+  br i1 %exitcond.not, label %for.end40, label %for.body19, !llvm.loop !68
 
 for.end40:                                        ; preds = %for.body19, %for.cond30.for.inc38.loopexit_crit_edge.us, %if.end10
   %27 = load i32, ptr %iMCU_row_num, align 8, !tbaa !32
@@ -779,34 +986,34 @@ for.cond57.for.inc82_crit_edge.us:                ; preds = %for.cond65.for.end7
   %34 = load i32, ptr %v_samp_factor, align 4, !tbaa !27
   %35 = sext i32 %34 to i64
   %cmp47.us = icmp slt i64 %indvars.iv.next212, %35
-  br i1 %cmp47.us, label %for.body49.us, label %for.inc86, !llvm.loop !68
+  br i1 %cmp47.us, label %for.body49.us, label %for.inc86, !llvm.loop !69
 
 for.body60.us.us:                                 ; preds = %for.body49.us, %for.cond65.for.end74_crit_edge.us.us
   %lastblockrow.0168.us.us = phi ptr [ %add.ptr78.us.us, %for.cond65.for.end74_crit_edge.us.us ], [ %33, %for.body49.us ]
   %thisblockrow.0167.us.us = phi ptr [ %add.ptr76.us.us, %for.cond65.for.end74_crit_edge.us.us ], [ %31, %for.body49.us ]
   %MCUindex.0166.us.us = phi i32 [ %inc80.us.us, %for.cond65.for.end74_crit_edge.us.us ], [ 0, %for.body49.us ]
   %arrayidx63.us.us = getelementptr inbounds [64 x i16], ptr %lastblockrow.0168.us.us, i64 %idxprom62
-  %36 = load i16, ptr %arrayidx63.us.us, align 2, !tbaa !52
+  %36 = load i16, ptr %arrayidx63.us.us, align 2, !tbaa !50
   br i1 %30, label %for.cond65.for.end74_crit_edge.us.us.unr-lcssa, label %for.body68.us.us
 
 for.body68.us.us:                                 ; preds = %for.body60.us.us, %for.body68.us.us
   %indvars.iv205 = phi i64 [ %indvars.iv.next206.3, %for.body68.us.us ], [ 0, %for.body60.us.us ]
   %niter228 = phi i64 [ %niter228.next.3, %for.body68.us.us ], [ 0, %for.body60.us.us ]
   %arrayidx70.us.us = getelementptr inbounds [64 x i16], ptr %thisblockrow.0167.us.us, i64 %indvars.iv205
-  store i16 %36, ptr %arrayidx70.us.us, align 2, !tbaa !52
+  store i16 %36, ptr %arrayidx70.us.us, align 2, !tbaa !50
   %indvars.iv.next206 = or i64 %indvars.iv205, 1
   %arrayidx70.us.us.1 = getelementptr inbounds [64 x i16], ptr %thisblockrow.0167.us.us, i64 %indvars.iv.next206
-  store i16 %36, ptr %arrayidx70.us.us.1, align 2, !tbaa !52
+  store i16 %36, ptr %arrayidx70.us.us.1, align 2, !tbaa !50
   %indvars.iv.next206.1 = or i64 %indvars.iv205, 2
   %arrayidx70.us.us.2 = getelementptr inbounds [64 x i16], ptr %thisblockrow.0167.us.us, i64 %indvars.iv.next206.1
-  store i16 %36, ptr %arrayidx70.us.us.2, align 2, !tbaa !52
+  store i16 %36, ptr %arrayidx70.us.us.2, align 2, !tbaa !50
   %indvars.iv.next206.2 = or i64 %indvars.iv205, 3
   %arrayidx70.us.us.3 = getelementptr inbounds [64 x i16], ptr %thisblockrow.0167.us.us, i64 %indvars.iv.next206.2
-  store i16 %36, ptr %arrayidx70.us.us.3, align 2, !tbaa !52
+  store i16 %36, ptr %arrayidx70.us.us.3, align 2, !tbaa !50
   %indvars.iv.next206.3 = add nuw nsw i64 %indvars.iv205, 4
   %niter228.next.3 = add i64 %niter228, 4
   %niter228.ncmp.3 = icmp eq i64 %niter228.next.3, %unroll_iter227
-  br i1 %niter228.ncmp.3, label %for.cond65.for.end74_crit_edge.us.us.unr-lcssa, label %for.body68.us.us, !llvm.loop !69
+  br i1 %niter228.ncmp.3, label %for.cond65.for.end74_crit_edge.us.us.unr-lcssa, label %for.body68.us.us, !llvm.loop !70
 
 for.cond65.for.end74_crit_edge.us.us.unr-lcssa:   ; preds = %for.body68.us.us, %for.body60.us.us
   %indvars.iv205.unr = phi i64 [ 0, %for.body60.us.us ], [ %indvars.iv.next206.3, %for.body68.us.us ]
@@ -816,18 +1023,18 @@ for.body68.us.us.epil:                            ; preds = %for.cond65.for.end7
   %indvars.iv205.epil = phi i64 [ %indvars.iv.next206.epil, %for.body68.us.us.epil ], [ %indvars.iv205.unr, %for.cond65.for.end74_crit_edge.us.us.unr-lcssa ]
   %epil.iter225 = phi i64 [ %epil.iter225.next, %for.body68.us.us.epil ], [ 0, %for.cond65.for.end74_crit_edge.us.us.unr-lcssa ]
   %arrayidx70.us.us.epil = getelementptr inbounds [64 x i16], ptr %thisblockrow.0167.us.us, i64 %indvars.iv205.epil
-  store i16 %36, ptr %arrayidx70.us.us.epil, align 2, !tbaa !52
+  store i16 %36, ptr %arrayidx70.us.us.epil, align 2, !tbaa !50
   %indvars.iv.next206.epil = add nuw nsw i64 %indvars.iv205.epil, 1
   %epil.iter225.next = add i64 %epil.iter225, 1
   %epil.iter225.cmp.not = icmp eq i64 %epil.iter225.next, %xtraiter224
-  br i1 %epil.iter225.cmp.not, label %for.cond65.for.end74_crit_edge.us.us, label %for.body68.us.us.epil, !llvm.loop !70
+  br i1 %epil.iter225.cmp.not, label %for.cond65.for.end74_crit_edge.us.us, label %for.body68.us.us.epil, !llvm.loop !71
 
 for.cond65.for.end74_crit_edge.us.us:             ; preds = %for.body68.us.us.epil, %for.cond65.for.end74_crit_edge.us.us.unr-lcssa
   %add.ptr76.us.us = getelementptr inbounds [64 x i16], ptr %thisblockrow.0167.us.us, i64 %idx.ext75
   %add.ptr78.us.us = getelementptr inbounds [64 x i16], ptr %lastblockrow.0168.us.us, i64 %idx.ext75
   %inc80.us.us = add nuw i32 %MCUindex.0166.us.us, 1
   %exitcond210.not = icmp eq i32 %inc80.us.us, %umax
-  br i1 %exitcond210.not, label %for.cond57.for.inc82_crit_edge.us, label %for.body60.us.us, !llvm.loop !71
+  br i1 %exitcond210.not, label %for.cond57.for.inc82_crit_edge.us, label %for.body60.us.us, !llvm.loop !72
 
 for.body49:                                       ; preds = %for.body49.lr.ph, %for.body49
   %indvars.iv201 = phi i64 [ %indvars.iv.next202, %for.body49 ], [ %29, %for.body49.lr.ph ]
@@ -838,7 +1045,7 @@ for.body49:                                       ; preds = %for.body49.lr.ph, %
   %38 = load i32, ptr %v_samp_factor, align 4, !tbaa !27
   %39 = sext i32 %38 to i64
   %cmp47 = icmp slt i64 %indvars.iv.next202, %39
-  br i1 %cmp47, label %for.body49, label %for.inc86, !llvm.loop !68
+  br i1 %cmp47, label %for.body49, label %for.inc86, !llvm.loop !69
 
 for.inc86:                                        ; preds = %for.body49, %for.cond57.for.inc82_crit_edge.us, %if.then44, %for.end40
   %indvars.iv.next216 = add nuw nsw i64 %indvars.iv215, 1
@@ -846,10 +1053,10 @@ for.inc86:                                        ; preds = %for.body49, %for.co
   %40 = load i32, ptr %num_components, align 4, !tbaa !20
   %41 = sext i32 %40 to i64
   %cmp = icmp slt i64 %indvars.iv.next216, %41
-  br i1 %cmp, label %for.body, label %for.end88, !llvm.loop !72
+  br i1 %cmp, label %for.body, label %for.end88, !llvm.loop !73
 
 for.end88:                                        ; preds = %for.inc86, %entry
-  %call89 = tail call i32 @compress_output(ptr noundef nonnull %cinfo, ptr poison), !range !73
+  %call89 = tail call i32 @compress_output(ptr noundef nonnull %cinfo, ptr poison), !range !74
   ret i32 %call89
 }
 
@@ -876,9 +1083,9 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %2 = load ptr, ptr %arrayidx, align 8, !tbaa !28
   %3 = load ptr, ptr %mem, align 8, !tbaa !5
   %access_virt_barray = getelementptr inbounds %struct.jpeg_memory_mgr, ptr %3, i64 0, i32 8
-  %4 = load ptr, ptr %access_virt_barray, align 8, !tbaa !64
+  %4 = load ptr, ptr %access_virt_barray, align 8, !tbaa !65
   %component_index = getelementptr inbounds %struct.jpeg_component_info, ptr %2, i64 0, i32 1
-  %5 = load i32, ptr %component_index, align 4, !tbaa !74
+  %5 = load i32, ptr %component_index, align 4, !tbaa !75
   %idxprom2 = sext i32 %5 to i64
   %arrayidx3 = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 6, i64 %idxprom2
   %6 = load ptr, ptr %arrayidx3, align 8, !tbaa !28
@@ -893,7 +1100,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %9 = load i32, ptr %comps_in_scan, align 4, !tbaa !33
   %10 = sext i32 %9 to i64
   %cmp = icmp slt i64 %indvars.iv.next, %10
-  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !75
+  br i1 %cmp, label %for.body, label %for.end, !llvm.loop !76
 
 for.end:                                          ; preds = %for.body, %entry
   %11 = phi i32 [ %1, %entry ], [ %9, %for.body ]
@@ -938,7 +1145,7 @@ for.body16:                                       ; preds = %for.body16.preheade
   %arrayidx19 = getelementptr inbounds %struct.jpeg_compress_struct, ptr %cinfo, i64 0, i32 42, i64 %indvars.iv139
   %19 = load ptr, ptr %arrayidx19, align 8, !tbaa !28
   %MCU_width = getelementptr inbounds %struct.jpeg_component_info, ptr %19, i64 0, i32 13
-  %20 = load i32, ptr %MCU_width, align 4, !tbaa !51
+  %20 = load i32, ptr %MCU_width, align 4, !tbaa !49
   %MCU_height = getelementptr inbounds %struct.jpeg_component_info, ptr %19, i64 0, i32 14
   %21 = load i32, ptr %MCU_height, align 8, !tbaa !47
   %cmp22116 = icmp sgt i32 %21, 0
@@ -990,7 +1197,7 @@ vector.body:                                      ; preds = %vector.body, %vecto
   %index.next = add nuw i64 %index, 4
   %ptr.ind = getelementptr i8, ptr %pointer.phi, i64 512
   %33 = icmp eq i64 %index.next, %n.vec
-  br i1 %33, label %middle.block, label %vector.body, !llvm.loop !76
+  br i1 %33, label %middle.block, label %vector.body, !llvm.loop !77
 
 middle.block:                                     ; preds = %vector.body
   br i1 %cmp.n, label %for.cond28.for.inc38_crit_edge.us, label %for.body31.us.preheader
@@ -1009,23 +1216,23 @@ for.body31.us:                                    ; preds = %for.body31.us.prehe
   store ptr %buffer_ptr.0115.us, ptr %arrayidx34.us, align 8, !tbaa !28
   %lftr.wideiv = trunc i64 %indvars.iv.next132 to i32
   %exitcond.not = icmp eq i32 %28, %lftr.wideiv
-  br i1 %exitcond.not, label %for.cond28.for.inc38_crit_edge.us, label %for.body31.us, !llvm.loop !79
+  br i1 %exitcond.not, label %for.cond28.for.inc38_crit_edge.us, label %for.body31.us, !llvm.loop !80
 
 for.cond28.for.inc38_crit_edge.us:                ; preds = %for.body31.us, %middle.block
   %indvars.iv.next135 = add nuw nsw i64 %indvars.iv134, 1
   %exitcond138.not = icmp eq i64 %indvars.iv.next135, %wide.trip.count
-  br i1 %exitcond138.not, label %for.inc41, label %for.body23.us, !llvm.loop !80
+  br i1 %exitcond138.not, label %for.inc41, label %for.body23.us, !llvm.loop !81
 
 for.inc41:                                        ; preds = %for.cond28.for.inc38_crit_edge.us, %for.body23.lr.ph, %for.body16
   %blkn.1.lcssa = phi i32 [ %blkn.0121, %for.body16 ], [ %blkn.0121, %for.body23.lr.ph ], [ %28, %for.cond28.for.inc38_crit_edge.us ]
   %indvars.iv.next140 = add nuw nsw i64 %indvars.iv139, 1
   %exitcond143.not = icmp eq i64 %indvars.iv.next140, %wide.trip.count142
-  br i1 %exitcond143.not, label %for.end43, label %for.body16, !llvm.loop !81
+  br i1 %exitcond143.not, label %for.end43, label %for.body16, !llvm.loop !82
 
 for.end43:                                        ; preds = %for.inc41, %for.cond13.preheader
-  %34 = load ptr, ptr %entropy, align 8, !tbaa !59
+  %34 = load ptr, ptr %entropy, align 8, !tbaa !60
   %encode_mcu = getelementptr inbounds %struct.jpeg_entropy_encoder, ptr %34, i64 0, i32 1
-  %35 = load ptr, ptr %encode_mcu, align 8, !tbaa !60
+  %35 = load ptr, ptr %encode_mcu, align 8, !tbaa !61
   %call45 = tail call i32 %35(ptr noundef nonnull %cinfo, ptr noundef nonnull %MCU_buffer44) #4
   %tobool.not = icmp eq i32 %call45, 0
   br i1 %tobool.not, label %if.then, label %for.inc48
@@ -1040,7 +1247,7 @@ for.inc48:                                        ; preds = %for.end43
   %inc49 = add nuw i32 %MCU_col_num.0124, 1
   %37 = load i32, ptr %MCUs_per_row, align 8, !tbaa !44
   %cmp11 = icmp ult i32 %inc49, %37
-  br i1 %cmp11, label %for.cond13.preheader, label %for.end50.loopexit, !llvm.loop !82
+  br i1 %cmp11, label %for.cond13.preheader, label %for.end50.loopexit, !llvm.loop !83
 
 for.end50.loopexit:                               ; preds = %for.inc48
   %.pre148 = load i32, ptr %MCU_rows_per_iMCU_row, align 4, !tbaa !34
@@ -1053,7 +1260,7 @@ for.end50:                                        ; preds = %for.end50.loopexit,
   %indvars.iv.next145 = add nsw i64 %indvars.iv144, 1
   %40 = sext i32 %38 to i64
   %cmp8 = icmp slt i64 %indvars.iv.next145, %40
-  br i1 %cmp8, label %for.body9, label %for.end54.loopexit, !llvm.loop !83
+  br i1 %cmp8, label %for.body9, label %for.end54.loopexit, !llvm.loop !84
 
 for.end54.loopexit:                               ; preds = %for.end50
   %.pre149 = load i32, ptr %comps_in_scan, align 4, !tbaa !33
@@ -1173,39 +1380,40 @@ attributes #4 = { nounwind }
 !45 = !{!10, !10, i64 0}
 !46 = !{!24, !10, i64 64}
 !47 = !{!24, !10, i64 56}
-!48 = !{!6, !7, i64 480}
-!49 = !{!50, !7, i64 8}
-!50 = !{!"jpeg_forward_dct", !7, i64 0, !7, i64 8}
-!51 = !{!24, !10, i64 52}
-!52 = !{!12, !12, i64 0}
-!53 = distinct !{!53, !30}
-!54 = distinct !{!54, !30}
+!48 = distinct !{!48, !30}
+!49 = !{!24, !10, i64 52}
+!50 = !{!12, !12, i64 0}
+!51 = distinct !{!51, !30}
+!52 = !{!6, !7, i64 480}
+!53 = !{!54, !7, i64 8}
+!54 = !{!"jpeg_forward_dct", !7, i64 0, !7, i64 8}
 !55 = distinct !{!55, !56}
 !56 = !{!"llvm.loop.unroll.disable"}
 !57 = distinct !{!57, !30}
 !58 = distinct !{!58, !30}
-!59 = !{!6, !7, i64 488}
-!60 = !{!61, !7, i64 8}
-!61 = !{!"jpeg_entropy_encoder", !7, i64 0, !7, i64 8, !7, i64 16}
-!62 = distinct !{!62, !30}
+!59 = distinct !{!59, !56}
+!60 = !{!6, !7, i64 488}
+!61 = !{!62, !7, i64 8}
+!62 = !{!"jpeg_entropy_encoder", !7, i64 0, !7, i64 8, !7, i64 16}
 !63 = distinct !{!63, !30}
-!64 = !{!14, !7, i64 64}
-!65 = distinct !{!65, !30}
-!66 = distinct !{!66, !56}
-!67 = distinct !{!67, !30}
+!64 = distinct !{!64, !30}
+!65 = !{!14, !7, i64 64}
+!66 = distinct !{!66, !30}
+!67 = distinct !{!67, !56}
 !68 = distinct !{!68, !30}
 !69 = distinct !{!69, !30}
-!70 = distinct !{!70, !56}
-!71 = distinct !{!71, !30}
+!70 = distinct !{!70, !30}
+!71 = distinct !{!71, !56}
 !72 = distinct !{!72, !30}
-!73 = !{i32 0, i32 2}
-!74 = !{!24, !10, i64 4}
-!75 = distinct !{!75, !30}
-!76 = distinct !{!76, !30, !77, !78}
-!77 = !{!"llvm.loop.isvectorized", i32 1}
-!78 = !{!"llvm.loop.unroll.runtime.disable"}
-!79 = distinct !{!79, !30, !78, !77}
-!80 = distinct !{!80, !30}
+!73 = distinct !{!73, !30}
+!74 = !{i32 0, i32 2}
+!75 = !{!24, !10, i64 4}
+!76 = distinct !{!76, !30}
+!77 = distinct !{!77, !30, !78, !79}
+!78 = !{!"llvm.loop.isvectorized", i32 1}
+!79 = !{!"llvm.loop.unroll.runtime.disable"}
+!80 = distinct !{!80, !30, !79, !78}
 !81 = distinct !{!81, !30}
 !82 = distinct !{!82, !30}
 !83 = distinct !{!83, !30}
+!84 = distinct !{!84, !30}

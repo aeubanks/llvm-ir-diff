@@ -1633,7 +1633,7 @@ sw.epilog:                                        ; preds = %if.then536, %if.the
 if.then547:                                       ; preds = %for.cond132, %cond.end528, %land.lhs.true531, %sw.bb103, %sw.epilog
   %tagerror.1995 = phi i32 [ %tagerror.1, %sw.epilog ], [ 0, %cond.end528 ], [ 0, %land.lhs.true531 ], [ 0, %sw.bb103 ], [ %tagerror.0, %for.cond132 ]
   %tobool551 = icmp ne i32 %tagerror.1995, 0
-  %or.cond = or i1 %tobool551, %switch966
+  %or.cond = or i1 %switch966, %tobool551
   br i1 %or.cond, label %if.end558, label %if.then552
 
 if.then552:                                       ; preds = %if.then547
@@ -1865,7 +1865,7 @@ cond.end811:                                      ; preds = %if.end781
   store ptr %126, ptr @zz_hold, align 8, !tbaa !10
   %cmp813 = icmp eq ptr %126, null
   %cmp817 = icmp eq ptr %res.2, null
-  %or.cond973 = or i1 %cmp813, %cmp817
+  %or.cond973 = or i1 %cmp817, %cmp813
   br i1 %or.cond973, label %cond.end844, label %cond.false820
 
 cond.false820:                                    ; preds = %cond.end811

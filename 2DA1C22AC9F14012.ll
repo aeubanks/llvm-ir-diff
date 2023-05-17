@@ -171,17 +171,17 @@ entry:
   %call = tail call noalias ptr @malloc(i64 noundef %conv) #12
   store ptr %call, ptr @page, align 8, !tbaa !5
   %2 = or i32 %div2, %div
-  %or.cond = icmp sgt i32 %2, -1
-  br i1 %or.cond, label %for.cond6.preheader.us.preheader, label %for.end14
+  %or.cond.not = icmp sgt i32 %2, -1
+  br i1 %or.cond.not, label %for.cond6.preheader.preheader, label %for.end14
 
-for.cond6.preheader.us.preheader:                 ; preds = %entry
+for.cond6.preheader.preheader:                    ; preds = %entry
   %3 = zext i32 %add to i64
   %4 = zext i32 %add3 to i64
   %5 = mul nuw nsw i64 %3, %4
   tail call void @llvm.memset.p0.i64(ptr align 1 %call, i8 32, i64 %5, i1 false), !tbaa !11
   br label %for.end14
 
-for.end14:                                        ; preds = %for.cond6.preheader.us.preheader, %entry
+for.end14:                                        ; preds = %for.cond6.preheader.preheader, %entry
   store i1 true, ptr @prologue_done, align 4
   ret void
 }
@@ -487,8 +487,6 @@ if.end18:                                         ; preds = %if.end
   %conv23 = sitofp i32 %ymk to float
   %2 = load i32, ptr @PlainCharHeight, align 4, !tbaa !9
   %conv24 = sitofp i32 %2 to float
-  %div25 = fdiv float %conv23, %conv24
-  %conv26 = fptosi float %div25 to i32
   %ou3 = getelementptr inbounds %struct.word_type, ptr %z, i64 0, i32 3
   %3 = load i32, ptr %ou3, align 8, !tbaa !11
   %ofwd = getelementptr inbounds %struct.word_type, ptr %z, i64 0, i32 3, i32 1
@@ -515,6 +513,8 @@ if.end18:                                         ; preds = %if.end
   br i1 %cmp50, label %land.lhs.true52, label %if.else
 
 land.lhs.true52:                                  ; preds = %if.end18
+  %div25 = fdiv float %conv23, %conv24
+  %conv26 = fptosi float %div25 to i32
   %7 = load i32, ptr @hsize, align 4, !tbaa !9
   %cmp53 = icmp sgt i32 %7, %conv37
   %cmp56 = icmp sgt i32 %conv26, -1

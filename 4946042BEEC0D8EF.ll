@@ -372,9 +372,9 @@ if.end41:                                         ; preds = %if.end41.sink.split
 
 if.else45:                                        ; preds = %sw.default20
   %24 = load i32, ptr @_ZN2kc13view_filenameE, align 4, !tbaa !31
-  %cmp.i391 = icmp eq i32 %12, %24
+  %cmp.i406 = icmp eq i32 %12, %24
   %cmp49 = icmp eq i8 %10, 92
-  %or.cond344 = and i1 %cmp49, %cmp.i391
+  %or.cond344 = and i1 %cmp49, %cmp.i406
   br i1 %or.cond344, label %if.end56.thread, label %if.end56
 
 if.end56:                                         ; preds = %if.else45, %if.end41
@@ -448,8 +448,8 @@ if.then87:                                        ; preds = %if.else85
   %cmp89 = icmp eq i8 %10, 47
   %37 = load i8, ptr %lastChar68, align 1
   %cmp93 = icmp eq i8 %37, 42
-  %or.cond392 = select i1 %cmp89, i1 %cmp93, i1 false
-  br i1 %or.cond392, label %if.end96.thread, label %if.end96
+  %or.cond391 = select i1 %cmp89, i1 %cmp93, i1 false
+  br i1 %or.cond391, label %if.end96.thread, label %if.end96
 
 if.end96.thread:                                  ; preds = %if.then87
   store i8 0, ptr %inComment, align 2, !tbaa !41
@@ -585,8 +585,8 @@ sw.bb167:                                         ; preds = %if.end130, %if.end1
   %cmp170 = icmp eq i8 %48, 8
   %49 = load i8, ptr %beginOfLine, align 1, !range !29
   %tobool172.not = icmp eq i8 %49, 0
-  %or.cond393 = select i1 %cmp170, i1 true, i1 %tobool172.not
-  br i1 %or.cond393, label %default_case, label %if.end174
+  %or.cond392 = select i1 %cmp170, i1 true, i1 %tobool172.not
+  br i1 %or.cond392, label %default_case, label %if.end174
 
 if.end174:                                        ; preds = %sw.bb167
   %call177 = tail call i32 @isspace(i32 noundef %conv169) #19
@@ -597,9 +597,9 @@ if.end180:                                        ; preds = %if.end174
   %call183 = tail call i32 @isalnum(i32 noundef %conv169) #19
   %call183.fr = freeze i32 %call183
   %tobool184.not.not = icmp eq i32 %call183.fr, 0
-  br i1 %tobool184.not.not, label %switch.early.test405, label %if.then205
+  br i1 %tobool184.not.not, label %switch.early.test404, label %if.then205
 
-switch.early.test405:                             ; preds = %if.end180
+switch.early.test404:                             ; preds = %if.end180
   switch i8 %48, label %if.end329 [
     i8 125, label %if.then205
     i8 95, label %if.then205
@@ -608,29 +608,29 @@ switch.early.test405:                             ; preds = %if.end180
     i8 34, label %if.then205
   ]
 
-if.then205:                                       ; preds = %switch.early.test405, %switch.early.test405, %switch.early.test405, %switch.early.test405, %switch.early.test405, %if.end180
+if.then205:                                       ; preds = %switch.early.test404, %switch.early.test404, %switch.early.test404, %switch.early.test404, %switch.early.test404, %if.end180
   %add.ptr206 = getelementptr inbounds i8, ptr %s.addr.0427, i64 2
   %50 = load i8, ptr %add.ptr206, align 1, !tbaa !20
   %conv207 = sext i8 %50 to i32
   %call208 = tail call i32 @isalnum(i32 noundef %conv207) #19
   %call208.fr = freeze i32 %call208
   %tobool209.not.not = icmp eq i32 %call208.fr, 0
-  br i1 %tobool209.not.not, label %switch.early.test406, label %default_case
+  br i1 %tobool209.not.not, label %switch.early.test405, label %default_case
 
-switch.early.test406:                             ; preds = %if.then205
+switch.early.test405:                             ; preds = %if.then205
   switch i8 %50, label %if.end223 [
     i8 95, label %default_case
     i8 39, label %default_case
     i8 34, label %default_case
   ]
 
-if.end223:                                        ; preds = %switch.early.test406
+if.end223:                                        ; preds = %switch.early.test405
   store i8 1, ptr %spacePending, align 4, !tbaa !44
   br label %if.end329
 
-default_case:                                     ; preds = %switch.early.test406, %switch.early.test406, %switch.early.test406, %if.then205, %if.end130, %sw.bb167, %sw.bb151, %if.then154, %sw.bb132, %if.then135, %sw.bb147
-  %c.0 = phi i8 [ %10, %if.end130 ], [ %10, %sw.bb167 ], [ %10, %if.then154 ], [ %10, %sw.bb151 ], [ %10, %sw.bb147 ], [ %10, %if.then135 ], [ %10, %sw.bb132 ], [ 32, %switch.early.test406 ], [ 32, %if.then205 ], [ 32, %switch.early.test406 ], [ 32, %switch.early.test406 ]
-  %indent_offset.0 = phi i32 [ 0, %if.end130 ], [ 0, %sw.bb167 ], [ 0, %if.then154 ], [ 0, %sw.bb151 ], [ 1, %sw.bb147 ], [ 0, %if.then135 ], [ 0, %sw.bb132 ], [ 0, %switch.early.test406 ], [ 0, %if.then205 ], [ 0, %switch.early.test406 ], [ 0, %switch.early.test406 ]
+default_case:                                     ; preds = %switch.early.test405, %switch.early.test405, %switch.early.test405, %if.then205, %if.end130, %sw.bb167, %sw.bb151, %if.then154, %sw.bb132, %if.then135, %sw.bb147
+  %c.0 = phi i8 [ %10, %if.end130 ], [ %10, %sw.bb167 ], [ %10, %if.then154 ], [ %10, %sw.bb151 ], [ %10, %sw.bb147 ], [ %10, %if.then135 ], [ %10, %sw.bb132 ], [ 32, %switch.early.test405 ], [ 32, %if.then205 ], [ 32, %switch.early.test405 ], [ 32, %switch.early.test405 ]
+  %indent_offset.0 = phi i32 [ 0, %if.end130 ], [ 0, %sw.bb167 ], [ 0, %if.then154 ], [ 0, %sw.bb151 ], [ 1, %sw.bb147 ], [ 0, %if.then135 ], [ 0, %sw.bb132 ], [ 0, %switch.early.test405 ], [ 0, %if.then205 ], [ 0, %switch.early.test405 ], [ 0, %switch.early.test405 ]
   %51 = load i8, ptr %lastChar68, align 1, !tbaa !24
   %.fr = freeze i8 %51
   %cmp228 = icmp eq i8 %.fr, 10
@@ -717,8 +717,8 @@ if.then283:                                       ; preds = %land.lhs.true279
   br label %if.end297
 
 land.lhs.true288:                                 ; preds = %if.end258
-  %.old402 = load i8, ptr %lastChar68, align 1, !tbaa !24
-  %cmp291.old = icmp eq i8 %.old402, 47
+  %.old401 = load i8, ptr %lastChar68, align 1, !tbaa !24
+  %cmp291.old = icmp eq i8 %.old401, 47
   br i1 %cmp291.old, label %if.then292, label %if.end297
 
 if.then292:                                       ; preds = %land.lhs.true288
@@ -734,21 +734,21 @@ if.then300:                                       ; preds = %if.end297
   %call302 = tail call i32 @isalnum(i32 noundef %conv230) #19
   %call302.fr = freeze i32 %call302
   %tobool303.not = icmp eq i32 %call302.fr, 0
-  br i1 %tobool303.not, label %switch.early.test404, label %if.then313
+  br i1 %tobool303.not, label %switch.early.test403, label %if.then313
 
-switch.early.test404:                             ; preds = %if.then300
+switch.early.test403:                             ; preds = %if.then300
   switch i8 %c.0, label %if.end316 [
     i8 95, label %if.then313
     i8 39, label %if.then313
     i8 34, label %if.then313
   ]
 
-if.then313:                                       ; preds = %switch.early.test404, %switch.early.test404, %switch.early.test404, %if.then300
+if.then313:                                       ; preds = %switch.early.test403, %switch.early.test403, %switch.early.test403, %if.then300
   %61 = load ptr, ptr %file52, align 8, !tbaa !8
   %call315 = tail call i32 @putc(i32 noundef 32, ptr noundef %61)
   br label %if.end316
 
-if.end316:                                        ; preds = %switch.early.test404, %if.then313
+if.end316:                                        ; preds = %switch.early.test403, %if.then313
   store i8 0, ptr %spacePending, align 4, !tbaa !44
   br label %if.end318
 
@@ -761,8 +761,8 @@ if.end318:                                        ; preds = %if.end316, %if.end2
   store i32 %add324, ptr %indent, align 8, !tbaa !43
   br label %if.end329
 
-if.end329:                                        ; preds = %switch.early.test405, %sw.bb148, %sw.bb165, %if.end318, %if.then161, %sw.bb158, %if.end174, %if.end223, %if.end80, %if.end112, %if.end112, %if.end112, %sw.default115, %sw.default99, %if.end96, %if.end96, %if.end96, %if.end64
-  %c.2 = phi i8 [ %10, %if.end64 ], [ %10, %if.end80 ], [ %10, %sw.default99 ], [ %10, %if.end96 ], [ %10, %if.end96 ], [ %10, %if.end96 ], [ %10, %sw.default115 ], [ %10, %if.end112 ], [ %10, %if.end112 ], [ %10, %if.end112 ], [ %c.0, %if.end318 ], [ %10, %if.end174 ], [ %10, %if.end223 ], [ %10, %sw.bb165 ], [ %10, %if.then161 ], [ %10, %sw.bb158 ], [ %10, %sw.bb148 ], [ %10, %switch.early.test405 ]
+if.end329:                                        ; preds = %switch.early.test404, %sw.bb148, %sw.bb165, %if.end318, %if.then161, %sw.bb158, %if.end174, %if.end223, %if.end80, %if.end112, %if.end112, %if.end112, %sw.default115, %sw.default99, %if.end96, %if.end96, %if.end96, %if.end64
+  %c.2 = phi i8 [ %10, %if.end64 ], [ %10, %if.end80 ], [ %10, %sw.default99 ], [ %10, %if.end96 ], [ %10, %if.end96 ], [ %10, %if.end96 ], [ %10, %sw.default115 ], [ %10, %if.end112 ], [ %10, %if.end112 ], [ %10, %if.end112 ], [ %c.0, %if.end318 ], [ %10, %if.end174 ], [ %10, %if.end223 ], [ %10, %sw.bb165 ], [ %10, %if.then161 ], [ %10, %sw.bb158 ], [ %10, %sw.bb148 ], [ %10, %switch.early.test404 ]
   %cmp331 = icmp eq i8 %c.2, 92
   %64 = load i32, ptr %bs_cnt, align 4
   %inc334 = add nsw i32 %64, 1
@@ -1228,11 +1228,11 @@ declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #2
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
-
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputs(ptr nocapture noundef readonly, ptr nocapture noundef) local_unnamed_addr #2
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #17
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { inlinehint nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

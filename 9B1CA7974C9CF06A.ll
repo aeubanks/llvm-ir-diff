@@ -38,6 +38,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.27 = private unnamed_addr constant [5 x i8] c"str \00", align 1
 @.str.28 = private unnamed_addr constant [5 x i8] c"colr\00", align 1
 @.str.29 = private unnamed_addr constant [5 x i8] c"devc\00", align 1
+@.str.30 = private unnamed_addr constant [17 x i8] c"xe......wr?????s\00", align 1
 @.str.31 = private unnamed_addr constant [15 x i8] c"0x%lx: 0x%02x \00", align 1
 @.str.33 = private unnamed_addr constant [4 x i8] c"%s \00", align 1
 @.str.34 = private unnamed_addr constant [16 x i8] c" 0x%04x 0x%08lx\00", align 1
@@ -96,8 +97,8 @@ sw.bb10:                                          ; preds = %entry
   br label %sw.epilog
 
 sw.bb13:                                          ; preds = %entry
-  %call14 = tail call i32 (ptr, ...) @dict_length(ptr noundef nonnull %pref) #6
-  %call15 = tail call i32 (ptr, ...) @dict_maxlength(ptr noundef nonnull %pref) #6
+  %call14 = tail call i32 (ptr, ...) @dict_length(ptr noundef nonnull %pref) #5
+  %call15 = tail call i32 (ptr, ...) @dict_maxlength(ptr noundef nonnull %pref) #5
   %10 = load ptr, ptr %pref, align 8, !tbaa !11
   %11 = ptrtoint ptr %10 to i64
   %call17 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef %call14, i32 noundef %call15, i64 noundef %11)
@@ -216,9 +217,6 @@ for.end:                                          ; preds = %for.body, %entry
   ret void
 }
 
-; Function Attrs: inlinehint nofree nounwind uwtable
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #4
-
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @debug_dump_refs(ptr noundef %from, ptr noundef readnone %to, ptr noundef %msg) local_unnamed_addr #3 {
 entry:
@@ -227,94 +225,76 @@ entry:
 
 while.body.preheader:                             ; preds = %entry
   %call = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.15, ptr noundef %msg)
-  br label %for.inc.15
+  br label %while.body
 
-for.inc.15:                                       ; preds = %while.body.preheader, %sw.epilog
-  %p.068 = phi ptr [ %incdec.ptr44, %sw.epilog ], [ %from, %while.body.preheader ]
-  %type_attrs = getelementptr inbounds %struct.ref_s, ptr %p.068, i64 0, i32 1
+while.body:                                       ; preds = %while.body.preheader, %sw.epilog
+  %p.067 = phi ptr [ %incdec.ptr44, %sw.epilog ], [ %from, %while.body.preheader ]
+  %type_attrs = getelementptr inbounds %struct.ref_s, ptr %p.067, i64 0, i32 1
   %0 = load i16, ptr %type_attrs, align 8, !tbaa !10
   %conv = zext i16 %0 to i32
   %and = lshr i32 %conv, 2
   %shr = and i32 %and, 63
   %cmp8 = icmp ugt i32 %shr, 15
   %spec.select = select i1 %cmp8, i32 9, i32 %shr
-  %1 = ptrtoint ptr %p.068 to i64
+  %1 = ptrtoint ptr %p.067 to i64
   %call14 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.31, i64 noundef %1, i32 noundef %shr)
   %idxprom = zext i32 %spec.select to i64
   %reltable.shift = shl i64 %idxprom, 2
   %reltable.intrinsic = call ptr @llvm.load.relative.i64(ptr @reltable.debug_dump_refs, i64 %reltable.shift)
   %call19 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.33, ptr noundef %reltable.intrinsic)
-  %and25 = and i32 %conv, 1
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %while.body
+  %attrs.0 = phi i32 [ %conv, %while.body ], [ %shr34, %for.inc ]
+  %ap.0 = phi ptr [ @.str.30, %while.body ], [ %incdec.ptr, %for.inc ]
+  %2 = load i8, ptr %ap.0, align 1, !tbaa !11
+  switch i8 %2, label %if.then24 [
+    i8 0, label %for.end
+    i8 46, label %for.inc
+  ]
+
+if.then24:                                        ; preds = %for.cond
+  %conv21 = sext i8 %2 to i32
+  %and25 = and i32 %attrs.0, 1
   %tobool26.not = icmp eq i32 %and25, 0
-  %spec.select64 = select i1 %tobool26.not, i32 45, i32 120
-  %2 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i = tail call i32 @putc(i32 noundef %spec.select64, ptr noundef %2)
+  %spec.select64 = select i1 %tobool26.not, i32 45, i32 %conv21
   %3 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %4 = insertelement <8 x i32> poison, i32 %conv, i64 0
-  %5 = shufflevector <8 x i32> %4, <8 x i32> poison, <8 x i32> zeroinitializer
-  %6 = and <8 x i32> %5, <i32 16384, i32 8192, i32 4096, i32 2048, i32 1024, i32 512, i32 256, i32 2>
-  %7 = icmp eq <8 x i32> %6, zeroinitializer
-  %8 = extractelement <8 x i1> %7, i64 7
-  %spec.select64.1 = select i1 %8, i32 45, i32 101
-  %call.i.1 = tail call i32 @putc(i32 noundef %spec.select64.1, ptr noundef %3)
-  %9 = extractelement <8 x i1> %7, i64 6
-  %spec.select64.8 = select i1 %9, i32 45, i32 119
-  %10 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.8 = tail call i32 @putc(i32 noundef %spec.select64.8, ptr noundef %10)
-  %11 = extractelement <8 x i1> %7, i64 5
-  %spec.select64.9 = select i1 %11, i32 45, i32 114
-  %12 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.9 = tail call i32 @putc(i32 noundef %spec.select64.9, ptr noundef %12)
-  %13 = extractelement <8 x i1> %7, i64 4
-  %spec.select64.10 = select i1 %13, i32 45, i32 63
-  %14 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.10 = tail call i32 @putc(i32 noundef %spec.select64.10, ptr noundef %14)
-  %15 = extractelement <8 x i1> %7, i64 3
-  %spec.select64.11 = select i1 %15, i32 45, i32 63
-  %16 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.11 = tail call i32 @putc(i32 noundef %spec.select64.11, ptr noundef %16)
-  %17 = extractelement <8 x i1> %7, i64 2
-  %spec.select64.12 = select i1 %17, i32 45, i32 63
-  %18 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.12 = tail call i32 @putc(i32 noundef %spec.select64.12, ptr noundef %18)
-  %19 = extractelement <8 x i1> %7, i64 1
-  %spec.select64.13 = select i1 %19, i32 45, i32 63
-  %20 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.13 = tail call i32 @putc(i32 noundef %spec.select64.13, ptr noundef %20)
-  %21 = extractelement <8 x i1> %7, i64 0
-  %spec.select64.14 = select i1 %21, i32 45, i32 63
-  %22 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.14 = tail call i32 @putc(i32 noundef %spec.select64.14, ptr noundef %22)
-  %tobool26.not.15 = icmp sgt i16 %0, -1
-  %spec.select64.15 = select i1 %tobool26.not.15, i32 45, i32 115
-  %23 = load ptr, ptr @stdout, align 8, !tbaa !17
-  %call.i.15 = tail call i32 @putc(i32 noundef %spec.select64.15, ptr noundef %23)
-  %size = getelementptr inbounds %struct.ref_s, ptr %p.068, i64 0, i32 2
-  %24 = load i16, ptr %size, align 2, !tbaa !5
-  %conv35 = zext i16 %24 to i32
-  %25 = load i64, ptr %p.068, align 8, !tbaa !20
-  %call36 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.34, i32 noundef %conv35, i64 noundef %25)
+  %call.i = tail call i32 @putc(i32 noundef %spec.select64, ptr noundef %3)
+  br label %for.inc
+
+for.inc:                                          ; preds = %for.cond, %if.then24
+  %incdec.ptr = getelementptr inbounds i8, ptr %ap.0, i64 1
+  %shr34 = lshr i32 %attrs.0, 1
+  br label %for.cond, !llvm.loop !20
+
+for.end:                                          ; preds = %for.cond
+  %size = getelementptr inbounds %struct.ref_s, ptr %p.067, i64 0, i32 2
+  %4 = load i16, ptr %size, align 2, !tbaa !5
+  %conv35 = zext i16 %4 to i32
+  %5 = load i64, ptr %p.067, align 8, !tbaa !21
+  %call36 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.34, i32 noundef %conv35, i64 noundef %5)
   switch i32 %spec.select, label %sw.epilog [
     i32 11, label %sw.bb
     i32 5, label %sw.bb40
   ]
 
-sw.bb:                                            ; preds = %for.inc.15
-  %26 = load float, ptr %p.068, align 8, !tbaa !11
-  %conv38 = fpext float %26 to double
+sw.bb:                                            ; preds = %for.end
+  %6 = load float, ptr %p.067, align 8, !tbaa !11
+  %conv38 = fpext float %6 to double
   %call39 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.35, double noundef %conv38)
   br label %sw.epilog
 
-sw.bb40:                                          ; preds = %for.inc.15
-  %27 = load i64, ptr %p.068, align 8, !tbaa !11
-  %call42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.36, i64 noundef %27)
+sw.bb40:                                          ; preds = %for.end
+  %7 = load i64, ptr %p.067, align 8, !tbaa !11
+  %call42 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.36, i64 noundef %7)
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %for.inc.15, %sw.bb40, %sw.bb
-  %putchar = tail call i32 @putchar(i32 10)
-  %incdec.ptr44 = getelementptr inbounds %struct.ref_s, ptr %p.068, i64 1
+sw.epilog:                                        ; preds = %for.end, %sw.bb40, %sw.bb
+  %8 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %call.i65 = tail call i32 @putc(i32 noundef 10, ptr noundef %8)
+  %incdec.ptr44 = getelementptr inbounds %struct.ref_s, ptr %p.067, i64 1
   %cmp1 = icmp ult ptr %incdec.ptr44, %to
-  br i1 %cmp1, label %for.inc.15, label %while.end, !llvm.loop !22
+  br i1 %cmp1, label %while.body, label %while.end, !llvm.loop !23
 
 while.end:                                        ; preds = %sw.epilog, %entry
   ret void
@@ -350,11 +330,12 @@ while.body7:                                      ; preds = %while.body, %while.
   %conv = zext i8 %1 to i32
   %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.39, i32 noundef %conv)
   %cmp6.not = icmp eq ptr %incdec.ptr, %cond
-  br i1 %cmp6.not, label %while.cond5.while.end_crit_edge, label %while.body7, !llvm.loop !23
+  br i1 %cmp6.not, label %while.cond5.while.end_crit_edge, label %while.body7, !llvm.loop !24
 
 while.cond5.while.end_crit_edge:                  ; preds = %while.body7
-  %putchar = tail call i32 @putchar(i32 10)
-  br i1 %cmp2.not, label %while.body, label %while.end10, !llvm.loop !24
+  %2 = load ptr, ptr @stdout, align 8, !tbaa !17
+  %call.i = tail call i32 @putc(i32 noundef 10, ptr noundef %2)
+  br i1 %cmp2.not, label %while.body, label %while.end10, !llvm.loop !25
 
 while.end10:                                      ; preds = %while.cond5.while.end_crit_edge, %if.end
   ret void
@@ -364,15 +345,14 @@ while.end10:                                      ; preds = %while.cond5.while.e
 declare noundef i32 @putc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #1
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
-declare ptr @llvm.load.relative.i64(ptr, i64) #5
+declare ptr @llvm.load.relative.i64(ptr, i64) #4
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { inlinehint nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
-attributes #6 = { nounwind }
+attributes #4 = { nocallback nofree nosync nounwind willreturn memory(argmem: read) }
+attributes #5 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}
 !llvm.ident = !{!4}
@@ -397,8 +377,9 @@ attributes #6 = { nounwind }
 !17 = !{!14, !14, i64 0}
 !18 = distinct !{!18, !19}
 !19 = !{!"llvm.loop.mustprogress"}
-!20 = !{!21, !21, i64 0}
-!21 = !{!"long", !7, i64 0}
-!22 = distinct !{!22, !19}
+!20 = distinct !{!20, !19}
+!21 = !{!22, !22, i64 0}
+!22 = !{!"long", !7, i64 0}
 !23 = distinct !{!23, !19}
 !24 = distinct !{!24, !19}
+!25 = distinct !{!25, !19}

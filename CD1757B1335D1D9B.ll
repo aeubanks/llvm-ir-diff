@@ -161,74 +161,74 @@ up1.exit:                                         ; preds = %while.cond.i
   %tobool21.not = icmp eq i32 %call20, 0
   %brmerge = or i1 %cmp13, %tobool21.not
   %cond.mux = select i1 %tobool21.not, i32 %cond, i32 0
-  br i1 %brmerge, label %if.end31, label %while.cond.i91
+  br i1 %brmerge, label %if.end31, label %while.cond.i94
 
-while.cond.i91:                                   ; preds = %up1.exit, %while.cond.i91
-  %indvars.iv.i86 = phi i64 [ %indvars.iv.next.i87, %while.cond.i91 ], [ %idxprom, %up1.exit ]
-  %indvars.iv.next.i87 = add nsw i64 %indvars.iv.i86, -1
-  %arrayidx.i88 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %indvars.iv.next.i87
-  %8 = load ptr, ptr %arrayidx.i88, align 8, !tbaa !9
-  %tobool.i89 = icmp ne ptr %8, null
-  %cmp.i90 = icmp sgt i64 %indvars.iv.i86, 1
-  %9 = and i1 %cmp.i90, %tobool.i89
-  br i1 %9, label %while.cond.i91, label %up1.exit92, !llvm.loop !11
+while.cond.i94:                                   ; preds = %up1.exit, %while.cond.i94
+  %indvars.iv.i89 = phi i64 [ %indvars.iv.next.i90, %while.cond.i94 ], [ %idxprom, %up1.exit ]
+  %indvars.iv.next.i90 = add nsw i64 %indvars.iv.i89, -1
+  %arrayidx.i91 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %indvars.iv.next.i90
+  %8 = load ptr, ptr %arrayidx.i91, align 8, !tbaa !9
+  %tobool.i92 = icmp ne ptr %8, null
+  %cmp.i93 = icmp sgt i64 %indvars.iv.i89, 1
+  %9 = and i1 %cmp.i93, %tobool.i92
+  br i1 %9, label %while.cond.i94, label %up1.exit95, !llvm.loop !11
 
-up1.exit92:                                       ; preds = %while.cond.i91
-  %10 = trunc i64 %indvars.iv.next.i87 to i32
+up1.exit95:                                       ; preds = %while.cond.i94
+  %10 = trunc i64 %indvars.iv.next.i90 to i32
   %sub26 = add nsw i32 %c, -1
   %call27 = tail call i32 @thish(i32 noundef %10, i32 noundef %sub26) #3
   br label %if.end31
 
-if.end31:                                         ; preds = %up1.exit, %up1.exit92, %cond.end
-  %kl.0 = phi i32 [ %cond.mux, %up1.exit ], [ %cond, %cond.end ], [ %call27, %up1.exit92 ]
+if.end31:                                         ; preds = %up1.exit, %up1.exit95, %cond.end
+  %kl.0 = phi i32 [ %cond.mux, %up1.exit ], [ %cond, %cond.end ], [ %call27, %up1.exit95 ]
   %call32 = tail call i32 @thish(i32 noundef %i, i32 noundef %c) #3
   %cmp33 = icmp slt i32 %call32, 2
   %or.cond61 = and i1 %cmp17, %cmp33
-  br i1 %or.cond61, label %while.cond.i98, label %if.end48
+  br i1 %or.cond61, label %while.cond.i101, label %if.end48
 
-while.cond.i98:                                   ; preds = %if.end31, %while.cond.i98
-  %indvars.iv.i93 = phi i64 [ %indvars.iv.next.i94, %while.cond.i98 ], [ %idxprom, %if.end31 ]
-  %indvars.iv.next.i94 = add nsw i64 %indvars.iv.i93, -1
-  %arrayidx.i95 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %indvars.iv.next.i94
-  %11 = load ptr, ptr %arrayidx.i95, align 8, !tbaa !9
-  %tobool.i96 = icmp ne ptr %11, null
-  %cmp.i97 = icmp sgt i64 %indvars.iv.i93, 1
-  %12 = and i1 %cmp.i97, %tobool.i96
-  br i1 %12, label %while.cond.i98, label %up1.exit99, !llvm.loop !11
+while.cond.i101:                                  ; preds = %if.end31, %while.cond.i101
+  %indvars.iv.i96 = phi i64 [ %indvars.iv.next.i97, %while.cond.i101 ], [ %idxprom, %if.end31 ]
+  %indvars.iv.next.i97 = add nsw i64 %indvars.iv.i96, -1
+  %arrayidx.i98 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %indvars.iv.next.i97
+  %11 = load ptr, ptr %arrayidx.i98, align 8, !tbaa !9
+  %tobool.i99 = icmp ne ptr %11, null
+  %cmp.i100 = icmp sgt i64 %indvars.iv.i96, 1
+  %12 = and i1 %cmp.i100, %tobool.i99
+  br i1 %12, label %while.cond.i101, label %up1.exit102, !llvm.loop !11
 
-up1.exit99:                                       ; preds = %while.cond.i98
-  %13 = trunc i64 %indvars.iv.next.i94 to i32
+up1.exit102:                                      ; preds = %while.cond.i101
+  %13 = trunc i64 %indvars.iv.next.i97 to i32
   %call38 = tail call i32 @allh(i32 noundef %13) #3
   %tobool39.not = icmp eq i32 %call38, 0
-  %brmerge109 = or i1 %cmp13, %tobool39.not
+  %brmerge88 = or i1 %cmp13, %tobool39.not
   %call32.mux = select i1 %tobool39.not, i32 %call32, i32 0
-  br i1 %brmerge109, label %if.end48, label %while.cond.i105
+  br i1 %brmerge88, label %if.end48, label %while.cond.i108
 
-while.cond.i105:                                  ; preds = %up1.exit99, %while.cond.i105
-  %indvars.iv.i100 = phi i64 [ %indvars.iv.next.i101, %while.cond.i105 ], [ %idxprom, %up1.exit99 ]
-  %indvars.iv.next.i101 = add nsw i64 %indvars.iv.i100, -1
-  %arrayidx.i102 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %indvars.iv.next.i101
-  %14 = load ptr, ptr %arrayidx.i102, align 8, !tbaa !9
-  %tobool.i103 = icmp ne ptr %14, null
-  %cmp.i104 = icmp sgt i64 %indvars.iv.i100, 1
-  %15 = and i1 %cmp.i104, %tobool.i103
-  br i1 %15, label %while.cond.i105, label %up1.exit106, !llvm.loop !11
+while.cond.i108:                                  ; preds = %up1.exit102, %while.cond.i108
+  %indvars.iv.i103 = phi i64 [ %indvars.iv.next.i104, %while.cond.i108 ], [ %idxprom, %up1.exit102 ]
+  %indvars.iv.next.i104 = add nsw i64 %indvars.iv.i103, -1
+  %arrayidx.i105 = getelementptr inbounds [0 x ptr], ptr @instead, i64 0, i64 %indvars.iv.next.i104
+  %14 = load ptr, ptr %arrayidx.i105, align 8, !tbaa !9
+  %tobool.i106 = icmp ne ptr %14, null
+  %cmp.i107 = icmp sgt i64 %indvars.iv.i103, 1
+  %15 = and i1 %cmp.i107, %tobool.i106
+  br i1 %15, label %while.cond.i108, label %up1.exit109, !llvm.loop !11
 
-up1.exit106:                                      ; preds = %while.cond.i105
-  %16 = trunc i64 %indvars.iv.next.i101 to i32
+up1.exit109:                                      ; preds = %while.cond.i108
+  %16 = trunc i64 %indvars.iv.next.i104 to i32
   %call44 = tail call i32 @thish(i32 noundef %16, i32 noundef %c) #3
   br label %if.end48
 
-if.end48:                                         ; preds = %up1.exit99, %up1.exit106, %if.end31
-  %kr.0 = phi i32 [ %call32.mux, %up1.exit99 ], [ %call32, %if.end31 ], [ %call44, %up1.exit106 ]
+if.end48:                                         ; preds = %up1.exit102, %up1.exit109, %if.end31
+  %kr.0 = phi i32 [ %call32.mux, %up1.exit102 ], [ %call32, %if.end31 ], [ %call44, %up1.exit109 ]
   %cmp49 = icmp eq i32 %kl.0, 61
   %cmp51 = icmp eq i32 %kr.0, 61
   %or.cond62 = select i1 %cmp49, i1 %cmp51, i1 false
   br i1 %or.cond62, label %cleanup, label %if.end53
 
 if.end53:                                         ; preds = %if.end48
-  %.107 = select i1 %cmp51, i32 2, i32 0
-  %spec.select = select i1 %cmp49, i32 1, i32 %.107
+  %.86 = select i1 %cmp51, i32 2, i32 0
+  %spec.select = select i1 %cmp49, i32 1, i32 %.86
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end53, %if.end48, %if.end9, %if.end, %if.then

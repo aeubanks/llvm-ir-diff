@@ -164,9 +164,9 @@ entry:
   %n.i = getelementptr inbounds %class.Base, ptr %this, i64 0, i32 1
   store i32 %N, ptr %n.i, align 8, !tbaa !11
   %call2.i3 = invoke noalias noundef nonnull dereferenceable(14) ptr @_Znam(i64 noundef 14) #12
-          to label %_ZN4Base4initEjPKc.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN4Base4initEjPKc.exit:                          ; preds = %entry
+invoke.cont:                                      ; preds = %entry
   %desc.i = getelementptr inbounds %class.Base, ptr %this, i64 0, i32 2
   store ptr %call2.i3, ptr %desc.i, align 8, !tbaa !15
   %call4.i = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call2.i3, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull @.str.3) #10
@@ -193,9 +193,9 @@ entry:
   %n.i = getelementptr inbounds %class.Base, ptr %this, i64 0, i32 1
   store i32 %sub, ptr %n.i, align 8, !tbaa !11
   %call2.i3 = invoke noalias noundef nonnull dereferenceable(17) ptr @_Znam(i64 noundef 17) #12
-          to label %_ZN4Base4initEjPKc.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN4Base4initEjPKc.exit:                          ; preds = %entry
+invoke.cont:                                      ; preds = %entry
   %desc.i = getelementptr inbounds %class.Base, ptr %this, i64 0, i32 2
   store ptr %call2.i3, ptr %desc.i, align 8, !tbaa !15
   %call4.i = tail call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call2.i3, ptr noundef nonnull dereferenceable(1) @.str.4, ptr noundef nonnull @.str.5) #10

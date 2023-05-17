@@ -31,22 +31,22 @@ if.then:                                          ; preds = %entry
 if.then2:                                         ; preds = %if.then
   %arrayidx3 = getelementptr inbounds ptr, ptr %argv, i64 2
   %1 = load ptr, ptr %arrayidx3, align 8, !tbaa !5
-  %call.i35 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #10
-  %conv.i36 = trunc i64 %call.i35 to i32
+  %call.i37 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #10
+  %conv.i38 = trunc i64 %call.i37 to i32
   %cmp5 = icmp ugt i32 %argc, 3
   br i1 %cmp5, label %if.then6, label %if.end10
 
 if.then6:                                         ; preds = %if.then2
   %arrayidx7 = getelementptr inbounds ptr, ptr %argv, i64 3
   %2 = load ptr, ptr %arrayidx7, align 8, !tbaa !5
-  %call.i37 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #10
-  %conv.i38 = trunc i64 %call.i37 to i32
-  tail call void @srandom(i32 noundef %conv.i38) #10
+  %call.i39 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #10
+  %conv.i40 = trunc i64 %call.i39 to i32
+  tail call void @srandom(i32 noundef %conv.i40) #10
   br label %if.end10
 
 if.end10:                                         ; preds = %if.then, %if.then6, %if.then2, %entry
   %nVertex.0 = phi i32 [ %conv.i, %if.then6 ], [ %conv.i, %if.then2 ], [ %conv.i, %if.then ], [ 10, %entry ]
-  %nEdge.0 = phi i32 [ %conv.i36, %if.then6 ], [ %conv.i36, %if.then2 ], [ 9, %if.then ], [ 9, %entry ]
+  %nEdge.0 = phi i32 [ %conv.i38, %if.then6 ], [ %conv.i38, %if.then2 ], [ 9, %if.then ], [ 9, %entry ]
   %3 = load i32, ptr @debug, align 4, !tbaa !9
   %tobool.not = icmp eq i32 %3, 0
   br i1 %tobool.not, label %if.end13, label %if.then11
@@ -72,9 +72,9 @@ if.end18:                                         ; preds = %if.then16, %if.end1
   br i1 %tobool20.not, label %if.end28, label %if.then21
 
 if.then21:                                        ; preds = %if.end18
-  %puts40 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
+  %puts35 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.6)
   tail call void @PrintGraph(ptr noundef %call14) #10
-  %puts41 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %puts36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
   %vertex.0.in7.i = getelementptr inbounds %struct._Vertices, ptr %call14, i64 0, i32 2
   %vertex.08.i = load ptr, ptr %vertex.0.in7.i, align 8, !tbaa !11
   %cmp.not9.i = icmp eq ptr %vertex.08.i, %call14
@@ -88,7 +88,7 @@ while.body.i:                                     ; preds = %if.then21, %while.b
   %source.i = getelementptr inbounds %struct._Edges, ptr %7, i64 0, i32 1
   %8 = load ptr, ptr %source.i, align 8, !tbaa !15
   %9 = load i32, ptr %8, align 8, !tbaa !13
-  %call.i39 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %6, i32 noundef %9)
+  %call.i41 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef %6, i32 noundef %9)
   %vertex.0.in.i = getelementptr inbounds %struct._Vertices, ptr %vertex.010.i, i64 0, i32 2
   %vertex.0.i = load ptr, ptr %vertex.0.in.i, align 8, !tbaa !11
   %cmp.not.i = icmp eq ptr %vertex.0.i, %call14

@@ -729,9 +729,9 @@ define dso_local i32 @MTDecodeP(ptr noundef %t, ptr nocapture noundef writeonly 
 entry:
   %0 = load i32, ptr %t, align 4, !tbaa !5
   %cmp.i = icmp eq i32 %0, 100
-  br i1 %cmp.i, label %cleanup, label %for.cond2.preheader.preheader.i
+  br i1 %cmp.i, label %cleanup, label %if.end
 
-for.cond2.preheader.preheader.i:                  ; preds = %entry
+if.end:                                           ; preds = %entry
   %arrayidx7.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 2, i64 0, i64 0
   %idxprom9.i = sext i32 %0 to i64
   %arrayidx14.i = getelementptr inbounds %struct.MT, ptr %t, i64 0, i32 1, i64 %idxprom9.i, i64 0, i64 0
@@ -781,7 +781,7 @@ for.cond2.preheader.preheader.i:                  ; preds = %entry
   %or.cond187 = select i1 %or.cond186, i1 %cmp22, i1 false
   br i1 %or.cond187, label %if.then23, label %if.else30
 
-if.then23:                                        ; preds = %for.cond2.preheader.preheader.i
+if.then23:                                        ; preds = %if.end
   store i32 0, ptr %arrayidx7.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx7.1.i, align 4, !tbaa !10
   store i32 1, ptr %arrayidx7.135.i, align 4, !tbaa !10
@@ -809,7 +809,7 @@ if.else:                                          ; preds = %if.then23
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 16 dereferenceable(10) @MTDecodeP.cif, ptr noundef nonnull align 1 dereferenceable(10) @.str.1, i64 10, i1 false)
   br label %if.end157
 
-if.else30:                                        ; preds = %for.cond2.preheader.preheader.i
+if.else30:                                        ; preds = %if.end
   %cmp33 = icmp eq i32 %5, -1
   %or.cond189 = select i1 %cmp, i1 %cmp33, i1 false
   %cmp35 = icmp eq i32 %6, -1

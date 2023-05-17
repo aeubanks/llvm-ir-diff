@@ -31,8 +31,8 @@ cleanup:                                          ; preds = %for.inc, %for.cond.
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @f(i32 noundef %x) local_unnamed_addr #1 {
 entry:
-  %cmp.i.not = icmp eq i32 %x, 0
-  br i1 %cmp.i.not, label %if.then, label %if.end
+  %.not = icmp eq i32 %x, 0
+  br i1 %.not, label %if.then, label %if.end
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #4

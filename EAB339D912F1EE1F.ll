@@ -26,8 +26,8 @@ entry:
   %history = getelementptr inbounds %struct.param_viterbi_t, ptr %param_viterbi, i64 0, i32 9
   %data.i = getelementptr inbounds %struct.dvector, ptr %Metr_mem, i64 0, i32 1
   %Metr = getelementptr inbounds %struct.param_viterbi_t, ptr %param_viterbi, i64 0, i32 8
-  %data.i9 = getelementptr inbounds %struct.dvarray, ptr %Dist_demux, i64 0, i32 1
-  %data.i10 = getelementptr inbounds %struct.bitvector, ptr %d_bit_stream, i64 0, i32 1
+  %data.i10 = getelementptr inbounds %struct.dvarray, ptr %Dist_demux, i64 0, i32 1
+  %data.i11 = getelementptr inbounds %struct.bitvector, ptr %d_bit_stream, i64 0, i32 1
   br label %for.body
 
 for.body:                                         ; preds = %entry, %dvarray_clear.exit
@@ -44,7 +44,7 @@ for.body:                                         ; preds = %entry, %dvarray_cle
   %call2 = call i64 @read_dmatrix(ptr noundef nonnull %Dist_demux, ptr noundef nonnull @.str) #9
   %puts = call i32 @puts(ptr nonnull dereferenceable(1) @str)
   call void @dec_viterbi_F(ptr noundef nonnull %Metr_mem, ptr noundef %call, ptr noundef nonnull %d_bit_stream, ptr noundef nonnull %Dist_demux, ptr noundef nonnull %param_viterbi, i64 noundef 0) #9
-  %puts11 = call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
+  %puts8 = call i32 @puts(ptr nonnull dereferenceable(1) @str.3)
   %0 = load ptr, ptr %data.i, align 8, !tbaa !11
   call void @free(ptr noundef %0) #9
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %Metr_mem, i8 0, i64 16, i1 false)
@@ -54,7 +54,7 @@ for.body:                                         ; preds = %entry, %dvarray_cle
 
 for.body.i:                                       ; preds = %for.body, %for.body.i
   %i.011.i = phi i64 [ %inc.i, %for.body.i ], [ 0, %for.body ]
-  %2 = load ptr, ptr %data.i9, align 8, !tbaa !11
+  %2 = load ptr, ptr %data.i10, align 8, !tbaa !11
   %arrayidx.i = getelementptr inbounds %struct.dvector, ptr %2, i64 %i.011.i
   %data.i.i = getelementptr inbounds %struct.dvector, ptr %2, i64 %i.011.i, i32 1
   %3 = load ptr, ptr %data.i.i, align 8, !tbaa !11
@@ -66,10 +66,10 @@ for.body.i:                                       ; preds = %for.body, %for.body
   br i1 %cmp.i, label %for.body.i, label %dvarray_clear.exit, !llvm.loop !12
 
 dvarray_clear.exit:                               ; preds = %for.body.i, %for.body
-  %5 = load ptr, ptr %data.i9, align 8, !tbaa !11
+  %5 = load ptr, ptr %data.i10, align 8, !tbaa !11
   call void @free(ptr noundef %5) #9
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %Dist_demux, i8 0, i64 16, i1 false)
-  %6 = load ptr, ptr %data.i10, align 8, !tbaa !11
+  %6 = load ptr, ptr %data.i11, align 8, !tbaa !11
   call void @free(ptr noundef %6) #9
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %d_bit_stream, i8 0, i64 16, i1 false)
   call void @free(ptr noundef %call) #9
@@ -109,11 +109,11 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
 
-; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
-declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #7
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #8
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #7
+
+; Function Attrs: nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite)
+declare noalias noundef ptr @calloc(i64 noundef, i64 noundef) local_unnamed_addr #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -122,8 +122,8 @@ attributes #3 = { mustprogress nofree nounwind willreturn allockind("alloc,unini
 attributes #4 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #5 = { mustprogress nounwind willreturn allockind("free") memory(argmem: readwrite, inaccessiblemem: readwrite) "alloc-family"="malloc" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #7 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
-attributes #8 = { nofree nounwind }
+attributes #7 = { nofree nounwind }
+attributes #8 = { nofree nounwind willreturn allockind("alloc,zeroed") allocsize(0,1) memory(inaccessiblemem: readwrite) "alloc-family"="malloc" }
 attributes #9 = { nounwind }
 attributes #10 = { nounwind allocsize(0) }
 

@@ -95,22 +95,22 @@ entry:
   %_M_b.i.i.i = getelementptr inbounds %"struct.std::uniform_int_distribution<unsigned long>::param_type", ptr %distrib.i, i64 0, i32 1
   store i64 4294967295, ptr %_M_b.i.i.i, align 8, !tbaa !17
   %cmp9.not.i = icmp eq i32 %add, 0
-  br i1 %cmp9.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i
+  br i1 %cmp9.not.i, label %invoke.cont4, label %for.body.i
 
 for.body.i:                                       ; preds = %entry, %call.i.i.noexc
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %call.i.i.noexc ], [ 0, %entry ]
-  %call.i.i55 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
+  %call.i.i58 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
           to label %call.i.i.noexc unwind label %lpad
 
 call.i.i.noexc:                                   ; preds = %for.body.i
-  %conv4.i = trunc i64 %call.i.i55 to i32
+  %conv4.i = trunc i64 %call.i.i58 to i32
   %arrayidx.i.i = getelementptr inbounds i32, ptr %call2, i64 %indvars.iv.i
   store i32 %conv4.i, ptr %arrayidx.i.i, align 4, !tbaa !12
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %conv1
-  br i1 %exitcond.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i, !llvm.loop !18
+  br i1 %exitcond.not.i, label %invoke.cont4, label %for.body.i, !llvm.loop !18
 
-_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = %call.i.i.noexc, %entry
+invoke.cont4:                                     ; preds = %call.i.i.noexc, %entry
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %distrib.i) #8
   %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
   %3 = load i8, ptr %error_occurred_.i.i, align 2, !tbaa !20, !range !34, !noundef !35
@@ -119,11 +119,11 @@ _ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = 
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad6
 
-for.cond.preheader:                               ; preds = %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+for.cond.preheader:                               ; preds = %invoke.cont4
   %tobool.not.i.i = icmp ne i8 %3, 0
-  %cmp.not.i.not6769 = icmp eq i64 %4, 0
-  %cmp.not.i.not67 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6769
-  br i1 %cmp.not.i.not67, label %if.end.i, label %for.body, !prof !36
+  %cmp.not.i.not6870 = icmp eq i64 %4, 0
+  %cmp.not.i.not68 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6870
+  br i1 %cmp.not.i.not68, label %if.end.i, label %for.body, !prof !36
 
 if.end.i:                                         ; preds = %invoke.cont35, %for.cond.preheader
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -131,14 +131,14 @@ if.end.i:                                         ; preds = %invoke.cont35, %for
 
 for.cond.cleanup:                                 ; preds = %if.end.i
   %5 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i56 = icmp eq ptr %5, null
-  br i1 %cmp.not.i56, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %delete.notnull.i.i
+  %cmp.not.i59 = icmp eq ptr %5, null
+  br i1 %cmp.not.i59, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
 
-delete.notnull.i.i:                               ; preds = %for.cond.cleanup
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i: ; preds = %for.cond.cleanup
   call void @_ZdaPv(ptr noundef nonnull %5) #10
   br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %delete.notnull.i.i
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
   ret void
@@ -148,13 +148,13 @@ lpad:                                             ; preds = %for.body.i
           cleanup
   br label %ehcleanup47
 
-lpad6:                                            ; preds = %if.end.i, %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+lpad6:                                            ; preds = %if.end.i, %invoke.cont4
   %7 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup47
 
 for.body:                                         ; preds = %for.cond.preheader, %invoke.cont35
-  %__begin1.sroa.0.068 = phi i64 [ %dec.i, %invoke.cont35 ], [ %4, %for.cond.preheader ]
+  %__begin1.sroa.0.069 = phi i64 [ %dec.i, %invoke.cont35 ], [ %4, %for.cond.preheader ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp) #8
   %8 = load ptr, ptr %A, align 8, !tbaa !14
   store ptr %8, ptr %ref.tmp, align 8, !tbaa !14
@@ -166,13 +166,13 @@ for.body:                                         ; preds = %for.cond.preheader,
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp21) #8
   %mul22 = shl i32 %9, 1
   %conv23 = zext i32 %mul22 to i64
-  %arrayidx.i58 = getelementptr inbounds i32, ptr %8, i64 %conv23
-  store ptr %arrayidx.i58, ptr %ref.tmp21, align 8, !tbaa !14
+  %arrayidx.i61 = getelementptr inbounds i32, ptr %8, i64 %conv23
+  store ptr %arrayidx.i61, ptr %ref.tmp21, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp27) #8
   %mul28 = mul i32 %9, 3
   %conv29 = zext i32 %mul28 to i64
-  %arrayidx.i59 = getelementptr inbounds i32, ptr %8, i64 %conv29
-  store ptr %arrayidx.i59, ptr %ref.tmp27, align 8, !tbaa !14
+  %arrayidx.i62 = getelementptr inbounds i32, ptr %8, i64 %conv29
+  store ptr %arrayidx.i62, ptr %ref.tmp27, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %ref.tmp33) #8
   store i32 1, ptr %ref.tmp33, align 4, !tbaa !12
   invoke fastcc void @_ZL18callThroughOptnoneIRFvPjS0_S0_S0_jjEJS0_S0_S0_S0_RjiEEvOT_DpOT0_(ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp16, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp21, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp27, ptr noundef nonnull align 4 dereferenceable(4) %TC, ptr noundef nonnull align 4 dereferenceable(4) %ref.tmp33)
@@ -187,7 +187,7 @@ invoke.cont35:                                    ; preds = %for.body
   %10 = load i64, ptr %A, align 8
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %A, i64 %10) #8, !srcloc !37
   fence syncscope("singlethread") acq_rel
-  %dec.i = add i64 %__begin1.sroa.0.068, -1
+  %dec.i = add i64 %__begin1.sroa.0.069, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
   br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !36
 
@@ -202,19 +202,19 @@ lpad34:                                           ; preds = %for.body
   br label %ehcleanup47
 
 ehcleanup47:                                      ; preds = %lpad34, %lpad6, %lpad
-  %.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad34 ], [ %7, %lpad6 ]
+  %.pn.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad34 ], [ %7, %lpad6 ]
   %12 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i60 = icmp eq ptr %12, null
-  br i1 %cmp.not.i60, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit63, label %delete.notnull.i.i61
+  %cmp.not.i63 = icmp eq ptr %12, null
+  br i1 %cmp.not.i63, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit66, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i64
 
-delete.notnull.i.i61:                             ; preds = %ehcleanup47
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i64: ; preds = %ehcleanup47
   call void @_ZdaPv(ptr noundef nonnull %12) #10
-  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit63
+  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit66
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit63: ; preds = %ehcleanup47, %delete.notnull.i.i61
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit66: ; preds = %ehcleanup47, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i64
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
-  resume { ptr, i32 } %.pn.pn
+  resume { ptr, i32 } %.pn.pn.pn
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -404,22 +404,22 @@ entry:
   %_M_b.i.i.i = getelementptr inbounds %"struct.std::uniform_int_distribution<unsigned long>::param_type", ptr %distrib.i, i64 0, i32 1
   store i64 4294967295, ptr %_M_b.i.i.i, align 8, !tbaa !17
   %cmp9.not.i = icmp eq i32 %add, 0
-  br i1 %cmp9.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i
+  br i1 %cmp9.not.i, label %invoke.cont4, label %for.body.i
 
 for.body.i:                                       ; preds = %entry, %call.i.i.noexc
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %call.i.i.noexc ], [ 0, %entry ]
-  %call.i.i56 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
+  %call.i.i59 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
           to label %call.i.i.noexc unwind label %lpad
 
 call.i.i.noexc:                                   ; preds = %for.body.i
-  %conv4.i = trunc i64 %call.i.i56 to i32
+  %conv4.i = trunc i64 %call.i.i59 to i32
   %arrayidx.i.i = getelementptr inbounds i32, ptr %call2, i64 %indvars.iv.i
   store i32 %conv4.i, ptr %arrayidx.i.i, align 4, !tbaa !12
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %conv1
-  br i1 %exitcond.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i, !llvm.loop !18
+  br i1 %exitcond.not.i, label %invoke.cont4, label %for.body.i, !llvm.loop !18
 
-_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = %call.i.i.noexc, %entry
+invoke.cont4:                                     ; preds = %call.i.i.noexc, %entry
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %distrib.i) #8
   %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
   %3 = load i8, ptr %error_occurred_.i.i, align 2, !tbaa !20, !range !34, !noundef !35
@@ -428,11 +428,11 @@ _ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = 
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad6
 
-for.cond.preheader:                               ; preds = %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+for.cond.preheader:                               ; preds = %invoke.cont4
   %tobool.not.i.i = icmp ne i8 %3, 0
-  %cmp.not.i.not6870 = icmp eq i64 %4, 0
-  %cmp.not.i.not68 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6870
-  br i1 %cmp.not.i.not68, label %if.end.i, label %for.body, !prof !36
+  %cmp.not.i.not6971 = icmp eq i64 %4, 0
+  %cmp.not.i.not69 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6971
+  br i1 %cmp.not.i.not69, label %if.end.i, label %for.body, !prof !36
 
 if.end.i:                                         ; preds = %invoke.cont36, %for.cond.preheader
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -440,14 +440,14 @@ if.end.i:                                         ; preds = %invoke.cont36, %for
 
 for.cond.cleanup:                                 ; preds = %if.end.i
   %5 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i57 = icmp eq ptr %5, null
-  br i1 %cmp.not.i57, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %delete.notnull.i.i
+  %cmp.not.i60 = icmp eq ptr %5, null
+  br i1 %cmp.not.i60, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
 
-delete.notnull.i.i:                               ; preds = %for.cond.cleanup
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i: ; preds = %for.cond.cleanup
   call void @_ZdaPv(ptr noundef nonnull %5) #10
   br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %delete.notnull.i.i
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
   ret void
@@ -457,13 +457,13 @@ lpad:                                             ; preds = %for.body.i
           cleanup
   br label %ehcleanup48
 
-lpad6:                                            ; preds = %if.end.i, %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+lpad6:                                            ; preds = %if.end.i, %invoke.cont4
   %7 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup48
 
 for.body:                                         ; preds = %for.cond.preheader, %invoke.cont36
-  %__begin1.sroa.0.069 = phi i64 [ %dec.i, %invoke.cont36 ], [ %4, %for.cond.preheader ]
+  %__begin1.sroa.0.070 = phi i64 [ %dec.i, %invoke.cont36 ], [ %4, %for.cond.preheader ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp) #8
   %8 = load i32, ptr %TC, align 4, !tbaa !12
   %mul13 = mul i32 %8, 3
@@ -474,12 +474,12 @@ for.body:                                         ; preds = %for.cond.preheader,
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp18) #8
   %mul19 = shl i32 %8, 1
   %conv20 = zext i32 %mul19 to i64
-  %arrayidx.i59 = getelementptr inbounds i32, ptr %9, i64 %conv20
-  store ptr %arrayidx.i59, ptr %ref.tmp18, align 8, !tbaa !14
+  %arrayidx.i62 = getelementptr inbounds i32, ptr %9, i64 %conv20
+  store ptr %arrayidx.i62, ptr %ref.tmp18, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp24) #8
   %conv26 = zext i32 %8 to i64
-  %arrayidx.i60 = getelementptr inbounds i32, ptr %9, i64 %conv26
-  store ptr %arrayidx.i60, ptr %ref.tmp24, align 8, !tbaa !14
+  %arrayidx.i63 = getelementptr inbounds i32, ptr %9, i64 %conv26
+  store ptr %arrayidx.i63, ptr %ref.tmp24, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp30) #8
   store ptr %9, ptr %ref.tmp30, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %ref.tmp34) #8
@@ -496,7 +496,7 @@ invoke.cont36:                                    ; preds = %for.body
   %10 = load i64, ptr %A, align 8
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %A, i64 %10) #8, !srcloc !37
   fence syncscope("singlethread") acq_rel
-  %dec.i = add i64 %__begin1.sroa.0.069, -1
+  %dec.i = add i64 %__begin1.sroa.0.070, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
   br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !36
 
@@ -511,19 +511,19 @@ lpad35:                                           ; preds = %for.body
   br label %ehcleanup48
 
 ehcleanup48:                                      ; preds = %lpad35, %lpad6, %lpad
-  %.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad35 ], [ %7, %lpad6 ]
+  %.pn.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad35 ], [ %7, %lpad6 ]
   %12 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i61 = icmp eq ptr %12, null
-  br i1 %cmp.not.i61, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit64, label %delete.notnull.i.i62
+  %cmp.not.i64 = icmp eq ptr %12, null
+  br i1 %cmp.not.i64, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit67, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i65
 
-delete.notnull.i.i62:                             ; preds = %ehcleanup48
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i65: ; preds = %ehcleanup48
   call void @_ZdaPv(ptr noundef nonnull %12) #10
-  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit64
+  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit67
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit64: ; preds = %ehcleanup48, %delete.notnull.i.i62
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit67: ; preds = %ehcleanup48, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i65
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
-  resume { ptr, i32 } %.pn.pn
+  resume { ptr, i32 } %.pn.pn.pn
 }
 
 ; Function Attrs: uwtable
@@ -555,22 +555,22 @@ entry:
   %_M_b.i.i.i = getelementptr inbounds %"struct.std::uniform_int_distribution<unsigned long>::param_type", ptr %distrib.i, i64 0, i32 1
   store i64 4294967295, ptr %_M_b.i.i.i, align 8, !tbaa !17
   %cmp9.not.i = icmp eq i32 %add, 0
-  br i1 %cmp9.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i
+  br i1 %cmp9.not.i, label %invoke.cont4, label %for.body.i
 
 for.body.i:                                       ; preds = %entry, %call.i.i.noexc
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %call.i.i.noexc ], [ 0, %entry ]
-  %call.i.i53 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
+  %call.i.i56 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
           to label %call.i.i.noexc unwind label %lpad
 
 call.i.i.noexc:                                   ; preds = %for.body.i
-  %conv4.i = trunc i64 %call.i.i53 to i32
+  %conv4.i = trunc i64 %call.i.i56 to i32
   %arrayidx.i.i = getelementptr inbounds i32, ptr %call2, i64 %indvars.iv.i
   store i32 %conv4.i, ptr %arrayidx.i.i, align 4, !tbaa !12
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %conv1
-  br i1 %exitcond.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i, !llvm.loop !18
+  br i1 %exitcond.not.i, label %invoke.cont4, label %for.body.i, !llvm.loop !18
 
-_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = %call.i.i.noexc, %entry
+invoke.cont4:                                     ; preds = %call.i.i.noexc, %entry
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %distrib.i) #8
   %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
   %3 = load i8, ptr %error_occurred_.i.i, align 2, !tbaa !20, !range !34, !noundef !35
@@ -579,11 +579,11 @@ _ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = 
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad6
 
-for.cond.preheader:                               ; preds = %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+for.cond.preheader:                               ; preds = %invoke.cont4
   %tobool.not.i.i = icmp ne i8 %3, 0
-  %cmp.not.i.not6466 = icmp eq i64 %4, 0
-  %cmp.not.i.not64 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6466
-  br i1 %cmp.not.i.not64, label %if.end.i, label %for.body, !prof !36
+  %cmp.not.i.not6567 = icmp eq i64 %4, 0
+  %cmp.not.i.not65 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6567
+  br i1 %cmp.not.i.not65, label %if.end.i, label %for.body, !prof !36
 
 if.end.i:                                         ; preds = %invoke.cont33, %for.cond.preheader
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -591,14 +591,14 @@ if.end.i:                                         ; preds = %invoke.cont33, %for
 
 for.cond.cleanup:                                 ; preds = %if.end.i
   %5 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i54 = icmp eq ptr %5, null
-  br i1 %cmp.not.i54, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %delete.notnull.i.i
+  %cmp.not.i57 = icmp eq ptr %5, null
+  br i1 %cmp.not.i57, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
 
-delete.notnull.i.i:                               ; preds = %for.cond.cleanup
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i: ; preds = %for.cond.cleanup
   call void @_ZdaPv(ptr noundef nonnull %5) #10
   br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %delete.notnull.i.i
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
   ret void
@@ -608,13 +608,13 @@ lpad:                                             ; preds = %for.body.i
           cleanup
   br label %ehcleanup45
 
-lpad6:                                            ; preds = %if.end.i, %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+lpad6:                                            ; preds = %if.end.i, %invoke.cont4
   %7 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup45
 
 for.body:                                         ; preds = %for.cond.preheader, %invoke.cont33
-  %__begin1.sroa.0.065 = phi i64 [ %dec.i, %invoke.cont33 ], [ %4, %for.cond.preheader ]
+  %__begin1.sroa.0.066 = phi i64 [ %dec.i, %invoke.cont33 ], [ %4, %for.cond.preheader ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp) #8
   %8 = load ptr, ptr %A, align 8, !tbaa !14
   store ptr %8, ptr %ref.tmp, align 8, !tbaa !14
@@ -626,8 +626,8 @@ for.body:                                         ; preds = %for.cond.preheader,
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp21) #8
   %mul22 = shl i32 %9, 1
   %conv23 = zext i32 %mul22 to i64
-  %arrayidx.i56 = getelementptr inbounds i32, ptr %8, i64 %conv23
-  store ptr %arrayidx.i56, ptr %ref.tmp21, align 8, !tbaa !14
+  %arrayidx.i59 = getelementptr inbounds i32, ptr %8, i64 %conv23
+  store ptr %arrayidx.i59, ptr %ref.tmp21, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp27) #8
   store ptr %8, ptr %ref.tmp27, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %ref.tmp31) #8
@@ -644,7 +644,7 @@ invoke.cont33:                                    ; preds = %for.body
   %10 = load i64, ptr %A, align 8
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %A, i64 %10) #8, !srcloc !37
   fence syncscope("singlethread") acq_rel
-  %dec.i = add i64 %__begin1.sroa.0.065, -1
+  %dec.i = add i64 %__begin1.sroa.0.066, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
   br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !36
 
@@ -659,19 +659,19 @@ lpad32:                                           ; preds = %for.body
   br label %ehcleanup45
 
 ehcleanup45:                                      ; preds = %lpad32, %lpad6, %lpad
-  %.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad32 ], [ %7, %lpad6 ]
+  %.pn.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad32 ], [ %7, %lpad6 ]
   %12 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i57 = icmp eq ptr %12, null
-  br i1 %cmp.not.i57, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit60, label %delete.notnull.i.i58
+  %cmp.not.i60 = icmp eq ptr %12, null
+  br i1 %cmp.not.i60, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit63, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i61
 
-delete.notnull.i.i58:                             ; preds = %ehcleanup45
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i61: ; preds = %ehcleanup45
   call void @_ZdaPv(ptr noundef nonnull %12) #10
-  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit60
+  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit63
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit60: ; preds = %ehcleanup45, %delete.notnull.i.i58
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit63: ; preds = %ehcleanup45, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i61
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
-  resume { ptr, i32 } %.pn.pn
+  resume { ptr, i32 } %.pn.pn.pn
 }
 
 ; Function Attrs: uwtable
@@ -703,22 +703,22 @@ entry:
   %_M_b.i.i.i = getelementptr inbounds %"struct.std::uniform_int_distribution<unsigned long>::param_type", ptr %distrib.i, i64 0, i32 1
   store i64 4294967295, ptr %_M_b.i.i.i, align 8, !tbaa !17
   %cmp9.not.i = icmp eq i32 %add, 0
-  br i1 %cmp9.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i
+  br i1 %cmp9.not.i, label %invoke.cont4, label %for.body.i
 
 for.body.i:                                       ; preds = %entry, %call.i.i.noexc
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %call.i.i.noexc ], [ 0, %entry ]
-  %call.i.i54 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
+  %call.i.i57 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
           to label %call.i.i.noexc unwind label %lpad
 
 call.i.i.noexc:                                   ; preds = %for.body.i
-  %conv4.i = trunc i64 %call.i.i54 to i32
+  %conv4.i = trunc i64 %call.i.i57 to i32
   %arrayidx.i.i = getelementptr inbounds i32, ptr %call2, i64 %indvars.iv.i
   store i32 %conv4.i, ptr %arrayidx.i.i, align 4, !tbaa !12
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %conv1
-  br i1 %exitcond.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i, !llvm.loop !18
+  br i1 %exitcond.not.i, label %invoke.cont4, label %for.body.i, !llvm.loop !18
 
-_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = %call.i.i.noexc, %entry
+invoke.cont4:                                     ; preds = %call.i.i.noexc, %entry
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %distrib.i) #8
   %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
   %3 = load i8, ptr %error_occurred_.i.i, align 2, !tbaa !20, !range !34, !noundef !35
@@ -727,11 +727,11 @@ _ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = 
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad6
 
-for.cond.preheader:                               ; preds = %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+for.cond.preheader:                               ; preds = %invoke.cont4
   %tobool.not.i.i = icmp ne i8 %3, 0
-  %cmp.not.i.not6668 = icmp eq i64 %4, 0
-  %cmp.not.i.not66 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6668
-  br i1 %cmp.not.i.not66, label %if.end.i, label %for.body, !prof !36
+  %cmp.not.i.not6769 = icmp eq i64 %4, 0
+  %cmp.not.i.not67 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6769
+  br i1 %cmp.not.i.not67, label %if.end.i, label %for.body, !prof !36
 
 if.end.i:                                         ; preds = %invoke.cont34, %for.cond.preheader
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -739,14 +739,14 @@ if.end.i:                                         ; preds = %invoke.cont34, %for
 
 for.cond.cleanup:                                 ; preds = %if.end.i
   %5 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i55 = icmp eq ptr %5, null
-  br i1 %cmp.not.i55, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %delete.notnull.i.i
+  %cmp.not.i58 = icmp eq ptr %5, null
+  br i1 %cmp.not.i58, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
 
-delete.notnull.i.i:                               ; preds = %for.cond.cleanup
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i: ; preds = %for.cond.cleanup
   call void @_ZdaPv(ptr noundef nonnull %5) #10
   br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %delete.notnull.i.i
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
   ret void
@@ -756,13 +756,13 @@ lpad:                                             ; preds = %for.body.i
           cleanup
   br label %ehcleanup46
 
-lpad6:                                            ; preds = %if.end.i, %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+lpad6:                                            ; preds = %if.end.i, %invoke.cont4
   %7 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup46
 
 for.body:                                         ; preds = %for.cond.preheader, %invoke.cont34
-  %__begin1.sroa.0.067 = phi i64 [ %dec.i, %invoke.cont34 ], [ %4, %for.cond.preheader ]
+  %__begin1.sroa.0.068 = phi i64 [ %dec.i, %invoke.cont34 ], [ %4, %for.cond.preheader ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp) #8
   %8 = load ptr, ptr %A, align 8, !tbaa !14
   %arrayidx.i = getelementptr inbounds i32, ptr %8, i64 2
@@ -771,13 +771,13 @@ for.body:                                         ; preds = %for.cond.preheader,
   %9 = load i32, ptr %TC, align 4, !tbaa !12
   %mul17 = shl i32 %9, 1
   %conv18 = zext i32 %mul17 to i64
-  %arrayidx.i57 = getelementptr inbounds i32, ptr %8, i64 %conv18
-  store ptr %arrayidx.i57, ptr %ref.tmp16, align 8, !tbaa !14
+  %arrayidx.i60 = getelementptr inbounds i32, ptr %8, i64 %conv18
+  store ptr %arrayidx.i60, ptr %ref.tmp16, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp22) #8
   %mul23 = mul i32 %9, 3
   %conv24 = zext i32 %mul23 to i64
-  %arrayidx.i58 = getelementptr inbounds i32, ptr %8, i64 %conv24
-  store ptr %arrayidx.i58, ptr %ref.tmp22, align 8, !tbaa !14
+  %arrayidx.i61 = getelementptr inbounds i32, ptr %8, i64 %conv24
+  store ptr %arrayidx.i61, ptr %ref.tmp22, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp28) #8
   store ptr %8, ptr %ref.tmp28, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %ref.tmp32) #8
@@ -794,7 +794,7 @@ invoke.cont34:                                    ; preds = %for.body
   %10 = load i64, ptr %A, align 8
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %A, i64 %10) #8, !srcloc !37
   fence syncscope("singlethread") acq_rel
-  %dec.i = add i64 %__begin1.sroa.0.067, -1
+  %dec.i = add i64 %__begin1.sroa.0.068, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
   br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !36
 
@@ -809,19 +809,19 @@ lpad33:                                           ; preds = %for.body
   br label %ehcleanup46
 
 ehcleanup46:                                      ; preds = %lpad33, %lpad6, %lpad
-  %.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad33 ], [ %7, %lpad6 ]
+  %.pn.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad33 ], [ %7, %lpad6 ]
   %12 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i59 = icmp eq ptr %12, null
-  br i1 %cmp.not.i59, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit62, label %delete.notnull.i.i60
+  %cmp.not.i62 = icmp eq ptr %12, null
+  br i1 %cmp.not.i62, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit65, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i63
 
-delete.notnull.i.i60:                             ; preds = %ehcleanup46
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i63: ; preds = %ehcleanup46
   call void @_ZdaPv(ptr noundef nonnull %12) #10
-  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit62
+  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit65
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit62: ; preds = %ehcleanup46, %delete.notnull.i.i60
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit65: ; preds = %ehcleanup46, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i63
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
-  resume { ptr, i32 } %.pn.pn
+  resume { ptr, i32 } %.pn.pn.pn
 }
 
 ; Function Attrs: uwtable
@@ -853,22 +853,22 @@ entry:
   %_M_b.i.i.i = getelementptr inbounds %"struct.std::uniform_int_distribution<unsigned long>::param_type", ptr %distrib.i, i64 0, i32 1
   store i64 4294967295, ptr %_M_b.i.i.i, align 8, !tbaa !17
   %cmp9.not.i = icmp eq i32 %add, 0
-  br i1 %cmp9.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i
+  br i1 %cmp9.not.i, label %invoke.cont4, label %for.body.i
 
 for.body.i:                                       ; preds = %entry, %call.i.i.noexc
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %call.i.i.noexc ], [ 0, %entry ]
-  %call.i.i54 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
+  %call.i.i57 = invoke noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %distrib.i, ptr noundef nonnull align 8 dereferenceable(5000) @_ZL3rng, ptr noundef nonnull align 8 dereferenceable(16) %distrib.i)
           to label %call.i.i.noexc unwind label %lpad
 
 call.i.i.noexc:                                   ; preds = %for.body.i
-  %conv4.i = trunc i64 %call.i.i54 to i32
+  %conv4.i = trunc i64 %call.i.i57 to i32
   %arrayidx.i.i = getelementptr inbounds i32, ptr %call2, i64 %indvars.iv.i
   store i32 %conv4.i, ptr %arrayidx.i.i, align 4, !tbaa !12
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, %conv1
-  br i1 %exitcond.not.i, label %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit, label %for.body.i, !llvm.loop !18
+  br i1 %exitcond.not.i, label %invoke.cont4, label %for.body.i, !llvm.loop !18
 
-_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = %call.i.i.noexc, %entry
+invoke.cont4:                                     ; preds = %call.i.i.noexc, %entry
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %distrib.i) #8
   %error_occurred_.i.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 5
   %3 = load i8, ptr %error_occurred_.i.i, align 2, !tbaa !20, !range !34, !noundef !35
@@ -877,11 +877,11 @@ _ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit: ; preds = 
   invoke void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
           to label %for.cond.preheader unwind label %lpad6
 
-for.cond.preheader:                               ; preds = %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+for.cond.preheader:                               ; preds = %invoke.cont4
   %tobool.not.i.i = icmp ne i8 %3, 0
-  %cmp.not.i.not6668 = icmp eq i64 %4, 0
-  %cmp.not.i.not66 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6668
-  br i1 %cmp.not.i.not66, label %if.end.i, label %for.body, !prof !36
+  %cmp.not.i.not6769 = icmp eq i64 %4, 0
+  %cmp.not.i.not67 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not6769
+  br i1 %cmp.not.i.not67, label %if.end.i, label %for.body, !prof !36
 
 if.end.i:                                         ; preds = %invoke.cont34, %for.cond.preheader
   invoke void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
@@ -889,14 +889,14 @@ if.end.i:                                         ; preds = %invoke.cont34, %for
 
 for.cond.cleanup:                                 ; preds = %if.end.i
   %5 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i55 = icmp eq ptr %5, null
-  br i1 %cmp.not.i55, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %delete.notnull.i.i
+  %cmp.not.i58 = icmp eq ptr %5, null
+  br i1 %cmp.not.i58, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
 
-delete.notnull.i.i:                               ; preds = %for.cond.cleanup
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i: ; preds = %for.cond.cleanup
   call void @_ZdaPv(ptr noundef nonnull %5) #10
   br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %delete.notnull.i.i
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit: ; preds = %for.cond.cleanup, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
   ret void
@@ -906,13 +906,13 @@ lpad:                                             ; preds = %for.body.i
           cleanup
   br label %ehcleanup46
 
-lpad6:                                            ; preds = %if.end.i, %_ZL9init_dataIjEvRKSt10unique_ptrIA_T_St14default_deleteIS2_EEj.exit
+lpad6:                                            ; preds = %if.end.i, %invoke.cont4
   %7 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup46
 
 for.body:                                         ; preds = %for.cond.preheader, %invoke.cont34
-  %__begin1.sroa.0.067 = phi i64 [ %dec.i, %invoke.cont34 ], [ %4, %for.cond.preheader ]
+  %__begin1.sroa.0.068 = phi i64 [ %dec.i, %invoke.cont34 ], [ %4, %for.cond.preheader ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp) #8
   %8 = load ptr, ptr %A, align 8, !tbaa !14
   store ptr %8, ptr %ref.tmp, align 8, !tbaa !14
@@ -925,11 +925,11 @@ for.body:                                         ; preds = %for.cond.preheader,
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp22) #8
   %mul23 = mul i32 %9, 3
   %conv24 = zext i32 %mul23 to i64
-  %arrayidx.i57 = getelementptr inbounds i32, ptr %8, i64 %conv24
-  store ptr %arrayidx.i57, ptr %ref.tmp22, align 8, !tbaa !14
+  %arrayidx.i60 = getelementptr inbounds i32, ptr %8, i64 %conv24
+  store ptr %arrayidx.i60, ptr %ref.tmp22, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %ref.tmp28) #8
-  %arrayidx.i58 = getelementptr inbounds i32, ptr %8, i64 2
-  store ptr %arrayidx.i58, ptr %ref.tmp28, align 8, !tbaa !14
+  %arrayidx.i61 = getelementptr inbounds i32, ptr %8, i64 2
+  store ptr %arrayidx.i61, ptr %ref.tmp28, align 8, !tbaa !14
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %ref.tmp32) #8
   store i32 1, ptr %ref.tmp32, align 4, !tbaa !12
   invoke fastcc void @_ZL18callThroughOptnoneIRFvPjS0_S0_S0_jjEJS0_S0_S0_S0_RjiEEvOT_DpOT0_(ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp16, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp22, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp28, ptr noundef nonnull align 4 dereferenceable(4) %TC, ptr noundef nonnull align 4 dereferenceable(4) %ref.tmp32)
@@ -944,7 +944,7 @@ invoke.cont34:                                    ; preds = %for.body
   %10 = load i64, ptr %A, align 8
   call void asm sideeffect "", "=*r|m,0,~{memory},~{dirflag},~{fpsr},~{flags}"(ptr nonnull elementtype(%"class.std::unique_ptr") %A, i64 %10) #8, !srcloc !37
   fence syncscope("singlethread") acq_rel
-  %dec.i = add i64 %__begin1.sroa.0.067, -1
+  %dec.i = add i64 %__begin1.sroa.0.068, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
   br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !36
 
@@ -959,19 +959,19 @@ lpad33:                                           ; preds = %for.body
   br label %ehcleanup46
 
 ehcleanup46:                                      ; preds = %lpad33, %lpad6, %lpad
-  %.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad33 ], [ %7, %lpad6 ]
+  %.pn.pn.pn = phi { ptr, i32 } [ %6, %lpad ], [ %11, %lpad33 ], [ %7, %lpad6 ]
   %12 = load ptr, ptr %A, align 8, !tbaa !14
-  %cmp.not.i59 = icmp eq ptr %12, null
-  br i1 %cmp.not.i59, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit62, label %delete.notnull.i.i60
+  %cmp.not.i62 = icmp eq ptr %12, null
+  br i1 %cmp.not.i62, label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit65, label %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i63
 
-delete.notnull.i.i60:                             ; preds = %ehcleanup46
+_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i63: ; preds = %ehcleanup46
   call void @_ZdaPv(ptr noundef nonnull %12) #10
-  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit62
+  br label %_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit65
 
-_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit62: ; preds = %ehcleanup46, %delete.notnull.i.i60
+_ZNSt10unique_ptrIA_jSt14default_deleteIS0_EED2Ev.exit65: ; preds = %ehcleanup46, %_ZNKSt14default_deleteIA_jEclIjEENSt9enable_ifIXsr14is_convertibleIPA_T_PS0_EE5valueEvE4typeEPS4_.exit.i63
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %A) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %TC) #8
-  resume { ptr, i32 } %.pn.pn
+  resume { ptr, i32 } %.pn.pn.pn
 }
 
 declare void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144)) local_unnamed_addr #0
@@ -1027,14 +1027,14 @@ if.else:                                          ; preds = %entry
   br i1 %cmp5.not, label %if.else13, label %do.body.preheader
 
 do.body.preheader:                                ; preds = %if.else
-  %div32 = lshr i64 %sub, 32
-  %_M_b.i31 = getelementptr inbounds %"struct.std::uniform_int_distribution<unsigned long>::param_type", ptr %ref.tmp, i64 0, i32 1
+  %div31 = lshr i64 %sub, 32
+  %_M_b.i32 = getelementptr inbounds %"struct.std::uniform_int_distribution<unsigned long>::param_type", ptr %ref.tmp, i64 0, i32 1
   br label %do.body
 
 do.body:                                          ; preds = %do.body.preheader, %do.body
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %ref.tmp) #8
   store i64 0, ptr %ref.tmp, align 8, !tbaa !15
-  store i64 %div32, ptr %_M_b.i31, align 8, !tbaa !17
+  store i64 %div31, ptr %_M_b.i32, align 8, !tbaa !17
   %call7 = call noundef i64 @_ZNSt24uniform_int_distributionImEclISt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEEEmRT_RKNS0_10param_typeE(ptr noundef nonnull align 8 dereferenceable(16) %this, ptr noundef nonnull align 8 dereferenceable(5000) %__urng, ptr noundef nonnull align 8 dereferenceable(16) %ref.tmp)
   %mul = shl i64 %call7, 32
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %ref.tmp) #8

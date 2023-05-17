@@ -51,7 +51,7 @@ entry:
   br label %for.body.i.preheader
 
 for.body.i.preheader:                             ; preds = %for.body.i.preheader, %entry
-  %i.167 = phi i32 [ 0, %entry ], [ %inc41, %for.body.i.preheader ]
+  %i.165 = phi i32 [ 0, %entry ], [ %inc41, %for.body.i.preheader ]
   store <2 x double> <double 7.000000e+00, double 7.000000e+00>, ptr getelementptr inbounds ([51 x double], ptr @Array1Glob, i64 0, i64 8), align 16, !tbaa !15
   store double 8.000000e+00, ptr getelementptr inbounds ([51 x double], ptr @Array1Glob, i64 0, i64 38), align 16, !tbaa !15
   store double 8.000000e+00, ptr getelementptr inbounds ([51 x [51 x double]], ptr @Array2Glob, i64 0, i64 8, i64 8), align 16, !tbaa !15
@@ -67,7 +67,7 @@ for.body.i.preheader:                             ; preds = %for.body.i.preheade
   %IntComp2.i = getelementptr inbounds %struct.Record, ptr %2, i64 0, i32 3
   store double 5.000000e+00, ptr %IntComp2.i, align 8, !tbaa !14
   store ptr %2, ptr %2, align 8, !tbaa !9
-  %inc41 = add nuw nsw i32 %i.167, 1
+  %inc41 = add nuw nsw i32 %i.165, 1
   %exitcond.not = icmp eq i32 %inc41, 100000000
   br i1 %exitcond.not, label %for.end42, label %for.body.i.preheader, !llvm.loop !16
 
@@ -161,9 +161,9 @@ entry:
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: write, inaccessiblemem: none) uwtable
 define dso_local i32 @Proc6(i32 noundef %EnumParIn, ptr nocapture noundef writeonly %EnumParOut) local_unnamed_addr #8 {
 entry:
-  %cmp.i = icmp eq i32 %EnumParIn, 10001
-  %spec.select = select i1 %cmp.i, i32 10001, i32 10002
-  store i32 %spec.select, ptr %EnumParOut, align 4, !tbaa !18
+  %cmp.i.not = icmp eq i32 %EnumParIn, 10001
+  %spec.store.select = select i1 %cmp.i.not, i32 10001, i32 10002
+  store i32 %spec.store.select, ptr %EnumParOut, align 4
   switch i32 %EnumParIn, label %sw.epilog [
     i32 0, label %sw.epilog.sink.split
     i32 10000, label %sw.bb1

@@ -13,8 +13,8 @@ entry:
   %props = alloca [5 x i8], align 1
   call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %props) #5
   %conv.i = zext i8 %prop to i32
-  %cmp.i = icmp ult i8 %prop, 41
-  br i1 %cmp.i, label %if.end.i, label %cleanup3
+  %cmp.i = icmp ugt i8 %prop, 40
+  br i1 %cmp.i, label %cleanup3, label %if.end.i
 
 if.end.i:                                         ; preds = %entry
   %cmp3.i = icmp eq i8 %prop, 40
@@ -69,8 +69,8 @@ entry:
   %props = alloca [5 x i8], align 1
   call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %props) #5
   %conv.i = zext i8 %prop to i32
-  %cmp.i = icmp ult i8 %prop, 41
-  br i1 %cmp.i, label %if.end.i, label %cleanup3
+  %cmp.i = icmp ugt i8 %prop, 40
+  br i1 %cmp.i, label %cleanup3, label %if.end.i
 
 if.end.i:                                         ; preds = %entry
   %cmp3.i = icmp eq i8 %prop, 40
@@ -308,7 +308,7 @@ if.end18:                                         ; preds = %if.end7
   %conv = zext i32 %16 to i64
   %cmp20.not = icmp uge i64 %sub, %conv
   %spec.select = zext i1 %cmp20.not to i32
-  %spec.select260 = call i64 @llvm.umin.i64(i64 %sub, i64 %conv)
+  %spec.select256 = call i64 @llvm.umin.i64(i64 %sub, i64 %conv)
   %17 = load i8, ptr %control43.i, align 4, !tbaa !20
   %cmp27 = icmp sgt i8 %17, -1
   br i1 %cmp27, label %if.then29, label %if.else66
@@ -348,15 +348,15 @@ cleanup.thread:                                   ; preds = %if.then42, %if.else
 
 if.end49:                                         ; preds = %cleanup.thread, %if.end33
   %19 = phi i64 [ %.pre279, %cleanup.thread ], [ %sub19, %if.end33 ]
-  %cmp50 = icmp ugt i64 %19, %spec.select260
+  %cmp50 = icmp ugt i64 %19, %spec.select256
   br i1 %cmp50, label %if.then52, label %if.end53
 
 if.then52:                                        ; preds = %if.end49
-  store i64 %spec.select260, ptr %srcSizeCur, align 8, !tbaa !18
+  store i64 %spec.select256, ptr %srcSizeCur, align 8, !tbaa !18
   br label %if.end53
 
 if.end53:                                         ; preds = %if.then52, %if.end49
-  %20 = phi i64 [ %spec.select260, %if.then52 ], [ %19, %if.end49 ]
+  %20 = phi i64 [ %spec.select256, %if.then52 ], [ %19, %if.end49 ]
   %cmp54 = icmp eq i64 %20, 0
   br i1 %cmp54, label %cleanup165.thread285, label %if.end57
 
@@ -366,11 +366,11 @@ if.end57:                                         ; preds = %if.end53
   %add.ptr.i = getelementptr inbounds i8, ptr %21, i64 %22
   call void @llvm.memcpy.p0.p0.i64(ptr align 1 %add.ptr.i, ptr align 1 %src.addr.0274, i64 %20, i1 false)
   %23 = load i64, ptr %dicPos1, align 8, !tbaa !27
-  %add.i256 = add i64 %23, %20
-  store i64 %add.i256, ptr %dicPos1, align 8, !tbaa !27
+  %add.i257 = add i64 %23, %20
+  store i64 %add.i257, ptr %dicPos1, align 8, !tbaa !27
   %24 = load i32, ptr %checkDicSize.i, align 4, !tbaa !28
-  %cmp.i257 = icmp eq i32 %24, 0
-  br i1 %cmp.i257, label %land.lhs.true.i, label %entry.if.end_crit_edge.i
+  %cmp.i258 = icmp eq i32 %24, 0
+  br i1 %cmp.i258, label %land.lhs.true.i, label %entry.if.end_crit_edge.i
 
 entry.if.end_crit_edge.i:                         ; preds = %if.end57
   %.pre.i = load i32, ptr %processedPos8.phi.trans.insert.i, align 8, !tbaa !29
@@ -380,8 +380,8 @@ land.lhs.true.i:                                  ; preds = %if.end57
   %25 = load i32, ptr %dicSize.i, align 4, !tbaa !30
   %26 = load i32, ptr %processedPos8.phi.trans.insert.i, align 8, !tbaa !29
   %sub.i = sub i32 %25, %26
-  %conv.i258 = zext i32 %sub.i to i64
-  %cmp2.not.i = icmp ult i64 %20, %conv.i258
+  %conv.i259 = zext i32 %sub.i to i64
+  %cmp2.not.i = icmp ult i64 %20, %conv.i259
   br i1 %cmp2.not.i, label %LzmaDec_UpdateWithUncompressed.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %land.lhs.true.i
@@ -452,7 +452,7 @@ if.then102:                                       ; preds = %if.end98
   br label %if.end105
 
 if.end105:                                        ; preds = %if.then102, %if.end98
-  %add107 = add i64 %spec.select260, %3
+  %add107 = add i64 %spec.select256, %3
   %call108 = call i32 @LzmaDec_DecodeToDic(ptr noundef nonnull %p, i64 noundef %add107, ptr noundef %src.addr.0274, ptr noundef nonnull %srcSizeCur, i32 noundef %spec.select, ptr noundef nonnull %status) #5
   %37 = load i64, ptr %srcSizeCur, align 8, !tbaa !18
   %38 = load i64, ptr %srcLen, align 8, !tbaa !18
@@ -628,8 +628,8 @@ entry:
   %dicBufSize = getelementptr inbounds %struct.CLzmaDec, ptr %decoder, i64 0, i32 7
   store i64 %0, ptr %dicBufSize, align 8, !tbaa !33
   %conv.i = zext i8 %prop to i32
-  %cmp.i = icmp ult i8 %prop, 41
-  br i1 %cmp.i, label %if.end.i, label %cleanup23
+  %cmp.i = icmp ugt i8 %prop, 40
+  br i1 %cmp.i, label %cleanup23, label %if.end.i
 
 if.end.i:                                         ; preds = %entry
   %cmp3.i = icmp eq i8 %prop, 40

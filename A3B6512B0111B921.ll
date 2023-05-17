@@ -75,21 +75,21 @@ define dso_local i32 @numb(ptr nocapture noundef readonly %str) local_unnamed_ad
 entry:
   %0 = load i8, ptr %str, align 1, !tbaa !5
   %1 = add i8 %0, -48
-  %or.cond13 = icmp ult i8 %1, 10
-  br i1 %or.cond13, label %for.body, label %for.end
+  %or.cond10 = icmp ult i8 %1, 10
+  br i1 %or.cond10, label %for.body, label %for.end
 
 for.body:                                         ; preds = %entry, %for.body
-  %conv16.in = phi i8 [ %2, %for.body ], [ %0, %entry ]
-  %k.015 = phi i32 [ %sub, %for.body ], [ 0, %entry ]
-  %str.addr.014 = phi ptr [ %incdec.ptr, %for.body ], [ %str, %entry ]
-  %conv16 = zext i8 %conv16.in to i32
-  %mul = mul nsw i32 %k.015, 10
+  %2 = phi i8 [ %3, %for.body ], [ %0, %entry ]
+  %k.012 = phi i32 [ %sub, %for.body ], [ 0, %entry ]
+  %str.addr.011 = phi ptr [ %incdec.ptr, %for.body ], [ %str, %entry ]
+  %conv = zext i8 %2 to i32
+  %mul = mul nsw i32 %k.012, 10
   %add = add i32 %mul, -48
-  %sub = add i32 %add, %conv16
-  %incdec.ptr = getelementptr inbounds i8, ptr %str.addr.014, i64 1
-  %2 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
-  %3 = add i8 %2, -48
-  %or.cond = icmp ult i8 %3, 10
+  %sub = add i32 %add, %conv
+  %incdec.ptr = getelementptr inbounds i8, ptr %str.addr.011, i64 1
+  %3 = load i8, ptr %incdec.ptr, align 1, !tbaa !5
+  %4 = add i8 %3, -48
+  %or.cond = icmp ult i8 %4, 10
   br i1 %or.cond, label %for.body, label %for.end, !llvm.loop !11
 
 for.end:                                          ; preds = %for.body, %entry

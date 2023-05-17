@@ -71,32 +71,32 @@ entry:
 for.body:                                         ; preds = %entry, %for.inc
   %indvars.iv = phi i64 [ 1, %entry ], [ %indvars.iv.next, %for.inc ]
   %and.i2431 = phi i64 [ 74755, %entry ], [ %and.i, %for.inc ]
-  %conv22630 = phi i32 [ 0, %entry ], [ %conv225, %for.inc ]
-  %conv22829 = phi i32 [ 0, %entry ], [ %conv227, %for.inc ]
+  %sub12630 = phi i32 [ 0, %entry ], [ %sub125, %for.inc ]
+  %sub12829 = phi i32 [ 0, %entry ], [ %sub127, %for.inc ]
   %mul.i = mul nuw nsw i64 %and.i2431, 1309
   %add.i = add nuw nsw i64 %mul.i, 13849
   %and.i = and i64 %add.i, 65535
-  %0 = trunc i64 %and.i to i32
-  %conv2 = add nsw i32 %0, -50000
+  %conv.i = trunc i64 %and.i to i32
+  %sub1 = add nsw i32 %conv.i, -50000
   %arrayidx = getelementptr inbounds [5001 x i32], ptr @sortlist, i64 0, i64 %indvars.iv
-  store i32 %conv2, ptr %arrayidx, align 4, !tbaa !9
-  %cmp5 = icmp sgt i32 %conv2, %conv22630
+  store i32 %sub1, ptr %arrayidx, align 4, !tbaa !9
+  %cmp5 = icmp sgt i32 %sub1, %sub12630
   br i1 %cmp5, label %for.inc.sink.split, label %if.else
 
 if.else:                                          ; preds = %for.body
-  %cmp11 = icmp slt i32 %conv2, %conv22829
+  %cmp11 = icmp slt i32 %sub1, %sub12829
   br i1 %cmp11, label %for.inc.sink.split, label %for.inc
 
 for.inc.sink.split:                               ; preds = %if.else, %for.body
   %biggest.sink = phi ptr [ @biggest, %for.body ], [ @littlest, %if.else ]
-  %conv227.ph = phi i32 [ %conv22829, %for.body ], [ %conv2, %if.else ]
-  %conv225.ph = phi i32 [ %conv2, %for.body ], [ %conv22630, %if.else ]
-  store i32 %conv2, ptr %biggest.sink, align 4, !tbaa !9
+  %sub127.ph = phi i32 [ %sub12829, %for.body ], [ %sub1, %if.else ]
+  %sub125.ph = phi i32 [ %sub1, %for.body ], [ %sub12630, %if.else ]
+  store i32 %sub1, ptr %biggest.sink, align 4, !tbaa !9
   br label %for.inc
 
 for.inc:                                          ; preds = %for.inc.sink.split, %if.else
-  %conv227 = phi i32 [ %conv22829, %if.else ], [ %conv227.ph, %for.inc.sink.split ]
-  %conv225 = phi i32 [ %conv22630, %if.else ], [ %conv225.ph, %for.inc.sink.split ]
+  %sub127 = phi i32 [ %sub12829, %if.else ], [ %sub127.ph, %for.inc.sink.split ]
+  %sub125 = phi i32 [ %sub12630, %if.else ], [ %sub125.ph, %for.inc.sink.split ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, 5001
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !11
@@ -193,32 +193,32 @@ entry:
 for.body.i:                                       ; preds = %for.inc.i, %entry
   %indvars.iv.i = phi i64 [ 1, %entry ], [ %indvars.iv.next.i, %for.inc.i ]
   %and.i2431.i = phi i64 [ 74755, %entry ], [ %and.i.i, %for.inc.i ]
-  %conv22630.i = phi i32 [ 0, %entry ], [ %conv225.i, %for.inc.i ]
-  %conv22829.i = phi i32 [ 0, %entry ], [ %conv227.i, %for.inc.i ]
+  %sub12630.i = phi i32 [ 0, %entry ], [ %sub125.i, %for.inc.i ]
+  %sub12829.i = phi i32 [ 0, %entry ], [ %sub127.i, %for.inc.i ]
   %mul.i.i = mul nuw nsw i64 %and.i2431.i, 1309
   %add.i.i = add nuw nsw i64 %mul.i.i, 13849
   %and.i.i = and i64 %add.i.i, 65535
-  %0 = trunc i64 %and.i.i to i32
-  %conv2.i = add nsw i32 %0, -50000
+  %conv.i.i = trunc i64 %and.i.i to i32
+  %sub1.i = add nsw i32 %conv.i.i, -50000
   %arrayidx.i = getelementptr inbounds [5001 x i32], ptr @sortlist, i64 0, i64 %indvars.iv.i
-  store i32 %conv2.i, ptr %arrayidx.i, align 4, !tbaa !9
-  %cmp5.i = icmp sgt i32 %conv2.i, %conv22630.i
+  store i32 %sub1.i, ptr %arrayidx.i, align 4, !tbaa !9
+  %cmp5.i = icmp sgt i32 %sub1.i, %sub12630.i
   br i1 %cmp5.i, label %for.inc.sink.split.i, label %if.else.i
 
 if.else.i:                                        ; preds = %for.body.i
-  %cmp11.i = icmp slt i32 %conv2.i, %conv22829.i
+  %cmp11.i = icmp slt i32 %sub1.i, %sub12829.i
   br i1 %cmp11.i, label %for.inc.sink.split.i, label %for.inc.i
 
 for.inc.sink.split.i:                             ; preds = %if.else.i, %for.body.i
   %biggest.sink.i = phi ptr [ @biggest, %for.body.i ], [ @littlest, %if.else.i ]
-  %conv227.ph.i = phi i32 [ %conv22829.i, %for.body.i ], [ %conv2.i, %if.else.i ]
-  %conv225.ph.i = phi i32 [ %conv2.i, %for.body.i ], [ %conv22630.i, %if.else.i ]
-  store i32 %conv2.i, ptr %biggest.sink.i, align 4, !tbaa !9
+  %sub127.ph.i = phi i32 [ %sub12829.i, %for.body.i ], [ %sub1.i, %if.else.i ]
+  %sub125.ph.i = phi i32 [ %sub1.i, %for.body.i ], [ %sub12630.i, %if.else.i ]
+  store i32 %sub1.i, ptr %biggest.sink.i, align 4, !tbaa !9
   br label %for.inc.i
 
 for.inc.i:                                        ; preds = %for.inc.sink.split.i, %if.else.i
-  %conv227.i = phi i32 [ %conv22829.i, %if.else.i ], [ %conv227.ph.i, %for.inc.sink.split.i ]
-  %conv225.i = phi i32 [ %conv22630.i, %if.else.i ], [ %conv225.ph.i, %for.inc.sink.split.i ]
+  %sub127.i = phi i32 [ %sub12829.i, %if.else.i ], [ %sub127.ph.i, %for.inc.sink.split.i ]
+  %sub125.i = phi i32 [ %sub12630.i, %if.else.i ], [ %sub125.ph.i, %for.inc.sink.split.i ]
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %exitcond.not.i = icmp eq i64 %indvars.iv.next.i, 5001
   br i1 %exitcond.not.i, label %Initarr.exit, label %for.body.i, !llvm.loop !11
@@ -226,15 +226,15 @@ for.inc.i:                                        ; preds = %for.inc.sink.split.
 Initarr.exit:                                     ; preds = %for.inc.i
   store i64 %and.i.i, ptr @seed, align 8, !tbaa !5
   tail call void @Quicksort(ptr noundef nonnull @sortlist, i32 noundef 1, i32 noundef 5000)
-  %1 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 1), align 4, !tbaa !9
-  %2 = load i32, ptr @littlest, align 4, !tbaa !9
-  %cmp.not = icmp eq i32 %1, %2
+  %0 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 1), align 4, !tbaa !9
+  %1 = load i32, ptr @littlest, align 4, !tbaa !9
+  %cmp.not = icmp eq i32 %0, %1
   br i1 %cmp.not, label %lor.lhs.false, label %if.then
 
 lor.lhs.false:                                    ; preds = %Initarr.exit
-  %3 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 5000), align 16, !tbaa !9
-  %4 = load i32, ptr @biggest, align 4, !tbaa !9
-  %cmp1.not = icmp eq i32 %3, %4
+  %2 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 5000), align 16, !tbaa !9
+  %3 = load i32, ptr @biggest, align 4, !tbaa !9
+  %cmp1.not = icmp eq i32 %2, %3
   br i1 %cmp1.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %lor.lhs.false, %Initarr.exit
@@ -245,8 +245,8 @@ if.end:                                           ; preds = %if.then, %lor.lhs.f
   %add = add nsw i32 %run, 1
   %idxprom = sext i32 %add to i64
   %arrayidx = getelementptr inbounds [5001 x i32], ptr @sortlist, i64 0, i64 %idxprom
-  %5 = load i32, ptr %arrayidx, align 4, !tbaa !9
-  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %5)
+  %4 = load i32, ptr %arrayidx, align 4, !tbaa !9
+  %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %4)
   ret void
 }
 
@@ -267,32 +267,32 @@ for.body:                                         ; preds = %entry, %Quick.exit
 for.body.i.i:                                     ; preds = %for.inc.i.i, %for.body
   %indvars.iv.i.i = phi i64 [ 1, %for.body ], [ %indvars.iv.next.i.i, %for.inc.i.i ]
   %and.i2431.i.i = phi i64 [ 74755, %for.body ], [ %and.i.i.i, %for.inc.i.i ]
-  %conv22630.i.i = phi i32 [ 0, %for.body ], [ %conv225.i.i, %for.inc.i.i ]
-  %conv22829.i.i = phi i32 [ 0, %for.body ], [ %conv227.i.i, %for.inc.i.i ]
+  %sub12630.i.i = phi i32 [ 0, %for.body ], [ %sub125.i.i, %for.inc.i.i ]
+  %sub12829.i.i = phi i32 [ 0, %for.body ], [ %sub127.i.i, %for.inc.i.i ]
   %mul.i.i.i = mul nuw nsw i64 %and.i2431.i.i, 1309
   %add.i.i.i = add nuw nsw i64 %mul.i.i.i, 13849
   %and.i.i.i = and i64 %add.i.i.i, 65535
-  %0 = trunc i64 %and.i.i.i to i32
-  %conv2.i.i = add nsw i32 %0, -50000
+  %conv.i.i.i = trunc i64 %and.i.i.i to i32
+  %sub1.i.i = add nsw i32 %conv.i.i.i, -50000
   %arrayidx.i.i = getelementptr inbounds [5001 x i32], ptr @sortlist, i64 0, i64 %indvars.iv.i.i
-  store i32 %conv2.i.i, ptr %arrayidx.i.i, align 4, !tbaa !9
-  %cmp5.i.i = icmp sgt i32 %conv2.i.i, %conv22630.i.i
+  store i32 %sub1.i.i, ptr %arrayidx.i.i, align 4, !tbaa !9
+  %cmp5.i.i = icmp sgt i32 %sub1.i.i, %sub12630.i.i
   br i1 %cmp5.i.i, label %for.inc.sink.split.i.i, label %if.else.i.i
 
 if.else.i.i:                                      ; preds = %for.body.i.i
-  %cmp11.i.i = icmp slt i32 %conv2.i.i, %conv22829.i.i
+  %cmp11.i.i = icmp slt i32 %sub1.i.i, %sub12829.i.i
   br i1 %cmp11.i.i, label %for.inc.sink.split.i.i, label %for.inc.i.i
 
 for.inc.sink.split.i.i:                           ; preds = %if.else.i.i, %for.body.i.i
   %biggest.sink.i.i = phi ptr [ @biggest, %for.body.i.i ], [ @littlest, %if.else.i.i ]
-  %conv227.ph.i.i = phi i32 [ %conv22829.i.i, %for.body.i.i ], [ %conv2.i.i, %if.else.i.i ]
-  %conv225.ph.i.i = phi i32 [ %conv2.i.i, %for.body.i.i ], [ %conv22630.i.i, %if.else.i.i ]
-  store i32 %conv2.i.i, ptr %biggest.sink.i.i, align 4, !tbaa !9
+  %sub127.ph.i.i = phi i32 [ %sub12829.i.i, %for.body.i.i ], [ %sub1.i.i, %if.else.i.i ]
+  %sub125.ph.i.i = phi i32 [ %sub1.i.i, %for.body.i.i ], [ %sub12630.i.i, %if.else.i.i ]
+  store i32 %sub1.i.i, ptr %biggest.sink.i.i, align 4, !tbaa !9
   br label %for.inc.i.i
 
 for.inc.i.i:                                      ; preds = %for.inc.sink.split.i.i, %if.else.i.i
-  %conv227.i.i = phi i32 [ %conv22829.i.i, %if.else.i.i ], [ %conv227.ph.i.i, %for.inc.sink.split.i.i ]
-  %conv225.i.i = phi i32 [ %conv22630.i.i, %if.else.i.i ], [ %conv225.ph.i.i, %for.inc.sink.split.i.i ]
+  %sub127.i.i = phi i32 [ %sub12829.i.i, %if.else.i.i ], [ %sub127.ph.i.i, %for.inc.sink.split.i.i ]
+  %sub125.i.i = phi i32 [ %sub12630.i.i, %if.else.i.i ], [ %sub125.ph.i.i, %for.inc.sink.split.i.i ]
   %indvars.iv.next.i.i = add nuw nsw i64 %indvars.iv.i.i, 1
   %exitcond.not.i.i = icmp eq i64 %indvars.iv.next.i.i, 5001
   br i1 %exitcond.not.i.i, label %Initarr.exit.i, label %for.body.i.i, !llvm.loop !11
@@ -300,15 +300,15 @@ for.inc.i.i:                                      ; preds = %for.inc.sink.split.
 Initarr.exit.i:                                   ; preds = %for.inc.i.i
   store i64 %and.i.i.i, ptr @seed, align 8, !tbaa !5
   tail call void @Quicksort(ptr noundef nonnull @sortlist, i32 noundef 1, i32 noundef 5000)
-  %1 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 1), align 4, !tbaa !9
-  %2 = load i32, ptr @littlest, align 4, !tbaa !9
-  %cmp.not.i = icmp eq i32 %1, %2
+  %0 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 1), align 4, !tbaa !9
+  %1 = load i32, ptr @littlest, align 4, !tbaa !9
+  %cmp.not.i = icmp eq i32 %0, %1
   br i1 %cmp.not.i, label %lor.lhs.false.i, label %if.then.i
 
 lor.lhs.false.i:                                  ; preds = %Initarr.exit.i
-  %3 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 5000), align 16, !tbaa !9
-  %4 = load i32, ptr @biggest, align 4, !tbaa !9
-  %cmp1.not.i = icmp eq i32 %3, %4
+  %2 = load i32, ptr getelementptr inbounds ([5001 x i32], ptr @sortlist, i64 0, i64 5000), align 16, !tbaa !9
+  %3 = load i32, ptr @biggest, align 4, !tbaa !9
+  %cmp1.not.i = icmp eq i32 %2, %3
   br i1 %cmp1.not.i, label %Quick.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %lor.lhs.false.i, %Initarr.exit.i
@@ -318,8 +318,8 @@ if.then.i:                                        ; preds = %lor.lhs.false.i, %I
 Quick.exit:                                       ; preds = %lor.lhs.false.i, %if.then.i
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx.i = getelementptr inbounds [5001 x i32], ptr @sortlist, i64 0, i64 %indvars.iv.next
-  %5 = load i32, ptr %arrayidx.i, align 4, !tbaa !9
-  %call2.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %5)
+  %4 = load i32, ptr %arrayidx.i, align 4, !tbaa !9
+  %call2.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %4)
   %exitcond.not = icmp eq i64 %indvars.iv.next, 100
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !16
 

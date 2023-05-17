@@ -257,7 +257,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #4 {
-entry:
+if.end76:
   %0 = load ptr, ptr @ptr, align 8, !tbaa !5
   tail call void @llvm.prefetch.p0(ptr %0, i32 0, i32 0, i32 1)
   tail call void @llvm.prefetch.p0(ptr %0, i32 0, i32 0, i32 1)
@@ -302,20 +302,20 @@ entry:
   %inc.i.i = add nsw i32 %2, 1
   store i32 %inc.i.i, ptr @getptrcnt, align 4, !tbaa !9
   tail call void @llvm.prefetch.p0(ptr nonnull %incdec.ptr.i, i32 0, i32 0, i32 1)
-  %cmp.i = icmp eq i32 %2, 0
-  br i1 %cmp.i, label %if.end80, label %if.then79
+  %cmp.i.not = icmp eq i32 %2, 0
+  br i1 %cmp.i.not, label %if.end80, label %if.then79
 
-if.then79:                                        ; preds = %entry
+if.then79:                                        ; preds = %if.end76
   tail call void @abort() #6
   unreachable
 
-if.end80:                                         ; preds = %entry
+if.end80:                                         ; preds = %if.end76
   %3 = load i32, ptr @getintcnt, align 4, !tbaa !9
   %inc.i.i105 = add nsw i32 %3, 1
   store i32 %inc.i.i105, ptr @getintcnt, align 4, !tbaa !9
   tail call void @llvm.prefetch.p0(ptr nonnull %arrayidx.i, i32 0, i32 0, i32 1)
-  %cmp.i107 = icmp eq i32 %3, 0
-  br i1 %cmp.i107, label %if.end84, label %if.then83
+  %cmp.i107.not = icmp eq i32 %3, 0
+  br i1 %cmp.i107.not, label %if.end84, label %if.then83
 
 if.then83:                                        ; preds = %if.end80
   tail call void @abort() #6

@@ -52,7 +52,7 @@ $_ZTI17btTypedConstraint = comdat any
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN23btGeneric6DofConstraintC2Ev(ptr noundef nonnull align 8 dereferenceable(1266) %this) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont2:
   tail call void @_ZN17btTypedConstraintC2E21btTypedConstraintType(ptr noundef nonnull align 8 dereferenceable(96) %this, i32 noundef 6)
   store ptr getelementptr inbounds ({ [10 x ptr] }, ptr @_ZTV23btGeneric6DofConstraint, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %arrayctor.end5 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5
@@ -118,7 +118,7 @@ declare i32 @__gxx_personality_v0(...)
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN23btGeneric6DofConstraintC2ER11btRigidBodyS1_RK11btTransformS4_b(ptr noundef nonnull align 8 dereferenceable(1266) %this, ptr noundef nonnull align 8 dereferenceable(564) %rbA, ptr noundef nonnull align 8 dereferenceable(564) %rbB, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %frameInA, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %frameInB, i1 noundef zeroext %useLinearReferenceFrameA) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont2:
   tail call void @_ZN17btTypedConstraintC2E21btTypedConstraintTypeR11btRigidBodyS2_(ptr noundef nonnull align 8 dereferenceable(96) %this, i32 noundef 6, ptr noundef nonnull align 8 dereferenceable(564) %rbA, ptr noundef nonnull align 8 dereferenceable(564) %rbB)
   store ptr getelementptr inbounds ({ [10 x ptr] }, ptr @_ZTV23btGeneric6DofConstraint, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_frameInA = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 1
@@ -336,18 +336,19 @@ define dso_local noundef float @_ZN22btRotationalLimitMotor18solveAngularLimitsE
 entry:
   %m_currentLimit.i = getelementptr inbounds %class.btRotationalLimitMotor, ptr %this, i64 0, i32 12
   %0 = load i32, ptr %m_currentLimit.i, align 4, !tbaa !19
-  %cmp.i = icmp eq i32 %0, 0
+  %cmp.i = icmp ne i32 %0, 0
   %m_enableMotor.i = getelementptr inbounds %class.btRotationalLimitMotor, ptr %this, i64 0, i32 9
   %1 = load i8, ptr %m_enableMotor.i, align 4, !range !35
-  %cmp2.i = icmp eq i8 %1, 0
-  %or.cond.not.i.not = select i1 %cmp.i, i1 %cmp2.i, i1 false
-  br i1 %or.cond.not.i.not, label %return, label %if.end
+  %cmp2.i = icmp ne i8 %1, 0
+  %or.cond.not.i = select i1 %cmp.i, i1 true, i1 %cmp2.i
+  br i1 %or.cond.not.i, label %if.end, label %return
 
 if.end:                                           ; preds = %entry
   %m_targetVelocity = getelementptr inbounds %class.btRotationalLimitMotor, ptr %this, i64 0, i32 2
   %2 = load float, ptr %m_targetVelocity, align 4, !tbaa !36
   %m_maxMotorForce = getelementptr inbounds %class.btRotationalLimitMotor, ptr %this, i64 0, i32 3
-  br i1 %cmp.i, label %if.end4, label %if.then3
+  %cmp2.not = icmp eq i32 %0, 0
+  br i1 %cmp2.not, label %if.end4, label %if.then3
 
 if.then3:                                         ; preds = %if.end
   %m_ERP = getelementptr inbounds %class.btRotationalLimitMotor, ptr %this, i64 0, i32 7
@@ -456,22 +457,22 @@ if.else:                                          ; preds = %if.end13
   br label %if.end26
 
 if.end26:                                         ; preds = %if.else, %if.then17
-  %clippedMotorImpulse.0 = phi float [ %cond, %if.then17 ], [ %cond25, %if.else ]
+  %storemerge = phi float [ %cond25, %if.else ], [ %cond, %if.then17 ]
   %m_accumulatedImpulse = getelementptr inbounds %class.btRotationalLimitMotor, ptr %this, i64 0, i32 13
   %29 = load float, ptr %m_accumulatedImpulse, align 4, !tbaa !22
-  %add27 = fadd float %clippedMotorImpulse.0, %29
+  %add27 = fadd float %storemerge, %29
   %cmp28 = fcmp ogt float %add27, 0x43ABC16D60000000
   %cmp31 = fcmp olt float %add27, 0xC3ABC16D60000000
   %30 = or i1 %cmp28, %cmp31
   %cond37 = select i1 %30, float 0.000000e+00, float %add27
   store float %cond37, ptr %m_accumulatedImpulse, align 4, !tbaa !22
   %sub = fsub float %cond37, %29
-  %m_invInertiaTensorWorld.i = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1
   %31 = load float, ptr %axis, align 4, !tbaa !8
-  %arrayidx5.i.i110 = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 1
   %32 = load float, ptr %arrayidx5.i102, align 4, !tbaa !8
-  %arrayidx10.i.i = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 2
   %33 = load float, ptr %arrayidx10.i, align 4, !tbaa !8
+  %m_invInertiaTensorWorld.i = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1
+  %arrayidx5.i.i110 = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 1
+  %arrayidx10.i.i = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1, i32 0, i64 0, i32 0, i64 2
   %arrayidx.i.i = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1, i32 0, i64 1
   %arrayidx5.i12.i = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1, i32 0, i64 1, i32 0, i64 1
   %arrayidx10.i15.i = getelementptr inbounds %class.btRigidBody, ptr %body0, i64 0, i32 1, i32 0, i64 1, i32 0, i64 2
@@ -1043,8 +1044,10 @@ cleanup:                                          ; preds = %if.else, %if.end23
 define dso_local void @_ZN23btGeneric6DofConstraint18calculateAngleInfoEv(ptr nocapture noundef nonnull align 8 dereferenceable(1266) %this) local_unnamed_addr #9 align 2 {
 entry:
   %m_calculatedTransformA = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8
+  %arrayidx.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 1
   %arrayidx3.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 1, i32 0, i64 1
   %0 = load float, ptr %arrayidx3.i.i, align 4, !tbaa !8, !noalias !50
+  %arrayidx6.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 2
   %arrayidx9.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 2, i32 0, i64 2
   %1 = load float, ptr %arrayidx9.i.i, align 8, !tbaa !8, !noalias !50
   %arrayidx15.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 1, i32 0, i64 2
@@ -1054,10 +1057,8 @@ entry:
   %4 = fneg float %2
   %neg.i.i = fmul float %3, %4
   %5 = tail call float @llvm.fmuladd.f32(float %0, float %1, float %neg.i.i)
-  %arrayidx.i42.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 1
-  %arrayidx6.i44.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 2
-  %6 = load float, ptr %arrayidx6.i44.i, align 8, !tbaa !8, !noalias !50
-  %7 = load float, ptr %arrayidx.i42.i, align 8, !tbaa !8, !noalias !50
+  %6 = load float, ptr %arrayidx6.i.i, align 8, !tbaa !8, !noalias !50
+  %7 = load float, ptr %arrayidx.i.i, align 8, !tbaa !8, !noalias !50
   %8 = fneg float %7
   %neg.i46.i = fmul float %1, %8
   %9 = tail call float @llvm.fmuladd.f32(float %2, float %6, float %neg.i46.i)
@@ -1177,7 +1178,7 @@ _Z16matrixToEulerXYZRK11btMatrix3x3R9btVector3.exit: ; preds = %if.then2.i, %if.
   %m_calculatedAxis = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11
   %arrayidx = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 1
   %ref.tmp11.sroa.4.0.arrayidx.sroa_idx = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 1, i32 0, i64 2
-  %arrayidx.i64 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 1, i32 0, i64 1
+  %arrayidx.i65 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 1, i32 0, i64 1
   %ref.tmp14.sroa.4.0.arrayidx20.sroa_idx = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 0, i32 0, i64 2
   %arrayidx27 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 2
   %ref.tmp21.sroa.4.0.arrayidx27.sroa_idx = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 2, i32 0, i64 2
@@ -1212,20 +1213,20 @@ _Z16matrixToEulerXYZRK11btMatrix3x3R9btVector3.exit: ; preds = %if.then2.i, %if.
   %75 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %69, <2 x float> %57, <2 x float> %74)
   %76 = extractelement <2 x float> %69, i64 0
   %77 = fneg float %76
-  %neg30.i70 = fmul float %49, %77
-  %78 = tail call float @llvm.fmuladd.f32(float %63, float %50, float %neg30.i70)
-  %retval.sroa.3.12.vec.insert.i73 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %78, i64 0
-  store <2 x float> %retval.sroa.3.12.vec.insert.i73, ptr %ref.tmp14.sroa.4.0.arrayidx20.sroa_idx, align 8, !tbaa.struct !56
+  %neg30.i71 = fmul float %49, %77
+  %78 = tail call float @llvm.fmuladd.f32(float %63, float %50, float %neg30.i71)
+  %retval.sroa.3.12.vec.insert.i74 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %78, i64 0
+  store <2 x float> %retval.sroa.3.12.vec.insert.i74, ptr %ref.tmp14.sroa.4.0.arrayidx20.sroa_idx, align 8, !tbaa.struct !56
   %79 = fneg <2 x float> %65
   %80 = fmul <2 x float> %69, %79
   %81 = insertelement <2 x float> poison, float %61, i64 0
   %82 = insertelement <2 x float> %81, float %62, i64 1
   %83 = tail call <2 x float> @llvm.fmuladd.v2f32(<2 x float> %82, <2 x float> %72, <2 x float> %80)
   %84 = fneg float %61
-  %neg30.i82 = fmul float %63, %84
-  %85 = tail call float @llvm.fmuladd.f32(float %60, float %76, float %neg30.i82)
-  %retval.sroa.3.12.vec.insert.i85 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %85, i64 0
-  store <2 x float> %retval.sroa.3.12.vec.insert.i85, ptr %ref.tmp21.sroa.4.0.arrayidx27.sroa_idx, align 8, !tbaa.struct !56
+  %neg30.i83 = fmul float %63, %84
+  %85 = tail call float @llvm.fmuladd.f32(float %60, float %76, float %neg30.i83)
+  %retval.sroa.3.12.vec.insert.i86 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %85, i64 0
+  store <2 x float> %retval.sroa.3.12.vec.insert.i86, ptr %ref.tmp21.sroa.4.0.arrayidx27.sroa_idx, align 8, !tbaa.struct !56
   %86 = fmul <2 x float> %75, %75
   %mul8.i.i.i.i = extractelement <2 x float> %86, i64 1
   %87 = extractelement <2 x float> %75, i64 0
@@ -1240,31 +1241,31 @@ _Z16matrixToEulerXYZRK11btMatrix3x3R9btVector3.exit: ; preds = %if.then2.i, %if.
   %mul7.i.i.i = fmul float %78, %div.i.i
   store float %mul7.i.i.i, ptr %ref.tmp14.sroa.4.0.arrayidx20.sroa_idx, align 8, !tbaa !8
   %93 = fmul <2 x float> %69, %69
-  %mul8.i.i.i.i90 = extractelement <2 x float> %93, i64 0
-  %94 = tail call float @llvm.fmuladd.f32(float %63, float %63, float %mul8.i.i.i.i90)
+  %mul8.i.i.i.i91 = extractelement <2 x float> %93, i64 0
+  %94 = tail call float @llvm.fmuladd.f32(float %63, float %63, float %mul8.i.i.i.i91)
   %95 = extractelement <2 x float> %69, i64 1
   %96 = tail call float @llvm.fmuladd.f32(float %95, float %95, float %94)
-  %sqrt.i.i92 = tail call float @llvm.sqrt.f32(float %96)
-  %div.i.i93 = fdiv float 1.000000e+00, %sqrt.i.i92
-  %mul.i.i.i94 = fmul float %63, %div.i.i93
-  store float %mul.i.i.i94, ptr %arrayidx, align 8, !tbaa !8
-  %97 = insertelement <2 x float> poison, float %div.i.i93, i64 0
+  %sqrt.i.i93 = tail call float @llvm.sqrt.f32(float %96)
+  %div.i.i94 = fdiv float 1.000000e+00, %sqrt.i.i93
+  %mul.i.i.i95 = fmul float %63, %div.i.i94
+  store float %mul.i.i.i95, ptr %arrayidx, align 8, !tbaa !8
+  %97 = insertelement <2 x float> poison, float %div.i.i94, i64 0
   %98 = shufflevector <2 x float> %97, <2 x float> poison, <2 x i32> zeroinitializer
   %99 = fmul <2 x float> %69, %98
-  store <2 x float> %99, ptr %arrayidx.i64, align 4, !tbaa !8
+  store <2 x float> %99, ptr %arrayidx.i65, align 4, !tbaa !8
   %100 = fmul <2 x float> %83, %83
-  %mul8.i.i.i.i98 = extractelement <2 x float> %100, i64 1
+  %mul8.i.i.i.i99 = extractelement <2 x float> %100, i64 1
   %101 = extractelement <2 x float> %83, i64 0
-  %102 = tail call float @llvm.fmuladd.f32(float %101, float %101, float %mul8.i.i.i.i98)
+  %102 = tail call float @llvm.fmuladd.f32(float %101, float %101, float %mul8.i.i.i.i99)
   %103 = tail call float @llvm.fmuladd.f32(float %85, float %85, float %102)
-  %sqrt.i.i100 = tail call float @llvm.sqrt.f32(float %103)
-  %div.i.i101 = fdiv float 1.000000e+00, %sqrt.i.i100
-  %104 = insertelement <2 x float> poison, float %div.i.i101, i64 0
+  %sqrt.i.i101 = tail call float @llvm.sqrt.f32(float %103)
+  %div.i.i102 = fdiv float 1.000000e+00, %sqrt.i.i101
+  %104 = insertelement <2 x float> poison, float %div.i.i102, i64 0
   %105 = shufflevector <2 x float> %104, <2 x float> poison, <2 x i32> zeroinitializer
   %106 = fmul <2 x float> %105, %83
   store <2 x float> %106, ptr %arrayidx27, align 8, !tbaa !8
-  %mul7.i.i.i104 = fmul float %85, %div.i.i101
-  store float %mul7.i.i.i104, ptr %ref.tmp21.sroa.4.0.arrayidx27.sroa_idx, align 8, !tbaa !8
+  %mul7.i.i.i105 = fmul float %85, %div.i.i102
+  store float %mul7.i.i.i105, ptr %ref.tmp21.sroa.4.0.arrayidx27.sroa_idx, align 8, !tbaa !8
   ret void
 }
 
@@ -1540,18 +1541,18 @@ entry:
   %sub14.i = fsub float %4, %5
   %m_calculatedLinearDiff = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 12
   %ref.tmp.sroa.4.0.m_calculatedLinearDiff.sroa_idx = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 12, i32 0, i64 2
+  %arrayidx.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 1
   %arrayidx3.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 1, i32 0, i64 1
+  %arrayidx6.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 2
   %arrayidx21.i.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 2, i32 0, i64 1
-  %arrayidx.i42.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 1
-  %arrayidx6.i44.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 2
   %6 = load float, ptr %m_calculatedTransformA, align 8, !tbaa !8, !noalias !72
   %arrayidx5.i53.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 0, i32 0, i64 0, i32 0, i64 1
   %7 = load <2 x float>, ptr %arrayidx3.i.i, align 4, !tbaa !8, !noalias !72
   %8 = shufflevector <2 x float> %7, <2 x float> poison, <2 x i32> <i32 1, i32 0>
   %9 = load <2 x float>, ptr %arrayidx21.i.i, align 4, !tbaa !8, !noalias !72
   %10 = shufflevector <2 x float> %9, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %11 = load float, ptr %arrayidx6.i44.i, align 8, !tbaa !8, !noalias !72
-  %12 = load float, ptr %arrayidx.i42.i, align 8, !tbaa !8, !noalias !72
+  %11 = load float, ptr %arrayidx6.i.i, align 8, !tbaa !8, !noalias !72
+  %12 = load float, ptr %arrayidx.i.i, align 8, !tbaa !8, !noalias !72
   %13 = insertelement <2 x float> %7, float %12, i64 0
   %14 = fneg <2 x float> %13
   %15 = fmul <2 x float> %10, %14
@@ -1607,9 +1608,9 @@ entry:
   %56 = tail call float @llvm.fmuladd.f32(float %mul27.i, float %sub.i, float %mul8.i20.i)
   %57 = tail call float @llvm.fmuladd.f32(float %mul33.i, float %sub14.i, float %56)
   %58 = shufflevector <2 x float> %55, <2 x float> poison, <2 x i32> <i32 1, i32 0>
-  %retval.sroa.3.12.vec.insert.i33 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %57, i64 0
+  %retval.sroa.3.12.vec.insert.i34 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %57, i64 0
   store <2 x float> %58, ptr %m_calculatedLinearDiff, align 8, !tbaa.struct !31
-  store <2 x float> %retval.sroa.3.12.vec.insert.i33, ptr %ref.tmp.sroa.4.0.m_calculatedLinearDiff.sroa_idx, align 8, !tbaa.struct !56
+  store <2 x float> %retval.sroa.3.12.vec.insert.i34, ptr %ref.tmp.sroa.4.0.m_calculatedLinearDiff.sroa_idx, align 8, !tbaa.struct !56
   %m_linearLimits = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5
   %m_currentLinearDiff = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 10
   %m_upperLimit.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 1
@@ -1633,7 +1634,7 @@ if.end.i:                                         ; preds = %entry
 if.then11.i:                                      ; preds = %if.end.i
   %arrayidx14.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 11, i64 0
   store i32 2, ptr %arrayidx14.i, align 8, !tbaa !42
-  %sub.i36 = fsub float %59, %60
+  %sub.i37 = fsub float %59, %60
   br label %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit
 
 if.else.i:                                        ; preds = %if.end.i
@@ -1651,7 +1652,7 @@ if.end30.i:                                       ; preds = %if.else.i
   br label %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit
 
 _ZN25btTranslationalLimitMotor14testLimitValueEif.exit: ; preds = %if.then.i, %if.then11.i, %if.then20.i, %if.end30.i
-  %.sink.i = phi float [ 0.000000e+00, %if.end30.i ], [ %sub24.i, %if.then20.i ], [ %sub.i36, %if.then11.i ], [ 0.000000e+00, %if.then.i ]
+  %.sink.i = phi float [ 0.000000e+00, %if.end30.i ], [ %sub24.i, %if.then20.i ], [ %sub.i37, %if.then11.i ], [ 0.000000e+00, %if.then.i ]
   store float %.sink.i, ptr %m_currentLimitError34.i, align 8, !tbaa !8
   %arrayidx16.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 10, i32 0, i64 1
   %62 = extractelement <2 x float> %55, i64 0
@@ -1684,7 +1685,7 @@ if.then20.i.1:                                    ; preds = %if.else.i.1
 if.then11.i.1:                                    ; preds = %if.end.i.1
   %arrayidx14.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 11, i64 1
   store i32 2, ptr %arrayidx14.i.1, align 4, !tbaa !42
-  %sub.i36.1 = fsub float %62, %63
+  %sub.i37.1 = fsub float %62, %63
   br label %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit.1
 
 if.then.i.1:                                      ; preds = %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit
@@ -1693,7 +1694,7 @@ if.then.i.1:                                      ; preds = %_ZN25btTranslationa
   br label %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit.1
 
 _ZN25btTranslationalLimitMotor14testLimitValueEif.exit.1: ; preds = %if.then.i.1, %if.then11.i.1, %if.then20.i.1, %if.end30.i.1
-  %.sink.i.1 = phi float [ 0.000000e+00, %if.end30.i.1 ], [ %sub24.i.1, %if.then20.i.1 ], [ %sub.i36.1, %if.then11.i.1 ], [ 0.000000e+00, %if.then.i.1 ]
+  %.sink.i.1 = phi float [ 0.000000e+00, %if.end30.i.1 ], [ %sub24.i.1, %if.then20.i.1 ], [ %sub.i37.1, %if.then11.i.1 ], [ 0.000000e+00, %if.then.i.1 ]
   %arrayidx37.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 9, i32 0, i64 1
   store float %.sink.i.1, ptr %arrayidx37.i.1, align 4, !tbaa !8
   %arrayidx16.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 10, i32 0, i64 2
@@ -1726,7 +1727,7 @@ if.then20.i.2:                                    ; preds = %if.else.i.2
 if.then11.i.2:                                    ; preds = %if.end.i.2
   %arrayidx14.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 11, i64 2
   store i32 2, ptr %arrayidx14.i.2, align 8, !tbaa !42
-  %sub.i36.2 = fsub float %57, %65
+  %sub.i37.2 = fsub float %57, %65
   br label %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit.2
 
 if.then.i.2:                                      ; preds = %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit.1
@@ -1735,7 +1736,7 @@ if.then.i.2:                                      ; preds = %_ZN25btTranslationa
   br label %_ZN25btTranslationalLimitMotor14testLimitValueEif.exit.2
 
 _ZN25btTranslationalLimitMotor14testLimitValueEif.exit.2: ; preds = %if.then.i.2, %if.then11.i.2, %if.then20.i.2, %if.end30.i.2
-  %.sink.i.2 = phi float [ 0.000000e+00, %if.end30.i.2 ], [ %sub24.i.2, %if.then20.i.2 ], [ %sub.i36.2, %if.then11.i.2 ], [ 0.000000e+00, %if.then.i.2 ]
+  %.sink.i.2 = phi float [ 0.000000e+00, %if.end30.i.2 ], [ %sub24.i.2, %if.then20.i.2 ], [ %sub.i37.2, %if.then11.i.2 ], [ 0.000000e+00, %if.then.i.2 ]
   %arrayidx37.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 9, i32 0, i64 2
   store float %.sink.i.2, ptr %arrayidx37.i.2, align 8, !tbaa !8
   ret void
@@ -2568,52 +2569,52 @@ if.else:                                          ; preds = %entry
   %4 = load i8, ptr %arrayidx3.i, align 4, !range !35
   %cmp4.i = icmp eq i8 %4, 0
   %or.cond = select i1 %cmp.i, i1 %cmp4.i, i1 false
-  br i1 %or.cond, label %for.inc, label %if.end.i
+  br i1 %or.cond, label %for.inc, label %if.then6
 
-if.end.i:                                         ; preds = %if.else
+if.then6:                                         ; preds = %if.else
   store i32 1, ptr %info, align 4, !tbaa !97
   store i32 5, ptr %nub4, align 4, !tbaa !99
   br label %for.inc
 
-for.inc:                                          ; preds = %if.else, %if.end.i
-  %5 = phi i32 [ 5, %if.end.i ], [ 6, %if.else ]
-  %6 = phi i32 [ 1, %if.end.i ], [ 0, %if.else ]
+for.inc:                                          ; preds = %if.else, %if.then6
+  %5 = phi i32 [ 5, %if.then6 ], [ 6, %if.else ]
+  %6 = phi i32 [ 1, %if.then6 ], [ 0, %if.else ]
   %arrayidx.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 11, i64 1
   %7 = load i32, ptr %arrayidx.i.1, align 4, !tbaa !42
   %cmp.i.1 = icmp eq i32 %7, 0
   %arrayidx3.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 6, i64 1
   %8 = load i8, ptr %arrayidx3.i.1, align 1, !range !35
   %cmp4.i.1 = icmp eq i8 %8, 0
-  %or.cond48 = select i1 %cmp.i.1, i1 %cmp4.i.1, i1 false
-  br i1 %or.cond48, label %for.inc.1, label %if.end.i.1
+  %or.cond49 = select i1 %cmp.i.1, i1 %cmp4.i.1, i1 false
+  br i1 %or.cond49, label %for.inc.1, label %if.then6.1
 
-if.end.i.1:                                       ; preds = %for.inc
+if.then6.1:                                       ; preds = %for.inc
   %inc.1 = add nuw nsw i32 %6, 1
   store i32 %inc.1, ptr %info, align 4, !tbaa !97
   %dec.1 = add nsw i32 %5, -1
   store i32 %dec.1, ptr %nub4, align 4, !tbaa !99
   br label %for.inc.1
 
-for.inc.1:                                        ; preds = %for.inc, %if.end.i.1
-  %9 = phi i32 [ %dec.1, %if.end.i.1 ], [ %5, %for.inc ]
-  %10 = phi i32 [ %inc.1, %if.end.i.1 ], [ %6, %for.inc ]
+for.inc.1:                                        ; preds = %for.inc, %if.then6.1
+  %9 = phi i32 [ %dec.1, %if.then6.1 ], [ %5, %for.inc ]
+  %10 = phi i32 [ %inc.1, %if.then6.1 ], [ %6, %for.inc ]
   %arrayidx.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 11, i64 2
   %11 = load i32, ptr %arrayidx.i.2, align 8, !tbaa !42
   %cmp.i.2 = icmp eq i32 %11, 0
   %arrayidx3.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 6, i64 2
   %12 = load i8, ptr %arrayidx3.i.2, align 2, !range !35
   %cmp4.i.2 = icmp eq i8 %12, 0
-  %or.cond49 = select i1 %cmp.i.2, i1 %cmp4.i.2, i1 false
-  br i1 %or.cond49, label %for.inc.2, label %if.end.i.2
+  %or.cond50 = select i1 %cmp.i.2, i1 %cmp4.i.2, i1 false
+  br i1 %or.cond50, label %for.inc.2, label %if.then6.2
 
-if.end.i.2:                                       ; preds = %for.inc.1
+if.then6.2:                                       ; preds = %for.inc.1
   %inc.2 = add nuw nsw i32 %10, 1
   store i32 %inc.2, ptr %info, align 4, !tbaa !97
   %dec.2 = add nsw i32 %9, -1
   store i32 %dec.2, ptr %nub4, align 4, !tbaa !99
   br label %for.inc.2
 
-for.inc.2:                                        ; preds = %for.inc.1, %if.end.i.2
+for.inc.2:                                        ; preds = %for.inc.1, %if.then6.2
   %m_calculatedAxisAngleDiff.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 10
   %13 = load float, ptr %m_calculatedAxisAngleDiff.i, align 8, !tbaa !8
   %arrayidx3.i39 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 0
@@ -2717,8 +2718,8 @@ _ZN23btGeneric6DofConstraint21testAngularLimitMotorEi.exit.1: ; preds = %if.else
   br i1 %cmp2.i.i.not.1, label %for.inc20.1, label %if.then14.1
 
 if.then14.1.sink.split:                           ; preds = %if.then9.i.i.1, %if.then4.i.i.1
-  %.sink50 = phi float [ %24, %if.then4.i.i.1 ], [ %25, %if.then9.i.i.1 ]
-  %sub.i.i.1 = fsub float %call7.i.1, %.sink50
+  %.sink51 = phi float [ %24, %if.then4.i.i.1 ], [ %25, %if.then9.i.i.1 ]
+  %sub.i.i.1 = fsub float %call7.i.1, %.sink51
   %m_currentLimitError.i.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 1, i32 10
   store float %sub.i.i.1, ptr %m_currentLimitError.i.i.1, align 4, !tbaa !20
   br label %if.then14.1
@@ -2775,8 +2776,8 @@ _ZN23btGeneric6DofConstraint21testAngularLimitMotorEi.exit.2: ; preds = %if.else
   br i1 %cmp2.i.i.not.2, label %if.end23, label %if.then14.2
 
 if.then14.2.sink.split:                           ; preds = %if.then9.i.i.2, %if.then4.i.i.2
-  %.sink51 = phi float [ %32, %if.then4.i.i.2 ], [ %33, %if.then9.i.i.2 ]
-  %sub.i.i.2 = fsub float %call7.i.2, %.sink51
+  %.sink52 = phi float [ %32, %if.then4.i.i.2 ], [ %33, %if.then9.i.i.2 ]
+  %sub.i.i.2 = fsub float %call7.i.2, %.sink52
   %m_currentLimitError.i.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 2, i32 10
   store float %sub.i.i.2, ptr %m_currentLimitError.i.i.2, align 4, !tbaa !20
   br label %if.then14.2
@@ -3010,13 +3011,13 @@ entry:
   %cmp.i = icmp eq i32 %1, 0
   %arrayidx3.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 6, i64 0
   %2 = load i8, ptr %arrayidx3.i, align 4, !tbaa !14, !range !35
-  br i1 %cmp.i, label %land.lhs.true.i, label %if.end.i
+  br i1 %cmp.i, label %land.lhs.true.i, label %if.then
 
 land.lhs.true.i:                                  ; preds = %entry
   %cmp4.i = icmp eq i8 %2, 0
-  br i1 %cmp4.i, label %for.inc, label %if.end.i
+  br i1 %cmp4.i, label %for.inc, label %if.then
 
-if.end.i:                                         ; preds = %entry, %land.lhs.true.i
+if.then:                                          ; preds = %entry, %land.lhs.true.i
   %3 = phi i8 [ 1, %land.lhs.true.i ], [ %2, %entry ]
   store float 0.000000e+00, ptr %m_bounce.i, align 4, !tbaa !16
   store i32 %1, ptr %m_currentLimit.i, align 4, !tbaa !19
@@ -3052,20 +3053,20 @@ if.end.i:                                         ; preds = %entry, %land.lhs.tr
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %axis) #22
   br label %for.inc
 
-for.inc:                                          ; preds = %land.lhs.true.i, %if.end.i
-  %row.1 = phi i32 [ %call42, %if.end.i ], [ 0, %land.lhs.true.i ]
+for.inc:                                          ; preds = %land.lhs.true.i, %if.then
+  %row.1 = phi i32 [ %call42, %if.then ], [ 0, %land.lhs.true.i ]
   %arrayidx.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 11, i64 1
   %16 = load i32, ptr %arrayidx.i.1, align 4, !tbaa !42
   %cmp.i.1 = icmp eq i32 %16, 0
   %arrayidx3.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 6, i64 1
   %17 = load i8, ptr %arrayidx3.i.1, align 1, !tbaa !14, !range !35
-  br i1 %cmp.i.1, label %land.lhs.true.i.1, label %if.end.i.1
+  br i1 %cmp.i.1, label %land.lhs.true.i.1, label %if.then.1
 
 land.lhs.true.i.1:                                ; preds = %for.inc
   %cmp4.i.1 = icmp eq i8 %17, 0
-  br i1 %cmp4.i.1, label %for.inc.1, label %if.end.i.1
+  br i1 %cmp4.i.1, label %for.inc.1, label %if.then.1
 
-if.end.i.1:                                       ; preds = %for.inc, %land.lhs.true.i.1
+if.then.1:                                        ; preds = %for.inc, %land.lhs.true.i.1
   %18 = phi i8 [ 1, %land.lhs.true.i.1 ], [ %17, %for.inc ]
   store float 0.000000e+00, ptr %m_bounce.i, align 4, !tbaa !16
   store i32 %16, ptr %m_currentLimit.i, align 4, !tbaa !19
@@ -3111,20 +3112,20 @@ if.end.i.1:                                       ; preds = %for.inc, %land.lhs.
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %axis) #22
   br label %for.inc.1
 
-for.inc.1:                                        ; preds = %if.end.i.1, %land.lhs.true.i.1
-  %row.1.1 = phi i32 [ %add.1, %if.end.i.1 ], [ %row.1, %land.lhs.true.i.1 ]
+for.inc.1:                                        ; preds = %if.then.1, %land.lhs.true.i.1
+  %row.1.1 = phi i32 [ %add.1, %if.then.1 ], [ %row.1, %land.lhs.true.i.1 ]
   %arrayidx.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 11, i64 2
   %31 = load i32, ptr %arrayidx.i.2, align 8, !tbaa !42
   %cmp.i.2 = icmp eq i32 %31, 0
   %arrayidx3.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 5, i32 6, i64 2
   %32 = load i8, ptr %arrayidx3.i.2, align 2, !tbaa !14, !range !35
-  br i1 %cmp.i.2, label %land.lhs.true.i.2, label %if.end.i.2
+  br i1 %cmp.i.2, label %land.lhs.true.i.2, label %if.then.2
 
 land.lhs.true.i.2:                                ; preds = %for.inc.1
   %cmp4.i.2 = icmp eq i8 %32, 0
-  br i1 %cmp4.i.2, label %for.inc.2, label %if.end.i.2
+  br i1 %cmp4.i.2, label %for.inc.2, label %if.then.2
 
-if.end.i.2:                                       ; preds = %for.inc.1, %land.lhs.true.i.2
+if.then.2:                                        ; preds = %for.inc.1, %land.lhs.true.i.2
   %33 = phi i8 [ 1, %land.lhs.true.i.2 ], [ %32, %for.inc.1 ]
   store float 0.000000e+00, ptr %m_bounce.i, align 4, !tbaa !16
   store i32 %31, ptr %m_currentLimit.i, align 4, !tbaa !19
@@ -3170,8 +3171,8 @@ if.end.i.2:                                       ; preds = %for.inc.1, %land.lh
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %axis) #22
   br label %for.inc.2
 
-for.inc.2:                                        ; preds = %if.end.i.2, %land.lhs.true.i.2
-  %row.1.2 = phi i32 [ %add.2, %if.end.i.2 ], [ %row.1.1, %land.lhs.true.i.2 ]
+for.inc.2:                                        ; preds = %if.then.2, %land.lhs.true.i.2
+  %row.1.2 = phi i32 [ %add.2, %if.then.2 ], [ %row.1.1, %land.lhs.true.i.2 ]
   call void @llvm.lifetime.end.p0(i64 56, ptr nonnull %limot) #22
   ret i32 %row.1.2
 }
@@ -3191,6 +3192,7 @@ entry:
   br i1 %or.cond.not.i, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %entry
+  %arrayidx.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %axis) #22
   %arrayidx.i15 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 0
   %retval.sroa.0.0.copyload.i = load <2 x float>, ptr %arrayidx.i15, align 8, !tbaa.struct !31
@@ -3198,8 +3200,7 @@ if.then:                                          ; preds = %entry
   %retval.sroa.2.0.copyload.i = load <2 x float>, ptr %retval.sroa.2.0.arrayidx.sroa_idx.i, align 8, !tbaa.struct !56
   store <2 x float> %retval.sroa.0.0.copyload.i, ptr %axis, align 8
   store <2 x float> %retval.sroa.2.0.copyload.i, ptr %0, align 8
-  %arrayidx.i17 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 0
-  %call5 = call noundef i32 @_ZN23btGeneric6DofConstraint21get_limit_motor_info2EP22btRotationalLimitMotorRK11btTransformS4_RK9btVector3S7_S7_S7_PN17btTypedConstraint17btConstraintInfo2EiRS5_i(ptr noundef nonnull align 8 dereferenceable(1266) %this, ptr noundef nonnull %arrayidx.i17, ptr noundef nonnull align 4 dereferenceable(64) %transA, ptr noundef nonnull align 4 dereferenceable(64) %transB, ptr noundef nonnull align 4 dereferenceable(16) %linVelA, ptr noundef nonnull align 4 dereferenceable(16) %linVelB, ptr noundef nonnull align 4 dereferenceable(16) %angVelA, ptr noundef nonnull align 4 dereferenceable(16) %angVelB, ptr noundef %info, i32 noundef %row_offset, ptr noundef nonnull align 4 dereferenceable(16) %axis, i32 noundef 1), !range !103
+  %call5 = call noundef i32 @_ZN23btGeneric6DofConstraint21get_limit_motor_info2EP22btRotationalLimitMotorRK11btTransformS4_RK9btVector3S7_S7_S7_PN17btTypedConstraint17btConstraintInfo2EiRS5_i(ptr noundef nonnull align 8 dereferenceable(1266) %this, ptr noundef nonnull %arrayidx.i, ptr noundef nonnull align 4 dereferenceable(64) %transA, ptr noundef nonnull align 4 dereferenceable(64) %transB, ptr noundef nonnull align 4 dereferenceable(16) %linVelA, ptr noundef nonnull align 4 dereferenceable(16) %linVelB, ptr noundef nonnull align 4 dereferenceable(16) %angVelA, ptr noundef nonnull align 4 dereferenceable(16) %angVelB, ptr noundef %info, i32 noundef %row_offset, ptr noundef nonnull align 4 dereferenceable(16) %axis, i32 noundef 1), !range !103
   %add = add nsw i32 %call5, %row_offset
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %axis) #22
   br label %for.inc
@@ -3216,6 +3217,7 @@ for.inc:                                          ; preds = %entry, %if.then
   br i1 %or.cond.not.i.1, label %if.then.1, label %for.inc.1
 
 if.then.1:                                        ; preds = %for.inc
+  %arrayidx.i.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 1
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %axis) #22
   %arrayidx.i15.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 1
   %retval.sroa.0.0.copyload.i.1 = load <2 x float>, ptr %arrayidx.i15.1, align 8, !tbaa.struct !31
@@ -3223,8 +3225,7 @@ if.then.1:                                        ; preds = %for.inc
   %retval.sroa.2.0.copyload.i.1 = load <2 x float>, ptr %retval.sroa.2.0.arrayidx.sroa_idx.i.1, align 8, !tbaa.struct !56
   store <2 x float> %retval.sroa.0.0.copyload.i.1, ptr %axis, align 8
   store <2 x float> %retval.sroa.2.0.copyload.i.1, ptr %0, align 8
-  %arrayidx.i17.1 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 1
-  %call5.1 = call noundef i32 @_ZN23btGeneric6DofConstraint21get_limit_motor_info2EP22btRotationalLimitMotorRK11btTransformS4_RK9btVector3S7_S7_S7_PN17btTypedConstraint17btConstraintInfo2EiRS5_i(ptr noundef nonnull align 8 dereferenceable(1266) %this, ptr noundef nonnull %arrayidx.i17.1, ptr noundef nonnull align 4 dereferenceable(64) %transA, ptr noundef nonnull align 4 dereferenceable(64) %transB, ptr noundef nonnull align 4 dereferenceable(16) %linVelA, ptr noundef nonnull align 4 dereferenceable(16) %linVelB, ptr noundef nonnull align 4 dereferenceable(16) %angVelA, ptr noundef nonnull align 4 dereferenceable(16) %angVelB, ptr noundef %info, i32 noundef %row.1, ptr noundef nonnull align 4 dereferenceable(16) %axis, i32 noundef 1), !range !103
+  %call5.1 = call noundef i32 @_ZN23btGeneric6DofConstraint21get_limit_motor_info2EP22btRotationalLimitMotorRK11btTransformS4_RK9btVector3S7_S7_S7_PN17btTypedConstraint17btConstraintInfo2EiRS5_i(ptr noundef nonnull align 8 dereferenceable(1266) %this, ptr noundef nonnull %arrayidx.i.1, ptr noundef nonnull align 4 dereferenceable(64) %transA, ptr noundef nonnull align 4 dereferenceable(64) %transB, ptr noundef nonnull align 4 dereferenceable(16) %linVelA, ptr noundef nonnull align 4 dereferenceable(16) %linVelB, ptr noundef nonnull align 4 dereferenceable(16) %angVelA, ptr noundef nonnull align 4 dereferenceable(16) %angVelB, ptr noundef %info, i32 noundef %row.1, ptr noundef nonnull align 4 dereferenceable(16) %axis, i32 noundef 1), !range !103
   %add.1 = add nsw i32 %call5.1, %row.1
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %axis) #22
   br label %for.inc.1
@@ -3241,6 +3242,7 @@ for.inc.1:                                        ; preds = %if.then.1, %for.inc
   br i1 %or.cond.not.i.2, label %if.then.2, label %for.inc.2
 
 if.then.2:                                        ; preds = %for.inc.1
+  %arrayidx.i.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 2
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %axis) #22
   %arrayidx.i15.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 11, i64 2
   %retval.sroa.0.0.copyload.i.2 = load <2 x float>, ptr %arrayidx.i15.2, align 8, !tbaa.struct !31
@@ -3248,8 +3250,7 @@ if.then.2:                                        ; preds = %for.inc.1
   %retval.sroa.2.0.copyload.i.2 = load <2 x float>, ptr %retval.sroa.2.0.arrayidx.sroa_idx.i.2, align 8, !tbaa.struct !56
   store <2 x float> %retval.sroa.0.0.copyload.i.2, ptr %axis, align 8
   store <2 x float> %retval.sroa.2.0.copyload.i.2, ptr %0, align 8
-  %arrayidx.i17.2 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 6, i64 2
-  %call5.2 = call noundef i32 @_ZN23btGeneric6DofConstraint21get_limit_motor_info2EP22btRotationalLimitMotorRK11btTransformS4_RK9btVector3S7_S7_S7_PN17btTypedConstraint17btConstraintInfo2EiRS5_i(ptr noundef nonnull align 8 dereferenceable(1266) %this, ptr noundef nonnull %arrayidx.i17.2, ptr noundef nonnull align 4 dereferenceable(64) %transA, ptr noundef nonnull align 4 dereferenceable(64) %transB, ptr noundef nonnull align 4 dereferenceable(16) %linVelA, ptr noundef nonnull align 4 dereferenceable(16) %linVelB, ptr noundef nonnull align 4 dereferenceable(16) %angVelA, ptr noundef nonnull align 4 dereferenceable(16) %angVelB, ptr noundef %info, i32 noundef %row.1.1, ptr noundef nonnull align 4 dereferenceable(16) %axis, i32 noundef 1), !range !103
+  %call5.2 = call noundef i32 @_ZN23btGeneric6DofConstraint21get_limit_motor_info2EP22btRotationalLimitMotorRK11btTransformS4_RK9btVector3S7_S7_S7_PN17btTypedConstraint17btConstraintInfo2EiRS5_i(ptr noundef nonnull align 8 dereferenceable(1266) %this, ptr noundef nonnull %arrayidx.i.2, ptr noundef nonnull align 4 dereferenceable(64) %transA, ptr noundef nonnull align 4 dereferenceable(64) %transB, ptr noundef nonnull align 4 dereferenceable(16) %linVelA, ptr noundef nonnull align 4 dereferenceable(16) %linVelB, ptr noundef nonnull align 4 dereferenceable(16) %angVelA, ptr noundef nonnull align 4 dereferenceable(16) %angVelB, ptr noundef %info, i32 noundef %row.1.1, ptr noundef nonnull align 4 dereferenceable(16) %axis, i32 noundef 1), !range !103
   %add.2 = add nsw i32 %call5.2, %row.1.1
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %axis) #22
   br label %for.inc.2
@@ -3858,41 +3859,35 @@ entry:
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local void @_ZN23btGeneric6DofConstraint13calcAnchorPosEv(ptr nocapture noundef nonnull align 8 dereferenceable(1266) %this) unnamed_addr #16 align 2 {
 entry:
-  %m_rbB = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 6
-  %0 = load ptr, ptr %m_rbB, align 8, !tbaa !58
-  %m_inverseMass.i15 = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 4
-  %1 = load float, ptr %m_inverseMass.i15, align 8, !tbaa !45
-  %cmp = fcmp oeq float %1, 0.000000e+00
-  br i1 %cmp, label %if.end, label %if.else
-
-if.else:                                          ; preds = %entry
   %m_rbA = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 5
-  %2 = load ptr, ptr %m_rbA, align 8, !tbaa !57
-  %m_inverseMass.i = getelementptr inbounds %class.btRigidBody, ptr %2, i64 0, i32 4
-  %3 = load float, ptr %m_inverseMass.i, align 8, !tbaa !45
+  %0 = load ptr, ptr %m_rbA, align 8, !tbaa !57
+  %m_inverseMass.i = getelementptr inbounds %class.btRigidBody, ptr %0, i64 0, i32 4
+  %1 = load float, ptr %m_inverseMass.i, align 8, !tbaa !45
+  %m_rbB = getelementptr inbounds %class.btTypedConstraint, ptr %this, i64 0, i32 6
+  %2 = load ptr, ptr %m_rbB, align 8, !tbaa !58
+  %m_inverseMass.i15 = getelementptr inbounds %class.btRigidBody, ptr %2, i64 0, i32 4
+  %3 = load float, ptr %m_inverseMass.i15, align 8, !tbaa !45
+  %cmp = fcmp oeq float %3, 0.000000e+00
   %add = fadd float %1, %3
-  %div = fdiv float %3, %add
-  br label %if.end
-
-if.end:                                           ; preds = %entry, %if.else
-  %weight.0 = phi float [ %div, %if.else ], [ 1.000000e+00, %entry ]
+  %div = fdiv float %1, %add
+  %storemerge = select i1 %cmp, float 1.000000e+00, float %div
   %m_origin.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 1
   %m_origin.i16 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 9, i32 1
   %arrayidx7.i = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 8, i32 1, i32 0, i64 2
   %4 = load float, ptr %arrayidx7.i, align 8, !tbaa !8
-  %mul8.i = fmul float %weight.0, %4
-  %sub = fsub float 1.000000e+00, %weight.0
+  %mul8.i = fmul float %storemerge, %4
+  %sub = fsub float 1.000000e+00, %storemerge
   %arrayidx7.i20 = getelementptr inbounds %class.btGeneric6DofConstraint, ptr %this, i64 0, i32 9, i32 1, i32 0, i64 2
   %5 = load float, ptr %arrayidx7.i20, align 8, !tbaa !8
   %mul8.i21 = fmul float %sub, %5
   %6 = load <2 x float>, ptr %m_origin.i, align 8, !tbaa !8
-  %7 = insertelement <2 x float> poison, float %weight.0, i64 0
+  %7 = insertelement <2 x float> poison, float %storemerge, i64 0
   %8 = shufflevector <2 x float> %7, <2 x float> poison, <2 x i32> zeroinitializer
-  %9 = fmul <2 x float> %8, %6
+  %9 = fmul <2 x float> %6, %8
   %10 = load <2 x float>, ptr %m_origin.i16, align 8, !tbaa !8
   %11 = insertelement <2 x float> poison, float %sub, i64 0
   %12 = shufflevector <2 x float> %11, <2 x float> poison, <2 x i32> zeroinitializer
-  %13 = fmul <2 x float> %12, %10
+  %13 = fmul <2 x float> %10, %12
   %14 = fadd <2 x float> %9, %13
   %add14.i = fadd float %mul8.i, %mul8.i21
   %retval.sroa.3.12.vec.insert.i30 = insertelement <2 x float> <float poison, float 0.000000e+00>, float %add14.i, i64 0

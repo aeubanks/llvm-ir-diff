@@ -714,8 +714,8 @@ for.inc18.11:                                     ; preds = %for.cond.cleanup14.
   br label %cleanup19
 
 cleanup19:                                        ; preds = %for.inc18.11, %for.cond.cleanup14.11, %for.cond.cleanup14.10, %for.cond.cleanup14.9, %for.cond.cleanup14.8, %for.cond.cleanup14.7, %for.cond.cleanup14.6, %for.cond.cleanup14.5, %for.cond.cleanup14.4, %for.cond.cleanup14.3, %for.cond.cleanup14.2, %for.cond.cleanup14.1, %for.cond.cleanup14
-  %cmp.lcssa = phi i32 [ 0, %for.cond.cleanup14 ], [ 1, %for.cond.cleanup14.1 ], [ 2, %for.cond.cleanup14.2 ], [ 3, %for.cond.cleanup14.3 ], [ 4, %for.cond.cleanup14.4 ], [ 5, %for.cond.cleanup14.5 ], [ 6, %for.cond.cleanup14.6 ], [ 7, %for.cond.cleanup14.7 ], [ 8, %for.cond.cleanup14.8 ], [ 9, %for.cond.cleanup14.9 ], [ 10, %for.cond.cleanup14.10 ], [ 11, %for.cond.cleanup14.11 ], [ 0, %for.inc18.11 ]
-  ret i32 %cmp.lcssa
+  %spec.select = phi i32 [ 0, %for.cond.cleanup14 ], [ 1, %for.cond.cleanup14.1 ], [ 2, %for.cond.cleanup14.2 ], [ 3, %for.cond.cleanup14.3 ], [ 4, %for.cond.cleanup14.4 ], [ 5, %for.cond.cleanup14.5 ], [ 6, %for.cond.cleanup14.6 ], [ 7, %for.cond.cleanup14.7 ], [ 8, %for.cond.cleanup14.8 ], [ 9, %for.cond.cleanup14.9 ], [ 10, %for.cond.cleanup14.10 ], [ 11, %for.cond.cleanup14.11 ], [ 0, %for.inc18.11 ]
+  ret i32 %spec.select
 }
 
 declare double @rn(ptr noundef) local_unnamed_addr #6

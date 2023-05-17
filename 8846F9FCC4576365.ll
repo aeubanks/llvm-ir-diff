@@ -120,9 +120,9 @@ while.end:                                        ; preds = %while.body.preheade
   %minpc.i = getelementptr inbounds %struct.Exp, ptr %call55, i64 0, i32 3
   store i32 %27, ptr %minpc.i, align 8, !tbaa !12
   %call.i85 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #3
-          to label %_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit:     ; preds = %while.end
+invoke.cont:                                      ; preds = %while.end
   %conv = zext i8 %14 to i32
   %shl = shl nuw i32 %conv, 24
   %conv5 = zext i8 %15 to i32
@@ -150,11 +150,11 @@ _ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit:     ; preds = %while.end
   %cmp.not100 = icmp ult i32 %add50, %add32
   br i1 %cmp.not100, label %for.cond.cleanup, label %for.body.preheader
 
-for.body.preheader:                               ; preds = %_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit
+for.body.preheader:                               ; preds = %invoke.cont
   %inbuff.promoted98 = load ptr, ptr @inbuff, align 8, !tbaa !9
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %for.body, %_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit
+for.cond.cleanup:                                 ; preds = %for.body, %invoke.cont
   ret i32 0
 
 lpad:                                             ; preds = %while.end
@@ -297,9 +297,9 @@ while.end:                                        ; preds = %while.body.preheade
   %minpc.i = getelementptr inbounds %struct.Exp, ptr %call35, i64 0, i32 3
   store i32 %23, ptr %minpc.i, align 8, !tbaa !12
   %call.i80 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #3
-          to label %_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit:     ; preds = %while.end
+invoke.cont:                                      ; preds = %while.end
   %conv = zext i8 %14 to i32
   %shl = shl nuw i32 %conv, 24
   %conv5 = zext i8 %15 to i32
@@ -327,11 +327,11 @@ _ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit:     ; preds = %while.end
   %tobool38.not95 = icmp eq i32 %add32, 0
   br i1 %tobool38.not95, label %for.cond.cleanup, label %for.body.preheader
 
-for.body.preheader:                               ; preds = %_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit
+for.body.preheader:                               ; preds = %invoke.cont
   %inbuff.promoted93 = load ptr, ptr @inbuff, align 8, !tbaa !9
   br label %for.body
 
-for.cond.cleanup:                                 ; preds = %for.body, %_ZN3ExpC2Ejj7Exptype4Type2OpPS_jjP4Case.exit
+for.cond.cleanup:                                 ; preds = %for.body, %invoke.cont
   ret i32 0
 
 lpad:                                             ; preds = %while.end

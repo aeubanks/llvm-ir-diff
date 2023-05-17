@@ -129,7 +129,7 @@ declare void @free(ptr allocptr nocapture noundef) local_unnamed_addr #3
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @very_real_unpack(ptr noundef %table, i32 noundef %tablesz, i32 noundef %tre, i32 noundef %allocsz, i32 noundef %firstbyte, ptr noundef %src, i32 noundef %ssize, ptr noundef %dst, i32 noundef %dsize) local_unnamed_addr #0 {
 entry:
-  %dst1278 = ptrtoint ptr %dst to i64
+  %dst1295 = ptrtoint ptr %dst to i64
   %read_struct = alloca %struct.UNSP, align 8
   call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %read_struct) #7
   %add = add i32 %allocsz, %tre
@@ -140,8 +140,8 @@ entry:
   %notmask = shl nsw i32 -1, %and2
   %sub = xor i32 %notmask, -1
   %and4 = and i32 %firstbyte, 255
-  %notmask1115 = shl nsw i32 -1, %and4
-  %sub6 = xor i32 %notmask1115, -1
+  %notmask598 = shl nsw i32 -1, %and4
+  %sub6 = xor i32 %notmask598, -1
   %conv = zext i32 %tablesz to i64
   %conv7 = zext i32 %add1 to i64
   %mul = shl nuw nsw i64 %conv7, 1
@@ -210,9 +210,9 @@ if.end.i:                                         ; preds = %while.body
 
 get_byte.exit:                                    ; preds = %if.then.i, %if.end.i
   %10 = phi i32 [ 1, %if.then.i ], [ 0, %if.end.i ]
-  %incdec.ptr.i1186 = phi ptr [ %src, %if.then.i ], [ %incdec.ptr.i, %if.end.i ]
+  %incdec.ptr.i1192 = phi ptr [ %src, %if.then.i ], [ %incdec.ptr.i, %if.end.i ]
   %retval.0.i = phi i32 [ 65280, %if.then.i ], [ %9, %if.end.i ]
-  %cmp.not.i.1 = icmp ult ptr %incdec.ptr.i1186, %add.ptr9
+  %cmp.not.i.1 = icmp ult ptr %incdec.ptr.i1192, %add.ptr9
   br i1 %cmp.not.i.1, label %if.end.i.1, label %if.then.i.1
 
 if.then.i.1:                                      ; preds = %get_byte.exit
@@ -220,20 +220,20 @@ if.then.i.1:                                      ; preds = %get_byte.exit
   br label %get_byte.exit.1
 
 if.end.i.1:                                       ; preds = %get_byte.exit
-  %11 = load i8, ptr %incdec.ptr.i1186, align 1, !tbaa !5
+  %11 = load i8, ptr %incdec.ptr.i1192, align 1, !tbaa !5
   %conv7.i.1 = zext i8 %11 to i32
-  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %incdec.ptr.i1186, i64 1
+  %incdec.ptr.i.1 = getelementptr inbounds i8, ptr %incdec.ptr.i1192, i64 1
   store ptr %incdec.ptr.i.1, ptr %read_struct, align 8, !tbaa !28
   br label %get_byte.exit.1
 
 get_byte.exit.1:                                  ; preds = %if.end.i.1, %if.then.i.1
   %12 = phi i32 [ 1, %if.then.i.1 ], [ %10, %if.end.i.1 ]
-  %incdec.ptr.i1186.1 = phi ptr [ %incdec.ptr.i1186, %if.then.i.1 ], [ %incdec.ptr.i.1, %if.end.i.1 ]
+  %incdec.ptr.i1192.1 = phi ptr [ %incdec.ptr.i1192, %if.then.i.1 ], [ %incdec.ptr.i.1, %if.end.i.1 ]
   %retval.0.i.1 = phi i32 [ 255, %if.then.i.1 ], [ %conv7.i.1, %if.end.i.1 ]
   %or.1 = or i32 %retval.0.i.1, %retval.0.i
   store i32 %or.1, ptr %oldval, align 4, !tbaa !33
   %shl15.2 = shl nuw nsw i32 %or.1, 8
-  %cmp.not.i.2 = icmp ult ptr %incdec.ptr.i1186.1, %add.ptr9
+  %cmp.not.i.2 = icmp ult ptr %incdec.ptr.i1192.1, %add.ptr9
   br i1 %cmp.not.i.2, label %if.end.i.2, label %if.then.i.2
 
 if.then.i.2:                                      ; preds = %get_byte.exit.1
@@ -241,20 +241,20 @@ if.then.i.2:                                      ; preds = %get_byte.exit.1
   br label %get_byte.exit.2
 
 if.end.i.2:                                       ; preds = %get_byte.exit.1
-  %13 = load i8, ptr %incdec.ptr.i1186.1, align 1, !tbaa !5
+  %13 = load i8, ptr %incdec.ptr.i1192.1, align 1, !tbaa !5
   %conv7.i.2 = zext i8 %13 to i32
-  %incdec.ptr.i.2 = getelementptr inbounds i8, ptr %incdec.ptr.i1186.1, i64 1
+  %incdec.ptr.i.2 = getelementptr inbounds i8, ptr %incdec.ptr.i1192.1, i64 1
   store ptr %incdec.ptr.i.2, ptr %read_struct, align 8, !tbaa !28
   br label %get_byte.exit.2
 
 get_byte.exit.2:                                  ; preds = %if.end.i.2, %if.then.i.2
   %14 = phi i32 [ 1, %if.then.i.2 ], [ %12, %if.end.i.2 ]
-  %incdec.ptr.i1186.2 = phi ptr [ %incdec.ptr.i1186.1, %if.then.i.2 ], [ %incdec.ptr.i.2, %if.end.i.2 ]
+  %incdec.ptr.i1192.2 = phi ptr [ %incdec.ptr.i1192.1, %if.then.i.2 ], [ %incdec.ptr.i.2, %if.end.i.2 ]
   %retval.0.i.2 = phi i32 [ 255, %if.then.i.2 ], [ %conv7.i.2, %if.end.i.2 ]
   %or.2 = or i32 %retval.0.i.2, %shl15.2
   store i32 %or.2, ptr %oldval, align 4, !tbaa !33
   %shl15.3 = shl nuw i32 %or.2, 8
-  %cmp.not.i.3 = icmp ult ptr %incdec.ptr.i1186.2, %add.ptr9
+  %cmp.not.i.3 = icmp ult ptr %incdec.ptr.i1192.2, %add.ptr9
   br i1 %cmp.not.i.3, label %if.end.i.3, label %if.then.i.3
 
 if.then.i.3:                                      ; preds = %get_byte.exit.2
@@ -262,31 +262,31 @@ if.then.i.3:                                      ; preds = %get_byte.exit.2
   br label %get_byte.exit.3
 
 if.end.i.3:                                       ; preds = %get_byte.exit.2
-  %15 = load i8, ptr %incdec.ptr.i1186.2, align 1, !tbaa !5
+  %15 = load i8, ptr %incdec.ptr.i1192.2, align 1, !tbaa !5
   %conv7.i.3 = zext i8 %15 to i32
-  %incdec.ptr.i.3 = getelementptr inbounds i8, ptr %incdec.ptr.i1186.2, i64 1
+  %incdec.ptr.i.3 = getelementptr inbounds i8, ptr %incdec.ptr.i1192.2, i64 1
   store ptr %incdec.ptr.i.3, ptr %read_struct, align 8, !tbaa !28
   br label %get_byte.exit.3
 
 get_byte.exit.3:                                  ; preds = %if.end.i.3, %if.then.i.3
   %16 = phi i32 [ 1, %if.then.i.3 ], [ %14, %if.end.i.3 ]
-  %incdec.ptr.i1186.3 = phi ptr [ %incdec.ptr.i1186.2, %if.then.i.3 ], [ %incdec.ptr.i.3, %if.end.i.3 ]
+  %incdec.ptr.i1192.3 = phi ptr [ %incdec.ptr.i1192.2, %if.then.i.3 ], [ %incdec.ptr.i.3, %if.end.i.3 ]
   %retval.0.i.3 = phi i32 [ 255, %if.then.i.3 ], [ %conv7.i.3, %if.end.i.3 ]
   %or.3 = or i32 %retval.0.i.3, %shl15.3
   store i32 %or.3, ptr %oldval, align 4, !tbaa !33
-  %cmp.not.i.4 = icmp ult ptr %incdec.ptr.i1186.3, %add.ptr9
+  %cmp.not.i.4 = icmp ult ptr %incdec.ptr.i1192.3, %add.ptr9
   br i1 %cmp.not.i.4, label %get_byte.exit.4, label %cleanup379
 
 get_byte.exit.4:                                  ; preds = %get_byte.exit.3
   %shl15.4 = shl i32 %or.3, 8
-  %17 = load i8, ptr %incdec.ptr.i1186.3, align 1, !tbaa !5
+  %17 = load i8, ptr %incdec.ptr.i1192.3, align 1, !tbaa !5
   %conv7.i.4 = zext i8 %17 to i32
-  %incdec.ptr.i.4 = getelementptr inbounds i8, ptr %incdec.ptr.i1186.3, i64 1
+  %incdec.ptr.i.4 = getelementptr inbounds i8, ptr %incdec.ptr.i1192.3, i64 1
   store ptr %incdec.ptr.i.4, ptr %read_struct, align 8, !tbaa !28
   %or.4 = or i32 %shl15.4, %conv7.i.4
   store i32 %or.4, ptr %oldval, align 4, !tbaa !33
-  %tobool25.not1222 = icmp eq i32 %16, 0
-  br i1 %tobool25.not1222, label %if.end27.lr.ph, label %cleanup379
+  %tobool25.not1228 = icmp eq i32 %16, 0
+  br i1 %tobool25.not1228, label %if.end27.lr.ph, label %cleanup379
 
 if.end27.lr.ph:                                   ; preds = %get_byte.exit.4
   %arrayidx205 = getelementptr inbounds i16, ptr %table, i64 1332
@@ -298,28 +298,28 @@ if.end27.lr.ph:                                   ; preds = %get_byte.exit.4
   %and35 = and i32 %tre, 255
   %sub36 = sub i32 8, %tre
   %and37 = and i32 %sub36, 255
-  %arrayidx.i1060 = getelementptr inbounds i16, ptr %table, i64 803
-  %add.ptr.i.i1062 = getelementptr inbounds i16, ptr %table, i64 804
+  %arrayidx.i1070 = getelementptr inbounds i16, ptr %table, i64 803
+  %add.ptr.i.i1072 = getelementptr inbounds i16, ptr %table, i64 804
   br label %if.end27
 
 if.end27:                                         ; preds = %if.end27.lr.ph, %cleanup376
-  %and231237 = phi i32 [ 0, %if.end27.lr.ph ], [ %and23, %cleanup376 ]
-  %bielle.01236 = phi i32 [ 0, %if.end27.lr.ph ], [ %bielle.3, %cleanup376 ]
-  %damian.01233 = phi i32 [ 0, %if.end27.lr.ph ], [ %damian.3, %cleanup376 ]
-  %old_old_oldbackbytes.01232 = phi i32 [ 1, %if.end27.lr.ph ], [ %old_old_oldbackbytes.4, %cleanup376 ]
-  %old_oldbackbytes.01231 = phi i32 [ 1, %if.end27.lr.ph ], [ %old_oldbackbytes.3, %cleanup376 ]
-  %oldbackbytes.01229 = phi i32 [ 1, %if.end27.lr.ph ], [ %oldbackbytes.2, %cleanup376 ]
-  %backbytes.01226 = phi i32 [ 1, %if.end27.lr.ph ], [ %backbytes.2, %cleanup376 ]
-  %unpacked_so_far.01225 = phi i32 [ 0, %if.end27.lr.ph ], [ %unpacked_so_far.3, %cleanup376 ]
-  %previous_bit.01224 = phi i32 [ 0, %if.end27.lr.ph ], [ %previous_bit.3, %cleanup376 ]
-  %ssize.addr.01223 = phi i32 [ %ssize, %if.end27.lr.ph ], [ %ssize.addr.3, %cleanup376 ]
-  %shl28 = shl i32 %damian.01233, 4
-  %add29 = add i32 %shl28, %and231237
+  %and231249 = phi i32 [ 0, %if.end27.lr.ph ], [ %and23, %cleanup376 ]
+  %bielle.01248 = phi i32 [ 0, %if.end27.lr.ph ], [ %bielle.3, %cleanup376 ]
+  %damian.01245 = phi i32 [ 0, %if.end27.lr.ph ], [ %damian.3, %cleanup376 ]
+  %old_old_oldbackbytes.01242 = phi i32 [ 1, %if.end27.lr.ph ], [ %old_old_oldbackbytes.4, %cleanup376 ]
+  %old_oldbackbytes.01239 = phi i32 [ 1, %if.end27.lr.ph ], [ %old_oldbackbytes.3, %cleanup376 ]
+  %oldbackbytes.01236 = phi i32 [ 1, %if.end27.lr.ph ], [ %oldbackbytes.2, %cleanup376 ]
+  %backbytes.01232 = phi i32 [ 1, %if.end27.lr.ph ], [ %backbytes.2, %cleanup376 ]
+  %unpacked_so_far.01231 = phi i32 [ 0, %if.end27.lr.ph ], [ %unpacked_so_far.3, %cleanup376 ]
+  %previous_bit.01230 = phi i32 [ 0, %if.end27.lr.ph ], [ %previous_bit.3, %cleanup376 ]
+  %ssize.addr.01229 = phi i32 [ %ssize, %if.end27.lr.ph ], [ %ssize.addr.3, %cleanup376 ]
+  %shl28 = shl i32 %damian.01245, 4
+  %add29 = add i32 %shl28, %and231249
   %idxprom30 = zext i32 %add29 to i64
   %arrayidx31 = getelementptr inbounds i16, ptr %table, i64 %idxprom30
   %18 = load i32, ptr %tablesz11, align 8, !tbaa !32
   %switch.i = icmp ult i32 %18, 2
-  br i1 %switch.i, label %if.then.i850, label %land.lhs.true4.i
+  br i1 %switch.i, label %if.then.i860, label %land.lhs.true4.i
 
 land.lhs.true4.i:                                 ; preds = %if.end27
   %conv.i = zext i32 %18 to i64
@@ -329,9 +329,9 @@ land.lhs.true4.i:                                 ; preds = %if.end27
   %add.ptr10.i = getelementptr inbounds i8, ptr %19, i64 %conv.i
   %cmp11.not.i = icmp ule ptr %add.ptr.i, %add.ptr10.i
   %or.cond104.i = select i1 %cmp5.not.i, i1 %cmp11.not.i, i1 false
-  br i1 %or.cond104.i, label %if.end.i600, label %if.else135
+  br i1 %or.cond104.i, label %if.end.i610, label %if.else135
 
-if.end.i600:                                      ; preds = %land.lhs.true4.i
+if.end.i610:                                      ; preds = %land.lhs.true4.i
   %20 = load i16, ptr %arrayidx31, align 2, !tbaa !21
   %conv18.i = zext i16 %20 to i32
   %21 = load i32, ptr %bitmap, align 8, !tbaa !29
@@ -341,7 +341,7 @@ if.end.i600:                                      ; preds = %land.lhs.true4.i
   %cmp19.i = icmp ult i32 %22, %mul.i
   br i1 %cmp19.i, label %if.then21.i, label %if.end35.i
 
-if.then21.i:                                      ; preds = %if.end.i600
+if.then21.i:                                      ; preds = %if.end.i610
   store i32 %mul.i, ptr %bitmap, align 8, !tbaa !29
   %sub.i = sub nsw i32 2048, %conv18.i
   %shr24.i = ashr i32 %sub.i, 5
@@ -377,7 +377,7 @@ get_byte.exit.i:                                  ; preds = %if.end.i.i, %if.the
   store i32 %shl33.i, ptr %bitmap, align 8, !tbaa !29
   br label %if.then34
 
-if.end35.i:                                       ; preds = %if.end.i600
+if.end35.i:                                       ; preds = %if.end.i610
   %sub37.i = sub i32 %21, %mul.i
   store i32 %sub37.i, ptr %bitmap, align 8, !tbaa !29
   %sub39.i = sub i32 %22, %mul.i
@@ -386,7 +386,7 @@ if.end35.i:                                       ; preds = %if.end.i600
   %sub42.i = sub i16 %20, %shr41.i
   store i16 %sub42.i, ptr %arrayidx31, align 2, !tbaa !21
   %cmp45.i = icmp ult i32 %sub37.i, 16777216
-  br i1 %cmp45.i, label %if.then47.i, label %land.lhs.true4.i616
+  br i1 %cmp45.i, label %if.then47.i, label %land.lhs.true4.i626
 
 if.then47.i:                                      ; preds = %if.end35.i
   %shl49.i = shl i32 %sub39.i, 8
@@ -412,41 +412,41 @@ get_byte.exit103.i:                               ; preds = %if.end.i101.i, %if.
   store i32 %or51.i, ptr %oldval, align 4, !tbaa !33
   %shl54.i = shl nuw i32 %sub37.i, 8
   store i32 %shl54.i, ptr %bitmap, align 8, !tbaa !29
-  br label %land.lhs.true4.i616
+  br label %land.lhs.true4.i626
 
 if.then34:                                        ; preds = %get_byte.exit.i, %if.then21.i
-  %oldval.promoted1216 = phi i32 [ %or.i, %get_byte.exit.i ], [ %22, %if.then21.i ]
-  %bitmap.promoted1215 = phi i32 [ %shl33.i, %get_byte.exit.i ], [ %mul.i, %if.then21.i ]
-  %shr = lshr i32 %bielle.01236, %and37
-  %and38 = and i32 %unpacked_so_far.01225, %sub
+  %oldval.promoted1222 = phi i32 [ %or.i, %get_byte.exit.i ], [ %22, %if.then21.i ]
+  %bitmap.promoted1221 = phi i32 [ %shl33.i, %get_byte.exit.i ], [ %mul.i, %if.then21.i ]
+  %shr = lshr i32 %bielle.01248, %and37
+  %and38 = and i32 %unpacked_so_far.01231, %sub
   %shl40 = shl i32 %and38, %and35
   %add41 = add i32 %shr, %shl40
   %shl43 = mul i32 %add41, 768
-  %cmp44 = icmp sgt i32 %damian.01233, 3
+  %cmp44 = icmp sgt i32 %damian.01245, 3
   br i1 %cmp44, label %if.then46, label %if.end54
 
 if.then46:                                        ; preds = %if.then34
-  %cmp47 = icmp ugt i32 %damian.01233, 9
+  %cmp47 = icmp ugt i32 %damian.01245, 9
   br i1 %cmp47, label %if.then49, label %if.else
 
 if.then49:                                        ; preds = %if.then46
-  %sub50 = add nsw i32 %damian.01233, -6
+  %sub50 = add nsw i32 %damian.01245, -6
   br label %if.end54
 
 if.else:                                          ; preds = %if.then46
-  %sub51 = add nsw i32 %damian.01233, -3
+  %sub51 = add nsw i32 %damian.01245, -3
   br label %if.end54
 
 if.end54:                                         ; preds = %if.then34, %if.then49, %if.else
   %damian.1 = phi i32 [ %sub50, %if.then49 ], [ %sub51, %if.else ], [ 0, %if.then34 ]
-  %tobool55.not = icmp eq i32 %previous_bit.01224, 0
+  %tobool55.not = icmp eq i32 %previous_bit.01230, 0
   br i1 %tobool55.not, label %entry.split.i, label %if.then56
 
 if.then56:                                        ; preds = %if.end54
   br i1 %cmp166.not, label %cleanup379, label %land.lhs.true61
 
 land.lhs.true61:                                  ; preds = %if.then56
-  %sub62 = sub i32 %unpacked_so_far.01225, %backbytes.01226
+  %sub62 = sub i32 %unpacked_so_far.01231, %backbytes.01232
   %idxprom63 = zext i32 %sub62 to i64
   %arrayidx64 = getelementptr inbounds i8, ptr %dst, i64 %idxprom63
   %add.ptr71 = getelementptr inbounds i8, ptr %arrayidx64, i64 1
@@ -456,7 +456,7 @@ land.lhs.true61:                                  ; preds = %if.then56
   br i1 %or.cond, label %if.end100.thread, label %cleanup379
 
 if.end100.thread:                                 ; preds = %land.lhs.true61
-  %and85 = and i32 %ssize.addr.01223, -256
+  %and85 = and i32 %ssize.addr.01229, -256
   %30 = load i8, ptr %arrayidx64, align 1, !tbaa !5
   %conv89 = zext i8 %30 to i32
   %or90 = or i32 %and85, %conv89
@@ -470,29 +470,29 @@ entry.split.i:                                    ; preds = %if.end54
   %add96 = add i32 %shl43, 1846
   %idxprom97 = zext i32 %add96 to i64
   %arrayidx98 = getelementptr inbounds i16, ptr %table, i64 %idxprom97
-  %read_struct.promoted1217 = load ptr, ptr %read_struct, align 8, !tbaa !28
+  %read_struct.promoted1223 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %31 = load ptr, ptr %src_end, align 8
   br label %while.body.i
 
 while.body.i:                                     ; preds = %getbit_from_table.exit.i, %entry.split.i
-  %incdec.ptr.i.i.i1221 = phi ptr [ %read_struct.promoted1217, %entry.split.i ], [ %incdec.ptr.i.i.i1218, %getbit_from_table.exit.i ]
-  %32 = phi i32 [ %oldval.promoted1216, %entry.split.i ], [ %38, %getbit_from_table.exit.i ]
-  %33 = phi i32 [ %bitmap.promoted1215, %entry.split.i ], [ %39, %getbit_from_table.exit.i ]
-  %count.04.i = phi i32 [ 1, %entry.split.i ], [ %or.i606, %getbit_from_table.exit.i ]
-  %mul.i602 = shl nuw nsw i32 %count.04.i, 1
+  %incdec.ptr.i.i.i1227 = phi ptr [ %read_struct.promoted1223, %entry.split.i ], [ %incdec.ptr.i.i.i1224, %getbit_from_table.exit.i ]
+  %32 = phi i32 [ %oldval.promoted1222, %entry.split.i ], [ %38, %getbit_from_table.exit.i ]
+  %33 = phi i32 [ %bitmap.promoted1221, %entry.split.i ], [ %39, %getbit_from_table.exit.i ]
+  %count.04.i = phi i32 [ 1, %entry.split.i ], [ %or.i616, %getbit_from_table.exit.i ]
+  %mul.i612 = shl nuw nsw i32 %count.04.i, 1
   %idxprom.i = zext i32 %count.04.i to i64
   %arrayidx.i = getelementptr inbounds i16, ptr %arrayidx98, i64 %idxprom.i
   %cmp5.not.i.i = icmp ule ptr %19, %arrayidx.i
   %add.ptr.i.i = getelementptr inbounds i8, ptr %arrayidx.i, i64 2
   %cmp11.not.i.i = icmp ule ptr %add.ptr.i.i, %add.ptr10.i
   %or.cond104.i.i = select i1 %cmp5.not.i.i, i1 %cmp11.not.i.i, i1 false
-  br i1 %or.cond104.i.i, label %if.end.i.i604, label %if.then.i.i603
+  br i1 %or.cond104.i.i, label %if.end.i.i614, label %if.then.i.i613
 
-if.then.i.i603:                                   ; preds = %while.body.i
+if.then.i.i613:                                   ; preds = %while.body.i
   store i32 1, ptr %error, align 8, !tbaa !26
   br label %getbit_from_table.exit.i
 
-if.end.i.i604:                                    ; preds = %while.body.i
+if.end.i.i614:                                    ; preds = %while.body.i
   %34 = load i16, ptr %arrayidx.i, align 2, !tbaa !21
   %conv18.i.i = zext i16 %34 to i32
   %shr.i.i = lshr i32 %33, 11
@@ -500,7 +500,7 @@ if.end.i.i604:                                    ; preds = %while.body.i
   %cmp19.i.i = icmp ult i32 %32, %mul.i.i
   br i1 %cmp19.i.i, label %if.then21.i.i, label %if.end35.i.i
 
-if.then21.i.i:                                    ; preds = %if.end.i.i604
+if.then21.i.i:                                    ; preds = %if.end.i.i614
   store i32 %mul.i.i, ptr %bitmap, align 8, !tbaa !29
   %sub.i.i = sub nsw i32 2048, %conv18.i.i
   %shr24.i.i = ashr i32 %sub.i.i, 5
@@ -512,7 +512,7 @@ if.then21.i.i:                                    ; preds = %if.end.i.i604
 
 if.then29.i.i:                                    ; preds = %if.then21.i.i
   %shl.i.i = shl i32 %32, 8
-  %cmp.not.i.i.i = icmp ult ptr %incdec.ptr.i.i.i1221, %31
+  %cmp.not.i.i.i = icmp ult ptr %incdec.ptr.i.i.i1227, %31
   br i1 %cmp.not.i.i.i, label %if.end.i.i.i, label %if.then.i.i.i
 
 if.then.i.i.i:                                    ; preds = %if.then29.i.i
@@ -520,14 +520,14 @@ if.then.i.i.i:                                    ; preds = %if.then29.i.i
   br label %get_byte.exit.i.i
 
 if.end.i.i.i:                                     ; preds = %if.then29.i.i
-  %36 = load i8, ptr %incdec.ptr.i.i.i1221, align 1, !tbaa !5
+  %36 = load i8, ptr %incdec.ptr.i.i.i1227, align 1, !tbaa !5
   %conv7.i.i.i = zext i8 %36 to i32
-  %incdec.ptr.i.i.i = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i1221, i64 1
+  %incdec.ptr.i.i.i = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i1227, i64 1
   store ptr %incdec.ptr.i.i.i, ptr %read_struct, align 8, !tbaa !28
   br label %get_byte.exit.i.i
 
 get_byte.exit.i.i:                                ; preds = %if.end.i.i.i, %if.then.i.i.i
-  %incdec.ptr.i.i.i1220 = phi ptr [ %incdec.ptr.i.i.i1221, %if.then.i.i.i ], [ %incdec.ptr.i.i.i, %if.end.i.i.i ]
+  %incdec.ptr.i.i.i1226 = phi ptr [ %incdec.ptr.i.i.i1227, %if.then.i.i.i ], [ %incdec.ptr.i.i.i, %if.end.i.i.i ]
   %retval.0.i.i.i = phi i32 [ 255, %if.then.i.i.i ], [ %conv7.i.i.i, %if.end.i.i.i ]
   %or.i.i = or i32 %retval.0.i.i.i, %shl.i.i
   store i32 %or.i.i, ptr %oldval, align 4, !tbaa !33
@@ -535,7 +535,7 @@ get_byte.exit.i.i:                                ; preds = %if.end.i.i.i, %if.t
   store i32 %shl33.i.i, ptr %bitmap, align 8, !tbaa !29
   br label %getbit_from_table.exit.i
 
-if.end35.i.i:                                     ; preds = %if.end.i.i604
+if.end35.i.i:                                     ; preds = %if.end.i.i614
   %sub37.i.i = sub i32 %33, %mul.i.i
   store i32 %sub37.i.i, ptr %bitmap, align 8, !tbaa !29
   %sub39.i.i = sub i32 %32, %mul.i.i
@@ -548,7 +548,7 @@ if.end35.i.i:                                     ; preds = %if.end.i.i604
 
 if.then47.i.i:                                    ; preds = %if.end35.i.i
   %shl49.i.i = shl i32 %sub39.i.i, 8
-  %cmp.not.i96.i.i = icmp ult ptr %incdec.ptr.i.i.i1221, %31
+  %cmp.not.i96.i.i = icmp ult ptr %incdec.ptr.i.i.i1227, %31
   br i1 %cmp.not.i96.i.i, label %if.end.i101.i.i, label %if.then.i98.i.i
 
 if.then.i98.i.i:                                  ; preds = %if.then47.i.i
@@ -556,14 +556,14 @@ if.then.i98.i.i:                                  ; preds = %if.then47.i.i
   br label %get_byte.exit103.i.i
 
 if.end.i101.i.i:                                  ; preds = %if.then47.i.i
-  %37 = load i8, ptr %incdec.ptr.i.i.i1221, align 1, !tbaa !5
+  %37 = load i8, ptr %incdec.ptr.i.i.i1227, align 1, !tbaa !5
   %conv7.i99.i.i = zext i8 %37 to i32
-  %incdec.ptr.i100.i.i = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i1221, i64 1
+  %incdec.ptr.i100.i.i = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i1227, i64 1
   store ptr %incdec.ptr.i100.i.i, ptr %read_struct, align 8, !tbaa !28
   br label %get_byte.exit103.i.i
 
 get_byte.exit103.i.i:                             ; preds = %if.end.i101.i.i, %if.then.i98.i.i
-  %incdec.ptr.i.i.i1219 = phi ptr [ %incdec.ptr.i.i.i1221, %if.then.i98.i.i ], [ %incdec.ptr.i100.i.i, %if.end.i101.i.i ]
+  %incdec.ptr.i.i.i1225 = phi ptr [ %incdec.ptr.i.i.i1227, %if.then.i98.i.i ], [ %incdec.ptr.i100.i.i, %if.end.i101.i.i ]
   %retval.0.i102.i.i = phi i32 [ 255, %if.then.i98.i.i ], [ %conv7.i99.i.i, %if.end.i101.i.i ]
   %or51.i.i = or i32 %retval.0.i102.i.i, %shl49.i.i
   store i32 %or51.i.i, ptr %oldval, align 4, !tbaa !33
@@ -571,728 +571,728 @@ get_byte.exit103.i.i:                             ; preds = %if.end.i101.i.i, %i
   store i32 %shl54.i.i, ptr %bitmap, align 8, !tbaa !29
   br label %getbit_from_table.exit.i
 
-getbit_from_table.exit.i:                         ; preds = %get_byte.exit103.i.i, %if.end35.i.i, %get_byte.exit.i.i, %if.then21.i.i, %if.then.i.i603
-  %incdec.ptr.i.i.i1218 = phi ptr [ %incdec.ptr.i.i.i1221, %if.then.i.i603 ], [ %incdec.ptr.i.i.i1220, %get_byte.exit.i.i ], [ %incdec.ptr.i.i.i1221, %if.then21.i.i ], [ %incdec.ptr.i.i.i1219, %get_byte.exit103.i.i ], [ %incdec.ptr.i.i.i1221, %if.end35.i.i ]
-  %38 = phi i32 [ %32, %if.then.i.i603 ], [ %or.i.i, %get_byte.exit.i.i ], [ %32, %if.then21.i.i ], [ %or51.i.i, %get_byte.exit103.i.i ], [ %sub39.i.i, %if.end35.i.i ]
-  %39 = phi i32 [ %33, %if.then.i.i603 ], [ %shl33.i.i, %get_byte.exit.i.i ], [ %mul.i.i, %if.then21.i.i ], [ %shl54.i.i, %get_byte.exit103.i.i ], [ %sub37.i.i, %if.end35.i.i ]
-  %retval.0.i.i605 = phi i32 [ 255, %if.then.i.i603 ], [ 0, %get_byte.exit.i.i ], [ 0, %if.then21.i.i ], [ 1, %get_byte.exit103.i.i ], [ 1, %if.end35.i.i ]
-  %or.i606 = or i32 %retval.0.i.i605, %mul.i602
-  %cmp.i = icmp ult i32 %or.i606, 256
+getbit_from_table.exit.i:                         ; preds = %get_byte.exit103.i.i, %if.end35.i.i, %get_byte.exit.i.i, %if.then21.i.i, %if.then.i.i613
+  %incdec.ptr.i.i.i1224 = phi ptr [ %incdec.ptr.i.i.i1227, %if.then.i.i613 ], [ %incdec.ptr.i.i.i1226, %get_byte.exit.i.i ], [ %incdec.ptr.i.i.i1227, %if.then21.i.i ], [ %incdec.ptr.i.i.i1225, %get_byte.exit103.i.i ], [ %incdec.ptr.i.i.i1227, %if.end35.i.i ]
+  %38 = phi i32 [ %32, %if.then.i.i613 ], [ %or.i.i, %get_byte.exit.i.i ], [ %32, %if.then21.i.i ], [ %or51.i.i, %get_byte.exit103.i.i ], [ %sub39.i.i, %if.end35.i.i ]
+  %39 = phi i32 [ %33, %if.then.i.i613 ], [ %shl33.i.i, %get_byte.exit.i.i ], [ %mul.i.i, %if.then21.i.i ], [ %shl54.i.i, %get_byte.exit103.i.i ], [ %sub37.i.i, %if.end35.i.i ]
+  %retval.0.i.i615 = phi i32 [ 255, %if.then.i.i613 ], [ 0, %get_byte.exit.i.i ], [ 0, %if.then21.i.i ], [ 1, %get_byte.exit103.i.i ], [ 1, %if.end35.i.i ]
+  %or.i616 = or i32 %retval.0.i.i615, %mul.i612
+  %cmp.i = icmp ult i32 %or.i616, 256
   br i1 %cmp.i, label %while.body.i, label %if.end100, !llvm.loop !35
 
 if.end100:                                        ; preds = %getbit_from_table.exit.i
-  %40 = and i32 %or.i606, 255
+  %40 = and i32 %or.i616, 255
   br i1 %cmp166.not, label %cleanup379, label %land.lhs.true106
 
 land.lhs.true106:                                 ; preds = %if.end100.thread, %if.end100
-  %bielle.11129 = phi i32 [ %call94, %if.end100.thread ], [ %40, %if.end100 ]
-  %ssize.addr.11128 = phi i32 [ %or90, %if.end100.thread ], [ %ssize.addr.01223, %if.end100 ]
-  %idxprom107 = zext i32 %unpacked_so_far.01225 to i64
+  %bielle.11131 = phi i32 [ %call94, %if.end100.thread ], [ %40, %if.end100 ]
+  %ssize.addr.11130 = phi i32 [ %or90, %if.end100.thread ], [ %ssize.addr.01229, %if.end100 ]
+  %idxprom107 = zext i32 %unpacked_so_far.01231 to i64
   %arrayidx108 = getelementptr inbounds i8, ptr %dst, i64 %idxprom107
   %add.ptr114 = getelementptr inbounds i8, ptr %arrayidx108, i64 1
   %cmp117.not = icmp ule ptr %add.ptr114, %add.ptr180
   %cmp123 = icmp ugt ptr %add.ptr114, %dst
-  %or.cond1116 = and i1 %cmp117.not, %cmp123
-  br i1 %or.cond1116, label %if.end126, label %cleanup379
+  %or.cond599 = and i1 %cmp117.not, %cmp123
+  br i1 %or.cond599, label %if.end126, label %cleanup379
 
 if.end126:                                        ; preds = %land.lhs.true106
-  %conv127 = trunc i32 %bielle.11129 to i8
+  %conv127 = trunc i32 %bielle.11131 to i8
   store i8 %conv127, ptr %arrayidx108, align 1, !tbaa !5
-  %inc130 = add i32 %unpacked_so_far.01225, 1
+  %inc130 = add i32 %unpacked_so_far.01231, 1
   %cmp131.not = icmp ult i32 %inc130, %dsize
   br i1 %cmp131.not, label %cleanup376, label %cleanup379
 
 if.else135:                                       ; preds = %land.lhs.true4.i
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %land.lhs.true4.i616
+  br label %land.lhs.true4.i626
 
-land.lhs.true4.i616:                              ; preds = %get_byte.exit103.i, %if.end35.i, %if.else135
-  %idxprom1371131.pn.in = add i32 %damian.01233, 192
-  %idxprom1371131.pn = zext i32 %idxprom1371131.pn.in to i64
-  %arrayidx1381133 = getelementptr inbounds i16, ptr %table, i64 %idxprom1371131.pn
-  %cmp5.not.i611 = icmp ule ptr %19, %arrayidx1381133
-  %add.ptr.i612 = getelementptr inbounds i8, ptr %arrayidx1381133, i64 2
-  %cmp11.not.i614 = icmp ule ptr %add.ptr.i612, %add.ptr10.i
-  %or.cond104.i615 = select i1 %cmp5.not.i611, i1 %cmp11.not.i614, i1 false
-  br i1 %or.cond104.i615, label %if.end.i625, label %if.then141.critedge
+land.lhs.true4.i626:                              ; preds = %if.end35.i, %get_byte.exit103.i, %if.else135
+  %idxprom1371133.pn.in = add i32 %damian.01245, 192
+  %idxprom1371133.pn = zext i32 %idxprom1371133.pn.in to i64
+  %arrayidx1381135 = getelementptr inbounds i16, ptr %table, i64 %idxprom1371133.pn
+  %cmp5.not.i621 = icmp ule ptr %19, %arrayidx1381135
+  %add.ptr.i622 = getelementptr inbounds i8, ptr %arrayidx1381135, i64 2
+  %cmp11.not.i624 = icmp ule ptr %add.ptr.i622, %add.ptr10.i
+  %or.cond104.i625 = select i1 %cmp5.not.i621, i1 %cmp11.not.i624, i1 false
+  br i1 %or.cond104.i625, label %if.end.i635, label %if.then141
 
-if.end.i625:                                      ; preds = %land.lhs.true4.i616
-  %41 = load i16, ptr %arrayidx1381133, align 2, !tbaa !21
-  %conv18.i619 = zext i16 %41 to i32
+if.end.i635:                                      ; preds = %land.lhs.true4.i626
+  %41 = load i16, ptr %arrayidx1381135, align 2, !tbaa !21
+  %conv18.i629 = zext i16 %41 to i32
   %42 = load i32, ptr %bitmap, align 8, !tbaa !29
-  %shr.i621 = lshr i32 %42, 11
-  %mul.i622 = mul i32 %shr.i621, %conv18.i619
+  %shr.i631 = lshr i32 %42, 11
+  %mul.i632 = mul i32 %shr.i631, %conv18.i629
   %43 = load i32, ptr %oldval, align 4, !tbaa !33
-  %cmp19.i624 = icmp ult i32 %43, %mul.i622
-  br i1 %cmp19.i624, label %if.then21.i630, label %if.end35.i649
+  %cmp19.i634 = icmp ult i32 %43, %mul.i632
+  br i1 %cmp19.i634, label %if.then21.i640, label %if.end35.i659
 
-if.then21.i630:                                   ; preds = %if.end.i625
-  store i32 %mul.i622, ptr %bitmap, align 8, !tbaa !29
-  %sub.i626 = sub nsw i32 2048, %conv18.i619
-  %shr24.i627 = ashr i32 %sub.i626, 5
-  %44 = trunc i32 %shr24.i627 to i16
-  %conv25.i628 = add i16 %41, %44
-  store i16 %conv25.i628, ptr %arrayidx1381133, align 2, !tbaa !21
-  %cmp27.i629 = icmp ult i32 %mul.i622, 16777216
-  br i1 %cmp27.i629, label %if.then29.i634, label %if.else238
+if.then21.i640:                                   ; preds = %if.end.i635
+  store i32 %mul.i632, ptr %bitmap, align 8, !tbaa !29
+  %sub.i636 = sub nsw i32 2048, %conv18.i629
+  %shr24.i637 = ashr i32 %sub.i636, 5
+  %44 = trunc i32 %shr24.i637 to i16
+  %conv25.i638 = add i16 %41, %44
+  store i16 %conv25.i638, ptr %arrayidx1381135, align 2, !tbaa !21
+  %cmp27.i639 = icmp ult i32 %mul.i632, 16777216
+  br i1 %cmp27.i639, label %if.then29.i644, label %if.else238
 
-if.then29.i634:                                   ; preds = %if.then21.i630
-  %shl.i631 = shl i32 %43, 8
+if.then29.i644:                                   ; preds = %if.then21.i640
+  %shl.i641 = shl i32 %43, 8
   %45 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %46 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i.i633 = icmp ult ptr %45, %46
-  br i1 %cmp.not.i.i633, label %if.end.i.i639, label %if.then.i.i636
+  %cmp.not.i.i643 = icmp ult ptr %45, %46
+  br i1 %cmp.not.i.i643, label %if.end.i.i649, label %if.then.i.i646
 
-if.then.i.i636:                                   ; preds = %if.then29.i634
+if.then.i.i646:                                   ; preds = %if.then29.i644
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i643
+  br label %get_byte.exit.i653
 
-if.end.i.i639:                                    ; preds = %if.then29.i634
+if.end.i.i649:                                    ; preds = %if.then29.i644
   %47 = load i8, ptr %45, align 1, !tbaa !5
-  %conv7.i.i637 = zext i8 %47 to i32
-  %incdec.ptr.i.i638 = getelementptr inbounds i8, ptr %45, i64 1
-  store ptr %incdec.ptr.i.i638, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i643
+  %conv7.i.i647 = zext i8 %47 to i32
+  %incdec.ptr.i.i648 = getelementptr inbounds i8, ptr %45, i64 1
+  store ptr %incdec.ptr.i.i648, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i653
 
-get_byte.exit.i643:                               ; preds = %if.end.i.i639, %if.then.i.i636
-  %retval.0.i.i640 = phi i32 [ 255, %if.then.i.i636 ], [ %conv7.i.i637, %if.end.i.i639 ]
-  %or.i641 = or i32 %retval.0.i.i640, %shl.i631
-  store i32 %or.i641, ptr %oldval, align 4, !tbaa !33
-  %shl33.i642 = shl nuw i32 %mul.i622, 8
-  store i32 %shl33.i642, ptr %bitmap, align 8, !tbaa !29
+get_byte.exit.i653:                               ; preds = %if.end.i.i649, %if.then.i.i646
+  %retval.0.i.i650 = phi i32 [ 255, %if.then.i.i646 ], [ %conv7.i.i647, %if.end.i.i649 ]
+  %or.i651 = or i32 %retval.0.i.i650, %shl.i641
+  store i32 %or.i651, ptr %oldval, align 4, !tbaa !33
+  %shl33.i652 = shl nuw i32 %mul.i632, 8
+  store i32 %shl33.i652, ptr %bitmap, align 8, !tbaa !29
   br label %if.else238
 
-if.end35.i649:                                    ; preds = %if.end.i625
-  %sub37.i644 = sub i32 %42, %mul.i622
-  store i32 %sub37.i644, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i645 = sub i32 %43, %mul.i622
-  store i32 %sub39.i645, ptr %oldval, align 4, !tbaa !33
-  %shr41.i646 = lshr i16 %41, 5
-  %sub42.i647 = sub i16 %41, %shr41.i646
-  store i16 %sub42.i647, ptr %arrayidx1381133, align 2, !tbaa !21
-  %cmp45.i648 = icmp ult i32 %sub37.i644, 16777216
-  br i1 %cmp45.i648, label %if.then47.i653, label %land.lhs.true4.i674
+if.end35.i659:                                    ; preds = %if.end.i635
+  %sub37.i654 = sub i32 %42, %mul.i632
+  store i32 %sub37.i654, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i655 = sub i32 %43, %mul.i632
+  store i32 %sub39.i655, ptr %oldval, align 4, !tbaa !33
+  %shr41.i656 = lshr i16 %41, 5
+  %sub42.i657 = sub i16 %41, %shr41.i656
+  store i16 %sub42.i657, ptr %arrayidx1381135, align 2, !tbaa !21
+  %cmp45.i658 = icmp ult i32 %sub37.i654, 16777216
+  br i1 %cmp45.i658, label %if.then47.i663, label %land.lhs.true4.i684
 
-if.then47.i653:                                   ; preds = %if.end35.i649
-  %shl49.i650 = shl i32 %sub39.i645, 8
+if.then47.i663:                                   ; preds = %if.end35.i659
+  %shl49.i660 = shl i32 %sub39.i655, 8
   %48 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %49 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i96.i652 = icmp ult ptr %48, %49
-  br i1 %cmp.not.i96.i652, label %if.end.i101.i658, label %if.then.i98.i655
+  %cmp.not.i96.i662 = icmp ult ptr %48, %49
+  br i1 %cmp.not.i96.i662, label %if.end.i101.i668, label %if.then.i98.i665
 
-if.then.i98.i655:                                 ; preds = %if.then47.i653
+if.then.i98.i665:                                 ; preds = %if.then47.i663
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i662
+  br label %get_byte.exit103.i672
 
-if.end.i101.i658:                                 ; preds = %if.then47.i653
+if.end.i101.i668:                                 ; preds = %if.then47.i663
   %50 = load i8, ptr %48, align 1, !tbaa !5
-  %conv7.i99.i656 = zext i8 %50 to i32
-  %incdec.ptr.i100.i657 = getelementptr inbounds i8, ptr %48, i64 1
-  store ptr %incdec.ptr.i100.i657, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i662
+  %conv7.i99.i666 = zext i8 %50 to i32
+  %incdec.ptr.i100.i667 = getelementptr inbounds i8, ptr %48, i64 1
+  store ptr %incdec.ptr.i100.i667, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i672
 
-get_byte.exit103.i662:                            ; preds = %if.end.i101.i658, %if.then.i98.i655
-  %retval.0.i102.i659 = phi i32 [ 255, %if.then.i98.i655 ], [ %conv7.i99.i656, %if.end.i101.i658 ]
-  %or51.i660 = or i32 %retval.0.i102.i659, %shl49.i650
-  store i32 %or51.i660, ptr %oldval, align 4, !tbaa !33
-  %shl54.i661 = shl nuw i32 %sub37.i644, 8
-  store i32 %shl54.i661, ptr %bitmap, align 8, !tbaa !29
-  br label %land.lhs.true4.i674
+get_byte.exit103.i672:                            ; preds = %if.end.i101.i668, %if.then.i98.i665
+  %retval.0.i102.i669 = phi i32 [ 255, %if.then.i98.i665 ], [ %conv7.i99.i666, %if.end.i101.i668 ]
+  %or51.i670 = or i32 %retval.0.i102.i669, %shl49.i660
+  store i32 %or51.i670, ptr %oldval, align 4, !tbaa !33
+  %shl54.i671 = shl nuw i32 %sub37.i654, 8
+  store i32 %shl54.i671, ptr %bitmap, align 8, !tbaa !29
+  br label %land.lhs.true4.i684
 
-if.then141.critedge:                              ; preds = %land.lhs.true4.i616
+if.then141:                                       ; preds = %land.lhs.true4.i626
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %land.lhs.true4.i674
+  br label %land.lhs.true4.i684
 
-land.lhs.true4.i674:                              ; preds = %if.end35.i649, %get_byte.exit103.i662, %if.then141.critedge
-  %idxprom1431139.pn.in = add i32 %damian.01233, 204
-  %idxprom1431139.pn = zext i32 %idxprom1431139.pn.in to i64
-  %arrayidx1441141 = getelementptr inbounds i16, ptr %table, i64 %idxprom1431139.pn
-  %cmp5.not.i669 = icmp ule ptr %19, %arrayidx1441141
-  %add.ptr.i670 = getelementptr inbounds i8, ptr %arrayidx1441141, i64 2
-  %cmp11.not.i672 = icmp ule ptr %add.ptr.i670, %add.ptr10.i
-  %or.cond104.i673 = select i1 %cmp5.not.i669, i1 %cmp11.not.i672, i1 false
-  br i1 %or.cond104.i673, label %if.end.i683, label %if.else213
+land.lhs.true4.i684:                              ; preds = %if.end35.i659, %get_byte.exit103.i672, %if.then141
+  %idxprom1431143.pn.in = add i32 %damian.01245, 204
+  %idxprom1431143.pn = zext i32 %idxprom1431143.pn.in to i64
+  %arrayidx1441145 = getelementptr inbounds i16, ptr %table, i64 %idxprom1431143.pn
+  %cmp5.not.i679 = icmp ule ptr %19, %arrayidx1441145
+  %add.ptr.i680 = getelementptr inbounds i8, ptr %arrayidx1441145, i64 2
+  %cmp11.not.i682 = icmp ule ptr %add.ptr.i680, %add.ptr10.i
+  %or.cond104.i683 = select i1 %cmp5.not.i679, i1 %cmp11.not.i682, i1 false
+  br i1 %or.cond104.i683, label %if.end.i693, label %if.else213
 
-if.end.i683:                                      ; preds = %land.lhs.true4.i674
-  %51 = load i16, ptr %arrayidx1441141, align 2, !tbaa !21
-  %conv18.i677 = zext i16 %51 to i32
+if.end.i693:                                      ; preds = %land.lhs.true4.i684
+  %51 = load i16, ptr %arrayidx1441145, align 2, !tbaa !21
+  %conv18.i687 = zext i16 %51 to i32
   %52 = load i32, ptr %bitmap, align 8, !tbaa !29
-  %shr.i679 = lshr i32 %52, 11
-  %mul.i680 = mul i32 %shr.i679, %conv18.i677
+  %shr.i689 = lshr i32 %52, 11
+  %mul.i690 = mul i32 %shr.i689, %conv18.i687
   %53 = load i32, ptr %oldval, align 4, !tbaa !33
-  %cmp19.i682 = icmp ult i32 %53, %mul.i680
-  br i1 %cmp19.i682, label %if.then21.i688, label %if.end35.i707
+  %cmp19.i692 = icmp ult i32 %53, %mul.i690
+  br i1 %cmp19.i692, label %if.then21.i698, label %if.end35.i717
 
-if.then21.i688:                                   ; preds = %if.end.i683
-  store i32 %mul.i680, ptr %bitmap, align 8, !tbaa !29
-  %sub.i684 = sub nsw i32 2048, %conv18.i677
-  %shr24.i685 = ashr i32 %sub.i684, 5
-  %54 = trunc i32 %shr24.i685 to i16
-  %conv25.i686 = add i16 %51, %54
-  store i16 %conv25.i686, ptr %arrayidx1441141, align 2, !tbaa !21
-  %cmp27.i687 = icmp ult i32 %mul.i680, 16777216
-  br i1 %cmp27.i687, label %if.then29.i692, label %land.lhs.true4.i732
+if.then21.i698:                                   ; preds = %if.end.i693
+  store i32 %mul.i690, ptr %bitmap, align 8, !tbaa !29
+  %sub.i694 = sub nsw i32 2048, %conv18.i687
+  %shr24.i695 = ashr i32 %sub.i694, 5
+  %54 = trunc i32 %shr24.i695 to i16
+  %conv25.i696 = add i16 %51, %54
+  store i16 %conv25.i696, ptr %arrayidx1441145, align 2, !tbaa !21
+  %cmp27.i697 = icmp ult i32 %mul.i690, 16777216
+  br i1 %cmp27.i697, label %if.then29.i702, label %land.lhs.true4.i742
 
-if.then29.i692:                                   ; preds = %if.then21.i688
-  %shl.i689 = shl i32 %53, 8
+if.then29.i702:                                   ; preds = %if.then21.i698
+  %shl.i699 = shl i32 %53, 8
   %55 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %56 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i.i691 = icmp ult ptr %55, %56
-  br i1 %cmp.not.i.i691, label %if.end.i.i697, label %if.then.i.i694
+  %cmp.not.i.i701 = icmp ult ptr %55, %56
+  br i1 %cmp.not.i.i701, label %if.end.i.i707, label %if.then.i.i704
 
-if.then.i.i694:                                   ; preds = %if.then29.i692
+if.then.i.i704:                                   ; preds = %if.then29.i702
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i701
+  br label %get_byte.exit.i711
 
-if.end.i.i697:                                    ; preds = %if.then29.i692
+if.end.i.i707:                                    ; preds = %if.then29.i702
   %57 = load i8, ptr %55, align 1, !tbaa !5
-  %conv7.i.i695 = zext i8 %57 to i32
-  %incdec.ptr.i.i696 = getelementptr inbounds i8, ptr %55, i64 1
-  store ptr %incdec.ptr.i.i696, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i701
+  %conv7.i.i705 = zext i8 %57 to i32
+  %incdec.ptr.i.i706 = getelementptr inbounds i8, ptr %55, i64 1
+  store ptr %incdec.ptr.i.i706, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i711
 
-get_byte.exit.i701:                               ; preds = %if.end.i.i697, %if.then.i.i694
-  %retval.0.i.i698 = phi i32 [ 255, %if.then.i.i694 ], [ %conv7.i.i695, %if.end.i.i697 ]
-  %or.i699 = or i32 %retval.0.i.i698, %shl.i689
-  store i32 %or.i699, ptr %oldval, align 4, !tbaa !33
-  %shl33.i700 = shl nuw i32 %mul.i680, 8
-  store i32 %shl33.i700, ptr %bitmap, align 8, !tbaa !29
-  br label %land.lhs.true4.i732
+get_byte.exit.i711:                               ; preds = %if.end.i.i707, %if.then.i.i704
+  %retval.0.i.i708 = phi i32 [ 255, %if.then.i.i704 ], [ %conv7.i.i705, %if.end.i.i707 ]
+  %or.i709 = or i32 %retval.0.i.i708, %shl.i699
+  store i32 %or.i709, ptr %oldval, align 4, !tbaa !33
+  %shl33.i710 = shl nuw i32 %mul.i690, 8
+  store i32 %shl33.i710, ptr %bitmap, align 8, !tbaa !29
+  br label %land.lhs.true4.i742
 
-if.end35.i707:                                    ; preds = %if.end.i683
-  %sub37.i702 = sub i32 %52, %mul.i680
-  store i32 %sub37.i702, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i703 = sub i32 %53, %mul.i680
-  store i32 %sub39.i703, ptr %oldval, align 4, !tbaa !33
-  %shr41.i704 = lshr i16 %51, 5
-  %sub42.i705 = sub i16 %51, %shr41.i704
-  store i16 %sub42.i705, ptr %arrayidx1441141, align 2, !tbaa !21
-  %cmp45.i706 = icmp ult i32 %sub37.i702, 16777216
-  br i1 %cmp45.i706, label %if.then47.i711, label %land.lhs.true4.i790
+if.end35.i717:                                    ; preds = %if.end.i693
+  %sub37.i712 = sub i32 %52, %mul.i690
+  store i32 %sub37.i712, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i713 = sub i32 %53, %mul.i690
+  store i32 %sub39.i713, ptr %oldval, align 4, !tbaa !33
+  %shr41.i714 = lshr i16 %51, 5
+  %sub42.i715 = sub i16 %51, %shr41.i714
+  store i16 %sub42.i715, ptr %arrayidx1441145, align 2, !tbaa !21
+  %cmp45.i716 = icmp ult i32 %sub37.i712, 16777216
+  br i1 %cmp45.i716, label %if.then47.i721, label %land.lhs.true4.i800
 
-if.then47.i711:                                   ; preds = %if.end35.i707
-  %shl49.i708 = shl i32 %sub39.i703, 8
+if.then47.i721:                                   ; preds = %if.end35.i717
+  %shl49.i718 = shl i32 %sub39.i713, 8
   %58 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %59 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i96.i710 = icmp ult ptr %58, %59
-  br i1 %cmp.not.i96.i710, label %if.end.i101.i716, label %if.then.i98.i713
+  %cmp.not.i96.i720 = icmp ult ptr %58, %59
+  br i1 %cmp.not.i96.i720, label %if.end.i101.i726, label %if.then.i98.i723
 
-if.then.i98.i713:                                 ; preds = %if.then47.i711
+if.then.i98.i723:                                 ; preds = %if.then47.i721
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i720
+  br label %get_byte.exit103.i730
 
-if.end.i101.i716:                                 ; preds = %if.then47.i711
+if.end.i101.i726:                                 ; preds = %if.then47.i721
   %60 = load i8, ptr %58, align 1, !tbaa !5
-  %conv7.i99.i714 = zext i8 %60 to i32
-  %incdec.ptr.i100.i715 = getelementptr inbounds i8, ptr %58, i64 1
-  store ptr %incdec.ptr.i100.i715, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i720
+  %conv7.i99.i724 = zext i8 %60 to i32
+  %incdec.ptr.i100.i725 = getelementptr inbounds i8, ptr %58, i64 1
+  store ptr %incdec.ptr.i100.i725, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i730
 
-get_byte.exit103.i720:                            ; preds = %if.end.i101.i716, %if.then.i98.i713
-  %retval.0.i102.i717 = phi i32 [ 255, %if.then.i98.i713 ], [ %conv7.i99.i714, %if.end.i101.i716 ]
-  %or51.i718 = or i32 %retval.0.i102.i717, %shl49.i708
-  store i32 %or51.i718, ptr %oldval, align 4, !tbaa !33
-  %shl54.i719 = shl nuw i32 %sub37.i702, 8
-  store i32 %shl54.i719, ptr %bitmap, align 8, !tbaa !29
-  br label %land.lhs.true4.i790
+get_byte.exit103.i730:                            ; preds = %if.end.i101.i726, %if.then.i98.i723
+  %retval.0.i102.i727 = phi i32 [ 255, %if.then.i98.i723 ], [ %conv7.i99.i724, %if.end.i101.i726 ]
+  %or51.i728 = or i32 %retval.0.i102.i727, %shl49.i718
+  store i32 %or51.i728, ptr %oldval, align 4, !tbaa !33
+  %shl54.i729 = shl nuw i32 %sub37.i712, 8
+  store i32 %shl54.i729, ptr %bitmap, align 8, !tbaa !29
+  br label %land.lhs.true4.i800
 
-land.lhs.true4.i732:                              ; preds = %if.then21.i688, %get_byte.exit.i701
-  %61 = phi i32 [ %53, %if.then21.i688 ], [ %or.i699, %get_byte.exit.i701 ]
-  %62 = phi i32 [ %mul.i680, %if.then21.i688 ], [ %shl33.i700, %get_byte.exit.i701 ]
+land.lhs.true4.i742:                              ; preds = %if.then21.i698, %get_byte.exit.i711
+  %61 = phi i32 [ %53, %if.then21.i698 ], [ %or.i709, %get_byte.exit.i711 ]
+  %62 = phi i32 [ %mul.i690, %if.then21.i698 ], [ %shl33.i710, %get_byte.exit.i711 ]
   %add150 = add i32 %add29, 240
   %idxprom151 = zext i32 %add150 to i64
   %arrayidx152 = getelementptr inbounds i16, ptr %table, i64 %idxprom151
-  %cmp5.not.i727 = icmp ule ptr %19, %arrayidx152
-  %add.ptr.i728 = getelementptr inbounds i8, ptr %arrayidx152, i64 2
-  %cmp11.not.i730 = icmp ule ptr %add.ptr.i728, %add.ptr10.i
-  %or.cond104.i731 = select i1 %cmp5.not.i727, i1 %cmp11.not.i730, i1 false
-  br i1 %or.cond104.i731, label %if.end.i741, label %if.then.i734
+  %cmp5.not.i737 = icmp ule ptr %19, %arrayidx152
+  %add.ptr.i738 = getelementptr inbounds i8, ptr %arrayidx152, i64 2
+  %cmp11.not.i740 = icmp ule ptr %add.ptr.i738, %add.ptr10.i
+  %or.cond104.i741 = select i1 %cmp5.not.i737, i1 %cmp11.not.i740, i1 false
+  br i1 %or.cond104.i741, label %if.end.i751, label %if.then.i744
 
-if.then.i734:                                     ; preds = %land.lhs.true4.i732
+if.then.i744:                                     ; preds = %land.lhs.true4.i742
   store i32 1, ptr %error, align 8, !tbaa !26
   br label %if.else204
 
-if.end.i741:                                      ; preds = %land.lhs.true4.i732
+if.end.i751:                                      ; preds = %land.lhs.true4.i742
   %63 = load i16, ptr %arrayidx152, align 2, !tbaa !21
-  %conv18.i735 = zext i16 %63 to i32
-  %shr.i737 = lshr i32 %62, 11
-  %mul.i738 = mul i32 %shr.i737, %conv18.i735
-  %cmp19.i740 = icmp ult i32 %61, %mul.i738
-  br i1 %cmp19.i740, label %if.then21.i746, label %if.end35.i765
+  %conv18.i745 = zext i16 %63 to i32
+  %shr.i747 = lshr i32 %62, 11
+  %mul.i748 = mul i32 %shr.i747, %conv18.i745
+  %cmp19.i750 = icmp ult i32 %61, %mul.i748
+  br i1 %cmp19.i750, label %if.then21.i756, label %if.end35.i775
 
-if.then21.i746:                                   ; preds = %if.end.i741
-  store i32 %mul.i738, ptr %bitmap, align 8, !tbaa !29
-  %sub.i742 = sub nsw i32 2048, %conv18.i735
-  %shr24.i743 = ashr i32 %sub.i742, 5
-  %64 = trunc i32 %shr24.i743 to i16
-  %conv25.i744 = add i16 %63, %64
-  store i16 %conv25.i744, ptr %arrayidx152, align 2, !tbaa !21
-  %cmp27.i745 = icmp ult i32 %mul.i738, 16777216
-  br i1 %cmp27.i745, label %if.then29.i750, label %if.then155
+if.then21.i756:                                   ; preds = %if.end.i751
+  store i32 %mul.i748, ptr %bitmap, align 8, !tbaa !29
+  %sub.i752 = sub nsw i32 2048, %conv18.i745
+  %shr24.i753 = ashr i32 %sub.i752, 5
+  %64 = trunc i32 %shr24.i753 to i16
+  %conv25.i754 = add i16 %63, %64
+  store i16 %conv25.i754, ptr %arrayidx152, align 2, !tbaa !21
+  %cmp27.i755 = icmp ult i32 %mul.i748, 16777216
+  br i1 %cmp27.i755, label %if.then29.i760, label %if.then155
 
-if.then29.i750:                                   ; preds = %if.then21.i746
-  %shl.i747 = shl i32 %61, 8
+if.then29.i760:                                   ; preds = %if.then21.i756
+  %shl.i757 = shl i32 %61, 8
   %65 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %66 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i.i749 = icmp ult ptr %65, %66
-  br i1 %cmp.not.i.i749, label %if.end.i.i755, label %if.then.i.i752
+  %cmp.not.i.i759 = icmp ult ptr %65, %66
+  br i1 %cmp.not.i.i759, label %if.end.i.i765, label %if.then.i.i762
 
-if.then.i.i752:                                   ; preds = %if.then29.i750
+if.then.i.i762:                                   ; preds = %if.then29.i760
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i759
+  br label %get_byte.exit.i769
 
-if.end.i.i755:                                    ; preds = %if.then29.i750
+if.end.i.i765:                                    ; preds = %if.then29.i760
   %67 = load i8, ptr %65, align 1, !tbaa !5
-  %conv7.i.i753 = zext i8 %67 to i32
-  %incdec.ptr.i.i754 = getelementptr inbounds i8, ptr %65, i64 1
-  store ptr %incdec.ptr.i.i754, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i759
+  %conv7.i.i763 = zext i8 %67 to i32
+  %incdec.ptr.i.i764 = getelementptr inbounds i8, ptr %65, i64 1
+  store ptr %incdec.ptr.i.i764, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i769
 
-get_byte.exit.i759:                               ; preds = %if.end.i.i755, %if.then.i.i752
-  %retval.0.i.i756 = phi i32 [ 255, %if.then.i.i752 ], [ %conv7.i.i753, %if.end.i.i755 ]
-  %or.i757 = or i32 %retval.0.i.i756, %shl.i747
-  store i32 %or.i757, ptr %oldval, align 4, !tbaa !33
-  %shl33.i758 = shl nuw i32 %mul.i738, 8
-  store i32 %shl33.i758, ptr %bitmap, align 8, !tbaa !29
+get_byte.exit.i769:                               ; preds = %if.end.i.i765, %if.then.i.i762
+  %retval.0.i.i766 = phi i32 [ 255, %if.then.i.i762 ], [ %conv7.i.i763, %if.end.i.i765 ]
+  %or.i767 = or i32 %retval.0.i.i766, %shl.i757
+  store i32 %or.i767, ptr %oldval, align 4, !tbaa !33
+  %shl33.i768 = shl nuw i32 %mul.i748, 8
+  store i32 %shl33.i768, ptr %bitmap, align 8, !tbaa !29
   br label %if.then155
 
-if.end35.i765:                                    ; preds = %if.end.i741
-  %sub37.i760 = sub i32 %62, %mul.i738
-  store i32 %sub37.i760, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i761 = sub i32 %61, %mul.i738
-  store i32 %sub39.i761, ptr %oldval, align 4, !tbaa !33
-  %shr41.i762 = lshr i16 %63, 5
-  %sub42.i763 = sub i16 %63, %shr41.i762
-  store i16 %sub42.i763, ptr %arrayidx152, align 2, !tbaa !21
-  %cmp45.i764 = icmp ult i32 %sub37.i760, 16777216
-  br i1 %cmp45.i764, label %if.then47.i769, label %if.else204
+if.end35.i775:                                    ; preds = %if.end.i751
+  %sub37.i770 = sub i32 %62, %mul.i748
+  store i32 %sub37.i770, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i771 = sub i32 %61, %mul.i748
+  store i32 %sub39.i771, ptr %oldval, align 4, !tbaa !33
+  %shr41.i772 = lshr i16 %63, 5
+  %sub42.i773 = sub i16 %63, %shr41.i772
+  store i16 %sub42.i773, ptr %arrayidx152, align 2, !tbaa !21
+  %cmp45.i774 = icmp ult i32 %sub37.i770, 16777216
+  br i1 %cmp45.i774, label %if.then47.i779, label %if.else204
 
-if.then47.i769:                                   ; preds = %if.end35.i765
-  %shl49.i766 = shl i32 %sub39.i761, 8
+if.then47.i779:                                   ; preds = %if.end35.i775
+  %shl49.i776 = shl i32 %sub39.i771, 8
   %68 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %69 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i96.i768 = icmp ult ptr %68, %69
-  br i1 %cmp.not.i96.i768, label %if.end.i101.i774, label %if.then.i98.i771
+  %cmp.not.i96.i778 = icmp ult ptr %68, %69
+  br i1 %cmp.not.i96.i778, label %if.end.i101.i784, label %if.then.i98.i781
 
-if.then.i98.i771:                                 ; preds = %if.then47.i769
+if.then.i98.i781:                                 ; preds = %if.then47.i779
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i778
+  br label %get_byte.exit103.i788
 
-if.end.i101.i774:                                 ; preds = %if.then47.i769
+if.end.i101.i784:                                 ; preds = %if.then47.i779
   %70 = load i8, ptr %68, align 1, !tbaa !5
-  %conv7.i99.i772 = zext i8 %70 to i32
-  %incdec.ptr.i100.i773 = getelementptr inbounds i8, ptr %68, i64 1
-  store ptr %incdec.ptr.i100.i773, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i778
+  %conv7.i99.i782 = zext i8 %70 to i32
+  %incdec.ptr.i100.i783 = getelementptr inbounds i8, ptr %68, i64 1
+  store ptr %incdec.ptr.i100.i783, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i788
 
-get_byte.exit103.i778:                            ; preds = %if.end.i101.i774, %if.then.i98.i771
-  %retval.0.i102.i775 = phi i32 [ 255, %if.then.i98.i771 ], [ %conv7.i99.i772, %if.end.i101.i774 ]
-  %or51.i776 = or i32 %retval.0.i102.i775, %shl49.i766
-  store i32 %or51.i776, ptr %oldval, align 4, !tbaa !33
-  %shl54.i777 = shl nuw i32 %sub37.i760, 8
-  store i32 %shl54.i777, ptr %bitmap, align 8, !tbaa !29
+get_byte.exit103.i788:                            ; preds = %if.end.i101.i784, %if.then.i98.i781
+  %retval.0.i102.i785 = phi i32 [ 255, %if.then.i98.i781 ], [ %conv7.i99.i782, %if.end.i101.i784 ]
+  %or51.i786 = or i32 %retval.0.i102.i785, %shl49.i776
+  store i32 %or51.i786, ptr %oldval, align 4, !tbaa !33
+  %shl54.i787 = shl nuw i32 %sub37.i770, 8
+  store i32 %shl54.i787, ptr %bitmap, align 8, !tbaa !29
   br label %if.else204
 
-if.then155:                                       ; preds = %get_byte.exit.i759, %if.then21.i746
-  %tobool156.not = icmp eq i32 %unpacked_so_far.01225, 0
+if.then155:                                       ; preds = %get_byte.exit.i769, %if.then21.i756
+  %tobool156.not = icmp eq i32 %unpacked_so_far.01231, 0
   br i1 %tobool156.not, label %cleanup379, label %if.end158
 
 if.end158:                                        ; preds = %if.then155
-  %cmp159 = icmp sgt i32 %damian.01233, 6
+  %cmp159 = icmp sgt i32 %damian.01245, 6
   %add162 = select i1 %cmp159, i32 11, i32 9
   br i1 %cmp166.not, label %cleanup379, label %land.lhs.true168
 
 land.lhs.true168:                                 ; preds = %if.end158
-  %sub169 = sub i32 %unpacked_so_far.01225, %backbytes.01226
+  %sub169 = sub i32 %unpacked_so_far.01231, %backbytes.01232
   %idxprom170 = zext i32 %sub169 to i64
   %arrayidx171 = getelementptr inbounds i8, ptr %dst, i64 %idxprom170
   %add.ptr178 = getelementptr inbounds i8, ptr %arrayidx171, i64 1
   %cmp181.not = icmp ule ptr %add.ptr178, %add.ptr180
   %cmp188 = icmp ugt ptr %add.ptr178, %dst
-  %or.cond1117 = and i1 %cmp181.not, %cmp188
-  br i1 %or.cond1117, label %if.end191, label %cleanup379
+  %or.cond600 = and i1 %cmp181.not, %cmp188
+  br i1 %or.cond600, label %if.end191, label %cleanup379
 
 if.end191:                                        ; preds = %land.lhs.true168
   %71 = load i8, ptr %arrayidx171, align 1, !tbaa !5
   %conv195 = zext i8 %71 to i32
-  %idxprom197 = zext i32 %unpacked_so_far.01225 to i64
+  %idxprom197 = zext i32 %unpacked_so_far.01231 to i64
   %arrayidx198 = getelementptr inbounds i8, ptr %dst, i64 %idxprom197
   store i8 %71, ptr %arrayidx198, align 1, !tbaa !5
-  %inc199 = add i32 %unpacked_so_far.01225, 1
+  %inc199 = add i32 %unpacked_so_far.01231, 1
   %cmp200.not = icmp ult i32 %inc199, %dsize
   br i1 %cmp200.not, label %cleanup376, label %cleanup379
 
-if.else204:                                       ; preds = %if.then.i734, %if.end35.i765, %get_byte.exit103.i778
-  %call206 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %arrayidx205, ptr noundef nonnull %read_struct, i32 noundef %and231237)
-  %cmp207 = icmp slt i32 %damian.01233, 7
+if.else204:                                       ; preds = %if.then.i744, %get_byte.exit103.i788, %if.end35.i775
+  %call206 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %arrayidx205, ptr noundef nonnull %read_struct, i32 noundef %and231249)
+  %cmp207 = icmp slt i32 %damian.01245, 7
   %add211 = select i1 %cmp207, i32 8, i32 11
   br label %if.end283
 
-if.else213:                                       ; preds = %land.lhs.true4.i674
+if.else213:                                       ; preds = %land.lhs.true4.i684
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %land.lhs.true4.i790
+  br label %land.lhs.true4.i800
 
-land.lhs.true4.i790:                              ; preds = %get_byte.exit103.i720, %if.end35.i707, %if.else213
-  %idxprom2151147.pn.in = add i32 %damian.01233, 216
-  %idxprom2151147.pn = zext i32 %idxprom2151147.pn.in to i64
-  %arrayidx2161149 = getelementptr inbounds i16, ptr %table, i64 %idxprom2151147.pn
-  %cmp5.not.i785 = icmp ule ptr %19, %arrayidx2161149
-  %add.ptr.i786 = getelementptr inbounds i8, ptr %arrayidx2161149, i64 2
-  %cmp11.not.i788 = icmp ule ptr %add.ptr.i786, %add.ptr10.i
-  %or.cond104.i789 = select i1 %cmp5.not.i785, i1 %cmp11.not.i788, i1 false
-  br i1 %or.cond104.i789, label %if.end.i799, label %if.else220
+land.lhs.true4.i800:                              ; preds = %if.end35.i717, %get_byte.exit103.i730, %if.else213
+  %idxprom2151155.pn.in = add i32 %damian.01245, 216
+  %idxprom2151155.pn = zext i32 %idxprom2151155.pn.in to i64
+  %arrayidx2161157 = getelementptr inbounds i16, ptr %table, i64 %idxprom2151155.pn
+  %cmp5.not.i795 = icmp ule ptr %19, %arrayidx2161157
+  %add.ptr.i796 = getelementptr inbounds i8, ptr %arrayidx2161157, i64 2
+  %cmp11.not.i798 = icmp ule ptr %add.ptr.i796, %add.ptr10.i
+  %or.cond104.i799 = select i1 %cmp5.not.i795, i1 %cmp11.not.i798, i1 false
+  br i1 %or.cond104.i799, label %if.end.i809, label %if.else220
 
-if.end.i799:                                      ; preds = %land.lhs.true4.i790
-  %72 = load i16, ptr %arrayidx2161149, align 2, !tbaa !21
-  %conv18.i793 = zext i16 %72 to i32
+if.end.i809:                                      ; preds = %land.lhs.true4.i800
+  %72 = load i16, ptr %arrayidx2161157, align 2, !tbaa !21
+  %conv18.i803 = zext i16 %72 to i32
   %73 = load i32, ptr %bitmap, align 8, !tbaa !29
-  %shr.i795 = lshr i32 %73, 11
-  %mul.i796 = mul i32 %shr.i795, %conv18.i793
+  %shr.i805 = lshr i32 %73, 11
+  %mul.i806 = mul i32 %shr.i805, %conv18.i803
   %74 = load i32, ptr %oldval, align 4, !tbaa !33
-  %cmp19.i798 = icmp ult i32 %74, %mul.i796
-  br i1 %cmp19.i798, label %if.then21.i804, label %if.end35.i823
+  %cmp19.i808 = icmp ult i32 %74, %mul.i806
+  br i1 %cmp19.i808, label %if.then21.i814, label %if.end35.i833
 
-if.then21.i804:                                   ; preds = %if.end.i799
-  store i32 %mul.i796, ptr %bitmap, align 8, !tbaa !29
-  %sub.i800 = sub nsw i32 2048, %conv18.i793
-  %shr24.i801 = ashr i32 %sub.i800, 5
-  %75 = trunc i32 %shr24.i801 to i16
-  %conv25.i802 = add i16 %72, %75
-  store i16 %conv25.i802, ptr %arrayidx2161149, align 2, !tbaa !21
-  %cmp27.i803 = icmp ult i32 %mul.i796, 16777216
-  br i1 %cmp27.i803, label %if.then29.i808, label %if.end229
+if.then21.i814:                                   ; preds = %if.end.i809
+  store i32 %mul.i806, ptr %bitmap, align 8, !tbaa !29
+  %sub.i810 = sub nsw i32 2048, %conv18.i803
+  %shr24.i811 = ashr i32 %sub.i810, 5
+  %75 = trunc i32 %shr24.i811 to i16
+  %conv25.i812 = add i16 %72, %75
+  store i16 %conv25.i812, ptr %arrayidx2161157, align 2, !tbaa !21
+  %cmp27.i813 = icmp ult i32 %mul.i806, 16777216
+  br i1 %cmp27.i813, label %if.then29.i818, label %if.end229
 
-if.then29.i808:                                   ; preds = %if.then21.i804
-  %shl.i805 = shl i32 %74, 8
+if.then29.i818:                                   ; preds = %if.then21.i814
+  %shl.i815 = shl i32 %74, 8
   %76 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %77 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i.i807 = icmp ult ptr %76, %77
-  br i1 %cmp.not.i.i807, label %if.end.i.i813, label %if.then.i.i810
+  %cmp.not.i.i817 = icmp ult ptr %76, %77
+  br i1 %cmp.not.i.i817, label %if.end.i.i823, label %if.then.i.i820
 
-if.then.i.i810:                                   ; preds = %if.then29.i808
+if.then.i.i820:                                   ; preds = %if.then29.i818
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i817
+  br label %get_byte.exit.i827
 
-if.end.i.i813:                                    ; preds = %if.then29.i808
+if.end.i.i823:                                    ; preds = %if.then29.i818
   %78 = load i8, ptr %76, align 1, !tbaa !5
-  %conv7.i.i811 = zext i8 %78 to i32
-  %incdec.ptr.i.i812 = getelementptr inbounds i8, ptr %76, i64 1
-  store ptr %incdec.ptr.i.i812, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i817
+  %conv7.i.i821 = zext i8 %78 to i32
+  %incdec.ptr.i.i822 = getelementptr inbounds i8, ptr %76, i64 1
+  store ptr %incdec.ptr.i.i822, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i827
 
-get_byte.exit.i817:                               ; preds = %if.end.i.i813, %if.then.i.i810
-  %retval.0.i.i814 = phi i32 [ 255, %if.then.i.i810 ], [ %conv7.i.i811, %if.end.i.i813 ]
-  %or.i815 = or i32 %retval.0.i.i814, %shl.i805
-  store i32 %or.i815, ptr %oldval, align 4, !tbaa !33
-  %shl33.i816 = shl nuw i32 %mul.i796, 8
-  store i32 %shl33.i816, ptr %bitmap, align 8, !tbaa !29
+get_byte.exit.i827:                               ; preds = %if.end.i.i823, %if.then.i.i820
+  %retval.0.i.i824 = phi i32 [ 255, %if.then.i.i820 ], [ %conv7.i.i821, %if.end.i.i823 ]
+  %or.i825 = or i32 %retval.0.i.i824, %shl.i815
+  store i32 %or.i825, ptr %oldval, align 4, !tbaa !33
+  %shl33.i826 = shl nuw i32 %mul.i806, 8
+  store i32 %shl33.i826, ptr %bitmap, align 8, !tbaa !29
   br label %if.end229
 
-if.end35.i823:                                    ; preds = %if.end.i799
-  %sub37.i818 = sub i32 %73, %mul.i796
-  store i32 %sub37.i818, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i819 = sub i32 %74, %mul.i796
-  store i32 %sub39.i819, ptr %oldval, align 4, !tbaa !33
-  %shr41.i820 = lshr i16 %72, 5
-  %sub42.i821 = sub i16 %72, %shr41.i820
-  store i16 %sub42.i821, ptr %arrayidx2161149, align 2, !tbaa !21
-  %cmp45.i822 = icmp ult i32 %sub37.i818, 16777216
-  br i1 %cmp45.i822, label %if.then47.i827, label %land.lhs.true4.i848
+if.end35.i833:                                    ; preds = %if.end.i809
+  %sub37.i828 = sub i32 %73, %mul.i806
+  store i32 %sub37.i828, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i829 = sub i32 %74, %mul.i806
+  store i32 %sub39.i829, ptr %oldval, align 4, !tbaa !33
+  %shr41.i830 = lshr i16 %72, 5
+  %sub42.i831 = sub i16 %72, %shr41.i830
+  store i16 %sub42.i831, ptr %arrayidx2161157, align 2, !tbaa !21
+  %cmp45.i832 = icmp ult i32 %sub37.i828, 16777216
+  br i1 %cmp45.i832, label %if.then47.i837, label %land.lhs.true4.i858
 
-if.then47.i827:                                   ; preds = %if.end35.i823
-  %shl49.i824 = shl i32 %sub39.i819, 8
+if.then47.i837:                                   ; preds = %if.end35.i833
+  %shl49.i834 = shl i32 %sub39.i829, 8
   %79 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %80 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i96.i826 = icmp ult ptr %79, %80
-  br i1 %cmp.not.i96.i826, label %if.end.i101.i832, label %if.then.i98.i829
+  %cmp.not.i96.i836 = icmp ult ptr %79, %80
+  br i1 %cmp.not.i96.i836, label %if.end.i101.i842, label %if.then.i98.i839
 
-if.then.i98.i829:                                 ; preds = %if.then47.i827
+if.then.i98.i839:                                 ; preds = %if.then47.i837
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i836
+  br label %get_byte.exit103.i846
 
-if.end.i101.i832:                                 ; preds = %if.then47.i827
+if.end.i101.i842:                                 ; preds = %if.then47.i837
   %81 = load i8, ptr %79, align 1, !tbaa !5
-  %conv7.i99.i830 = zext i8 %81 to i32
-  %incdec.ptr.i100.i831 = getelementptr inbounds i8, ptr %79, i64 1
-  store ptr %incdec.ptr.i100.i831, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i836
+  %conv7.i99.i840 = zext i8 %81 to i32
+  %incdec.ptr.i100.i841 = getelementptr inbounds i8, ptr %79, i64 1
+  store ptr %incdec.ptr.i100.i841, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i846
 
-get_byte.exit103.i836:                            ; preds = %if.end.i101.i832, %if.then.i98.i829
-  %retval.0.i102.i833 = phi i32 [ 255, %if.then.i98.i829 ], [ %conv7.i99.i830, %if.end.i101.i832 ]
-  %or51.i834 = or i32 %retval.0.i102.i833, %shl49.i824
-  store i32 %or51.i834, ptr %oldval, align 4, !tbaa !33
-  %shl54.i835 = shl nuw i32 %sub37.i818, 8
-  store i32 %shl54.i835, ptr %bitmap, align 8, !tbaa !29
-  br label %land.lhs.true4.i848
+get_byte.exit103.i846:                            ; preds = %if.end.i101.i842, %if.then.i98.i839
+  %retval.0.i102.i843 = phi i32 [ 255, %if.then.i98.i839 ], [ %conv7.i99.i840, %if.end.i101.i842 ]
+  %or51.i844 = or i32 %retval.0.i102.i843, %shl49.i834
+  store i32 %or51.i844, ptr %oldval, align 4, !tbaa !33
+  %shl54.i845 = shl nuw i32 %sub37.i828, 8
+  store i32 %shl54.i845, ptr %bitmap, align 8, !tbaa !29
+  br label %land.lhs.true4.i858
 
-if.else220:                                       ; preds = %land.lhs.true4.i790
+if.else220:                                       ; preds = %land.lhs.true4.i800
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %land.lhs.true4.i848
+  br label %land.lhs.true4.i858
 
-land.lhs.true4.i848:                              ; preds = %get_byte.exit103.i836, %if.end35.i823, %if.else220
-  %idxprom2221155.pn.in = add i32 %damian.01233, 228
-  %idxprom2221155.pn = zext i32 %idxprom2221155.pn.in to i64
-  %arrayidx2231157 = getelementptr inbounds i16, ptr %table, i64 %idxprom2221155.pn
-  %cmp5.not.i843 = icmp ule ptr %19, %arrayidx2231157
-  %add.ptr.i844 = getelementptr inbounds i8, ptr %arrayidx2231157, i64 2
-  %cmp11.not.i846 = icmp ule ptr %add.ptr.i844, %add.ptr10.i
-  %or.cond104.i847 = select i1 %cmp5.not.i843, i1 %cmp11.not.i846, i1 false
-  br i1 %or.cond104.i847, label %if.end.i857, label %if.then.i850
+land.lhs.true4.i858:                              ; preds = %if.end35.i833, %get_byte.exit103.i846, %if.else220
+  %idxprom2221165.pn.in = add i32 %damian.01245, 228
+  %idxprom2221165.pn = zext i32 %idxprom2221165.pn.in to i64
+  %arrayidx2231167 = getelementptr inbounds i16, ptr %table, i64 %idxprom2221165.pn
+  %cmp5.not.i853 = icmp ule ptr %19, %arrayidx2231167
+  %add.ptr.i854 = getelementptr inbounds i8, ptr %arrayidx2231167, i64 2
+  %cmp11.not.i856 = icmp ule ptr %add.ptr.i854, %add.ptr10.i
+  %or.cond104.i857 = select i1 %cmp5.not.i853, i1 %cmp11.not.i856, i1 false
+  br i1 %or.cond104.i857, label %if.end.i867, label %if.then.i860
 
-if.then.i850:                                     ; preds = %if.end27, %land.lhs.true4.i848
+if.then.i860:                                     ; preds = %if.end27, %land.lhs.true4.i858
   store i32 1, ptr %error, align 8, !tbaa !26
   br label %if.end229
 
-if.end.i857:                                      ; preds = %land.lhs.true4.i848
-  %82 = load i16, ptr %arrayidx2231157, align 2, !tbaa !21
-  %conv18.i851 = zext i16 %82 to i32
+if.end.i867:                                      ; preds = %land.lhs.true4.i858
+  %82 = load i16, ptr %arrayidx2231167, align 2, !tbaa !21
+  %conv18.i861 = zext i16 %82 to i32
   %83 = load i32, ptr %bitmap, align 8, !tbaa !29
-  %shr.i853 = lshr i32 %83, 11
-  %mul.i854 = mul i32 %shr.i853, %conv18.i851
+  %shr.i863 = lshr i32 %83, 11
+  %mul.i864 = mul i32 %shr.i863, %conv18.i861
   %84 = load i32, ptr %oldval, align 4, !tbaa !33
-  %cmp19.i856 = icmp ult i32 %84, %mul.i854
-  br i1 %cmp19.i856, label %if.then21.i862, label %if.end35.i881
+  %cmp19.i866 = icmp ult i32 %84, %mul.i864
+  br i1 %cmp19.i866, label %if.then21.i872, label %if.end35.i891
 
-if.then21.i862:                                   ; preds = %if.end.i857
-  store i32 %mul.i854, ptr %bitmap, align 8, !tbaa !29
-  %sub.i858 = sub nsw i32 2048, %conv18.i851
-  %shr24.i859 = ashr i32 %sub.i858, 5
-  %85 = trunc i32 %shr24.i859 to i16
-  %conv25.i860 = add i16 %82, %85
-  store i16 %conv25.i860, ptr %arrayidx2231157, align 2, !tbaa !21
-  %cmp27.i861 = icmp ult i32 %mul.i854, 16777216
-  br i1 %cmp27.i861, label %if.then29.i866, label %if.end229
+if.then21.i872:                                   ; preds = %if.end.i867
+  store i32 %mul.i864, ptr %bitmap, align 8, !tbaa !29
+  %sub.i868 = sub nsw i32 2048, %conv18.i861
+  %shr24.i869 = ashr i32 %sub.i868, 5
+  %85 = trunc i32 %shr24.i869 to i16
+  %conv25.i870 = add i16 %82, %85
+  store i16 %conv25.i870, ptr %arrayidx2231167, align 2, !tbaa !21
+  %cmp27.i871 = icmp ult i32 %mul.i864, 16777216
+  br i1 %cmp27.i871, label %if.then29.i876, label %if.end229
 
-if.then29.i866:                                   ; preds = %if.then21.i862
-  %shl.i863 = shl i32 %84, 8
+if.then29.i876:                                   ; preds = %if.then21.i872
+  %shl.i873 = shl i32 %84, 8
   %86 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %87 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i.i865 = icmp ult ptr %86, %87
-  br i1 %cmp.not.i.i865, label %if.end.i.i871, label %if.then.i.i868
+  %cmp.not.i.i875 = icmp ult ptr %86, %87
+  br i1 %cmp.not.i.i875, label %if.end.i.i881, label %if.then.i.i878
 
-if.then.i.i868:                                   ; preds = %if.then29.i866
+if.then.i.i878:                                   ; preds = %if.then29.i876
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i875
+  br label %get_byte.exit.i885
 
-if.end.i.i871:                                    ; preds = %if.then29.i866
+if.end.i.i881:                                    ; preds = %if.then29.i876
   %88 = load i8, ptr %86, align 1, !tbaa !5
-  %conv7.i.i869 = zext i8 %88 to i32
-  %incdec.ptr.i.i870 = getelementptr inbounds i8, ptr %86, i64 1
-  store ptr %incdec.ptr.i.i870, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i875
+  %conv7.i.i879 = zext i8 %88 to i32
+  %incdec.ptr.i.i880 = getelementptr inbounds i8, ptr %86, i64 1
+  store ptr %incdec.ptr.i.i880, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i885
 
-get_byte.exit.i875:                               ; preds = %if.end.i.i871, %if.then.i.i868
-  %retval.0.i.i872 = phi i32 [ 255, %if.then.i.i868 ], [ %conv7.i.i869, %if.end.i.i871 ]
-  %or.i873 = or i32 %retval.0.i.i872, %shl.i863
-  store i32 %or.i873, ptr %oldval, align 4, !tbaa !33
-  %shl33.i874 = shl nuw i32 %mul.i854, 8
-  store i32 %shl33.i874, ptr %bitmap, align 8, !tbaa !29
+get_byte.exit.i885:                               ; preds = %if.end.i.i881, %if.then.i.i878
+  %retval.0.i.i882 = phi i32 [ 255, %if.then.i.i878 ], [ %conv7.i.i879, %if.end.i.i881 ]
+  %or.i883 = or i32 %retval.0.i.i882, %shl.i873
+  store i32 %or.i883, ptr %oldval, align 4, !tbaa !33
+  %shl33.i884 = shl nuw i32 %mul.i864, 8
+  store i32 %shl33.i884, ptr %bitmap, align 8, !tbaa !29
   br label %if.end229
 
-if.end35.i881:                                    ; preds = %if.end.i857
-  %sub37.i876 = sub i32 %83, %mul.i854
-  store i32 %sub37.i876, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i877 = sub i32 %84, %mul.i854
-  store i32 %sub39.i877, ptr %oldval, align 4, !tbaa !33
-  %shr41.i878 = lshr i16 %82, 5
-  %sub42.i879 = sub i16 %82, %shr41.i878
-  store i16 %sub42.i879, ptr %arrayidx2231157, align 2, !tbaa !21
-  %cmp45.i880 = icmp ult i32 %sub37.i876, 16777216
-  br i1 %cmp45.i880, label %if.then47.i885, label %if.end229
+if.end35.i891:                                    ; preds = %if.end.i867
+  %sub37.i886 = sub i32 %83, %mul.i864
+  store i32 %sub37.i886, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i887 = sub i32 %84, %mul.i864
+  store i32 %sub39.i887, ptr %oldval, align 4, !tbaa !33
+  %shr41.i888 = lshr i16 %82, 5
+  %sub42.i889 = sub i16 %82, %shr41.i888
+  store i16 %sub42.i889, ptr %arrayidx2231167, align 2, !tbaa !21
+  %cmp45.i890 = icmp ult i32 %sub37.i886, 16777216
+  br i1 %cmp45.i890, label %if.then47.i895, label %if.end229
 
-if.then47.i885:                                   ; preds = %if.end35.i881
-  %shl49.i882 = shl i32 %sub39.i877, 8
+if.then47.i895:                                   ; preds = %if.end35.i891
+  %shl49.i892 = shl i32 %sub39.i887, 8
   %89 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %90 = load ptr, ptr %src_end, align 8, !tbaa !30
-  %cmp.not.i96.i884 = icmp ult ptr %89, %90
-  br i1 %cmp.not.i96.i884, label %if.end.i101.i890, label %if.then.i98.i887
+  %cmp.not.i96.i894 = icmp ult ptr %89, %90
+  br i1 %cmp.not.i96.i894, label %if.end.i101.i900, label %if.then.i98.i897
 
-if.then.i98.i887:                                 ; preds = %if.then47.i885
+if.then.i98.i897:                                 ; preds = %if.then47.i895
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i894
+  br label %get_byte.exit103.i904
 
-if.end.i101.i890:                                 ; preds = %if.then47.i885
+if.end.i101.i900:                                 ; preds = %if.then47.i895
   %91 = load i8, ptr %89, align 1, !tbaa !5
-  %conv7.i99.i888 = zext i8 %91 to i32
-  %incdec.ptr.i100.i889 = getelementptr inbounds i8, ptr %89, i64 1
-  store ptr %incdec.ptr.i100.i889, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i894
+  %conv7.i99.i898 = zext i8 %91 to i32
+  %incdec.ptr.i100.i899 = getelementptr inbounds i8, ptr %89, i64 1
+  store ptr %incdec.ptr.i100.i899, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i904
 
-get_byte.exit103.i894:                            ; preds = %if.end.i101.i890, %if.then.i98.i887
-  %retval.0.i102.i891 = phi i32 [ 255, %if.then.i98.i887 ], [ %conv7.i99.i888, %if.end.i101.i890 ]
-  %or51.i892 = or i32 %retval.0.i102.i891, %shl49.i882
-  store i32 %or51.i892, ptr %oldval, align 4, !tbaa !33
-  %shl54.i893 = shl nuw i32 %sub37.i876, 8
-  store i32 %shl54.i893, ptr %bitmap, align 8, !tbaa !29
+get_byte.exit103.i904:                            ; preds = %if.end.i101.i900, %if.then.i98.i897
+  %retval.0.i102.i901 = phi i32 [ 255, %if.then.i98.i897 ], [ %conv7.i99.i898, %if.end.i101.i900 ]
+  %or51.i902 = or i32 %retval.0.i102.i901, %shl49.i892
+  store i32 %or51.i902, ptr %oldval, align 4, !tbaa !33
+  %shl54.i903 = shl nuw i32 %sub37.i886, 8
+  store i32 %shl54.i903, ptr %bitmap, align 8, !tbaa !29
   br label %if.end229
 
-if.end229:                                        ; preds = %if.then.i850, %if.end35.i881, %get_byte.exit103.i894, %get_byte.exit.i875, %if.then21.i862, %if.then21.i804, %get_byte.exit.i817
-  %old_oldbackbytes.1 = phi i32 [ %old_oldbackbytes.01231, %get_byte.exit.i817 ], [ %old_oldbackbytes.01231, %if.then21.i804 ], [ %oldbackbytes.01229, %if.then21.i862 ], [ %oldbackbytes.01229, %get_byte.exit.i875 ], [ %oldbackbytes.01229, %get_byte.exit103.i894 ], [ %oldbackbytes.01229, %if.end35.i881 ], [ %oldbackbytes.01229, %if.then.i850 ]
-  %old_old_oldbackbytes.2 = phi i32 [ %old_old_oldbackbytes.01232, %get_byte.exit.i817 ], [ %old_old_oldbackbytes.01232, %if.then21.i804 ], [ %old_old_oldbackbytes.01232, %if.then21.i862 ], [ %old_old_oldbackbytes.01232, %get_byte.exit.i875 ], [ %old_oldbackbytes.01231, %get_byte.exit103.i894 ], [ %old_oldbackbytes.01231, %if.end35.i881 ], [ %old_oldbackbytes.01231, %if.then.i850 ]
-  %tpos.1 = phi i32 [ %oldbackbytes.01229, %get_byte.exit.i817 ], [ %oldbackbytes.01229, %if.then21.i804 ], [ %old_oldbackbytes.01231, %if.then21.i862 ], [ %old_oldbackbytes.01231, %get_byte.exit.i875 ], [ %old_old_oldbackbytes.01232, %get_byte.exit103.i894 ], [ %old_old_oldbackbytes.01232, %if.end35.i881 ], [ %old_old_oldbackbytes.01232, %if.then.i850 ]
-  %call231 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %arrayidx205, ptr noundef nonnull %read_struct, i32 noundef %and231237)
-  %cmp232 = icmp slt i32 %damian.01233, 7
+if.end229:                                        ; preds = %if.then.i860, %if.end35.i891, %get_byte.exit103.i904, %get_byte.exit.i885, %if.then21.i872, %get_byte.exit.i827, %if.then21.i814
+  %old_oldbackbytes.1 = phi i32 [ %old_oldbackbytes.01239, %if.then21.i814 ], [ %old_oldbackbytes.01239, %get_byte.exit.i827 ], [ %oldbackbytes.01236, %if.then21.i872 ], [ %oldbackbytes.01236, %get_byte.exit.i885 ], [ %oldbackbytes.01236, %get_byte.exit103.i904 ], [ %oldbackbytes.01236, %if.end35.i891 ], [ %oldbackbytes.01236, %if.then.i860 ]
+  %old_old_oldbackbytes.2 = phi i32 [ %old_old_oldbackbytes.01242, %if.then21.i814 ], [ %old_old_oldbackbytes.01242, %get_byte.exit.i827 ], [ %old_old_oldbackbytes.01242, %if.then21.i872 ], [ %old_old_oldbackbytes.01242, %get_byte.exit.i885 ], [ %old_oldbackbytes.01239, %get_byte.exit103.i904 ], [ %old_oldbackbytes.01239, %if.end35.i891 ], [ %old_oldbackbytes.01239, %if.then.i860 ]
+  %tpos.1 = phi i32 [ %oldbackbytes.01236, %if.then21.i814 ], [ %oldbackbytes.01236, %get_byte.exit.i827 ], [ %old_oldbackbytes.01239, %if.then21.i872 ], [ %old_oldbackbytes.01239, %get_byte.exit.i885 ], [ %old_old_oldbackbytes.01242, %get_byte.exit103.i904 ], [ %old_old_oldbackbytes.01242, %if.end35.i891 ], [ %old_old_oldbackbytes.01242, %if.then.i860 ]
+  %call231 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %arrayidx205, ptr noundef nonnull %read_struct, i32 noundef %and231249)
+  %cmp232 = icmp slt i32 %damian.01245, 7
   %add236 = select i1 %cmp232, i32 8, i32 11
   br label %if.end283
 
-if.else238:                                       ; preds = %get_byte.exit.i643, %if.then21.i630
-  %cmp239 = icmp slt i32 %damian.01233, 7
+if.else238:                                       ; preds = %get_byte.exit.i653, %if.then21.i640
+  %cmp239 = icmp slt i32 %damian.01245, 7
   %add243 = select i1 %cmp239, i32 7, i32 10
-  %call245 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %arrayidx244, ptr noundef nonnull %read_struct, i32 noundef %and231237)
+  %call245 = call i32 @get_n_bits_from_tablesize(ptr noundef nonnull %arrayidx244, ptr noundef nonnull %read_struct, i32 noundef %and231249)
   %cond = tail call i32 @llvm.smin.i32(i32 %call245, i32 3)
   %shl248 = shl i32 %cond, 6
   %add249 = add i32 %shl248, 432
   %idxprom250 = zext i32 %add249 to i64
   %arrayidx251 = getelementptr inbounds i16, ptr %table, i64 %idxprom250
   %92 = load i32, ptr %tablesz11, align 8, !tbaa !32
-  %switch.i.i898 = icmp ult i32 %92, 2
-  br i1 %switch.i.i898, label %get_n_bits_from_table.exit.thread, label %while.body.lr.ph.split.i
+  %switch.i.i908 = icmp ult i32 %92, 2
+  br i1 %switch.i.i908, label %get_n_bits_from_table.exit.thread, label %while.body.lr.ph.split.i
 
 get_n_bits_from_table.exit.thread:                ; preds = %if.else238
   store i32 1, ptr %error, align 8, !tbaa !26
   br label %if.then255
 
 while.body.lr.ph.split.i:                         ; preds = %if.else238
-  %conv.i.i904 = zext i32 %92 to i64
+  %conv.i.i914 = zext i32 %92 to i64
   %93 = load ptr, ptr %table10, align 8, !tbaa !31
-  %add.ptr10.i.i905 = getelementptr inbounds i8, ptr %93, i64 %conv.i.i904
+  %add.ptr10.i.i915 = getelementptr inbounds i8, ptr %93, i64 %conv.i.i914
   %bitmap.promoted = load i32, ptr %bitmap, align 8, !tbaa !29
-  %oldval.promoted1191 = load i32, ptr %oldval, align 4, !tbaa !33
-  %read_struct.promoted1192 = load ptr, ptr %read_struct, align 8, !tbaa !28
+  %oldval.promoted1197 = load i32, ptr %oldval, align 4, !tbaa !33
+  %read_struct.promoted1198 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %94 = load ptr, ptr %src_end, align 8
-  br label %while.body.i913
+  br label %while.body.i923
 
-while.body.i913:                                  ; preds = %getbit_from_table.exit.i954, %while.body.lr.ph.split.i
-  %incdec.ptr.i.i.i9301196 = phi ptr [ %read_struct.promoted1192, %while.body.lr.ph.split.i ], [ %incdec.ptr.i.i.i9301193, %getbit_from_table.exit.i954 ]
-  %95 = phi i32 [ %oldval.promoted1191, %while.body.lr.ph.split.i ], [ %101, %getbit_from_table.exit.i954 ]
-  %96 = phi i32 [ %bitmap.promoted, %while.body.lr.ph.split.i ], [ %102, %getbit_from_table.exit.i954 ]
-  %dec7.i = phi i32 [ 5, %while.body.lr.ph.split.i ], [ %dec.i, %getbit_from_table.exit.i954 ]
-  %count.06.i = phi i32 [ 1, %while.body.lr.ph.split.i ], [ %add.i, %getbit_from_table.exit.i954 ]
-  %mul.i906 = shl i32 %count.06.i, 1
-  %idxprom.i907 = zext i32 %count.06.i to i64
-  %arrayidx.i908 = getelementptr inbounds i16, ptr %arrayidx251, i64 %idxprom.i907
-  %cmp5.not.i.i909 = icmp ule ptr %93, %arrayidx.i908
-  %add.ptr.i.i910 = getelementptr inbounds i8, ptr %arrayidx.i908, i64 2
-  %cmp11.not.i.i911 = icmp ule ptr %add.ptr.i.i910, %add.ptr10.i.i905
-  %or.cond104.i.i912 = select i1 %cmp5.not.i.i909, i1 %cmp11.not.i.i911, i1 false
-  br i1 %or.cond104.i.i912, label %if.end.i.i919, label %if.then.i.i914
+while.body.i923:                                  ; preds = %getbit_from_table.exit.i964, %while.body.lr.ph.split.i
+  %incdec.ptr.i.i.i9401202 = phi ptr [ %read_struct.promoted1198, %while.body.lr.ph.split.i ], [ %incdec.ptr.i.i.i9401199, %getbit_from_table.exit.i964 ]
+  %95 = phi i32 [ %oldval.promoted1197, %while.body.lr.ph.split.i ], [ %101, %getbit_from_table.exit.i964 ]
+  %96 = phi i32 [ %bitmap.promoted, %while.body.lr.ph.split.i ], [ %102, %getbit_from_table.exit.i964 ]
+  %bitcounter.06.i = phi i32 [ 6, %while.body.lr.ph.split.i ], [ %dec.i, %getbit_from_table.exit.i964 ]
+  %count.05.i = phi i32 [ 1, %while.body.lr.ph.split.i ], [ %add.i, %getbit_from_table.exit.i964 ]
+  %dec.i = add nsw i32 %bitcounter.06.i, -1
+  %mul.i916 = shl i32 %count.05.i, 1
+  %idxprom.i917 = zext i32 %count.05.i to i64
+  %arrayidx.i918 = getelementptr inbounds i16, ptr %arrayidx251, i64 %idxprom.i917
+  %cmp5.not.i.i919 = icmp ule ptr %93, %arrayidx.i918
+  %add.ptr.i.i920 = getelementptr inbounds i8, ptr %arrayidx.i918, i64 2
+  %cmp11.not.i.i921 = icmp ule ptr %add.ptr.i.i920, %add.ptr10.i.i915
+  %or.cond104.i.i922 = select i1 %cmp5.not.i.i919, i1 %cmp11.not.i.i921, i1 false
+  br i1 %or.cond104.i.i922, label %if.end.i.i929, label %if.then.i.i924
 
-if.then.i.i914:                                   ; preds = %while.body.i913
+if.then.i.i924:                                   ; preds = %while.body.i923
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %getbit_from_table.exit.i954
+  br label %getbit_from_table.exit.i964
 
-if.end.i.i919:                                    ; preds = %while.body.i913
-  %97 = load i16, ptr %arrayidx.i908, align 2, !tbaa !21
-  %conv18.i.i915 = zext i16 %97 to i32
-  %shr.i.i916 = lshr i32 %96, 11
-  %mul.i.i917 = mul i32 %shr.i.i916, %conv18.i.i915
-  %cmp19.i.i918 = icmp ult i32 %95, %mul.i.i917
-  br i1 %cmp19.i.i918, label %if.then21.i.i924, label %if.end35.i.i941
+if.end.i.i929:                                    ; preds = %while.body.i923
+  %97 = load i16, ptr %arrayidx.i918, align 2, !tbaa !21
+  %conv18.i.i925 = zext i16 %97 to i32
+  %shr.i.i926 = lshr i32 %96, 11
+  %mul.i.i927 = mul i32 %shr.i.i926, %conv18.i.i925
+  %cmp19.i.i928 = icmp ult i32 %95, %mul.i.i927
+  br i1 %cmp19.i.i928, label %if.then21.i.i934, label %if.end35.i.i951
 
-if.then21.i.i924:                                 ; preds = %if.end.i.i919
-  store i32 %mul.i.i917, ptr %bitmap, align 8, !tbaa !29
-  %sub.i.i920 = sub nsw i32 2048, %conv18.i.i915
-  %shr24.i.i921 = ashr i32 %sub.i.i920, 5
-  %98 = trunc i32 %shr24.i.i921 to i16
-  %conv25.i.i922 = add i16 %97, %98
-  store i16 %conv25.i.i922, ptr %arrayidx.i908, align 2, !tbaa !21
-  %cmp27.i.i923 = icmp ult i32 %mul.i.i917, 16777216
-  br i1 %cmp27.i.i923, label %if.then29.i.i927, label %getbit_from_table.exit.i954
+if.then21.i.i934:                                 ; preds = %if.end.i.i929
+  store i32 %mul.i.i927, ptr %bitmap, align 8, !tbaa !29
+  %sub.i.i930 = sub nsw i32 2048, %conv18.i.i925
+  %shr24.i.i931 = ashr i32 %sub.i.i930, 5
+  %98 = trunc i32 %shr24.i.i931 to i16
+  %conv25.i.i932 = add i16 %97, %98
+  store i16 %conv25.i.i932, ptr %arrayidx.i918, align 2, !tbaa !21
+  %cmp27.i.i933 = icmp ult i32 %mul.i.i927, 16777216
+  br i1 %cmp27.i.i933, label %if.then29.i.i937, label %getbit_from_table.exit.i964
 
-if.then29.i.i927:                                 ; preds = %if.then21.i.i924
-  %shl.i.i925 = shl i32 %95, 8
-  %cmp.not.i.i.i926 = icmp ult ptr %incdec.ptr.i.i.i9301196, %94
-  br i1 %cmp.not.i.i.i926, label %if.end.i.i.i931, label %if.then.i.i.i928
+if.then29.i.i937:                                 ; preds = %if.then21.i.i934
+  %shl.i.i935 = shl i32 %95, 8
+  %cmp.not.i.i.i936 = icmp ult ptr %incdec.ptr.i.i.i9401202, %94
+  br i1 %cmp.not.i.i.i936, label %if.end.i.i.i941, label %if.then.i.i.i938
 
-if.then.i.i.i928:                                 ; preds = %if.then29.i.i927
+if.then.i.i.i938:                                 ; preds = %if.then29.i.i937
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i.i935
+  br label %get_byte.exit.i.i945
 
-if.end.i.i.i931:                                  ; preds = %if.then29.i.i927
-  %99 = load i8, ptr %incdec.ptr.i.i.i9301196, align 1, !tbaa !5
-  %conv7.i.i.i929 = zext i8 %99 to i32
-  %incdec.ptr.i.i.i930 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9301196, i64 1
-  store ptr %incdec.ptr.i.i.i930, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i.i935
+if.end.i.i.i941:                                  ; preds = %if.then29.i.i937
+  %99 = load i8, ptr %incdec.ptr.i.i.i9401202, align 1, !tbaa !5
+  %conv7.i.i.i939 = zext i8 %99 to i32
+  %incdec.ptr.i.i.i940 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9401202, i64 1
+  store ptr %incdec.ptr.i.i.i940, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i.i945
 
-get_byte.exit.i.i935:                             ; preds = %if.end.i.i.i931, %if.then.i.i.i928
-  %incdec.ptr.i.i.i9301195 = phi ptr [ %incdec.ptr.i.i.i9301196, %if.then.i.i.i928 ], [ %incdec.ptr.i.i.i930, %if.end.i.i.i931 ]
-  %retval.0.i.i.i932 = phi i32 [ 255, %if.then.i.i.i928 ], [ %conv7.i.i.i929, %if.end.i.i.i931 ]
-  %or.i.i933 = or i32 %retval.0.i.i.i932, %shl.i.i925
-  store i32 %or.i.i933, ptr %oldval, align 4, !tbaa !33
-  %shl33.i.i934 = shl nuw i32 %mul.i.i917, 8
-  store i32 %shl33.i.i934, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i954
+get_byte.exit.i.i945:                             ; preds = %if.end.i.i.i941, %if.then.i.i.i938
+  %incdec.ptr.i.i.i9401201 = phi ptr [ %incdec.ptr.i.i.i9401202, %if.then.i.i.i938 ], [ %incdec.ptr.i.i.i940, %if.end.i.i.i941 ]
+  %retval.0.i.i.i942 = phi i32 [ 255, %if.then.i.i.i938 ], [ %conv7.i.i.i939, %if.end.i.i.i941 ]
+  %or.i.i943 = or i32 %retval.0.i.i.i942, %shl.i.i935
+  store i32 %or.i.i943, ptr %oldval, align 4, !tbaa !33
+  %shl33.i.i944 = shl nuw i32 %mul.i.i927, 8
+  store i32 %shl33.i.i944, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i964
 
-if.end35.i.i941:                                  ; preds = %if.end.i.i919
-  %sub37.i.i936 = sub i32 %96, %mul.i.i917
-  store i32 %sub37.i.i936, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i.i937 = sub i32 %95, %mul.i.i917
-  store i32 %sub39.i.i937, ptr %oldval, align 4, !tbaa !33
-  %shr41.i.i938 = lshr i16 %97, 5
-  %sub42.i.i939 = sub i16 %97, %shr41.i.i938
-  store i16 %sub42.i.i939, ptr %arrayidx.i908, align 2, !tbaa !21
-  %cmp45.i.i940 = icmp ult i32 %sub37.i.i936, 16777216
-  br i1 %cmp45.i.i940, label %if.then47.i.i944, label %getbit_from_table.exit.i954
+if.end35.i.i951:                                  ; preds = %if.end.i.i929
+  %sub37.i.i946 = sub i32 %96, %mul.i.i927
+  store i32 %sub37.i.i946, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i.i947 = sub i32 %95, %mul.i.i927
+  store i32 %sub39.i.i947, ptr %oldval, align 4, !tbaa !33
+  %shr41.i.i948 = lshr i16 %97, 5
+  %sub42.i.i949 = sub i16 %97, %shr41.i.i948
+  store i16 %sub42.i.i949, ptr %arrayidx.i918, align 2, !tbaa !21
+  %cmp45.i.i950 = icmp ult i32 %sub37.i.i946, 16777216
+  br i1 %cmp45.i.i950, label %if.then47.i.i954, label %getbit_from_table.exit.i964
 
-if.then47.i.i944:                                 ; preds = %if.end35.i.i941
-  %shl49.i.i942 = shl i32 %sub39.i.i937, 8
-  %cmp.not.i96.i.i943 = icmp ult ptr %incdec.ptr.i.i.i9301196, %94
-  br i1 %cmp.not.i96.i.i943, label %if.end.i101.i.i948, label %if.then.i98.i.i945
+if.then47.i.i954:                                 ; preds = %if.end35.i.i951
+  %shl49.i.i952 = shl i32 %sub39.i.i947, 8
+  %cmp.not.i96.i.i953 = icmp ult ptr %incdec.ptr.i.i.i9401202, %94
+  br i1 %cmp.not.i96.i.i953, label %if.end.i101.i.i958, label %if.then.i98.i.i955
 
-if.then.i98.i.i945:                               ; preds = %if.then47.i.i944
+if.then.i98.i.i955:                               ; preds = %if.then47.i.i954
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i.i952
+  br label %get_byte.exit103.i.i962
 
-if.end.i101.i.i948:                               ; preds = %if.then47.i.i944
-  %100 = load i8, ptr %incdec.ptr.i.i.i9301196, align 1, !tbaa !5
-  %conv7.i99.i.i946 = zext i8 %100 to i32
-  %incdec.ptr.i100.i.i947 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9301196, i64 1
-  store ptr %incdec.ptr.i100.i.i947, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i.i952
+if.end.i101.i.i958:                               ; preds = %if.then47.i.i954
+  %100 = load i8, ptr %incdec.ptr.i.i.i9401202, align 1, !tbaa !5
+  %conv7.i99.i.i956 = zext i8 %100 to i32
+  %incdec.ptr.i100.i.i957 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9401202, i64 1
+  store ptr %incdec.ptr.i100.i.i957, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i.i962
 
-get_byte.exit103.i.i952:                          ; preds = %if.end.i101.i.i948, %if.then.i98.i.i945
-  %incdec.ptr.i.i.i9301194 = phi ptr [ %incdec.ptr.i.i.i9301196, %if.then.i98.i.i945 ], [ %incdec.ptr.i100.i.i947, %if.end.i101.i.i948 ]
-  %retval.0.i102.i.i949 = phi i32 [ 255, %if.then.i98.i.i945 ], [ %conv7.i99.i.i946, %if.end.i101.i.i948 ]
-  %or51.i.i950 = or i32 %retval.0.i102.i.i949, %shl49.i.i942
-  store i32 %or51.i.i950, ptr %oldval, align 4, !tbaa !33
-  %shl54.i.i951 = shl nuw i32 %sub37.i.i936, 8
-  store i32 %shl54.i.i951, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i954
+get_byte.exit103.i.i962:                          ; preds = %if.end.i101.i.i958, %if.then.i98.i.i955
+  %incdec.ptr.i.i.i9401200 = phi ptr [ %incdec.ptr.i.i.i9401202, %if.then.i98.i.i955 ], [ %incdec.ptr.i100.i.i957, %if.end.i101.i.i958 ]
+  %retval.0.i102.i.i959 = phi i32 [ 255, %if.then.i98.i.i955 ], [ %conv7.i99.i.i956, %if.end.i101.i.i958 ]
+  %or51.i.i960 = or i32 %retval.0.i102.i.i959, %shl49.i.i952
+  store i32 %or51.i.i960, ptr %oldval, align 4, !tbaa !33
+  %shl54.i.i961 = shl nuw i32 %sub37.i.i946, 8
+  store i32 %shl54.i.i961, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i964
 
-getbit_from_table.exit.i954:                      ; preds = %get_byte.exit103.i.i952, %if.end35.i.i941, %get_byte.exit.i.i935, %if.then21.i.i924, %if.then.i.i914
-  %incdec.ptr.i.i.i9301193 = phi ptr [ %incdec.ptr.i.i.i9301196, %if.then.i.i914 ], [ %incdec.ptr.i.i.i9301195, %get_byte.exit.i.i935 ], [ %incdec.ptr.i.i.i9301196, %if.then21.i.i924 ], [ %incdec.ptr.i.i.i9301194, %get_byte.exit103.i.i952 ], [ %incdec.ptr.i.i.i9301196, %if.end35.i.i941 ]
-  %101 = phi i32 [ %95, %if.then.i.i914 ], [ %or.i.i933, %get_byte.exit.i.i935 ], [ %95, %if.then21.i.i924 ], [ %or51.i.i950, %get_byte.exit103.i.i952 ], [ %sub39.i.i937, %if.end35.i.i941 ]
-  %102 = phi i32 [ %96, %if.then.i.i914 ], [ %shl33.i.i934, %get_byte.exit.i.i935 ], [ %mul.i.i917, %if.then21.i.i924 ], [ %shl54.i.i951, %get_byte.exit103.i.i952 ], [ %sub37.i.i936, %if.end35.i.i941 ]
-  %retval.0.i.i953 = phi i32 [ 255, %if.then.i.i914 ], [ 0, %get_byte.exit.i.i935 ], [ 0, %if.then21.i.i924 ], [ 1, %get_byte.exit103.i.i952 ], [ 1, %if.end35.i.i941 ]
-  %add.i = add i32 %retval.0.i.i953, %mul.i906
-  %dec.i = add nsw i32 %dec7.i, -1
-  %tobool.not.i = icmp eq i32 %dec7.i, 0
-  br i1 %tobool.not.i, label %get_n_bits_from_table.exit, label %while.body.i913, !llvm.loop !36
+getbit_from_table.exit.i964:                      ; preds = %get_byte.exit103.i.i962, %if.end35.i.i951, %get_byte.exit.i.i945, %if.then21.i.i934, %if.then.i.i924
+  %incdec.ptr.i.i.i9401199 = phi ptr [ %incdec.ptr.i.i.i9401202, %if.then.i.i924 ], [ %incdec.ptr.i.i.i9401201, %get_byte.exit.i.i945 ], [ %incdec.ptr.i.i.i9401202, %if.then21.i.i934 ], [ %incdec.ptr.i.i.i9401200, %get_byte.exit103.i.i962 ], [ %incdec.ptr.i.i.i9401202, %if.end35.i.i951 ]
+  %101 = phi i32 [ %95, %if.then.i.i924 ], [ %or.i.i943, %get_byte.exit.i.i945 ], [ %95, %if.then21.i.i934 ], [ %or51.i.i960, %get_byte.exit103.i.i962 ], [ %sub39.i.i947, %if.end35.i.i951 ]
+  %102 = phi i32 [ %96, %if.then.i.i924 ], [ %shl33.i.i944, %get_byte.exit.i.i945 ], [ %mul.i.i927, %if.then21.i.i934 ], [ %shl54.i.i961, %get_byte.exit103.i.i962 ], [ %sub37.i.i946, %if.end35.i.i951 ]
+  %retval.0.i.i963 = phi i32 [ 255, %if.then.i.i924 ], [ 0, %get_byte.exit.i.i945 ], [ 0, %if.then21.i.i934 ], [ 1, %get_byte.exit103.i.i962 ], [ 1, %if.end35.i.i951 ]
+  %add.i = add i32 %retval.0.i.i963, %mul.i916
+  %tobool.not.i = icmp eq i32 %dec.i, 0
+  br i1 %tobool.not.i, label %get_n_bits_from_table.exit, label %while.body.i923, !llvm.loop !36
 
-get_n_bits_from_table.exit:                       ; preds = %getbit_from_table.exit.i954
-  %sub.i955 = add i32 %add.i, -64
-  %cmp253 = icmp ugt i32 %sub.i955, 3
+get_n_bits_from_table.exit:                       ; preds = %getbit_from_table.exit.i964
+  %sub.i965 = add i32 %add.i, -64
+  %cmp253 = icmp ugt i32 %sub.i965, 3
   br i1 %cmp253, label %if.then255, label %if.end281
 
 if.then255:                                       ; preds = %get_n_bits_from_table.exit.thread, %get_n_bits_from_table.exit
-  %sub.i9551267 = phi i32 [ 16065, %get_n_bits_from_table.exit.thread ], [ %sub.i955, %get_n_bits_from_table.exit ]
-  %count.0.lcssa.i1266 = phi i32 [ 16129, %get_n_bits_from_table.exit.thread ], [ %add.i, %get_n_bits_from_table.exit ]
-  %shr256 = lshr i32 %sub.i9551267, 1
+  %sub.i9651284 = phi i32 [ 16065, %get_n_bits_from_table.exit.thread ], [ %sub.i965, %get_n_bits_from_table.exit ]
+  %count.0.lcssa.i1283 = phi i32 [ 16129, %get_n_bits_from_table.exit.thread ], [ %add.i, %get_n_bits_from_table.exit ]
+  %shr256 = lshr i32 %sub.i9651284, 1
   %dec257 = add nsw i32 %shr256, -1
-  %and258 = and i32 %count.0.lcssa.i1266, 1
+  %and258 = and i32 %count.0.lcssa.i1283, 1
   %or259 = or i32 %and258, 2
   %and260 = and i32 %dec257, 255
   %shl261 = shl i32 %or259, %and260
-  %cmp262 = icmp slt i32 %sub.i9551267, 14
+  %cmp262 = icmp slt i32 %sub.i9651284, 14
   br i1 %cmp262, label %for.body.lr.ph.i, label %while.cond.preheader.i
 
 for.body.lr.ph.i:                                 ; preds = %if.then255
-  %reass.sub = sub i32 %shl261, %count.0.lcssa.i1266
+  %reass.sub = sub i32 %shl261, %count.0.lcssa.i1283
   %add266 = add i32 %reass.sub, 751
   %idxprom267 = zext i32 %add266 to i64
   %arrayidx268 = getelementptr inbounds i16, ptr %table, i64 %idxprom267
-  br i1 %switch.i.i898, label %for.body.lr.ph.split.us.i, label %for.body.lr.ph.split.i
+  br i1 %switch.i.i908, label %for.body.lr.ph.split.us.i, label %for.body.lr.ph.split.i
 
 for.body.lr.ph.split.us.i:                        ; preds = %for.body.lr.ph.i
   store i32 1, ptr %error, align 8, !tbaa !26
@@ -1331,122 +1331,122 @@ for.body.us.i:                                    ; preds = %for.body.us.i, %for
   br i1 %niter.ncmp.7, label %get_bb.exit.loopexit.unr-lcssa, label %for.body.us.i, !llvm.loop !37
 
 for.body.lr.ph.split.i:                           ; preds = %for.body.lr.ph.i
-  %conv.i.i964 = zext i32 %92 to i64
+  %conv.i.i974 = zext i32 %92 to i64
   %105 = load ptr, ptr %table10, align 8, !tbaa !31
-  %add.ptr10.i.i965 = getelementptr inbounds i8, ptr %105, i64 %conv.i.i964
-  %bitmap.promoted1208 = load i32, ptr %bitmap, align 8, !tbaa !29
-  %oldval.promoted1209 = load i32, ptr %oldval, align 4, !tbaa !33
-  %read_struct.promoted1210 = load ptr, ptr %read_struct, align 8, !tbaa !28
+  %add.ptr10.i.i975 = getelementptr inbounds i8, ptr %105, i64 %conv.i.i974
+  %bitmap.promoted1214 = load i32, ptr %bitmap, align 8, !tbaa !29
+  %oldval.promoted1215 = load i32, ptr %oldval, align 4, !tbaa !33
+  %read_struct.promoted1216 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %106 = load ptr, ptr %src_end, align 8
   br label %for.body.i
 
-for.body.i:                                       ; preds = %getbit_from_table.exit.i1016, %for.body.lr.ph.split.i
-  %incdec.ptr.i.i.i9881214 = phi ptr [ %read_struct.promoted1210, %for.body.lr.ph.split.i ], [ %incdec.ptr.i.i.i9881211, %getbit_from_table.exit.i1016 ]
-  %107 = phi i32 [ %oldval.promoted1209, %for.body.lr.ph.split.i ], [ %113, %getbit_from_table.exit.i1016 ]
-  %108 = phi i32 [ %bitmap.promoted1208, %for.body.lr.ph.split.i ], [ %114, %getbit_from_table.exit.i1016 ]
-  %i.013.i = phi i32 [ 0, %for.body.lr.ph.split.i ], [ %inc.i, %getbit_from_table.exit.i1016 ]
-  %bb.012.i = phi i32 [ 0, %for.body.lr.ph.split.i ], [ %or.i1015, %getbit_from_table.exit.i1016 ]
-  %pos.011.i = phi i32 [ 1, %for.body.lr.ph.split.i ], [ %add.i1013, %getbit_from_table.exit.i1016 ]
-  %idxprom.i966 = zext i32 %pos.011.i to i64
-  %arrayidx.i967 = getelementptr inbounds i16, ptr %arrayidx268, i64 %idxprom.i966
-  %cmp5.not.i.i968 = icmp ule ptr %105, %arrayidx.i967
-  %add.ptr.i.i969 = getelementptr inbounds i8, ptr %arrayidx.i967, i64 2
-  %cmp11.not.i.i970 = icmp ule ptr %add.ptr.i.i969, %add.ptr10.i.i965
-  %or.cond104.i.i971 = select i1 %cmp5.not.i.i968, i1 %cmp11.not.i.i970, i1 false
-  br i1 %or.cond104.i.i971, label %if.end.i.i977, label %if.then.i.i972
+for.body.i:                                       ; preds = %getbit_from_table.exit.i1026, %for.body.lr.ph.split.i
+  %incdec.ptr.i.i.i9981220 = phi ptr [ %read_struct.promoted1216, %for.body.lr.ph.split.i ], [ %incdec.ptr.i.i.i9981217, %getbit_from_table.exit.i1026 ]
+  %107 = phi i32 [ %oldval.promoted1215, %for.body.lr.ph.split.i ], [ %113, %getbit_from_table.exit.i1026 ]
+  %108 = phi i32 [ %bitmap.promoted1214, %for.body.lr.ph.split.i ], [ %114, %getbit_from_table.exit.i1026 ]
+  %i.013.i = phi i32 [ 0, %for.body.lr.ph.split.i ], [ %inc.i, %getbit_from_table.exit.i1026 ]
+  %bb.012.i = phi i32 [ 0, %for.body.lr.ph.split.i ], [ %or.i1025, %getbit_from_table.exit.i1026 ]
+  %pos.011.i = phi i32 [ 1, %for.body.lr.ph.split.i ], [ %add.i1023, %getbit_from_table.exit.i1026 ]
+  %idxprom.i976 = zext i32 %pos.011.i to i64
+  %arrayidx.i977 = getelementptr inbounds i16, ptr %arrayidx268, i64 %idxprom.i976
+  %cmp5.not.i.i978 = icmp ule ptr %105, %arrayidx.i977
+  %add.ptr.i.i979 = getelementptr inbounds i8, ptr %arrayidx.i977, i64 2
+  %cmp11.not.i.i980 = icmp ule ptr %add.ptr.i.i979, %add.ptr10.i.i975
+  %or.cond104.i.i981 = select i1 %cmp5.not.i.i978, i1 %cmp11.not.i.i980, i1 false
+  br i1 %or.cond104.i.i981, label %if.end.i.i987, label %if.then.i.i982
 
-if.then.i.i972:                                   ; preds = %for.body.i
+if.then.i.i982:                                   ; preds = %for.body.i
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %getbit_from_table.exit.i1016
+  br label %getbit_from_table.exit.i1026
 
-if.end.i.i977:                                    ; preds = %for.body.i
-  %109 = load i16, ptr %arrayidx.i967, align 2, !tbaa !21
-  %conv18.i.i973 = zext i16 %109 to i32
-  %shr.i.i974 = lshr i32 %108, 11
-  %mul.i.i975 = mul i32 %shr.i.i974, %conv18.i.i973
-  %cmp19.i.i976 = icmp ult i32 %107, %mul.i.i975
-  br i1 %cmp19.i.i976, label %if.then21.i.i982, label %if.end35.i.i999
+if.end.i.i987:                                    ; preds = %for.body.i
+  %109 = load i16, ptr %arrayidx.i977, align 2, !tbaa !21
+  %conv18.i.i983 = zext i16 %109 to i32
+  %shr.i.i984 = lshr i32 %108, 11
+  %mul.i.i985 = mul i32 %shr.i.i984, %conv18.i.i983
+  %cmp19.i.i986 = icmp ult i32 %107, %mul.i.i985
+  br i1 %cmp19.i.i986, label %if.then21.i.i992, label %if.end35.i.i1009
 
-if.then21.i.i982:                                 ; preds = %if.end.i.i977
-  store i32 %mul.i.i975, ptr %bitmap, align 8, !tbaa !29
-  %sub.i.i978 = sub nsw i32 2048, %conv18.i.i973
-  %shr24.i.i979 = ashr i32 %sub.i.i978, 5
-  %110 = trunc i32 %shr24.i.i979 to i16
-  %conv25.i.i980 = add i16 %109, %110
-  store i16 %conv25.i.i980, ptr %arrayidx.i967, align 2, !tbaa !21
-  %cmp27.i.i981 = icmp ult i32 %mul.i.i975, 16777216
-  br i1 %cmp27.i.i981, label %if.then29.i.i985, label %getbit_from_table.exit.i1016
+if.then21.i.i992:                                 ; preds = %if.end.i.i987
+  store i32 %mul.i.i985, ptr %bitmap, align 8, !tbaa !29
+  %sub.i.i988 = sub nsw i32 2048, %conv18.i.i983
+  %shr24.i.i989 = ashr i32 %sub.i.i988, 5
+  %110 = trunc i32 %shr24.i.i989 to i16
+  %conv25.i.i990 = add i16 %109, %110
+  store i16 %conv25.i.i990, ptr %arrayidx.i977, align 2, !tbaa !21
+  %cmp27.i.i991 = icmp ult i32 %mul.i.i985, 16777216
+  br i1 %cmp27.i.i991, label %if.then29.i.i995, label %getbit_from_table.exit.i1026
 
-if.then29.i.i985:                                 ; preds = %if.then21.i.i982
-  %shl.i.i983 = shl i32 %107, 8
-  %cmp.not.i.i.i984 = icmp ult ptr %incdec.ptr.i.i.i9881214, %106
-  br i1 %cmp.not.i.i.i984, label %if.end.i.i.i989, label %if.then.i.i.i986
+if.then29.i.i995:                                 ; preds = %if.then21.i.i992
+  %shl.i.i993 = shl i32 %107, 8
+  %cmp.not.i.i.i994 = icmp ult ptr %incdec.ptr.i.i.i9981220, %106
+  br i1 %cmp.not.i.i.i994, label %if.end.i.i.i999, label %if.then.i.i.i996
 
-if.then.i.i.i986:                                 ; preds = %if.then29.i.i985
+if.then.i.i.i996:                                 ; preds = %if.then29.i.i995
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i.i993
+  br label %get_byte.exit.i.i1003
 
-if.end.i.i.i989:                                  ; preds = %if.then29.i.i985
-  %111 = load i8, ptr %incdec.ptr.i.i.i9881214, align 1, !tbaa !5
-  %conv7.i.i.i987 = zext i8 %111 to i32
-  %incdec.ptr.i.i.i988 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9881214, i64 1
-  store ptr %incdec.ptr.i.i.i988, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i.i993
+if.end.i.i.i999:                                  ; preds = %if.then29.i.i995
+  %111 = load i8, ptr %incdec.ptr.i.i.i9981220, align 1, !tbaa !5
+  %conv7.i.i.i997 = zext i8 %111 to i32
+  %incdec.ptr.i.i.i998 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9981220, i64 1
+  store ptr %incdec.ptr.i.i.i998, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i.i1003
 
-get_byte.exit.i.i993:                             ; preds = %if.end.i.i.i989, %if.then.i.i.i986
-  %incdec.ptr.i.i.i9881213 = phi ptr [ %incdec.ptr.i.i.i9881214, %if.then.i.i.i986 ], [ %incdec.ptr.i.i.i988, %if.end.i.i.i989 ]
-  %retval.0.i.i.i990 = phi i32 [ 255, %if.then.i.i.i986 ], [ %conv7.i.i.i987, %if.end.i.i.i989 ]
-  %or.i.i991 = or i32 %retval.0.i.i.i990, %shl.i.i983
-  store i32 %or.i.i991, ptr %oldval, align 4, !tbaa !33
-  %shl33.i.i992 = shl nuw i32 %mul.i.i975, 8
-  store i32 %shl33.i.i992, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1016
+get_byte.exit.i.i1003:                            ; preds = %if.end.i.i.i999, %if.then.i.i.i996
+  %incdec.ptr.i.i.i9981219 = phi ptr [ %incdec.ptr.i.i.i9981220, %if.then.i.i.i996 ], [ %incdec.ptr.i.i.i998, %if.end.i.i.i999 ]
+  %retval.0.i.i.i1000 = phi i32 [ 255, %if.then.i.i.i996 ], [ %conv7.i.i.i997, %if.end.i.i.i999 ]
+  %or.i.i1001 = or i32 %retval.0.i.i.i1000, %shl.i.i993
+  store i32 %or.i.i1001, ptr %oldval, align 4, !tbaa !33
+  %shl33.i.i1002 = shl nuw i32 %mul.i.i985, 8
+  store i32 %shl33.i.i1002, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1026
 
-if.end35.i.i999:                                  ; preds = %if.end.i.i977
-  %sub37.i.i994 = sub i32 %108, %mul.i.i975
-  store i32 %sub37.i.i994, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i.i995 = sub i32 %107, %mul.i.i975
-  store i32 %sub39.i.i995, ptr %oldval, align 4, !tbaa !33
-  %shr41.i.i996 = lshr i16 %109, 5
-  %sub42.i.i997 = sub i16 %109, %shr41.i.i996
-  store i16 %sub42.i.i997, ptr %arrayidx.i967, align 2, !tbaa !21
-  %cmp45.i.i998 = icmp ult i32 %sub37.i.i994, 16777216
-  br i1 %cmp45.i.i998, label %if.then47.i.i1002, label %getbit_from_table.exit.i1016
+if.end35.i.i1009:                                 ; preds = %if.end.i.i987
+  %sub37.i.i1004 = sub i32 %108, %mul.i.i985
+  store i32 %sub37.i.i1004, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i.i1005 = sub i32 %107, %mul.i.i985
+  store i32 %sub39.i.i1005, ptr %oldval, align 4, !tbaa !33
+  %shr41.i.i1006 = lshr i16 %109, 5
+  %sub42.i.i1007 = sub i16 %109, %shr41.i.i1006
+  store i16 %sub42.i.i1007, ptr %arrayidx.i977, align 2, !tbaa !21
+  %cmp45.i.i1008 = icmp ult i32 %sub37.i.i1004, 16777216
+  br i1 %cmp45.i.i1008, label %if.then47.i.i1012, label %getbit_from_table.exit.i1026
 
-if.then47.i.i1002:                                ; preds = %if.end35.i.i999
-  %shl49.i.i1000 = shl i32 %sub39.i.i995, 8
-  %cmp.not.i96.i.i1001 = icmp ult ptr %incdec.ptr.i.i.i9881214, %106
-  br i1 %cmp.not.i96.i.i1001, label %if.end.i101.i.i1006, label %if.then.i98.i.i1003
+if.then47.i.i1012:                                ; preds = %if.end35.i.i1009
+  %shl49.i.i1010 = shl i32 %sub39.i.i1005, 8
+  %cmp.not.i96.i.i1011 = icmp ult ptr %incdec.ptr.i.i.i9981220, %106
+  br i1 %cmp.not.i96.i.i1011, label %if.end.i101.i.i1016, label %if.then.i98.i.i1013
 
-if.then.i98.i.i1003:                              ; preds = %if.then47.i.i1002
+if.then.i98.i.i1013:                              ; preds = %if.then47.i.i1012
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i.i1010
+  br label %get_byte.exit103.i.i1020
 
-if.end.i101.i.i1006:                              ; preds = %if.then47.i.i1002
-  %112 = load i8, ptr %incdec.ptr.i.i.i9881214, align 1, !tbaa !5
-  %conv7.i99.i.i1004 = zext i8 %112 to i32
-  %incdec.ptr.i100.i.i1005 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9881214, i64 1
-  store ptr %incdec.ptr.i100.i.i1005, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i.i1010
+if.end.i101.i.i1016:                              ; preds = %if.then47.i.i1012
+  %112 = load i8, ptr %incdec.ptr.i.i.i9981220, align 1, !tbaa !5
+  %conv7.i99.i.i1014 = zext i8 %112 to i32
+  %incdec.ptr.i100.i.i1015 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i9981220, i64 1
+  store ptr %incdec.ptr.i100.i.i1015, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i.i1020
 
-get_byte.exit103.i.i1010:                         ; preds = %if.end.i101.i.i1006, %if.then.i98.i.i1003
-  %incdec.ptr.i.i.i9881212 = phi ptr [ %incdec.ptr.i.i.i9881214, %if.then.i98.i.i1003 ], [ %incdec.ptr.i100.i.i1005, %if.end.i101.i.i1006 ]
-  %retval.0.i102.i.i1007 = phi i32 [ 255, %if.then.i98.i.i1003 ], [ %conv7.i99.i.i1004, %if.end.i101.i.i1006 ]
-  %or51.i.i1008 = or i32 %retval.0.i102.i.i1007, %shl49.i.i1000
-  store i32 %or51.i.i1008, ptr %oldval, align 4, !tbaa !33
-  %shl54.i.i1009 = shl nuw i32 %sub37.i.i994, 8
-  store i32 %shl54.i.i1009, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1016
+get_byte.exit103.i.i1020:                         ; preds = %if.end.i101.i.i1016, %if.then.i98.i.i1013
+  %incdec.ptr.i.i.i9981218 = phi ptr [ %incdec.ptr.i.i.i9981220, %if.then.i98.i.i1013 ], [ %incdec.ptr.i100.i.i1015, %if.end.i101.i.i1016 ]
+  %retval.0.i102.i.i1017 = phi i32 [ 255, %if.then.i98.i.i1013 ], [ %conv7.i99.i.i1014, %if.end.i101.i.i1016 ]
+  %or51.i.i1018 = or i32 %retval.0.i102.i.i1017, %shl49.i.i1010
+  store i32 %or51.i.i1018, ptr %oldval, align 4, !tbaa !33
+  %shl54.i.i1019 = shl nuw i32 %sub37.i.i1004, 8
+  store i32 %shl54.i.i1019, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1026
 
-getbit_from_table.exit.i1016:                     ; preds = %get_byte.exit103.i.i1010, %if.end35.i.i999, %get_byte.exit.i.i993, %if.then21.i.i982, %if.then.i.i972
-  %incdec.ptr.i.i.i9881211 = phi ptr [ %incdec.ptr.i.i.i9881214, %if.then.i.i972 ], [ %incdec.ptr.i.i.i9881213, %get_byte.exit.i.i993 ], [ %incdec.ptr.i.i.i9881214, %if.then21.i.i982 ], [ %incdec.ptr.i.i.i9881212, %get_byte.exit103.i.i1010 ], [ %incdec.ptr.i.i.i9881214, %if.end35.i.i999 ]
-  %113 = phi i32 [ %107, %if.then.i.i972 ], [ %or.i.i991, %get_byte.exit.i.i993 ], [ %107, %if.then21.i.i982 ], [ %or51.i.i1008, %get_byte.exit103.i.i1010 ], [ %sub39.i.i995, %if.end35.i.i999 ]
-  %114 = phi i32 [ %108, %if.then.i.i972 ], [ %shl33.i.i992, %get_byte.exit.i.i993 ], [ %mul.i.i975, %if.then21.i.i982 ], [ %shl54.i.i1009, %get_byte.exit103.i.i1010 ], [ %sub37.i.i994, %if.end35.i.i999 ]
-  %retval.0.i.i1011 = phi i32 [ 255, %if.then.i.i972 ], [ 0, %get_byte.exit.i.i993 ], [ 0, %if.then21.i.i982 ], [ 1, %get_byte.exit103.i.i1010 ], [ 1, %if.end35.i.i999 ]
-  %mul.i1012 = shl i32 %pos.011.i, 1
-  %add.i1013 = add i32 %retval.0.i.i1011, %mul.i1012
-  %shl.i1014 = shl i32 %retval.0.i.i1011, %i.013.i
-  %or.i1015 = or i32 %shl.i1014, %bb.012.i
+getbit_from_table.exit.i1026:                     ; preds = %get_byte.exit103.i.i1020, %if.end35.i.i1009, %get_byte.exit.i.i1003, %if.then21.i.i992, %if.then.i.i982
+  %incdec.ptr.i.i.i9981217 = phi ptr [ %incdec.ptr.i.i.i9981220, %if.then.i.i982 ], [ %incdec.ptr.i.i.i9981219, %get_byte.exit.i.i1003 ], [ %incdec.ptr.i.i.i9981220, %if.then21.i.i992 ], [ %incdec.ptr.i.i.i9981218, %get_byte.exit103.i.i1020 ], [ %incdec.ptr.i.i.i9981220, %if.end35.i.i1009 ]
+  %113 = phi i32 [ %107, %if.then.i.i982 ], [ %or.i.i1001, %get_byte.exit.i.i1003 ], [ %107, %if.then21.i.i992 ], [ %or51.i.i1018, %get_byte.exit103.i.i1020 ], [ %sub39.i.i1005, %if.end35.i.i1009 ]
+  %114 = phi i32 [ %108, %if.then.i.i982 ], [ %shl33.i.i1002, %get_byte.exit.i.i1003 ], [ %mul.i.i985, %if.then21.i.i992 ], [ %shl54.i.i1019, %get_byte.exit103.i.i1020 ], [ %sub37.i.i1004, %if.end35.i.i1009 ]
+  %retval.0.i.i1021 = phi i32 [ 255, %if.then.i.i982 ], [ 0, %get_byte.exit.i.i1003 ], [ 0, %if.then21.i.i992 ], [ 1, %get_byte.exit103.i.i1020 ], [ 1, %if.end35.i.i1009 ]
+  %mul.i1022 = shl i32 %pos.011.i, 1
+  %add.i1023 = add i32 %retval.0.i.i1021, %mul.i1022
+  %shl.i1024 = shl i32 %retval.0.i.i1021, %i.013.i
+  %or.i1025 = or i32 %shl.i1024, %bb.012.i
   %inc.i = add nuw nsw i32 %i.013.i, 1
   %exitcond.not.i = icmp eq i32 %inc.i, %dec257
   br i1 %exitcond.not.i, label %get_bb.exit, label %for.body.i, !llvm.loop !37
@@ -1469,509 +1469,509 @@ for.body.us.i.epil:                               ; preds = %get_bb.exit.loopexi
   %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter
   br i1 %epil.iter.cmp.not, label %get_bb.exit, label %for.body.us.i.epil, !llvm.loop !38
 
-get_bb.exit:                                      ; preds = %getbit_from_table.exit.i1016, %get_bb.exit.loopexit.unr-lcssa, %for.body.us.i.epil
-  %retval.0.i1017 = phi i32 [ %or.us.i.lcssa.ph, %get_bb.exit.loopexit.unr-lcssa ], [ %or.us.i.epil, %for.body.us.i.epil ], [ %or.i1015, %getbit_from_table.exit.i1016 ]
-  %add270 = add i32 %retval.0.i1017, %shl261
+get_bb.exit:                                      ; preds = %getbit_from_table.exit.i1026, %get_bb.exit.loopexit.unr-lcssa, %for.body.us.i.epil
+  %retval.0.i1027 = phi i32 [ %or.us.i.lcssa.ph, %get_bb.exit.loopexit.unr-lcssa ], [ %or.us.i.epil, %for.body.us.i.epil ], [ %or.i1025, %getbit_from_table.exit.i1026 ]
+  %add270 = add i32 %retval.0.i1027, %shl261
   br label %if.end281
 
 while.cond.preheader.i:                           ; preds = %if.then255
   %add272 = add nsw i32 %shr256, -5
   %bitmap.promoted.i = load i32, ptr %bitmap, align 8, !tbaa !29
   %oldval.promoted.i = load i32, ptr %oldval, align 4, !tbaa !33
-  %read_struct.promoted1197 = load ptr, ptr %read_struct, align 8, !tbaa !28
+  %read_struct.promoted1203 = load ptr, ptr %read_struct, align 8, !tbaa !28
   %115 = load ptr, ptr %src_end, align 8
-  br label %while.body.i1025
+  br label %while.body.i1035
 
-while.body.i1025:                                 ; preds = %if.end16.i, %while.cond.preheader.i
-  %incdec.ptr.i.i10311200 = phi ptr [ %read_struct.promoted1197, %while.cond.preheader.i ], [ %read_struct.promoted1203, %if.end16.i ]
+while.body.i1035:                                 ; preds = %if.end16.i, %while.cond.preheader.i
+  %incdec.ptr.i.i10411206 = phi ptr [ %read_struct.promoted1203, %while.cond.preheader.i ], [ %read_struct.promoted1209, %if.end16.i ]
   %dec40.in.i = phi i32 [ %add272, %while.cond.preheader.i ], [ %dec40.i, %if.end16.i ]
   %retv.039.i = phi i32 [ 0, %while.cond.preheader.i ], [ %retv.1.i, %if.end16.i ]
-  %shl113038.i = phi i32 [ %bitmap.promoted.i, %while.cond.preheader.i ], [ %bitmap.promoted1201, %if.end16.i ]
-  %or143237.i = phi i32 [ %oldval.promoted.i, %while.cond.preheader.i ], [ %oldval.promoted1202, %if.end16.i ]
+  %shl113038.i = phi i32 [ %bitmap.promoted.i, %while.cond.preheader.i ], [ %bitmap.promoted1207, %if.end16.i ]
+  %or143237.i = phi i32 [ %oldval.promoted.i, %while.cond.preheader.i ], [ %oldval.promoted1208, %if.end16.i ]
   %dec40.i = add nsw i32 %dec40.in.i, -1
-  %shr.i1023 = lshr i32 %shl113038.i, 1
-  store i32 %shr.i1023, ptr %bitmap, align 8, !tbaa !29
-  %shl.i1024 = shl i32 %retv.039.i, 1
-  %cmp2.not.i = icmp ult i32 %or143237.i, %shr.i1023
+  %shr.i1033 = lshr i32 %shl113038.i, 1
+  store i32 %shr.i1033, ptr %bitmap, align 8, !tbaa !29
+  %shl.i1034 = shl i32 %retv.039.i, 1
+  %cmp2.not.i = icmp ult i32 %or143237.i, %shr.i1033
   br i1 %cmp2.not.i, label %if.end6.i, label %if.then3.i
 
-if.then3.i:                                       ; preds = %while.body.i1025
-  %sub.i1026 = sub i32 %or143237.i, %shr.i1023
-  store i32 %sub.i1026, ptr %oldval, align 4, !tbaa !33
-  %or.i1027 = or i32 %shl.i1024, 1
+if.then3.i:                                       ; preds = %while.body.i1035
+  %sub.i1036 = sub i32 %or143237.i, %shr.i1033
+  store i32 %sub.i1036, ptr %oldval, align 4, !tbaa !33
+  %or.i1037 = or i32 %shl.i1034, 1
   br label %if.end6.i
 
-if.end6.i:                                        ; preds = %if.then3.i, %while.body.i1025
-  %or1434.i = phi i32 [ %sub.i1026, %if.then3.i ], [ %or143237.i, %while.body.i1025 ]
-  %retv.1.i = phi i32 [ %or.i1027, %if.then3.i ], [ %shl.i1024, %while.body.i1025 ]
+if.end6.i:                                        ; preds = %if.then3.i, %while.body.i1035
+  %or1434.i = phi i32 [ %sub.i1036, %if.then3.i ], [ %or143237.i, %while.body.i1035 ]
+  %retv.1.i = phi i32 [ %or.i1037, %if.then3.i ], [ %shl.i1034, %while.body.i1035 ]
   %cmp8.i = icmp ult i32 %shl113038.i, 33554432
   br i1 %cmp8.i, label %if.then9.i, label %if.end16.i
 
 if.then9.i:                                       ; preds = %if.end6.i
-  %shl11.i = shl nuw i32 %shr.i1023, 8
+  %shl11.i = shl nuw i32 %shr.i1033, 8
   store i32 %shl11.i, ptr %bitmap, align 8, !tbaa !29
   %shl13.i = shl i32 %or1434.i, 8
-  %cmp.not.i.i1028 = icmp ult ptr %incdec.ptr.i.i10311200, %115
-  br i1 %cmp.not.i.i1028, label %if.end.i.i1032, label %if.then.i.i1029
+  %cmp.not.i.i1038 = icmp ult ptr %incdec.ptr.i.i10411206, %115
+  br i1 %cmp.not.i.i1038, label %if.end.i.i1042, label %if.then.i.i1039
 
-if.then.i.i1029:                                  ; preds = %if.then9.i
+if.then.i.i1039:                                  ; preds = %if.then9.i
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i1034
+  br label %get_byte.exit.i1044
 
-if.end.i.i1032:                                   ; preds = %if.then9.i
-  %116 = load i8, ptr %incdec.ptr.i.i10311200, align 1, !tbaa !5
-  %conv7.i.i1030 = zext i8 %116 to i32
-  %incdec.ptr.i.i1031 = getelementptr inbounds i8, ptr %incdec.ptr.i.i10311200, i64 1
-  store ptr %incdec.ptr.i.i1031, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i1034
+if.end.i.i1042:                                   ; preds = %if.then9.i
+  %116 = load i8, ptr %incdec.ptr.i.i10411206, align 1, !tbaa !5
+  %conv7.i.i1040 = zext i8 %116 to i32
+  %incdec.ptr.i.i1041 = getelementptr inbounds i8, ptr %incdec.ptr.i.i10411206, i64 1
+  store ptr %incdec.ptr.i.i1041, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i1044
 
-get_byte.exit.i1034:                              ; preds = %if.end.i.i1032, %if.then.i.i1029
-  %incdec.ptr.i.i10311199 = phi ptr [ %incdec.ptr.i.i10311200, %if.then.i.i1029 ], [ %incdec.ptr.i.i1031, %if.end.i.i1032 ]
-  %retval.0.i.i1033 = phi i32 [ 255, %if.then.i.i1029 ], [ %conv7.i.i1030, %if.end.i.i1032 ]
-  %or14.i = or i32 %retval.0.i.i1033, %shl13.i
+get_byte.exit.i1044:                              ; preds = %if.end.i.i1042, %if.then.i.i1039
+  %incdec.ptr.i.i10411205 = phi ptr [ %incdec.ptr.i.i10411206, %if.then.i.i1039 ], [ %incdec.ptr.i.i1041, %if.end.i.i1042 ]
+  %retval.0.i.i1043 = phi i32 [ 255, %if.then.i.i1039 ], [ %conv7.i.i1040, %if.end.i.i1042 ]
+  %or14.i = or i32 %retval.0.i.i1043, %shl13.i
   store i32 %or14.i, ptr %oldval, align 4, !tbaa !33
   br label %if.end16.i
 
-if.end16.i:                                       ; preds = %get_byte.exit.i1034, %if.end6.i
-  %read_struct.promoted1203 = phi ptr [ %incdec.ptr.i.i10311199, %get_byte.exit.i1034 ], [ %incdec.ptr.i.i10311200, %if.end6.i ]
-  %oldval.promoted1202 = phi i32 [ %or14.i, %get_byte.exit.i1034 ], [ %or1434.i, %if.end6.i ]
-  %bitmap.promoted1201 = phi i32 [ %shl11.i, %get_byte.exit.i1034 ], [ %shr.i1023, %if.end6.i ]
-  %tobool.not.i1035 = icmp eq i32 %dec40.i, 0
-  br i1 %tobool.not.i1035, label %get_bitmap.exit, label %while.body.i1025, !llvm.loop !40
+if.end16.i:                                       ; preds = %get_byte.exit.i1044, %if.end6.i
+  %read_struct.promoted1209 = phi ptr [ %incdec.ptr.i.i10411205, %get_byte.exit.i1044 ], [ %incdec.ptr.i.i10411206, %if.end6.i ]
+  %oldval.promoted1208 = phi i32 [ %or14.i, %get_byte.exit.i1044 ], [ %or1434.i, %if.end6.i ]
+  %bitmap.promoted1207 = phi i32 [ %shl11.i, %get_byte.exit.i1044 ], [ %shr.i1033, %if.end6.i ]
+  %tobool.not.i1045 = icmp eq i32 %dec40.i, 0
+  br i1 %tobool.not.i1045, label %get_bitmap.exit, label %while.body.i1035, !llvm.loop !40
 
 get_bitmap.exit:                                  ; preds = %if.end16.i
   %shl274 = shl i32 %retv.1.i, 4
   %add275 = add i32 %shl274, %shl261
-  br i1 %switch.i.i898, label %for.body.lr.ph.split.us.i1044, label %for.body.lr.ph.split.i1055
+  br i1 %switch.i.i908, label %for.body.lr.ph.split.us.i1054, label %for.body.lr.ph.split.i1065
 
-for.body.lr.ph.split.us.i1044:                    ; preds = %get_bitmap.exit
+for.body.lr.ph.split.us.i1054:                    ; preds = %get_bitmap.exit
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_bb.exit1114
+  br label %get_bb.exit1124
 
-for.body.lr.ph.split.i1055:                       ; preds = %get_bitmap.exit
-  %conv.i.i1053 = zext i32 %92 to i64
+for.body.lr.ph.split.i1065:                       ; preds = %get_bitmap.exit
+  %conv.i.i1063 = zext i32 %92 to i64
   %117 = load ptr, ptr %table10, align 8, !tbaa !31
-  %add.ptr10.i.i1054 = getelementptr inbounds i8, ptr %117, i64 %conv.i.i1053
-  %cmp5.not.i.i1061 = icmp ule ptr %117, %arrayidx.i1060
-  %cmp11.not.i.i1063 = icmp ule ptr %add.ptr.i.i1062, %add.ptr10.i.i1054
-  %or.cond104.i.i1064 = select i1 %cmp5.not.i.i1061, i1 %cmp11.not.i.i1063, i1 false
-  br i1 %or.cond104.i.i1064, label %if.end.i.i1071, label %if.then.i.i1066
+  %add.ptr10.i.i1064 = getelementptr inbounds i8, ptr %117, i64 %conv.i.i1063
+  %cmp5.not.i.i1071 = icmp ule ptr %117, %arrayidx.i1070
+  %cmp11.not.i.i1073 = icmp ule ptr %add.ptr.i.i1072, %add.ptr10.i.i1064
+  %or.cond104.i.i1074 = select i1 %cmp5.not.i.i1071, i1 %cmp11.not.i.i1073, i1 false
+  br i1 %or.cond104.i.i1074, label %if.end.i.i1081, label %if.then.i.i1076
 
-if.then.i.i1066:                                  ; preds = %for.body.lr.ph.split.i1055
+if.then.i.i1076:                                  ; preds = %for.body.lr.ph.split.i1065
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %getbit_from_table.exit.i1112
+  br label %getbit_from_table.exit.i1122
 
-if.end.i.i1071:                                   ; preds = %for.body.lr.ph.split.i1055
-  %118 = load i16, ptr %arrayidx.i1060, align 2, !tbaa !21
-  %conv18.i.i1067 = zext i16 %118 to i32
-  %shr.i.i1068 = lshr i32 %bitmap.promoted1201, 11
-  %mul.i.i1069 = mul i32 %shr.i.i1068, %conv18.i.i1067
-  %cmp19.i.i1070 = icmp ult i32 %oldval.promoted1202, %mul.i.i1069
-  br i1 %cmp19.i.i1070, label %if.then21.i.i1076, label %if.end35.i.i1093
+if.end.i.i1081:                                   ; preds = %for.body.lr.ph.split.i1065
+  %118 = load i16, ptr %arrayidx.i1070, align 2, !tbaa !21
+  %conv18.i.i1077 = zext i16 %118 to i32
+  %shr.i.i1078 = lshr i32 %bitmap.promoted1207, 11
+  %mul.i.i1079 = mul i32 %shr.i.i1078, %conv18.i.i1077
+  %cmp19.i.i1080 = icmp ult i32 %oldval.promoted1208, %mul.i.i1079
+  br i1 %cmp19.i.i1080, label %if.then21.i.i1086, label %if.end35.i.i1103
 
-if.then21.i.i1076:                                ; preds = %if.end.i.i1071
-  store i32 %mul.i.i1069, ptr %bitmap, align 8, !tbaa !29
-  %sub.i.i1072 = sub nsw i32 2048, %conv18.i.i1067
-  %shr24.i.i1073 = ashr i32 %sub.i.i1072, 5
-  %119 = trunc i32 %shr24.i.i1073 to i16
-  %conv25.i.i1074 = add i16 %118, %119
-  store i16 %conv25.i.i1074, ptr %arrayidx.i1060, align 2, !tbaa !21
-  %cmp27.i.i1075 = icmp ult i32 %mul.i.i1069, 16777216
-  br i1 %cmp27.i.i1075, label %if.then29.i.i1079, label %getbit_from_table.exit.i1112
+if.then21.i.i1086:                                ; preds = %if.end.i.i1081
+  store i32 %mul.i.i1079, ptr %bitmap, align 8, !tbaa !29
+  %sub.i.i1082 = sub nsw i32 2048, %conv18.i.i1077
+  %shr24.i.i1083 = ashr i32 %sub.i.i1082, 5
+  %119 = trunc i32 %shr24.i.i1083 to i16
+  %conv25.i.i1084 = add i16 %118, %119
+  store i16 %conv25.i.i1084, ptr %arrayidx.i1070, align 2, !tbaa !21
+  %cmp27.i.i1085 = icmp ult i32 %mul.i.i1079, 16777216
+  br i1 %cmp27.i.i1085, label %if.then29.i.i1089, label %getbit_from_table.exit.i1122
 
-if.then29.i.i1079:                                ; preds = %if.then21.i.i1076
-  %shl.i.i1077 = shl i32 %oldval.promoted1202, 8
-  %cmp.not.i.i.i1078 = icmp ult ptr %read_struct.promoted1203, %115
-  br i1 %cmp.not.i.i.i1078, label %if.end.i.i.i1083, label %if.then.i.i.i1080
+if.then29.i.i1089:                                ; preds = %if.then21.i.i1086
+  %shl.i.i1087 = shl i32 %oldval.promoted1208, 8
+  %cmp.not.i.i.i1088 = icmp ult ptr %read_struct.promoted1209, %115
+  br i1 %cmp.not.i.i.i1088, label %if.end.i.i.i1093, label %if.then.i.i.i1090
 
-if.then.i.i.i1080:                                ; preds = %if.then29.i.i1079
+if.then.i.i.i1090:                                ; preds = %if.then29.i.i1089
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i.i1087
+  br label %get_byte.exit.i.i1097
 
-if.end.i.i.i1083:                                 ; preds = %if.then29.i.i1079
-  %120 = load i8, ptr %read_struct.promoted1203, align 1, !tbaa !5
-  %conv7.i.i.i1081 = zext i8 %120 to i32
-  %incdec.ptr.i.i.i1082 = getelementptr inbounds i8, ptr %read_struct.promoted1203, i64 1
-  store ptr %incdec.ptr.i.i.i1082, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i.i1087
+if.end.i.i.i1093:                                 ; preds = %if.then29.i.i1089
+  %120 = load i8, ptr %read_struct.promoted1209, align 1, !tbaa !5
+  %conv7.i.i.i1091 = zext i8 %120 to i32
+  %incdec.ptr.i.i.i1092 = getelementptr inbounds i8, ptr %read_struct.promoted1209, i64 1
+  store ptr %incdec.ptr.i.i.i1092, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i.i1097
 
-get_byte.exit.i.i1087:                            ; preds = %if.end.i.i.i1083, %if.then.i.i.i1080
-  %incdec.ptr.i.i.i10821206 = phi ptr [ %read_struct.promoted1203, %if.then.i.i.i1080 ], [ %incdec.ptr.i.i.i1082, %if.end.i.i.i1083 ]
-  %retval.0.i.i.i1084 = phi i32 [ 255, %if.then.i.i.i1080 ], [ %conv7.i.i.i1081, %if.end.i.i.i1083 ]
-  %or.i.i1085 = or i32 %retval.0.i.i.i1084, %shl.i.i1077
-  store i32 %or.i.i1085, ptr %oldval, align 4, !tbaa !33
-  %shl33.i.i1086 = shl nuw i32 %mul.i.i1069, 8
-  store i32 %shl33.i.i1086, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112
+get_byte.exit.i.i1097:                            ; preds = %if.end.i.i.i1093, %if.then.i.i.i1090
+  %incdec.ptr.i.i.i10921212 = phi ptr [ %read_struct.promoted1209, %if.then.i.i.i1090 ], [ %incdec.ptr.i.i.i1092, %if.end.i.i.i1093 ]
+  %retval.0.i.i.i1094 = phi i32 [ 255, %if.then.i.i.i1090 ], [ %conv7.i.i.i1091, %if.end.i.i.i1093 ]
+  %or.i.i1095 = or i32 %retval.0.i.i.i1094, %shl.i.i1087
+  store i32 %or.i.i1095, ptr %oldval, align 4, !tbaa !33
+  %shl33.i.i1096 = shl nuw i32 %mul.i.i1079, 8
+  store i32 %shl33.i.i1096, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122
 
-if.end35.i.i1093:                                 ; preds = %if.end.i.i1071
-  %sub37.i.i1088 = sub i32 %bitmap.promoted1201, %mul.i.i1069
-  store i32 %sub37.i.i1088, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i.i1089 = sub i32 %oldval.promoted1202, %mul.i.i1069
-  store i32 %sub39.i.i1089, ptr %oldval, align 4, !tbaa !33
-  %shr41.i.i1090 = lshr i16 %118, 5
-  %sub42.i.i1091 = sub i16 %118, %shr41.i.i1090
-  store i16 %sub42.i.i1091, ptr %arrayidx.i1060, align 2, !tbaa !21
-  %cmp45.i.i1092 = icmp ult i32 %sub37.i.i1088, 16777216
-  br i1 %cmp45.i.i1092, label %if.then47.i.i1096, label %getbit_from_table.exit.i1112
+if.end35.i.i1103:                                 ; preds = %if.end.i.i1081
+  %sub37.i.i1098 = sub i32 %bitmap.promoted1207, %mul.i.i1079
+  store i32 %sub37.i.i1098, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i.i1099 = sub i32 %oldval.promoted1208, %mul.i.i1079
+  store i32 %sub39.i.i1099, ptr %oldval, align 4, !tbaa !33
+  %shr41.i.i1100 = lshr i16 %118, 5
+  %sub42.i.i1101 = sub i16 %118, %shr41.i.i1100
+  store i16 %sub42.i.i1101, ptr %arrayidx.i1070, align 2, !tbaa !21
+  %cmp45.i.i1102 = icmp ult i32 %sub37.i.i1098, 16777216
+  br i1 %cmp45.i.i1102, label %if.then47.i.i1106, label %getbit_from_table.exit.i1122
 
-if.then47.i.i1096:                                ; preds = %if.end35.i.i1093
-  %shl49.i.i1094 = shl i32 %sub39.i.i1089, 8
-  %cmp.not.i96.i.i1095 = icmp ult ptr %read_struct.promoted1203, %115
-  br i1 %cmp.not.i96.i.i1095, label %if.end.i101.i.i1100, label %if.then.i98.i.i1097
+if.then47.i.i1106:                                ; preds = %if.end35.i.i1103
+  %shl49.i.i1104 = shl i32 %sub39.i.i1099, 8
+  %cmp.not.i96.i.i1105 = icmp ult ptr %read_struct.promoted1209, %115
+  br i1 %cmp.not.i96.i.i1105, label %if.end.i101.i.i1110, label %if.then.i98.i.i1107
 
-if.then.i98.i.i1097:                              ; preds = %if.then47.i.i1096
+if.then.i98.i.i1107:                              ; preds = %if.then47.i.i1106
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i.i1104
+  br label %get_byte.exit103.i.i1114
 
-if.end.i101.i.i1100:                              ; preds = %if.then47.i.i1096
-  %121 = load i8, ptr %read_struct.promoted1203, align 1, !tbaa !5
-  %conv7.i99.i.i1098 = zext i8 %121 to i32
-  %incdec.ptr.i100.i.i1099 = getelementptr inbounds i8, ptr %read_struct.promoted1203, i64 1
-  store ptr %incdec.ptr.i100.i.i1099, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i.i1104
+if.end.i101.i.i1110:                              ; preds = %if.then47.i.i1106
+  %121 = load i8, ptr %read_struct.promoted1209, align 1, !tbaa !5
+  %conv7.i99.i.i1108 = zext i8 %121 to i32
+  %incdec.ptr.i100.i.i1109 = getelementptr inbounds i8, ptr %read_struct.promoted1209, i64 1
+  store ptr %incdec.ptr.i100.i.i1109, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i.i1114
 
-get_byte.exit103.i.i1104:                         ; preds = %if.end.i101.i.i1100, %if.then.i98.i.i1097
-  %incdec.ptr.i.i.i10821205 = phi ptr [ %read_struct.promoted1203, %if.then.i98.i.i1097 ], [ %incdec.ptr.i100.i.i1099, %if.end.i101.i.i1100 ]
-  %retval.0.i102.i.i1101 = phi i32 [ 255, %if.then.i98.i.i1097 ], [ %conv7.i99.i.i1098, %if.end.i101.i.i1100 ]
-  %or51.i.i1102 = or i32 %retval.0.i102.i.i1101, %shl49.i.i1094
-  store i32 %or51.i.i1102, ptr %oldval, align 4, !tbaa !33
-  %shl54.i.i1103 = shl nuw i32 %sub37.i.i1088, 8
-  store i32 %shl54.i.i1103, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112
+get_byte.exit103.i.i1114:                         ; preds = %if.end.i101.i.i1110, %if.then.i98.i.i1107
+  %incdec.ptr.i.i.i10921211 = phi ptr [ %read_struct.promoted1209, %if.then.i98.i.i1107 ], [ %incdec.ptr.i100.i.i1109, %if.end.i101.i.i1110 ]
+  %retval.0.i102.i.i1111 = phi i32 [ 255, %if.then.i98.i.i1107 ], [ %conv7.i99.i.i1108, %if.end.i101.i.i1110 ]
+  %or51.i.i1112 = or i32 %retval.0.i102.i.i1111, %shl49.i.i1104
+  store i32 %or51.i.i1112, ptr %oldval, align 4, !tbaa !33
+  %shl54.i.i1113 = shl nuw i32 %sub37.i.i1098, 8
+  store i32 %shl54.i.i1113, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122
 
-getbit_from_table.exit.i1112:                     ; preds = %get_byte.exit103.i.i1104, %if.end35.i.i1093, %get_byte.exit.i.i1087, %if.then21.i.i1076, %if.then.i.i1066
-  %incdec.ptr.i.i.i10821204 = phi ptr [ %read_struct.promoted1203, %if.then.i.i1066 ], [ %incdec.ptr.i.i.i10821206, %get_byte.exit.i.i1087 ], [ %read_struct.promoted1203, %if.then21.i.i1076 ], [ %incdec.ptr.i.i.i10821205, %get_byte.exit103.i.i1104 ], [ %read_struct.promoted1203, %if.end35.i.i1093 ]
-  %122 = phi i32 [ %oldval.promoted1202, %if.then.i.i1066 ], [ %or.i.i1085, %get_byte.exit.i.i1087 ], [ %oldval.promoted1202, %if.then21.i.i1076 ], [ %or51.i.i1102, %get_byte.exit103.i.i1104 ], [ %sub39.i.i1089, %if.end35.i.i1093 ]
-  %123 = phi i32 [ %bitmap.promoted1201, %if.then.i.i1066 ], [ %shl33.i.i1086, %get_byte.exit.i.i1087 ], [ %mul.i.i1069, %if.then21.i.i1076 ], [ %shl54.i.i1103, %get_byte.exit103.i.i1104 ], [ %sub37.i.i1088, %if.end35.i.i1093 ]
-  %retval.0.i.i1105 = phi i32 [ 255, %if.then.i.i1066 ], [ 0, %get_byte.exit.i.i1087 ], [ 0, %if.then21.i.i1076 ], [ 1, %get_byte.exit103.i.i1104 ], [ 1, %if.end35.i.i1093 ]
-  %add.i1107 = add nuw nsw i32 %retval.0.i.i1105, 2
-  %idxprom.i1059.1 = zext i32 %add.i1107 to i64
-  %arrayidx.i1060.1 = getelementptr inbounds i16, ptr %arrayidx276, i64 %idxprom.i1059.1
-  %cmp5.not.i.i1061.1 = icmp ule ptr %117, %arrayidx.i1060.1
-  %add.ptr.i.i1062.1 = getelementptr inbounds i8, ptr %arrayidx.i1060.1, i64 2
-  %cmp11.not.i.i1063.1 = icmp ule ptr %add.ptr.i.i1062.1, %add.ptr10.i.i1054
-  %or.cond104.i.i1064.1 = select i1 %cmp5.not.i.i1061.1, i1 %cmp11.not.i.i1063.1, i1 false
-  br i1 %or.cond104.i.i1064.1, label %if.end.i.i1071.1, label %if.then.i.i1066.1
+getbit_from_table.exit.i1122:                     ; preds = %get_byte.exit103.i.i1114, %if.end35.i.i1103, %get_byte.exit.i.i1097, %if.then21.i.i1086, %if.then.i.i1076
+  %incdec.ptr.i.i.i10921210 = phi ptr [ %read_struct.promoted1209, %if.then.i.i1076 ], [ %incdec.ptr.i.i.i10921212, %get_byte.exit.i.i1097 ], [ %read_struct.promoted1209, %if.then21.i.i1086 ], [ %incdec.ptr.i.i.i10921211, %get_byte.exit103.i.i1114 ], [ %read_struct.promoted1209, %if.end35.i.i1103 ]
+  %122 = phi i32 [ %oldval.promoted1208, %if.then.i.i1076 ], [ %or.i.i1095, %get_byte.exit.i.i1097 ], [ %oldval.promoted1208, %if.then21.i.i1086 ], [ %or51.i.i1112, %get_byte.exit103.i.i1114 ], [ %sub39.i.i1099, %if.end35.i.i1103 ]
+  %123 = phi i32 [ %bitmap.promoted1207, %if.then.i.i1076 ], [ %shl33.i.i1096, %get_byte.exit.i.i1097 ], [ %mul.i.i1079, %if.then21.i.i1086 ], [ %shl54.i.i1113, %get_byte.exit103.i.i1114 ], [ %sub37.i.i1098, %if.end35.i.i1103 ]
+  %retval.0.i.i1115 = phi i32 [ 255, %if.then.i.i1076 ], [ 0, %get_byte.exit.i.i1097 ], [ 0, %if.then21.i.i1086 ], [ 1, %get_byte.exit103.i.i1114 ], [ 1, %if.end35.i.i1103 ]
+  %add.i1117 = add nuw nsw i32 %retval.0.i.i1115, 2
+  %idxprom.i1069.1 = zext i32 %add.i1117 to i64
+  %arrayidx.i1070.1 = getelementptr inbounds i16, ptr %arrayidx276, i64 %idxprom.i1069.1
+  %cmp5.not.i.i1071.1 = icmp ule ptr %117, %arrayidx.i1070.1
+  %add.ptr.i.i1072.1 = getelementptr inbounds i8, ptr %arrayidx.i1070.1, i64 2
+  %cmp11.not.i.i1073.1 = icmp ule ptr %add.ptr.i.i1072.1, %add.ptr10.i.i1064
+  %or.cond104.i.i1074.1 = select i1 %cmp5.not.i.i1071.1, i1 %cmp11.not.i.i1073.1, i1 false
+  br i1 %or.cond104.i.i1074.1, label %if.end.i.i1081.1, label %if.then.i.i1076.1
 
-if.then.i.i1066.1:                                ; preds = %getbit_from_table.exit.i1112
+if.then.i.i1076.1:                                ; preds = %getbit_from_table.exit.i1122
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %getbit_from_table.exit.i1112.1
+  br label %getbit_from_table.exit.i1122.1
 
-if.end.i.i1071.1:                                 ; preds = %getbit_from_table.exit.i1112
-  %124 = load i16, ptr %arrayidx.i1060.1, align 2, !tbaa !21
-  %conv18.i.i1067.1 = zext i16 %124 to i32
-  %shr.i.i1068.1 = lshr i32 %123, 11
-  %mul.i.i1069.1 = mul i32 %shr.i.i1068.1, %conv18.i.i1067.1
-  %cmp19.i.i1070.1 = icmp ult i32 %122, %mul.i.i1069.1
-  br i1 %cmp19.i.i1070.1, label %if.then21.i.i1076.1, label %if.end35.i.i1093.1
+if.end.i.i1081.1:                                 ; preds = %getbit_from_table.exit.i1122
+  %124 = load i16, ptr %arrayidx.i1070.1, align 2, !tbaa !21
+  %conv18.i.i1077.1 = zext i16 %124 to i32
+  %shr.i.i1078.1 = lshr i32 %123, 11
+  %mul.i.i1079.1 = mul i32 %shr.i.i1078.1, %conv18.i.i1077.1
+  %cmp19.i.i1080.1 = icmp ult i32 %122, %mul.i.i1079.1
+  br i1 %cmp19.i.i1080.1, label %if.then21.i.i1086.1, label %if.end35.i.i1103.1
 
-if.end35.i.i1093.1:                               ; preds = %if.end.i.i1071.1
-  %sub37.i.i1088.1 = sub i32 %123, %mul.i.i1069.1
-  store i32 %sub37.i.i1088.1, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i.i1089.1 = sub i32 %122, %mul.i.i1069.1
-  store i32 %sub39.i.i1089.1, ptr %oldval, align 4, !tbaa !33
-  %shr41.i.i1090.1 = lshr i16 %124, 5
-  %sub42.i.i1091.1 = sub i16 %124, %shr41.i.i1090.1
-  store i16 %sub42.i.i1091.1, ptr %arrayidx.i1060.1, align 2, !tbaa !21
-  %cmp45.i.i1092.1 = icmp ult i32 %sub37.i.i1088.1, 16777216
-  br i1 %cmp45.i.i1092.1, label %if.then47.i.i1096.1, label %getbit_from_table.exit.i1112.1
+if.end35.i.i1103.1:                               ; preds = %if.end.i.i1081.1
+  %sub37.i.i1098.1 = sub i32 %123, %mul.i.i1079.1
+  store i32 %sub37.i.i1098.1, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i.i1099.1 = sub i32 %122, %mul.i.i1079.1
+  store i32 %sub39.i.i1099.1, ptr %oldval, align 4, !tbaa !33
+  %shr41.i.i1100.1 = lshr i16 %124, 5
+  %sub42.i.i1101.1 = sub i16 %124, %shr41.i.i1100.1
+  store i16 %sub42.i.i1101.1, ptr %arrayidx.i1070.1, align 2, !tbaa !21
+  %cmp45.i.i1102.1 = icmp ult i32 %sub37.i.i1098.1, 16777216
+  br i1 %cmp45.i.i1102.1, label %if.then47.i.i1106.1, label %getbit_from_table.exit.i1122.1
 
-if.then47.i.i1096.1:                              ; preds = %if.end35.i.i1093.1
-  %shl49.i.i1094.1 = shl i32 %sub39.i.i1089.1, 8
-  %cmp.not.i96.i.i1095.1 = icmp ult ptr %incdec.ptr.i.i.i10821204, %115
-  br i1 %cmp.not.i96.i.i1095.1, label %if.end.i101.i.i1100.1, label %if.then.i98.i.i1097.1
+if.then47.i.i1106.1:                              ; preds = %if.end35.i.i1103.1
+  %shl49.i.i1104.1 = shl i32 %sub39.i.i1099.1, 8
+  %cmp.not.i96.i.i1105.1 = icmp ult ptr %incdec.ptr.i.i.i10921210, %115
+  br i1 %cmp.not.i96.i.i1105.1, label %if.end.i101.i.i1110.1, label %if.then.i98.i.i1107.1
 
-if.then.i98.i.i1097.1:                            ; preds = %if.then47.i.i1096.1
+if.then.i98.i.i1107.1:                            ; preds = %if.then47.i.i1106.1
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i.i1104.1
+  br label %get_byte.exit103.i.i1114.1
 
-if.end.i101.i.i1100.1:                            ; preds = %if.then47.i.i1096.1
-  %125 = load i8, ptr %incdec.ptr.i.i.i10821204, align 1, !tbaa !5
-  %conv7.i99.i.i1098.1 = zext i8 %125 to i32
-  %incdec.ptr.i100.i.i1099.1 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10821204, i64 1
-  store ptr %incdec.ptr.i100.i.i1099.1, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i.i1104.1
+if.end.i101.i.i1110.1:                            ; preds = %if.then47.i.i1106.1
+  %125 = load i8, ptr %incdec.ptr.i.i.i10921210, align 1, !tbaa !5
+  %conv7.i99.i.i1108.1 = zext i8 %125 to i32
+  %incdec.ptr.i100.i.i1109.1 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10921210, i64 1
+  store ptr %incdec.ptr.i100.i.i1109.1, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i.i1114.1
 
-get_byte.exit103.i.i1104.1:                       ; preds = %if.end.i101.i.i1100.1, %if.then.i98.i.i1097.1
-  %incdec.ptr.i.i.i10821205.1 = phi ptr [ %incdec.ptr.i.i.i10821204, %if.then.i98.i.i1097.1 ], [ %incdec.ptr.i100.i.i1099.1, %if.end.i101.i.i1100.1 ]
-  %retval.0.i102.i.i1101.1 = phi i32 [ 255, %if.then.i98.i.i1097.1 ], [ %conv7.i99.i.i1098.1, %if.end.i101.i.i1100.1 ]
-  %or51.i.i1102.1 = or i32 %retval.0.i102.i.i1101.1, %shl49.i.i1094.1
-  store i32 %or51.i.i1102.1, ptr %oldval, align 4, !tbaa !33
-  %shl54.i.i1103.1 = shl nuw i32 %sub37.i.i1088.1, 8
-  store i32 %shl54.i.i1103.1, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112.1
+get_byte.exit103.i.i1114.1:                       ; preds = %if.end.i101.i.i1110.1, %if.then.i98.i.i1107.1
+  %incdec.ptr.i.i.i10921211.1 = phi ptr [ %incdec.ptr.i.i.i10921210, %if.then.i98.i.i1107.1 ], [ %incdec.ptr.i100.i.i1109.1, %if.end.i101.i.i1110.1 ]
+  %retval.0.i102.i.i1111.1 = phi i32 [ 255, %if.then.i98.i.i1107.1 ], [ %conv7.i99.i.i1108.1, %if.end.i101.i.i1110.1 ]
+  %or51.i.i1112.1 = or i32 %retval.0.i102.i.i1111.1, %shl49.i.i1104.1
+  store i32 %or51.i.i1112.1, ptr %oldval, align 4, !tbaa !33
+  %shl54.i.i1113.1 = shl nuw i32 %sub37.i.i1098.1, 8
+  store i32 %shl54.i.i1113.1, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122.1
 
-if.then21.i.i1076.1:                              ; preds = %if.end.i.i1071.1
-  store i32 %mul.i.i1069.1, ptr %bitmap, align 8, !tbaa !29
-  %sub.i.i1072.1 = sub nsw i32 2048, %conv18.i.i1067.1
-  %shr24.i.i1073.1 = ashr i32 %sub.i.i1072.1, 5
-  %126 = trunc i32 %shr24.i.i1073.1 to i16
-  %conv25.i.i1074.1 = add i16 %124, %126
-  store i16 %conv25.i.i1074.1, ptr %arrayidx.i1060.1, align 2, !tbaa !21
-  %cmp27.i.i1075.1 = icmp ult i32 %mul.i.i1069.1, 16777216
-  br i1 %cmp27.i.i1075.1, label %if.then29.i.i1079.1, label %getbit_from_table.exit.i1112.1
+if.then21.i.i1086.1:                              ; preds = %if.end.i.i1081.1
+  store i32 %mul.i.i1079.1, ptr %bitmap, align 8, !tbaa !29
+  %sub.i.i1082.1 = sub nsw i32 2048, %conv18.i.i1077.1
+  %shr24.i.i1083.1 = ashr i32 %sub.i.i1082.1, 5
+  %126 = trunc i32 %shr24.i.i1083.1 to i16
+  %conv25.i.i1084.1 = add i16 %124, %126
+  store i16 %conv25.i.i1084.1, ptr %arrayidx.i1070.1, align 2, !tbaa !21
+  %cmp27.i.i1085.1 = icmp ult i32 %mul.i.i1079.1, 16777216
+  br i1 %cmp27.i.i1085.1, label %if.then29.i.i1089.1, label %getbit_from_table.exit.i1122.1
 
-if.then29.i.i1079.1:                              ; preds = %if.then21.i.i1076.1
-  %shl.i.i1077.1 = shl i32 %122, 8
-  %cmp.not.i.i.i1078.1 = icmp ult ptr %incdec.ptr.i.i.i10821204, %115
-  br i1 %cmp.not.i.i.i1078.1, label %if.end.i.i.i1083.1, label %if.then.i.i.i1080.1
+if.then29.i.i1089.1:                              ; preds = %if.then21.i.i1086.1
+  %shl.i.i1087.1 = shl i32 %122, 8
+  %cmp.not.i.i.i1088.1 = icmp ult ptr %incdec.ptr.i.i.i10921210, %115
+  br i1 %cmp.not.i.i.i1088.1, label %if.end.i.i.i1093.1, label %if.then.i.i.i1090.1
 
-if.then.i.i.i1080.1:                              ; preds = %if.then29.i.i1079.1
+if.then.i.i.i1090.1:                              ; preds = %if.then29.i.i1089.1
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i.i1087.1
+  br label %get_byte.exit.i.i1097.1
 
-if.end.i.i.i1083.1:                               ; preds = %if.then29.i.i1079.1
-  %127 = load i8, ptr %incdec.ptr.i.i.i10821204, align 1, !tbaa !5
-  %conv7.i.i.i1081.1 = zext i8 %127 to i32
-  %incdec.ptr.i.i.i1082.1 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10821204, i64 1
-  store ptr %incdec.ptr.i.i.i1082.1, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i.i1087.1
+if.end.i.i.i1093.1:                               ; preds = %if.then29.i.i1089.1
+  %127 = load i8, ptr %incdec.ptr.i.i.i10921210, align 1, !tbaa !5
+  %conv7.i.i.i1091.1 = zext i8 %127 to i32
+  %incdec.ptr.i.i.i1092.1 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10921210, i64 1
+  store ptr %incdec.ptr.i.i.i1092.1, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i.i1097.1
 
-get_byte.exit.i.i1087.1:                          ; preds = %if.end.i.i.i1083.1, %if.then.i.i.i1080.1
-  %incdec.ptr.i.i.i10821206.1 = phi ptr [ %incdec.ptr.i.i.i10821204, %if.then.i.i.i1080.1 ], [ %incdec.ptr.i.i.i1082.1, %if.end.i.i.i1083.1 ]
-  %retval.0.i.i.i1084.1 = phi i32 [ 255, %if.then.i.i.i1080.1 ], [ %conv7.i.i.i1081.1, %if.end.i.i.i1083.1 ]
-  %or.i.i1085.1 = or i32 %retval.0.i.i.i1084.1, %shl.i.i1077.1
-  store i32 %or.i.i1085.1, ptr %oldval, align 4, !tbaa !33
-  %shl33.i.i1086.1 = shl nuw i32 %mul.i.i1069.1, 8
-  store i32 %shl33.i.i1086.1, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112.1
+get_byte.exit.i.i1097.1:                          ; preds = %if.end.i.i.i1093.1, %if.then.i.i.i1090.1
+  %incdec.ptr.i.i.i10921212.1 = phi ptr [ %incdec.ptr.i.i.i10921210, %if.then.i.i.i1090.1 ], [ %incdec.ptr.i.i.i1092.1, %if.end.i.i.i1093.1 ]
+  %retval.0.i.i.i1094.1 = phi i32 [ 255, %if.then.i.i.i1090.1 ], [ %conv7.i.i.i1091.1, %if.end.i.i.i1093.1 ]
+  %or.i.i1095.1 = or i32 %retval.0.i.i.i1094.1, %shl.i.i1087.1
+  store i32 %or.i.i1095.1, ptr %oldval, align 4, !tbaa !33
+  %shl33.i.i1096.1 = shl nuw i32 %mul.i.i1079.1, 8
+  store i32 %shl33.i.i1096.1, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122.1
 
-getbit_from_table.exit.i1112.1:                   ; preds = %get_byte.exit.i.i1087.1, %if.then21.i.i1076.1, %get_byte.exit103.i.i1104.1, %if.end35.i.i1093.1, %if.then.i.i1066.1
-  %incdec.ptr.i.i.i10821204.1 = phi ptr [ %incdec.ptr.i.i.i10821204, %if.then.i.i1066.1 ], [ %incdec.ptr.i.i.i10821206.1, %get_byte.exit.i.i1087.1 ], [ %incdec.ptr.i.i.i10821204, %if.then21.i.i1076.1 ], [ %incdec.ptr.i.i.i10821205.1, %get_byte.exit103.i.i1104.1 ], [ %incdec.ptr.i.i.i10821204, %if.end35.i.i1093.1 ]
-  %128 = phi i32 [ %122, %if.then.i.i1066.1 ], [ %or.i.i1085.1, %get_byte.exit.i.i1087.1 ], [ %122, %if.then21.i.i1076.1 ], [ %or51.i.i1102.1, %get_byte.exit103.i.i1104.1 ], [ %sub39.i.i1089.1, %if.end35.i.i1093.1 ]
-  %129 = phi i32 [ %123, %if.then.i.i1066.1 ], [ %shl33.i.i1086.1, %get_byte.exit.i.i1087.1 ], [ %mul.i.i1069.1, %if.then21.i.i1076.1 ], [ %shl54.i.i1103.1, %get_byte.exit103.i.i1104.1 ], [ %sub37.i.i1088.1, %if.end35.i.i1093.1 ]
-  %retval.0.i.i1105.1 = phi i32 [ 255, %if.then.i.i1066.1 ], [ 0, %get_byte.exit.i.i1087.1 ], [ 0, %if.then21.i.i1076.1 ], [ 1, %get_byte.exit103.i.i1104.1 ], [ 1, %if.end35.i.i1093.1 ]
-  %mul.i1106.1 = shl nuw nsw i32 %add.i1107, 1
-  %add.i1107.1 = add nuw nsw i32 %retval.0.i.i1105.1, %mul.i1106.1
-  %shl.i1108.1 = shl nuw nsw i32 %retval.0.i.i1105.1, 1
-  %idxprom.i1059.2 = zext i32 %add.i1107.1 to i64
-  %arrayidx.i1060.2 = getelementptr inbounds i16, ptr %arrayidx276, i64 %idxprom.i1059.2
-  %cmp5.not.i.i1061.2 = icmp ule ptr %117, %arrayidx.i1060.2
-  %add.ptr.i.i1062.2 = getelementptr inbounds i8, ptr %arrayidx.i1060.2, i64 2
-  %cmp11.not.i.i1063.2 = icmp ule ptr %add.ptr.i.i1062.2, %add.ptr10.i.i1054
-  %or.cond104.i.i1064.2 = select i1 %cmp5.not.i.i1061.2, i1 %cmp11.not.i.i1063.2, i1 false
-  br i1 %or.cond104.i.i1064.2, label %if.end.i.i1071.2, label %if.then.i.i1066.2
+getbit_from_table.exit.i1122.1:                   ; preds = %get_byte.exit.i.i1097.1, %if.then21.i.i1086.1, %get_byte.exit103.i.i1114.1, %if.end35.i.i1103.1, %if.then.i.i1076.1
+  %incdec.ptr.i.i.i10921210.1 = phi ptr [ %incdec.ptr.i.i.i10921210, %if.then.i.i1076.1 ], [ %incdec.ptr.i.i.i10921212.1, %get_byte.exit.i.i1097.1 ], [ %incdec.ptr.i.i.i10921210, %if.then21.i.i1086.1 ], [ %incdec.ptr.i.i.i10921211.1, %get_byte.exit103.i.i1114.1 ], [ %incdec.ptr.i.i.i10921210, %if.end35.i.i1103.1 ]
+  %128 = phi i32 [ %122, %if.then.i.i1076.1 ], [ %or.i.i1095.1, %get_byte.exit.i.i1097.1 ], [ %122, %if.then21.i.i1086.1 ], [ %or51.i.i1112.1, %get_byte.exit103.i.i1114.1 ], [ %sub39.i.i1099.1, %if.end35.i.i1103.1 ]
+  %129 = phi i32 [ %123, %if.then.i.i1076.1 ], [ %shl33.i.i1096.1, %get_byte.exit.i.i1097.1 ], [ %mul.i.i1079.1, %if.then21.i.i1086.1 ], [ %shl54.i.i1113.1, %get_byte.exit103.i.i1114.1 ], [ %sub37.i.i1098.1, %if.end35.i.i1103.1 ]
+  %retval.0.i.i1115.1 = phi i32 [ 255, %if.then.i.i1076.1 ], [ 0, %get_byte.exit.i.i1097.1 ], [ 0, %if.then21.i.i1086.1 ], [ 1, %get_byte.exit103.i.i1114.1 ], [ 1, %if.end35.i.i1103.1 ]
+  %mul.i1116.1 = shl nuw nsw i32 %add.i1117, 1
+  %add.i1117.1 = add nuw nsw i32 %retval.0.i.i1115.1, %mul.i1116.1
+  %shl.i1118.1 = shl nuw nsw i32 %retval.0.i.i1115.1, 1
+  %idxprom.i1069.2 = zext i32 %add.i1117.1 to i64
+  %arrayidx.i1070.2 = getelementptr inbounds i16, ptr %arrayidx276, i64 %idxprom.i1069.2
+  %cmp5.not.i.i1071.2 = icmp ule ptr %117, %arrayidx.i1070.2
+  %add.ptr.i.i1072.2 = getelementptr inbounds i8, ptr %arrayidx.i1070.2, i64 2
+  %cmp11.not.i.i1073.2 = icmp ule ptr %add.ptr.i.i1072.2, %add.ptr10.i.i1064
+  %or.cond104.i.i1074.2 = select i1 %cmp5.not.i.i1071.2, i1 %cmp11.not.i.i1073.2, i1 false
+  br i1 %or.cond104.i.i1074.2, label %if.end.i.i1081.2, label %if.then.i.i1076.2
 
-if.then.i.i1066.2:                                ; preds = %getbit_from_table.exit.i1112.1
+if.then.i.i1076.2:                                ; preds = %getbit_from_table.exit.i1122.1
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %getbit_from_table.exit.i1112.2
+  br label %getbit_from_table.exit.i1122.2
 
-if.end.i.i1071.2:                                 ; preds = %getbit_from_table.exit.i1112.1
-  %130 = load i16, ptr %arrayidx.i1060.2, align 2, !tbaa !21
-  %conv18.i.i1067.2 = zext i16 %130 to i32
-  %shr.i.i1068.2 = lshr i32 %129, 11
-  %mul.i.i1069.2 = mul i32 %shr.i.i1068.2, %conv18.i.i1067.2
-  %cmp19.i.i1070.2 = icmp ult i32 %128, %mul.i.i1069.2
-  br i1 %cmp19.i.i1070.2, label %if.then21.i.i1076.2, label %if.end35.i.i1093.2
+if.end.i.i1081.2:                                 ; preds = %getbit_from_table.exit.i1122.1
+  %130 = load i16, ptr %arrayidx.i1070.2, align 2, !tbaa !21
+  %conv18.i.i1077.2 = zext i16 %130 to i32
+  %shr.i.i1078.2 = lshr i32 %129, 11
+  %mul.i.i1079.2 = mul i32 %shr.i.i1078.2, %conv18.i.i1077.2
+  %cmp19.i.i1080.2 = icmp ult i32 %128, %mul.i.i1079.2
+  br i1 %cmp19.i.i1080.2, label %if.then21.i.i1086.2, label %if.end35.i.i1103.2
 
-if.end35.i.i1093.2:                               ; preds = %if.end.i.i1071.2
-  %sub37.i.i1088.2 = sub i32 %129, %mul.i.i1069.2
-  store i32 %sub37.i.i1088.2, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i.i1089.2 = sub i32 %128, %mul.i.i1069.2
-  store i32 %sub39.i.i1089.2, ptr %oldval, align 4, !tbaa !33
-  %shr41.i.i1090.2 = lshr i16 %130, 5
-  %sub42.i.i1091.2 = sub i16 %130, %shr41.i.i1090.2
-  store i16 %sub42.i.i1091.2, ptr %arrayidx.i1060.2, align 2, !tbaa !21
-  %cmp45.i.i1092.2 = icmp ult i32 %sub37.i.i1088.2, 16777216
-  br i1 %cmp45.i.i1092.2, label %if.then47.i.i1096.2, label %getbit_from_table.exit.i1112.2
+if.end35.i.i1103.2:                               ; preds = %if.end.i.i1081.2
+  %sub37.i.i1098.2 = sub i32 %129, %mul.i.i1079.2
+  store i32 %sub37.i.i1098.2, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i.i1099.2 = sub i32 %128, %mul.i.i1079.2
+  store i32 %sub39.i.i1099.2, ptr %oldval, align 4, !tbaa !33
+  %shr41.i.i1100.2 = lshr i16 %130, 5
+  %sub42.i.i1101.2 = sub i16 %130, %shr41.i.i1100.2
+  store i16 %sub42.i.i1101.2, ptr %arrayidx.i1070.2, align 2, !tbaa !21
+  %cmp45.i.i1102.2 = icmp ult i32 %sub37.i.i1098.2, 16777216
+  br i1 %cmp45.i.i1102.2, label %if.then47.i.i1106.2, label %getbit_from_table.exit.i1122.2
 
-if.then47.i.i1096.2:                              ; preds = %if.end35.i.i1093.2
-  %shl49.i.i1094.2 = shl i32 %sub39.i.i1089.2, 8
-  %cmp.not.i96.i.i1095.2 = icmp ult ptr %incdec.ptr.i.i.i10821204.1, %115
-  br i1 %cmp.not.i96.i.i1095.2, label %if.end.i101.i.i1100.2, label %if.then.i98.i.i1097.2
+if.then47.i.i1106.2:                              ; preds = %if.end35.i.i1103.2
+  %shl49.i.i1104.2 = shl i32 %sub39.i.i1099.2, 8
+  %cmp.not.i96.i.i1105.2 = icmp ult ptr %incdec.ptr.i.i.i10921210.1, %115
+  br i1 %cmp.not.i96.i.i1105.2, label %if.end.i101.i.i1110.2, label %if.then.i98.i.i1107.2
 
-if.then.i98.i.i1097.2:                            ; preds = %if.then47.i.i1096.2
+if.then.i98.i.i1107.2:                            ; preds = %if.then47.i.i1106.2
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i.i1104.2
+  br label %get_byte.exit103.i.i1114.2
 
-if.end.i101.i.i1100.2:                            ; preds = %if.then47.i.i1096.2
-  %131 = load i8, ptr %incdec.ptr.i.i.i10821204.1, align 1, !tbaa !5
-  %conv7.i99.i.i1098.2 = zext i8 %131 to i32
-  %incdec.ptr.i100.i.i1099.2 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10821204.1, i64 1
-  store ptr %incdec.ptr.i100.i.i1099.2, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i.i1104.2
+if.end.i101.i.i1110.2:                            ; preds = %if.then47.i.i1106.2
+  %131 = load i8, ptr %incdec.ptr.i.i.i10921210.1, align 1, !tbaa !5
+  %conv7.i99.i.i1108.2 = zext i8 %131 to i32
+  %incdec.ptr.i100.i.i1109.2 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10921210.1, i64 1
+  store ptr %incdec.ptr.i100.i.i1109.2, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i.i1114.2
 
-get_byte.exit103.i.i1104.2:                       ; preds = %if.end.i101.i.i1100.2, %if.then.i98.i.i1097.2
-  %incdec.ptr.i.i.i10821205.2 = phi ptr [ %incdec.ptr.i.i.i10821204.1, %if.then.i98.i.i1097.2 ], [ %incdec.ptr.i100.i.i1099.2, %if.end.i101.i.i1100.2 ]
-  %retval.0.i102.i.i1101.2 = phi i32 [ 255, %if.then.i98.i.i1097.2 ], [ %conv7.i99.i.i1098.2, %if.end.i101.i.i1100.2 ]
-  %or51.i.i1102.2 = or i32 %retval.0.i102.i.i1101.2, %shl49.i.i1094.2
-  store i32 %or51.i.i1102.2, ptr %oldval, align 4, !tbaa !33
-  %shl54.i.i1103.2 = shl nuw i32 %sub37.i.i1088.2, 8
-  store i32 %shl54.i.i1103.2, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112.2
+get_byte.exit103.i.i1114.2:                       ; preds = %if.end.i101.i.i1110.2, %if.then.i98.i.i1107.2
+  %incdec.ptr.i.i.i10921211.2 = phi ptr [ %incdec.ptr.i.i.i10921210.1, %if.then.i98.i.i1107.2 ], [ %incdec.ptr.i100.i.i1109.2, %if.end.i101.i.i1110.2 ]
+  %retval.0.i102.i.i1111.2 = phi i32 [ 255, %if.then.i98.i.i1107.2 ], [ %conv7.i99.i.i1108.2, %if.end.i101.i.i1110.2 ]
+  %or51.i.i1112.2 = or i32 %retval.0.i102.i.i1111.2, %shl49.i.i1104.2
+  store i32 %or51.i.i1112.2, ptr %oldval, align 4, !tbaa !33
+  %shl54.i.i1113.2 = shl nuw i32 %sub37.i.i1098.2, 8
+  store i32 %shl54.i.i1113.2, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122.2
 
-if.then21.i.i1076.2:                              ; preds = %if.end.i.i1071.2
-  store i32 %mul.i.i1069.2, ptr %bitmap, align 8, !tbaa !29
-  %sub.i.i1072.2 = sub nsw i32 2048, %conv18.i.i1067.2
-  %shr24.i.i1073.2 = ashr i32 %sub.i.i1072.2, 5
-  %132 = trunc i32 %shr24.i.i1073.2 to i16
-  %conv25.i.i1074.2 = add i16 %130, %132
-  store i16 %conv25.i.i1074.2, ptr %arrayidx.i1060.2, align 2, !tbaa !21
-  %cmp27.i.i1075.2 = icmp ult i32 %mul.i.i1069.2, 16777216
-  br i1 %cmp27.i.i1075.2, label %if.then29.i.i1079.2, label %getbit_from_table.exit.i1112.2
+if.then21.i.i1086.2:                              ; preds = %if.end.i.i1081.2
+  store i32 %mul.i.i1079.2, ptr %bitmap, align 8, !tbaa !29
+  %sub.i.i1082.2 = sub nsw i32 2048, %conv18.i.i1077.2
+  %shr24.i.i1083.2 = ashr i32 %sub.i.i1082.2, 5
+  %132 = trunc i32 %shr24.i.i1083.2 to i16
+  %conv25.i.i1084.2 = add i16 %130, %132
+  store i16 %conv25.i.i1084.2, ptr %arrayidx.i1070.2, align 2, !tbaa !21
+  %cmp27.i.i1085.2 = icmp ult i32 %mul.i.i1079.2, 16777216
+  br i1 %cmp27.i.i1085.2, label %if.then29.i.i1089.2, label %getbit_from_table.exit.i1122.2
 
-if.then29.i.i1079.2:                              ; preds = %if.then21.i.i1076.2
-  %shl.i.i1077.2 = shl i32 %128, 8
-  %cmp.not.i.i.i1078.2 = icmp ult ptr %incdec.ptr.i.i.i10821204.1, %115
-  br i1 %cmp.not.i.i.i1078.2, label %if.end.i.i.i1083.2, label %if.then.i.i.i1080.2
+if.then29.i.i1089.2:                              ; preds = %if.then21.i.i1086.2
+  %shl.i.i1087.2 = shl i32 %128, 8
+  %cmp.not.i.i.i1088.2 = icmp ult ptr %incdec.ptr.i.i.i10921210.1, %115
+  br i1 %cmp.not.i.i.i1088.2, label %if.end.i.i.i1093.2, label %if.then.i.i.i1090.2
 
-if.then.i.i.i1080.2:                              ; preds = %if.then29.i.i1079.2
+if.then.i.i.i1090.2:                              ; preds = %if.then29.i.i1089.2
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i.i1087.2
+  br label %get_byte.exit.i.i1097.2
 
-if.end.i.i.i1083.2:                               ; preds = %if.then29.i.i1079.2
-  %133 = load i8, ptr %incdec.ptr.i.i.i10821204.1, align 1, !tbaa !5
-  %conv7.i.i.i1081.2 = zext i8 %133 to i32
-  %incdec.ptr.i.i.i1082.2 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10821204.1, i64 1
-  store ptr %incdec.ptr.i.i.i1082.2, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i.i1087.2
+if.end.i.i.i1093.2:                               ; preds = %if.then29.i.i1089.2
+  %133 = load i8, ptr %incdec.ptr.i.i.i10921210.1, align 1, !tbaa !5
+  %conv7.i.i.i1091.2 = zext i8 %133 to i32
+  %incdec.ptr.i.i.i1092.2 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10921210.1, i64 1
+  store ptr %incdec.ptr.i.i.i1092.2, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i.i1097.2
 
-get_byte.exit.i.i1087.2:                          ; preds = %if.end.i.i.i1083.2, %if.then.i.i.i1080.2
-  %incdec.ptr.i.i.i10821206.2 = phi ptr [ %incdec.ptr.i.i.i10821204.1, %if.then.i.i.i1080.2 ], [ %incdec.ptr.i.i.i1082.2, %if.end.i.i.i1083.2 ]
-  %retval.0.i.i.i1084.2 = phi i32 [ 255, %if.then.i.i.i1080.2 ], [ %conv7.i.i.i1081.2, %if.end.i.i.i1083.2 ]
-  %or.i.i1085.2 = or i32 %retval.0.i.i.i1084.2, %shl.i.i1077.2
-  store i32 %or.i.i1085.2, ptr %oldval, align 4, !tbaa !33
-  %shl33.i.i1086.2 = shl nuw i32 %mul.i.i1069.2, 8
-  store i32 %shl33.i.i1086.2, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112.2
+get_byte.exit.i.i1097.2:                          ; preds = %if.end.i.i.i1093.2, %if.then.i.i.i1090.2
+  %incdec.ptr.i.i.i10921212.2 = phi ptr [ %incdec.ptr.i.i.i10921210.1, %if.then.i.i.i1090.2 ], [ %incdec.ptr.i.i.i1092.2, %if.end.i.i.i1093.2 ]
+  %retval.0.i.i.i1094.2 = phi i32 [ 255, %if.then.i.i.i1090.2 ], [ %conv7.i.i.i1091.2, %if.end.i.i.i1093.2 ]
+  %or.i.i1095.2 = or i32 %retval.0.i.i.i1094.2, %shl.i.i1087.2
+  store i32 %or.i.i1095.2, ptr %oldval, align 4, !tbaa !33
+  %shl33.i.i1096.2 = shl nuw i32 %mul.i.i1079.2, 8
+  store i32 %shl33.i.i1096.2, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122.2
 
-getbit_from_table.exit.i1112.2:                   ; preds = %get_byte.exit.i.i1087.2, %if.then21.i.i1076.2, %get_byte.exit103.i.i1104.2, %if.end35.i.i1093.2, %if.then.i.i1066.2
-  %incdec.ptr.i.i.i10821204.2 = phi ptr [ %incdec.ptr.i.i.i10821204.1, %if.then.i.i1066.2 ], [ %incdec.ptr.i.i.i10821206.2, %get_byte.exit.i.i1087.2 ], [ %incdec.ptr.i.i.i10821204.1, %if.then21.i.i1076.2 ], [ %incdec.ptr.i.i.i10821205.2, %get_byte.exit103.i.i1104.2 ], [ %incdec.ptr.i.i.i10821204.1, %if.end35.i.i1093.2 ]
-  %134 = phi i32 [ %128, %if.then.i.i1066.2 ], [ %or.i.i1085.2, %get_byte.exit.i.i1087.2 ], [ %128, %if.then21.i.i1076.2 ], [ %or51.i.i1102.2, %get_byte.exit103.i.i1104.2 ], [ %sub39.i.i1089.2, %if.end35.i.i1093.2 ]
-  %135 = phi i32 [ %129, %if.then.i.i1066.2 ], [ %shl33.i.i1086.2, %get_byte.exit.i.i1087.2 ], [ %mul.i.i1069.2, %if.then21.i.i1076.2 ], [ %shl54.i.i1103.2, %get_byte.exit103.i.i1104.2 ], [ %sub37.i.i1088.2, %if.end35.i.i1093.2 ]
-  %retval.0.i.i1105.2 = phi i32 [ 255, %if.then.i.i1066.2 ], [ 0, %get_byte.exit.i.i1087.2 ], [ 0, %if.then21.i.i1076.2 ], [ 1, %get_byte.exit103.i.i1104.2 ], [ 1, %if.end35.i.i1093.2 ]
-  %mul.i1106.2 = shl nuw nsw i32 %add.i1107.1, 1
-  %add.i1107.2 = add nuw nsw i32 %retval.0.i.i1105.2, %mul.i1106.2
-  %shl.i1108.2 = shl nuw nsw i32 %retval.0.i.i1105.2, 2
-  %136 = or i32 %shl.i1108.1, %shl.i1108.2
-  %idxprom.i1059.3 = zext i32 %add.i1107.2 to i64
-  %arrayidx.i1060.3 = getelementptr inbounds i16, ptr %arrayidx276, i64 %idxprom.i1059.3
-  %cmp5.not.i.i1061.3 = icmp ule ptr %117, %arrayidx.i1060.3
-  %add.ptr.i.i1062.3 = getelementptr inbounds i8, ptr %arrayidx.i1060.3, i64 2
-  %cmp11.not.i.i1063.3 = icmp ule ptr %add.ptr.i.i1062.3, %add.ptr10.i.i1054
-  %or.cond104.i.i1064.3 = select i1 %cmp5.not.i.i1061.3, i1 %cmp11.not.i.i1063.3, i1 false
-  br i1 %or.cond104.i.i1064.3, label %if.end.i.i1071.3, label %if.then.i.i1066.3
+getbit_from_table.exit.i1122.2:                   ; preds = %get_byte.exit.i.i1097.2, %if.then21.i.i1086.2, %get_byte.exit103.i.i1114.2, %if.end35.i.i1103.2, %if.then.i.i1076.2
+  %incdec.ptr.i.i.i10921210.2 = phi ptr [ %incdec.ptr.i.i.i10921210.1, %if.then.i.i1076.2 ], [ %incdec.ptr.i.i.i10921212.2, %get_byte.exit.i.i1097.2 ], [ %incdec.ptr.i.i.i10921210.1, %if.then21.i.i1086.2 ], [ %incdec.ptr.i.i.i10921211.2, %get_byte.exit103.i.i1114.2 ], [ %incdec.ptr.i.i.i10921210.1, %if.end35.i.i1103.2 ]
+  %134 = phi i32 [ %128, %if.then.i.i1076.2 ], [ %or.i.i1095.2, %get_byte.exit.i.i1097.2 ], [ %128, %if.then21.i.i1086.2 ], [ %or51.i.i1112.2, %get_byte.exit103.i.i1114.2 ], [ %sub39.i.i1099.2, %if.end35.i.i1103.2 ]
+  %135 = phi i32 [ %129, %if.then.i.i1076.2 ], [ %shl33.i.i1096.2, %get_byte.exit.i.i1097.2 ], [ %mul.i.i1079.2, %if.then21.i.i1086.2 ], [ %shl54.i.i1113.2, %get_byte.exit103.i.i1114.2 ], [ %sub37.i.i1098.2, %if.end35.i.i1103.2 ]
+  %retval.0.i.i1115.2 = phi i32 [ 255, %if.then.i.i1076.2 ], [ 0, %get_byte.exit.i.i1097.2 ], [ 0, %if.then21.i.i1086.2 ], [ 1, %get_byte.exit103.i.i1114.2 ], [ 1, %if.end35.i.i1103.2 ]
+  %mul.i1116.2 = shl nuw nsw i32 %add.i1117.1, 1
+  %add.i1117.2 = add nuw nsw i32 %retval.0.i.i1115.2, %mul.i1116.2
+  %shl.i1118.2 = shl nuw nsw i32 %retval.0.i.i1115.2, 2
+  %136 = or i32 %shl.i1118.1, %shl.i1118.2
+  %idxprom.i1069.3 = zext i32 %add.i1117.2 to i64
+  %arrayidx.i1070.3 = getelementptr inbounds i16, ptr %arrayidx276, i64 %idxprom.i1069.3
+  %cmp5.not.i.i1071.3 = icmp ule ptr %117, %arrayidx.i1070.3
+  %add.ptr.i.i1072.3 = getelementptr inbounds i8, ptr %arrayidx.i1070.3, i64 2
+  %cmp11.not.i.i1073.3 = icmp ule ptr %add.ptr.i.i1072.3, %add.ptr10.i.i1064
+  %or.cond104.i.i1074.3 = select i1 %cmp5.not.i.i1071.3, i1 %cmp11.not.i.i1073.3, i1 false
+  br i1 %or.cond104.i.i1074.3, label %if.end.i.i1081.3, label %if.then.i.i1076.3
 
-if.then.i.i1066.3:                                ; preds = %getbit_from_table.exit.i1112.2
+if.then.i.i1076.3:                                ; preds = %getbit_from_table.exit.i1122.2
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %getbit_from_table.exit.i1112.3
+  br label %getbit_from_table.exit.i1122.3
 
-if.end.i.i1071.3:                                 ; preds = %getbit_from_table.exit.i1112.2
-  %137 = load i16, ptr %arrayidx.i1060.3, align 2, !tbaa !21
-  %conv18.i.i1067.3 = zext i16 %137 to i32
-  %shr.i.i1068.3 = lshr i32 %135, 11
-  %mul.i.i1069.3 = mul i32 %shr.i.i1068.3, %conv18.i.i1067.3
-  %cmp19.i.i1070.3 = icmp ult i32 %134, %mul.i.i1069.3
-  br i1 %cmp19.i.i1070.3, label %if.then21.i.i1076.3, label %if.end35.i.i1093.3
+if.end.i.i1081.3:                                 ; preds = %getbit_from_table.exit.i1122.2
+  %137 = load i16, ptr %arrayidx.i1070.3, align 2, !tbaa !21
+  %conv18.i.i1077.3 = zext i16 %137 to i32
+  %shr.i.i1078.3 = lshr i32 %135, 11
+  %mul.i.i1079.3 = mul i32 %shr.i.i1078.3, %conv18.i.i1077.3
+  %cmp19.i.i1080.3 = icmp ult i32 %134, %mul.i.i1079.3
+  br i1 %cmp19.i.i1080.3, label %if.then21.i.i1086.3, label %if.end35.i.i1103.3
 
-if.end35.i.i1093.3:                               ; preds = %if.end.i.i1071.3
-  %sub37.i.i1088.3 = sub i32 %135, %mul.i.i1069.3
-  store i32 %sub37.i.i1088.3, ptr %bitmap, align 8, !tbaa !29
-  %sub39.i.i1089.3 = sub i32 %134, %mul.i.i1069.3
-  store i32 %sub39.i.i1089.3, ptr %oldval, align 4, !tbaa !33
-  %shr41.i.i1090.3 = lshr i16 %137, 5
-  %sub42.i.i1091.3 = sub i16 %137, %shr41.i.i1090.3
-  store i16 %sub42.i.i1091.3, ptr %arrayidx.i1060.3, align 2, !tbaa !21
-  %cmp45.i.i1092.3 = icmp ult i32 %sub37.i.i1088.3, 16777216
-  br i1 %cmp45.i.i1092.3, label %if.then47.i.i1096.3, label %getbit_from_table.exit.i1112.3
+if.end35.i.i1103.3:                               ; preds = %if.end.i.i1081.3
+  %sub37.i.i1098.3 = sub i32 %135, %mul.i.i1079.3
+  store i32 %sub37.i.i1098.3, ptr %bitmap, align 8, !tbaa !29
+  %sub39.i.i1099.3 = sub i32 %134, %mul.i.i1079.3
+  store i32 %sub39.i.i1099.3, ptr %oldval, align 4, !tbaa !33
+  %shr41.i.i1100.3 = lshr i16 %137, 5
+  %sub42.i.i1101.3 = sub i16 %137, %shr41.i.i1100.3
+  store i16 %sub42.i.i1101.3, ptr %arrayidx.i1070.3, align 2, !tbaa !21
+  %cmp45.i.i1102.3 = icmp ult i32 %sub37.i.i1098.3, 16777216
+  br i1 %cmp45.i.i1102.3, label %if.then47.i.i1106.3, label %getbit_from_table.exit.i1122.3
 
-if.then47.i.i1096.3:                              ; preds = %if.end35.i.i1093.3
-  %shl49.i.i1094.3 = shl i32 %sub39.i.i1089.3, 8
-  %cmp.not.i96.i.i1095.3 = icmp ult ptr %incdec.ptr.i.i.i10821204.2, %115
-  br i1 %cmp.not.i96.i.i1095.3, label %if.end.i101.i.i1100.3, label %if.then.i98.i.i1097.3
+if.then47.i.i1106.3:                              ; preds = %if.end35.i.i1103.3
+  %shl49.i.i1104.3 = shl i32 %sub39.i.i1099.3, 8
+  %cmp.not.i96.i.i1105.3 = icmp ult ptr %incdec.ptr.i.i.i10921210.2, %115
+  br i1 %cmp.not.i96.i.i1105.3, label %if.end.i101.i.i1110.3, label %if.then.i98.i.i1107.3
 
-if.then.i98.i.i1097.3:                            ; preds = %if.then47.i.i1096.3
+if.then.i98.i.i1107.3:                            ; preds = %if.then47.i.i1106.3
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit103.i.i1104.3
+  br label %get_byte.exit103.i.i1114.3
 
-if.end.i101.i.i1100.3:                            ; preds = %if.then47.i.i1096.3
-  %138 = load i8, ptr %incdec.ptr.i.i.i10821204.2, align 1, !tbaa !5
-  %conv7.i99.i.i1098.3 = zext i8 %138 to i32
-  %incdec.ptr.i100.i.i1099.3 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10821204.2, i64 1
-  store ptr %incdec.ptr.i100.i.i1099.3, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit103.i.i1104.3
+if.end.i101.i.i1110.3:                            ; preds = %if.then47.i.i1106.3
+  %138 = load i8, ptr %incdec.ptr.i.i.i10921210.2, align 1, !tbaa !5
+  %conv7.i99.i.i1108.3 = zext i8 %138 to i32
+  %incdec.ptr.i100.i.i1109.3 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10921210.2, i64 1
+  store ptr %incdec.ptr.i100.i.i1109.3, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit103.i.i1114.3
 
-get_byte.exit103.i.i1104.3:                       ; preds = %if.end.i101.i.i1100.3, %if.then.i98.i.i1097.3
-  %retval.0.i102.i.i1101.3 = phi i32 [ 255, %if.then.i98.i.i1097.3 ], [ %conv7.i99.i.i1098.3, %if.end.i101.i.i1100.3 ]
-  %or51.i.i1102.3 = or i32 %retval.0.i102.i.i1101.3, %shl49.i.i1094.3
-  store i32 %or51.i.i1102.3, ptr %oldval, align 4, !tbaa !33
-  %shl54.i.i1103.3 = shl nuw i32 %sub37.i.i1088.3, 8
-  store i32 %shl54.i.i1103.3, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112.3
+get_byte.exit103.i.i1114.3:                       ; preds = %if.end.i101.i.i1110.3, %if.then.i98.i.i1107.3
+  %retval.0.i102.i.i1111.3 = phi i32 [ 255, %if.then.i98.i.i1107.3 ], [ %conv7.i99.i.i1108.3, %if.end.i101.i.i1110.3 ]
+  %or51.i.i1112.3 = or i32 %retval.0.i102.i.i1111.3, %shl49.i.i1104.3
+  store i32 %or51.i.i1112.3, ptr %oldval, align 4, !tbaa !33
+  %shl54.i.i1113.3 = shl nuw i32 %sub37.i.i1098.3, 8
+  store i32 %shl54.i.i1113.3, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122.3
 
-if.then21.i.i1076.3:                              ; preds = %if.end.i.i1071.3
-  store i32 %mul.i.i1069.3, ptr %bitmap, align 8, !tbaa !29
-  %sub.i.i1072.3 = sub nsw i32 2048, %conv18.i.i1067.3
-  %shr24.i.i1073.3 = ashr i32 %sub.i.i1072.3, 5
-  %139 = trunc i32 %shr24.i.i1073.3 to i16
-  %conv25.i.i1074.3 = add i16 %137, %139
-  store i16 %conv25.i.i1074.3, ptr %arrayidx.i1060.3, align 2, !tbaa !21
-  %cmp27.i.i1075.3 = icmp ult i32 %mul.i.i1069.3, 16777216
-  br i1 %cmp27.i.i1075.3, label %if.then29.i.i1079.3, label %getbit_from_table.exit.i1112.3
+if.then21.i.i1086.3:                              ; preds = %if.end.i.i1081.3
+  store i32 %mul.i.i1079.3, ptr %bitmap, align 8, !tbaa !29
+  %sub.i.i1082.3 = sub nsw i32 2048, %conv18.i.i1077.3
+  %shr24.i.i1083.3 = ashr i32 %sub.i.i1082.3, 5
+  %139 = trunc i32 %shr24.i.i1083.3 to i16
+  %conv25.i.i1084.3 = add i16 %137, %139
+  store i16 %conv25.i.i1084.3, ptr %arrayidx.i1070.3, align 2, !tbaa !21
+  %cmp27.i.i1085.3 = icmp ult i32 %mul.i.i1079.3, 16777216
+  br i1 %cmp27.i.i1085.3, label %if.then29.i.i1089.3, label %getbit_from_table.exit.i1122.3
 
-if.then29.i.i1079.3:                              ; preds = %if.then21.i.i1076.3
-  %shl.i.i1077.3 = shl i32 %134, 8
-  %cmp.not.i.i.i1078.3 = icmp ult ptr %incdec.ptr.i.i.i10821204.2, %115
-  br i1 %cmp.not.i.i.i1078.3, label %if.end.i.i.i1083.3, label %if.then.i.i.i1080.3
+if.then29.i.i1089.3:                              ; preds = %if.then21.i.i1086.3
+  %shl.i.i1087.3 = shl i32 %134, 8
+  %cmp.not.i.i.i1088.3 = icmp ult ptr %incdec.ptr.i.i.i10921210.2, %115
+  br i1 %cmp.not.i.i.i1088.3, label %if.end.i.i.i1093.3, label %if.then.i.i.i1090.3
 
-if.then.i.i.i1080.3:                              ; preds = %if.then29.i.i1079.3
+if.then.i.i.i1090.3:                              ; preds = %if.then29.i.i1089.3
   store i32 1, ptr %error, align 8, !tbaa !26
-  br label %get_byte.exit.i.i1087.3
+  br label %get_byte.exit.i.i1097.3
 
-if.end.i.i.i1083.3:                               ; preds = %if.then29.i.i1079.3
-  %140 = load i8, ptr %incdec.ptr.i.i.i10821204.2, align 1, !tbaa !5
-  %conv7.i.i.i1081.3 = zext i8 %140 to i32
-  %incdec.ptr.i.i.i1082.3 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10821204.2, i64 1
-  store ptr %incdec.ptr.i.i.i1082.3, ptr %read_struct, align 8, !tbaa !28
-  br label %get_byte.exit.i.i1087.3
+if.end.i.i.i1093.3:                               ; preds = %if.then29.i.i1089.3
+  %140 = load i8, ptr %incdec.ptr.i.i.i10921210.2, align 1, !tbaa !5
+  %conv7.i.i.i1091.3 = zext i8 %140 to i32
+  %incdec.ptr.i.i.i1092.3 = getelementptr inbounds i8, ptr %incdec.ptr.i.i.i10921210.2, i64 1
+  store ptr %incdec.ptr.i.i.i1092.3, ptr %read_struct, align 8, !tbaa !28
+  br label %get_byte.exit.i.i1097.3
 
-get_byte.exit.i.i1087.3:                          ; preds = %if.end.i.i.i1083.3, %if.then.i.i.i1080.3
-  %retval.0.i.i.i1084.3 = phi i32 [ 255, %if.then.i.i.i1080.3 ], [ %conv7.i.i.i1081.3, %if.end.i.i.i1083.3 ]
-  %or.i.i1085.3 = or i32 %retval.0.i.i.i1084.3, %shl.i.i1077.3
-  store i32 %or.i.i1085.3, ptr %oldval, align 4, !tbaa !33
-  %shl33.i.i1086.3 = shl nuw i32 %mul.i.i1069.3, 8
-  store i32 %shl33.i.i1086.3, ptr %bitmap, align 8, !tbaa !29
-  br label %getbit_from_table.exit.i1112.3
+get_byte.exit.i.i1097.3:                          ; preds = %if.end.i.i.i1093.3, %if.then.i.i.i1090.3
+  %retval.0.i.i.i1094.3 = phi i32 [ 255, %if.then.i.i.i1090.3 ], [ %conv7.i.i.i1091.3, %if.end.i.i.i1093.3 ]
+  %or.i.i1095.3 = or i32 %retval.0.i.i.i1094.3, %shl.i.i1087.3
+  store i32 %or.i.i1095.3, ptr %oldval, align 4, !tbaa !33
+  %shl33.i.i1096.3 = shl nuw i32 %mul.i.i1079.3, 8
+  store i32 %shl33.i.i1096.3, ptr %bitmap, align 8, !tbaa !29
+  br label %getbit_from_table.exit.i1122.3
 
-getbit_from_table.exit.i1112.3:                   ; preds = %get_byte.exit.i.i1087.3, %if.then21.i.i1076.3, %get_byte.exit103.i.i1104.3, %if.end35.i.i1093.3, %if.then.i.i1066.3
-  %retval.0.i.i1105.3 = phi i32 [ 2040, %if.then.i.i1066.3 ], [ 0, %get_byte.exit.i.i1087.3 ], [ 0, %if.then21.i.i1076.3 ], [ 8, %get_byte.exit103.i.i1104.3 ], [ 8, %if.end35.i.i1093.3 ]
-  %141 = or i32 %136, %retval.0.i.i1105.3
-  %or.i1109.3 = or i32 %141, %retval.0.i.i1105
-  br label %get_bb.exit1114
+getbit_from_table.exit.i1122.3:                   ; preds = %get_byte.exit.i.i1097.3, %if.then21.i.i1086.3, %get_byte.exit103.i.i1114.3, %if.end35.i.i1103.3, %if.then.i.i1076.3
+  %retval.0.i.i1115.3 = phi i32 [ 2040, %if.then.i.i1076.3 ], [ 0, %get_byte.exit.i.i1097.3 ], [ 0, %if.then21.i.i1086.3 ], [ 8, %get_byte.exit103.i.i1114.3 ], [ 8, %if.end35.i.i1103.3 ]
+  %141 = or i32 %136, %retval.0.i.i1115.3
+  %or.i1119.3 = or i32 %141, %retval.0.i.i1115
+  br label %get_bb.exit1124
 
-get_bb.exit1114:                                  ; preds = %getbit_from_table.exit.i1112.3, %for.body.lr.ph.split.us.i1044
-  %retval.0.i1113 = phi i32 [ 2047, %for.body.lr.ph.split.us.i1044 ], [ %or.i1109.3, %getbit_from_table.exit.i1112.3 ]
-  %add278 = add i32 %add275, %retval.0.i1113
+get_bb.exit1124:                                  ; preds = %getbit_from_table.exit.i1122.3, %for.body.lr.ph.split.us.i1054
+  %retval.0.i1123 = phi i32 [ 2047, %for.body.lr.ph.split.us.i1054 ], [ %or.i1119.3, %getbit_from_table.exit.i1122.3 ]
+  %add278 = add i32 %add275, %retval.0.i1123
   br label %if.end281
 
-if.end281:                                        ; preds = %get_n_bits_from_table.exit, %get_bb.exit, %get_bb.exit1114
-  %temp.1 = phi i32 [ %add270, %get_bb.exit ], [ %add278, %get_bb.exit1114 ], [ %sub.i955, %get_n_bits_from_table.exit ]
+if.end281:                                        ; preds = %get_n_bits_from_table.exit, %get_bb.exit, %get_bb.exit1124
+  %temp.1 = phi i32 [ %add270, %get_bb.exit ], [ %add278, %get_bb.exit1124 ], [ %sub.i965, %get_n_bits_from_table.exit ]
   %add282 = add i32 %temp.1, 1
   br label %if.end283
 
 if.end283:                                        ; preds = %if.else204, %if.end229, %if.end281
-  %backbytes.1 = phi i32 [ %tpos.1, %if.end229 ], [ %backbytes.01226, %if.else204 ], [ %add282, %if.end281 ]
-  %oldbackbytes.1 = phi i32 [ %backbytes.01226, %if.end229 ], [ %oldbackbytes.01229, %if.else204 ], [ %backbytes.01226, %if.end281 ]
-  %old_oldbackbytes.2 = phi i32 [ %old_oldbackbytes.1, %if.end229 ], [ %old_oldbackbytes.01231, %if.else204 ], [ %oldbackbytes.01229, %if.end281 ]
-  %old_old_oldbackbytes.3 = phi i32 [ %old_old_oldbackbytes.2, %if.end229 ], [ %old_old_oldbackbytes.01232, %if.else204 ], [ %old_oldbackbytes.01231, %if.end281 ]
+  %backbytes.1 = phi i32 [ %tpos.1, %if.end229 ], [ %backbytes.01232, %if.else204 ], [ %add282, %if.end281 ]
+  %oldbackbytes.1 = phi i32 [ %backbytes.01232, %if.end229 ], [ %oldbackbytes.01236, %if.else204 ], [ %backbytes.01232, %if.end281 ]
+  %old_oldbackbytes.2 = phi i32 [ %old_oldbackbytes.1, %if.end229 ], [ %old_oldbackbytes.01239, %if.else204 ], [ %oldbackbytes.01236, %if.end281 ]
+  %old_old_oldbackbytes.3 = phi i32 [ %old_old_oldbackbytes.2, %if.end229 ], [ %old_old_oldbackbytes.01242, %if.else204 ], [ %old_oldbackbytes.01239, %if.end281 ]
   %damian.2 = phi i32 [ %add236, %if.end229 ], [ %add211, %if.else204 ], [ %add243, %if.end281 ]
   %backsize.0 = phi i32 [ %call231, %if.end229 ], [ %call206, %if.else204 ], [ %call245, %if.end281 ]
   %tobool284.not = icmp eq i32 %backbytes.1, 0
   br i1 %tobool284.not, label %cleanup379, label %if.end286
 
 if.end286:                                        ; preds = %if.end283
-  %cmp287 = icmp ult i32 %unpacked_so_far.01225, %backbytes.1
+  %cmp287 = icmp ult i32 %unpacked_so_far.01231, %backbytes.1
   br i1 %cmp287, label %cleanup379, label %if.end290
 
 if.end290:                                        ; preds = %if.end286
   %add291 = add i32 %backsize.0, 2
   %cmp295 = icmp eq i32 %add291, 0
-  %or.cond392.not1253 = select i1 %cmp166.not, i1 true, i1 %cmp295
+  %or.cond392.not1185 = select i1 %cmp166.not, i1 true, i1 %cmp295
   %cmp298.not = icmp ugt i32 %add291, %dsize
-  %or.cond1120 = select i1 %or.cond392.not1253, i1 true, i1 %cmp298.not
-  %.pre = zext i32 %unpacked_so_far.01225 to i64
-  br i1 %or.cond1120, label %if.then353, label %land.lhs.true305
+  %or.cond603 = select i1 %or.cond392.not1185, i1 true, i1 %cmp298.not
+  %.pre = zext i32 %unpacked_so_far.01231 to i64
+  br i1 %or.cond603, label %if.then353, label %land.lhs.true305
 
 land.lhs.true305:                                 ; preds = %if.end290
   %arrayidx302 = getelementptr inbounds i8, ptr %dst, i64 %.pre
@@ -1979,84 +1979,84 @@ land.lhs.true305:                                 ; preds = %if.end290
   %add.ptr309 = getelementptr inbounds i8, ptr %arrayidx302, i64 %idx.ext308
   %cmp312.not = icmp ule ptr %add.ptr309, %add.ptr180
   %cmp319 = icmp ugt ptr %add.ptr309, %dst
-  %or.cond1121 = and i1 %cmp312.not, %cmp319
-  br i1 %or.cond1121, label %land.lhs.true335, label %if.then353
+  %or.cond604 = and i1 %cmp312.not, %cmp319
+  br i1 %or.cond604, label %land.lhs.true335, label %if.then353
 
 land.lhs.true335:                                 ; preds = %land.lhs.true305
-  %sub330 = sub i32 %unpacked_so_far.01225, %backbytes.1
+  %sub330 = sub i32 %unpacked_so_far.01231, %backbytes.1
   %idxprom331 = zext i32 %sub330 to i64
   %arrayidx332 = getelementptr inbounds i8, ptr %dst, i64 %idxprom331
   %add.ptr340 = getelementptr inbounds i8, ptr %arrayidx332, i64 %idx.ext308
   %cmp343.not = icmp ule ptr %add.ptr340, %add.ptr180
   %cmp351 = icmp ugt ptr %add.ptr340, %dst
-  %or.cond1122 = and i1 %cmp343.not, %cmp351
-  br i1 %or.cond1122, label %do.body.preheader, label %if.then353
+  %or.cond605 = and i1 %cmp343.not, %cmp351
+  br i1 %or.cond605, label %do.body.preheader, label %if.then353
 
 do.body.preheader:                                ; preds = %land.lhs.true335
-  %142 = add i32 %unpacked_so_far.01225, 1
-  %umax1279 = tail call i32 @llvm.umax.i32(i32 %dsize, i32 %142)
-  %143 = xor i32 %unpacked_so_far.01225, -1
-  %144 = add i32 %umax1279, %143
+  %142 = add i32 %unpacked_so_far.01231, 1
+  %umax1296 = tail call i32 @llvm.umax.i32(i32 %dsize, i32 %142)
+  %143 = xor i32 %unpacked_so_far.01231, -1
+  %144 = add i32 %umax1296, %143
   %145 = add i32 %backsize.0, 1
-  %umin1280 = tail call i32 @llvm.umin.i32(i32 %144, i32 %145)
-  %146 = add i32 %umin1280, 1
-  %min.iters.check1283 = icmp ult i32 %146, 32
-  br i1 %min.iters.check1283, label %do.body.preheader1296, label %vector.scevcheck
+  %umin1297 = tail call i32 @llvm.umin.i32(i32 %144, i32 %145)
+  %146 = add i32 %umin1297, 1
+  %min.iters.check1300 = icmp ult i32 %146, 32
+  br i1 %min.iters.check1300, label %do.body.preheader1313, label %vector.scevcheck
 
 vector.scevcheck:                                 ; preds = %do.body.preheader
-  %147 = add i32 %unpacked_so_far.01225, 1
+  %147 = add i32 %unpacked_so_far.01231, 1
   %umax = tail call i32 @llvm.umax.i32(i32 %dsize, i32 %147)
-  %148 = xor i32 %unpacked_so_far.01225, -1
+  %148 = xor i32 %unpacked_so_far.01231, -1
   %149 = add i32 %umax, %148
   %150 = add i32 %backsize.0, 1
   %umin = tail call i32 @llvm.umin.i32(i32 %149, i32 %150)
-  %151 = xor i32 %unpacked_so_far.01225, -1
+  %151 = xor i32 %unpacked_so_far.01231, -1
   %152 = icmp ugt i32 %umin, %151
   %153 = xor i32 %sub330, -1
   %154 = icmp ugt i32 %umin, %153
   %155 = or i1 %152, %154
-  br i1 %155, label %do.body.preheader1296, label %vector.memcheck
+  br i1 %155, label %do.body.preheader1313, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %vector.scevcheck
-  %156 = add i64 %dst1278, %.pre
-  %157 = add i64 %dst1278, %idxprom331
+  %156 = add i64 %dst1295, %.pre
+  %157 = add i64 %dst1295, %idxprom331
   %158 = sub i64 %156, %157
   %diff.check = icmp ult i64 %158, 16
-  br i1 %diff.check, label %do.body.preheader1296, label %vector.ph1284
+  br i1 %diff.check, label %do.body.preheader1313, label %vector.ph1301
 
-vector.ph1284:                                    ; preds = %vector.memcheck
-  %n.vec1286 = and i32 %146, -16
-  %ind.end1287 = add i32 %unpacked_so_far.01225, %n.vec1286
-  %ind.end1289 = sub i32 %add291, %n.vec1286
-  %159 = add i32 %unpacked_so_far.01225, 15
-  br label %vector.body1292
+vector.ph1301:                                    ; preds = %vector.memcheck
+  %n.vec1303 = and i32 %146, -16
+  %ind.end1304 = add i32 %unpacked_so_far.01231, %n.vec1303
+  %ind.end1306 = sub i32 %add291, %n.vec1303
+  %159 = add i32 %unpacked_so_far.01231, 15
+  br label %vector.body1309
 
-vector.body1292:                                  ; preds = %vector.body1292, %vector.ph1284
-  %index1293 = phi i32 [ 0, %vector.ph1284 ], [ %index.next1295, %vector.body1292 ]
-  %160 = phi i32 [ %159, %vector.ph1284 ], [ %166, %vector.body1292 ]
-  %offset.idx1294 = add i32 %unpacked_so_far.01225, %index1293
-  %161 = sub i32 %offset.idx1294, %backbytes.1
+vector.body1309:                                  ; preds = %vector.body1309, %vector.ph1301
+  %index1310 = phi i32 [ 0, %vector.ph1301 ], [ %index.next1312, %vector.body1309 ]
+  %160 = phi i32 [ %159, %vector.ph1301 ], [ %166, %vector.body1309 ]
+  %offset.idx1311 = add i32 %unpacked_so_far.01231, %index1310
+  %161 = sub i32 %offset.idx1311, %backbytes.1
   %162 = zext i32 %161 to i64
   %163 = getelementptr inbounds i8, ptr %dst, i64 %162
   %wide.load = load <16 x i8>, ptr %163, align 1, !tbaa !5
-  %164 = zext i32 %offset.idx1294 to i64
+  %164 = zext i32 %offset.idx1311 to i64
   %165 = getelementptr inbounds i8, ptr %dst, i64 %164
   store <16 x i8> %wide.load, ptr %165, align 1, !tbaa !5
-  %index.next1295 = add nuw i32 %index1293, 16
+  %index.next1312 = add nuw i32 %index1310, 16
   %166 = add i32 %160, 16
-  %167 = icmp eq i32 %index.next1295, %n.vec1286
-  br i1 %167, label %middle.block1281, label %vector.body1292, !llvm.loop !41
+  %167 = icmp eq i32 %index.next1312, %n.vec1303
+  br i1 %167, label %middle.block1298, label %vector.body1309, !llvm.loop !41
 
-middle.block1281:                                 ; preds = %vector.body1292
+middle.block1298:                                 ; preds = %vector.body1309
   %168 = extractelement <16 x i8> %wide.load, i64 15
   %169 = add i32 %160, 1
   %170 = icmp ult i32 %169, %dsize
-  %cmp.n1291 = icmp eq i32 %146, %n.vec1286
-  br i1 %cmp.n1291, label %do.end, label %do.body.preheader1296
+  %cmp.n1308 = icmp eq i32 %146, %n.vec1303
+  br i1 %cmp.n1308, label %do.end, label %do.body.preheader1313
 
-do.body.preheader1296:                            ; preds = %vector.memcheck, %vector.scevcheck, %do.body.preheader, %middle.block1281
-  %unpacked_so_far.2.ph = phi i32 [ %unpacked_so_far.01225, %vector.memcheck ], [ %unpacked_so_far.01225, %vector.scevcheck ], [ %unpacked_so_far.01225, %do.body.preheader ], [ %ind.end1287, %middle.block1281 ]
-  %backsize.1.ph = phi i32 [ %add291, %vector.memcheck ], [ %add291, %vector.scevcheck ], [ %add291, %do.body.preheader ], [ %ind.end1289, %middle.block1281 ]
+do.body.preheader1313:                            ; preds = %vector.memcheck, %vector.scevcheck, %do.body.preheader, %middle.block1298
+  %unpacked_so_far.2.ph = phi i32 [ %unpacked_so_far.01231, %vector.memcheck ], [ %unpacked_so_far.01231, %vector.scevcheck ], [ %unpacked_so_far.01231, %do.body.preheader ], [ %ind.end1304, %middle.block1298 ]
+  %backsize.1.ph = phi i32 [ %add291, %vector.memcheck ], [ %add291, %vector.scevcheck ], [ %add291, %do.body.preheader ], [ %ind.end1306, %middle.block1298 ]
   br label %do.body
 
 if.then353:                                       ; preds = %land.lhs.true335, %land.lhs.true305, %if.end290
@@ -2064,9 +2064,9 @@ if.then353:                                       ; preds = %land.lhs.true335, %
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.1, ptr noundef %dst, i32 noundef %dsize, ptr noundef %arrayidx355, i32 noundef %add291) #7
   br label %cleanup379
 
-do.body:                                          ; preds = %do.body.preheader1296, %do.body
-  %unpacked_so_far.2 = phi i32 [ %inc362, %do.body ], [ %unpacked_so_far.2.ph, %do.body.preheader1296 ]
-  %backsize.1 = phi i32 [ %dec363, %do.body ], [ %backsize.1.ph, %do.body.preheader1296 ]
+do.body:                                          ; preds = %do.body.preheader1313, %do.body
+  %unpacked_so_far.2 = phi i32 [ %inc362, %do.body ], [ %unpacked_so_far.2.ph, %do.body.preheader1313 ]
+  %backsize.1 = phi i32 [ %dec363, %do.body ], [ %backsize.1.ph, %do.body.preheader1313 ]
   %sub357 = sub i32 %unpacked_so_far.2, %backbytes.1
   %idxprom358 = zext i32 %sub357 to i64
   %arrayidx359 = getelementptr inbounds i8, ptr %dst, i64 %idxprom358
@@ -2081,23 +2081,23 @@ do.body:                                          ; preds = %do.body.preheader12
   %172 = and i1 %cmp365, %tobool364
   br i1 %172, label %do.body, label %do.end, !llvm.loop !42
 
-do.end:                                           ; preds = %do.body, %middle.block1281
-  %.lcssa = phi i8 [ %168, %middle.block1281 ], [ %171, %do.body ]
-  %inc362.lcssa = phi i32 [ %ind.end1287, %middle.block1281 ], [ %inc362, %do.body ]
-  %cmp365.lcssa = phi i1 [ %170, %middle.block1281 ], [ %cmp365, %do.body ]
+do.end:                                           ; preds = %do.body, %middle.block1298
+  %.lcssa = phi i8 [ %168, %middle.block1298 ], [ %171, %do.body ]
+  %inc362.lcssa = phi i32 [ %ind.end1304, %middle.block1298 ], [ %inc362, %do.body ]
+  %cmp365.lcssa = phi i1 [ %170, %middle.block1298 ], [ %cmp365, %do.body ]
   %conv370 = zext i8 %.lcssa to i32
   br i1 %cmp365.lcssa, label %cleanup376, label %cleanup379
 
 cleanup376:                                       ; preds = %do.end, %if.end191, %if.end126
-  %ssize.addr.3 = phi i32 [ %ssize.addr.11128, %if.end126 ], [ %ssize.addr.01223, %if.end191 ], [ %ssize.addr.01223, %do.end ]
+  %ssize.addr.3 = phi i32 [ %ssize.addr.11130, %if.end126 ], [ %ssize.addr.01229, %if.end191 ], [ %ssize.addr.01229, %do.end ]
   %previous_bit.3 = phi i32 [ 0, %if.end126 ], [ 1, %if.end191 ], [ 1, %do.end ]
   %unpacked_so_far.3 = phi i32 [ %inc130, %if.end126 ], [ %inc199, %if.end191 ], [ %inc362.lcssa, %do.end ]
-  %backbytes.2 = phi i32 [ %backbytes.01226, %if.end126 ], [ %backbytes.01226, %if.end191 ], [ %backbytes.1, %do.end ]
-  %oldbackbytes.2 = phi i32 [ %oldbackbytes.01229, %if.end126 ], [ %oldbackbytes.01229, %if.end191 ], [ %oldbackbytes.1, %do.end ]
-  %old_oldbackbytes.3 = phi i32 [ %old_oldbackbytes.01231, %if.end126 ], [ %old_oldbackbytes.01231, %if.end191 ], [ %old_oldbackbytes.2, %do.end ]
-  %old_old_oldbackbytes.4 = phi i32 [ %old_old_oldbackbytes.01232, %if.end126 ], [ %old_old_oldbackbytes.01232, %if.end191 ], [ %old_old_oldbackbytes.3, %do.end ]
+  %backbytes.2 = phi i32 [ %backbytes.01232, %if.end126 ], [ %backbytes.01232, %if.end191 ], [ %backbytes.1, %do.end ]
+  %oldbackbytes.2 = phi i32 [ %oldbackbytes.01236, %if.end126 ], [ %oldbackbytes.01236, %if.end191 ], [ %oldbackbytes.1, %do.end ]
+  %old_oldbackbytes.3 = phi i32 [ %old_oldbackbytes.01239, %if.end126 ], [ %old_oldbackbytes.01239, %if.end191 ], [ %old_oldbackbytes.2, %do.end ]
+  %old_old_oldbackbytes.4 = phi i32 [ %old_old_oldbackbytes.01242, %if.end126 ], [ %old_old_oldbackbytes.01242, %if.end191 ], [ %old_old_oldbackbytes.3, %do.end ]
   %damian.3 = phi i32 [ %damian.1, %if.end126 ], [ %add162, %if.end191 ], [ %damian.2, %do.end ]
-  %bielle.3 = phi i32 [ %bielle.11129, %if.end126 ], [ %conv195, %if.end191 ], [ %conv370, %do.end ]
+  %bielle.3 = phi i32 [ %bielle.11131, %if.end126 ], [ %conv195, %if.end191 ], [ %conv370, %do.end ]
   %and23 = and i32 %unpacked_so_far.3, %sub6
   %173 = load i32, ptr %error, align 8, !tbaa !26
   %tobool25.not = icmp eq i32 %173, 0
@@ -2782,7 +2782,7 @@ if.end:                                           ; preds = %land.lhs.true4.i
   store i32 1, ptr %error.i, align 8, !tbaa !26
   br label %land.lhs.true4.i34
 
-land.lhs.true4.i34:                               ; preds = %get_byte.exit103.i, %if.end35.i, %if.end
+land.lhs.true4.i34:                               ; preds = %if.end35.i, %get_byte.exit103.i, %if.end
   %cmp5.not.i29 = icmp ule ptr %1, %add.ptr.i
   %add.ptr.i30 = getelementptr inbounds i16, ptr %intable, i64 2
   %cmp11.not.i32 = icmp ule ptr %add.ptr.i30, %add.ptr10.i
@@ -2892,7 +2892,7 @@ if.then5:                                         ; preds = %get_byte.exit.i61, 
   %add11 = add i32 %call10, 8
   br label %return
 
-if.end12:                                         ; preds = %if.then.i36, %if.end35.i67, %get_byte.exit103.i80
+if.end12:                                         ; preds = %if.then.i36, %get_byte.exit103.i80, %if.end35.i67
   %arrayidx13 = getelementptr inbounds i16, ptr %intable, i64 258
   %call14 = tail call i32 @get_n_bits_from_table(ptr noundef nonnull %arrayidx13, i32 noundef 8, ptr noundef nonnull %read_struct)
   %add15 = add i32 %call14, 16
@@ -2906,8 +2906,8 @@ return:                                           ; preds = %if.end12, %if.then5
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, argmem: readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @get_n_bits_from_table(ptr noundef %intable, i32 noundef %bits, ptr nocapture noundef %read_struct) local_unnamed_addr #5 {
 entry:
-  %tobool.not5 = icmp eq i32 %bits, 0
-  br i1 %tobool.not5, label %while.end, label %while.body.lr.ph
+  %tobool.not4 = icmp eq i32 %bits, 0
+  br i1 %tobool.not4, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %tablesz.i = getelementptr inbounds %struct.UNSP, ptr %read_struct, i64 0, i32 6
@@ -2930,9 +2930,9 @@ while.body.lr.ph.split.us.new:                    ; preds = %while.body.lr.ph.sp
   br label %while.body.us
 
 while.body.us:                                    ; preds = %while.body.us, %while.body.lr.ph.split.us.new
-  %count.06.us = phi i32 [ 1, %while.body.lr.ph.split.us.new ], [ %add.us.7, %while.body.us ]
+  %count.05.us = phi i32 [ 1, %while.body.lr.ph.split.us.new ], [ %add.us.7, %while.body.us ]
   %niter = phi i32 [ 0, %while.body.lr.ph.split.us.new ], [ %niter.next.7, %while.body.us ]
-  %mul.us = shl i32 %count.06.us, 8
+  %mul.us = shl i32 %count.05.us, 8
   %add.us.7 = add i32 %mul.us, 65025
   %niter.next.7 = add i32 %niter, 8
   %niter.ncmp.7 = icmp eq i32 %niter.next.7, %unroll_iter
@@ -2946,11 +2946,11 @@ while.body.lr.ph.split:                           ; preds = %while.body.lr.ph
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph.split, %getbit_from_table.exit
-  %dec7.in = phi i32 [ %bits, %while.body.lr.ph.split ], [ %dec7, %getbit_from_table.exit ]
-  %count.06 = phi i32 [ 1, %while.body.lr.ph.split ], [ %add, %getbit_from_table.exit ]
-  %dec7 = add i32 %dec7.in, -1
-  %mul = shl i32 %count.06, 1
-  %idxprom = zext i32 %count.06 to i64
+  %bitcounter.06 = phi i32 [ %bits, %while.body.lr.ph.split ], [ %dec, %getbit_from_table.exit ]
+  %count.05 = phi i32 [ 1, %while.body.lr.ph.split ], [ %add, %getbit_from_table.exit ]
+  %dec = add i32 %bitcounter.06, -1
+  %mul = shl i32 %count.05, 1
+  %idxprom = zext i32 %count.05 to i64
   %arrayidx = getelementptr inbounds i16, ptr %intable, i64 %idxprom
   %cmp5.not.i = icmp ule ptr %2, %arrayidx
   %add.ptr.i = getelementptr inbounds i8, ptr %arrayidx, i64 2
@@ -3048,19 +3048,19 @@ get_byte.exit103.i:                               ; preds = %if.end.i101.i, %if.
 getbit_from_table.exit:                           ; preds = %if.then.i, %if.then21.i, %get_byte.exit.i, %if.end35.i, %get_byte.exit103.i
   %retval.0.i = phi i32 [ 255, %if.then.i ], [ 0, %get_byte.exit.i ], [ 0, %if.then21.i ], [ 1, %get_byte.exit103.i ], [ 1, %if.end35.i ]
   %add = add i32 %retval.0.i, %mul
-  %tobool.not = icmp eq i32 %dec7, 0
+  %tobool.not = icmp eq i32 %dec, 0
   br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !36
 
 while.end.loopexit.unr-lcssa:                     ; preds = %while.body.us, %while.body.lr.ph.split.us
   %add.us.lcssa.ph = phi i32 [ undef, %while.body.lr.ph.split.us ], [ %add.us.7, %while.body.us ]
-  %count.06.us.unr = phi i32 [ 1, %while.body.lr.ph.split.us ], [ %add.us.7, %while.body.us ]
+  %count.05.us.unr = phi i32 [ 1, %while.body.lr.ph.split.us ], [ %add.us.7, %while.body.us ]
   %lcmp.mod.not = icmp eq i32 %xtraiter, 0
   br i1 %lcmp.mod.not, label %while.end, label %while.body.us.epil
 
 while.body.us.epil:                               ; preds = %while.end.loopexit.unr-lcssa, %while.body.us.epil
-  %count.06.us.epil = phi i32 [ %add.us.epil, %while.body.us.epil ], [ %count.06.us.unr, %while.end.loopexit.unr-lcssa ]
+  %count.05.us.epil = phi i32 [ %add.us.epil, %while.body.us.epil ], [ %count.05.us.unr, %while.end.loopexit.unr-lcssa ]
   %epil.iter = phi i32 [ %epil.iter.next, %while.body.us.epil ], [ 0, %while.end.loopexit.unr-lcssa ]
-  %mul.us.epil = shl i32 %count.06.us.epil, 1
+  %mul.us.epil = shl i32 %count.05.us.epil, 1
   %add.us.epil = add i32 %mul.us.epil, 255
   %epil.iter.next = add i32 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i32 %epil.iter.next, %xtraiter

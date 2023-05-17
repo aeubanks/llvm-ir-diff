@@ -7,7 +7,7 @@ target triple = "x86_64-unknown-linux-gnu"
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
-entry:
+if.then:
   %level.promoted.i = load i64, ptr @level, align 8, !tbaa !5
   %smax.i = tail call i64 @llvm.smax.i64(i64 %level.promoted.i, i64 499)
   %0 = add nuw i64 %smax.i, 1

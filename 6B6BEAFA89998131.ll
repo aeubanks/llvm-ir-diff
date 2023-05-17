@@ -65,11 +65,11 @@ entry:
   %1 = icmp ne <4 x i32> %.fr, <i32 1, i32 2, i32 3, i32 4>
   %e.i = getelementptr inbounds %struct.baz, ptr %x, i64 0, i32 4
   %2 = load i32, ptr %e.i, align 8
-  %cmp7.i.not = icmp eq i32 %2, 5
+  %cmp7.i = icmp ne i32 %2, 5
   %3 = bitcast <4 x i1> %1 to i4
-  %4 = icmp eq i4 %3, 0
-  %op.rdx = select i1 %4, i1 %cmp7.i.not, i1 false
-  br i1 %op.rdx, label %bar.exit, label %if.then.i
+  %4 = icmp ne i4 %3, 0
+  %op.rdx = select i1 %4, i1 true, i1 %cmp7.i
+  br i1 %op.rdx, label %if.then.i, label %bar.exit
 
 if.then.i:                                        ; preds = %entry
   tail call void @abort() #4

@@ -34,9 +34,9 @@ if.end6.thread:                                   ; preds = %if.end
 if.end6:                                          ; preds = %if.end, %if.end.thread
   %arrayidx3 = getelementptr inbounds ptr, ptr %argv, i64 1
   %1 = load ptr, ptr %arrayidx3, align 8, !tbaa !5
-  %call.i25 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #2
-  %conv.i26 = trunc i64 %call.i25 to i32
-  store i32 %conv.i26, ptr @n_nodes, align 4, !tbaa !9
+  %call.i28 = tail call i64 @strtol(ptr nocapture noundef nonnull %1, ptr noundef null, i32 noundef 10) #2
+  %conv.i29 = trunc i64 %call.i28 to i32
+  store i32 %conv.i29, ptr @n_nodes, align 4, !tbaa !9
   %cmp7 = icmp ugt i32 %argc, 2
   br i1 %cmp7, label %if.end12, label %if.end12.thread
 
@@ -47,22 +47,22 @@ if.end12.thread:                                  ; preds = %if.end6.thread, %if
 if.end12:                                         ; preds = %if.end6
   %arrayidx9 = getelementptr inbounds ptr, ptr %argv, i64 2
   %2 = load ptr, ptr %arrayidx9, align 8, !tbaa !5
-  %call.i27 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #2
-  %conv.i28 = trunc i64 %call.i27 to i32
-  store i32 %conv.i28, ptr @d_nodes, align 4, !tbaa !9
+  %call.i30 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #2
+  %conv.i31 = trunc i64 %call.i30 to i32
+  store i32 %conv.i31, ptr @d_nodes, align 4, !tbaa !9
   %cmp13.not = icmp eq i32 %argc, 3
   br i1 %cmp13.not, label %if.end18, label %if.then14
 
 if.then14:                                        ; preds = %if.end12
   %arrayidx15 = getelementptr inbounds ptr, ptr %argv, i64 3
   %3 = load ptr, ptr %arrayidx15, align 8, !tbaa !5
-  %call.i29 = tail call i64 @strtol(ptr nocapture noundef nonnull %3, ptr noundef null, i32 noundef 10) #2
-  %conv.i30 = trunc i64 %call.i29 to i32
+  %call.i32 = tail call i64 @strtol(ptr nocapture noundef nonnull %3, ptr noundef null, i32 noundef 10) #2
+  %conv.i33 = trunc i64 %call.i32 to i32
   br label %if.end18
 
 if.end18:                                         ; preds = %if.end12.thread, %if.end12, %if.then14
-  %storemerge33 = phi i32 [ %conv.i30, %if.then14 ], [ 75, %if.end12 ], [ 75, %if.end12.thread ]
-  store i32 %storemerge33, ptr @local_p, align 4, !tbaa !9
+  %storemerge27 = phi i32 [ %conv.i33, %if.then14 ], [ 75, %if.end12 ], [ 75, %if.end12.thread ]
+  store i32 %storemerge27, ptr @local_p, align 4, !tbaa !9
   ret void
 }
 

@@ -1016,8 +1016,8 @@ if.then2:                                         ; preds = %sw.bb
   %call.i = tail call ptr @zalloc(i32 noundef %mul.i) #12
   %baseNum = getelementptr inbounds %struct.operator, ptr %op, i64 0, i32 3
   %8 = load i32, ptr %baseNum, align 8, !tbaa !24
-  %call.i358 = tail call ptr @zalloc(i32 noundef 24) #12
-  %offset1.i = getelementptr inbounds %struct.plankMap, ptr %call.i358, i64 0, i32 1
+  %call.i359 = tail call ptr @zalloc(i32 noundef 24) #12
+  %offset1.i = getelementptr inbounds %struct.plankMap, ptr %call.i359, i64 0, i32 1
   store i32 %8, ptr %offset1.i, align 8, !tbaa !52
   %9 = load ptr, ptr @globalMap, align 8, !tbaa !5
   %count4388 = getelementptr inbounds %struct.mapping, ptr %9, i64 0, i32 3
@@ -1102,7 +1102,7 @@ for.body.i:                                       ; preds = %for.end, %for.body.
 
 width.exit:                                       ; preds = %for.body.i, %for.end
   %c.0.lcssa.i = phi i32 [ 0, %for.end ], [ %inc.i, %for.body.i ]
-  call fastcc void @enterStateMap(ptr noundef %call.i358, ptr noundef %call.i, i32 noundef %c.0.lcssa.i, ptr noundef nonnull %new)
+  call fastcc void @enterStateMap(ptr noundef %call.i359, ptr noundef %call.i, i32 noundef %c.0.lcssa.i, ptr noundef nonnull %new)
   %34 = load i32, ptr %new, align 4, !tbaa !14
   %tobool28.not = icmp eq i32 %34, 0
   br i1 %tobool28.not, label %if.then29, label %if.end30
@@ -1113,7 +1113,7 @@ if.then29:                                        ; preds = %width.exit
 
 if.end30:                                         ; preds = %if.then29, %width.exit
   %pmap = getelementptr inbounds %struct.dimension, ptr %3, i64 0, i32 4
-  store ptr %call.i358, ptr %pmap, align 8, !tbaa !64
+  store ptr %call.i359, ptr %pmap, align 8, !tbaa !64
   br label %cleanup
 
 sw.bb32:                                          ; preds = %if.end
@@ -1146,15 +1146,15 @@ if.then47:                                        ; preds = %land.lhs.true
 
 if.then63:                                        ; preds = %land.lhs.true
   %42 = load ptr, ptr @globalMap, align 8, !tbaa !5
-  %count.i359 = getelementptr inbounds %struct.mapping, ptr %42, i64 0, i32 3
-  %43 = load i32, ptr %count.i359, align 8, !tbaa !9
-  %mul.i360 = shl i32 %43, 1
-  %call.i361 = tail call ptr @zalloc(i32 noundef %mul.i360) #12
+  %count.i360 = getelementptr inbounds %struct.mapping, ptr %42, i64 0, i32 3
+  %43 = load i32, ptr %count.i360, align 8, !tbaa !9
+  %mul.i361 = shl i32 %43, 1
+  %call.i362 = tail call ptr @zalloc(i32 noundef %mul.i361) #12
   %baseNum65 = getelementptr inbounds %struct.operator, ptr %op, i64 0, i32 3
   %44 = load i32, ptr %baseNum65, align 8, !tbaa !24
-  %call.i362 = tail call ptr @zalloc(i32 noundef 24) #12
-  %offset1.i363 = getelementptr inbounds %struct.plankMap, ptr %call.i362, i64 0, i32 1
-  store i32 %44, ptr %offset1.i363, align 8, !tbaa !52
+  %call.i363 = tail call ptr @zalloc(i32 noundef 24) #12
+  %offset1.i364 = getelementptr inbounds %struct.plankMap, ptr %call.i363, i64 0, i32 1
+  store i32 %44, ptr %offset1.i364, align 8, !tbaa !52
   %45 = load ptr, ptr %table, align 8, !tbaa !56
   %arrayidx69 = getelementptr inbounds %struct.table, ptr %45, i64 0, i32 3, i64 1
   %46 = load ptr, ptr %arrayidx69, align 8, !tbaa !5
@@ -1207,7 +1207,7 @@ if.then91:                                        ; preds = %for.body75
   %64 = trunc i32 %sub97 to i16
   %conv99 = add i16 %64, 1
   %65 = add nuw nsw i64 %indvars.iv417, 1
-  %arrayidx102 = getelementptr inbounds i16, ptr %call.i361, i64 %65
+  %arrayidx102 = getelementptr inbounds i16, ptr %call.i362, i64 %65
   store i16 %conv99, ptr %arrayidx102, align 2, !tbaa !43
   %.pre428 = load ptr, ptr @sortedStates, align 8, !tbaa !5
   %.pre430 = load ptr, ptr @globalMap, align 8, !tbaa !5
@@ -1230,31 +1230,31 @@ for.end106:                                       ; preds = %if.end103, %if.then
   %count108 = getelementptr inbounds %struct.mapping, ptr %70, i64 0, i32 3
   %71 = load i32, ptr %count108, align 8, !tbaa !9
   %sub109 = add nsw i32 %71, -1
-  %tobool.not3.i364 = icmp eq i32 %sub109, 0
-  br i1 %tobool.not3.i364, label %width.exit372, label %for.body.i370
+  %tobool.not3.i365 = icmp eq i32 %sub109, 0
+  br i1 %tobool.not3.i365, label %width.exit373, label %for.body.i371
 
-for.body.i370:                                    ; preds = %for.end106, %for.body.i370
-  %c.05.i365 = phi i32 [ %inc.i367, %for.body.i370 ], [ 0, %for.end106 ]
-  %v.addr.04.i366 = phi i32 [ %shr.i368, %for.body.i370 ], [ %sub109, %for.end106 ]
-  %inc.i367 = add nuw nsw i32 %c.05.i365, 1
-  %shr.i368 = ashr i32 %v.addr.04.i366, 1
-  %tobool.not.i369 = icmp ult i32 %v.addr.04.i366, 2
-  br i1 %tobool.not.i369, label %width.exit372, label %for.body.i370
+for.body.i371:                                    ; preds = %for.end106, %for.body.i371
+  %c.05.i366 = phi i32 [ %inc.i368, %for.body.i371 ], [ 0, %for.end106 ]
+  %v.addr.04.i367 = phi i32 [ %shr.i369, %for.body.i371 ], [ %sub109, %for.end106 ]
+  %inc.i368 = add nuw nsw i32 %c.05.i366, 1
+  %shr.i369 = ashr i32 %v.addr.04.i367, 1
+  %tobool.not.i370 = icmp ult i32 %v.addr.04.i367, 2
+  br i1 %tobool.not.i370, label %width.exit373, label %for.body.i371
 
-width.exit372:                                    ; preds = %for.body.i370, %for.end106
-  %c.0.lcssa.i371 = phi i32 [ 0, %for.end106 ], [ %inc.i367, %for.body.i370 ]
-  call fastcc void @enterStateMap(ptr noundef %call.i362, ptr noundef %call.i361, i32 noundef %c.0.lcssa.i371, ptr noundef nonnull %new)
+width.exit373:                                    ; preds = %for.body.i371, %for.end106
+  %c.0.lcssa.i372 = phi i32 [ 0, %for.end106 ], [ %inc.i368, %for.body.i371 ]
+  call fastcc void @enterStateMap(ptr noundef %call.i363, ptr noundef %call.i362, i32 noundef %c.0.lcssa.i372, ptr noundef nonnull %new)
   %72 = load i32, ptr %new, align 4, !tbaa !14
   %tobool111.not = icmp eq i32 %72, 0
   br i1 %tobool111.not, label %if.then112, label %if.end113
 
-if.then112:                                       ; preds = %width.exit372
-  tail call void @zfree(ptr noundef %call.i361) #12
+if.then112:                                       ; preds = %width.exit373
+  tail call void @zfree(ptr noundef %call.i362) #12
   br label %if.end113
 
-if.end113:                                        ; preds = %if.then112, %width.exit372
+if.end113:                                        ; preds = %if.then112, %width.exit373
   %pmap114 = getelementptr inbounds %struct.dimension, ptr %46, i64 0, i32 4
-  store ptr %call.i362, ptr %pmap114, align 8, !tbaa !64
+  store ptr %call.i363, ptr %pmap114, align 8, !tbaa !64
   br label %cleanup
 
 if.else115:                                       ; preds = %sw.bb32
@@ -1262,15 +1262,15 @@ if.else115:                                       ; preds = %sw.bb32
 
 if.then123:                                       ; preds = %if.else115
   %73 = load ptr, ptr @globalMap, align 8, !tbaa !5
-  %count.i373 = getelementptr inbounds %struct.mapping, ptr %73, i64 0, i32 3
-  %74 = load i32, ptr %count.i373, align 8, !tbaa !9
-  %mul.i374 = shl i32 %74, 1
-  %call.i375 = tail call ptr @zalloc(i32 noundef %mul.i374) #12
+  %count.i374 = getelementptr inbounds %struct.mapping, ptr %73, i64 0, i32 3
+  %74 = load i32, ptr %count.i374, align 8, !tbaa !9
+  %mul.i375 = shl i32 %74, 1
+  %call.i376 = tail call ptr @zalloc(i32 noundef %mul.i375) #12
   %baseNum125 = getelementptr inbounds %struct.operator, ptr %op, i64 0, i32 3
   %75 = load i32, ptr %baseNum125, align 8, !tbaa !24
-  %call.i376 = tail call ptr @zalloc(i32 noundef 24) #12
-  %offset1.i377 = getelementptr inbounds %struct.plankMap, ptr %call.i376, i64 0, i32 1
-  store i32 %75, ptr %offset1.i377, align 8, !tbaa !52
+  %call.i377 = tail call ptr @zalloc(i32 noundef 24) #12
+  %offset1.i378 = getelementptr inbounds %struct.plankMap, ptr %call.i377, i64 0, i32 1
+  store i32 %75, ptr %offset1.i378, align 8, !tbaa !52
   %76 = load ptr, ptr %table, align 8, !tbaa !56
   %dimen128 = getelementptr inbounds %struct.table, ptr %76, i64 0, i32 3
   %77 = load ptr, ptr %dimen128, align 8, !tbaa !5
@@ -1323,7 +1323,7 @@ if.then151:                                       ; preds = %for.body135
   %95 = trunc i32 %sub157 to i16
   %conv159 = add i16 %95, 1
   %96 = add nuw nsw i64 %indvars.iv413, 1
-  %arrayidx162 = getelementptr inbounds i16, ptr %call.i375, i64 %96
+  %arrayidx162 = getelementptr inbounds i16, ptr %call.i376, i64 %96
   store i16 %conv159, ptr %arrayidx162, align 2, !tbaa !43
   %.pre425 = load ptr, ptr @sortedStates, align 8, !tbaa !5
   %.pre427 = load ptr, ptr @globalMap, align 8, !tbaa !5
@@ -1346,31 +1346,31 @@ for.end166:                                       ; preds = %if.end163, %if.then
   %count168 = getelementptr inbounds %struct.mapping, ptr %101, i64 0, i32 3
   %102 = load i32, ptr %count168, align 8, !tbaa !9
   %sub169 = add nsw i32 %102, -1
-  %tobool.not3.i378 = icmp eq i32 %sub169, 0
-  br i1 %tobool.not3.i378, label %width.exit386, label %for.body.i384
+  %tobool.not3.i379 = icmp eq i32 %sub169, 0
+  br i1 %tobool.not3.i379, label %width.exit387, label %for.body.i385
 
-for.body.i384:                                    ; preds = %for.end166, %for.body.i384
-  %c.05.i379 = phi i32 [ %inc.i381, %for.body.i384 ], [ 0, %for.end166 ]
-  %v.addr.04.i380 = phi i32 [ %shr.i382, %for.body.i384 ], [ %sub169, %for.end166 ]
-  %inc.i381 = add nuw nsw i32 %c.05.i379, 1
-  %shr.i382 = ashr i32 %v.addr.04.i380, 1
-  %tobool.not.i383 = icmp ult i32 %v.addr.04.i380, 2
-  br i1 %tobool.not.i383, label %width.exit386, label %for.body.i384
+for.body.i385:                                    ; preds = %for.end166, %for.body.i385
+  %c.05.i380 = phi i32 [ %inc.i382, %for.body.i385 ], [ 0, %for.end166 ]
+  %v.addr.04.i381 = phi i32 [ %shr.i383, %for.body.i385 ], [ %sub169, %for.end166 ]
+  %inc.i382 = add nuw nsw i32 %c.05.i380, 1
+  %shr.i383 = ashr i32 %v.addr.04.i381, 1
+  %tobool.not.i384 = icmp ult i32 %v.addr.04.i381, 2
+  br i1 %tobool.not.i384, label %width.exit387, label %for.body.i385
 
-width.exit386:                                    ; preds = %for.body.i384, %for.end166
-  %c.0.lcssa.i385 = phi i32 [ 0, %for.end166 ], [ %inc.i381, %for.body.i384 ]
-  call fastcc void @enterStateMap(ptr noundef %call.i376, ptr noundef %call.i375, i32 noundef %c.0.lcssa.i385, ptr noundef nonnull %new)
+width.exit387:                                    ; preds = %for.body.i385, %for.end166
+  %c.0.lcssa.i386 = phi i32 [ 0, %for.end166 ], [ %inc.i382, %for.body.i385 ]
+  call fastcc void @enterStateMap(ptr noundef %call.i377, ptr noundef %call.i376, i32 noundef %c.0.lcssa.i386, ptr noundef nonnull %new)
   %103 = load i32, ptr %new, align 4, !tbaa !14
   %tobool171.not = icmp eq i32 %103, 0
   br i1 %tobool171.not, label %if.then172, label %if.end173
 
-if.then172:                                       ; preds = %width.exit386
-  tail call void @zfree(ptr noundef %call.i375) #12
+if.then172:                                       ; preds = %width.exit387
+  tail call void @zfree(ptr noundef %call.i376) #12
   br label %if.end173
 
-if.end173:                                        ; preds = %if.then172, %width.exit386
+if.end173:                                        ; preds = %if.then172, %width.exit387
   %pmap174 = getelementptr inbounds %struct.dimension, ptr %77, i64 0, i32 4
-  store ptr %call.i376, ptr %pmap174, align 8, !tbaa !64
+  store ptr %call.i377, ptr %pmap174, align 8, !tbaa !64
   br label %cleanup
 
 if.else175:                                       ; preds = %if.else115
@@ -1428,7 +1428,7 @@ for.body213:                                      ; preds = %for.body213.lr.ph, 
 
 if.then216:                                       ; preds = %for.body213
   %123 = load ptr, ptr @outfile, align 8, !tbaa !5
-  %fputc387 = tail call i32 @fputc(i32 44, ptr %123)
+  %fputc358 = tail call i32 @fputc(i32 44, ptr %123)
   br label %if.end218
 
 if.end218:                                        ; preds = %if.then216, %for.body213

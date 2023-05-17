@@ -47,10 +47,10 @@ if.then:                                          ; preds = %entry
 
 if.end:                                           ; preds = %entry
   store i8 77, ptr %arrayidx.i, align 1, !tbaa !5
-  %arrayidx.i8 = getelementptr inbounds i8, ptr %x, i64 8
-  store i8 0, ptr %arrayidx.i8, align 1, !tbaa !5
-  %bcmp9 = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %x, ptr noundef nonnull dereferenceable(11) @.str.1, i64 11)
-  %cmp5.not = icmp eq i32 %bcmp9, 0
+  %arrayidx.i9 = getelementptr inbounds i8, ptr %x, i64 8
+  store i8 0, ptr %arrayidx.i9, align 1, !tbaa !5
+  %bcmp8 = call i32 @bcmp(ptr noundef nonnull dereferenceable(11) %x, ptr noundef nonnull dereferenceable(11) @.str.1, i64 11)
+  %cmp5.not = icmp eq i32 %bcmp8, 0
   br i1 %cmp5.not, label %if.end7, label %if.then6
 
 if.then6:                                         ; preds = %if.end

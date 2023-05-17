@@ -20,21 +20,21 @@ define dso_local i32 @main() local_unnamed_addr #1 {
 entry:
   %0 = load i32, ptr @g, align 4, !tbaa !5
   %tobool.not = icmp eq i32 %0, 0
-  br i1 %tobool.not, label %for.cond2.preheader.lr.ph, label %for.cond.preheader
+  br i1 %tobool.not, label %entry.split, label %for.cond.preheader
 
-for.cond2.preheader.lr.ph:                        ; preds = %entry
-  %1 = load i32, ptr @d, align 4, !tbaa !5
+entry.split:                                      ; preds = %entry
+  %1 = load i32, ptr @d, align 4
   %tobool6.not = icmp eq i32 %1, 0
-  br i1 %tobool6.not, label %if.then13, label %for.cond2.preheader
+  br i1 %tobool6.not, label %if.then13, label %lbl_2582
 
-for.cond2.preheader:                              ; preds = %for.cond2.preheader.lr.ph, %for.cond2.preheader
-  br label %for.cond2.preheader
+lbl_2582:                                         ; preds = %entry.split, %lbl_2582
+  br label %lbl_2582
 
 for.cond.preheader:                               ; preds = %entry
   %cmp11.not = icmp sgt i32 %0, -1
   br i1 %cmp11.not, label %if.end14, label %if.then13
 
-if.then13:                                        ; preds = %for.cond2.preheader.lr.ph, %for.cond.preheader
+if.then13:                                        ; preds = %entry.split, %for.cond.preheader
   tail call void @abort() #4
   unreachable
 

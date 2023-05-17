@@ -1705,13 +1705,9 @@ entry:
   %count = getelementptr inbounds %struct.set_family, ptr %A, i64 0, i32 3
   %0 = load i32, ptr %count, align 4, !tbaa !33
   %1 = load i32, ptr %A, align 8, !tbaa !34
-  %mul = mul nsw i32 %1, %0
-  %conv = sext i32 %mul to i64
   %count1 = getelementptr inbounds %struct.set_family, ptr %B, i64 0, i32 3
   %2 = load i32, ptr %count1, align 4, !tbaa !33
   %3 = load i32, ptr %B, align 8, !tbaa !34
-  %mul3 = mul nsw i32 %3, %2
-  %conv4 = sext i32 %mul3 to i64
   %sf_size = getelementptr inbounds %struct.set_family, ptr %A, i64 0, i32 1
   %4 = load i32, ptr %sf_size, align 4, !tbaa !29
   %sf_size5 = getelementptr inbounds %struct.set_family, ptr %B, i64 0, i32 1
@@ -1730,6 +1726,10 @@ if.end:                                           ; preds = %if.then, %entry
   %6 = phi i32 [ %.pre51, %if.then ], [ %4, %entry ]
   %7 = phi i32 [ %.pre50, %if.then ], [ %2, %entry ]
   %8 = phi i32 [ %.pre, %if.then ], [ %0, %entry ]
+  %mul3 = mul nsw i32 %3, %2
+  %conv4 = sext i32 %mul3 to i64
+  %mul = mul nsw i32 %1, %0
+  %conv = sext i32 %mul to i64
   %add = add nsw i32 %7, %8
   %9 = load ptr, ptr @set_family_garbage, align 8, !tbaa !46
   %cmp.i = icmp eq ptr %9, null
@@ -2015,13 +2015,9 @@ entry:
   %count = getelementptr inbounds %struct.set_family, ptr %A, i64 0, i32 3
   %0 = load i32, ptr %count, align 4, !tbaa !33
   %1 = load i32, ptr %A, align 8, !tbaa !34
-  %mul = mul nsw i32 %1, %0
-  %conv = sext i32 %mul to i64
   %count1 = getelementptr inbounds %struct.set_family, ptr %B, i64 0, i32 3
   %2 = load i32, ptr %count1, align 4, !tbaa !33
   %3 = load i32, ptr %B, align 8, !tbaa !34
-  %mul3 = mul nsw i32 %3, %2
-  %conv4 = sext i32 %mul3 to i64
   %sf_size = getelementptr inbounds %struct.set_family, ptr %A, i64 0, i32 1
   %4 = load i32, ptr %sf_size, align 4, !tbaa !29
   %sf_size5 = getelementptr inbounds %struct.set_family, ptr %B, i64 0, i32 1
@@ -2062,6 +2058,8 @@ cond.false:                                       ; preds = %if.end
 cond.end:                                         ; preds = %cond.false, %cond.true
   %cond = phi ptr [ %call, %cond.true ], [ %call22, %cond.false ]
   %cond55 = ptrtoint ptr %cond to i64
+  %mul3 = mul nsw i32 %3, %2
+  %conv4 = sext i32 %mul3 to i64
   store ptr %cond, ptr %data, align 8, !tbaa !32
   %data25 = getelementptr inbounds %struct.set_family, ptr %B, i64 0, i32 5
   %10 = load ptr, ptr %data25, align 8, !tbaa !32
@@ -2070,6 +2068,8 @@ cond.end:                                         ; preds = %cond.false, %cond.t
   br i1 %cmp4.i, label %for.body.i.preheader, label %intcpy.exit
 
 for.body.i.preheader:                             ; preds = %cond.end
+  %mul = mul nsw i32 %1, %0
+  %conv = sext i32 %mul to i64
   %add.ptr = getelementptr i32, ptr %cond, i64 %conv
   %min.iters.check = icmp ult i32 %mul3, 12
   br i1 %min.iters.check, label %for.body.i.preheader63, label %vector.memcheck
@@ -4846,23 +4846,23 @@ sf_free.exit:                                     ; preds = %for.end46, %if.then
   ret ptr %A.0.i
 }
 
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #19
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #19
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #20
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #19
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #20
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #20
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #21
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #21
+declare i32 @llvm.vector.reduce.or.v4i32(<4 x i32>) #20
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.or.v4i32(<4 x i32>) #21
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smax.i64(i64, i64) #21
+declare i64 @llvm.smax.i64(i64, i64) #20
 
 attributes #0 = { nofree norecurse nosync nounwind memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -4883,9 +4883,9 @@ attributes #15 = { mustprogress nounwind willreturn allockind("free") memory(arg
 attributes #16 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #17 = { nofree nosync nounwind memory(write, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #18 = { nofree norecurse nosync nounwind memory(write, argmem: read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #19 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #20 = { nofree nounwind }
-attributes #21 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #19 = { nofree nounwind }
+attributes #20 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #21 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #22 = { nounwind allocsize(0) }
 attributes #23 = { nounwind }
 attributes #24 = { nounwind allocsize(1) }

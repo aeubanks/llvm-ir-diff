@@ -95,14 +95,14 @@ if.end28.us:                                      ; preds = %if.end23.us, %if.en
   br i1 %exitcond.not, label %cleanup, label %for.body.us, !llvm.loop !9
 
 if.then17:                                        ; preds = %if.end15.us
-  %.pre171 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call18 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %.pre171, ptr noundef nonnull @.str.3, ptr noundef %0) #20
+  %5 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call18 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5, ptr noundef nonnull @.str.3, ptr noundef %0) #20
   tail call void @exit(i32 noundef 1) #21
   unreachable
 
 if.then25:                                        ; preds = %if.end23.us
-  %.pre = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call26 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %.pre, ptr noundef nonnull @.str.3, ptr noundef %1) #20
+  %6 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call26 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %6, ptr noundef nonnull @.str.3, ptr noundef %1) #20
   tail call void @exit(i32 noundef 1) #21
   unreachable
 
@@ -122,35 +122,35 @@ if.then32:                                        ; preds = %cleanup
   br i1 %tobool34.not, label %if.end37, label %if.then35
 
 if.then35:                                        ; preds = %if.then32
-  %5 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call36 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5, ptr noundef nonnull @.str.5, ptr noundef %0) #20
+  %7 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call36 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %7, ptr noundef nonnull @.str.5, ptr noundef %0) #20
   call void @exit(i32 noundef 1) #21
   unreachable
 
 if.end37:                                         ; preds = %if.then32
-  %6 = load i32, ptr %inputFileType, align 4
-  switch i32 %6, label %if.then40 [
+  %8 = load i32, ptr %inputFileType, align 4
+  switch i32 %8, label %if.then40 [
     i32 1667327590, label %if.end42
     i32 1463899717, label %if.end42
   ]
 
 if.then40:                                        ; preds = %if.end37
-  %7 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call41 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %7, ptr noundef nonnull @.str.6, ptr noundef %1) #20
+  %9 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call41 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.6, ptr noundef %1) #20
   call void @exit(i32 noundef 1) #21
   unreachable
 
 if.end42:                                         ; preds = %if.end37, %if.end37
   %mFormatID = getelementptr inbounds %struct.AudioFormatDescription, ptr %inputFormat, i64 0, i32 1
-  %8 = load i32, ptr %mFormatID, align 8
-  switch i32 %8, label %if.then47 [
+  %10 = load i32, ptr %mFormatID, align 8
+  switch i32 %10, label %if.then47 [
     i32 1819304813, label %if.end49
     i32 1634492771, label %if.end49
   ]
 
 if.then47:                                        ; preds = %if.end42
-  %9 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call48 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.7, ptr noundef %1) #20
+  %11 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call48 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str.7, ptr noundef %1) #20
   call void @exit(i32 noundef 1) #21
   unreachable
 
@@ -158,22 +158,22 @@ if.end49:                                         ; preds = %if.end42, %if.end42
   %agg.tmp.sroa.0.0.copyload = load double, ptr %inputFormat, align 8, !tbaa.struct !13
   %agg.tmp.sroa.5.0.inputFormat.sroa_idx = getelementptr inbounds i8, ptr %inputFormat, i64 28
   %agg.tmp.sroa.5.0.copyload = load i32, ptr %agg.tmp.sroa.5.0.inputFormat.sroa_idx, align 4, !tbaa.struct !16
-  %cmp.i = icmp eq i32 %8, 1819304813
+  %cmp.i = icmp eq i32 %10, 1819304813
   br i1 %cmp.i, label %if.then.i, label %if.else.i
 
 if.then.i:                                        ; preds = %if.end49
   %agg.tmp.sroa.6.0.inputFormat.sroa_idx = getelementptr inbounds i8, ptr %inputFormat, i64 32
   %agg.tmp.sroa.6.0.copyload = load i32, ptr %agg.tmp.sroa.6.0.inputFormat.sroa_idx, align 8, !tbaa.struct !17
-  %10 = add i32 %agg.tmp.sroa.6.0.copyload, -16
-  %11 = call i32 @llvm.fshl.i32(i32 %agg.tmp.sroa.6.0.copyload, i32 %10, i32 30)
-  %switch.tableidx = add i32 %11, -1
-  %12 = icmp ult i32 %switch.tableidx, 4
-  br i1 %12, label %switch.lookup, label %if.end54
+  %12 = add i32 %agg.tmp.sroa.6.0.copyload, -16
+  %13 = call i32 @llvm.fshl.i32(i32 %agg.tmp.sroa.6.0.copyload, i32 %12, i32 30)
+  %switch.tableidx = add i32 %13, -1
+  %14 = icmp ult i32 %switch.tableidx, 4
+  br i1 %14, label %switch.lookup, label %_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit
 
 if.else.i:                                        ; preds = %if.end49
   %agg.tmp.sroa.3.0.inputFormat.sroa_idx = getelementptr inbounds i8, ptr %inputFormat, i64 12
   %agg.tmp.sroa.3.0.copyload = load i32, ptr %agg.tmp.sroa.3.0.inputFormat.sroa_idx, align 4, !tbaa.struct !18
-  switch i32 %agg.tmp.sroa.3.0.copyload, label %if.end54 [
+  switch i32 %agg.tmp.sroa.3.0.copyload, label %_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit [
     i32 1, label %cond.true.i
     i32 2, label %cond.false.i
     i32 3, label %sw.bb19.i
@@ -190,64 +190,64 @@ cond.true.i:                                      ; preds = %sw.bb21.i, %sw.bb19
   %.sink68.i = phi i32 [ 32, %sw.bb21.i ], [ 24, %sw.bb19.i ], [ 16, %if.else.i ]
   %.ph.i = phi i32 [ %agg.tmp.sroa.3.0.copyload, %sw.bb21.i ], [ %agg.tmp.sroa.3.0.copyload, %sw.bb19.i ], [ 2, %if.else.i ]
   %mul.i = mul i32 %.ph.i, %agg.tmp.sroa.5.0.copyload
-  br label %if.end54
+  br label %_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit
 
 cond.false.i:                                     ; preds = %if.else.i
   %conv.i = uitofp i32 %agg.tmp.sroa.5.0.copyload to double
-  %13 = call double @llvm.fmuladd.f64(double %conv.i, double 2.500000e+00, double 5.000000e-01)
-  %conv34.i = fptosi double %13 to i32
-  br label %if.end54
+  %15 = call double @llvm.fmuladd.f64(double %conv.i, double 2.500000e+00, double 5.000000e-01)
+  %conv34.i = fptosi double %15 to i32
+  br label %_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit
 
 switch.lookup:                                    ; preds = %if.then.i
-  %14 = sext i32 %switch.tableidx to i64
-  %switch.gep = getelementptr inbounds [4 x i32], ptr @switch.table.main, i64 0, i64 %14
+  %16 = sext i32 %switch.tableidx to i64
+  %switch.gep = getelementptr inbounds [4 x i32], ptr @switch.table.main, i64 0, i64 %16
   %switch.load = load i32, ptr %switch.gep, align 4
-  br label %if.end54
+  br label %_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit
 
-if.end54:                                         ; preds = %switch.lookup, %if.then.i, %if.else.i, %cond.false.i, %cond.true.i
+_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit: ; preds = %switch.lookup, %if.then.i, %cond.true.i, %cond.false.i, %if.else.i
   %outputFormat.sroa.22.1 = phi i32 [ undef, %if.else.i ], [ 0, %if.then.i ], [ %.sink68.i, %cond.true.i ], [ 20, %cond.false.i ], [ 0, %switch.lookup ]
+  %outputFormat.sroa.16.0 = phi i32 [ undef, %if.else.i ], [ 0, %if.then.i ], [ %mul.i, %cond.true.i ], [ %conv34.i, %cond.false.i ], [ 0, %switch.lookup ]
   %outputFormat.sroa.13.1 = phi i32 [ undef, %if.else.i ], [ 4096, %if.then.i ], [ 1, %cond.true.i ], [ 1, %cond.false.i ], [ 4096, %switch.lookup ]
-  %outputFormat.sroa.11.0 = phi i32 [ undef, %if.else.i ], [ 0, %if.then.i ], [ %mul.i, %cond.true.i ], [ %conv34.i, %cond.false.i ], [ 0, %switch.lookup ]
   %outputFormat.sroa.9.0 = phi i32 [ undef, %if.else.i ], [ 1, %if.then.i ], [ 0, %cond.true.i ], [ 0, %cond.false.i ], [ %switch.load, %switch.lookup ]
   %outputFormat.sroa.6.0 = phi i32 [ 1819304813, %if.else.i ], [ 1634492771, %if.then.i ], [ 1819304813, %cond.true.i ], [ 1819304813, %cond.false.i ], [ 1634492771, %switch.lookup ]
-  %call55 = call noundef i32 @_Z13FindDataStartP8_IO_FILEjPiS1_(ptr noundef nonnull %inputFile.2150.us, i32 noundef %6, ptr noundef nonnull %inputDataPos, ptr noundef nonnull %inputDataSize), !range !19
-  %15 = load i32, ptr %inputDataPos, align 4, !tbaa !11
-  %conv = sext i32 %15 to i64
+  %call55 = call noundef i32 @_Z13FindDataStartP8_IO_FILEjPiS1_(ptr noundef nonnull %inputFile.2150.us, i32 noundef %8, ptr noundef nonnull %inputDataPos, ptr noundef nonnull %inputDataSize), !range !19
+  %17 = load i32, ptr %inputDataPos, align 4, !tbaa !11
+  %conv = sext i32 %17 to i64
   %call56 = call i32 @fseek(ptr noundef nonnull %inputFile.2150.us, i64 noundef %conv, i32 noundef 0)
   br i1 %cmp.i, label %if.then59, label %if.else63
 
-if.then59:                                        ; preds = %if.end54
+if.then59:                                        ; preds = %_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit
   store double %agg.tmp.sroa.0.0.copyload, ptr %agg.tmp61, align 8, !tbaa.struct !13
   %outputFormat.sroa.6.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 8
   store i32 %outputFormat.sroa.6.0, ptr %outputFormat.sroa.6.0.agg.tmp61.sroa_idx, align 8, !tbaa.struct !20
   %outputFormat.sroa.9.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 12
   store i32 %outputFormat.sroa.9.0, ptr %outputFormat.sroa.9.0.agg.tmp61.sroa_idx, align 4, !tbaa.struct !18
   %outputFormat.sroa.11.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 16
-  store i32 %outputFormat.sroa.11.0, ptr %outputFormat.sroa.11.0.agg.tmp61.sroa_idx, align 8, !tbaa.struct !21
+  store i32 %outputFormat.sroa.16.0, ptr %outputFormat.sroa.11.0.agg.tmp61.sroa_idx, align 8, !tbaa.struct !21
   %outputFormat.sroa.13.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 20
   store i32 %outputFormat.sroa.13.1, ptr %outputFormat.sroa.13.0.agg.tmp61.sroa_idx, align 4, !tbaa.struct !22
   %outputFormat.sroa.16.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 24
-  store i32 %outputFormat.sroa.11.0, ptr %outputFormat.sroa.16.0.agg.tmp61.sroa_idx, align 8, !tbaa.struct !23
+  store i32 %outputFormat.sroa.16.0, ptr %outputFormat.sroa.16.0.agg.tmp61.sroa_idx, align 8, !tbaa.struct !23
   %outputFormat.sroa.18.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 28
   store i32 %agg.tmp.sroa.5.0.copyload, ptr %outputFormat.sroa.18.0.agg.tmp61.sroa_idx, align 4, !tbaa.struct !16
   %outputFormat.sroa.22.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 32
   store i32 %outputFormat.sroa.22.1, ptr %outputFormat.sroa.22.0.agg.tmp61.sroa_idx, align 8, !tbaa.struct !17
   %outputFormat.sroa.25.0.agg.tmp61.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp61, i64 36
   store i32 0, ptr %outputFormat.sroa.25.0.agg.tmp61.sroa_idx, align 4, !tbaa.struct !24
-  %16 = load i32, ptr %inputDataSize, align 4, !tbaa !11
-  %call62 = call noundef i32 @_Z10EncodeALACP8_IO_FILES0_22AudioFormatDescriptionS1_i(ptr noundef nonnull %inputFile.2150.us, ptr noundef nonnull %outputFile.3.us, ptr noundef nonnull byval(%struct.AudioFormatDescription) align 8 %inputFormat, ptr noundef nonnull byval(%struct.AudioFormatDescription) align 8 %agg.tmp61, i32 noundef %16)
+  %18 = load i32, ptr %inputDataSize, align 4, !tbaa !11
+  %call62 = call noundef i32 @_Z10EncodeALACP8_IO_FILES0_22AudioFormatDescriptionS1_i(ptr noundef nonnull %inputFile.2150.us, ptr noundef nonnull %outputFile.3.us, ptr noundef nonnull byval(%struct.AudioFormatDescription) align 8 %inputFormat, ptr noundef nonnull byval(%struct.AudioFormatDescription) align 8 %agg.tmp61, i32 noundef %18)
   br label %if.then90
 
-if.else63:                                        ; preds = %if.end54
-  %17 = load i32, ptr %inputFileType, align 4, !tbaa !11
-  %cmp64 = icmp ne i32 %17, 1463899717
+if.else63:                                        ; preds = %_Z15SetOutputFormat22AudioFormatDescriptionPS_.exit
+  %19 = load i32, ptr %inputFileType, align 4, !tbaa !11
+  %cmp64 = icmp ne i32 %19, 1463899717
   %cmp67 = icmp ugt i32 %agg.tmp.sroa.5.0.copyload, 2
   %or.cond99 = select i1 %cmp64, i1 %cmp67, i1 false
   br i1 %or.cond99, label %if.then68, label %if.end70
 
 if.then68:                                        ; preds = %if.else63
-  %18 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %19 = call i64 @fwrite(ptr nonnull @.str.8, i64 46, i64 1, ptr %18) #20
+  %20 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %21 = call i64 @fwrite(ptr nonnull @.str.8, i64 46, i64 1, ptr %20) #20
   call void @exit(i32 noundef 1) #21
   unreachable
 
@@ -259,11 +259,11 @@ if.end70:                                         ; preds = %if.else63
   %outputFormat.sroa.9.0.agg.tmp72.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp72, i64 12
   store i32 %outputFormat.sroa.9.0, ptr %outputFormat.sroa.9.0.agg.tmp72.sroa_idx, align 4, !tbaa.struct !18
   %outputFormat.sroa.11.0.agg.tmp72.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp72, i64 16
-  store i32 %outputFormat.sroa.11.0, ptr %outputFormat.sroa.11.0.agg.tmp72.sroa_idx, align 8, !tbaa.struct !21
+  store i32 %outputFormat.sroa.16.0, ptr %outputFormat.sroa.11.0.agg.tmp72.sroa_idx, align 8, !tbaa.struct !21
   %outputFormat.sroa.13.0.agg.tmp72.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp72, i64 20
   store i32 %outputFormat.sroa.13.1, ptr %outputFormat.sroa.13.0.agg.tmp72.sroa_idx, align 4, !tbaa.struct !22
   %outputFormat.sroa.16.0.agg.tmp72.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp72, i64 24
-  store i32 %outputFormat.sroa.11.0, ptr %outputFormat.sroa.16.0.agg.tmp72.sroa_idx, align 8, !tbaa.struct !23
+  store i32 %outputFormat.sroa.16.0, ptr %outputFormat.sroa.16.0.agg.tmp72.sroa_idx, align 8, !tbaa.struct !23
   %outputFormat.sroa.18.0.agg.tmp72.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp72, i64 28
   store i32 %agg.tmp.sroa.5.0.copyload, ptr %outputFormat.sroa.18.0.agg.tmp72.sroa_idx, align 4, !tbaa.struct !16
   %outputFormat.sroa.22.0.agg.tmp72.sroa_idx = getelementptr inbounds i8, ptr %agg.tmp72, i64 32
@@ -275,10 +275,10 @@ if.end70:                                         ; preds = %if.else63
 
 if.then77:                                        ; preds = %for.body.us, %entry, %cleanup
   %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %puts144 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
-  %puts145 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  %puts146 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
-  %puts147 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %puts130 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %puts131 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
+  %puts132 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.17)
+  %puts133 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   %putchar = tail call i32 @putchar(i32 10)
   br label %cleanup93
 
@@ -1225,6 +1225,7 @@ if.then58:                                        ; preds = %while.end
   br label %delete.notnull
 
 if.else62:                                        ; preds = %while.end
+  %conv65 = trunc i64 %numDataBytes.0.lcssa to i32
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %theBuffer.i130) #22
   %conv.i131 = trunc i64 %numDataBytes.0.lcssa to i8
   store i8 %conv.i131, ptr %theBuffer.i130, align 1, !tbaa !25
@@ -1243,8 +1244,7 @@ if.else62:                                        ; preds = %while.end
   %call.i135 = call i64 @fwrite(ptr noundef nonnull %theBuffer.i130, i64 noundef 1, i64 noundef 4, ptr noundef %outputFile)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %theBuffer.i130) #22
   %call66 = call i32 @fseek(ptr noundef %outputFile, i64 noundef 4, i32 noundef 0)
-  %16 = trunc i64 %numDataBytes.0.lcssa to i32
-  %conv70 = add i32 %16, 36
+  %conv70 = add i32 %conv65, 36
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %theBuffer.i136) #22
   %conv.i137 = trunc i32 %conv70 to i8
   store i8 %conv.i137, ptr %theBuffer.i136, align 1, !tbaa !25
@@ -1479,14 +1479,14 @@ entry:
 ; Function Attrs: nounwind
 declare void @_ZN11ALACDecoderD1Ev(ptr noundef nonnull align 8 dereferenceable(64)) unnamed_addr #16
 
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #17
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #17
+
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.fshl.i32(i32, i32, i32) #17
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #18
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #18
+declare i32 @llvm.fshl.i32(i32, i32, i32) #18
 
 attributes #0 = { mustprogress norecurse uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -1505,8 +1505,8 @@ attributes #13 = { mustprogress nounwind willreturn allockind("free") memory(arg
 attributes #14 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #15 = { mustprogress nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #16 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #18 = { nofree nounwind }
+attributes #17 = { nofree nounwind }
+attributes #18 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #19 = { nounwind willreturn memory(read) }
 attributes #20 = { cold }
 attributes #21 = { noreturn nounwind }

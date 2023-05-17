@@ -173,16 +173,16 @@ if.then64:                                        ; preds = %invoke.cont60
           to label %do.body.preheader unwind label %lpad67
 
 do.body.preheader:                                ; preds = %if.then64
-  %tobool70.not454 = icmp eq ptr %call69, null
-  br i1 %tobool70.not454, label %delete.notnull280, label %if.then71.lr.ph
+  %tobool70.not457 = icmp eq ptr %call69, null
+  br i1 %tobool70.not457, label %delete.notnull280, label %if.then71.lr.ph
 
 if.then71.lr.ph:                                  ; preds = %do.body.preheader
   %and84 = and i32 %inp.6, -9
   br label %if.then71
 
 if.then71:                                        ; preds = %if.then71.backedge, %if.then71.lr.ph
-  %rexp.0456 = phi ptr [ %call69, %if.then71.lr.ph ], [ %rexp.1, %if.then71.backedge ]
-  %exp.0455 = phi ptr [ %call12, %if.then71.lr.ph ], [ %exp.1, %if.then71.backedge ]
+  %rexp.0459 = phi ptr [ %call69, %if.then71.lr.ph ], [ %rexp.1, %if.then71.backedge ]
+  %exp.0458 = phi ptr [ %call12, %if.then71.lr.ph ], [ %exp.1, %if.then71.backedge ]
   %18 = load i32, ptr %outp, align 4, !tbaa !9
   %and = and i32 %18, 2
   %tobool72.not = icmp eq i32 %and, 0
@@ -205,10 +205,10 @@ lpad67:                                           ; preds = %if.then64
   br label %ehcleanup287
 
 if.then83:                                        ; preds = %if.then71
-  %vtable85 = load ptr, ptr %rexp.0456, align 8, !tbaa !11
+  %vtable85 = load ptr, ptr %rexp.0459, align 8, !tbaa !11
   %vfn86 = getelementptr inbounds ptr, ptr %vtable85, i64 14
   %22 = load ptr, ptr %vfn86, align 8
-  invoke void %22(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0456, ptr noundef %19, i32 noundef %and84)
+  invoke void %22(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0459, ptr noundef %19, i32 noundef %and84)
           to label %if.end90 unwind label %lpad79
 
 lpad79:                                           ; preds = %if.else88, %if.then83
@@ -217,11 +217,11 @@ lpad79:                                           ; preds = %if.else88, %if.then
   br label %ehcleanup287
 
 if.else88:                                        ; preds = %if.then71
-  invoke void @_ZNK8exp_node14symbolic_printEPK9alst_nodei(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0456, ptr noundef %19, i32 noundef %inp.6)
+  invoke void @_ZNK8exp_node14symbolic_printEPK9alst_nodei(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0459, ptr noundef %19, i32 noundef %inp.6)
           to label %if.end90 unwind label %lpad79
 
 if.end90:                                         ; preds = %if.else88, %if.then83
-  %putchar394 = call i32 @putchar(i32 10)
+  %putchar392 = call i32 @putchar(i32 10)
   %24 = load i32, ptr %outp, align 4, !tbaa !9
   %and93 = and i32 %24, 2
   %tobool94.not = icmp eq i32 %and93, 0
@@ -231,25 +231,25 @@ if.then95:                                        ; preds = %if.end90
   %and96 = and i32 %24, -7
   store i32 %and96, ptr %outp, align 4, !tbaa !9
   %25 = load ptr, ptr %env, align 8, !tbaa !5
-  %vtable97 = load ptr, ptr %rexp.0456, align 8, !tbaa !11
+  %vtable97 = load ptr, ptr %rexp.0459, align 8, !tbaa !11
   %vfn98 = getelementptr inbounds ptr, ptr %vtable97, i64 13
   %26 = load ptr, ptr %vfn98, align 8
-  %call101 = invoke noundef ptr %26(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0456, ptr noundef %25, i32 noundef %inp.6, ptr noundef nonnull %outp)
+  %call101 = invoke noundef ptr %26(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0459, ptr noundef %25, i32 noundef %inp.6, ptr noundef nonnull %outp)
           to label %invoke.cont100 unwind label %lpad99
 
 invoke.cont100:                                   ; preds = %if.then95
   %tobool102.not = icmp eq ptr %call101, null
-  %cmp103.not = icmp eq ptr %rexp.0456, %call101
+  %cmp103.not = icmp eq ptr %rexp.0459, %call101
   %or.cond405 = or i1 %tobool102.not, %cmp103.not
   br i1 %or.cond405, label %if.end113, label %delete.notnull106
 
 delete.notnull106:                                ; preds = %invoke.cont100
-  %vtable107 = load ptr, ptr %rexp.0456, align 8, !tbaa !11
+  %vtable107 = load ptr, ptr %rexp.0459, align 8, !tbaa !11
   %vfn108 = getelementptr inbounds ptr, ptr %vtable107, i64 2
   %27 = load ptr, ptr %vfn108, align 8
-  call void %27(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0456) #7
-  %cmp110 = icmp eq ptr %rexp.0456, %exp.0455
-  %spec.store.select = select i1 %cmp110, ptr null, ptr %exp.0455
+  call void %27(ptr noundef nonnull align 8 dereferenceable(16) %rexp.0459) #7
+  %cmp110 = icmp eq ptr %rexp.0459, %exp.0458
+  %spec.store.select = select i1 %cmp110, ptr null, ptr %exp.0458
   br label %if.end113
 
 lpad99:                                           ; preds = %if.then95
@@ -258,31 +258,31 @@ lpad99:                                           ; preds = %if.then95
   br label %ehcleanup287
 
 if.end113:                                        ; preds = %delete.notnull106, %invoke.cont100
-  %exp.1 = phi ptr [ %spec.store.select, %delete.notnull106 ], [ %exp.0455, %invoke.cont100 ]
-  %rexp.1 = phi ptr [ %call101, %delete.notnull106 ], [ %rexp.0456, %invoke.cont100 ]
+  %exp.1 = phi ptr [ %spec.store.select, %delete.notnull106 ], [ %exp.0458, %invoke.cont100 ]
+  %rexp.1 = phi ptr [ %call101, %delete.notnull106 ], [ %rexp.0459, %invoke.cont100 ]
   %29 = load i32, ptr %outp, align 4, !tbaa !9
   %and114 = and i32 %29, 2
   %tobool115.not = icmp eq i32 %and114, 0
-  br i1 %tobool115.not, label %if.end276, label %if.end119
+  br i1 %tobool115.not, label %if.end276, label %invoke.cont123
 
-if.end119:                                        ; preds = %if.end113
+invoke.cont123:                                   ; preds = %if.end113
   %call121 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.9)
   %30 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %call.i388 = call i32 @getc(ptr noundef %30)
-  %cmp125.not = icmp eq i32 %call.i388, 10
-  br i1 %cmp125.not, label %if.then71.backedge, label %while.cond127
+  %call.i410 = call i32 @getc(ptr noundef %30)
+  %cmp125.not = icmp eq i32 %call.i410, 10
+  br i1 %cmp125.not, label %if.then71.backedge, label %invoke.cont128
 
-if.then71.backedge:                               ; preds = %if.end119, %if.end132
-  br label %if.then71
+if.then71.backedge:                               ; preds = %invoke.cont123, %if.end132
+  br label %if.then71, !llvm.loop !13
 
-while.cond127:                                    ; preds = %if.end119, %while.cond127
+invoke.cont128:                                   ; preds = %invoke.cont123, %invoke.cont128
   %31 = load ptr, ptr @stdin, align 8, !tbaa !5
-  %call.i389 = call i32 @getc(ptr noundef %31)
-  %cmp130.not = icmp eq i32 %call.i389, 10
-  br i1 %cmp130.not, label %if.end132, label %while.cond127, !llvm.loop !13
+  %call.i411 = call i32 @getc(ptr noundef %31)
+  %cmp130.not = icmp eq i32 %call.i411, 10
+  br i1 %cmp130.not, label %if.end132, label %invoke.cont128, !llvm.loop !15
 
-if.end132:                                        ; preds = %while.cond127
-  %32 = and i32 %call.i388, -33
+if.end132:                                        ; preds = %invoke.cont128
+  %32 = and i32 %call.i410, -33
   %or.cond = icmp eq i32 %32, 78
   br i1 %or.cond, label %if.end276, label %if.then71.backedge
 
@@ -353,7 +353,7 @@ if.end203:                                        ; preds = %delete.notnull196, 
   %42 = load i32, ptr %outp, align 4, !tbaa !9
   %and204 = and i32 %42, 2
   %tobool205.not = icmp eq i32 %and204, 0
-  br i1 %tobool205.not, label %if.then219, label %do.body178, !llvm.loop !15
+  br i1 %tobool205.not, label %if.then219, label %do.body178, !llvm.loop !16
 
 if.then219:                                       ; preds = %if.end203, %if.then180
   %exp.8.ph = phi ptr [ %exp.6, %if.then180 ], [ %exp.7, %if.end203 ]
@@ -375,7 +375,7 @@ if.else228:                                       ; preds = %if.then219
           to label %if.end230 unwind label %lpad175
 
 if.end230:                                        ; preds = %if.else228, %if.then223
-  %putchar392 = call i32 @putchar(i32 10)
+  %putchar390 = call i32 @putchar(i32 10)
   %vtable235 = load ptr, ptr %rexp172.2.ph, align 8, !tbaa !11
   %vfn236 = getelementptr inbounds ptr, ptr %vtable235, i64 2
   %45 = load ptr, ptr %vfn236, align 8
@@ -418,40 +418,40 @@ if.else260:                                       ; preds = %if.then251
           to label %if.end262 unwind label %lpad247
 
 if.end262:                                        ; preds = %if.else260, %if.then255
-  %putchar390 = call i32 @putchar(i32 10)
+  %putchar388 = call i32 @putchar(i32 10)
   %vtable267 = load ptr, ptr %call249, align 8, !tbaa !11
   %vfn268 = getelementptr inbounds ptr, ptr %vtable267, i64 2
   %51 = load ptr, ptr %vfn268, align 8
   call void %51(ptr noundef nonnull align 8 dereferenceable(16) %call249) #7
   %cmp270 = icmp eq ptr %call249, %call12
-  br i1 %cmp270, label %cleanup286.thread442, label %delete.notnull280
+  br i1 %cmp270, label %cleanup286.thread444, label %delete.notnull280
 
-cleanup286.thread442:                             ; preds = %if.end262
+cleanup286.thread444:                             ; preds = %if.end262
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %outp) #7
   br label %while.cond.backedge
 
 if.end276:                                        ; preds = %if.end132, %if.end90, %if.end113, %do.body178, %if.end230
-  %exp.13 = phi ptr [ %exp.8.ph, %if.end230 ], [ %exp.6, %do.body178 ], [ %exp.1, %if.end132 ], [ %exp.0455, %if.end90 ], [ %exp.1, %if.end113 ]
+  %exp.13 = phi ptr [ %exp.8.ph, %if.end230 ], [ %exp.6, %do.body178 ], [ %exp.1, %if.end132 ], [ %exp.0458, %if.end90 ], [ %exp.1, %if.end113 ]
   %tobool277.not = icmp eq ptr %exp.13, null
   br i1 %tobool277.not, label %cleanup286, label %delete.notnull280
 
 delete.notnull280:                                ; preds = %do.body.preheader, %invoke.cont248, %if.end262, %if.end276
-  %exp.13437 = phi ptr [ %exp.13, %if.end276 ], [ %call12, %if.end262 ], [ %call12, %invoke.cont248 ], [ %call12, %do.body.preheader ]
-  %vtable281 = load ptr, ptr %exp.13437, align 8, !tbaa !11
+  %exp.13439 = phi ptr [ %exp.13, %if.end276 ], [ %call12, %if.end262 ], [ %call12, %invoke.cont248 ], [ %call12, %do.body.preheader ]
+  %vtable281 = load ptr, ptr %exp.13439, align 8, !tbaa !11
   %vfn282 = getelementptr inbounds ptr, ptr %vtable281, i64 2
   %52 = load ptr, ptr %vfn282, align 8
-  call void %52(ptr noundef nonnull align 8 dereferenceable(16) %exp.13437) #7
+  call void %52(ptr noundef nonnull align 8 dereferenceable(16) %exp.13439) #7
   br label %cleanup286
 
 cleanup286:                                       ; preds = %if.end230, %if.end276, %delete.notnull280
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %outp) #7
   br label %while.cond.backedge
 
-while.cond.backedge:                              ; preds = %cleanup286, %invoke.cont11, %cleanup286.thread442
+while.cond.backedge:                              ; preds = %cleanup286, %invoke.cont11, %cleanup286.thread444
   br label %while.cond
 
 ehcleanup287:                                     ; preds = %lpad59, %lpad247, %lpad99, %lpad79, %lpad67, %lpad188, %lpad175, %lpad15
-  %.pn395.pn.pn = phi { ptr, i32 } [ %5, %lpad15 ], [ %50, %lpad247 ], [ %20, %lpad59 ], [ %21, %lpad67 ], [ %28, %lpad99 ], [ %23, %lpad79 ], [ %40, %lpad175 ], [ %41, %lpad188 ]
+  %.pn394.pn.pn = phi { ptr, i32 } [ %5, %lpad15 ], [ %50, %lpad247 ], [ %20, %lpad59 ], [ %21, %lpad67 ], [ %23, %lpad79 ], [ %28, %lpad99 ], [ %40, %lpad175 ], [ %41, %lpad188 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %outp) #7
   br label %ehcleanup300
 
@@ -473,21 +473,21 @@ invoke.cont298:                                   ; preds = %while.end297
   ret i32 0
 
 ehcleanup300:                                     ; preds = %lpad10, %ehcleanup287, %lpad7
-  %.pn396 = phi { ptr, i32 } [ %3, %lpad7 ], [ %.pn395.pn.pn, %ehcleanup287 ], [ %4, %lpad10 ]
+  %.pn395 = phi { ptr, i32 } [ %3, %lpad7 ], [ %.pn394.pn.pn, %ehcleanup287 ], [ %4, %lpad10 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %env) #7
   call void @_ZN24lambda_expression_parserD1Ev(ptr noundef nonnull align 8 dereferenceable(12) %parse) #7
   br label %ehcleanup304
 
 ehcleanup304:                                     ; preds = %ehcleanup300, %lpad5
-  %.pn396.pn = phi { ptr, i32 } [ %.pn396, %ehcleanup300 ], [ %2, %lpad5 ]
+  %.pn395.pn = phi { ptr, i32 } [ %.pn395, %ehcleanup300 ], [ %2, %lpad5 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %parse) #7
   br label %ehcleanup306
 
 ehcleanup306:                                     ; preds = %ehcleanup304, %lpad
-  %.pn396.pn.pn = phi { ptr, i32 } [ %.pn396.pn, %ehcleanup304 ], [ %1, %lpad ]
+  %.pn395.pn.pn = phi { ptr, i32 } [ %.pn395.pn, %ehcleanup304 ], [ %1, %lpad ]
   call void @_ZN12token_streamD1Ev(ptr noundef nonnull align 8 dereferenceable(8756) %tokstr) #7
   call void @llvm.lifetime.end.p0(i64 8760, ptr nonnull %tokstr) #7
-  resume { ptr, i32 } %.pn396.pn.pn
+  resume { ptr, i32 } %.pn395.pn.pn
 }
 
 ; Function Attrs: nofree nounwind
@@ -565,3 +565,4 @@ attributes #8 = { nounwind willreturn memory(read) }
 !13 = distinct !{!13, !14}
 !14 = !{!"llvm.loop.mustprogress"}
 !15 = distinct !{!15, !14}
+!16 = distinct !{!16, !14}

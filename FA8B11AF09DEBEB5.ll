@@ -127,43 +127,43 @@ for.body:                                         ; preds = %vector.body, %for.c
   %35 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %conv) #4, !srcloc !15
   %shl8 = shl i16 %35, 1
   %xor = xor i16 %shl8, 4129
-  %tobool.not33 = icmp slt i16 %35, 0
-  %v.1 = select i1 %tobool.not33, i16 %xor, i16 %shl8
+  %tobool.not30 = icmp slt i16 %35, 0
+  %v.1 = select i1 %tobool.not30, i16 %xor, i16 %shl8
   %36 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %v.1) #4, !srcloc !15
   %shl8.1 = shl i16 %36, 1
   %xor.1 = xor i16 %shl8.1, 4129
-  %tobool.not33.1 = icmp slt i16 %36, 0
-  %v.1.1 = select i1 %tobool.not33.1, i16 %xor.1, i16 %shl8.1
+  %tobool.not30.1 = icmp slt i16 %36, 0
+  %v.1.1 = select i1 %tobool.not30.1, i16 %xor.1, i16 %shl8.1
   %37 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %v.1.1) #4, !srcloc !15
   %shl8.2 = shl i16 %37, 1
   %xor.2 = xor i16 %shl8.2, 4129
-  %tobool.not33.2 = icmp slt i16 %37, 0
-  %v.1.2 = select i1 %tobool.not33.2, i16 %xor.2, i16 %shl8.2
+  %tobool.not30.2 = icmp slt i16 %37, 0
+  %v.1.2 = select i1 %tobool.not30.2, i16 %xor.2, i16 %shl8.2
   %38 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %v.1.2) #4, !srcloc !15
   %shl8.3 = shl i16 %38, 1
   %xor.3 = xor i16 %shl8.3, 4129
-  %tobool.not33.3 = icmp slt i16 %38, 0
-  %v.1.3 = select i1 %tobool.not33.3, i16 %xor.3, i16 %shl8.3
+  %tobool.not30.3 = icmp slt i16 %38, 0
+  %v.1.3 = select i1 %tobool.not30.3, i16 %xor.3, i16 %shl8.3
   %39 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %v.1.3) #4, !srcloc !15
   %shl8.4 = shl i16 %39, 1
   %xor.4 = xor i16 %shl8.4, 4129
-  %tobool.not33.4 = icmp slt i16 %39, 0
-  %v.1.4 = select i1 %tobool.not33.4, i16 %xor.4, i16 %shl8.4
+  %tobool.not30.4 = icmp slt i16 %39, 0
+  %v.1.4 = select i1 %tobool.not30.4, i16 %xor.4, i16 %shl8.4
   %40 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %v.1.4) #4, !srcloc !15
   %shl8.5 = shl i16 %40, 1
   %xor.5 = xor i16 %shl8.5, 4129
-  %tobool.not33.5 = icmp slt i16 %40, 0
-  %v.1.5 = select i1 %tobool.not33.5, i16 %xor.5, i16 %shl8.5
+  %tobool.not30.5 = icmp slt i16 %40, 0
+  %v.1.5 = select i1 %tobool.not30.5, i16 %xor.5, i16 %shl8.5
   %41 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %v.1.5) #4, !srcloc !15
   %shl8.6 = shl i16 %41, 1
   %xor.6 = xor i16 %shl8.6, 4129
-  %tobool.not33.6 = icmp slt i16 %41, 0
-  %v.1.6 = select i1 %tobool.not33.6, i16 %xor.6, i16 %shl8.6
+  %tobool.not30.6 = icmp slt i16 %41, 0
+  %v.1.6 = select i1 %tobool.not30.6, i16 %xor.6, i16 %shl8.6
   %42 = tail call i16 asm sideeffect "", "=r,0,~{dirflag},~{fpsr},~{flags}"(i16 %v.1.6) #4, !srcloc !15
   %shl8.7 = shl i16 %42, 1
   %xor.7 = xor i16 %shl8.7, 4129
-  %tobool.not33.7 = icmp slt i16 %42, 0
-  %v.1.7 = select i1 %tobool.not33.7, i16 %xor.7, i16 %shl8.7
+  %tobool.not30.7 = icmp slt i16 %42, 0
+  %v.1.7 = select i1 %tobool.not30.7, i16 %xor.7, i16 %shl8.7
   %arrayidx = getelementptr inbounds [256 x i16], ptr %a, i64 0, i64 %indvars.iv
   %43 = load i16, ptr %arrayidx, align 2, !tbaa !5
   %cmp15.not = icmp eq i16 %43, %v.1.7

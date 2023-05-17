@@ -3838,72 +3838,72 @@ entry:
   br i1 %cmp, label %if.end, label %if.end.thread
 
 if.end.thread:                                    ; preds = %entry
-  %add.ptr.i108183 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 32
-  %add.ptr5.i184 = getelementptr inbounds i64, ptr %ctx3, i64 64
-  %arrayidx.i185 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 30
-  %arrayidx3.i186 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 0
-  %arrayidx7.i187 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 31
-  %arrayidx10.i188 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 1
-  %arrayidx.1.i189 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 28
-  %arrayidx3.1.i190 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 2
-  %arrayidx7.1.i191 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 29
-  %arrayidx10.1.i192 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 3
-  %arrayidx.2.i193 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 26
-  %arrayidx3.2.i194 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 4
-  %arrayidx7.2.i195 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 27
-  %arrayidx10.2.i196 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 5
-  %arrayidx.3.i197 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 24
-  %arrayidx3.3.i198 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 6
-  %arrayidx7.3.i199 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 25
-  %arrayidx10.3.i200 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 7
-  %arrayidx.4.i201 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 22
-  %arrayidx3.4.i202 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 8
-  %arrayidx7.4.i203 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 23
-  %arrayidx10.4.i204 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 9
-  %arrayidx.5.i205 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 20
-  %arrayidx3.5.i206 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 10
-  %arrayidx7.5.i207 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 21
-  %arrayidx10.5.i208 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 11
-  %arrayidx.6.i209 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 18
-  %arrayidx3.6.i210 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 12
-  %arrayidx7.6.i211 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 19
-  %arrayidx10.6.i212 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 13
-  %arrayidx.7.i213 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 16
-  %arrayidx3.7.i214 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 14
-  %arrayidx7.7.i215 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 17
-  %arrayidx10.7.i216 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 15
-  %arrayidx.8.i217 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 14
-  %arrayidx3.8.i218 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 16
-  %arrayidx7.8.i219 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 15
-  %arrayidx10.8.i220 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 17
-  %arrayidx.9.i221 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 12
-  %arrayidx3.9.i222 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 18
-  %arrayidx7.9.i223 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 13
-  %arrayidx10.9.i224 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 19
-  %arrayidx.10.i225 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 10
-  %arrayidx3.10.i226 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 20
-  %arrayidx7.10.i227 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 11
-  %arrayidx10.10.i228 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 21
-  %arrayidx.11.i229 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 8
-  %arrayidx3.11.i230 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 22
-  %arrayidx7.11.i231 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 9
-  %arrayidx10.11.i232 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 23
-  %arrayidx.12.i233 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 6
-  %arrayidx3.12.i234 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 24
-  %arrayidx7.12.i235 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 7
-  %arrayidx10.12.i236 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 25
-  %arrayidx.13.i237 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 4
-  %arrayidx3.13.i238 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 26
-  %arrayidx7.13.i239 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 5
-  %arrayidx10.13.i240 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 27
-  %arrayidx.14.i241 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 2
-  %arrayidx3.14.i242 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 28
-  %arrayidx7.14.i243 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 3
-  %arrayidx10.14.i244 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 29
-  %arrayidx3.15.i245 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 30
-  %arrayidx7.15.i246 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 1
-  %arrayidx10.15.i247 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 31
-  %dsk.i120248 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1
+  %add.ptr.i114175 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 32
+  %add.ptr5.i176 = getelementptr inbounds i64, ptr %ctx3, i64 64
+  %arrayidx.i177 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 30
+  %arrayidx3.i178 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 0
+  %arrayidx7.i179 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 31
+  %arrayidx10.i180 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 1
+  %arrayidx.1.i181 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 28
+  %arrayidx3.1.i182 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 2
+  %arrayidx7.1.i183 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 29
+  %arrayidx10.1.i184 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 3
+  %arrayidx.2.i185 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 26
+  %arrayidx3.2.i186 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 4
+  %arrayidx7.2.i187 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 27
+  %arrayidx10.2.i188 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 5
+  %arrayidx.3.i189 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 24
+  %arrayidx3.3.i190 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 6
+  %arrayidx7.3.i191 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 25
+  %arrayidx10.3.i192 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 7
+  %arrayidx.4.i193 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 22
+  %arrayidx3.4.i194 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 8
+  %arrayidx7.4.i195 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 23
+  %arrayidx10.4.i196 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 9
+  %arrayidx.5.i197 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 20
+  %arrayidx3.5.i198 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 10
+  %arrayidx7.5.i199 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 21
+  %arrayidx10.5.i200 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 11
+  %arrayidx.6.i201 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 18
+  %arrayidx3.6.i202 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 12
+  %arrayidx7.6.i203 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 19
+  %arrayidx10.6.i204 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 13
+  %arrayidx.7.i205 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 16
+  %arrayidx3.7.i206 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 14
+  %arrayidx7.7.i207 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 17
+  %arrayidx10.7.i208 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 15
+  %arrayidx.8.i209 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 14
+  %arrayidx3.8.i210 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 16
+  %arrayidx7.8.i211 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 15
+  %arrayidx10.8.i212 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 17
+  %arrayidx.9.i213 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 12
+  %arrayidx3.9.i214 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 18
+  %arrayidx7.9.i215 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 13
+  %arrayidx10.9.i216 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 19
+  %arrayidx.10.i217 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 10
+  %arrayidx3.10.i218 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 20
+  %arrayidx7.10.i219 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 11
+  %arrayidx10.10.i220 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 21
+  %arrayidx.11.i221 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 8
+  %arrayidx3.11.i222 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 22
+  %arrayidx7.11.i223 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 9
+  %arrayidx10.11.i224 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 23
+  %arrayidx.12.i225 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 6
+  %arrayidx3.12.i226 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 24
+  %arrayidx7.12.i227 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 7
+  %arrayidx10.12.i228 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 25
+  %arrayidx.13.i229 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 4
+  %arrayidx3.13.i230 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 26
+  %arrayidx7.13.i231 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 5
+  %arrayidx10.13.i232 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 27
+  %arrayidx.14.i233 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 2
+  %arrayidx3.14.i234 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 28
+  %arrayidx7.14.i235 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 3
+  %arrayidx10.14.i236 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 29
+  %arrayidx3.15.i237 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 30
+  %arrayidx7.15.i238 = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 1
+  %arrayidx10.15.i239 = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 31
+  %dsk.i126240 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1
   br label %for.body.us.preheader
 
 if.end:                                           ; preds = %entry
@@ -3912,8 +3912,8 @@ if.end:                                           ; preds = %entry
   %call.i = tail call i64 @strtol(ptr nocapture noundef nonnull %0, ptr noundef null, i32 noundef 10) #7
   %call.i.fr = freeze i64 %call.i
   %conv.i = trunc i64 %call.i.fr to i32
-  %cmp18143 = icmp sgt i32 %conv.i, 0
-  %add.ptr.i108 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 32
+  %cmp18137 = icmp sgt i32 %conv.i, 0
+  %add.ptr.i114 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 32
   %add.ptr5.i = getelementptr inbounds i64, ptr %ctx3, i64 64
   %arrayidx.i = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 30
   %arrayidx3.i = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 0
@@ -3978,92 +3978,91 @@ if.end:                                           ; preds = %entry
   %arrayidx3.15.i = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 30
   %arrayidx7.15.i = getelementptr inbounds [32 x i64], ptr %ctx, i64 0, i64 1
   %arrayidx10.15.i = getelementptr inbounds %struct.des_context, ptr %ctx, i64 0, i32 1, i64 31
-  %dsk.i120 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1
-  br i1 %cmp18143, label %for.body.us.preheader, label %if.end10.1
+  %dsk.i126 = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1
+  br i1 %cmp18137, label %for.body.us.preheader, label %if.end10.1
 
 for.body.us.preheader:                            ; preds = %if.end.thread, %if.end
-  %dsk.i120315 = phi ptr [ %dsk.i120248, %if.end.thread ], [ %dsk.i120, %if.end ]
-  %arrayidx10.15.i314 = phi ptr [ %arrayidx10.15.i247, %if.end.thread ], [ %arrayidx10.15.i, %if.end ]
-  %arrayidx7.15.i313 = phi ptr [ %arrayidx7.15.i246, %if.end.thread ], [ %arrayidx7.15.i, %if.end ]
-  %arrayidx3.15.i312 = phi ptr [ %arrayidx3.15.i245, %if.end.thread ], [ %arrayidx3.15.i, %if.end ]
-  %arrayidx10.14.i311 = phi ptr [ %arrayidx10.14.i244, %if.end.thread ], [ %arrayidx10.14.i, %if.end ]
-  %arrayidx7.14.i310 = phi ptr [ %arrayidx7.14.i243, %if.end.thread ], [ %arrayidx7.14.i, %if.end ]
-  %arrayidx3.14.i309 = phi ptr [ %arrayidx3.14.i242, %if.end.thread ], [ %arrayidx3.14.i, %if.end ]
-  %arrayidx.14.i308 = phi ptr [ %arrayidx.14.i241, %if.end.thread ], [ %arrayidx.14.i, %if.end ]
-  %arrayidx10.13.i307 = phi ptr [ %arrayidx10.13.i240, %if.end.thread ], [ %arrayidx10.13.i, %if.end ]
-  %arrayidx7.13.i306 = phi ptr [ %arrayidx7.13.i239, %if.end.thread ], [ %arrayidx7.13.i, %if.end ]
-  %arrayidx3.13.i305 = phi ptr [ %arrayidx3.13.i238, %if.end.thread ], [ %arrayidx3.13.i, %if.end ]
-  %arrayidx.13.i304 = phi ptr [ %arrayidx.13.i237, %if.end.thread ], [ %arrayidx.13.i, %if.end ]
-  %arrayidx10.12.i303 = phi ptr [ %arrayidx10.12.i236, %if.end.thread ], [ %arrayidx10.12.i, %if.end ]
-  %arrayidx7.12.i302 = phi ptr [ %arrayidx7.12.i235, %if.end.thread ], [ %arrayidx7.12.i, %if.end ]
-  %arrayidx3.12.i301 = phi ptr [ %arrayidx3.12.i234, %if.end.thread ], [ %arrayidx3.12.i, %if.end ]
-  %arrayidx.12.i300 = phi ptr [ %arrayidx.12.i233, %if.end.thread ], [ %arrayidx.12.i, %if.end ]
-  %arrayidx10.11.i299 = phi ptr [ %arrayidx10.11.i232, %if.end.thread ], [ %arrayidx10.11.i, %if.end ]
-  %arrayidx7.11.i298 = phi ptr [ %arrayidx7.11.i231, %if.end.thread ], [ %arrayidx7.11.i, %if.end ]
-  %arrayidx3.11.i297 = phi ptr [ %arrayidx3.11.i230, %if.end.thread ], [ %arrayidx3.11.i, %if.end ]
-  %arrayidx.11.i296 = phi ptr [ %arrayidx.11.i229, %if.end.thread ], [ %arrayidx.11.i, %if.end ]
-  %arrayidx10.10.i295 = phi ptr [ %arrayidx10.10.i228, %if.end.thread ], [ %arrayidx10.10.i, %if.end ]
-  %arrayidx7.10.i294 = phi ptr [ %arrayidx7.10.i227, %if.end.thread ], [ %arrayidx7.10.i, %if.end ]
-  %arrayidx3.10.i293 = phi ptr [ %arrayidx3.10.i226, %if.end.thread ], [ %arrayidx3.10.i, %if.end ]
-  %arrayidx.10.i292 = phi ptr [ %arrayidx.10.i225, %if.end.thread ], [ %arrayidx.10.i, %if.end ]
-  %arrayidx10.9.i291 = phi ptr [ %arrayidx10.9.i224, %if.end.thread ], [ %arrayidx10.9.i, %if.end ]
-  %arrayidx7.9.i290 = phi ptr [ %arrayidx7.9.i223, %if.end.thread ], [ %arrayidx7.9.i, %if.end ]
-  %arrayidx3.9.i289 = phi ptr [ %arrayidx3.9.i222, %if.end.thread ], [ %arrayidx3.9.i, %if.end ]
-  %arrayidx.9.i288 = phi ptr [ %arrayidx.9.i221, %if.end.thread ], [ %arrayidx.9.i, %if.end ]
-  %arrayidx10.8.i287 = phi ptr [ %arrayidx10.8.i220, %if.end.thread ], [ %arrayidx10.8.i, %if.end ]
-  %arrayidx7.8.i286 = phi ptr [ %arrayidx7.8.i219, %if.end.thread ], [ %arrayidx7.8.i, %if.end ]
-  %arrayidx3.8.i285 = phi ptr [ %arrayidx3.8.i218, %if.end.thread ], [ %arrayidx3.8.i, %if.end ]
-  %arrayidx.8.i284 = phi ptr [ %arrayidx.8.i217, %if.end.thread ], [ %arrayidx.8.i, %if.end ]
-  %arrayidx10.7.i283 = phi ptr [ %arrayidx10.7.i216, %if.end.thread ], [ %arrayidx10.7.i, %if.end ]
-  %arrayidx7.7.i282 = phi ptr [ %arrayidx7.7.i215, %if.end.thread ], [ %arrayidx7.7.i, %if.end ]
-  %arrayidx3.7.i281 = phi ptr [ %arrayidx3.7.i214, %if.end.thread ], [ %arrayidx3.7.i, %if.end ]
-  %arrayidx.7.i280 = phi ptr [ %arrayidx.7.i213, %if.end.thread ], [ %arrayidx.7.i, %if.end ]
-  %arrayidx10.6.i279 = phi ptr [ %arrayidx10.6.i212, %if.end.thread ], [ %arrayidx10.6.i, %if.end ]
-  %arrayidx7.6.i278 = phi ptr [ %arrayidx7.6.i211, %if.end.thread ], [ %arrayidx7.6.i, %if.end ]
-  %arrayidx3.6.i277 = phi ptr [ %arrayidx3.6.i210, %if.end.thread ], [ %arrayidx3.6.i, %if.end ]
-  %arrayidx.6.i276 = phi ptr [ %arrayidx.6.i209, %if.end.thread ], [ %arrayidx.6.i, %if.end ]
-  %arrayidx10.5.i275 = phi ptr [ %arrayidx10.5.i208, %if.end.thread ], [ %arrayidx10.5.i, %if.end ]
-  %arrayidx7.5.i274 = phi ptr [ %arrayidx7.5.i207, %if.end.thread ], [ %arrayidx7.5.i, %if.end ]
-  %arrayidx3.5.i273 = phi ptr [ %arrayidx3.5.i206, %if.end.thread ], [ %arrayidx3.5.i, %if.end ]
-  %arrayidx.5.i272 = phi ptr [ %arrayidx.5.i205, %if.end.thread ], [ %arrayidx.5.i, %if.end ]
-  %arrayidx10.4.i271 = phi ptr [ %arrayidx10.4.i204, %if.end.thread ], [ %arrayidx10.4.i, %if.end ]
-  %arrayidx7.4.i270 = phi ptr [ %arrayidx7.4.i203, %if.end.thread ], [ %arrayidx7.4.i, %if.end ]
-  %arrayidx3.4.i269 = phi ptr [ %arrayidx3.4.i202, %if.end.thread ], [ %arrayidx3.4.i, %if.end ]
-  %arrayidx.4.i268 = phi ptr [ %arrayidx.4.i201, %if.end.thread ], [ %arrayidx.4.i, %if.end ]
-  %arrayidx10.3.i267 = phi ptr [ %arrayidx10.3.i200, %if.end.thread ], [ %arrayidx10.3.i, %if.end ]
-  %arrayidx7.3.i266 = phi ptr [ %arrayidx7.3.i199, %if.end.thread ], [ %arrayidx7.3.i, %if.end ]
-  %arrayidx3.3.i265 = phi ptr [ %arrayidx3.3.i198, %if.end.thread ], [ %arrayidx3.3.i, %if.end ]
-  %arrayidx.3.i264 = phi ptr [ %arrayidx.3.i197, %if.end.thread ], [ %arrayidx.3.i, %if.end ]
-  %arrayidx10.2.i263 = phi ptr [ %arrayidx10.2.i196, %if.end.thread ], [ %arrayidx10.2.i, %if.end ]
-  %arrayidx7.2.i262 = phi ptr [ %arrayidx7.2.i195, %if.end.thread ], [ %arrayidx7.2.i, %if.end ]
-  %arrayidx3.2.i261 = phi ptr [ %arrayidx3.2.i194, %if.end.thread ], [ %arrayidx3.2.i, %if.end ]
-  %arrayidx.2.i260 = phi ptr [ %arrayidx.2.i193, %if.end.thread ], [ %arrayidx.2.i, %if.end ]
-  %arrayidx10.1.i259 = phi ptr [ %arrayidx10.1.i192, %if.end.thread ], [ %arrayidx10.1.i, %if.end ]
-  %arrayidx7.1.i258 = phi ptr [ %arrayidx7.1.i191, %if.end.thread ], [ %arrayidx7.1.i, %if.end ]
-  %arrayidx3.1.i257 = phi ptr [ %arrayidx3.1.i190, %if.end.thread ], [ %arrayidx3.1.i, %if.end ]
-  %arrayidx.1.i256 = phi ptr [ %arrayidx.1.i189, %if.end.thread ], [ %arrayidx.1.i, %if.end ]
-  %arrayidx10.i255 = phi ptr [ %arrayidx10.i188, %if.end.thread ], [ %arrayidx10.i, %if.end ]
-  %arrayidx7.i254 = phi ptr [ %arrayidx7.i187, %if.end.thread ], [ %arrayidx7.i, %if.end ]
-  %arrayidx3.i253 = phi ptr [ %arrayidx3.i186, %if.end.thread ], [ %arrayidx3.i, %if.end ]
-  %arrayidx.i252 = phi ptr [ %arrayidx.i185, %if.end.thread ], [ %arrayidx.i, %if.end ]
-  %add.ptr5.i251 = phi ptr [ %add.ptr5.i184, %if.end.thread ], [ %add.ptr5.i, %if.end ]
-  %add.ptr.i108250 = phi ptr [ %add.ptr.i108183, %if.end.thread ], [ %add.ptr.i108, %if.end ]
-  %NumDelay.0.fr249 = phi i32 [ 100, %if.end.thread ], [ %conv.i, %if.end ]
+  %dsk.i126307 = phi ptr [ %dsk.i126240, %if.end.thread ], [ %dsk.i126, %if.end ]
+  %arrayidx10.15.i306 = phi ptr [ %arrayidx10.15.i239, %if.end.thread ], [ %arrayidx10.15.i, %if.end ]
+  %arrayidx7.15.i305 = phi ptr [ %arrayidx7.15.i238, %if.end.thread ], [ %arrayidx7.15.i, %if.end ]
+  %arrayidx3.15.i304 = phi ptr [ %arrayidx3.15.i237, %if.end.thread ], [ %arrayidx3.15.i, %if.end ]
+  %arrayidx10.14.i303 = phi ptr [ %arrayidx10.14.i236, %if.end.thread ], [ %arrayidx10.14.i, %if.end ]
+  %arrayidx7.14.i302 = phi ptr [ %arrayidx7.14.i235, %if.end.thread ], [ %arrayidx7.14.i, %if.end ]
+  %arrayidx3.14.i301 = phi ptr [ %arrayidx3.14.i234, %if.end.thread ], [ %arrayidx3.14.i, %if.end ]
+  %arrayidx.14.i300 = phi ptr [ %arrayidx.14.i233, %if.end.thread ], [ %arrayidx.14.i, %if.end ]
+  %arrayidx10.13.i299 = phi ptr [ %arrayidx10.13.i232, %if.end.thread ], [ %arrayidx10.13.i, %if.end ]
+  %arrayidx7.13.i298 = phi ptr [ %arrayidx7.13.i231, %if.end.thread ], [ %arrayidx7.13.i, %if.end ]
+  %arrayidx3.13.i297 = phi ptr [ %arrayidx3.13.i230, %if.end.thread ], [ %arrayidx3.13.i, %if.end ]
+  %arrayidx.13.i296 = phi ptr [ %arrayidx.13.i229, %if.end.thread ], [ %arrayidx.13.i, %if.end ]
+  %arrayidx10.12.i295 = phi ptr [ %arrayidx10.12.i228, %if.end.thread ], [ %arrayidx10.12.i, %if.end ]
+  %arrayidx7.12.i294 = phi ptr [ %arrayidx7.12.i227, %if.end.thread ], [ %arrayidx7.12.i, %if.end ]
+  %arrayidx3.12.i293 = phi ptr [ %arrayidx3.12.i226, %if.end.thread ], [ %arrayidx3.12.i, %if.end ]
+  %arrayidx.12.i292 = phi ptr [ %arrayidx.12.i225, %if.end.thread ], [ %arrayidx.12.i, %if.end ]
+  %arrayidx10.11.i291 = phi ptr [ %arrayidx10.11.i224, %if.end.thread ], [ %arrayidx10.11.i, %if.end ]
+  %arrayidx7.11.i290 = phi ptr [ %arrayidx7.11.i223, %if.end.thread ], [ %arrayidx7.11.i, %if.end ]
+  %arrayidx3.11.i289 = phi ptr [ %arrayidx3.11.i222, %if.end.thread ], [ %arrayidx3.11.i, %if.end ]
+  %arrayidx.11.i288 = phi ptr [ %arrayidx.11.i221, %if.end.thread ], [ %arrayidx.11.i, %if.end ]
+  %arrayidx10.10.i287 = phi ptr [ %arrayidx10.10.i220, %if.end.thread ], [ %arrayidx10.10.i, %if.end ]
+  %arrayidx7.10.i286 = phi ptr [ %arrayidx7.10.i219, %if.end.thread ], [ %arrayidx7.10.i, %if.end ]
+  %arrayidx3.10.i285 = phi ptr [ %arrayidx3.10.i218, %if.end.thread ], [ %arrayidx3.10.i, %if.end ]
+  %arrayidx.10.i284 = phi ptr [ %arrayidx.10.i217, %if.end.thread ], [ %arrayidx.10.i, %if.end ]
+  %arrayidx10.9.i283 = phi ptr [ %arrayidx10.9.i216, %if.end.thread ], [ %arrayidx10.9.i, %if.end ]
+  %arrayidx7.9.i282 = phi ptr [ %arrayidx7.9.i215, %if.end.thread ], [ %arrayidx7.9.i, %if.end ]
+  %arrayidx3.9.i281 = phi ptr [ %arrayidx3.9.i214, %if.end.thread ], [ %arrayidx3.9.i, %if.end ]
+  %arrayidx.9.i280 = phi ptr [ %arrayidx.9.i213, %if.end.thread ], [ %arrayidx.9.i, %if.end ]
+  %arrayidx10.8.i279 = phi ptr [ %arrayidx10.8.i212, %if.end.thread ], [ %arrayidx10.8.i, %if.end ]
+  %arrayidx7.8.i278 = phi ptr [ %arrayidx7.8.i211, %if.end.thread ], [ %arrayidx7.8.i, %if.end ]
+  %arrayidx3.8.i277 = phi ptr [ %arrayidx3.8.i210, %if.end.thread ], [ %arrayidx3.8.i, %if.end ]
+  %arrayidx.8.i276 = phi ptr [ %arrayidx.8.i209, %if.end.thread ], [ %arrayidx.8.i, %if.end ]
+  %arrayidx10.7.i275 = phi ptr [ %arrayidx10.7.i208, %if.end.thread ], [ %arrayidx10.7.i, %if.end ]
+  %arrayidx7.7.i274 = phi ptr [ %arrayidx7.7.i207, %if.end.thread ], [ %arrayidx7.7.i, %if.end ]
+  %arrayidx3.7.i273 = phi ptr [ %arrayidx3.7.i206, %if.end.thread ], [ %arrayidx3.7.i, %if.end ]
+  %arrayidx.7.i272 = phi ptr [ %arrayidx.7.i205, %if.end.thread ], [ %arrayidx.7.i, %if.end ]
+  %arrayidx10.6.i271 = phi ptr [ %arrayidx10.6.i204, %if.end.thread ], [ %arrayidx10.6.i, %if.end ]
+  %arrayidx7.6.i270 = phi ptr [ %arrayidx7.6.i203, %if.end.thread ], [ %arrayidx7.6.i, %if.end ]
+  %arrayidx3.6.i269 = phi ptr [ %arrayidx3.6.i202, %if.end.thread ], [ %arrayidx3.6.i, %if.end ]
+  %arrayidx.6.i268 = phi ptr [ %arrayidx.6.i201, %if.end.thread ], [ %arrayidx.6.i, %if.end ]
+  %arrayidx10.5.i267 = phi ptr [ %arrayidx10.5.i200, %if.end.thread ], [ %arrayidx10.5.i, %if.end ]
+  %arrayidx7.5.i266 = phi ptr [ %arrayidx7.5.i199, %if.end.thread ], [ %arrayidx7.5.i, %if.end ]
+  %arrayidx3.5.i265 = phi ptr [ %arrayidx3.5.i198, %if.end.thread ], [ %arrayidx3.5.i, %if.end ]
+  %arrayidx.5.i264 = phi ptr [ %arrayidx.5.i197, %if.end.thread ], [ %arrayidx.5.i, %if.end ]
+  %arrayidx10.4.i263 = phi ptr [ %arrayidx10.4.i196, %if.end.thread ], [ %arrayidx10.4.i, %if.end ]
+  %arrayidx7.4.i262 = phi ptr [ %arrayidx7.4.i195, %if.end.thread ], [ %arrayidx7.4.i, %if.end ]
+  %arrayidx3.4.i261 = phi ptr [ %arrayidx3.4.i194, %if.end.thread ], [ %arrayidx3.4.i, %if.end ]
+  %arrayidx.4.i260 = phi ptr [ %arrayidx.4.i193, %if.end.thread ], [ %arrayidx.4.i, %if.end ]
+  %arrayidx10.3.i259 = phi ptr [ %arrayidx10.3.i192, %if.end.thread ], [ %arrayidx10.3.i, %if.end ]
+  %arrayidx7.3.i258 = phi ptr [ %arrayidx7.3.i191, %if.end.thread ], [ %arrayidx7.3.i, %if.end ]
+  %arrayidx3.3.i257 = phi ptr [ %arrayidx3.3.i190, %if.end.thread ], [ %arrayidx3.3.i, %if.end ]
+  %arrayidx.3.i256 = phi ptr [ %arrayidx.3.i189, %if.end.thread ], [ %arrayidx.3.i, %if.end ]
+  %arrayidx10.2.i255 = phi ptr [ %arrayidx10.2.i188, %if.end.thread ], [ %arrayidx10.2.i, %if.end ]
+  %arrayidx7.2.i254 = phi ptr [ %arrayidx7.2.i187, %if.end.thread ], [ %arrayidx7.2.i, %if.end ]
+  %arrayidx3.2.i253 = phi ptr [ %arrayidx3.2.i186, %if.end.thread ], [ %arrayidx3.2.i, %if.end ]
+  %arrayidx.2.i252 = phi ptr [ %arrayidx.2.i185, %if.end.thread ], [ %arrayidx.2.i, %if.end ]
+  %arrayidx10.1.i251 = phi ptr [ %arrayidx10.1.i184, %if.end.thread ], [ %arrayidx10.1.i, %if.end ]
+  %arrayidx7.1.i250 = phi ptr [ %arrayidx7.1.i183, %if.end.thread ], [ %arrayidx7.1.i, %if.end ]
+  %arrayidx3.1.i249 = phi ptr [ %arrayidx3.1.i182, %if.end.thread ], [ %arrayidx3.1.i, %if.end ]
+  %arrayidx.1.i248 = phi ptr [ %arrayidx.1.i181, %if.end.thread ], [ %arrayidx.1.i, %if.end ]
+  %arrayidx10.i247 = phi ptr [ %arrayidx10.i180, %if.end.thread ], [ %arrayidx10.i, %if.end ]
+  %arrayidx7.i246 = phi ptr [ %arrayidx7.i179, %if.end.thread ], [ %arrayidx7.i, %if.end ]
+  %arrayidx3.i245 = phi ptr [ %arrayidx3.i178, %if.end.thread ], [ %arrayidx3.i, %if.end ]
+  %arrayidx.i244 = phi ptr [ %arrayidx.i177, %if.end.thread ], [ %arrayidx.i, %if.end ]
+  %add.ptr5.i243 = phi ptr [ %add.ptr5.i176, %if.end.thread ], [ %add.ptr5.i, %if.end ]
+  %add.ptr.i114242 = phi ptr [ %add.ptr.i114175, %if.end.thread ], [ %add.ptr.i114, %if.end ]
+  %NumDelay.0.fr241 = phi i32 [ 100, %if.end.thread ], [ %conv.i, %if.end ]
   br label %for.body.us
 
 for.body.us:                                      ; preds = %for.body.us.preheader, %for.inc74.split.us.us
-  %cmp3.us.not = phi i1 [ true, %for.body.us.preheader ], [ false, %for.inc74.split.us.us ]
+  %cmp3.not.us = phi i1 [ true, %for.body.us.preheader ], [ false, %for.inc74.split.us.us ]
   %call2.us = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
-  %str.9.str.8 = select i1 %cmp3.us.not, ptr @str.9, ptr @str.8
-  %puts126.us = call i32 @puts(ptr nonnull dereferenceable(1) %str.9.str.8)
-  %ctx.arrayidx3.i253 = select i1 %cmp3.us.not, ptr %ctx, ptr %arrayidx3.i253
+  %str.9.str.8 = select i1 %cmp3.not.us, ptr @str.9, ptr @str.8
+  %puts108.us = call i32 @puts(ptr nonnull dereferenceable(1) %str.9.str.8)
   br label %for.body13.us.us
 
 for.body13.us.us:                                 ; preds = %for.cond17.for.end69_crit_edge.us.us, %for.body.us
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.cond17.for.end69_crit_edge.us.us ], [ 0, %for.body.us ]
-  %indvars178 = trunc i64 %indvars.iv to i32
+  %indvars169 = trunc i64 %indvars.iv to i32
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %mul.us.us = shl nuw nsw i32 %indvars178, 6
+  %mul.us.us = shl nuw nsw i32 %indvars169, 6
   %add14.us.us = add nuw nsw i32 %mul.us.us, 64
   %1 = trunc i64 %indvars.iv.next to i32
   %call15.us.us = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %1, i32 noundef %add14.us.us)
@@ -4075,76 +4074,76 @@ for.body13.us.us:                                 ; preds = %for.cond17.for.end6
   br label %for.body19.us.us
 
 for.body19.us.us:                                 ; preds = %for.inc67.us.us, %for.body13.us.us
-  %delay.0144.us.us = phi i32 [ 0, %for.body13.us.us ], [ %inc68.us.us, %for.inc67.us.us ]
+  %delay.0138.us.us = phi i32 [ 0, %for.body13.us.us ], [ %inc68.us.us, %for.inc67.us.us ]
   store i64 8367815003007840078, ptr %buf, align 8
-  switch i32 %indvars178, label %sw.epilog.split.us151.us [
+  switch i32 %indvars169, label %sw.epilog.split.us145.us [
     i32 0, label %sw.bb.us.us
     i32 1, label %sw.bb21.us.us
     i32 2, label %sw.bb23.us.us
   ]
 
 sw.bb23.us.us:                                    ; preds = %for.body19.us.us
-  %call.i107.us.us = call i32 @des_main_ks(ptr noundef nonnull %ctx3, ptr noundef nonnull @DES3_keys)
-  %call2.i109.us.us = call i32 @des_main_ks(ptr noundef nonnull %add.ptr.i108250, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
-  %call6.i.us.us = call i32 @des_main_ks(ptr noundef nonnull %add.ptr5.i251, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 2))
-  br label %for.body.i119.us.us
+  %call.i113.us.us = call i32 @des_main_ks(ptr noundef nonnull %ctx3, ptr noundef nonnull @DES3_keys)
+  %call2.i115.us.us = call i32 @des_main_ks(ptr noundef nonnull %add.ptr.i114242, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
+  %call6.i.us.us = call i32 @des_main_ks(ptr noundef nonnull %add.ptr5.i243, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 2))
+  br label %for.body.i125.us.us
 
-for.body.i119.us.us:                              ; preds = %for.body.i119.us.us, %sw.bb23.us.us
-  %indvars.iv.i110.us.us = phi i64 [ 0, %sw.bb23.us.us ], [ %indvars.iv.next.i117.us.us, %for.body.i119.us.us ]
-  %3 = sub nuw nsw i64 94, %indvars.iv.i110.us.us
-  %arrayidx.i111.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %3
-  %4 = load i64, ptr %arrayidx.i111.us.us, align 8, !tbaa !8
-  %arrayidx10.i112.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %indvars.iv.i110.us.us
-  store i64 %4, ptr %arrayidx10.i112.us.us, align 8, !tbaa !8
-  %5 = sub nuw nsw i64 95, %indvars.iv.i110.us.us
+for.body.i125.us.us:                              ; preds = %for.body.i125.us.us, %sw.bb23.us.us
+  %indvars.iv.i116.us.us = phi i64 [ 0, %sw.bb23.us.us ], [ %indvars.iv.next.i123.us.us, %for.body.i125.us.us ]
+  %3 = sub nuw nsw i64 94, %indvars.iv.i116.us.us
+  %arrayidx.i117.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %3
+  %4 = load i64, ptr %arrayidx.i117.us.us, align 8, !tbaa !8
+  %arrayidx10.i118.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %indvars.iv.i116.us.us
+  store i64 %4, ptr %arrayidx10.i118.us.us, align 8, !tbaa !8
+  %5 = sub nuw nsw i64 95, %indvars.iv.i116.us.us
   %arrayidx14.i.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %5
   %6 = load i64, ptr %arrayidx14.i.us.us, align 8, !tbaa !8
-  %7 = or i64 %indvars.iv.i110.us.us, 1
-  %arrayidx17.i113.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %7
-  store i64 %6, ptr %arrayidx17.i113.us.us, align 8, !tbaa !8
-  %8 = sub nuw nsw i64 62, %indvars.iv.i110.us.us
-  %arrayidx21.i114.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %8
-  %9 = load i64, ptr %arrayidx21.i114.us.us, align 8, !tbaa !8
-  %10 = add nuw nsw i64 %indvars.iv.i110.us.us, 32
-  %arrayidx25.i115.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %10
-  store i64 %9, ptr %arrayidx25.i115.us.us, align 8, !tbaa !8
-  %11 = sub nuw nsw i64 63, %indvars.iv.i110.us.us
-  %arrayidx29.i116.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %11
-  %12 = load i64, ptr %arrayidx29.i116.us.us, align 8, !tbaa !8
-  %13 = add nuw nsw i64 %indvars.iv.i110.us.us, 33
+  %7 = or i64 %indvars.iv.i116.us.us, 1
+  %arrayidx17.i119.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %7
+  store i64 %6, ptr %arrayidx17.i119.us.us, align 8, !tbaa !8
+  %8 = sub nuw nsw i64 62, %indvars.iv.i116.us.us
+  %arrayidx21.i120.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %8
+  %9 = load i64, ptr %arrayidx21.i120.us.us, align 8, !tbaa !8
+  %10 = add nuw nsw i64 %indvars.iv.i116.us.us, 32
+  %arrayidx25.i121.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %10
+  store i64 %9, ptr %arrayidx25.i121.us.us, align 8, !tbaa !8
+  %11 = sub nuw nsw i64 63, %indvars.iv.i116.us.us
+  %arrayidx29.i122.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %11
+  %12 = load i64, ptr %arrayidx29.i122.us.us, align 8, !tbaa !8
+  %13 = add nuw nsw i64 %indvars.iv.i116.us.us, 33
   %arrayidx33.i.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %13
   store i64 %12, ptr %arrayidx33.i.us.us, align 8, !tbaa !8
-  %14 = sub nuw nsw i64 30, %indvars.iv.i110.us.us
+  %14 = sub nuw nsw i64 30, %indvars.iv.i116.us.us
   %arrayidx37.i.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %14
   %15 = load i64, ptr %arrayidx37.i.us.us, align 8, !tbaa !8
-  %16 = add nuw nsw i64 %indvars.iv.i110.us.us, 64
+  %16 = add nuw nsw i64 %indvars.iv.i116.us.us, 64
   %arrayidx41.i.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %16
   store i64 %15, ptr %arrayidx41.i.us.us, align 8, !tbaa !8
-  %17 = sub nuw nsw i64 31, %indvars.iv.i110.us.us
+  %17 = sub nuw nsw i64 31, %indvars.iv.i116.us.us
   %arrayidx45.i.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %17
   %18 = load i64, ptr %arrayidx45.i.us.us, align 8, !tbaa !8
-  %19 = add nuw nsw i64 %indvars.iv.i110.us.us, 65
+  %19 = add nuw nsw i64 %indvars.iv.i116.us.us, 65
   %arrayidx49.i.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %19
   store i64 %18, ptr %arrayidx49.i.us.us, align 8, !tbaa !8
-  %indvars.iv.next.i117.us.us = add nuw nsw i64 %indvars.iv.i110.us.us, 2
-  %cmp.i118.us.us = icmp ult i64 %indvars.iv.i110.us.us, 30
-  br i1 %cmp.i118.us.us, label %for.body.i119.us.us, label %sw.epilog.us.us, !llvm.loop !13
+  %indvars.iv.next.i123.us.us = add nuw nsw i64 %indvars.iv.i116.us.us, 2
+  %cmp.i124.us.us = icmp ult i64 %indvars.iv.i116.us.us, 30
+  br i1 %cmp.i124.us.us, label %for.body.i125.us.us, label %sw.epilog.us.us, !llvm.loop !13
 
 sw.bb21.us.us:                                    ; preds = %for.body19.us.us
-  %call.i104.us.us = call i32 @des_main_ks(ptr noundef nonnull %ctx3, ptr noundef nonnull @DES3_keys)
-  %call2.i.us.us = call i32 @des_main_ks(ptr noundef nonnull %add.ptr.i108250, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
+  %call.i110.us.us = call i32 @des_main_ks(ptr noundef nonnull %ctx3, ptr noundef nonnull @DES3_keys)
+  %call2.i.us.us = call i32 @des_main_ks(ptr noundef nonnull %add.ptr.i114242, ptr noundef nonnull getelementptr inbounds ([3 x [8 x i8]], ptr @DES3_keys, i64 0, i64 1))
   br label %for.body.i.us.us
 
 for.body.i.us.us:                                 ; preds = %for.body.i.us.us, %sw.bb21.us.us
   %indvars.iv.i.us.us = phi i64 [ 0, %sw.bb21.us.us ], [ %indvars.iv.next.i.us.us, %for.body.i.us.us ]
   %20 = sub nuw nsw i64 30, %indvars.iv.i.us.us
-  %arrayidx.i105.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %20
-  %21 = load i64, ptr %arrayidx.i105.us.us, align 8, !tbaa !8
+  %arrayidx.i111.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %20
+  %21 = load i64, ptr %arrayidx.i111.us.us, align 8, !tbaa !8
   %arrayidx6.i.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %indvars.iv.i.us.us
   store i64 %21, ptr %arrayidx6.i.us.us, align 8, !tbaa !8
   %22 = sub nuw nsw i64 31, %indvars.iv.i.us.us
-  %arrayidx10.i106.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %22
-  %23 = load i64, ptr %arrayidx10.i106.us.us, align 8, !tbaa !8
+  %arrayidx10.i112.us.us = getelementptr inbounds [96 x i64], ptr %ctx3, i64 0, i64 %22
+  %23 = load i64, ptr %arrayidx10.i112.us.us, align 8, !tbaa !8
   %24 = or i64 %indvars.iv.i.us.us, 1
   %arrayidx13.i.us.us = getelementptr inbounds %struct.des3_context, ptr %ctx3, i64 0, i32 1, i64 %24
   store i64 %23, ptr %arrayidx13.i.us.us, align 8, !tbaa !8
@@ -4175,130 +4174,140 @@ for.body.i.us.us:                                 ; preds = %for.body.i.us.us, %
   br i1 %cmp.i.us.us, label %for.body.i.us.us, label %sw.epilog.us.us, !llvm.loop !12
 
 sw.bb.us.us:                                      ; preds = %for.body19.us.us
-  %call.i103.us.us = call i32 @des_main_ks(ptr noundef nonnull %ctx, ptr noundef nonnull @DES3_keys)
-  %34 = load i64, ptr %arrayidx.i252, align 8, !tbaa !8
-  store i64 %34, ptr %arrayidx3.i253, align 8, !tbaa !8
-  %35 = load i64, ptr %arrayidx7.i254, align 8, !tbaa !8
-  store i64 %35, ptr %arrayidx10.i255, align 8, !tbaa !8
-  %36 = load i64, ptr %arrayidx.1.i256, align 8, !tbaa !8
-  store i64 %36, ptr %arrayidx3.1.i257, align 8, !tbaa !8
-  %37 = load i64, ptr %arrayidx7.1.i258, align 8, !tbaa !8
-  store i64 %37, ptr %arrayidx10.1.i259, align 8, !tbaa !8
-  %38 = load i64, ptr %arrayidx.2.i260, align 8, !tbaa !8
-  store i64 %38, ptr %arrayidx3.2.i261, align 8, !tbaa !8
-  %39 = load i64, ptr %arrayidx7.2.i262, align 8, !tbaa !8
-  store i64 %39, ptr %arrayidx10.2.i263, align 8, !tbaa !8
-  %40 = load i64, ptr %arrayidx.3.i264, align 8, !tbaa !8
-  store i64 %40, ptr %arrayidx3.3.i265, align 8, !tbaa !8
-  %41 = load i64, ptr %arrayidx7.3.i266, align 8, !tbaa !8
-  store i64 %41, ptr %arrayidx10.3.i267, align 8, !tbaa !8
-  %42 = load i64, ptr %arrayidx.4.i268, align 8, !tbaa !8
-  store i64 %42, ptr %arrayidx3.4.i269, align 8, !tbaa !8
-  %43 = load i64, ptr %arrayidx7.4.i270, align 8, !tbaa !8
-  store i64 %43, ptr %arrayidx10.4.i271, align 8, !tbaa !8
-  %44 = load i64, ptr %arrayidx.5.i272, align 8, !tbaa !8
-  store i64 %44, ptr %arrayidx3.5.i273, align 8, !tbaa !8
-  %45 = load i64, ptr %arrayidx7.5.i274, align 8, !tbaa !8
-  store i64 %45, ptr %arrayidx10.5.i275, align 8, !tbaa !8
-  %46 = load i64, ptr %arrayidx.6.i276, align 8, !tbaa !8
-  store i64 %46, ptr %arrayidx3.6.i277, align 8, !tbaa !8
-  %47 = load i64, ptr %arrayidx7.6.i278, align 8, !tbaa !8
-  store i64 %47, ptr %arrayidx10.6.i279, align 8, !tbaa !8
-  %48 = load i64, ptr %arrayidx.7.i280, align 8, !tbaa !8
-  store i64 %48, ptr %arrayidx3.7.i281, align 8, !tbaa !8
-  %49 = load i64, ptr %arrayidx7.7.i282, align 8, !tbaa !8
-  store i64 %49, ptr %arrayidx10.7.i283, align 8, !tbaa !8
-  %50 = load i64, ptr %arrayidx.8.i284, align 8, !tbaa !8
-  store i64 %50, ptr %arrayidx3.8.i285, align 8, !tbaa !8
-  %51 = load i64, ptr %arrayidx7.8.i286, align 8, !tbaa !8
-  store i64 %51, ptr %arrayidx10.8.i287, align 8, !tbaa !8
-  %52 = load i64, ptr %arrayidx.9.i288, align 8, !tbaa !8
-  store i64 %52, ptr %arrayidx3.9.i289, align 8, !tbaa !8
-  %53 = load i64, ptr %arrayidx7.9.i290, align 8, !tbaa !8
-  store i64 %53, ptr %arrayidx10.9.i291, align 8, !tbaa !8
-  %54 = load i64, ptr %arrayidx.10.i292, align 8, !tbaa !8
-  store i64 %54, ptr %arrayidx3.10.i293, align 8, !tbaa !8
-  %55 = load i64, ptr %arrayidx7.10.i294, align 8, !tbaa !8
-  store i64 %55, ptr %arrayidx10.10.i295, align 8, !tbaa !8
-  %56 = load i64, ptr %arrayidx.11.i296, align 8, !tbaa !8
-  store i64 %56, ptr %arrayidx3.11.i297, align 8, !tbaa !8
-  %57 = load i64, ptr %arrayidx7.11.i298, align 8, !tbaa !8
-  store i64 %57, ptr %arrayidx10.11.i299, align 8, !tbaa !8
-  %58 = load i64, ptr %arrayidx.12.i300, align 8, !tbaa !8
-  store i64 %58, ptr %arrayidx3.12.i301, align 8, !tbaa !8
-  %59 = load i64, ptr %arrayidx7.12.i302, align 8, !tbaa !8
-  store i64 %59, ptr %arrayidx10.12.i303, align 8, !tbaa !8
-  %60 = load i64, ptr %arrayidx.13.i304, align 8, !tbaa !8
-  store i64 %60, ptr %arrayidx3.13.i305, align 8, !tbaa !8
-  %61 = load i64, ptr %arrayidx7.13.i306, align 8, !tbaa !8
-  store i64 %61, ptr %arrayidx10.13.i307, align 8, !tbaa !8
-  %62 = load i64, ptr %arrayidx.14.i308, align 8, !tbaa !8
-  store i64 %62, ptr %arrayidx3.14.i309, align 8, !tbaa !8
-  %63 = load i64, ptr %arrayidx7.14.i310, align 8, !tbaa !8
-  store i64 %63, ptr %arrayidx10.14.i311, align 8, !tbaa !8
+  %call.i109.us.us = call i32 @des_main_ks(ptr noundef nonnull %ctx, ptr noundef nonnull @DES3_keys)
+  %34 = load i64, ptr %arrayidx.i244, align 8, !tbaa !8
+  store i64 %34, ptr %arrayidx3.i245, align 8, !tbaa !8
+  %35 = load i64, ptr %arrayidx7.i246, align 8, !tbaa !8
+  store i64 %35, ptr %arrayidx10.i247, align 8, !tbaa !8
+  %36 = load i64, ptr %arrayidx.1.i248, align 8, !tbaa !8
+  store i64 %36, ptr %arrayidx3.1.i249, align 8, !tbaa !8
+  %37 = load i64, ptr %arrayidx7.1.i250, align 8, !tbaa !8
+  store i64 %37, ptr %arrayidx10.1.i251, align 8, !tbaa !8
+  %38 = load i64, ptr %arrayidx.2.i252, align 8, !tbaa !8
+  store i64 %38, ptr %arrayidx3.2.i253, align 8, !tbaa !8
+  %39 = load i64, ptr %arrayidx7.2.i254, align 8, !tbaa !8
+  store i64 %39, ptr %arrayidx10.2.i255, align 8, !tbaa !8
+  %40 = load i64, ptr %arrayidx.3.i256, align 8, !tbaa !8
+  store i64 %40, ptr %arrayidx3.3.i257, align 8, !tbaa !8
+  %41 = load i64, ptr %arrayidx7.3.i258, align 8, !tbaa !8
+  store i64 %41, ptr %arrayidx10.3.i259, align 8, !tbaa !8
+  %42 = load i64, ptr %arrayidx.4.i260, align 8, !tbaa !8
+  store i64 %42, ptr %arrayidx3.4.i261, align 8, !tbaa !8
+  %43 = load i64, ptr %arrayidx7.4.i262, align 8, !tbaa !8
+  store i64 %43, ptr %arrayidx10.4.i263, align 8, !tbaa !8
+  %44 = load i64, ptr %arrayidx.5.i264, align 8, !tbaa !8
+  store i64 %44, ptr %arrayidx3.5.i265, align 8, !tbaa !8
+  %45 = load i64, ptr %arrayidx7.5.i266, align 8, !tbaa !8
+  store i64 %45, ptr %arrayidx10.5.i267, align 8, !tbaa !8
+  %46 = load i64, ptr %arrayidx.6.i268, align 8, !tbaa !8
+  store i64 %46, ptr %arrayidx3.6.i269, align 8, !tbaa !8
+  %47 = load i64, ptr %arrayidx7.6.i270, align 8, !tbaa !8
+  store i64 %47, ptr %arrayidx10.6.i271, align 8, !tbaa !8
+  %48 = load i64, ptr %arrayidx.7.i272, align 8, !tbaa !8
+  store i64 %48, ptr %arrayidx3.7.i273, align 8, !tbaa !8
+  %49 = load i64, ptr %arrayidx7.7.i274, align 8, !tbaa !8
+  store i64 %49, ptr %arrayidx10.7.i275, align 8, !tbaa !8
+  %50 = load i64, ptr %arrayidx.8.i276, align 8, !tbaa !8
+  store i64 %50, ptr %arrayidx3.8.i277, align 8, !tbaa !8
+  %51 = load i64, ptr %arrayidx7.8.i278, align 8, !tbaa !8
+  store i64 %51, ptr %arrayidx10.8.i279, align 8, !tbaa !8
+  %52 = load i64, ptr %arrayidx.9.i280, align 8, !tbaa !8
+  store i64 %52, ptr %arrayidx3.9.i281, align 8, !tbaa !8
+  %53 = load i64, ptr %arrayidx7.9.i282, align 8, !tbaa !8
+  store i64 %53, ptr %arrayidx10.9.i283, align 8, !tbaa !8
+  %54 = load i64, ptr %arrayidx.10.i284, align 8, !tbaa !8
+  store i64 %54, ptr %arrayidx3.10.i285, align 8, !tbaa !8
+  %55 = load i64, ptr %arrayidx7.10.i286, align 8, !tbaa !8
+  store i64 %55, ptr %arrayidx10.10.i287, align 8, !tbaa !8
+  %56 = load i64, ptr %arrayidx.11.i288, align 8, !tbaa !8
+  store i64 %56, ptr %arrayidx3.11.i289, align 8, !tbaa !8
+  %57 = load i64, ptr %arrayidx7.11.i290, align 8, !tbaa !8
+  store i64 %57, ptr %arrayidx10.11.i291, align 8, !tbaa !8
+  %58 = load i64, ptr %arrayidx.12.i292, align 8, !tbaa !8
+  store i64 %58, ptr %arrayidx3.12.i293, align 8, !tbaa !8
+  %59 = load i64, ptr %arrayidx7.12.i294, align 8, !tbaa !8
+  store i64 %59, ptr %arrayidx10.12.i295, align 8, !tbaa !8
+  %60 = load i64, ptr %arrayidx.13.i296, align 8, !tbaa !8
+  store i64 %60, ptr %arrayidx3.13.i297, align 8, !tbaa !8
+  %61 = load i64, ptr %arrayidx7.13.i298, align 8, !tbaa !8
+  store i64 %61, ptr %arrayidx10.13.i299, align 8, !tbaa !8
+  %62 = load i64, ptr %arrayidx.14.i300, align 8, !tbaa !8
+  store i64 %62, ptr %arrayidx3.14.i301, align 8, !tbaa !8
+  %63 = load i64, ptr %arrayidx7.14.i302, align 8, !tbaa !8
+  store i64 %63, ptr %arrayidx10.14.i303, align 8, !tbaa !8
   %64 = load i64, ptr %ctx, align 8, !tbaa !8
-  store i64 %64, ptr %arrayidx3.15.i312, align 8, !tbaa !8
-  %65 = load i64, ptr %arrayidx7.15.i313, align 8, !tbaa !8
-  store i64 %65, ptr %arrayidx10.15.i314, align 8, !tbaa !8
+  store i64 %64, ptr %arrayidx3.15.i304, align 8, !tbaa !8
+  %65 = load i64, ptr %arrayidx7.15.i305, align 8, !tbaa !8
+  store i64 %65, ptr %arrayidx10.15.i306, align 8, !tbaa !8
   br label %sw.epilog.us.us
 
-sw.epilog.us.us:                                  ; preds = %for.body.i119.us.us, %for.body.i.us.us, %sw.bb.us.us
-  br i1 %cmp28.us.us, label %for.body27.us.us.us, label %sw.epilog.split.us151.us
+sw.epilog.us.us:                                  ; preds = %for.body.i125.us.us, %for.body.i.us.us, %sw.bb.us.us
+  br i1 %cmp28.us.us, label %sw.epilog.split.us.us.us, label %sw.epilog.split.us145.us
 
 land.lhs.true.us.us:                              ; preds = %for.end.us.us
-  %rhsv123.us.us = load i64, ptr %arrayidx53.us.us, align 8
-  %.not124.us.us = icmp eq i64 %lhsv122.us.us, %rhsv123.us.us
-  br i1 %.not124.us.us, label %for.inc67.us.us, label %if.then64
+  %rhsv105.us.us = load i64, ptr %arrayidx53.us.us, align 8
+  %.not106.us.us = icmp eq i64 %lhsv104.us.us, %rhsv105.us.us
+  br i1 %.not106.us.us, label %for.inc67.us.us, label %if.then64
 
 land.lhs.true57.us.us:                            ; preds = %for.end.us.us
   %rhsv.us.us = load i64, ptr %arrayidx60.us.us, align 8
-  %.not.us.us = icmp eq i64 %lhsv122.us.us, %rhsv.us.us
+  %.not.us.us = icmp eq i64 %lhsv104.us.us, %rhsv.us.us
   br i1 %.not.us.us, label %for.inc67.us.us, label %if.then64
 
 for.inc67.us.us:                                  ; preds = %land.lhs.true.us.us, %land.lhs.true57.us.us
-  %inc68.us.us = add nuw nsw i32 %delay.0144.us.us, 1
-  %exitcond175.not = icmp eq i32 %inc68.us.us, %NumDelay.0.fr249
-  br i1 %exitcond175.not, label %for.cond17.for.end69_crit_edge.us.us, label %for.body19.us.us, !llvm.loop !16
+  %inc68.us.us = add nuw nsw i32 %delay.0138.us.us, 1
+  %exitcond166.not = icmp eq i32 %inc68.us.us, %NumDelay.0.fr241
+  br i1 %exitcond166.not, label %for.cond17.for.end69_crit_edge.us.us, label %for.body19.us.us, !llvm.loop !16
 
-sw.epilog.split.us151.us:                         ; preds = %for.body19.us.us, %sw.epilog.us.us
-  br i1 %cmp3.us.not, label %for.body27.us132.us154.us, label %for.body27.us137.us.us
+for.body27.us141.us:                              ; preds = %sw.epilog.split.us145.us, %for.body27.us141.us
+  %i.0131.us142.us = phi i32 [ %inc.us143.us, %for.body27.us141.us ], [ 0, %sw.epilog.split.us145.us ]
+  call void @des3_crypt(ptr noundef nonnull %dsk.i126307, ptr noundef nonnull %buf, ptr noundef nonnull %buf)
+  %inc.us143.us = add nuw nsw i32 %i.0131.us142.us, 1
+  %exitcond164.not = icmp eq i32 %inc.us143.us, 10000
+  br i1 %exitcond164.not, label %for.end.us.us, label %for.body27.us141.us, !llvm.loop !17
 
-for.end.us.us:                                    ; preds = %for.body27.us.us.us, %for.body27.us137.us.us, %for.body27.us132.us154.us
-  %lhsv122.us.us = load i64, ptr %buf, align 8
-  br i1 %cmp3.us.not, label %land.lhs.true.us.us, label %land.lhs.true57.us.us
+sw.epilog.split.us145.us:                         ; preds = %for.body19.us.us, %sw.epilog.us.us
+  br i1 %cmp3.not.us, label %for.body27.us132.us.us, label %for.body27.us141.us
 
-for.body27.us.us.us:                              ; preds = %sw.epilog.us.us, %for.body27.us.us.us
-  %i.0131.us.us.us = phi i32 [ %inc.us.us.us, %for.body27.us.us.us ], [ 0, %sw.epilog.us.us ]
-  call void @des_crypt(ptr noundef nonnull %ctx.arrayidx3.i253, ptr noundef nonnull %buf, ptr noundef nonnull %buf)
-  %inc.us.us.us = add nuw nsw i32 %i.0131.us.us.us, 1
-  %exitcond.not = icmp eq i32 %inc.us.us.us, 10000
-  br i1 %exitcond.not, label %for.end.us.us, label %for.body27.us.us.us, !llvm.loop !17
+for.end.us.us:                                    ; preds = %for.body27.us.us146.us, %for.body27.us.us.us.us, %for.body27.us141.us, %for.body27.us132.us.us
+  %lhsv104.us.us = load i64, ptr %buf, align 8
+  br i1 %cmp3.not.us, label %land.lhs.true.us.us, label %land.lhs.true57.us.us
 
-for.body27.us132.us154.us:                        ; preds = %sw.epilog.split.us151.us, %for.body27.us132.us154.us
-  %i.0131.us133.us155.us = phi i32 [ %inc.us135.us156.us, %for.body27.us132.us154.us ], [ 0, %sw.epilog.split.us151.us ]
+sw.epilog.split.us.us.us:                         ; preds = %sw.epilog.us.us
+  br i1 %cmp3.not.us, label %for.body27.us.us.us.us, label %for.body27.us.us146.us
+
+for.body27.us.us146.us:                           ; preds = %sw.epilog.split.us.us.us, %for.body27.us.us146.us
+  %i.0131.us.us147.us = phi i32 [ %inc.us.us148.us, %for.body27.us.us146.us ], [ 0, %sw.epilog.split.us.us.us ]
+  call void @des_crypt(ptr noundef nonnull %arrayidx3.i245, ptr noundef nonnull %buf, ptr noundef nonnull %buf)
+  %inc.us.us148.us = add nuw nsw i32 %i.0131.us.us147.us, 1
+  %exitcond.not = icmp eq i32 %inc.us.us148.us, 10000
+  br i1 %exitcond.not, label %for.end.us.us, label %for.body27.us.us146.us, !llvm.loop !17
+
+for.body27.us132.us.us:                           ; preds = %sw.epilog.split.us145.us, %for.body27.us132.us.us
+  %i.0131.us133.us.us = phi i32 [ %inc.us135.us.us, %for.body27.us132.us.us ], [ 0, %sw.epilog.split.us145.us ]
   call void @des3_crypt(ptr noundef nonnull %ctx3, ptr noundef nonnull %buf, ptr noundef nonnull %buf)
-  %inc.us135.us156.us = add nuw nsw i32 %i.0131.us133.us155.us, 1
-  %exitcond174.not = icmp eq i32 %inc.us135.us156.us, 10000
-  br i1 %exitcond174.not, label %for.end.us.us, label %for.body27.us132.us154.us, !llvm.loop !17
+  %inc.us135.us.us = add nuw nsw i32 %i.0131.us133.us.us, 1
+  %exitcond165.not = icmp eq i32 %inc.us135.us.us, 10000
+  br i1 %exitcond165.not, label %for.end.us.us, label %for.body27.us132.us.us, !llvm.loop !17
 
-for.body27.us137.us.us:                           ; preds = %sw.epilog.split.us151.us, %for.body27.us137.us.us
-  %i.0131.us138.us.us = phi i32 [ %inc.us141.us.us, %for.body27.us137.us.us ], [ 0, %sw.epilog.split.us151.us ]
-  call void @des3_crypt(ptr noundef nonnull %dsk.i120315, ptr noundef nonnull %buf, ptr noundef nonnull %buf)
-  %inc.us141.us.us = add nuw nsw i32 %i.0131.us138.us.us, 1
-  %exitcond172.not = icmp eq i32 %inc.us141.us.us, 10000
-  br i1 %exitcond172.not, label %for.end.us.us, label %for.body27.us137.us.us, !llvm.loop !17
+for.body27.us.us.us.us:                           ; preds = %sw.epilog.split.us.us.us, %for.body27.us.us.us.us
+  %i.0131.us.us.us.us = phi i32 [ %inc.us.us.us.us, %for.body27.us.us.us.us ], [ 0, %sw.epilog.split.us.us.us ]
+  call void @des_crypt(ptr noundef nonnull %ctx, ptr noundef nonnull %buf, ptr noundef nonnull %buf)
+  %inc.us.us.us.us = add nuw nsw i32 %i.0131.us.us.us.us, 1
+  %exitcond163.not = icmp eq i32 %inc.us.us.us.us, 10000
+  br i1 %exitcond163.not, label %for.end.us.us, label %for.body27.us.us.us.us, !llvm.loop !17
 
 for.cond17.for.end69_crit_edge.us.us:             ; preds = %for.inc67.us.us
   %puts.us.us = call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %exitcond179.not = icmp eq i64 %indvars.iv.next, 3
-  br i1 %exitcond179.not, label %for.inc74.split.us.us, label %for.body13.us.us, !llvm.loop !18
+  %exitcond170.not = icmp eq i64 %indvars.iv.next, 3
+  br i1 %exitcond170.not, label %for.inc74.split.us.us, label %for.body13.us.us, !llvm.loop !18
 
 for.inc74.split.us.us:                            ; preds = %for.cond17.for.end69_crit_edge.us.us
-  br i1 %cmp3.us.not, label %for.body.us, label %for.end76, !llvm.loop !19
+  br i1 %cmp3.not.us, label %for.body.us, label %for.end76, !llvm.loop !19
 
 if.end10.1:                                       ; preds = %if.end
   %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
-  %puts126 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts108 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
   %call15 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1, i32 noundef 64)
   %66 = load ptr, ptr @stdout, align 8, !tbaa !14
   %call16 = tail call i32 @fflush(ptr noundef %66)
@@ -4312,11 +4321,11 @@ if.end10.1:                                       ; preds = %if.end
   %call16.2 = tail call i32 @fflush(ptr noundef %68)
   %puts.2 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %call2.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str)
-  %puts125.1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  %call15.1169 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1, i32 noundef 64)
+  %puts107.1 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %call15.1160 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 1, i32 noundef 64)
   %69 = load ptr, ptr @stdout, align 8, !tbaa !14
-  %call16.1170 = tail call i32 @fflush(ptr noundef %69)
-  %puts.1171 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %call16.1161 = tail call i32 @fflush(ptr noundef %69)
+  %puts.1162 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   %call15.1.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef 2, i32 noundef 128)
   %70 = load ptr, ptr @stdout, align 8, !tbaa !14
   %call16.1.1 = tail call i32 @fflush(ptr noundef %70)
@@ -4328,7 +4337,7 @@ if.end10.1:                                       ; preds = %if.end
   br label %for.end76
 
 if.then64:                                        ; preds = %land.lhs.true57.us.us, %land.lhs.true.us.us
-  %puts121 = call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %puts103 = call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
   br label %cleanup
 
 for.end76:                                        ; preds = %for.inc74.split.us.us, %if.end10.1

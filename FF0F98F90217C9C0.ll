@@ -50,8 +50,8 @@ if.then3:                                         ; preds = %for.inc.6.i
 
 if.else4.thread:                                  ; preds = %for.inc.6.i, %for.inc.5.i, %for.inc.4.i, %for.inc.3.i, %for.inc.2.i, %for.inc.1.i
   %retval.0.i.ph.ph = phi i32 [ 2, %for.inc.1.i ], [ 3, %for.inc.2.i ], [ 4, %for.inc.3.i ], [ 5, %for.inc.4.i ], [ 6, %for.inc.5.i ], [ 7, %for.inc.6.i ]
-  %retval.0.i.tr37 = trunc i32 %retval.0.i.ph.ph to i8
-  %conv538 = shl nuw nsw i8 %retval.0.i.tr37, 4
+  %call.tr37 = trunc i32 %retval.0.i.ph.ph to i8
+  %conv538 = shl nuw nsw i8 %call.tr37, 4
   %add40 = add nuw nsw i32 %retval.0.i.ph.ph, 3
   %shr1241 = ashr i32 %pcm_val.addr.0, %add40
   %0 = trunc i32 %shr1241 to i8
@@ -154,11 +154,11 @@ if.else3:                                         ; preds = %entry, %for.inc.i, 
   %add4 = add nuw nsw i32 %retval.0.i.ph, 3
   %shr = ashr i32 %pcm_val.addr.0, %add4
   %and = and i32 %shr, 15
-  %or = or i32 %and, %shl
+  %conv6 = or i32 %and, %shl
   br label %cleanup
 
 cleanup:                                          ; preds = %for.inc.6.i, %if.else3
-  %.pn = phi i32 [ %or, %if.else3 ], [ 127, %for.inc.6.i ]
+  %.pn = phi i32 [ %conv6, %if.else3 ], [ 127, %for.inc.6.i ]
   %cmp = icmp slt i32 %pcm_val, 0
   %mask.0 = select i1 %cmp, i32 127, i32 255
   %retval.0.in = xor i32 %.pn, %mask.0

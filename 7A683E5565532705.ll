@@ -9,11 +9,11 @@ target triple = "x86_64-unknown-linux-gnu"
 @NumNodes = external local_unnamed_addr global i32, align 4
 @.str.3 = private unnamed_addr constant [17 x i8] c"MST has cost %d\0A\00", align 1
 @MyVertexList = internal unnamed_addr global ptr null, align 8
-@str.7 = private unnamed_addr constant [10 x i8] c"Not found\00", align 1
+@str = private unnamed_addr constant [16 x i8] c"Graph completed\00", align 1
+@str.7 = private unnamed_addr constant [22 x i8] c"About to compute mst \00", align 1
 @str.8 = private unnamed_addr constant [16 x i8] c"Compute phase 1\00", align 1
 @str.9 = private unnamed_addr constant [16 x i8] c"Compute phase 2\00", align 1
-@str.10 = private unnamed_addr constant [16 x i8] c"Graph completed\00", align 1
-@str.11 = private unnamed_addr constant [22 x i8] c"About to compute mst \00", align 1
+@str.11 = private unnamed_addr constant [10 x i8] c"Not found\00", align 1
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main(i32 noundef %argc, ptr noundef %argv) local_unnamed_addr #0 {
@@ -22,8 +22,8 @@ entry:
   %call1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef %call)
   %0 = load i32, ptr @NumNodes, align 4, !tbaa !5
   %call2 = tail call ptr @MakeGraph(i32 noundef %call, i32 noundef %0) #7
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
-  %puts9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts9 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
   %1 = load i32, ptr @NumNodes, align 4, !tbaa !5
   %call5 = tail call fastcc i32 @ComputeMst(ptr noundef %call2, i32 noundef %1, i32 noundef %call)
   %call6 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i32 noundef %call5)
@@ -88,7 +88,6 @@ if.then:                                          ; preds = %entry
   %cmp7 = icmp slt i32 %0, %1
   %spec.select = select i1 %cmp7, { ptr, i32 } %call, { ptr, i32 } %call4
   %spec.select30 = tail call i32 @llvm.smin.i32(i32 %0, i32 %1)
-  %retright.sroa.0.0 = extractvalue { ptr, i32 } %spec.select, 0
   br label %cleanup
 
 if.else:                                          ; preds = %entry
@@ -105,7 +104,7 @@ if.then15:                                        ; preds = %if.else
 if.end16:                                         ; preds = %if.then15, %if.else
   %4 = phi ptr [ %3, %if.then15 ], [ %2, %if.else ]
   %tobool.not.i = icmp eq ptr %4, null
-  br i1 %tobool.not.i, label %cleanup, label %if.end.i
+  br i1 %tobool.not.i, label %BlueRule.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %if.end16
   %5 = load i32, ptr %4, align 8, !tbaa !15
@@ -128,7 +127,7 @@ if.then7.i:                                       ; preds = %if.then5.i
   br label %if.end12.i
 
 if.else.i:                                        ; preds = %if.end.i
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   br label %if.end12.i
 
 if.end12.i:                                       ; preds = %if.else.i, %if.then7.i, %if.then5.i
@@ -136,7 +135,7 @@ if.end12.i:                                       ; preds = %if.else.i, %if.then
   %tmp.0.in78.i = getelementptr inbounds %struct.vert_st, ptr %4, i64 0, i32 1
   %tmp.079.i = load ptr, ptr %tmp.0.in78.i, align 8, !tbaa !11
   %tobool13.not80.i = icmp eq ptr %tmp.079.i, null
-  br i1 %tobool13.not80.i, label %cleanup, label %for.body.preheader.i
+  br i1 %tobool13.not80.i, label %BlueRule.exit, label %for.body.preheader.i
 
 for.body.preheader.i:                             ; preds = %if.end12.i
   %next17.i = getelementptr inbounds %struct.vert_st, ptr %inserted, i64 0, i32 1
@@ -174,7 +173,7 @@ if.then26.i:                                      ; preds = %if.then24.i
   br label %if.end31.i
 
 if.else29.i:                                      ; preds = %if.else19.i
-  %puts76.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.7)
+  %puts76.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   br label %if.end31.i
 
 if.end31.i:                                       ; preds = %if.else29.i, %if.then26.i, %if.then24.i
@@ -190,13 +189,19 @@ for.inc.i:                                        ; preds = %if.end31.i, %if.the
   %tmp.0.in.i = getelementptr inbounds %struct.vert_st, ptr %tmp.084.i, i64 0, i32 1
   %tmp.0.i = load ptr, ptr %tmp.0.in.i, align 8, !tbaa !11
   %tobool13.not.i = icmp eq ptr %tmp.0.i, null
-  br i1 %tobool13.not.i, label %cleanup, label %for.body.i, !llvm.loop !17
+  br i1 %tobool13.not.i, label %BlueRule.exit, label %for.body.i, !llvm.loop !17
 
-cleanup:                                          ; preds = %for.inc.i, %if.end12.i, %if.end16, %if.then
-  %retval.sroa.0.0 = phi ptr [ %retright.sroa.0.0, %if.then ], [ undef, %if.end16 ], [ %4, %if.end12.i ], [ %retval.sroa.0.1.i, %for.inc.i ]
-  %retval.sroa.3.0 = phi i32 [ %spec.select30, %if.then ], [ 999999, %if.end16 ], [ %retval.sroa.3.0.i, %if.end12.i ], [ %retval.sroa.3.2.i, %for.inc.i ]
-  %.fca.0.insert = insertvalue { ptr, i32 } poison, ptr %retval.sroa.0.0, 0
-  %.fca.1.insert = insertvalue { ptr, i32 } %.fca.0.insert, i32 %retval.sroa.3.0, 1
+BlueRule.exit:                                    ; preds = %for.inc.i, %if.end16, %if.end12.i
+  %retval.sroa.0.2.i = phi ptr [ undef, %if.end16 ], [ %4, %if.end12.i ], [ %retval.sroa.0.1.i, %for.inc.i ]
+  %retval.sroa.3.3.i = phi i32 [ 999999, %if.end16 ], [ %retval.sroa.3.0.i, %if.end12.i ], [ %retval.sroa.3.2.i, %for.inc.i ]
+  %.fca.0.insert.i = insertvalue { ptr, i32 } poison, ptr %retval.sroa.0.2.i, 0
+  %.fca.1.insert.i = insertvalue { ptr, i32 } %.fca.0.insert.i, i32 %retval.sroa.3.3.i, 1
+  br label %cleanup
+
+cleanup:                                          ; preds = %BlueRule.exit, %if.then
+  %call.pn.pn = phi { ptr, i32 } [ %spec.select, %if.then ], [ %.fca.1.insert.i, %BlueRule.exit ]
+  %retval.sroa.3.0 = phi i32 [ %spec.select30, %if.then ], [ %retval.sroa.3.3.i, %BlueRule.exit ]
+  %.fca.1.insert = insertvalue { ptr, i32 } %call.pn.pn, i32 %retval.sroa.3.0, 1
   ret { ptr, i32 } %.fca.1.insert
 }
 

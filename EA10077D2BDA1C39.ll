@@ -19,8 +19,8 @@ if.then:                                          ; preds = %entry
 
 if.end:                                           ; preds = %entry
   %0 = load i32, ptr %element_type, align 8, !tbaa !5
-  %mul = mul i32 %0, 3
-  store i32 %mul, ptr %result_type, align 8, !tbaa !5
+  %conv1 = mul i32 %0, 3
+  store i32 %conv1, ptr %result_type, align 8, !tbaa !5
   %nfields = getelementptr inbounds %struct.type, ptr %result_type, i64 0, i32 2
   store i16 1, ptr %nfields, align 8, !tbaa !12
   %objfile = getelementptr inbounds %struct.type, ptr %result_type, i64 0, i32 1
@@ -116,7 +116,7 @@ declare void @abort() local_unnamed_addr #4
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+if.end:
   tail call void @exit(i32 noundef 0) #5
   unreachable
 }

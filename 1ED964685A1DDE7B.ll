@@ -91,9 +91,9 @@ for.body.preheader:                               ; preds = %entry
 
 for.end:                                          ; preds = %for.body.preheader, %entry
   %Term1.val210 = load i32, ptr %Term1, align 8
-  %4 = add i32 %Term1.val210, -1
-  %5 = icmp ult i32 %4, 2000
-  br i1 %5, label %if.then9, label %if.else
+  %4 = add i32 %Term1.val210, -2001
+  %5 = icmp ult i32 %4, -2000
+  br i1 %5, label %if.else, label %if.then9
 
 if.then9:                                         ; preds = %for.end
   %idxprom11 = zext i32 %Term1.val210 to i64
@@ -141,9 +141,9 @@ while.body:                                       ; preds = %while.end, %if.end2
   %call26.val220 = load ptr, ptr %14, align 8
   store ptr %call26.val220, ptr %arrayidx.i224, align 8
   %call27.val209 = load i32, ptr %call26.val, align 8
-  %16 = add i32 %call27.val209, -1
-  %17 = icmp ult i32 %16, 2000
-  br i1 %17, label %if.then31, label %if.else38
+  %16 = add i32 %call27.val209, -2001
+  %17 = icmp ult i32 %16, -2000
+  br i1 %17, label %if.else38, label %if.then31
 
 if.then31:                                        ; preds = %while.body
   %add32 = add nsw i32 %Weight.1298, 1
@@ -180,29 +180,29 @@ if.end47:                                         ; preds = %if.else38, %if.then
   %stack_POINTER.promoted303320 = phi i32 [ %stack_POINTER.promoted303321, %if.then31 ], [ %inc.i236, %if.then44 ], [ %stack_POINTER.promoted303321, %if.else38 ]
   %stack_POINTER.promoted293 = phi i32 [ %stack_POINTER.promoted291297, %if.then31 ], [ %inc.i236, %if.then44 ], [ %stack_POINTER.promoted291297, %if.else38 ]
   %Weight.2 = phi i32 [ %add32, %if.then31 ], [ %add41, %if.then44 ], [ %add41, %if.else38 ]
-  %cmp.i239287 = icmp eq i32 %stack_POINTER.promoted293, %0
-  br i1 %cmp.i239287, label %while.end56, label %land.rhs.preheader
+  %cmp.i239.not287 = icmp eq i32 %stack_POINTER.promoted293, %0
+  br i1 %cmp.i239.not287, label %while.end56, label %land.rhs.preheader
 
 land.rhs.preheader:                               ; preds = %if.end47
   %sub.i241354 = add i32 %stack_POINTER.promoted293, -1
   %idxprom.i242355 = zext i32 %sub.i241354 to i64
   %arrayidx.i243356 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i242355
   %22 = load ptr, ptr %arrayidx.i243356, align 8
-  %cmp.i244357 = icmp eq ptr %22, null
-  br i1 %cmp.i244357, label %while.body54, label %while.end
+  %cmp.i244.not357 = icmp eq ptr %22, null
+  br i1 %cmp.i244.not357, label %while.body54, label %while.end
 
 land.rhs:                                         ; preds = %while.body54
   %sub.i241 = add i32 %sub.i241358, -1
   %idxprom.i242 = zext i32 %sub.i241 to i64
   %arrayidx.i243 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i242
   %23 = load ptr, ptr %arrayidx.i243, align 8
-  %cmp.i244 = icmp eq ptr %23, null
-  br i1 %cmp.i244, label %while.body54, label %while.end.loopexit, !llvm.loop !6
+  %cmp.i244.not = icmp eq ptr %23, null
+  br i1 %cmp.i244.not, label %while.body54, label %while.end.loopexit, !llvm.loop !6
 
 while.body54:                                     ; preds = %land.rhs.preheader, %land.rhs
   %sub.i241358 = phi i32 [ %sub.i241, %land.rhs ], [ %sub.i241354, %land.rhs.preheader ]
-  %cmp.i239 = icmp eq i32 %sub.i241358, %0
-  br i1 %cmp.i239, label %while.end56.loopexit, label %land.rhs, !llvm.loop !6
+  %cmp.i239.not = icmp eq i32 %sub.i241358, %0
+  br i1 %cmp.i239.not, label %while.end56.loopexit, label %land.rhs, !llvm.loop !6
 
 while.end.loopexit:                               ; preds = %land.rhs
   store i32 %sub.i241358, ptr @stack_POINTER, align 4
@@ -221,9 +221,9 @@ while.end56:                                      ; preds = %if.end47, %while.en
   %stack_POINTER.promoted303322 = phi i32 [ %0, %if.then9 ], [ %0, %if.else ], [ %0, %while.end56.loopexit ], [ %stack_POINTER.promoted303320, %if.end47 ]
   %Weight.1.lcssa = phi i32 [ 1, %if.then9 ], [ %10, %if.else ], [ %Weight.2, %while.end56.loopexit ], [ %Weight.2, %if.end47 ]
   %Term2.val208 = load i32, ptr %Term2, align 8
-  %24 = add i32 %Term2.val208, -1
-  %25 = icmp ult i32 %24, 2000
-  br i1 %25, label %if.then59, label %if.else65
+  %24 = add i32 %Term2.val208, -2001
+  %25 = icmp ult i32 %24, -2000
+  br i1 %25, label %if.else65, label %if.then59
 
 if.then59:                                        ; preds = %while.end56
   %sub = add nsw i32 %Weight.1.lcssa, -1
@@ -286,9 +286,9 @@ while.body79:                                     ; preds = %while.body79.lr.ph,
   %call80.val219 = load ptr, ptr %34, align 8
   store ptr %call80.val219, ptr %arrayidx.i261, align 8
   %call81.val207 = load i32, ptr %call80.val, align 8
-  %36 = add i32 %call81.val207, -1
-  %37 = icmp ult i32 %36, 2000
-  br i1 %37, label %if.then85, label %if.else92
+  %36 = add i32 %call81.val207, -2001
+  %37 = icmp ult i32 %36, -2000
+  br i1 %37, label %if.else92, label %if.then85
 
 if.then85:                                        ; preds = %while.body79
   %sub86 = add nsw i32 %Weight.4312, -1
@@ -324,8 +324,8 @@ if.then98:                                        ; preds = %if.else92
 if.end101:                                        ; preds = %if.else92, %if.then98, %if.then85
   %stack_POINTER.promoted307 = phi i32 [ %stack_POINTER.promoted305311, %if.then85 ], [ %inc.i273, %if.then98 ], [ %stack_POINTER.promoted305311, %if.else92 ]
   %Weight.5 = phi i32 [ %sub86, %if.then85 ], [ %sub95, %if.then98 ], [ %sub95, %if.else92 ]
-  %cmp.i276301 = icmp eq i32 %stack_POINTER.promoted307, %0
-  br i1 %cmp.i276301, label %for.cond114.preheader, label %land.rhs105
+  %cmp.i276.not301 = icmp eq i32 %stack_POINTER.promoted307, %0
+  br i1 %cmp.i276.not301, label %for.cond114.preheader, label %land.rhs105
 
 land.rhs105:                                      ; preds = %if.end101, %while.body110
   %stack_POINTER.promoted304 = phi i32 [ %sub.i278, %while.body110 ], [ %stack_POINTER.promoted307, %if.end101 ]
@@ -333,13 +333,13 @@ land.rhs105:                                      ; preds = %if.end101, %while.b
   %idxprom.i279 = zext i32 %sub.i278 to i64
   %arrayidx.i280 = getelementptr inbounds [10000 x ptr], ptr @stack_STACK, i64 0, i64 %idxprom.i279
   %42 = load ptr, ptr %arrayidx.i280, align 8
-  %cmp.i281 = icmp eq ptr %42, null
-  br i1 %cmp.i281, label %while.body110, label %while.end112
+  %cmp.i281.not = icmp eq ptr %42, null
+  br i1 %cmp.i281.not, label %while.body110, label %while.end112
 
 while.body110:                                    ; preds = %land.rhs105
   store i32 %sub.i278, ptr @stack_POINTER, align 4
-  %cmp.i276 = icmp eq i32 %sub.i278, %0
-  br i1 %cmp.i276, label %for.cond114.preheader, label %land.rhs105, !llvm.loop !9
+  %cmp.i276.not = icmp eq i32 %sub.i278, %0
+  br i1 %cmp.i276.not, label %for.cond114.preheader, label %land.rhs105, !llvm.loop !9
 
 while.end112:                                     ; preds = %land.rhs105
   %cmp.i257.not = icmp eq i32 %stack_POINTER.promoted304, %0
@@ -407,18 +407,18 @@ if.else:                                          ; preds = %entry
   br i1 %cmp2, label %if.then3, label %cleanup67
 
 if.then3:                                         ; preds = %if.else
-  %0 = add i32 %Term1.val, -1
-  %1 = icmp ult i32 %0, 2000
-  %2 = add i32 %Term2.val, -1
-  %3 = icmp ult i32 %2, 2000
-  br i1 %1, label %if.then5, label %if.else10
+  %0 = add i32 %Term1.val, -2001
+  %1 = icmp ult i32 %0, -2000
+  %2 = add i32 %Term2.val, -2001
+  %3 = icmp ult i32 %2, -2000
+  br i1 %1, label %if.else10, label %if.then5
 
 if.then5:                                         ; preds = %if.then3
-  %. = select i1 %3, i32 2, i32 0
+  %. = select i1 %3, i32 0, i32 2
   br label %cleanup67
 
 if.else10:                                        ; preds = %if.then3
-  br i1 %3, label %cleanup67, label %lor.lhs.false
+  br i1 %3, label %lor.lhs.false, label %cleanup67
 
 lor.lhs.false:                                    ; preds = %if.else10
   %4 = load ptr, ptr @ord_PRECEDENCE, align 8
@@ -433,8 +433,8 @@ lor.lhs.false:                                    ; preds = %if.else10
   %idxprom.i5.i = sext i32 %shr.i.i4.i to i64
   %arrayidx.i6.i = getelementptr inbounds i32, ptr %4, i64 %idxprom.i5.i
   %7 = load i32, ptr %arrayidx.i6.i, align 4
-  %cmp.i = icmp slt i32 %6, %7
-  br i1 %cmp.i, label %cleanup67, label %if.else16
+  %cmp.i.not = icmp slt i32 %6, %7
+  br i1 %cmp.i.not, label %cleanup67, label %if.else16
 
 if.else16:                                        ; preds = %lor.lhs.false
   %cmp17 = icmp eq i32 %Term1.val, %Term2.val
@@ -457,31 +457,31 @@ if.then18:                                        ; preds = %if.else16
   br i1 %tobool22.not, label %while.cond.preheader, label %if.then23
 
 while.cond.preheader:                             ; preds = %if.then18
-  %cond126 = icmp eq ptr %Term1.val101, null
-  br i1 %cond126, label %cleanup60, label %land.rhs38
+  %cmp.i114.not126 = icmp eq ptr %Term1.val101, null
+  br i1 %cmp.i114.not126, label %cleanup60, label %land.rhs38
 
 if.then23:                                        ; preds = %if.then18
   %arity.i = getelementptr inbounds %struct.signature, ptr %11, i64 0, i32 3
   %13 = load i32, ptr %arity.i, align 8
-  %cmp25123 = icmp sgt i32 %13, 0
-  br i1 %cmp25123, label %land.rhs, label %cleanup60
+  %cmp25124 = icmp sgt i32 %13, 0
+  br i1 %cmp25124, label %land.rhs, label %cleanup60
 
 land.rhs:                                         ; preds = %if.then23, %for.inc
-  %i.0124 = phi i32 [ %dec, %for.inc ], [ %13, %if.then23 ]
-  %call26 = tail call ptr @list_NthElement(ptr noundef %Term1.val101, i32 noundef %i.0124) #6
-  %call27 = tail call ptr @list_NthElement(ptr noundef %Term2.val100, i32 noundef %i.0124) #6
+  %i.0125 = phi i32 [ %dec, %for.inc ], [ %13, %if.then23 ]
+  %call26 = tail call ptr @list_NthElement(ptr noundef %Term1.val101, i32 noundef %i.0125) #6
+  %call27 = tail call ptr @list_NthElement(ptr noundef %Term2.val100, i32 noundef %i.0125) #6
   %call28 = tail call i32 @term_Equal(ptr noundef %call26, ptr noundef %call27) #6
   %tobool29.not = icmp eq i32 %call28, 0
   br i1 %tobool29.not, label %cleanup.thread, label %for.inc
 
 for.inc:                                          ; preds = %land.rhs
-  %dec = add nsw i32 %i.0124, -1
-  %cmp25 = icmp sgt i32 %i.0124, 1
+  %dec = add nsw i32 %i.0125, -1
+  %cmp25 = icmp sgt i32 %i.0125, 1
   br i1 %cmp25, label %land.rhs, label %cleanup60, !llvm.loop !12
 
 cleanup.thread:                                   ; preds = %land.rhs
-  %call32 = tail call ptr @list_NthElement(ptr noundef %Term1.val101, i32 noundef %i.0124) #6
-  %call33 = tail call ptr @list_NthElement(ptr noundef %Term2.val100, i32 noundef %i.0124) #6
+  %call32 = tail call ptr @list_NthElement(ptr noundef %Term1.val101, i32 noundef %i.0125) #6
+  %call33 = tail call ptr @list_NthElement(ptr noundef %Term2.val100, i32 noundef %i.0125) #6
   br label %if.end53
 
 land.rhs38:                                       ; preds = %while.cond.preheader, %while.body
@@ -498,8 +498,8 @@ land.rhs38:                                       ; preds = %while.cond.preheade
 while.body:                                       ; preds = %land.rhs38
   %Scan1.0.val105 = load ptr, ptr %Scan1.0128, align 8
   %Scan2.0.val104 = load ptr, ptr %Scan2.0127, align 8
-  %cond = icmp eq ptr %Scan1.0.val105, null
-  br i1 %cond, label %cleanup60, label %land.rhs38, !llvm.loop !13
+  %cmp.i114.not = icmp eq ptr %Scan1.0.val105, null
+  br i1 %cmp.i114.not, label %cleanup60, label %land.rhs38, !llvm.loop !13
 
 if.else49:                                        ; preds = %land.rhs38
   %16 = getelementptr i8, ptr %Scan1.0128, i64 8
@@ -715,13 +715,13 @@ entry:
   %T1VarCond = alloca i32, align 4
   %T2VarCond = alloca i32, align 4
   %Term.addr.0.val1621.i = load i32, ptr %Term1, align 8
-  %cmp.i.i22.i = icmp sgt i32 %Term.addr.0.val1621.i, 0
-  br i1 %cmp.i.i22.i, label %land.rhs.i.preheader, label %cont_Deref.exit
+  %cmp.i.i22.i = icmp slt i32 %Term.addr.0.val1621.i, 1
+  br i1 %cmp.i.i22.i, label %cont_Deref.exit, label %land.rhs.i.preheader
 
 land.rhs.i.preheader:                             ; preds = %entry
   %0 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
-  %cmp.not.i230 = icmp eq ptr %0, %Context1
-  br i1 %cmp.not.i230, label %cont_Deref.exit, label %while.body.i.preheader
+  %cmp.not.i231 = icmp eq ptr %0, %Context1
+  br i1 %cmp.not.i231, label %cont_Deref.exit, label %while.body.i.preheader
 
 while.body.i.preheader:                           ; preds = %land.rhs.i.preheader
   %idxprom.i.i.i326 = zext i32 %Term.addr.0.val1621.i to i64
@@ -740,8 +740,8 @@ while.body.i:                                     ; preds = %cleanup.i
 cleanup.i:                                        ; preds = %while.body.i.preheader, %while.body.i
   %3 = phi ptr [ %2, %while.body.i ], [ %1, %while.body.i.preheader ]
   %idxprom.i.i.i330 = phi i64 [ %idxprom.i.i.i, %while.body.i ], [ %idxprom.i.i.i326, %while.body.i.preheader ]
-  %Context1.addr.0231329 = phi ptr [ %4, %while.body.i ], [ %Context1, %while.body.i.preheader ]
-  %context.i.i = getelementptr inbounds %struct.binding, ptr %Context1.addr.0231329, i64 %idxprom.i.i.i330, i32 3
+  %Context1.addr.0232329 = phi ptr [ %4, %while.body.i ], [ %Context1, %while.body.i.preheader ]
+  %context.i.i = getelementptr inbounds %struct.binding, ptr %Context1.addr.0232329, i64 %idxprom.i.i.i330, i32 3
   %4 = load ptr, ptr %context.i.i, align 8
   %Term.addr.0.val16.i = load i32, ptr %3, align 8
   %cmp.i.i.i = icmp slt i32 %Term.addr.0.val16.i, 1
@@ -754,13 +754,13 @@ cont_Deref.exit:                                  ; preds = %while.body.i, %clea
   %Context1.addr.1 = phi ptr [ %Context1, %entry ], [ %Context1, %land.rhs.i.preheader ], [ %Context1, %while.body.i.preheader ], [ %4, %cleanup.i ], [ %4, %while.body.i ]
   %Term.addr.0.lcssa.i = phi ptr [ %Term1, %entry ], [ %Term1, %land.rhs.i.preheader ], [ %Term1, %while.body.i.preheader ], [ %3, %cleanup.i ], [ %3, %while.body.i ]
   %Term.addr.0.val1621.i114 = load i32, ptr %Term2, align 8
-  %cmp.i.i22.i115 = icmp sgt i32 %Term.addr.0.val1621.i114, 0
-  br i1 %cmp.i.i22.i115, label %land.rhs.i121.preheader, label %cont_Deref.exit131
+  %cmp.i.i22.i115 = icmp slt i32 %Term.addr.0.val1621.i114, 1
+  br i1 %cmp.i.i22.i115, label %cont_Deref.exit131, label %land.rhs.i121.preheader
 
 land.rhs.i121.preheader:                          ; preds = %cont_Deref.exit
   %5 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
-  %cmp.not.i120239 = icmp eq ptr %5, %Context2
-  br i1 %cmp.not.i120239, label %cont_Deref.exit131, label %while.body.i125.preheader
+  %cmp.not.i120240 = icmp eq ptr %5, %Context2
+  br i1 %cmp.not.i120240, label %cont_Deref.exit131, label %while.body.i125.preheader
 
 while.body.i125.preheader:                        ; preds = %land.rhs.i121.preheader
   %idxprom.i.i.i122336 = zext i32 %Term.addr.0.val1621.i114 to i64
@@ -779,8 +779,8 @@ while.body.i125:                                  ; preds = %cleanup.i129
 cleanup.i129:                                     ; preds = %while.body.i125.preheader, %while.body.i125
   %8 = phi ptr [ %7, %while.body.i125 ], [ %6, %while.body.i125.preheader ]
   %idxprom.i.i.i122340 = phi i64 [ %idxprom.i.i.i122, %while.body.i125 ], [ %idxprom.i.i.i122336, %while.body.i125.preheader ]
-  %Context2.addr.0240339 = phi ptr [ %9, %while.body.i125 ], [ %Context2, %while.body.i125.preheader ]
-  %context.i.i126 = getelementptr inbounds %struct.binding, ptr %Context2.addr.0240339, i64 %idxprom.i.i.i122340, i32 3
+  %Context2.addr.0241339 = phi ptr [ %9, %while.body.i125 ], [ %Context2, %while.body.i125.preheader ]
+  %context.i.i126 = getelementptr inbounds %struct.binding, ptr %Context2.addr.0241339, i64 %idxprom.i.i.i122340, i32 3
   %9 = load ptr, ptr %context.i.i126, align 8
   %Term.addr.0.val16.i127 = load i32, ptr %8, align 8
   %cmp.i.i.i128 = icmp slt i32 %Term.addr.0.val16.i127, 1
@@ -800,18 +800,18 @@ if.else:                                          ; preds = %cont_Deref.exit131
   br i1 %cmp4, label %if.then5, label %cleanup73
 
 if.then5:                                         ; preds = %if.else
-  %10 = add i32 %call.val, -1
-  %11 = icmp ult i32 %10, 2000
-  %12 = add i32 %call1.val, -1
-  %13 = icmp ult i32 %12, 2000
-  br i1 %11, label %if.then7, label %if.else12
+  %10 = add i32 %call.val, -2001
+  %11 = icmp ult i32 %10, -2000
+  %12 = add i32 %call1.val, -2001
+  %13 = icmp ult i32 %12, -2000
+  br i1 %11, label %if.else12, label %if.then7
 
 if.then7:                                         ; preds = %if.then5
-  %. = select i1 %13, i32 2, i32 0
+  %. = select i1 %13, i32 0, i32 2
   br label %cleanup73
 
 if.else12:                                        ; preds = %if.then5
-  br i1 %13, label %cleanup73, label %lor.lhs.false
+  br i1 %13, label %lor.lhs.false, label %cleanup73
 
 lor.lhs.false:                                    ; preds = %if.else12
   %14 = load ptr, ptr @ord_PRECEDENCE, align 8
@@ -826,8 +826,8 @@ lor.lhs.false:                                    ; preds = %if.else12
   %idxprom.i5.i = sext i32 %shr.i.i4.i to i64
   %arrayidx.i6.i = getelementptr inbounds i32, ptr %14, i64 %idxprom.i5.i
   %17 = load i32, ptr %arrayidx.i6.i, align 4
-  %cmp.i = icmp slt i32 %16, %17
-  br i1 %cmp.i, label %cleanup73, label %if.else18
+  %cmp.i.not = icmp slt i32 %16, %17
+  br i1 %cmp.i.not, label %cleanup73, label %if.else18
 
 if.else18:                                        ; preds = %lor.lhs.false
   %cmp19 = icmp eq i32 %call.val, %call1.val
@@ -850,38 +850,38 @@ if.then20:                                        ; preds = %if.else18
   br i1 %tobool24.not, label %while.cond.preheader, label %if.then25
 
 while.cond.preheader:                             ; preds = %if.then20
-  %cond273 = icmp eq ptr %call.val109, null
-  br i1 %cond273, label %cleanup66, label %land.rhs42
+  %cmp.i176.not273 = icmp eq ptr %call.val109, null
+  br i1 %cmp.i176.not273, label %cleanup66, label %land.rhs42
 
 if.then25:                                        ; preds = %if.then20
   %arity.i = getelementptr inbounds %struct.signature, ptr %21, i64 0, i32 3
   %23 = load i32, ptr %arity.i, align 8
-  %cmp27249 = icmp sgt i32 %23, 0
-  br i1 %cmp27249, label %land.rhs, label %cleanup66
+  %cmp27250 = icmp sgt i32 %23, 0
+  br i1 %cmp27250, label %land.rhs, label %cleanup66
 
 land.rhs:                                         ; preds = %if.then25, %for.inc
-  %i.0250 = phi i32 [ %dec, %for.inc ], [ %23, %if.then25 ]
-  %call28 = tail call ptr @list_NthElement(ptr noundef %call.val109, i32 noundef %i.0250) #6
-  %call29 = tail call ptr @list_NthElement(ptr noundef %call1.val108, i32 noundef %i.0250) #6
+  %i.0251 = phi i32 [ %dec, %for.inc ], [ %23, %if.then25 ]
+  %call28 = tail call ptr @list_NthElement(ptr noundef %call.val109, i32 noundef %i.0251) #6
+  %call29 = tail call ptr @list_NthElement(ptr noundef %call1.val108, i32 noundef %i.0251) #6
   %call30 = tail call i32 @cont_TermEqual(ptr noundef %Context1.addr.1, ptr noundef %call28, ptr noundef %Context2.addr.1, ptr noundef %call29) #6
   %tobool31.not = icmp eq i32 %call30, 0
   br i1 %tobool31.not, label %if.then33, label %for.inc
 
 for.inc:                                          ; preds = %land.rhs
-  %dec = add nsw i32 %i.0250, -1
-  %cmp27 = icmp sgt i32 %i.0250, 1
+  %dec = add nsw i32 %i.0251, -1
+  %cmp27 = icmp sgt i32 %i.0251, 1
   br i1 %cmp27, label %land.rhs, label %cleanup66, !llvm.loop !15
 
 if.then33:                                        ; preds = %land.rhs
-  %call34 = tail call ptr @list_NthElement(ptr noundef %call.val109, i32 noundef %i.0250) #6
+  %call34 = tail call ptr @list_NthElement(ptr noundef %call.val109, i32 noundef %i.0251) #6
   %Term.addr.0.val1621.i140 = load i32, ptr %call34, align 8
-  %cmp.i.i22.i141 = icmp sgt i32 %Term.addr.0.val1621.i140, 0
-  br i1 %cmp.i.i22.i141, label %land.rhs.i147.preheader, label %cont_Deref.exit157
+  %cmp.i.i22.i141 = icmp slt i32 %Term.addr.0.val1621.i140, 1
+  br i1 %cmp.i.i22.i141, label %cont_Deref.exit157, label %land.rhs.i147.preheader
 
 land.rhs.i147.preheader:                          ; preds = %if.then33
   %24 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
-  %cmp.not.i146252 = icmp eq ptr %Context1.addr.1, %24
-  br i1 %cmp.not.i146252, label %cont_Deref.exit157, label %while.body.i151.preheader
+  %cmp.not.i146253 = icmp eq ptr %Context1.addr.1, %24
+  br i1 %cmp.not.i146253, label %cont_Deref.exit157, label %while.body.i151.preheader
 
 while.body.i151.preheader:                        ; preds = %land.rhs.i147.preheader
   %idxprom.i.i.i148347 = zext i32 %Term.addr.0.val1621.i140 to i64
@@ -900,8 +900,8 @@ while.body.i151:                                  ; preds = %cleanup.i155
 cleanup.i155:                                     ; preds = %while.body.i151.preheader, %while.body.i151
   %27 = phi ptr [ %26, %while.body.i151 ], [ %25, %while.body.i151.preheader ]
   %idxprom.i.i.i148351 = phi i64 [ %idxprom.i.i.i148, %while.body.i151 ], [ %idxprom.i.i.i148347, %while.body.i151.preheader ]
-  %Context1.addr.2253350 = phi ptr [ %28, %while.body.i151 ], [ %Context1.addr.1, %while.body.i151.preheader ]
-  %context.i.i152 = getelementptr inbounds %struct.binding, ptr %Context1.addr.2253350, i64 %idxprom.i.i.i148351, i32 3
+  %Context1.addr.2254350 = phi ptr [ %28, %while.body.i151 ], [ %Context1.addr.1, %while.body.i151.preheader ]
+  %context.i.i152 = getelementptr inbounds %struct.binding, ptr %Context1.addr.2254350, i64 %idxprom.i.i.i148351, i32 3
   %28 = load ptr, ptr %context.i.i152, align 8
   %Term.addr.0.val16.i153 = load i32, ptr %27, align 8
   %cmp.i.i.i154 = icmp slt i32 %Term.addr.0.val16.i153, 1
@@ -912,15 +912,15 @@ cleanup.i155:                                     ; preds = %while.body.i151.pre
 cont_Deref.exit157:                               ; preds = %while.body.i151, %cleanup.i155, %while.body.i151.preheader, %land.rhs.i147.preheader, %if.then33
   %Context1.addr.3 = phi ptr [ %Context1.addr.1, %if.then33 ], [ %Context1.addr.1, %land.rhs.i147.preheader ], [ %Context1.addr.1, %while.body.i151.preheader ], [ %28, %cleanup.i155 ], [ %28, %while.body.i151 ]
   %Term.addr.0.lcssa.i156 = phi ptr [ %call34, %if.then33 ], [ %call34, %land.rhs.i147.preheader ], [ %call34, %while.body.i151.preheader ], [ %27, %cleanup.i155 ], [ %27, %while.body.i151 ]
-  %call36 = tail call ptr @list_NthElement(ptr noundef %call1.val108, i32 noundef %i.0250) #6
+  %call36 = tail call ptr @list_NthElement(ptr noundef %call1.val108, i32 noundef %i.0251) #6
   %Term.addr.0.val1621.i158 = load i32, ptr %call36, align 8
-  %cmp.i.i22.i159 = icmp sgt i32 %Term.addr.0.val1621.i158, 0
-  br i1 %cmp.i.i22.i159, label %land.rhs.i165.preheader, label %if.end59
+  %cmp.i.i22.i159 = icmp slt i32 %Term.addr.0.val1621.i158, 1
+  br i1 %cmp.i.i22.i159, label %if.end59, label %land.rhs.i165.preheader
 
 land.rhs.i165.preheader:                          ; preds = %cont_Deref.exit157
   %29 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
-  %cmp.not.i164262 = icmp eq ptr %Context2.addr.1, %29
-  br i1 %cmp.not.i164262, label %if.end59, label %while.body.i169.preheader
+  %cmp.not.i164263 = icmp eq ptr %Context2.addr.1, %29
+  br i1 %cmp.not.i164263, label %if.end59, label %while.body.i169.preheader
 
 while.body.i169.preheader:                        ; preds = %land.rhs.i165.preheader
   %idxprom.i.i.i166356 = zext i32 %Term.addr.0.val1621.i158 to i64
@@ -939,8 +939,8 @@ while.body.i169:                                  ; preds = %cleanup.i173
 cleanup.i173:                                     ; preds = %while.body.i169.preheader, %while.body.i169
   %32 = phi ptr [ %31, %while.body.i169 ], [ %30, %while.body.i169.preheader ]
   %idxprom.i.i.i166360 = phi i64 [ %idxprom.i.i.i166, %while.body.i169 ], [ %idxprom.i.i.i166356, %while.body.i169.preheader ]
-  %Context2.addr.2263359 = phi ptr [ %33, %while.body.i169 ], [ %Context2.addr.1, %while.body.i169.preheader ]
-  %context.i.i170 = getelementptr inbounds %struct.binding, ptr %Context2.addr.2263359, i64 %idxprom.i.i.i166360, i32 3
+  %Context2.addr.2264359 = phi ptr [ %33, %while.body.i169 ], [ %Context2.addr.1, %while.body.i169.preheader ]
+  %context.i.i170 = getelementptr inbounds %struct.binding, ptr %Context2.addr.2264359, i64 %idxprom.i.i.i166360, i32 3
   %33 = load ptr, ptr %context.i.i170, align 8
   %Term.addr.0.val16.i171 = load i32, ptr %32, align 8
   %cmp.i.i.i172 = icmp slt i32 %Term.addr.0.val16.i171, 1
@@ -962,16 +962,16 @@ land.rhs42:                                       ; preds = %while.cond.preheade
 while.body:                                       ; preds = %land.rhs42
   %Scan1.0.val113 = load ptr, ptr %Scan1.0274, align 8
   %Scan2.0.val112 = load ptr, ptr %Scan2.0275, align 8
-  %cond = icmp eq ptr %Scan1.0.val113, null
-  br i1 %cond, label %cleanup66, label %land.rhs42, !llvm.loop !16
+  %cmp.i176.not = icmp eq ptr %Scan1.0.val113, null
+  br i1 %cmp.i176.not, label %cleanup66, label %land.rhs42, !llvm.loop !16
 
 if.else53:                                        ; preds = %land.rhs42
   %36 = getelementptr i8, ptr %Scan1.0274, i64 8
   %37 = getelementptr i8, ptr %Scan2.0275, i64 8
   %Scan1.0.val = load ptr, ptr %36, align 8
   %Term.addr.0.val1621.i180 = load i32, ptr %Scan1.0.val, align 8
-  %cmp.i.i22.i181 = icmp sgt i32 %Term.addr.0.val1621.i180, 0
-  br i1 %cmp.i.i22.i181, label %land.rhs.i187.preheader, label %cont_Deref.exit197
+  %cmp.i.i22.i181 = icmp slt i32 %Term.addr.0.val1621.i180, 1
+  br i1 %cmp.i.i22.i181, label %cont_Deref.exit197, label %land.rhs.i187.preheader
 
 land.rhs.i187.preheader:                          ; preds = %if.else53
   %38 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1009,8 +1009,8 @@ cont_Deref.exit197:                               ; preds = %while.body.i191, %c
   %Term.addr.0.lcssa.i196 = phi ptr [ %Scan1.0.val, %if.else53 ], [ %Scan1.0.val, %land.rhs.i187.preheader ], [ %Scan1.0.val, %while.body.i191.preheader ], [ %41, %cleanup.i195 ], [ %41, %while.body.i191 ]
   %Scan2.0.val = load ptr, ptr %37, align 8
   %Term.addr.0.val1621.i198 = load i32, ptr %Scan2.0.val, align 8
-  %cmp.i.i22.i199 = icmp sgt i32 %Term.addr.0.val1621.i198, 0
-  br i1 %cmp.i.i22.i199, label %land.rhs.i205.preheader, label %if.end59
+  %cmp.i.i22.i199 = icmp slt i32 %Term.addr.0.val1621.i198, 1
+  br i1 %cmp.i.i22.i199, label %if.end59, label %land.rhs.i205.preheader
 
 land.rhs.i205.preheader:                          ; preds = %cont_Deref.exit197
   %43 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1100,7 +1100,7 @@ for.body11.i.outer:                               ; preds = %if.then19.i, %for.b
   %tobool30.not.i = phi i1 [ false, %if.then19.i ], [ true, %for.body11.preheader.i ]
   %tobool.not = phi i1 [ true, %if.then19.i ], [ false, %for.body11.preheader.i ]
   %T2VarCond.0.ph = phi i32 [ %T2VarCond.0, %if.then19.i ], [ 1, %for.body11.preheader.i ]
-  %indvars.iv.i.ph = phi i64 [ %indvars.iv.next.i22, %if.then19.i ], [ 0, %for.body11.preheader.i ]
+  %indvars.iv.i.ph = phi i64 [ %indvars.iv.next.i25, %if.then19.i ], [ 0, %for.body11.preheader.i ]
   br label %for.body11.i
 
 for.body11.i:                                     ; preds = %for.body11.i.outer, %for.inc35.i
@@ -1115,9 +1115,9 @@ for.body11.i:                                     ; preds = %for.body11.i.outer,
 
 if.then19.i:                                      ; preds = %for.body11.i
   %tobool.not.i = icmp eq i32 %T2VarCond.0, 0
-  %indvars.iv.next.i22 = add nuw nsw i64 %indvars.iv.i, 1
-  %exitcond.not.i23 = icmp eq i64 %indvars.iv.next.i22, %wide.trip.count.i
-  %or.cond = select i1 %tobool.not.i, i1 true, i1 %exitcond.not.i23
+  %indvars.iv.next.i25 = add nuw nsw i64 %indvars.iv.i, 1
+  %exitcond.not.i26 = icmp eq i64 %indvars.iv.next.i25, %wide.trip.count.i
+  %or.cond = select i1 %tobool.not.i, i1 true, i1 %exitcond.not.i26
   br i1 %or.cond, label %cleanup, label %for.body11.i.outer, !llvm.loop !14
 
 if.else.i:                                        ; preds = %for.body11.i
@@ -1157,8 +1157,8 @@ entry:
   %T1VarCond = alloca i32, align 4
   %T2VarCond = alloca i32, align 4
   %Term.addr.0.val1621.i = load i32, ptr %Term1, align 8
-  %cmp.i.i22.i = icmp sgt i32 %Term.addr.0.val1621.i, 0
-  br i1 %cmp.i.i22.i, label %land.rhs.i.preheader, label %cont_Deref.exit
+  %cmp.i.i22.i = icmp slt i32 %Term.addr.0.val1621.i, 1
+  br i1 %cmp.i.i22.i, label %cont_Deref.exit, label %land.rhs.i.preheader
 
 land.rhs.i.preheader:                             ; preds = %entry
   %0 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1166,11 +1166,11 @@ land.rhs.i.preheader:                             ; preds = %entry
   br i1 %cmp.not.i238, label %cont_Deref.exit, label %while.body.i.preheader
 
 while.body.i.preheader:                           ; preds = %land.rhs.i.preheader
-  %idxprom.i.i.i333 = zext i32 %Term.addr.0.val1621.i to i64
-  %term.i.i.i334 = getelementptr inbounds %struct.binding, ptr %Context1, i64 %idxprom.i.i.i333, i32 2
-  %1 = load ptr, ptr %term.i.i.i334, align 8
-  %cmp.i.not.i335 = icmp eq ptr %1, null
-  br i1 %cmp.i.not.i335, label %cont_Deref.exit, label %cleanup.i
+  %idxprom.i.i.i332 = zext i32 %Term.addr.0.val1621.i to i64
+  %term.i.i.i333 = getelementptr inbounds %struct.binding, ptr %Context1, i64 %idxprom.i.i.i332, i32 2
+  %1 = load ptr, ptr %term.i.i.i333, align 8
+  %cmp.i.not.i334 = icmp eq ptr %1, null
+  br i1 %cmp.i.not.i334, label %cont_Deref.exit, label %cleanup.i
 
 while.body.i:                                     ; preds = %cleanup.i
   %idxprom.i.i.i = zext i32 %Term.addr.0.val16.i to i64
@@ -1181,23 +1181,23 @@ while.body.i:                                     ; preds = %cleanup.i
 
 cleanup.i:                                        ; preds = %while.body.i.preheader, %while.body.i
   %3 = phi ptr [ %2, %while.body.i ], [ %1, %while.body.i.preheader ]
-  %idxprom.i.i.i337 = phi i64 [ %idxprom.i.i.i, %while.body.i ], [ %idxprom.i.i.i333, %while.body.i.preheader ]
-  %Context1.addr.0239336 = phi ptr [ %4, %while.body.i ], [ %Context1, %while.body.i.preheader ]
-  %context.i.i = getelementptr inbounds %struct.binding, ptr %Context1.addr.0239336, i64 %idxprom.i.i.i337, i32 3
+  %idxprom.i.i.i336 = phi i64 [ %idxprom.i.i.i, %while.body.i ], [ %idxprom.i.i.i332, %while.body.i.preheader ]
+  %Context1.addr.0239335 = phi ptr [ %4, %while.body.i ], [ %Context1, %while.body.i.preheader ]
+  %context.i.i = getelementptr inbounds %struct.binding, ptr %Context1.addr.0239335, i64 %idxprom.i.i.i336, i32 3
   %4 = load ptr, ptr %context.i.i, align 8
   %Term.addr.0.val16.i = load i32, ptr %3, align 8
   %cmp.i.i.i = icmp slt i32 %Term.addr.0.val16.i, 1
   %cmp.not.i = icmp eq ptr %4, %0
-  %or.cond309 = select i1 %cmp.i.i.i, i1 true, i1 %cmp.not.i
-  br i1 %or.cond309, label %cont_Deref.exit, label %while.body.i
+  %or.cond308 = select i1 %cmp.i.i.i, i1 true, i1 %cmp.not.i
+  br i1 %or.cond308, label %cont_Deref.exit, label %while.body.i
 
 cont_Deref.exit:                                  ; preds = %while.body.i, %cleanup.i, %while.body.i.preheader, %land.rhs.i.preheader, %entry
   %call.val = phi i32 [ %Term.addr.0.val1621.i, %entry ], [ %Term.addr.0.val1621.i, %land.rhs.i.preheader ], [ %Term.addr.0.val1621.i, %while.body.i.preheader ], [ %Term.addr.0.val16.i, %cleanup.i ], [ %Term.addr.0.val16.i, %while.body.i ]
   %Context1.addr.1 = phi ptr [ %Context1, %entry ], [ %Context1, %land.rhs.i.preheader ], [ %Context1, %while.body.i.preheader ], [ %4, %cleanup.i ], [ %4, %while.body.i ]
   %Term.addr.0.lcssa.i = phi ptr [ %Term1, %entry ], [ %Term1, %land.rhs.i.preheader ], [ %Term1, %while.body.i.preheader ], [ %3, %cleanup.i ], [ %3, %while.body.i ]
   %Term.addr.0.val1621.i119 = load i32, ptr %Term2, align 8
-  %cmp.i.i22.i120 = icmp sgt i32 %Term.addr.0.val1621.i119, 0
-  br i1 %cmp.i.i22.i120, label %land.rhs.i126.preheader, label %cont_Deref.exit136
+  %cmp.i.i22.i120 = icmp slt i32 %Term.addr.0.val1621.i119, 1
+  br i1 %cmp.i.i22.i120, label %cont_Deref.exit136, label %land.rhs.i126.preheader
 
 land.rhs.i126.preheader:                          ; preds = %cont_Deref.exit
   %5 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1205,11 +1205,11 @@ land.rhs.i126.preheader:                          ; preds = %cont_Deref.exit
   br i1 %cmp.not.i125247, label %cont_Deref.exit136, label %while.body.i130.preheader
 
 while.body.i130.preheader:                        ; preds = %land.rhs.i126.preheader
-  %idxprom.i.i.i127343 = zext i32 %Term.addr.0.val1621.i119 to i64
-  %term.i.i.i128344 = getelementptr inbounds %struct.binding, ptr %Context2, i64 %idxprom.i.i.i127343, i32 2
-  %6 = load ptr, ptr %term.i.i.i128344, align 8
-  %cmp.i.not.i129345 = icmp eq ptr %6, null
-  br i1 %cmp.i.not.i129345, label %cont_Deref.exit136, label %cleanup.i134
+  %idxprom.i.i.i127342 = zext i32 %Term.addr.0.val1621.i119 to i64
+  %term.i.i.i128343 = getelementptr inbounds %struct.binding, ptr %Context2, i64 %idxprom.i.i.i127342, i32 2
+  %6 = load ptr, ptr %term.i.i.i128343, align 8
+  %cmp.i.not.i129344 = icmp eq ptr %6, null
+  br i1 %cmp.i.not.i129344, label %cont_Deref.exit136, label %cleanup.i134
 
 while.body.i130:                                  ; preds = %cleanup.i134
   %idxprom.i.i.i127 = zext i32 %Term.addr.0.val16.i132 to i64
@@ -1220,28 +1220,28 @@ while.body.i130:                                  ; preds = %cleanup.i134
 
 cleanup.i134:                                     ; preds = %while.body.i130.preheader, %while.body.i130
   %8 = phi ptr [ %7, %while.body.i130 ], [ %6, %while.body.i130.preheader ]
-  %idxprom.i.i.i127347 = phi i64 [ %idxprom.i.i.i127, %while.body.i130 ], [ %idxprom.i.i.i127343, %while.body.i130.preheader ]
-  %Context2.addr.0248346 = phi ptr [ %9, %while.body.i130 ], [ %Context2, %while.body.i130.preheader ]
-  %context.i.i131 = getelementptr inbounds %struct.binding, ptr %Context2.addr.0248346, i64 %idxprom.i.i.i127347, i32 3
+  %idxprom.i.i.i127346 = phi i64 [ %idxprom.i.i.i127, %while.body.i130 ], [ %idxprom.i.i.i127342, %while.body.i130.preheader ]
+  %Context2.addr.0248345 = phi ptr [ %9, %while.body.i130 ], [ %Context2, %while.body.i130.preheader ]
+  %context.i.i131 = getelementptr inbounds %struct.binding, ptr %Context2.addr.0248345, i64 %idxprom.i.i.i127346, i32 3
   %9 = load ptr, ptr %context.i.i131, align 8
   %Term.addr.0.val16.i132 = load i32, ptr %8, align 8
   %cmp.i.i.i133 = icmp slt i32 %Term.addr.0.val16.i132, 1
   %cmp.not.i125 = icmp eq ptr %9, %5
-  %or.cond308 = select i1 %cmp.i.i.i133, i1 true, i1 %cmp.not.i125
-  br i1 %or.cond308, label %cont_Deref.exit136, label %while.body.i130
+  %or.cond307 = select i1 %cmp.i.i.i133, i1 true, i1 %cmp.not.i125
+  br i1 %or.cond307, label %cont_Deref.exit136, label %while.body.i130
 
 cont_Deref.exit136:                               ; preds = %while.body.i130, %cleanup.i134, %while.body.i130.preheader, %land.rhs.i126.preheader, %cont_Deref.exit
   %call1.val = phi i32 [ %Term.addr.0.val1621.i119, %cont_Deref.exit ], [ %Term.addr.0.val1621.i119, %land.rhs.i126.preheader ], [ %Term.addr.0.val1621.i119, %while.body.i130.preheader ], [ %Term.addr.0.val16.i132, %cleanup.i134 ], [ %Term.addr.0.val16.i132, %while.body.i130 ]
   %Context2.addr.1 = phi ptr [ %Context2, %cont_Deref.exit ], [ %Context2, %land.rhs.i126.preheader ], [ %Context2, %while.body.i130.preheader ], [ %9, %cleanup.i134 ], [ %9, %while.body.i130 ]
   %Term.addr.0.lcssa.i135 = phi ptr [ %Term2, %cont_Deref.exit ], [ %Term2, %land.rhs.i126.preheader ], [ %Term2, %while.body.i130.preheader ], [ %8, %cleanup.i134 ], [ %8, %while.body.i130 ]
-  %10 = add i32 %call.val, -1
-  %11 = icmp ult i32 %10, 2000
-  br i1 %11, label %cleanup77, label %if.else8
+  %10 = add i32 %call.val, -2001
+  %11 = icmp ult i32 %10, -2000
+  br i1 %11, label %if.else8, label %cleanup77
 
 if.else8:                                         ; preds = %cont_Deref.exit136
-  %12 = add i32 %call1.val, -1
-  %13 = icmp ult i32 %12, 2000
-  br i1 %13, label %cleanup77, label %lor.lhs.false
+  %12 = add i32 %call1.val, -2001
+  %13 = icmp ult i32 %12, -2000
+  br i1 %13, label %lor.lhs.false, label %cleanup77
 
 lor.lhs.false:                                    ; preds = %if.else8
   %14 = load ptr, ptr @ord_PRECEDENCE, align 8
@@ -1256,8 +1256,8 @@ lor.lhs.false:                                    ; preds = %if.else8
   %idxprom.i5.i = sext i32 %shr.i.i4.i to i64
   %arrayidx.i6.i = getelementptr inbounds i32, ptr %14, i64 %idxprom.i5.i
   %17 = load i32, ptr %arrayidx.i6.i, align 4
-  %cmp.i = icmp slt i32 %16, %17
-  br i1 %cmp.i, label %cleanup77, label %if.else14
+  %cmp.i.not = icmp slt i32 %16, %17
+  br i1 %cmp.i.not, label %cleanup77, label %if.else14
 
 if.else14:                                        ; preds = %lor.lhs.false
   %cmp = icmp eq i32 %call.val, %call1.val
@@ -1280,8 +1280,8 @@ if.then15:                                        ; preds = %if.else14
   br i1 %tobool19.not, label %while.cond.preheader, label %if.then20
 
 while.cond.preheader:                             ; preds = %if.then15
-  %cond227281 = icmp eq ptr %call.val114, null
-  br i1 %cond227281, label %cleanup67.thread, label %land.rhs37
+  %cmp.i181.not280 = icmp eq ptr %call.val114, null
+  br i1 %cmp.i181.not280, label %cleanup67.thread, label %land.rhs37
 
 if.then20:                                        ; preds = %if.then15
   %arity.i = getelementptr inbounds %struct.signature, ptr %21, i64 0, i32 3
@@ -1305,8 +1305,8 @@ for.inc:                                          ; preds = %land.rhs
 if.then28:                                        ; preds = %land.rhs
   %call29 = tail call ptr @list_NthElement(ptr noundef %call.val114, i32 noundef %i.0258) #6
   %Term.addr.0.val1621.i145 = load i32, ptr %call29, align 8
-  %cmp.i.i22.i146 = icmp sgt i32 %Term.addr.0.val1621.i145, 0
-  br i1 %cmp.i.i22.i146, label %land.rhs.i152.preheader, label %cont_Deref.exit162
+  %cmp.i.i22.i146 = icmp slt i32 %Term.addr.0.val1621.i145, 1
+  br i1 %cmp.i.i22.i146, label %cont_Deref.exit162, label %land.rhs.i152.preheader
 
 land.rhs.i152.preheader:                          ; preds = %if.then28
   %24 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1314,11 +1314,11 @@ land.rhs.i152.preheader:                          ; preds = %if.then28
   br i1 %cmp.not.i151260, label %cont_Deref.exit162, label %while.body.i156.preheader
 
 while.body.i156.preheader:                        ; preds = %land.rhs.i152.preheader
-  %idxprom.i.i.i153354 = zext i32 %Term.addr.0.val1621.i145 to i64
-  %term.i.i.i154355 = getelementptr inbounds %struct.binding, ptr %Context1.addr.1, i64 %idxprom.i.i.i153354, i32 2
-  %25 = load ptr, ptr %term.i.i.i154355, align 8
-  %cmp.i.not.i155356 = icmp eq ptr %25, null
-  br i1 %cmp.i.not.i155356, label %cont_Deref.exit162, label %cleanup.i160
+  %idxprom.i.i.i153353 = zext i32 %Term.addr.0.val1621.i145 to i64
+  %term.i.i.i154354 = getelementptr inbounds %struct.binding, ptr %Context1.addr.1, i64 %idxprom.i.i.i153353, i32 2
+  %25 = load ptr, ptr %term.i.i.i154354, align 8
+  %cmp.i.not.i155355 = icmp eq ptr %25, null
+  br i1 %cmp.i.not.i155355, label %cont_Deref.exit162, label %cleanup.i160
 
 while.body.i156:                                  ; preds = %cleanup.i160
   %idxprom.i.i.i153 = zext i32 %Term.addr.0.val16.i158 to i64
@@ -1329,23 +1329,23 @@ while.body.i156:                                  ; preds = %cleanup.i160
 
 cleanup.i160:                                     ; preds = %while.body.i156.preheader, %while.body.i156
   %27 = phi ptr [ %26, %while.body.i156 ], [ %25, %while.body.i156.preheader ]
-  %idxprom.i.i.i153358 = phi i64 [ %idxprom.i.i.i153, %while.body.i156 ], [ %idxprom.i.i.i153354, %while.body.i156.preheader ]
-  %Context1.addr.2261357 = phi ptr [ %28, %while.body.i156 ], [ %Context1.addr.1, %while.body.i156.preheader ]
-  %context.i.i157 = getelementptr inbounds %struct.binding, ptr %Context1.addr.2261357, i64 %idxprom.i.i.i153358, i32 3
+  %idxprom.i.i.i153357 = phi i64 [ %idxprom.i.i.i153, %while.body.i156 ], [ %idxprom.i.i.i153353, %while.body.i156.preheader ]
+  %Context1.addr.2261356 = phi ptr [ %28, %while.body.i156 ], [ %Context1.addr.1, %while.body.i156.preheader ]
+  %context.i.i157 = getelementptr inbounds %struct.binding, ptr %Context1.addr.2261356, i64 %idxprom.i.i.i153357, i32 3
   %28 = load ptr, ptr %context.i.i157, align 8
   %Term.addr.0.val16.i158 = load i32, ptr %27, align 8
   %cmp.i.i.i159 = icmp slt i32 %Term.addr.0.val16.i158, 1
   %cmp.not.i151 = icmp eq ptr %28, %24
-  %or.cond306 = select i1 %cmp.i.i.i159, i1 true, i1 %cmp.not.i151
-  br i1 %or.cond306, label %cont_Deref.exit162, label %while.body.i156
+  %or.cond305 = select i1 %cmp.i.i.i159, i1 true, i1 %cmp.not.i151
+  br i1 %or.cond305, label %cont_Deref.exit162, label %while.body.i156
 
 cont_Deref.exit162:                               ; preds = %while.body.i156, %cleanup.i160, %while.body.i156.preheader, %land.rhs.i152.preheader, %if.then28
   %Context1.addr.3 = phi ptr [ %Context1.addr.1, %if.then28 ], [ %Context1.addr.1, %land.rhs.i152.preheader ], [ %Context1.addr.1, %while.body.i156.preheader ], [ %28, %cleanup.i160 ], [ %28, %while.body.i156 ]
   %Term.addr.0.lcssa.i161 = phi ptr [ %call29, %if.then28 ], [ %call29, %land.rhs.i152.preheader ], [ %call29, %while.body.i156.preheader ], [ %27, %cleanup.i160 ], [ %27, %while.body.i156 ]
   %call31 = tail call ptr @list_NthElement(ptr noundef %call1.val113, i32 noundef %i.0258) #6
   %Term.addr.0.val1621.i163 = load i32, ptr %call31, align 8
-  %cmp.i.i22.i164 = icmp sgt i32 %Term.addr.0.val1621.i163, 0
-  br i1 %cmp.i.i22.i164, label %land.rhs.i170.preheader, label %if.end54
+  %cmp.i.i22.i164 = icmp slt i32 %Term.addr.0.val1621.i163, 1
+  br i1 %cmp.i.i22.i164, label %if.end54, label %land.rhs.i170.preheader
 
 land.rhs.i170.preheader:                          ; preds = %cont_Deref.exit162
   %29 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1353,11 +1353,11 @@ land.rhs.i170.preheader:                          ; preds = %cont_Deref.exit162
   br i1 %cmp.not.i169270, label %if.end54, label %while.body.i174.preheader
 
 while.body.i174.preheader:                        ; preds = %land.rhs.i170.preheader
-  %idxprom.i.i.i171363 = zext i32 %Term.addr.0.val1621.i163 to i64
-  %term.i.i.i172364 = getelementptr inbounds %struct.binding, ptr %Context2.addr.1, i64 %idxprom.i.i.i171363, i32 2
-  %30 = load ptr, ptr %term.i.i.i172364, align 8
-  %cmp.i.not.i173365 = icmp eq ptr %30, null
-  br i1 %cmp.i.not.i173365, label %if.end54, label %cleanup.i178
+  %idxprom.i.i.i171362 = zext i32 %Term.addr.0.val1621.i163 to i64
+  %term.i.i.i172363 = getelementptr inbounds %struct.binding, ptr %Context2.addr.1, i64 %idxprom.i.i.i171362, i32 2
+  %30 = load ptr, ptr %term.i.i.i172363, align 8
+  %cmp.i.not.i173364 = icmp eq ptr %30, null
+  br i1 %cmp.i.not.i173364, label %if.end54, label %cleanup.i178
 
 while.body.i174:                                  ; preds = %cleanup.i178
   %idxprom.i.i.i171 = zext i32 %Term.addr.0.val16.i176 to i64
@@ -1368,52 +1368,52 @@ while.body.i174:                                  ; preds = %cleanup.i178
 
 cleanup.i178:                                     ; preds = %while.body.i174.preheader, %while.body.i174
   %32 = phi ptr [ %31, %while.body.i174 ], [ %30, %while.body.i174.preheader ]
-  %idxprom.i.i.i171367 = phi i64 [ %idxprom.i.i.i171, %while.body.i174 ], [ %idxprom.i.i.i171363, %while.body.i174.preheader ]
-  %Context2.addr.2271366 = phi ptr [ %33, %while.body.i174 ], [ %Context2.addr.1, %while.body.i174.preheader ]
-  %context.i.i175 = getelementptr inbounds %struct.binding, ptr %Context2.addr.2271366, i64 %idxprom.i.i.i171367, i32 3
+  %idxprom.i.i.i171366 = phi i64 [ %idxprom.i.i.i171, %while.body.i174 ], [ %idxprom.i.i.i171362, %while.body.i174.preheader ]
+  %Context2.addr.2271365 = phi ptr [ %33, %while.body.i174 ], [ %Context2.addr.1, %while.body.i174.preheader ]
+  %context.i.i175 = getelementptr inbounds %struct.binding, ptr %Context2.addr.2271365, i64 %idxprom.i.i.i171366, i32 3
   %33 = load ptr, ptr %context.i.i175, align 8
   %Term.addr.0.val16.i176 = load i32, ptr %32, align 8
   %cmp.i.i.i177 = icmp slt i32 %Term.addr.0.val16.i176, 1
   %cmp.not.i169 = icmp eq ptr %33, %29
-  %or.cond305 = select i1 %cmp.i.i.i177, i1 true, i1 %cmp.not.i169
-  br i1 %or.cond305, label %if.end54, label %while.body.i174
+  %or.cond304 = select i1 %cmp.i.i.i177, i1 true, i1 %cmp.not.i169
+  br i1 %or.cond304, label %if.end54, label %while.body.i174
 
 land.rhs37:                                       ; preds = %while.cond.preheader, %while.body
-  %Scan2.0283 = phi ptr [ %Scan2.0.val117, %while.body ], [ %call1.val113, %while.cond.preheader ]
-  %Scan1.0282 = phi ptr [ %Scan1.0.val118, %while.body ], [ %call.val114, %while.cond.preheader ]
-  %34 = getelementptr i8, ptr %Scan1.0282, i64 8
+  %Scan2.0282 = phi ptr [ %Scan2.0.val117, %while.body ], [ %call1.val113, %while.cond.preheader ]
+  %Scan1.0281 = phi ptr [ %Scan1.0.val118, %while.body ], [ %call.val114, %while.cond.preheader ]
+  %34 = getelementptr i8, ptr %Scan1.0281, i64 8
   %Scan1.0.val116 = load ptr, ptr %34, align 8
-  %35 = getelementptr i8, ptr %Scan2.0283, i64 8
+  %35 = getelementptr i8, ptr %Scan2.0282, i64 8
   %Scan2.0.val115 = load ptr, ptr %35, align 8
   %call40 = tail call i32 @cont_TermEqual(ptr noundef %Context1.addr.1, ptr noundef %Scan1.0.val116, ptr noundef %Context2.addr.1, ptr noundef %Scan2.0.val115) #6
   %tobool41.not = icmp eq i32 %call40, 0
   br i1 %tobool41.not, label %if.else48, label %while.body
 
 while.body:                                       ; preds = %land.rhs37
-  %Scan1.0.val118 = load ptr, ptr %Scan1.0282, align 8
-  %Scan2.0.val117 = load ptr, ptr %Scan2.0283, align 8
-  %cond227 = icmp eq ptr %Scan1.0.val118, null
-  br i1 %cond227, label %cleanup67.thread, label %land.rhs37, !llvm.loop !19
+  %Scan1.0.val118 = load ptr, ptr %Scan1.0281, align 8
+  %Scan2.0.val117 = load ptr, ptr %Scan2.0282, align 8
+  %cmp.i181.not = icmp eq ptr %Scan1.0.val118, null
+  br i1 %cmp.i181.not, label %cleanup67.thread, label %land.rhs37, !llvm.loop !19
 
 if.else48:                                        ; preds = %land.rhs37
-  %36 = getelementptr i8, ptr %Scan1.0282, i64 8
-  %37 = getelementptr i8, ptr %Scan2.0283, i64 8
+  %36 = getelementptr i8, ptr %Scan1.0281, i64 8
+  %37 = getelementptr i8, ptr %Scan2.0282, i64 8
   %Scan1.0.val = load ptr, ptr %36, align 8
   %Term.addr.0.val1621.i185 = load i32, ptr %Scan1.0.val, align 8
-  %cmp.i.i22.i186 = icmp sgt i32 %Term.addr.0.val1621.i185, 0
-  br i1 %cmp.i.i22.i186, label %land.rhs.i192.preheader, label %cont_Deref.exit202
+  %cmp.i.i22.i186 = icmp slt i32 %Term.addr.0.val1621.i185, 1
+  br i1 %cmp.i.i22.i186, label %cont_Deref.exit202, label %land.rhs.i192.preheader
 
 land.rhs.i192.preheader:                          ; preds = %if.else48
   %38 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
-  %cmp.not.i191284 = icmp eq ptr %Context1.addr.1, %38
-  br i1 %cmp.not.i191284, label %cont_Deref.exit202, label %while.body.i196.preheader
+  %cmp.not.i191283 = icmp eq ptr %Context1.addr.1, %38
+  br i1 %cmp.not.i191283, label %cont_Deref.exit202, label %while.body.i196.preheader
 
 while.body.i196.preheader:                        ; preds = %land.rhs.i192.preheader
-  %idxprom.i.i.i193372 = zext i32 %Term.addr.0.val1621.i185 to i64
-  %term.i.i.i194373 = getelementptr inbounds %struct.binding, ptr %Context1.addr.1, i64 %idxprom.i.i.i193372, i32 2
-  %39 = load ptr, ptr %term.i.i.i194373, align 8
-  %cmp.i.not.i195374 = icmp eq ptr %39, null
-  br i1 %cmp.i.not.i195374, label %cont_Deref.exit202, label %cleanup.i200
+  %idxprom.i.i.i193371 = zext i32 %Term.addr.0.val1621.i185 to i64
+  %term.i.i.i194372 = getelementptr inbounds %struct.binding, ptr %Context1.addr.1, i64 %idxprom.i.i.i193371, i32 2
+  %39 = load ptr, ptr %term.i.i.i194372, align 8
+  %cmp.i.not.i195373 = icmp eq ptr %39, null
+  br i1 %cmp.i.not.i195373, label %cont_Deref.exit202, label %cleanup.i200
 
 while.body.i196:                                  ; preds = %cleanup.i200
   %idxprom.i.i.i193 = zext i32 %Term.addr.0.val16.i198 to i64
@@ -1424,35 +1424,35 @@ while.body.i196:                                  ; preds = %cleanup.i200
 
 cleanup.i200:                                     ; preds = %while.body.i196.preheader, %while.body.i196
   %41 = phi ptr [ %40, %while.body.i196 ], [ %39, %while.body.i196.preheader ]
-  %idxprom.i.i.i193376 = phi i64 [ %idxprom.i.i.i193, %while.body.i196 ], [ %idxprom.i.i.i193372, %while.body.i196.preheader ]
-  %Context1.addr.5285375 = phi ptr [ %42, %while.body.i196 ], [ %Context1.addr.1, %while.body.i196.preheader ]
-  %context.i.i197 = getelementptr inbounds %struct.binding, ptr %Context1.addr.5285375, i64 %idxprom.i.i.i193376, i32 3
+  %idxprom.i.i.i193375 = phi i64 [ %idxprom.i.i.i193, %while.body.i196 ], [ %idxprom.i.i.i193371, %while.body.i196.preheader ]
+  %Context1.addr.5284374 = phi ptr [ %42, %while.body.i196 ], [ %Context1.addr.1, %while.body.i196.preheader ]
+  %context.i.i197 = getelementptr inbounds %struct.binding, ptr %Context1.addr.5284374, i64 %idxprom.i.i.i193375, i32 3
   %42 = load ptr, ptr %context.i.i197, align 8
   %Term.addr.0.val16.i198 = load i32, ptr %41, align 8
   %cmp.i.i.i199 = icmp slt i32 %Term.addr.0.val16.i198, 1
   %cmp.not.i191 = icmp eq ptr %42, %38
-  %or.cond304 = select i1 %cmp.i.i.i199, i1 true, i1 %cmp.not.i191
-  br i1 %or.cond304, label %cont_Deref.exit202, label %while.body.i196
+  %or.cond303 = select i1 %cmp.i.i.i199, i1 true, i1 %cmp.not.i191
+  br i1 %or.cond303, label %cont_Deref.exit202, label %while.body.i196
 
 cont_Deref.exit202:                               ; preds = %while.body.i196, %cleanup.i200, %while.body.i196.preheader, %land.rhs.i192.preheader, %if.else48
   %Context1.addr.6 = phi ptr [ %Context1.addr.1, %if.else48 ], [ %Context1.addr.1, %land.rhs.i192.preheader ], [ %Context1.addr.1, %while.body.i196.preheader ], [ %42, %cleanup.i200 ], [ %42, %while.body.i196 ]
   %Term.addr.0.lcssa.i201 = phi ptr [ %Scan1.0.val, %if.else48 ], [ %Scan1.0.val, %land.rhs.i192.preheader ], [ %Scan1.0.val, %while.body.i196.preheader ], [ %41, %cleanup.i200 ], [ %41, %while.body.i196 ]
   %Scan2.0.val = load ptr, ptr %37, align 8
   %Term.addr.0.val1621.i203 = load i32, ptr %Scan2.0.val, align 8
-  %cmp.i.i22.i204 = icmp sgt i32 %Term.addr.0.val1621.i203, 0
-  br i1 %cmp.i.i22.i204, label %land.rhs.i210.preheader, label %if.end54
+  %cmp.i.i22.i204 = icmp slt i32 %Term.addr.0.val1621.i203, 1
+  br i1 %cmp.i.i22.i204, label %if.end54, label %land.rhs.i210.preheader
 
 land.rhs.i210.preheader:                          ; preds = %cont_Deref.exit202
   %43 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
-  %cmp.not.i209294 = icmp eq ptr %Context2.addr.1, %43
-  br i1 %cmp.not.i209294, label %if.end54, label %while.body.i214.preheader
+  %cmp.not.i209293 = icmp eq ptr %Context2.addr.1, %43
+  br i1 %cmp.not.i209293, label %if.end54, label %while.body.i214.preheader
 
 while.body.i214.preheader:                        ; preds = %land.rhs.i210.preheader
-  %idxprom.i.i.i211381 = zext i32 %Term.addr.0.val1621.i203 to i64
-  %term.i.i.i212382 = getelementptr inbounds %struct.binding, ptr %Context2.addr.1, i64 %idxprom.i.i.i211381, i32 2
-  %44 = load ptr, ptr %term.i.i.i212382, align 8
-  %cmp.i.not.i213383 = icmp eq ptr %44, null
-  br i1 %cmp.i.not.i213383, label %if.end54, label %cleanup.i218
+  %idxprom.i.i.i211380 = zext i32 %Term.addr.0.val1621.i203 to i64
+  %term.i.i.i212381 = getelementptr inbounds %struct.binding, ptr %Context2.addr.1, i64 %idxprom.i.i.i211380, i32 2
+  %44 = load ptr, ptr %term.i.i.i212381, align 8
+  %cmp.i.not.i213382 = icmp eq ptr %44, null
+  br i1 %cmp.i.not.i213382, label %if.end54, label %cleanup.i218
 
 while.body.i214:                                  ; preds = %cleanup.i218
   %idxprom.i.i.i211 = zext i32 %Term.addr.0.val16.i216 to i64
@@ -1463,9 +1463,9 @@ while.body.i214:                                  ; preds = %cleanup.i218
 
 cleanup.i218:                                     ; preds = %while.body.i214.preheader, %while.body.i214
   %46 = phi ptr [ %45, %while.body.i214 ], [ %44, %while.body.i214.preheader ]
-  %idxprom.i.i.i211385 = phi i64 [ %idxprom.i.i.i211, %while.body.i214 ], [ %idxprom.i.i.i211381, %while.body.i214.preheader ]
-  %Context2.addr.5295384 = phi ptr [ %47, %while.body.i214 ], [ %Context2.addr.1, %while.body.i214.preheader ]
-  %context.i.i215 = getelementptr inbounds %struct.binding, ptr %Context2.addr.5295384, i64 %idxprom.i.i.i211385, i32 3
+  %idxprom.i.i.i211384 = phi i64 [ %idxprom.i.i.i211, %while.body.i214 ], [ %idxprom.i.i.i211380, %while.body.i214.preheader ]
+  %Context2.addr.5294383 = phi ptr [ %47, %while.body.i214 ], [ %Context2.addr.1, %while.body.i214.preheader ]
+  %context.i.i215 = getelementptr inbounds %struct.binding, ptr %Context2.addr.5294383, i64 %idxprom.i.i.i211384, i32 3
   %47 = load ptr, ptr %context.i.i215, align 8
   %Term.addr.0.val16.i216 = load i32, ptr %46, align 8
   %cmp.i.i.i217 = icmp slt i32 %Term.addr.0.val16.i216, 1
@@ -1506,8 +1506,8 @@ cleanup67:                                        ; preds = %if.end54, %if.else6
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %T1VarCond) #6
   br label %cleanup77
 
-cleanup77:                                        ; preds = %if.else14, %cleanup67, %cleanup67.thread, %if.else8, %lor.lhs.false, %cont_Deref.exit136
-  %retval.3 = phi i32 [ 0, %cont_Deref.exit136 ], [ 1, %lor.lhs.false ], [ 1, %if.else8 ], [ %retval.2.ph, %cleanup67.thread ], [ 0, %cleanup67 ], [ 0, %if.else14 ]
+cleanup77:                                        ; preds = %cont_Deref.exit136, %if.else14, %cleanup67, %cleanup67.thread, %if.else8, %lor.lhs.false
+  %retval.3 = phi i32 [ 1, %lor.lhs.false ], [ 1, %if.else8 ], [ %retval.2.ph, %cleanup67.thread ], [ 0, %cleanup67 ], [ 0, %if.else14 ], [ 0, %cont_Deref.exit136 ]
   ret i32 %retval.3
 }
 
@@ -1523,8 +1523,8 @@ declare i32 @cont_TermMaxVar(ptr noundef, ptr noundef) local_unnamed_addr #2
 define internal fastcc i32 @kbo_ContCompVarCondAndWeightIntern(ptr noundef %Context, ptr nocapture noundef readonly %Term, i32 noundef %Index) unnamed_addr #3 {
 entry:
   %Term.addr.0.val1621.i = load i32, ptr %Term, align 8
-  %cmp.i.i22.i = icmp sgt i32 %Term.addr.0.val1621.i, 0
-  br i1 %cmp.i.i22.i, label %land.rhs.i.preheader, label %cont_Deref.exit
+  %cmp.i.i22.i = icmp slt i32 %Term.addr.0.val1621.i, 1
+  br i1 %cmp.i.i22.i, label %cont_Deref.exit, label %land.rhs.i.preheader
 
 land.rhs.i.preheader:                             ; preds = %entry
   %0 = load ptr, ptr @cont_INSTANCECONTEXT, align 8
@@ -1561,9 +1561,9 @@ cont_Deref.exit:                                  ; preds = %while.body.i, %clea
   %call.val26 = phi i32 [ %Term.addr.0.val1621.i, %entry ], [ %Term.addr.0.val1621.i, %land.rhs.i.preheader ], [ %Term.addr.0.val1621.i, %while.body.i.preheader ], [ %Term.addr.0.val16.i, %cleanup.i ], [ %Term.addr.0.val16.i, %while.body.i ]
   %Context.addr.1 = phi ptr [ %Context, %entry ], [ %Context, %land.rhs.i.preheader ], [ %Context, %while.body.i.preheader ], [ %4, %cleanup.i ], [ %4, %while.body.i ]
   %Term.addr.0.lcssa.i = phi ptr [ %Term, %entry ], [ %Term, %land.rhs.i.preheader ], [ %Term, %while.body.i.preheader ], [ %3, %cleanup.i ], [ %3, %while.body.i ]
-  %5 = add i32 %call.val26, -1
-  %6 = icmp ult i32 %5, 2000
-  br i1 %6, label %if.then, label %if.else
+  %5 = add i32 %call.val26, -2001
+  %6 = icmp ult i32 %5, -2000
+  br i1 %6, label %if.else, label %if.then
 
 if.then:                                          ; preds = %cont_Deref.exit
   %idxprom = zext i32 %call.val26 to i64

@@ -17,15 +17,15 @@ define dso_local ptr @GenGraph(i32 noundef %nVertex, i32 noundef %nEdge) local_u
 entry:
   %call = tail call ptr @GenTree(i32 noundef %nVertex)
   %sub = sub nsw i32 %nEdge, %nVertex
-  %cmp31.i = icmp sgt i32 %sub, -1
-  br i1 %cmp31.i, label %do.body.preheader.lr.ph.i, label %AddEdges.exit
+  %cmp33.i = icmp sgt i32 %sub, -1
+  br i1 %cmp33.i, label %do.body.preheader.lr.ph.i, label %AddEdges.exit
 
 do.body.preheader.lr.ph.i:                        ; preds = %entry
   %conv.i = sext i32 %nVertex to i64
   br label %do.body.preheader.i
 
-do.body.preheader.i:                              ; preds = %do.end.critedge.i, %do.body.preheader.lr.ph.i
-  %i.032.i = phi i32 [ 0, %do.body.preheader.lr.ph.i ], [ %inc.i, %do.end.critedge.i ]
+do.body.preheader.i:                              ; preds = %do.end.i, %do.body.preheader.lr.ph.i
+  %i.034.i = phi i32 [ 0, %do.body.preheader.lr.ph.i ], [ %inc.i, %do.end.i ]
   br label %do.body.i
 
 do.body.i:                                        ; preds = %while.body.i.i, %do.body.preheader.i
@@ -146,13 +146,13 @@ PickVertex.exit23.i:                              ; preds = %PickVertex.exit23.i
   %edges.i.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.0.lcssa.i.i, i64 0, i32 1
   %edge.04.i.i = load ptr, ptr %edges.i.i, align 8, !tbaa !16
   %cmp.not5.i.i = icmp eq ptr %edge.04.i.i, null
-  br i1 %cmp.not5.i.i, label %do.end.critedge.i, label %while.body.i.i
+  br i1 %cmp.not5.i.i, label %do.end.i, label %while.body.i.i
 
 while.cond.i.i:                                   ; preds = %while.body.i.i
   %next.i24.i = getelementptr inbounds %struct._Edges, ptr %edge.06.i.i, i64 0, i32 3
   %edge.0.i.i = load ptr, ptr %next.i24.i, align 8, !tbaa !16
   %cmp.not.i.i = icmp eq ptr %edge.0.i.i, null
-  br i1 %cmp.not.i.i, label %do.end.critedge.i, label %while.body.i.i, !llvm.loop !17
+  br i1 %cmp.not.i.i, label %do.end.i, label %while.body.i.i, !llvm.loop !17
 
 while.body.i.i:                                   ; preds = %PickVertex.exit23.i, %while.cond.i.i
   %edge.06.i.i = phi ptr [ %edge.0.i.i, %while.cond.i.i ], [ %edge.04.i.i, %PickVertex.exit23.i ]
@@ -161,13 +161,13 @@ while.body.i.i:                                   ; preds = %PickVertex.exit23.i
   %cmp1.i.i = icmp eq ptr %24, %graph.addr.0.lcssa.i22.i
   br i1 %cmp1.i.i, label %do.body.i, label %while.cond.i.i, !llvm.loop !20
 
-do.end.critedge.i:                                ; preds = %PickVertex.exit23.i, %while.cond.i.i
+do.end.i:                                         ; preds = %PickVertex.exit23.i, %while.cond.i.i
   tail call void @Connect(ptr noundef %graph.addr.0.lcssa.i.i, ptr noundef %graph.addr.0.lcssa.i22.i)
-  %inc.i = add nuw nsw i32 %i.032.i, 1
-  %exitcond.not.i = icmp eq i32 %i.032.i, %sub
+  %inc.i = add nuw nsw i32 %i.034.i, 1
+  %exitcond.not.i = icmp eq i32 %i.034.i, %sub
   br i1 %exitcond.not.i, label %AddEdges.exit, label %do.body.preheader.i, !llvm.loop !21
 
-AddEdges.exit:                                    ; preds = %do.end.critedge.i, %entry
+AddEdges.exit:                                    ; preds = %do.end.i, %entry
   ret ptr %call
 }
 
@@ -338,15 +338,15 @@ for.end:                                          ; preds = %NewEdge.exit64, %Ne
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @AddEdges(ptr noundef returned %graph, i32 noundef %nVertex, i32 noundef %nEdge) local_unnamed_addr #0 {
 entry:
-  %cmp31 = icmp sgt i32 %nEdge, 0
-  br i1 %cmp31, label %do.body.preheader.lr.ph, label %for.end
+  %cmp33 = icmp sgt i32 %nEdge, 0
+  br i1 %cmp33, label %do.body.preheader.lr.ph, label %for.end
 
 do.body.preheader.lr.ph:                          ; preds = %entry
   %conv = sext i32 %nVertex to i64
   br label %do.body.preheader
 
-do.body.preheader:                                ; preds = %do.body.preheader.lr.ph, %do.end.critedge
-  %i.032 = phi i32 [ 0, %do.body.preheader.lr.ph ], [ %inc, %do.end.critedge ]
+do.body.preheader:                                ; preds = %do.body.preheader.lr.ph, %do.end
+  %i.034 = phi i32 [ 0, %do.body.preheader.lr.ph ], [ %inc, %do.end ]
   br label %do.body
 
 do.body:                                          ; preds = %while.body.i, %do.body.preheader
@@ -416,17 +416,17 @@ PickVertex.exit:                                  ; preds = %PickVertex.exit.loo
 for.body.i21.preheader:                           ; preds = %PickVertex.exit
   %12 = add i32 %11, -2
   %13 = add i32 %11, -1
-  %xtraiter58 = and i32 %13, 7
+  %xtraiter60 = and i32 %13, 7
   %14 = icmp ult i32 %12, 7
   br i1 %14, label %PickVertex.exit23.loopexit.unr-lcssa, label %for.body.i21.preheader.new
 
 for.body.i21.preheader.new:                       ; preds = %for.body.i21.preheader
-  %unroll_iter62 = and i32 %13, -8
+  %unroll_iter64 = and i32 %13, -8
   br label %for.body.i21
 
 for.body.i21:                                     ; preds = %for.body.i21, %for.body.i21.preheader.new
   %graph.addr.04.i17 = phi ptr [ %10, %for.body.i21.preheader.new ], [ %22, %for.body.i21 ]
-  %niter63 = phi i32 [ 0, %for.body.i21.preheader.new ], [ %niter63.next.7, %for.body.i21 ]
+  %niter65 = phi i32 [ 0, %for.body.i21.preheader.new ], [ %niter65.next.7, %for.body.i21 ]
   %next.i18 = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i17, i64 0, i32 2
   %15 = load ptr, ptr %next.i18, align 8, !tbaa !5
   %next.i18.1 = getelementptr inbounds %struct._Vertices, ptr %15, i64 0, i32 2
@@ -443,37 +443,37 @@ for.body.i21:                                     ; preds = %for.body.i21, %for.
   %21 = load ptr, ptr %next.i18.6, align 8, !tbaa !5
   %next.i18.7 = getelementptr inbounds %struct._Vertices, ptr %21, i64 0, i32 2
   %22 = load ptr, ptr %next.i18.7, align 8, !tbaa !5
-  %niter63.next.7 = add i32 %niter63, 8
-  %niter63.ncmp.7 = icmp eq i32 %niter63.next.7, %unroll_iter62
-  br i1 %niter63.ncmp.7, label %PickVertex.exit23.loopexit.unr-lcssa, label %for.body.i21, !llvm.loop !11
+  %niter65.next.7 = add i32 %niter65, 8
+  %niter65.ncmp.7 = icmp eq i32 %niter65.next.7, %unroll_iter64
+  br i1 %niter65.ncmp.7, label %PickVertex.exit23.loopexit.unr-lcssa, label %for.body.i21, !llvm.loop !11
 
 PickVertex.exit23.loopexit.unr-lcssa:             ; preds = %for.body.i21, %for.body.i21.preheader
-  %.lcssa52.ph = phi ptr [ undef, %for.body.i21.preheader ], [ %22, %for.body.i21 ]
+  %.lcssa54.ph = phi ptr [ undef, %for.body.i21.preheader ], [ %22, %for.body.i21 ]
   %graph.addr.04.i17.unr = phi ptr [ %10, %for.body.i21.preheader ], [ %22, %for.body.i21 ]
-  %lcmp.mod60.not = icmp eq i32 %xtraiter58, 0
-  br i1 %lcmp.mod60.not, label %PickVertex.exit23, label %for.body.i21.epil
+  %lcmp.mod62.not = icmp eq i32 %xtraiter60, 0
+  br i1 %lcmp.mod62.not, label %PickVertex.exit23, label %for.body.i21.epil
 
 for.body.i21.epil:                                ; preds = %PickVertex.exit23.loopexit.unr-lcssa, %for.body.i21.epil
   %graph.addr.04.i17.epil = phi ptr [ %23, %for.body.i21.epil ], [ %graph.addr.04.i17.unr, %PickVertex.exit23.loopexit.unr-lcssa ]
-  %epil.iter59 = phi i32 [ %epil.iter59.next, %for.body.i21.epil ], [ 0, %PickVertex.exit23.loopexit.unr-lcssa ]
+  %epil.iter61 = phi i32 [ %epil.iter61.next, %for.body.i21.epil ], [ 0, %PickVertex.exit23.loopexit.unr-lcssa ]
   %next.i18.epil = getelementptr inbounds %struct._Vertices, ptr %graph.addr.04.i17.epil, i64 0, i32 2
   %23 = load ptr, ptr %next.i18.epil, align 8, !tbaa !5
-  %epil.iter59.next = add i32 %epil.iter59, 1
-  %epil.iter59.cmp.not = icmp eq i32 %epil.iter59.next, %xtraiter58
-  br i1 %epil.iter59.cmp.not, label %PickVertex.exit23, label %for.body.i21.epil, !llvm.loop !31
+  %epil.iter61.next = add i32 %epil.iter61, 1
+  %epil.iter61.cmp.not = icmp eq i32 %epil.iter61.next, %xtraiter60
+  br i1 %epil.iter61.cmp.not, label %PickVertex.exit23, label %for.body.i21.epil, !llvm.loop !31
 
 PickVertex.exit23:                                ; preds = %PickVertex.exit23.loopexit.unr-lcssa, %for.body.i21.epil, %PickVertex.exit
-  %graph.addr.0.lcssa.i22 = phi ptr [ %10, %PickVertex.exit ], [ %.lcssa52.ph, %PickVertex.exit23.loopexit.unr-lcssa ], [ %23, %for.body.i21.epil ]
+  %graph.addr.0.lcssa.i22 = phi ptr [ %10, %PickVertex.exit ], [ %.lcssa54.ph, %PickVertex.exit23.loopexit.unr-lcssa ], [ %23, %for.body.i21.epil ]
   %edges.i = getelementptr inbounds %struct._Vertices, ptr %graph.addr.0.lcssa.i, i64 0, i32 1
   %edge.04.i = load ptr, ptr %edges.i, align 8, !tbaa !16
   %cmp.not5.i = icmp eq ptr %edge.04.i, null
-  br i1 %cmp.not5.i, label %do.end.critedge, label %while.body.i
+  br i1 %cmp.not5.i, label %do.end, label %while.body.i
 
 while.cond.i:                                     ; preds = %while.body.i
   %next.i24 = getelementptr inbounds %struct._Edges, ptr %edge.06.i, i64 0, i32 3
   %edge.0.i = load ptr, ptr %next.i24, align 8, !tbaa !16
   %cmp.not.i = icmp eq ptr %edge.0.i, null
-  br i1 %cmp.not.i, label %do.end.critedge, label %while.body.i, !llvm.loop !17
+  br i1 %cmp.not.i, label %do.end, label %while.body.i, !llvm.loop !17
 
 while.body.i:                                     ; preds = %PickVertex.exit23, %while.cond.i
   %edge.06.i = phi ptr [ %edge.0.i, %while.cond.i ], [ %edge.04.i, %PickVertex.exit23 ]
@@ -482,13 +482,13 @@ while.body.i:                                     ; preds = %PickVertex.exit23, 
   %cmp1.i = icmp eq ptr %24, %graph.addr.0.lcssa.i22
   br i1 %cmp1.i, label %do.body, label %while.cond.i, !llvm.loop !20
 
-do.end.critedge:                                  ; preds = %PickVertex.exit23, %while.cond.i
+do.end:                                           ; preds = %PickVertex.exit23, %while.cond.i
   tail call void @Connect(ptr noundef %graph.addr.0.lcssa.i, ptr noundef %graph.addr.0.lcssa.i22)
-  %inc = add nuw nsw i32 %i.032, 1
+  %inc = add nuw nsw i32 %i.034, 1
   %exitcond.not = icmp eq i32 %inc, %nEdge
   br i1 %exitcond.not, label %for.end, label %do.body.preheader, !llvm.loop !21
 
-for.end:                                          ; preds = %do.end.critedge, %entry
+for.end:                                          ; preds = %do.end, %entry
   ret ptr %graph
 }
 
@@ -753,11 +753,11 @@ while.end:                                        ; preds = %while.body, %entry
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #7
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
-
 ; Function Attrs: nofree nounwind
 declare noundef i32 @putchar(i32 noundef) local_unnamed_addr #7
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #8
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }

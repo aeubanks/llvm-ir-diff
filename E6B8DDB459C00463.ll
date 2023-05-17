@@ -273,49 +273,49 @@ if.end27:                                         ; preds = %if.else23, %if.then
 
 if.end29:                                         ; preds = %entry, %if.then10, %if.end27
   %6 = phi i8 [ %1, %entry ], [ %2, %if.then10 ], [ %.pre147, %if.end27 ]
-  %conv.i120133 = sext i8 %6 to i32
+  %conv.i122133 = sext i8 %6 to i32
   %7 = add i8 %6, -48
-  %or.cond.i121134 = icmp ult i8 %7, 10
-  %sub.i122135 = add nsw i32 %conv.i120133, -48
-  %spec.select.i123136 = select i1 %or.cond.i121134, i32 %sub.i122135, i32 -1
+  %or.cond.i123134 = icmp ult i8 %7, 10
+  %sub.i124135 = add nsw i32 %conv.i122133, -48
+  %spec.select.i125136 = select i1 %or.cond.i123134, i32 %sub.i124135, i32 -1
   %8 = add i8 %6, -65
-  %or.cond21.i124137 = icmp ult i8 %8, 26
-  %add.i125138 = add nsw i32 %conv.i120133, -55
-  %DIGIT.1.i126139 = select i1 %or.cond21.i124137, i32 %add.i125138, i32 %spec.select.i123136
-  %cmp17.not.i127140 = icmp sge i32 %DIGIT.1.i126139, %NUM_BASE
-  %cmp31.not129141 = icmp eq i32 %DIGIT.1.i126139, -1
-  %cmp31.not142 = or i1 %cmp17.not.i127140, %cmp31.not129141
+  %or.cond21.i126137 = icmp ult i8 %8, 26
+  %add.i127138 = add nsw i32 %conv.i122133, -55
+  %DIGIT.1.i128139 = select i1 %or.cond21.i126137, i32 %add.i127138, i32 %spec.select.i125136
+  %cmp17.not.i129140 = icmp sge i32 %DIGIT.1.i128139, %NUM_BASE
+  %cmp31.not132141 = icmp eq i32 %DIGIT.1.i128139, -1
+  %cmp31.not142 = or i1 %cmp17.not.i129140, %cmp31.not132141
   br i1 %cmp31.not142, label %while.end, label %land.rhs
 
 land.rhs:                                         ; preds = %if.end29, %while.body
-  %DIGIT.1.i126145 = phi i32 [ %DIGIT.1.i126, %while.body ], [ %DIGIT.1.i126139, %if.end29 ]
-  %conv.i120144 = phi i32 [ %conv.i120, %while.body ], [ %conv.i120133, %if.end29 ]
+  %DIGIT.1.i128145 = phi i32 [ %DIGIT.1.i128, %while.body ], [ %DIGIT.1.i128139, %if.end29 ]
+  %conv.i122144 = phi i32 [ %conv.i122, %while.body ], [ %conv.i122133, %if.end29 ]
   %CONVERT.0143 = phi i32 [ %CONVERT.1, %while.body ], [ 0, %if.end29 ]
-  %call34 = tail call i32 (i32, ...) @eoln(i32 noundef %conv.i120144) #16
+  %call34 = tail call i32 (i32, ...) @eoln(i32 noundef %conv.i122144) #16
   %tobool.not = icmp eq i32 %call34, 0
   br i1 %tobool.not, label %while.body, label %while.end
 
 while.body:                                       ; preds = %land.rhs
   %cmp35.not = icmp sgt i32 %CONVERT.0143, %conv1
   %mul38 = mul nsw i32 %CONVERT.0143, %NUM_BASE
-  %add = add nsw i32 %DIGIT.1.i126145, %mul38
+  %add = add nsw i32 %DIGIT.1.i128145, %mul38
   %CONVERT.1 = select i1 %cmp35.not, i32 %CONVERT.0143, i32 %add
   %9 = load ptr, ptr %CURRENT_CHAR, align 8, !tbaa !11
   %incdec.ptr40 = getelementptr inbounds i8, ptr %9, i64 1
   store ptr %incdec.ptr40, ptr %CURRENT_CHAR, align 8, !tbaa !11
   %10 = load i8, ptr %incdec.ptr40, align 1, !tbaa !5
-  %conv.i120 = sext i8 %10 to i32
+  %conv.i122 = sext i8 %10 to i32
   %11 = add i8 %10, -48
-  %or.cond.i121 = icmp ult i8 %11, 10
-  %sub.i122 = add nsw i32 %conv.i120, -48
-  %spec.select.i123 = select i1 %or.cond.i121, i32 %sub.i122, i32 -1
+  %or.cond.i123 = icmp ult i8 %11, 10
+  %sub.i124 = add nsw i32 %conv.i122, -48
+  %spec.select.i125 = select i1 %or.cond.i123, i32 %sub.i124, i32 -1
   %12 = add i8 %10, -65
-  %or.cond21.i124 = icmp ult i8 %12, 26
-  %add.i125 = add nsw i32 %conv.i120, -55
-  %DIGIT.1.i126 = select i1 %or.cond21.i124, i32 %add.i125, i32 %spec.select.i123
-  %cmp17.not.i127 = icmp sge i32 %DIGIT.1.i126, %NUM_BASE
-  %cmp31.not129 = icmp eq i32 %DIGIT.1.i126, -1
-  %cmp31.not = or i1 %cmp17.not.i127, %cmp31.not129
+  %or.cond21.i126 = icmp ult i8 %12, 26
+  %add.i127 = add nsw i32 %conv.i122, -55
+  %DIGIT.1.i128 = select i1 %or.cond21.i126, i32 %add.i127, i32 %spec.select.i125
+  %cmp17.not.i129 = icmp sge i32 %DIGIT.1.i128, %NUM_BASE
+  %cmp31.not132 = icmp eq i32 %DIGIT.1.i128, -1
+  %cmp31.not = or i1 %cmp17.not.i129, %cmp31.not132
   br i1 %cmp31.not, label %while.end, label %land.rhs, !llvm.loop !13
 
 while.end:                                        ; preds = %land.rhs, %while.body, %if.end29
@@ -325,8 +325,8 @@ while.end:                                        ; preds = %land.rhs, %while.bo
   %or.cond.not = xor i1 %or.cond, true
   %cmp47 = icmp slt i32 %CONVERT.0.lcssa, %conv1
   %or.cond79.not = or i1 %cmp, %cmp47
-  %or.cond132 = select i1 %or.cond.not, i1 %or.cond79.not, i1 false
-  br i1 %or.cond132, label %if.end77, label %if.then52
+  %or.cond121 = select i1 %or.cond.not, i1 %or.cond79.not, i1 false
+  br i1 %or.cond121, label %if.end77, label %if.then52
 
 if.then52:                                        ; preds = %while.end
   %13 = load ptr, ptr %CURRENT_CHAR, align 8, !tbaa !11
@@ -443,8 +443,8 @@ land.rhs:                                         ; preds = %if.then24, %while.b
   br i1 %tobool.not, label %while.body, label %land.rhs.while.end.loopexit_crit_edge
 
 land.rhs.while.end.loopexit_crit_edge:            ; preds = %land.rhs
-  %.pre206.pre = load i8, ptr %8, align 1, !tbaa !5
-  %9 = sext i8 %.pre206.pre to i32
+  %.pre225.pre = load i8, ptr %8, align 1, !tbaa !5
+  %9 = sext i8 %.pre225.pre to i32
   br label %while.end
 
 while.body:                                       ; preds = %land.rhs
@@ -455,8 +455,8 @@ while.body:                                       ; preds = %land.rhs
   br i1 %cmp32.not, label %while.end, label %land.rhs, !llvm.loop !16
 
 while.end:                                        ; preds = %while.body, %land.rhs.while.end.loopexit_crit_edge
-  %.pre206 = phi i32 [ %9, %land.rhs.while.end.loopexit_crit_edge ], [ 39, %while.body ]
-  %call37 = tail call i32 (i32, ...) @eoln(i32 noundef %.pre206) #16
+  %.pre225 = phi i32 [ %9, %land.rhs.while.end.loopexit_crit_edge ], [ 39, %while.body ]
+  %call37 = tail call i32 (i32, ...) @eoln(i32 noundef %.pre225) #16
   %tobool38.not = icmp eq i32 %call37, 0
   br i1 %tobool38.not, label %if.else, label %if.then39
 
@@ -529,11 +529,11 @@ if.else88:                                        ; preds = %if.else66
   %16 = load i32, ptr %WHAT_KIND, align 4, !tbaa !14
   %cmp89.not = icmp eq i32 %16, 2
   %TYPE100.phi.trans.insert = getelementptr inbounds %struct.SYMBOL_TABLE_ENTRY, ptr %call68, i64 0, i32 4
-  %.pre207 = load i32, ptr %TYPE100.phi.trans.insert, align 4, !tbaa !17
+  %.pre226 = load i32, ptr %TYPE100.phi.trans.insert, align 4, !tbaa !17
   br i1 %cmp89.not, label %land.lhs.true99, label %land.lhs.true91
 
 land.lhs.true91:                                  ; preds = %if.else88
-  %cmp92 = icmp eq i32 %.pre207, 1
+  %cmp92 = icmp eq i32 %.pre226, 1
   br i1 %cmp92, label %if.then94, label %if.else96
 
 if.then94:                                        ; preds = %land.lhs.true91
@@ -547,7 +547,7 @@ if.else96:                                        ; preds = %land.lhs.true91
   br i1 %cmp97.not, label %if.else128, label %land.lhs.true99
 
 land.lhs.true99:                                  ; preds = %if.else88, %if.else96
-  switch i32 %.pre207, label %if.else125 [
+  switch i32 %.pre226, label %if.else125 [
     i32 1, label %if.else128
     i32 2, label %if.then107
   ]
@@ -556,9 +556,99 @@ if.then107:                                       ; preds = %land.lhs.true99
   call void @llvm.lifetime.start.p0(i64 17, ptr nonnull %OUTPUT_LINE) #16
   call void @llvm.lifetime.start.p0(i64 9, ptr nonnull %FIX_LEN_NAME) #16
   call void @llvm.lifetime.start.p0(i64 3, ptr nonnull %LEN_STR) #16
-  call void @NUM_TO_STR(i32 noundef %LOCATION, i32 noundef 16, i32 noundef 6, ptr noundef nonnull %OUTPUT_LINE)
+  %arrayidx.i = getelementptr inbounds i8, ptr %OUTPUT_LINE, i64 6
+  store i8 0, ptr %arrayidx.i, align 2, !tbaa !5
+  %div.i = sdiv i32 %LOCATION, 16
+  %mul.i = shl nsw i32 %div.i, 4
+  %sub1.i = sub nsw i32 %LOCATION, %mul.i
+  %or.cond.i = icmp ult i32 %sub1.i, 10
+  %18 = trunc i32 %sub1.i to i8
+  %arrayidx8.i = getelementptr inbounds i8, ptr %OUTPUT_LINE, i64 5
+  %..i = select i1 %or.cond.i, i8 48, i8 55
+  %conv6.i = add i8 %..i, %18
+  store i8 %conv6.i, ptr %arrayidx8.i, align 1, !tbaa !5
+  %div.i.1 = sdiv i32 %LOCATION, 256
+  %mul.i.1 = shl nsw i32 %div.i.1, 4
+  %sub1.i.1 = sub nsw i32 %div.i, %mul.i.1
+  %or.cond.i.1 = icmp ult i32 %sub1.i.1, 10
+  %19 = trunc i32 %sub1.i.1 to i8
+  %arrayidx8.i.1 = getelementptr inbounds i8, ptr %OUTPUT_LINE, i64 4
+  %..i.1 = select i1 %or.cond.i.1, i8 48, i8 55
+  %conv6.i.1 = add i8 %..i.1, %19
+  store i8 %conv6.i.1, ptr %arrayidx8.i.1, align 4, !tbaa !5
+  %div.i.2 = sdiv i32 %LOCATION, 4096
+  %mul.i.2 = shl nsw i32 %div.i.2, 4
+  %sub1.i.2 = sub nsw i32 %div.i.1, %mul.i.2
+  %or.cond.i.2 = icmp ult i32 %sub1.i.2, 10
+  %20 = trunc i32 %sub1.i.2 to i8
+  %arrayidx8.i.2 = getelementptr inbounds i8, ptr %OUTPUT_LINE, i64 3
+  %..i.2 = select i1 %or.cond.i.2, i8 48, i8 55
+  %conv6.i.2 = add i8 %..i.2, %20
+  store i8 %conv6.i.2, ptr %arrayidx8.i.2, align 1, !tbaa !5
+  %div.i.3 = sdiv i32 %LOCATION, 65536
+  %mul.i.3 = shl nsw i32 %div.i.3, 4
+  %sub1.i.3 = sub nsw i32 %div.i.2, %mul.i.3
+  %or.cond.i.3 = icmp ult i32 %sub1.i.3, 10
+  %21 = trunc i32 %sub1.i.3 to i8
+  %arrayidx8.i.3 = getelementptr inbounds i8, ptr %OUTPUT_LINE, i64 2
+  %..i.3 = select i1 %or.cond.i.3, i8 48, i8 55
+  %conv6.i.3 = add i8 %..i.3, %21
+  store i8 %conv6.i.3, ptr %arrayidx8.i.3, align 2, !tbaa !5
+  %div.i.4 = sdiv i32 %LOCATION, 1048576
+  %mul.i.4 = shl nsw i32 %div.i.4, 4
+  %sub1.i.4 = sub nsw i32 %div.i.3, %mul.i.4
+  %or.cond.i.4 = icmp ult i32 %sub1.i.4, 10
+  %22 = trunc i32 %sub1.i.4 to i8
+  %arrayidx8.i.4 = getelementptr inbounds i8, ptr %OUTPUT_LINE, i64 1
+  %..i.4 = select i1 %or.cond.i.4, i8 48, i8 55
+  %conv6.i.4 = add i8 %..i.4, %22
+  store i8 %conv6.i.4, ptr %arrayidx8.i.4, align 1, !tbaa !5
+  %div.i.5.neg = sdiv i32 %LOCATION, -16777216
+  %mul.i.5.neg = shl nsw i32 %div.i.5.neg, 4
+  %sub1.i.5 = add i32 %mul.i.5.neg, %div.i.4
+  %or.cond.i.5 = icmp ult i32 %sub1.i.5, 10
+  %23 = trunc i32 %sub1.i.5 to i8
+  %..i.5 = select i1 %or.cond.i.5, i8 48, i8 55
+  %conv6.i.5 = add i8 %..i.5, %23
+  store i8 %conv6.i.5, ptr %OUTPUT_LINE, align 16, !tbaa !5
+  %NUM.addr.036.i.off = add nsw i32 %div.i.4, 15
+  %cmp16.not.i = icmp ult i32 %NUM.addr.036.i.off, 31
+  br i1 %cmp16.not.i, label %NUM_TO_STR.exit, label %if.then18.i
+
+if.then18.i:                                      ; preds = %if.then107
+  %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %NUM_TO_STR.exit
+
+NUM_TO_STR.exit:                                  ; preds = %if.then107, %if.then18.i
   %div = sdiv i32 %BITS, 4
-  call void @NUM_TO_STR(i32 noundef %div, i32 noundef 16, i32 noundef 2, ptr noundef nonnull %LEN_STR)
+  %arrayidx.i202 = getelementptr inbounds i8, ptr %LEN_STR, i64 2
+  store i8 0, ptr %arrayidx.i202, align 1, !tbaa !5
+  %div.i206 = sdiv i32 %BITS, 64
+  %mul.i207 = shl nsw i32 %div.i206, 4
+  %sub1.i208 = sub nsw i32 %div, %mul.i207
+  %or.cond.i209 = icmp ult i32 %sub1.i208, 10
+  %24 = trunc i32 %sub1.i208 to i8
+  %arrayidx8.i211 = getelementptr inbounds i8, ptr %LEN_STR, i64 1
+  %..i212 = select i1 %or.cond.i209, i8 48, i8 55
+  %conv6.i213 = add i8 %..i212, %24
+  store i8 %conv6.i213, ptr %arrayidx8.i211, align 1, !tbaa !5
+  %div.i206.1.neg = sdiv i32 %BITS, -1024
+  %mul.i207.1.neg = shl nsw i32 %div.i206.1.neg, 4
+  %sub1.i208.1 = add i32 %mul.i207.1.neg, %div.i206
+  %or.cond.i209.1 = icmp ult i32 %sub1.i208.1, 10
+  %25 = trunc i32 %sub1.i208.1 to i8
+  %..i212.1 = select i1 %or.cond.i209.1, i8 48, i8 55
+  %conv6.i213.1 = add i8 %..i212.1, %25
+  store i8 %conv6.i213.1, ptr %LEN_STR, align 1, !tbaa !5
+  %NUM.addr.036.i204.off = add nsw i32 %div.i206, 15
+  %cmp16.not.i216 = icmp ult i32 %NUM.addr.036.i204.off, 31
+  br i1 %cmp16.not.i216, label %NUM_TO_STR.exit220, label %if.then18.i219
+
+if.then18.i219:                                   ; preds = %NUM_TO_STR.exit
+  %puts.i218 = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  br label %NUM_TO_STR.exit220
+
+NUM_TO_STR.exit220:                               ; preds = %NUM_TO_STR.exit, %if.then18.i219
   %call112 = call ptr @strcat(ptr noundef nonnull dereferenceable(1) %OUTPUT_LINE, ptr noundef nonnull dereferenceable(1) %LEN_STR) #16
   %strlen = call i64 @strlen(ptr nonnull dereferenceable(1) %OUTPUT_LINE)
   %endptr = getelementptr inbounds i8, ptr %OUTPUT_LINE, i64 %strlen
@@ -580,24 +670,24 @@ if.else125:                                       ; preds = %land.lhs.true99
   store i32 2, ptr %WHAT_KIND, align 4, !tbaa !14
   br label %if.end126
 
-if.end126:                                        ; preds = %if.else125, %if.then107
+if.end126:                                        ; preds = %if.else125, %NUM_TO_STR.exit220
   %LOCATION127 = getelementptr inbounds %struct.SYMBOL_TABLE_ENTRY, ptr %call68, i64 0, i32 2
-  %18 = load i32, ptr %LOCATION127, align 4, !tbaa !19
+  %26 = load i32, ptr %LOCATION127, align 4, !tbaa !19
   br label %cleanup
 
 if.else128:                                       ; preds = %land.lhs.true99, %if.else96
-  %cmp97.not204 = phi ptr [ @.str.16, %land.lhs.true99 ], [ @.str.15, %if.else96 ]
+  %cmp97.not223 = phi ptr [ @.str.16, %land.lhs.true99 ], [ @.str.15, %if.else96 ]
   %call131 = call i64 @strlen(ptr noundef nonnull dereferenceable(1) %LABEL_NAME) #17
   %conv133 = add i64 %call131, 80
   %conv134 = and i64 %conv133, 4294967295
   %call135 = call noalias ptr @malloc(i64 noundef %conv134) #18
-  %call143 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call135, ptr noundef nonnull dereferenceable(1) %cmp97.not204, ptr noundef nonnull %LABEL_NAME) #16
+  %call143 = call i32 (ptr, ptr, ...) @sprintf(ptr noundef nonnull dereferenceable(1) %call135, ptr noundef nonnull dereferenceable(1) %cmp97.not223, ptr noundef nonnull %LABEL_NAME) #16
   call void (ptr, ptr, ...) @ADD_TO_END_OF_BUFFER(ptr noundef nonnull @ERROR_REC_BUF, ptr noundef %call135) #16
   call void @free(ptr noundef %call135) #16
   br label %cleanup
 
 cleanup:                                          ; preds = %if.then58, %if.else128, %if.then71, %if.end126, %if.then94
-  %retval.0 = phi i32 [ %17, %if.then94 ], [ %18, %if.end126 ], [ 0, %if.then71 ], [ 0, %if.else128 ], [ 0, %if.then58 ]
+  %retval.0 = phi i32 [ %17, %if.then94 ], [ %26, %if.end126 ], [ 0, %if.then71 ], [ 0, %if.else128 ], [ 0, %if.then58 ]
   call void @llvm.lifetime.end.p0(i64 9, ptr nonnull %LABEL_NAME) #16
   br label %cleanup150
 

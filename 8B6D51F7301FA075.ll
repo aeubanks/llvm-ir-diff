@@ -83,8 +83,8 @@ entry:
   store double 4.000000e+00, ptr @four, align 8, !tbaa !5
   store double 5.000000e+00, ptr @five, align 8, !tbaa !5
   store double 1.000000e+00, ptr @scale, align 8, !tbaa !5
-  %puts833 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
-  %puts834 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+  %puts749 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  %puts750 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
   %0 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
   %call.i = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %1 = load i64, ptr @tnow, align 8, !tbaa !9
@@ -95,15 +95,15 @@ entry:
   store double %3, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
   %sub.i = fsub double %3, %0
   store double %sub.i, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
-  %call.i749 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i753 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %4 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i750 = sitofp i64 %4 to double
+  %conv.i754 = sitofp i64 %4 to double
   %5 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i751 = sitofp i64 %5 to double
-  %6 = tail call double @llvm.fmuladd.f64(double %conv1.i751, double 0x3EB0C6F7A0B5ED8D, double %conv.i750)
+  %conv1.i755 = sitofp i64 %5 to double
+  %6 = tail call double @llvm.fmuladd.f64(double %conv1.i755, double 0x3EB0C6F7A0B5ED8D, double %conv.i754)
   store double %6, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i752 = fsub double %6, %3
-  store double %sub.i752, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i756 = fsub double %6, %3
+  store double %sub.i756, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   store double 0.000000e+00, ptr @sa, align 8, !tbaa !5
   %7 = load double, ptr @TLimit, align 8, !tbaa !5
   %cmp841 = fcmp ogt double %7, 0.000000e+00
@@ -116,15 +116,15 @@ for.body.lr.ph:                                   ; preds = %entry, %for.end
   %conv7 = sitofp i64 %mul to double
   %9 = load double, ptr @one, align 8, !tbaa !5
   %div8 = fdiv double %9, %conv7
-  %call.i753 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i757 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %10 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i754 = sitofp i64 %10 to double
+  %conv.i758 = sitofp i64 %10 to double
   %11 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i755 = sitofp i64 %11 to double
-  %12 = tail call double @llvm.fmuladd.f64(double %conv1.i755, double 0x3EB0C6F7A0B5ED8D, double %conv.i754)
+  %conv1.i759 = sitofp i64 %11 to double
+  %12 = tail call double @llvm.fmuladd.f64(double %conv1.i759, double 0x3EB0C6F7A0B5ED8D, double %conv.i758)
   store double %12, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i756 = fsub double %12, %8
-  store double %sub.i756, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i760 = fsub double %12, %8
+  store double %sub.i760, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %13 = load double, ptr @D1, align 8, !tbaa !5
   %14 = load double, ptr @D2, align 8, !tbaa !5
   %15 = load double, ptr @D3, align 8, !tbaa !5
@@ -159,19 +159,19 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !13
 
 for.end:                                          ; preds = %for.body
-  %call.i757 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i761 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %31 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i758 = sitofp i64 %31 to double
+  %conv.i762 = sitofp i64 %31 to double
   %32 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i759 = sitofp i64 %32 to double
-  %33 = tail call double @llvm.fmuladd.f64(double %conv1.i759, double 0x3EB0C6F7A0B5ED8D, double %conv.i758)
+  %conv1.i763 = sitofp i64 %32 to double
+  %33 = tail call double @llvm.fmuladd.f64(double %conv1.i763, double 0x3EB0C6F7A0B5ED8D, double %conv.i762)
   store double %33, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i760 = fsub double %33, %12
-  store double %sub.i760, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
-  store double %sub.i760, ptr @sa, align 8, !tbaa !5
+  %sub.i764 = fsub double %33, %12
+  store double %sub.i764, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  store double %sub.i764, ptr @sa, align 8, !tbaa !5
   %cmp21 = icmp ne i64 %n.0842, 256000000
   %34 = load double, ptr @TLimit, align 8
-  %cmp = fcmp olt double %sub.i760, %34
+  %cmp = fcmp olt double %sub.i764, %34
   %or.cond = select i1 %cmp21, i1 %cmp, i1 false
   br i1 %or.cond, label %for.body.lr.ph, label %while.end, !llvm.loop !15
 
@@ -181,31 +181,31 @@ while.end:                                        ; preds = %for.end, %entry
   %s.2 = phi double [ undef, %entry ], [ %add19, %for.end ]
   store double 1.589500e-02, ptr @scale, align 8, !tbaa !5
   store double 1.589500e-02, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
-  %call.i761 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
-  %36 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i762 = sitofp i64 %36 to double
-  %37 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i763 = sitofp i64 %37 to double
-  %38 = tail call double @llvm.fmuladd.f64(double %conv1.i763, double 0x3EB0C6F7A0B5ED8D, double %conv.i762)
-  store double %38, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i764 = fsub double %38, %35
-  store double %sub.i764, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %call.i765 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
-  %39 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i766 = sitofp i64 %39 to double
-  %40 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i767 = sitofp i64 %40 to double
-  %41 = tail call double @llvm.fmuladd.f64(double %conv1.i767, double 0x3EB0C6F7A0B5ED8D, double %conv.i766)
-  store double %41, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i768 = fsub double %41, %38
+  %36 = load i64, ptr @tnow, align 8, !tbaa !9
+  %conv.i766 = sitofp i64 %36 to double
+  %37 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
+  %conv1.i767 = sitofp i64 %37 to double
+  %38 = tail call double @llvm.fmuladd.f64(double %conv1.i767, double 0x3EB0C6F7A0B5ED8D, double %conv.i766)
+  store double %38, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
+  %sub.i768 = fsub double %38, %35
   store double %sub.i768, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %call.i769 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %39 = load i64, ptr @tnow, align 8, !tbaa !9
+  %conv.i770 = sitofp i64 %39 to double
+  %40 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
+  %conv1.i771 = sitofp i64 %40 to double
+  %41 = tail call double @llvm.fmuladd.f64(double %conv1.i771, double 0x3EB0C6F7A0B5ED8D, double %conv.i770)
+  store double %41, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
+  %sub.i772 = fsub double %41, %38
+  store double %sub.i772, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %42 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
-  %mul33 = fmul double %42, %sub.i768
+  %mul33 = fmul double %42, %sub.i772
   %cmp34 = fcmp olt double %mul33, 0.000000e+00
-  %storemerge836 = select i1 %cmp34, double 0.000000e+00, double %mul33
-  store double %storemerge836, ptr @nulltime, align 8, !tbaa !5
+  %storemerge752 = select i1 %cmp34, double 0.000000e+00, double %mul33
+  store double %storemerge752, ptr @nulltime, align 8, !tbaa !5
   %43 = load double, ptr @sa, align 8, !tbaa !5
-  %neg = fneg double %storemerge836
+  %neg = fneg double %storemerge752
   %44 = tail call double @llvm.fmuladd.f64(double %42, double %43, double %neg)
   store double %44, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 2), align 16, !tbaa !5
   %45 = load double, ptr @D1, align 8, !tbaa !5
@@ -250,15 +250,15 @@ while.end:                                        ; preds = %for.end, %entry
   %fneg62 = fneg double %55
   store double %fneg62, ptr @sa, align 8, !tbaa !5
   %56 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %call.i769 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i773 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %57 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i770 = sitofp i64 %57 to double
+  %conv.i774 = sitofp i64 %57 to double
   %58 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i771 = sitofp i64 %58 to double
-  %59 = tail call double @llvm.fmuladd.f64(double %conv1.i771, double 0x3EB0C6F7A0B5ED8D, double %conv.i770)
+  %conv1.i775 = sitofp i64 %58 to double
+  %59 = tail call double @llvm.fmuladd.f64(double %conv1.i775, double 0x3EB0C6F7A0B5ED8D, double %conv.i774)
   store double %59, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i772 = fsub double %59, %56
-  store double %sub.i772, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i776 = fsub double %59, %56
+  store double %sub.i776, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %cmp65.not850 = icmp slt i64 %conv55, 1
   br i1 %cmp65.not850, label %for.end72, label %for.body67.preheader
 
@@ -311,32 +311,32 @@ for.cond64.for.end72_crit_edge:                   ; preds = %for.body67.epil, %f
 
 for.end72:                                        ; preds = %for.cond64.for.end72_crit_edge, %while.end
   %s.3.lcssa = phi double [ %fneg68.lcssa, %for.cond64.for.end72_crit_edge ], [ %fneg, %while.end ]
-  %call.i773 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i777 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %61 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i774 = sitofp i64 %61 to double
+  %conv.i778 = sitofp i64 %61 to double
   %62 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i775 = sitofp i64 %62 to double
-  %63 = tail call double @llvm.fmuladd.f64(double %conv1.i775, double 0x3EB0C6F7A0B5ED8D, double %conv.i774)
+  %conv1.i779 = sitofp i64 %62 to double
+  %63 = tail call double @llvm.fmuladd.f64(double %conv1.i779, double 0x3EB0C6F7A0B5ED8D, double %conv.i778)
   store double %63, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i776 = fsub double %63, %59
-  store double %sub.i776, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i780 = fsub double %63, %59
+  store double %sub.i780, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %64 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
-  %mul74 = fmul double %64, %sub.i776
+  %mul74 = fmul double %64, %sub.i780
   %cmp75 = fcmp olt double %mul74, 0.000000e+00
   %storemerge = select i1 %cmp75, double 0.000000e+00, double %mul74
   store double %storemerge, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 5), align 8, !tbaa !5
   %conv79 = sitofp i64 %conv55 to double
   store double %conv79, ptr @sc, align 8, !tbaa !5
   %65 = load double, ptr @sa, align 8, !tbaa !5
-  %call.i777 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i781 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %66 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i778 = sitofp i64 %66 to double
+  %conv.i782 = sitofp i64 %66 to double
   %67 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i779 = sitofp i64 %67 to double
-  %68 = tail call double @llvm.fmuladd.f64(double %conv1.i779, double 0x3EB0C6F7A0B5ED8D, double %conv.i778)
+  %conv1.i783 = sitofp i64 %67 to double
+  %68 = tail call double @llvm.fmuladd.f64(double %conv1.i783, double 0x3EB0C6F7A0B5ED8D, double %conv.i782)
   store double %68, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i780 = fsub double %68, %63
-  store double %sub.i780, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i784 = fsub double %68, %63
+  store double %sub.i784, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   br i1 %cmp65.not850, label %for.end96, label %for.body84.lr.ph
 
 for.body84.lr.ph:                                 ; preds = %for.end72
@@ -412,17 +412,17 @@ for.end96:                                        ; preds = %for.cond81.for.end9
   %v.1.lcssa = phi double [ %.lcssa914, %for.cond81.for.end96_crit_edge ], [ 0.000000e+00, %for.end72 ]
   %w.0.lcssa = phi double [ %add93.lcssa, %for.cond81.for.end96_crit_edge ], [ 0.000000e+00, %for.end72 ]
   %x.2.lcssa = phi double [ %add89.lcssa, %for.cond81.for.end96_crit_edge ], [ 0.000000e+00, %for.end72 ]
-  %call.i781 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i785 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %77 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i782 = sitofp i64 %77 to double
+  %conv.i786 = sitofp i64 %77 to double
   %78 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i783 = sitofp i64 %78 to double
-  %79 = tail call double @llvm.fmuladd.f64(double %conv1.i783, double 0x3EB0C6F7A0B5ED8D, double %conv.i782)
+  %conv1.i787 = sitofp i64 %78 to double
+  %79 = tail call double @llvm.fmuladd.f64(double %conv1.i787, double 0x3EB0C6F7A0B5ED8D, double %conv.i786)
   store double %79, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i784 = fsub double %79, %68
-  store double %sub.i784, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i788 = fsub double %79, %68
+  store double %sub.i788, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %80 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
-  %mul98 = fmul double %80, %sub.i784
+  %mul98 = fmul double %80, %sub.i788
   store double %mul98, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 6), align 16, !tbaa !5
   %81 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 5), align 8, !tbaa !5
   %sub99 = fsub double %mul98, %81
@@ -469,15 +469,15 @@ for.end96:                                        ; preds = %for.cond81.for.end9
   %mul120 = fmul double %96, %conv119
   %div121 = fdiv double %95, %mul120
   %97 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %call.i785 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i789 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %98 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i786 = sitofp i64 %98 to double
+  %conv.i790 = sitofp i64 %98 to double
   %99 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i787 = sitofp i64 %99 to double
-  %100 = tail call double @llvm.fmuladd.f64(double %conv1.i787, double 0x3EB0C6F7A0B5ED8D, double %conv.i786)
+  %conv1.i791 = sitofp i64 %99 to double
+  %100 = tail call double @llvm.fmuladd.f64(double %conv1.i791, double 0x3EB0C6F7A0B5ED8D, double %conv.i790)
   store double %100, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i788 = fsub double %100, %97
-  store double %sub.i788, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i792 = fsub double %100, %97
+  store double %sub.i792, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %cmp125.not.not868 = icmp sgt i64 %conv103, 1
   br i1 %cmp125.not.not868, label %for.body127.lr.ph, label %for.end142
 
@@ -513,19 +513,19 @@ for.body127:                                      ; preds = %for.body127.lr.ph, 
 
 for.end142:                                       ; preds = %for.body127, %for.end96
   %s.5.lcssa = phi double [ 0.000000e+00, %for.end96 ], [ %114, %for.body127 ]
-  %call.i789 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i793 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %115 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i790 = sitofp i64 %115 to double
+  %conv.i794 = sitofp i64 %115 to double
   %116 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i791 = sitofp i64 %116 to double
-  %117 = tail call double @llvm.fmuladd.f64(double %conv1.i791, double 0x3EB0C6F7A0B5ED8D, double %conv.i790)
+  %conv1.i795 = sitofp i64 %116 to double
+  %117 = tail call double @llvm.fmuladd.f64(double %conv1.i795, double 0x3EB0C6F7A0B5ED8D, double %conv.i794)
   store double %117, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i792 = fsub double %117, %100
-  store double %sub.i792, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i796 = fsub double %117, %100
+  store double %sub.i796, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %118 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
   %119 = load double, ptr @nulltime, align 8, !tbaa !5
   %neg145 = fneg double %119
-  %120 = tail call double @llvm.fmuladd.f64(double %118, double %sub.i792, double %neg145)
+  %120 = tail call double @llvm.fmuladd.f64(double %118, double %sub.i796, double %neg145)
   store double %120, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 9), align 8, !tbaa !5
   %121 = load double, ptr @piref, align 8, !tbaa !5
   %122 = load double, ptr @three, align 8, !tbaa !5
@@ -574,15 +574,15 @@ for.end142:                                       ; preds = %for.body127, %for.e
   %mul170 = fmul double %141, %conv119
   %div171 = fdiv double %140, %mul170
   %142 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %call.i793 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i797 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %143 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i794 = sitofp i64 %143 to double
+  %conv.i798 = sitofp i64 %143 to double
   %144 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i795 = sitofp i64 %144 to double
-  %145 = tail call double @llvm.fmuladd.f64(double %conv1.i795, double 0x3EB0C6F7A0B5ED8D, double %conv.i794)
+  %conv1.i799 = sitofp i64 %144 to double
+  %145 = tail call double @llvm.fmuladd.f64(double %conv1.i799, double 0x3EB0C6F7A0B5ED8D, double %conv.i798)
   store double %145, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i796 = fsub double %145, %142
-  store double %sub.i796, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i800 = fsub double %145, %142
+  store double %sub.i800, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   br i1 %cmp125.not.not868, label %for.body177.lr.ph, label %for.end190
 
 for.body177.lr.ph:                                ; preds = %for.end142
@@ -614,19 +614,19 @@ for.body177:                                      ; preds = %for.body177.lr.ph, 
 
 for.end190:                                       ; preds = %for.body177, %for.end142
   %s.6.lcssa = phi double [ 0.000000e+00, %for.end142 ], [ %add187, %for.body177 ]
-  %call.i797 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i801 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %159 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i798 = sitofp i64 %159 to double
+  %conv.i802 = sitofp i64 %159 to double
   %160 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i799 = sitofp i64 %160 to double
-  %161 = tail call double @llvm.fmuladd.f64(double %conv1.i799, double 0x3EB0C6F7A0B5ED8D, double %conv.i798)
+  %conv1.i803 = sitofp i64 %160 to double
+  %161 = tail call double @llvm.fmuladd.f64(double %conv1.i803, double 0x3EB0C6F7A0B5ED8D, double %conv.i802)
   store double %161, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i800 = fsub double %161, %145
-  store double %sub.i800, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i804 = fsub double %161, %145
+  store double %sub.i804, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %162 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
   %163 = load double, ptr @nulltime, align 8, !tbaa !5
   %neg193 = fneg double %163
-  %164 = tail call double @llvm.fmuladd.f64(double %162, double %sub.i800, double %neg193)
+  %164 = tail call double @llvm.fmuladd.f64(double %162, double %sub.i804, double %neg193)
   store double %164, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 12), align 16, !tbaa !5
   %165 = load double, ptr @piref, align 8, !tbaa !5
   %166 = load double, ptr @three, align 8, !tbaa !5
@@ -681,15 +681,15 @@ for.end190:                                       ; preds = %for.body177, %for.e
   %mul223 = fmul double %196, %conv119
   %div224 = fdiv double %195, %mul223
   %197 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %call.i801 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i805 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %198 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i802 = sitofp i64 %198 to double
+  %conv.i806 = sitofp i64 %198 to double
   %199 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i803 = sitofp i64 %199 to double
-  %200 = tail call double @llvm.fmuladd.f64(double %conv1.i803, double 0x3EB0C6F7A0B5ED8D, double %conv.i802)
+  %conv1.i807 = sitofp i64 %199 to double
+  %200 = tail call double @llvm.fmuladd.f64(double %conv1.i807, double 0x3EB0C6F7A0B5ED8D, double %conv.i806)
   store double %200, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i804 = fsub double %200, %197
-  store double %sub.i804, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i808 = fsub double %200, %197
+  store double %sub.i808, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   br i1 %cmp125.not.not868, label %for.body230.lr.ph, label %for.end251
 
 for.body230.lr.ph:                                ; preds = %for.end190
@@ -735,19 +735,19 @@ for.body230:                                      ; preds = %for.body230.lr.ph, 
 
 for.end251:                                       ; preds = %for.body230, %for.end190
   %s.7.lcssa = phi double [ 0.000000e+00, %for.end190 ], [ %add248, %for.body230 ]
-  %call.i805 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i809 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %226 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i806 = sitofp i64 %226 to double
+  %conv.i810 = sitofp i64 %226 to double
   %227 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i807 = sitofp i64 %227 to double
-  %228 = tail call double @llvm.fmuladd.f64(double %conv1.i807, double 0x3EB0C6F7A0B5ED8D, double %conv.i806)
+  %conv1.i811 = sitofp i64 %227 to double
+  %228 = tail call double @llvm.fmuladd.f64(double %conv1.i811, double 0x3EB0C6F7A0B5ED8D, double %conv.i810)
   store double %228, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i808 = fsub double %228, %200
-  store double %sub.i808, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i812 = fsub double %228, %200
+  store double %sub.i812, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %229 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
   %230 = load double, ptr @nulltime, align 8, !tbaa !5
   %neg254 = fneg double %230
-  %231 = tail call double @llvm.fmuladd.f64(double %229, double %sub.i808, double %neg254)
+  %231 = tail call double @llvm.fmuladd.f64(double %229, double %sub.i812, double %neg254)
   store double %231, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 15), align 8, !tbaa !5
   %232 = load double, ptr @piref, align 8, !tbaa !5
   %233 = load double, ptr @three, align 8, !tbaa !5
@@ -801,15 +801,15 @@ for.end251:                                       ; preds = %for.body230, %for.e
   %mul282 = fmul double %262, %conv119
   %div283 = fdiv double %261, %mul282
   %263 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %call.i809 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i813 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %264 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i810 = sitofp i64 %264 to double
+  %conv.i814 = sitofp i64 %264 to double
   %265 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i811 = sitofp i64 %265 to double
-  %266 = tail call double @llvm.fmuladd.f64(double %conv1.i811, double 0x3EB0C6F7A0B5ED8D, double %conv.i810)
+  %conv1.i815 = sitofp i64 %265 to double
+  %266 = tail call double @llvm.fmuladd.f64(double %conv1.i815, double 0x3EB0C6F7A0B5ED8D, double %conv.i814)
   store double %266, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i812 = fsub double %266, %263
-  store double %sub.i812, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i816 = fsub double %266, %263
+  store double %sub.i816, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   br i1 %cmp125.not.not868, label %for.body289.lr.ph, label %for.end309
 
 for.body289.lr.ph:                                ; preds = %for.end251
@@ -854,19 +854,19 @@ for.body289:                                      ; preds = %for.body289.lr.ph, 
 
 for.end309:                                       ; preds = %for.body289, %for.end251
   %s.8.lcssa = phi double [ 0.000000e+00, %for.end251 ], [ %292, %for.body289 ]
-  %call.i813 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i817 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %293 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i814 = sitofp i64 %293 to double
+  %conv.i818 = sitofp i64 %293 to double
   %294 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i815 = sitofp i64 %294 to double
-  %295 = tail call double @llvm.fmuladd.f64(double %conv1.i815, double 0x3EB0C6F7A0B5ED8D, double %conv.i814)
+  %conv1.i819 = sitofp i64 %294 to double
+  %295 = tail call double @llvm.fmuladd.f64(double %conv1.i819, double 0x3EB0C6F7A0B5ED8D, double %conv.i818)
   store double %295, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i816 = fsub double %295, %266
-  store double %sub.i816, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i820 = fsub double %295, %266
+  store double %sub.i820, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %296 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
   %297 = load double, ptr @nulltime, align 8, !tbaa !5
   %neg312 = fneg double %297
-  %298 = tail call double @llvm.fmuladd.f64(double %296, double %sub.i816, double %neg312)
+  %298 = tail call double @llvm.fmuladd.f64(double %296, double %sub.i820, double %neg312)
   store double %298, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 18), align 16, !tbaa !5
   %299 = load double, ptr @piref, align 8, !tbaa !5
   %300 = load double, ptr @four, align 8, !tbaa !5
@@ -919,15 +919,15 @@ for.end309:                                       ; preds = %for.body289, %for.e
   store double 0x40599541F7F192A4, ptr @sa, align 8, !tbaa !5
   %div340 = fdiv double 0x40599541F7F192A4, %conv119
   %329 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %call.i817 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i821 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %330 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i818 = sitofp i64 %330 to double
+  %conv.i822 = sitofp i64 %330 to double
   %331 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i819 = sitofp i64 %331 to double
-  %332 = tail call double @llvm.fmuladd.f64(double %conv1.i819, double 0x3EB0C6F7A0B5ED8D, double %conv.i818)
+  %conv1.i823 = sitofp i64 %331 to double
+  %332 = tail call double @llvm.fmuladd.f64(double %conv1.i823, double 0x3EB0C6F7A0B5ED8D, double %conv.i822)
   store double %332, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i820 = fsub double %332, %329
-  store double %sub.i820, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i824 = fsub double %332, %329
+  store double %sub.i824, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   br i1 %cmp125.not.not868, label %for.body346, label %for.end361
 
 for.body346:                                      ; preds = %for.end309, %for.body346
@@ -956,19 +956,19 @@ for.body346:                                      ; preds = %for.end309, %for.bo
 
 for.end361:                                       ; preds = %for.body346, %for.end309
   %s.9.lcssa = phi double [ 0.000000e+00, %for.end309 ], [ %sub358, %for.body346 ]
-  %call.i821 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i825 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %341 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i822 = sitofp i64 %341 to double
+  %conv.i826 = sitofp i64 %341 to double
   %342 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i823 = sitofp i64 %342 to double
-  %343 = tail call double @llvm.fmuladd.f64(double %conv1.i823, double 0x3EB0C6F7A0B5ED8D, double %conv.i822)
+  %conv1.i827 = sitofp i64 %342 to double
+  %343 = tail call double @llvm.fmuladd.f64(double %conv1.i827, double 0x3EB0C6F7A0B5ED8D, double %conv.i826)
   store double %343, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i824 = fsub double %343, %332
-  store double %sub.i824, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i828 = fsub double %343, %332
+  store double %sub.i828, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %344 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
   %345 = load double, ptr @nulltime, align 8, !tbaa !5
   %neg364 = fneg double %345
-  %346 = tail call double @llvm.fmuladd.f64(double %344, double %sub.i824, double %neg364)
+  %346 = tail call double @llvm.fmuladd.f64(double %344, double %sub.i828, double %neg364)
   store double %346, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 21), align 8, !tbaa !5
   %div365 = fdiv double %346, 1.200000e+01
   store double %div365, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 22), align 16, !tbaa !5
@@ -1015,15 +1015,15 @@ for.end361:                                       ; preds = %for.body346, %for.e
   %mul392 = fmul double %363, %conv391
   %div393 = fdiv double %362, %mul392
   %364 = load double, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %call.i825 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i829 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %365 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i826 = sitofp i64 %365 to double
+  %conv.i830 = sitofp i64 %365 to double
   %366 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i827 = sitofp i64 %366 to double
-  %367 = tail call double @llvm.fmuladd.f64(double %conv1.i827, double 0x3EB0C6F7A0B5ED8D, double %conv.i826)
+  %conv1.i831 = sitofp i64 %366 to double
+  %367 = tail call double @llvm.fmuladd.f64(double %conv1.i831, double 0x3EB0C6F7A0B5ED8D, double %conv.i830)
   store double %367, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i828 = fsub double %367, %364
-  store double %sub.i828, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i832 = fsub double %367, %364
+  store double %sub.i832, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %cmp397.not.not889 = icmp sgt i64 %conv384, 1
   br i1 %cmp397.not.not889, label %for.body399.lr.ph, label %for.end420
 
@@ -1070,19 +1070,19 @@ for.body399:                                      ; preds = %for.body399.lr.ph, 
 
 for.end420:                                       ; preds = %for.body399, %for.end361
   %s.10.lcssa = phi double [ 0.000000e+00, %for.end361 ], [ %393, %for.body399 ]
-  %call.i829 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
+  %call.i833 = tail call i32 @gettimeofday(ptr noundef nonnull @tnow, ptr noundef null) #5
   %394 = load i64, ptr @tnow, align 8, !tbaa !9
-  %conv.i830 = sitofp i64 %394 to double
+  %conv.i834 = sitofp i64 %394 to double
   %395 = load i64, ptr getelementptr inbounds (%struct.timeval, ptr @tnow, i64 0, i32 1), align 8, !tbaa !12
-  %conv1.i831 = sitofp i64 %395 to double
-  %396 = tail call double @llvm.fmuladd.f64(double %conv1.i831, double 0x3EB0C6F7A0B5ED8D, double %conv.i830)
+  %conv1.i835 = sitofp i64 %395 to double
+  %396 = tail call double @llvm.fmuladd.f64(double %conv1.i835, double 0x3EB0C6F7A0B5ED8D, double %conv.i834)
   store double %396, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 2), align 16, !tbaa !5
-  %sub.i832 = fsub double %396, %367
-  store double %sub.i832, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
+  %sub.i836 = fsub double %396, %367
+  store double %sub.i836, ptr getelementptr inbounds ([3 x double], ptr @TimeArray, i64 0, i64 1), align 8, !tbaa !5
   %397 = load double, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 1), align 8, !tbaa !5
   %398 = load double, ptr @nulltime, align 8, !tbaa !5
   %neg423 = fneg double %398
-  %399 = tail call double @llvm.fmuladd.f64(double %397, double %sub.i832, double %neg423)
+  %399 = tail call double @llvm.fmuladd.f64(double %397, double %sub.i836, double %neg423)
   store double %399, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 24), align 16, !tbaa !5
   %400 = load double, ptr @piref, align 8, !tbaa !5
   %401 = load double, ptr @three, align 8, !tbaa !5
@@ -1174,7 +1174,7 @@ for.end420:                                       ; preds = %for.body399, %for.e
   %453 = extractelement <2 x double> %452, i64 1
   %div474 = fdiv double %434, %453
   store double %div474, ptr getelementptr inbounds ([36 x double], ptr @T, i64 0, i64 34), align 16, !tbaa !5
-  %putchar835 = tail call i32 @putchar(i32 10)
+  %putchar751 = tail call i32 @putchar(i32 10)
   %call476 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.12, i64 noundef %conv384)
   %454 = load double, ptr @nulltime, align 8, !tbaa !5
   %mul477 = fmul double %454, 1.000000e-30

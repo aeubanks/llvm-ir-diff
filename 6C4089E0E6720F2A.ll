@@ -527,7 +527,7 @@ cleanup:                                          ; preds = %if.end, %if.then6, 
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_Z21CreateLimitedInStreamP9IInStreamyyPP19ISequentialInStream(ptr noundef %inStream, i64 noundef %pos, i64 noundef %size, ptr nocapture noundef writeonly %resStream) local_unnamed_addr #3 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   store ptr null, ptr %resStream, align 8, !tbaa !44
   %call = tail call noalias noundef nonnull dereferenceable(56) ptr @_Znwm(i64 noundef 56) #12
   %0 = getelementptr inbounds i8, ptr %call, i64 8
@@ -536,16 +536,16 @@ entry:
   store ptr null, ptr %_stream.i, align 8, !tbaa !30
   store i32 1, ptr %0, align 8, !tbaa !45
   %cmp.not.i.i = icmp eq ptr %inStream, null
-  br i1 %cmp.not.i.i, label %_ZN16CLimitedInStream9SetStreamEP9IInStream.exit, label %if.then.i.i
+  br i1 %cmp.not.i.i, label %invoke.cont2, label %if.then.i.i
 
-if.then.i.i:                                      ; preds = %entry
+if.then.i.i:                                      ; preds = %invoke.cont
   %vtable.i.i = load ptr, ptr %inStream, align 8, !tbaa !20
   %vfn.i.i = getelementptr inbounds ptr, ptr %vtable.i.i, i64 1
   %1 = load ptr, ptr %vfn.i.i, align 8
-  %call.i.i22 = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %inStream)
-          to label %_ZN16CLimitedInStream9SetStreamEP9IInStream.exit unwind label %lpad1
+  %call.i.i24 = invoke noundef i32 %1(ptr noundef nonnull align 8 dereferenceable(8) %inStream)
+          to label %invoke.cont2 unwind label %lpad1
 
-_ZN16CLimitedInStream9SetStreamEP9IInStream.exit: ; preds = %if.then.i.i, %entry
+invoke.cont2:                                     ; preds = %if.then.i.i, %invoke.cont
   store ptr %inStream, ptr %_stream.i, align 8, !tbaa !30
   %_startOffset.i = getelementptr inbounds %class.CLimitedInStream, ptr %call, i64 0, i32 6
   store i64 %pos, ptr %_startOffset.i, align 8, !tbaa !28
@@ -555,14 +555,14 @@ _ZN16CLimitedInStream9SetStreamEP9IInStream.exit: ; preds = %if.then.i.i, %entry
   store i64 0, ptr %_virtPos.i, align 8, !tbaa !23
   %_size.i = getelementptr inbounds %class.CLimitedInStream, ptr %call, i64 0, i32 5
   store i64 %size, ptr %_size.i, align 8, !tbaa !27
-  %vtable.i.i24 = load ptr, ptr %inStream, align 8, !tbaa !20
-  %vfn.i.i25 = getelementptr inbounds ptr, ptr %vtable.i.i24, i64 6
-  %2 = load ptr, ptr %vfn.i.i25, align 8
-  %call2.i.i26 = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %inStream, i64 noundef %pos, i32 noundef 0, ptr noundef null)
+  %vtable.i.i26 = load ptr, ptr %inStream, align 8, !tbaa !20
+  %vfn.i.i27 = getelementptr inbounds ptr, ptr %vtable.i.i26, i64 6
+  %2 = load ptr, ptr %vfn.i.i27, align 8
+  %call2.i.i28 = invoke noundef i32 %2(ptr noundef nonnull align 8 dereferenceable(8) %inStream, i64 noundef %pos, i32 noundef 0, ptr noundef null)
           to label %invoke.cont4 unwind label %lpad3
 
-invoke.cont4:                                     ; preds = %_ZN16CLimitedInStream9SetStreamEP9IInStream.exit
-  %cmp.not = icmp eq i32 %call2.i.i26, 0
+invoke.cont4:                                     ; preds = %invoke.cont2
+  %cmp.not = icmp eq i32 %call2.i.i28, 0
   br i1 %cmp.not, label %cleanup.cont, label %if.then.i.i.i
 
 lpad1:                                            ; preds = %if.then.i.i
@@ -570,7 +570,7 @@ lpad1:                                            ; preds = %if.then.i.i
           cleanup
   br label %_ZN16CLimitedInStream7ReleaseEv.exit
 
-lpad3:                                            ; preds = %_ZN16CLimitedInStream9SetStreamEP9IInStream.exit
+lpad3:                                            ; preds = %invoke.cont2
   %4 = landingpad { ptr, i32 }
           cleanup
   br label %_ZN16CLimitedInStream7ReleaseEv.exit
@@ -601,7 +601,7 @@ _ZN16CLimitedInStreamD0Ev.exit:                   ; preds = %if.then.i.i.i
   br label %_ZN9CMyComPtrI19ISequentialInStreamED2Ev.exit
 
 _ZN9CMyComPtrI19ISequentialInStreamED2Ev.exit:    ; preds = %_ZN16CLimitedInStreamD0Ev.exit, %cleanup.cont
-  ret i32 %call2.i.i26
+  ret i32 %call2.i.i28
 
 _ZN16CLimitedInStream7ReleaseEv.exit:             ; preds = %lpad1, %lpad3
   %.pn = phi { ptr, i32 } [ %3, %lpad1 ], [ %4, %lpad3 ]
@@ -796,16 +796,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !55
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-for.cond.14.i:                                    ; preds = %for.cond.13.i
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !55
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %for.cond.14.i
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
   store ptr %this, ptr %outObject, align 8, !tbaa !44
   %vtable = load ptr, ptr %this, align 8, !tbaa !20
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
@@ -813,8 +813,8 @@ if.then:                                          ; preds = %for.cond.14.i
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(41) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
   ret i32 %retval.0
 }
 
@@ -1008,16 +1008,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !55
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %if.end
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %if.end
 
-for.cond.14.i:                                    ; preds = %for.cond.13.i
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !55
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %return.sink.split, label %if.end
 
-if.end:                                           ; preds = %entry, %for.cond.i, %for.cond.1.i, %for.cond.2.i, %for.cond.3.i, %for.cond.4.i, %for.cond.5.i, %for.cond.6.i, %for.cond.7.i, %for.cond.8.i, %for.cond.9.i, %for.cond.10.i, %for.cond.11.i, %for.cond.12.i, %for.cond.13.i, %for.cond.14.i
+if.end:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit
   %32 = load i8, ptr @IID_IInStream, align 4, !tbaa !55
   %cmp4.not.i12 = icmp eq i8 %0, %32
   br i1 %cmp4.not.i12, label %for.cond.i15, label %return
@@ -1118,16 +1118,16 @@ for.cond.13.i54:                                  ; preds = %for.cond.12.i51
   %59 = load i8, ptr %arrayidx.14.i52, align 2, !tbaa !55
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IInStream, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i53 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i53, label %for.cond.14.i58, label %return
+  br i1 %cmp4.not.14.i53, label %_ZeqRK4GUIDS1_.exit60, label %return
 
-for.cond.14.i58:                                  ; preds = %for.cond.13.i54
+_ZeqRK4GUIDS1_.exit60:                            ; preds = %for.cond.13.i54
   %arrayidx.15.i55 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i55, align 1, !tbaa !55
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IInStream, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i56.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i56.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %for.cond.14.i58, %for.cond.14.i
+return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit60, %_ZeqRK4GUIDS1_.exit
   store ptr %this, ptr %outObject, align 8, !tbaa !44
   %vtable6 = load ptr, ptr %this, align 8, !tbaa !20
   %vfn7 = getelementptr inbounds ptr, ptr %vtable6, i64 1
@@ -1135,8 +1135,8 @@ return.sink.split:                                ; preds = %for.cond.14.i58, %f
   %call8 = tail call noundef i32 %63(ptr noundef nonnull align 8 dereferenceable(56) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.14.i58, %for.cond.13.i54, %for.cond.12.i51, %for.cond.11.i48, %for.cond.10.i45, %for.cond.9.i42, %for.cond.8.i39, %for.cond.7.i36, %for.cond.6.i33, %for.cond.5.i30, %for.cond.4.i27, %for.cond.3.i24, %for.cond.2.i21, %for.cond.1.i18, %for.cond.i15, %if.end
-  %retval.0 = phi i32 [ -2147467262, %if.end ], [ -2147467262, %for.cond.i15 ], [ -2147467262, %for.cond.1.i18 ], [ -2147467262, %for.cond.2.i21 ], [ -2147467262, %for.cond.3.i24 ], [ -2147467262, %for.cond.4.i27 ], [ -2147467262, %for.cond.5.i30 ], [ -2147467262, %for.cond.6.i33 ], [ -2147467262, %for.cond.7.i36 ], [ -2147467262, %for.cond.8.i39 ], [ -2147467262, %for.cond.9.i42 ], [ -2147467262, %for.cond.10.i45 ], [ -2147467262, %for.cond.11.i48 ], [ -2147467262, %for.cond.12.i51 ], [ -2147467262, %for.cond.13.i54 ], [ -2147467262, %for.cond.14.i58 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.13.i54, %for.cond.12.i51, %for.cond.11.i48, %for.cond.10.i45, %for.cond.9.i42, %for.cond.8.i39, %for.cond.7.i36, %for.cond.6.i33, %for.cond.5.i30, %for.cond.4.i27, %for.cond.3.i24, %for.cond.2.i21, %for.cond.1.i18, %for.cond.i15, %if.end, %_ZeqRK4GUIDS1_.exit60
+  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit60 ], [ -2147467262, %if.end ], [ -2147467262, %for.cond.i15 ], [ -2147467262, %for.cond.1.i18 ], [ -2147467262, %for.cond.2.i21 ], [ -2147467262, %for.cond.3.i24 ], [ -2147467262, %for.cond.4.i27 ], [ -2147467262, %for.cond.5.i30 ], [ -2147467262, %for.cond.6.i33 ], [ -2147467262, %for.cond.7.i36 ], [ -2147467262, %for.cond.8.i39 ], [ -2147467262, %for.cond.9.i42 ], [ -2147467262, %for.cond.10.i45 ], [ -2147467262, %for.cond.11.i48 ], [ -2147467262, %for.cond.12.i51 ], [ -2147467262, %for.cond.13.i54 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 
@@ -1330,16 +1330,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !55
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %if.end
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %if.end
 
-for.cond.14.i:                                    ; preds = %for.cond.13.i
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !55
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %return.sink.split, label %if.end
 
-if.end:                                           ; preds = %entry, %for.cond.i, %for.cond.1.i, %for.cond.2.i, %for.cond.3.i, %for.cond.4.i, %for.cond.5.i, %for.cond.6.i, %for.cond.7.i, %for.cond.8.i, %for.cond.9.i, %for.cond.10.i, %for.cond.11.i, %for.cond.12.i, %for.cond.13.i, %for.cond.14.i
+if.end:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit
   %32 = load i8, ptr @IID_IInStream, align 4, !tbaa !55
   %cmp4.not.i12 = icmp eq i8 %0, %32
   br i1 %cmp4.not.i12, label %for.cond.i15, label %return
@@ -1440,16 +1440,16 @@ for.cond.13.i54:                                  ; preds = %for.cond.12.i51
   %59 = load i8, ptr %arrayidx.14.i52, align 2, !tbaa !55
   %60 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IInStream, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i53 = icmp eq i8 %59, %60
-  br i1 %cmp4.not.14.i53, label %for.cond.14.i58, label %return
+  br i1 %cmp4.not.14.i53, label %_ZeqRK4GUIDS1_.exit60, label %return
 
-for.cond.14.i58:                                  ; preds = %for.cond.13.i54
+_ZeqRK4GUIDS1_.exit60:                            ; preds = %for.cond.13.i54
   %arrayidx.15.i55 = getelementptr inbounds i8, ptr %iid, i64 15
   %61 = load i8, ptr %arrayidx.15.i55, align 1, !tbaa !55
   %62 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IInStream, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i56.not = icmp eq i8 %61, %62
   br i1 %cmp4.not.15.i56.not, label %return.sink.split, label %return
 
-return.sink.split:                                ; preds = %for.cond.14.i58, %for.cond.14.i
+return.sink.split:                                ; preds = %_ZeqRK4GUIDS1_.exit60, %_ZeqRK4GUIDS1_.exit
   store ptr %this, ptr %outObject, align 8, !tbaa !44
   %vtable6 = load ptr, ptr %this, align 8, !tbaa !20
   %vfn7 = getelementptr inbounds ptr, ptr %vtable6, i64 1
@@ -1457,8 +1457,8 @@ return.sink.split:                                ; preds = %for.cond.14.i58, %f
   %call8 = tail call noundef i32 %63(ptr noundef nonnull align 8 dereferenceable(104) %this)
   br label %return
 
-return:                                           ; preds = %return.sink.split, %for.cond.14.i58, %for.cond.13.i54, %for.cond.12.i51, %for.cond.11.i48, %for.cond.10.i45, %for.cond.9.i42, %for.cond.8.i39, %for.cond.7.i36, %for.cond.6.i33, %for.cond.5.i30, %for.cond.4.i27, %for.cond.3.i24, %for.cond.2.i21, %for.cond.1.i18, %for.cond.i15, %if.end
-  %retval.0 = phi i32 [ -2147467262, %if.end ], [ -2147467262, %for.cond.i15 ], [ -2147467262, %for.cond.1.i18 ], [ -2147467262, %for.cond.2.i21 ], [ -2147467262, %for.cond.3.i24 ], [ -2147467262, %for.cond.4.i27 ], [ -2147467262, %for.cond.5.i30 ], [ -2147467262, %for.cond.6.i33 ], [ -2147467262, %for.cond.7.i36 ], [ -2147467262, %for.cond.8.i39 ], [ -2147467262, %for.cond.9.i42 ], [ -2147467262, %for.cond.10.i45 ], [ -2147467262, %for.cond.11.i48 ], [ -2147467262, %for.cond.12.i51 ], [ -2147467262, %for.cond.13.i54 ], [ -2147467262, %for.cond.14.i58 ], [ 0, %return.sink.split ]
+return:                                           ; preds = %return.sink.split, %for.cond.13.i54, %for.cond.12.i51, %for.cond.11.i48, %for.cond.10.i45, %for.cond.9.i42, %for.cond.8.i39, %for.cond.7.i36, %for.cond.6.i33, %for.cond.5.i30, %for.cond.4.i27, %for.cond.3.i24, %for.cond.2.i21, %for.cond.1.i18, %for.cond.i15, %if.end, %_ZeqRK4GUIDS1_.exit60
+  %retval.0 = phi i32 [ -2147467262, %_ZeqRK4GUIDS1_.exit60 ], [ -2147467262, %if.end ], [ -2147467262, %for.cond.i15 ], [ -2147467262, %for.cond.1.i18 ], [ -2147467262, %for.cond.2.i21 ], [ -2147467262, %for.cond.3.i24 ], [ -2147467262, %for.cond.4.i27 ], [ -2147467262, %for.cond.5.i30 ], [ -2147467262, %for.cond.6.i33 ], [ -2147467262, %for.cond.7.i36 ], [ -2147467262, %for.cond.8.i39 ], [ -2147467262, %for.cond.9.i42 ], [ -2147467262, %for.cond.10.i45 ], [ -2147467262, %for.cond.11.i48 ], [ -2147467262, %for.cond.12.i51 ], [ -2147467262, %for.cond.13.i54 ], [ 0, %return.sink.split ]
   ret i32 %retval.0
 }
 
@@ -1656,16 +1656,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !55
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !55
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-for.cond.14.i:                                    ; preds = %for.cond.13.i
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !55
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !55
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %for.cond.14.i
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
   store ptr %this, ptr %outObject, align 8, !tbaa !44
   %vtable = load ptr, ptr %this, align 8, !tbaa !20
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
@@ -1673,8 +1673,8 @@ if.then:                                          ; preds = %for.cond.14.i
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(34) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
   ret i32 %retval.0
 }
 

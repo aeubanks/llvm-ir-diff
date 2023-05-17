@@ -131,7 +131,7 @@ while.body14:                                     ; preds = %while.cond10
   %6 = lshr i16 %5, 10
   %7 = trunc i16 %6 to i8
   %inc = and i8 %7, 1
-  %spec.select = add i8 %cLetters.0, %inc
+  %spec.select = add i8 %inc, %cLetters.0
   %conv19 = trunc i32 %call11 to i8
   %incdec.ptr = getelementptr inbounds i8, ptr %pch.0, i64 1
   store i8 %conv19, ptr %pch.0, align 1, !tbaa !16
@@ -297,18 +297,18 @@ if.then41:                                        ; preds = %for.cond29.for.end_
   %cmp43 = icmp ugt i32 %inc42, 1
   br i1 %cmp43, label %if.then45, label %if.end47.thread
 
+if.then45:                                        ; preds = %if.then41
+  %8 = load ptr, ptr @stderr, align 8, !tbaa !5
+  %call.i107 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %8, ptr noundef nonnull @.str.7, i32 noundef 0) #15
+  tail call void @exit(i32 noundef 1) #16
+  unreachable
+
 if.end47.thread:                                  ; preds = %if.then41
-  %8 = trunc i64 %shl to i32
-  %conv49110 = add i32 %8, -1
+  %9 = trunc i64 %shl to i32
+  %conv49110 = add i32 %9, -1
   %uBits111 = getelementptr inbounds [26 x %struct.Letter], ptr @alPhrase, i64 0, i64 %indvars.iv, i32 2
   store i32 %conv49110, ptr %uBits111, align 8, !tbaa !25
   br label %11
-
-if.then45:                                        ; preds = %if.then41
-  %9 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call.i107 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %9, ptr noundef nonnull @.str.7, i32 noundef 0) #15
-  tail call void @exit(i32 noundef 1) #16
-  unreachable
 
 if.end47:                                         ; preds = %for.cond29.for.end_crit_edge
   %10 = trunc i64 %shl to i32

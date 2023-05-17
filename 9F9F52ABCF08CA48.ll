@@ -239,14 +239,14 @@ if.then37:                                        ; preds = %if.end33
   br label %if.end40
 
 if.end40:                                         ; preds = %if.then11, %if.else13, %if.end33, %if.then37, %if.end17
-  %config_filename.1208 = phi ptr [ null, %if.then37 ], [ null, %if.end33 ], [ null, %if.end17 ], [ %2, %if.else13 ], [ null, %if.then11 ]
+  %config_filename.1210 = phi ptr [ null, %if.then37 ], [ null, %if.end33 ], [ null, %if.end17 ], [ %2, %if.else13 ], [ null, %if.then11 ]
   %CLcount.2 = phi i32 [ %CLcount.1, %if.then37 ], [ %CLcount.1, %if.end33 ], [ 1, %if.end17 ], [ 2, %if.else13 ], [ 2, %if.then11 ]
-  %cmp41209 = icmp slt i32 %CLcount.2, %ac
-  br i1 %cmp41209, label %while.body, label %while.end
+  %cmp41212 = icmp slt i32 %CLcount.2, %ac
+  br i1 %cmp41212, label %while.body, label %while.end
 
 while.body:                                       ; preds = %if.end40, %if.end116
-  %CLcount.3210 = phi i32 [ %CLcount.5, %if.end116 ], [ %CLcount.2, %if.end40 ]
-  %idxprom = sext i32 %CLcount.3210 to i64
+  %CLcount.3213 = phi i32 [ %CLcount.5, %if.end116 ], [ %CLcount.2, %if.end40 ]
+  %idxprom = sext i32 %CLcount.3213 to i64
   %arrayidx42 = getelementptr inbounds ptr, ptr %av, i64 %idxprom
   %11 = load ptr, ptr %arrayidx42, align 8, !tbaa !5
   %call43 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %11, ptr noundef nonnull dereferenceable(3) @.str.4, i64 noundef 2) #20
@@ -268,15 +268,15 @@ if.then51:                                        ; preds = %if.end46
   %14 = load ptr, ptr @input, align 8, !tbaa !5
   %silent52 = getelementptr inbounds %struct.inp_par, ptr %14, i64 0, i32 7
   store i32 1, ptr %silent52, align 4, !tbaa !14
-  %inc = add nsw i32 %CLcount.3210, 1
-  %.pre211 = sext i32 %inc to i64
-  %arrayidx55.phi.trans.insert = getelementptr inbounds ptr, ptr %av, i64 %.pre211
-  %.pre212 = load ptr, ptr %arrayidx55.phi.trans.insert, align 8, !tbaa !5
+  %inc = add nsw i32 %CLcount.3213, 1
+  %.pre214 = sext i32 %inc to i64
+  %arrayidx55.phi.trans.insert = getelementptr inbounds ptr, ptr %av, i64 %.pre214
+  %.pre215 = load ptr, ptr %arrayidx55.phi.trans.insert, align 8, !tbaa !5
   br label %if.end53
 
 if.end53:                                         ; preds = %if.then51, %if.end46
-  %15 = phi ptr [ %.pre212, %if.then51 ], [ %11, %if.end46 ]
-  %CLcount.4 = phi i32 [ %inc, %if.then51 ], [ %CLcount.3210, %if.end46 ]
+  %15 = phi ptr [ %.pre215, %if.then51 ], [ %11, %if.end46 ]
+  %CLcount.4 = phi i32 [ %inc, %if.then51 ], [ %CLcount.3213, %if.end46 ]
   %call56 = tail call i32 @strncmp(ptr noundef nonnull dereferenceable(1) %15, ptr noundef nonnull dereferenceable(3) @.str.6, i64 noundef 2) #20
   %cmp57 = icmp eq i32 %call56, 0
   br i1 %cmp57, label %if.then58, label %if.else65
@@ -380,7 +380,7 @@ if.end125:                                        ; preds = %if.then121, %while.
   %27 = load ptr, ptr @stdout, align 8, !tbaa !5
   %call126 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %27, ptr noundef nonnull @.str.14, ptr noundef nonnull @.str.15, ptr noundef nonnull @.str.16)
   %28 = load ptr, ptr @stdout, align 8, !tbaa !5
-  %call127 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %28, ptr noundef nonnull @.str.17, ptr noundef %config_filename.1208)
+  %call127 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %28, ptr noundef nonnull @.str.17, ptr noundef %config_filename.1210)
   %29 = load ptr, ptr @stdout, align 8, !tbaa !5
   %30 = tail call i64 @fwrite(ptr nonnull @.str.18, i64 75, i64 1, ptr %29)
   %31 = load ptr, ptr @stdout, align 8, !tbaa !5

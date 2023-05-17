@@ -485,8 +485,8 @@ entry:
   %cbox_ur = alloca %struct.gs_fixed_point_s, align 16
   %width_set.i = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 24
   %0 = load i32, ptr %width_set.i, align 8, !tbaa !43
-  %cmp.not.i.not = icmp eq i32 %0, 0
-  br i1 %cmp.not.i.not, label %if.end, label %cleanup124
+  %cmp.not.i = icmp eq i32 %0, 0
+  br i1 %cmp.not.i, label %if.end, label %cleanup124
 
 if.end:                                           ; preds = %entry
   %1 = load ptr, ptr %penum, align 8, !tbaa !21
@@ -821,12 +821,12 @@ if.then28.i:                                      ; preds = %land.lhs.true.i
   store ptr @continue_show, ptr %continue_proc.i, align 8, !tbaa !29
   br label %cleanup
 
-if.end4:                                          ; preds = %cleanup.cont.i, %land.lhs.true.i
+if.end4:                                          ; preds = %land.lhs.true.i, %cleanup.cont.i
   %call5 = tail call i32 @show_proceed(ptr noundef nonnull %penum)
   br label %cleanup
 
 cleanup:                                          ; preds = %entry, %sw.bb2.i, %if.then28.i, %if.end9.i, %if.end4
-  %retval.0 = phi i32 [ %call5, %if.end4 ], [ -14, %if.end9.i ], [ 2, %if.then28.i ], [ -23, %entry ], [ %call5.i, %sw.bb2.i ]
+  %retval.0 = phi i32 [ %call5, %if.end4 ], [ 2, %if.then28.i ], [ -14, %if.end9.i ], [ -23, %entry ], [ %call5.i, %sw.bb2.i ]
   ret i32 %retval.0
 }
 
@@ -999,11 +999,11 @@ if.then3:                                         ; preds = %if.then
 if.end:                                           ; preds = %if.then3, %if.then
   %pair.1 = phi ptr [ %call, %if.then3 ], [ %pair.0, %if.then ]
   %3 = load i32, ptr %index4, align 4, !tbaa !28
-  %inc302 = add i32 %3, 1
-  store i32 %inc302, ptr %index4, align 4, !tbaa !28
+  %inc296 = add i32 %3, 1
+  store i32 %inc296, ptr %index4, align 4, !tbaa !28
   %4 = load i32, ptr %size, align 8, !tbaa !5
-  %cmp5.not303 = icmp eq i32 %3, %4
-  br i1 %cmp5.not303, label %cleanup134, label %while.body
+  %cmp5.not297 = icmp eq i32 %3, %4
+  br i1 %cmp5.not297, label %cleanup134, label %while.body
 
 while.body:                                       ; preds = %if.end, %cleanup
   %5 = phi i32 [ %31, %cleanup ], [ %3, %if.end ]
@@ -1109,7 +1109,7 @@ cond.false:                                       ; preds = %if.else24
   store i8 0, ptr %subpath_open, align 1, !tbaa !77
   br label %cleanup
 
-cleanup:                                          ; preds = %land.lhs.true.i, %cleanup.cont.i, %cond.false
+cleanup:                                          ; preds = %cond.false, %land.lhs.true.i, %cleanup.cont.i
   %31 = load i32, ptr %index4, align 4, !tbaa !28
   %inc = add i32 %31, 1
   store i32 %inc, ptr %index4, align 4, !tbaa !28
@@ -1214,85 +1214,85 @@ sw.bb2.i:                                         ; preds = %if.then119
   %53 = load ptr, ptr %font.i, align 8, !tbaa !34
   %dir.i = getelementptr inbounds %struct.gs_font_s, ptr %53, i64 0, i32 3
   %54 = load ptr, ptr %dir.i, align 8, !tbaa !45
-  %call.i214 = tail call ptr @gx_lookup_fm_pair(ptr noundef %50) #11
-  tail call void @gx_add_cached_char(ptr noundef %54, ptr noundef %52, ptr noundef %call.i214) #11
+  %call.i215 = tail call ptr @gx_lookup_fm_pair(ptr noundef %50) #11
+  tail call void @gx_add_cached_char(ptr noundef %54, ptr noundef %52, ptr noundef %call.i215) #11
   %call4.i = tail call i32 @gs_grestore(ptr noundef %50) #11
   store i32 0, ptr %color_loaded, align 4, !tbaa !69
   %call5.i = tail call i32 @gx_copy_cached_char(ptr noundef nonnull %penum, ptr noundef %52) #11
-  %cmp.i215 = icmp sgt i32 %call5.i, -1
-  br i1 %cmp.i215, label %if.end124, label %cleanup134
+  %cmp.i216 = icmp sgt i32 %call5.i, -1
+  br i1 %cmp.i216, label %if.end124, label %cleanup134
 
 if.end124:                                        ; preds = %sw.bb2.i, %if.then119
-  %call8.i216 = tail call i32 @gs_grestore(ptr noundef %50) #11
+  %call8.i217 = tail call i32 @gs_grestore(ptr noundef %50) #11
   store i32 0, ptr %color_loaded, align 4, !tbaa !69
   %55 = load ptr, ptr %penum, align 8, !tbaa !21
   %56 = load i32, ptr %add.i, align 8, !tbaa !24
-  %tobool.not.i219 = icmp eq i32 %56, 0
-  br i1 %tobool.not.i219, label %if.end.i234, label %if.then.i225
+  %tobool.not.i220 = icmp eq i32 %56, 0
+  br i1 %tobool.not.i220, label %if.end.i235, label %if.then.i226
 
-if.then.i225:                                     ; preds = %if.end124
+if.then.i226:                                     ; preds = %if.end124
   %57 = load float, ptr %ax.i, align 8, !tbaa !70
-  %conv.i221 = fpext float %57 to double
+  %conv.i222 = fpext float %57 to double
   %58 = load float, ptr %ay.i, align 4, !tbaa !71
-  %conv2.i223 = fpext float %58 to double
-  %call.i224 = tail call i32 (ptr, double, double, ...) @gs_rmoveto(ptr noundef %55, double noundef %conv.i221, double noundef %conv2.i223) #11
-  br label %if.end.i234
+  %conv2.i224 = fpext float %58 to double
+  %call.i225 = tail call i32 (ptr, double, double, ...) @gs_rmoveto(ptr noundef %55, double noundef %conv.i222, double noundef %conv2.i224) #11
+  br label %if.end.i235
 
-if.end.i234:                                      ; preds = %if.then.i225, %if.end124
+if.end.i235:                                      ; preds = %if.then.i226, %if.end124
   %59 = load ptr, ptr %str2, align 8, !tbaa !22
   %60 = load i32, ptr %index4, align 4, !tbaa !28
-  %sub.i228 = add i32 %60, -1
-  %idxprom.i229 = zext i32 %sub.i228 to i64
-  %arrayidx.i230 = getelementptr inbounds i8, ptr %59, i64 %idxprom.i229
-  %61 = load i8, ptr %arrayidx.i230, align 1, !tbaa !61
-  %conv3.i231 = zext i8 %61 to i32
+  %sub.i229 = add i32 %60, -1
+  %idxprom.i230 = zext i32 %sub.i229 to i64
+  %arrayidx.i231 = getelementptr inbounds i8, ptr %59, i64 %idxprom.i230
+  %61 = load i8, ptr %arrayidx.i231, align 1, !tbaa !61
+  %conv3.i232 = zext i8 %61 to i32
   %62 = load i32, ptr %chr.i, align 4, !tbaa !23
-  %cmp.i233 = icmp eq i32 %62, %conv3.i231
-  br i1 %cmp.i233, label %if.then5.i240, label %if.end9.i244
+  %cmp.i234 = icmp eq i32 %62, %conv3.i232
+  br i1 %cmp.i234, label %if.then5.i241, label %if.end9.i245
 
-if.then5.i240:                                    ; preds = %if.end.i234
+if.then5.i241:                                    ; preds = %if.end.i235
   %63 = load float, ptr %cx.i, align 4, !tbaa !72
-  %conv6.i236 = fpext float %63 to double
+  %conv6.i237 = fpext float %63 to double
   %64 = load float, ptr %cy.i, align 8, !tbaa !73
-  %conv7.i238 = fpext float %64 to double
-  %call8.i239 = tail call i32 (ptr, double, double, ...) @gs_rmoveto(ptr noundef %55, double noundef %conv6.i236, double noundef %conv7.i238) #11
-  br label %if.end9.i244
+  %conv7.i239 = fpext float %64 to double
+  %call8.i240 = tail call i32 (ptr, double, double, ...) @gs_rmoveto(ptr noundef %55, double noundef %conv6.i237, double noundef %conv7.i239) #11
+  br label %if.end9.i245
 
-if.end9.i244:                                     ; preds = %if.then5.i240, %if.end.i234
-  %path.i241 = getelementptr inbounds %struct.gs_state_s, ptr %55, i64 0, i32 7
-  %65 = load ptr, ptr %path.i241, align 8, !tbaa !40
-  %position_valid.i242 = getelementptr inbounds %struct.gx_path_s, ptr %65, i64 0, i32 10
-  %66 = load i8, ptr %position_valid.i242, align 8, !tbaa !74
-  %tobool10.not.not.i243 = icmp eq i8 %66, 0
-  br i1 %tobool10.not.not.i243, label %cleanup134, label %cleanup.cont.i254
+if.end9.i245:                                     ; preds = %if.then5.i241, %if.end.i235
+  %path.i242 = getelementptr inbounds %struct.gs_state_s, ptr %55, i64 0, i32 7
+  %65 = load ptr, ptr %path.i242, align 8, !tbaa !40
+  %position_valid.i243 = getelementptr inbounds %struct.gx_path_s, ptr %65, i64 0, i32 10
+  %66 = load i8, ptr %position_valid.i243, align 8, !tbaa !74
+  %tobool10.not.not.i244 = icmp eq i8 %66, 0
+  br i1 %tobool10.not.not.i244, label %cleanup134, label %cleanup.cont.i255
 
-cleanup.cont.i254:                                ; preds = %if.end9.i244
-  %position.i246 = getelementptr inbounds %struct.gx_path_s, ptr %65, i64 0, i32 9
+cleanup.cont.i255:                                ; preds = %if.end9.i245
+  %position.i247 = getelementptr inbounds %struct.gx_path_s, ptr %65, i64 0, i32 9
   %67 = load <2 x i64>, ptr %wxy, align 8, !tbaa !35
-  %68 = load <2 x i64>, ptr %position.i246, align 8, !tbaa !35
+  %68 = load <2 x i64>, ptr %position.i247, align 8, !tbaa !35
   %69 = add nsw <2 x i64> %68, %67
-  store <2 x i64> %69, ptr %position.i246, align 8, !tbaa !35
-  %subpath_open.i251 = getelementptr inbounds %struct.gx_path_s, ptr %65, i64 0, i32 11
-  store i8 0, ptr %subpath_open.i251, align 1, !tbaa !77
+  store <2 x i64> %69, ptr %position.i247, align 8, !tbaa !35
+  %subpath_open.i252 = getelementptr inbounds %struct.gx_path_s, ptr %65, i64 0, i32 11
+  store i8 0, ptr %subpath_open.i252, align 1, !tbaa !77
   %70 = load i32, ptr %do_kern.i, align 4, !tbaa !25
-  %tobool24.not.i253 = icmp eq i32 %70, 0
-  br i1 %tobool24.not.i253, label %more.backedge, label %land.lhs.true.i257
+  %tobool24.not.i254 = icmp eq i32 %70, 0
+  br i1 %tobool24.not.i254, label %more.backedge, label %land.lhs.true.i258
 
-more.backedge:                                    ; preds = %cleanup.cont.i254, %land.lhs.true.i257
-  br label %more
-
-land.lhs.true.i257:                               ; preds = %cleanup.cont.i254
+land.lhs.true.i258:                               ; preds = %cleanup.cont.i255
   %71 = load i32, ptr %index4, align 4, !tbaa !28
   %72 = load i32, ptr %size, align 8, !tbaa !5
-  %cmp26.i256 = icmp ult i32 %71, %72
-  br i1 %cmp26.i256, label %cleanup134.sink.split, label %more.backedge
+  %cmp26.i257 = icmp ult i32 %71, %72
+  br i1 %cmp26.i257, label %cleanup134.sink.split, label %more.backedge
 
-cleanup134.sink.split:                            ; preds = %land.lhs.true.i257, %land.lhs.true.i
+more.backedge:                                    ; preds = %land.lhs.true.i258, %cleanup.cont.i255
+  br label %more
+
+cleanup134.sink.split:                            ; preds = %land.lhs.true.i258, %land.lhs.true.i
   store ptr @continue_show, ptr %continue_proc, align 8, !tbaa !29
   br label %cleanup134
 
-cleanup134:                                       ; preds = %if.then119, %sw.bb2.i, %if.end9.i244, %cleanup.cont109, %if.end54, %if.end116, %no_cache, %if.else39, %if.end, %cleanup, %if.end10, %if.end9.i, %if.else24, %cleanup134.sink.split
-  %retval.6 = phi i32 [ 2, %cleanup134.sink.split ], [ -14, %if.end9.i ], [ -14, %if.else24 ], [ 0, %cleanup ], [ %call11, %if.end10 ], [ 0, %if.end ], [ %call5.i, %sw.bb2.i ], [ -23, %if.then119 ], [ %call112, %cleanup.cont109 ], [ -14, %if.end9.i244 ], [ -14, %if.end54 ], [ 1, %if.end116 ], [ %call50, %no_cache ], [ 0, %if.else39 ]
+cleanup134:                                       ; preds = %if.end9.i245, %if.then119, %sw.bb2.i, %cleanup.cont109, %if.end54, %if.end116, %no_cache, %if.else39, %if.end, %cleanup, %if.end10, %if.end9.i, %if.else24, %cleanup134.sink.split
+  %retval.6 = phi i32 [ 2, %cleanup134.sink.split ], [ 0, %cleanup ], [ %call11, %if.end10 ], [ -14, %if.end9.i ], [ -14, %if.else24 ], [ 0, %if.end ], [ -14, %if.end9.i245 ], [ %call5.i, %sw.bb2.i ], [ -23, %if.then119 ], [ %call112, %cleanup.cont109 ], [ -14, %if.end54 ], [ 1, %if.end116 ], [ %call50, %no_cache ], [ 0, %if.else39 ]
   ret i32 %retval.6
 }
 
@@ -1351,8 +1351,8 @@ if.end:                                           ; preds = %sw.bb2.i, %entry
   %6 = load ptr, ptr %path.i, align 8, !tbaa !40
   %position_valid.i = getelementptr inbounds %struct.gx_path_s, ptr %6, i64 0, i32 10
   %7 = load i8, ptr %position_valid.i, align 8, !tbaa !74
-  %tobool.not.i.not = icmp eq i8 %7, 0
-  br i1 %tobool.not.i.not, label %cleanup, label %if.end4
+  %tobool.not.i = icmp eq i8 %7, 0
+  br i1 %tobool.not.i, label %cleanup, label %if.end4
 
 if.end4:                                          ; preds = %if.end
   %wxy.i = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 21
@@ -1366,8 +1366,8 @@ if.end4:                                          ; preds = %if.end
   %call5 = tail call i32 @stringwidth_proceed(ptr noundef nonnull %penum)
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end, %entry, %if.end4
-  %retval.0 = phi i32 [ %call5, %if.end4 ], [ -23, %entry ], [ -14, %if.end ]
+cleanup:                                          ; preds = %entry, %if.end, %if.end4
+  %retval.0 = phi i32 [ %call5, %if.end4 ], [ -14, %if.end ], [ -23, %entry ]
   ret i32 %retval.0
 }
 
@@ -1441,13 +1441,13 @@ entry:
   %index3 = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 20
   %size = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 2
   %2 = load i32, ptr %index3, align 4, !tbaa !28
-  %inc175178 = add i32 %2, 1
-  store i32 %inc175178, ptr %index3, align 4, !tbaa !28
+  %inc175 = add i32 %2, 1
+  store i32 %inc175, ptr %index3, align 4, !tbaa !28
   %3 = load i32, ptr %size, align 8, !tbaa !5
-  %cmp176179 = icmp eq i32 %2, %3
-  br i1 %cmp176179, label %if.then, label %if.end16.lr.ph.lr.ph
+  %cmp176 = icmp eq i32 %2, %3
+  br i1 %cmp176, label %if.then, label %if.end16.lr.ph
 
-if.end16.lr.ph.lr.ph:                             ; preds = %entry
+if.end16.lr.ph:                                   ; preds = %entry
   %can_cache = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 12
   %wxy = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 21
   %width_set = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 24
@@ -1458,7 +1458,7 @@ if.end16.lr.ph.lr.ph:                             ; preds = %entry
   %cc.i = getelementptr inbounds %struct.gs_show_enum_s, ptr %penum, i64 0, i32 22
   br label %if.end16
 
-if.then:                                          ; preds = %cleanup78, %cleanup, %entry
+if.then:                                          ; preds = %more.backedge, %entry
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %end_pt) #11
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %start_pt) #11
   %call = call i32 (ptr, ptr, ...) @gs_currentpoint(ptr noundef %0, ptr noundef nonnull %end_pt) #11
@@ -1477,9 +1477,9 @@ if.then:                                          ; preds = %cleanup78, %cleanup
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %end_pt) #11
   br label %cleanup81
 
-if.end16:                                         ; preds = %if.end16.backedge, %if.end16.lr.ph.lr.ph
-  %10 = phi i32 [ %2, %if.end16.lr.ph.lr.ph ], [ %.be, %if.end16.backedge ]
-  %pair.0177 = phi ptr [ null, %if.end16.lr.ph.lr.ph ], [ %pair.0177.be, %if.end16.backedge ]
+if.end16:                                         ; preds = %if.end16.lr.ph, %more.backedge
+  %10 = phi i32 [ %2, %if.end16.lr.ph ], [ %19, %more.backedge ]
+  %pair.0177 = phi ptr [ null, %if.end16.lr.ph ], [ %pair.0.be, %more.backedge ]
   %idxprom = zext i32 %10 to i64
   %arrayidx = getelementptr inbounds i8, ptr %1, i64 %idxprom
   %11 = load i8, ptr %arrayidx, align 1, !tbaa !61
@@ -1511,28 +1511,25 @@ if.then25:                                        ; preds = %if.end21
   %14 = load ptr, ptr %path.i, align 8, !tbaa !40
   %position_valid.i = getelementptr inbounds %struct.gx_path_s, ptr %14, i64 0, i32 10
   %15 = load i8, ptr %position_valid.i, align 8, !tbaa !74
-  %tobool.not.i.not = icmp eq i8 %15, 0
-  br i1 %tobool.not.i.not, label %cleanup81, label %cleanup
+  %tobool.not.i = icmp eq i8 %15, 0
+  br i1 %tobool.not.i, label %cleanup81, label %more.backedge
 
-cleanup:                                          ; preds = %if.then25
-  %position.i = getelementptr inbounds %struct.gx_path_s, ptr %14, i64 0, i32 9
+more.backedge:                                    ; preds = %if.then25, %if.end72
+  %.sink = phi ptr [ %34, %if.end72 ], [ %14, %if.then25 ]
+  %pair.0.be = phi ptr [ %pair.2, %if.end72 ], [ %pair.1, %if.then25 ]
+  %position.i = getelementptr inbounds %struct.gx_path_s, ptr %.sink, i64 0, i32 9
   %16 = load <2 x i64>, ptr %wxy, align 8, !tbaa !35
   %17 = load <2 x i64>, ptr %position.i, align 8, !tbaa !35
   %18 = add nsw <2 x i64> %17, %16
   store <2 x i64> %18, ptr %position.i, align 8, !tbaa !35
-  %subpath_open.i = getelementptr inbounds %struct.gx_path_s, ptr %14, i64 0, i32 11
+  %subpath_open.i = getelementptr inbounds %struct.gx_path_s, ptr %.sink, i64 0, i32 11
   store i8 0, ptr %subpath_open.i, align 1, !tbaa !77
   %19 = load i32, ptr %index3, align 4, !tbaa !28
   %inc = add i32 %19, 1
   store i32 %inc, ptr %index3, align 4, !tbaa !28
   %20 = load i32, ptr %size, align 8, !tbaa !5
   %cmp = icmp eq i32 %19, %20
-  br i1 %cmp, label %if.then, label %if.end16.backedge
-
-if.end16.backedge:                                ; preds = %cleanup, %cleanup78
-  %.be = phi i32 [ %19, %cleanup ], [ %39, %cleanup78 ]
-  %pair.0177.be = phi ptr [ %pair.1, %cleanup ], [ %pair.2, %cleanup78 ]
-  br label %if.end16
+  br i1 %cmp, label %if.then, label %if.end16
 
 if.end32:                                         ; preds = %if.end21, %if.end16
   %pair.2 = phi ptr [ %pair.0177, %if.end16 ], [ %pair.1, %if.end21 ]
@@ -1592,30 +1589,15 @@ sw.bb2.i:                                         ; preds = %if.then67
 if.end72:                                         ; preds = %sw.bb2.i, %if.then67
   %call5.i = tail call i32 @gs_grestore(ptr noundef %28) #11
   %33 = load ptr, ptr %penum, align 8, !tbaa !21
-  %path.i132 = getelementptr inbounds %struct.gs_state_s, ptr %33, i64 0, i32 7
-  %34 = load ptr, ptr %path.i132, align 8, !tbaa !40
-  %position_valid.i133 = getelementptr inbounds %struct.gx_path_s, ptr %34, i64 0, i32 10
-  %35 = load i8, ptr %position_valid.i133, align 8, !tbaa !74
-  %tobool.not.i134.not = icmp eq i8 %35, 0
-  br i1 %tobool.not.i134.not, label %cleanup81, label %cleanup78
+  %path.i133 = getelementptr inbounds %struct.gs_state_s, ptr %33, i64 0, i32 7
+  %34 = load ptr, ptr %path.i133, align 8, !tbaa !40
+  %position_valid.i134 = getelementptr inbounds %struct.gx_path_s, ptr %34, i64 0, i32 10
+  %35 = load i8, ptr %position_valid.i134, align 8, !tbaa !74
+  %tobool.not.i135 = icmp eq i8 %35, 0
+  br i1 %tobool.not.i135, label %cleanup81, label %more.backedge
 
-cleanup78:                                        ; preds = %if.end72
-  %position.i136 = getelementptr inbounds %struct.gx_path_s, ptr %34, i64 0, i32 9
-  %36 = load <2 x i64>, ptr %wxy, align 8, !tbaa !35
-  %37 = load <2 x i64>, ptr %position.i136, align 8, !tbaa !35
-  %38 = add nsw <2 x i64> %37, %36
-  store <2 x i64> %38, ptr %position.i136, align 8, !tbaa !35
-  %subpath_open.i141 = getelementptr inbounds %struct.gx_path_s, ptr %34, i64 0, i32 11
-  store i8 0, ptr %subpath_open.i141, align 1, !tbaa !77
-  %39 = load i32, ptr %index3, align 4, !tbaa !28
-  %inc175 = add i32 %39, 1
-  store i32 %inc175, ptr %index3, align 4, !tbaa !28
-  %40 = load i32, ptr %size, align 8, !tbaa !5
-  %cmp176 = icmp eq i32 %39, %40
-  br i1 %cmp176, label %if.then, label %if.end16.backedge
-
-cleanup81:                                        ; preds = %if.end72, %if.then67, %cleanup.cont56, %if.end37, %if.end64, %if.end32, %if.then25, %if.then
-  %retval.5 = phi i32 [ 0, %if.then ], [ %call33, %if.end32 ], [ 1, %if.end64 ], [ -14, %if.end37 ], [ %call60, %cleanup.cont56 ], [ -23, %if.then67 ], [ -14, %if.end72 ], [ -14, %if.then25 ]
+cleanup81:                                        ; preds = %if.end72, %if.then25, %if.then67, %cleanup.cont56, %if.end37, %if.end64, %if.end32, %if.then
+  %retval.5 = phi i32 [ 0, %if.then ], [ -14, %if.end72 ], [ -14, %if.then25 ], [ -23, %if.then67 ], [ %call60, %cleanup.cont56 ], [ -14, %if.end37 ], [ 1, %if.end64 ], [ %call33, %if.end32 ]
   ret i32 %retval.5
 }
 

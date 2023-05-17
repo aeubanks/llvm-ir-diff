@@ -332,7 +332,7 @@ if.else:                                          ; preds = %if.then51
   store float %call65, ptr %m_hitFraction, align 4, !tbaa !17
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end17, %if.then36, %if.then57, %if.else, %if.then45, %if.then20, %if.end, %entry
+cleanup:                                          ; preds = %if.then20, %if.then45, %if.else, %if.then57, %if.then36, %if.end17, %if.end, %entry
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %triangleNormal) #15
   ret void
 }
@@ -345,7 +345,7 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #3
 
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(argmem: readwrite) uwtable
 define dso_local void @_ZN28btTriangleConvexcastCallbackC2EPK13btConvexShapeRK11btTransformS5_S5_f(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(216) %this, ptr noundef %convexShape, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %convexShapeFrom, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %convexShapeTo, ptr nocapture noundef nonnull readonly align 4 dereferenceable(64) %triangleToWorld, float noundef %triangleCollisionMargin) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont10:
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTV28btTriangleConvexcastCallback, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !5
   %m_convexShapeFrom = getelementptr inbounds %class.btTriangleConvexcastCallback, ptr %this, i64 0, i32 2
   %m_convexShapeTo = getelementptr inbounds %class.btTriangleConvexcastCallback, ptr %this, i64 0, i32 3
@@ -404,7 +404,7 @@ declare void @_ZSt9terminatev() local_unnamed_addr
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN28btTriangleConvexcastCallback15processTriangleEP9btVector3ii(ptr noundef nonnull align 8 dereferenceable(216) %this, ptr nocapture noundef readonly %triangle, i32 noundef %partId, i32 noundef %triangleIndex) unnamed_addr #5 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont5:
   %triangleShape = alloca %class.btTriangleShape, align 8
   %simplexSolver = alloca %class.btVoronoiSimplexSolver, align 4
   %gjkEpaPenetrationSolver = alloca %class.btGjkEpaPenetrationDepthSolver, align 8
@@ -436,9 +436,9 @@ entry:
   %m_convexShape = getelementptr inbounds %class.btTriangleConvexcastCallback, ptr %this, i64 0, i32 1
   %1 = load ptr, ptr %m_convexShape, align 8, !tbaa !20
   invoke void @_ZN27btContinuousConvexCollisionC1EPK13btConvexShapeS2_P22btVoronoiSimplexSolverP30btConvexPenetrationDepthSolver(ptr noundef nonnull align 8 dereferenceable(40) %convexCaster, ptr noundef %1, ptr noundef nonnull %triangleShape, ptr noundef nonnull %simplexSolver, ptr noundef nonnull %gjkEpaPenetrationSolver)
-          to label %invoke.cont9 unwind label %lpad8
+          to label %invoke.cont11 unwind label %lpad8
 
-invoke.cont9:                                     ; preds = %entry
+invoke.cont11:                                    ; preds = %invoke.cont5
   call void @llvm.lifetime.start.p0(i64 192, ptr nonnull %castResult) #15
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN12btConvexCast10CastResultE, i64 0, inrange i32 0, i64 2), ptr %castResult, align 8, !tbaa !5
   %m_fraction.i = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %castResult, i64 0, i32 5
@@ -453,7 +453,7 @@ invoke.cont9:                                     ; preds = %entry
   %call = invoke noundef zeroext i1 @_ZN27btContinuousConvexCollision16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(40) %convexCaster, ptr noundef nonnull align 4 dereferenceable(64) %m_convexShapeFrom, ptr noundef nonnull align 4 dereferenceable(64) %m_convexShapeTo, ptr noundef nonnull align 4 dereferenceable(64) %m_triangleToWorld, ptr noundef nonnull align 4 dereferenceable(64) %m_triangleToWorld, ptr noundef nonnull align 8 dereferenceable(188) %castResult)
           to label %invoke.cont14 unwind label %lpad13
 
-invoke.cont14:                                    ; preds = %invoke.cont9
+invoke.cont14:                                    ; preds = %invoke.cont11
   br i1 %call, label %if.then, label %if.end29
 
 if.then:                                          ; preds = %invoke.cont14
@@ -474,9 +474,9 @@ if.then17:                                        ; preds = %if.then
   %m_hitFraction = getelementptr inbounds %class.btTriangleConvexcastCallback, ptr %this, i64 0, i32 5
   %9 = load float, ptr %m_hitFraction, align 8, !tbaa !25
   %cmp19 = fcmp olt float %8, %9
-  br i1 %cmp19, label %if.then20, label %if.end29
+  br i1 %cmp19, label %invoke.cont22, label %if.end29
 
-if.then20:                                        ; preds = %if.then17
+invoke.cont22:                                    ; preds = %if.then17
   %sqrt.i.i = call float @llvm.sqrt.f32(float %7)
   %div.i.i = fdiv float 1.000000e+00, %sqrt.i.i
   %10 = insertelement <2 x float> poison, float %div.i.i, i64 0
@@ -492,19 +492,19 @@ if.then20:                                        ; preds = %if.then17
   %call27 = invoke noundef float %13(ptr noundef nonnull align 8 dereferenceable(216) %this, ptr noundef nonnull align 4 dereferenceable(16) %m_normal, ptr noundef nonnull align 4 dereferenceable(16) %m_hitPoint, float noundef %8, i32 noundef %partId, i32 noundef %triangleIndex)
           to label %if.end29 unwind label %lpad13
 
-lpad8:                                            ; preds = %if.end29, %entry
+lpad8:                                            ; preds = %if.end29, %invoke.cont5
   %14 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup35
 
-lpad13:                                           ; preds = %if.then20, %invoke.cont9
+lpad13:                                           ; preds = %invoke.cont22, %invoke.cont11
   %15 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 192, ptr nonnull %castResult) #15
   invoke void @_ZN12btConvexCastD2Ev(ptr noundef nonnull align 8 dereferenceable(40) %convexCaster)
           to label %ehcleanup35 unwind label %terminate.lpad
 
-if.end29:                                         ; preds = %if.then, %if.then20, %if.then17, %invoke.cont14
+if.end29:                                         ; preds = %if.then, %invoke.cont22, %if.then17, %invoke.cont14
   call void @llvm.lifetime.end.p0(i64 192, ptr nonnull %castResult) #15
   invoke void @_ZN12btConvexCastD2Ev(ptr noundef nonnull align 8 dereferenceable(40) %convexCaster)
           to label %invoke.cont32 unwind label %lpad8
@@ -518,7 +518,7 @@ invoke.cont32:                                    ; preds = %if.end29
   ret void
 
 ehcleanup35:                                      ; preds = %lpad13, %lpad8
-  %.pn = phi { ptr, i32 } [ %14, %lpad8 ], [ %15, %lpad13 ]
+  %.pn47 = phi { ptr, i32 } [ %14, %lpad8 ], [ %15, %lpad13 ]
   call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %convexCaster) #15
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %gjkEpaPenetrationSolver) #15
   call void @llvm.lifetime.end.p0(i64 356, ptr nonnull %simplexSolver) #15
@@ -527,7 +527,7 @@ ehcleanup35:                                      ; preds = %lpad13, %lpad8
 
 invoke.cont42:                                    ; preds = %ehcleanup35
   call void @llvm.lifetime.end.p0(i64 112, ptr nonnull %triangleShape) #15
-  resume { ptr, i32 } %.pn
+  resume { ptr, i32 } %.pn47
 
 terminate.lpad:                                   ; preds = %ehcleanup35, %lpad13
   %16 = landingpad { ptr, i32 }

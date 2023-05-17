@@ -48,8 +48,8 @@ entry:
   %vbase.offset.ptr3 = getelementptr i8, ptr %vtable2, i64 -24
   %vbase.offset4 = load i64, ptr %vbase.offset.ptr3, align 8
   %add.ptr5 = getelementptr inbounds i8, ptr @_ZSt3cin, i64 %vbase.offset4
-  %_M_streambuf.i37 = getelementptr inbounds %"class.std::basic_ios", ptr %add.ptr5, i64 0, i32 4
-  %2 = load ptr, ptr %_M_streambuf.i37, align 8, !tbaa !8
+  %_M_streambuf.i38 = getelementptr inbounds %"class.std::basic_ios", ptr %add.ptr5, i64 0, i32 4
+  %2 = load ptr, ptr %_M_streambuf.i38, align 8, !tbaa !8
   %_M_in_cur.i.i = getelementptr inbounds %"class.std::basic_streambuf", ptr %2, i64 0, i32 2
   %_M_in_end.i.i = getelementptr inbounds %"class.std::basic_streambuf", ptr %2, i64 0, i32 3
   br label %while.cond.outer
@@ -57,7 +57,7 @@ entry:
 while.cond.outer:                                 ; preds = %if.else, %entry
   %nc.0.ph = phi i32 [ %inc.lcssa, %if.else ], [ 0, %entry ]
   %cmp19.ph = phi i32 [ 0, %if.else ], [ 1, %entry ]
-  %nw.0.ph = phi i32 [ %spec.select48, %if.else ], [ 0, %entry ]
+  %nw.0.ph = phi i32 [ %spec.select37, %if.else ], [ 0, %entry ]
   %nl.0.ph = phi i32 [ %spec.select.lcssa, %if.else ], [ 0, %entry ]
   %3 = load ptr, ptr %_M_in_cur.i.i, align 8, !tbaa !20
   %4 = load ptr, ptr %_M_in_end.i.i, align 8, !tbaa !22
@@ -65,9 +65,9 @@ while.cond.outer:                                 ; preds = %if.else, %entry
   br i1 %cmp.i.peel, label %_ZNSt15basic_streambufIcSt11char_traitsIcEE6sbumpcEv.exit.thread.peel, label %_ZNSt15basic_streambufIcSt11char_traitsIcEE6sbumpcEv.exit.peel, !prof !23
 
 _ZNSt15basic_streambufIcSt11char_traitsIcEE6sbumpcEv.exit.peel: ; preds = %while.cond.outer
-  %vtable.i38.peel = load ptr, ptr %2, align 8, !tbaa !5
-  %vfn.i39.peel = getelementptr inbounds ptr, ptr %vtable.i38.peel, i64 10
-  %5 = load ptr, ptr %vfn.i39.peel, align 8
+  %vtable.i39.peel = load ptr, ptr %2, align 8, !tbaa !5
+  %vfn.i40.peel = getelementptr inbounds ptr, ptr %vtable.i39.peel, i64 10
+  %5 = load ptr, ptr %vfn.i40.peel, align 8
   %call5.i.peel = call noundef i32 %5(ptr noundef nonnull align 8 dereferenceable(64) %2)
   %cmp.not.peel = icmp eq i32 %call5.i.peel, -1
   br i1 %cmp.not.peel, label %while.end, label %while.body.peel
@@ -111,9 +111,9 @@ _ZNSt15basic_streambufIcSt11char_traitsIcEE6sbumpcEv.exit.thread: ; preds = %whi
   br label %while.body
 
 _ZNSt15basic_streambufIcSt11char_traitsIcEE6sbumpcEv.exit: ; preds = %while.cond
-  %vtable.i38 = load ptr, ptr %2, align 8, !tbaa !5
-  %vfn.i39 = getelementptr inbounds ptr, ptr %vtable.i38, i64 10
-  %10 = load ptr, ptr %vfn.i39, align 8
+  %vtable.i39 = load ptr, ptr %2, align 8, !tbaa !5
+  %vfn.i40 = getelementptr inbounds ptr, ptr %vtable.i39, i64 10
+  %10 = load ptr, ptr %vfn.i40, align 8
   %call5.i = call noundef i32 %10(ptr noundef nonnull align 8 dereferenceable(64) %2)
   %cmp.not = icmp eq i32 %call5.i, -1
   br i1 %cmp.not, label %while.end, label %while.body
@@ -138,7 +138,7 @@ if.else:                                          ; preds = %while.body, %while.
   %inc.lcssa = phi i32 [ %inc.peel, %while.body.peel ], [ %inc, %while.body ]
   %spec.select.lcssa = phi i32 [ %spec.select.peel, %while.body.peel ], [ %spec.select, %while.body ]
   %cmp19.lcssa53 = phi i32 [ %cmp19.ph, %while.body.peel ], [ 1, %while.body ]
-  %spec.select48 = add nsw i32 %nw.0.ph, %cmp19.lcssa53
+  %spec.select37 = add nsw i32 %nw.0.ph, %cmp19.lcssa53
   br label %while.cond.outer, !llvm.loop !28
 
 while.end:                                        ; preds = %_ZNSt15basic_streambufIcSt11char_traitsIcEE6sbumpcEv.exit.peel, %_ZNSt15basic_streambufIcSt11char_traitsIcEE6sbumpcEv.exit
@@ -147,10 +147,10 @@ while.end:                                        ; preds = %_ZNSt15basic_stream
   %call24 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) @_ZSt4cout, i32 noundef %nl.0.lcssa)
   %call1.i = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call24, ptr noundef nonnull @.str, i64 noundef 1)
   %call26 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %call24, i32 noundef %nw.0.ph)
-  %call1.i42 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call26, ptr noundef nonnull @.str, i64 noundef 1)
+  %call1.i43 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZSt16__ostream_insertIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_PKS3_l(ptr noundef nonnull align 8 dereferenceable(8) %call26, ptr noundef nonnull @.str, i64 noundef 1)
   %call28 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSolsEi(ptr noundef nonnull align 8 dereferenceable(8) %call26, i32 noundef %nc.0.lcssa)
-  %vtable.i45 = load ptr, ptr %call28, align 8, !tbaa !5
-  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i45, i64 -24
+  %vtable.i46 = load ptr, ptr %call28, align 8, !tbaa !5
+  %vbase.offset.ptr.i = getelementptr i8, ptr %vtable.i46, i64 -24
   %vbase.offset.i = load i64, ptr %vbase.offset.ptr.i, align 8
   %add.ptr.i = getelementptr inbounds i8, ptr %call28, i64 %vbase.offset.i
   %_M_ctype.i.i = getelementptr inbounds %"class.std::basic_ios", ptr %add.ptr.i, i64 0, i32 5
@@ -183,8 +183,8 @@ if.end.i.i.i:                                     ; preds = %_ZSt13__check_facet
 
 _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_.exit: ; preds = %if.then.i4.i.i, %if.end.i.i.i
   %retval.0.i.i.i = phi i8 [ %13, %if.then.i4.i.i ], [ %call.i.i.i, %if.end.i.i.i ]
-  %call1.i46 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %call28, i8 noundef signext %retval.0.i.i.i)
-  %call.i.i47 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %call1.i46)
+  %call1.i47 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo3putEc(ptr noundef nonnull align 8 dereferenceable(8) %call28, i8 noundef signext %retval.0.i.i.i)
+  %call.i.i48 = call noundef nonnull align 8 dereferenceable(8) ptr @_ZNSo5flushEv(ptr noundef nonnull align 8 dereferenceable(8) %call1.i47)
   call void @llvm.lifetime.end.p0(i64 4096, ptr nonnull %buff) #7
   ret i32 0
 }

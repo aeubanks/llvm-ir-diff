@@ -154,20 +154,20 @@ while.end.i:                                      ; preds = %if.end9.i, %if.end.
   %filename.i = getelementptr inbounds %struct.optstruct, ptr %call, i64 0, i32 1
   %6 = load ptr, ptr %filename.i, align 8, !tbaa !16
   %tobool10.not.i = icmp eq ptr %6, null
-  br i1 %tobool10.not.i, label %if.end13.i, label %if.then11.i
+  br i1 %tobool10.not.i, label %opt_free.exit, label %if.then11.i
 
 if.then11.i:                                      ; preds = %while.end.i
   call void @free(ptr noundef nonnull %6) #8
-  br label %if.end13.i
+  br label %opt_free.exit
 
-if.end13.i:                                       ; preds = %if.then11.i, %while.end.i
+opt_free.exit:                                    ; preds = %while.end.i, %if.then11.i
   call void @free(ptr noundef nonnull %call) #8
   br label %cleanup
 
 sw.default:                                       ; preds = %while.cond
   %call8 = call ptr @strchr(ptr noundef nonnull dereferenceable(1) %getopt_short, i32 noundef %call1) #10
   %tobool9.not = icmp eq ptr %call8, null
-  br i1 %tobool9.not, label %if.else22, label %if.then10
+  br i1 %tobool9.not, label %if.end.i132, label %if.then10
 
 if.then10:                                        ; preds = %sw.default
   %7 = load i32, ptr %opt_index, align 4, !tbaa !17
@@ -185,103 +185,103 @@ if.end16:                                         ; preds = %if.then10, %if.then
   %conv = trunc i32 %call1 to i8
   %call17 = call fastcc i32 @register_option(ptr noundef nonnull %call, ptr noundef %longname.0, i8 noundef signext %conv, ptr noundef %options_long, ptr noundef %accepted_long), !range !21
   %cmp18 = icmp eq i32 %call17, -1
-  br i1 %cmp18, label %if.end.i110, label %while.cond.backedge
+  br i1 %cmp18, label %if.end.i111, label %while.cond.backedge
 
 while.cond.backedge:                              ; preds = %if.end16, %sw.bb
   br label %while.cond
 
-if.end.i110:                                      ; preds = %if.end16
+if.end.i111:                                      ; preds = %if.end16
   %9 = load ptr, ptr %call, align 8, !tbaa !5
-  %tobool1.not27.i109 = icmp eq ptr %9, null
-  br i1 %tobool1.not27.i109, label %while.end.i125, label %while.body.i114
+  %tobool1.not27.i110 = icmp eq ptr %9, null
+  br i1 %tobool1.not27.i110, label %while.end.i126, label %while.body.i115
 
-while.body.i114:                                  ; preds = %if.end.i110, %if.end9.i122
-  %handler.028.i111 = phi ptr [ %12, %if.end9.i122 ], [ %9, %if.end.i110 ]
-  %optarg.i112 = getelementptr inbounds %struct.optnode, ptr %handler.028.i111, i64 0, i32 2
-  %10 = load ptr, ptr %optarg.i112, align 8, !tbaa !10
-  %tobool2.not.i113 = icmp eq ptr %10, null
-  br i1 %tobool2.not.i113, label %if.end5.i118, label %if.then3.i115
+while.body.i115:                                  ; preds = %if.end.i111, %if.end9.i123
+  %handler.028.i112 = phi ptr [ %12, %if.end9.i123 ], [ %9, %if.end.i111 ]
+  %optarg.i113 = getelementptr inbounds %struct.optnode, ptr %handler.028.i112, i64 0, i32 2
+  %10 = load ptr, ptr %optarg.i113, align 8, !tbaa !10
+  %tobool2.not.i114 = icmp eq ptr %10, null
+  br i1 %tobool2.not.i114, label %if.end5.i119, label %if.then3.i116
 
-if.then3.i115:                                    ; preds = %while.body.i114
+if.then3.i116:                                    ; preds = %while.body.i115
   call void @free(ptr noundef nonnull %10) #8
-  br label %if.end5.i118
+  br label %if.end5.i119
 
-if.end5.i118:                                     ; preds = %if.then3.i115, %while.body.i114
-  %optlong.i116 = getelementptr inbounds %struct.optnode, ptr %handler.028.i111, i64 0, i32 1
-  %11 = load ptr, ptr %optlong.i116, align 8, !tbaa !12
-  %tobool6.not.i117 = icmp eq ptr %11, null
-  br i1 %tobool6.not.i117, label %if.end9.i122, label %if.then7.i119
+if.end5.i119:                                     ; preds = %if.then3.i116, %while.body.i115
+  %optlong.i117 = getelementptr inbounds %struct.optnode, ptr %handler.028.i112, i64 0, i32 1
+  %11 = load ptr, ptr %optlong.i117, align 8, !tbaa !12
+  %tobool6.not.i118 = icmp eq ptr %11, null
+  br i1 %tobool6.not.i118, label %if.end9.i123, label %if.then7.i120
 
-if.then7.i119:                                    ; preds = %if.end5.i118
+if.then7.i120:                                    ; preds = %if.end5.i119
   call void @free(ptr noundef nonnull %11) #8
-  br label %if.end9.i122
+  br label %if.end9.i123
 
-if.end9.i122:                                     ; preds = %if.then7.i119, %if.end5.i118
-  %next.i120 = getelementptr inbounds %struct.optnode, ptr %handler.028.i111, i64 0, i32 3
-  %12 = load ptr, ptr %next.i120, align 8, !tbaa !13
-  call void @free(ptr noundef nonnull %handler.028.i111) #8
-  %tobool1.not.i121 = icmp eq ptr %12, null
-  br i1 %tobool1.not.i121, label %while.end.i125, label %while.body.i114, !llvm.loop !14
+if.end9.i123:                                     ; preds = %if.then7.i120, %if.end5.i119
+  %next.i121 = getelementptr inbounds %struct.optnode, ptr %handler.028.i112, i64 0, i32 3
+  %12 = load ptr, ptr %next.i121, align 8, !tbaa !13
+  call void @free(ptr noundef nonnull %handler.028.i112) #8
+  %tobool1.not.i122 = icmp eq ptr %12, null
+  br i1 %tobool1.not.i122, label %while.end.i126, label %while.body.i115, !llvm.loop !14
 
-while.end.i125:                                   ; preds = %if.end9.i122, %if.end.i110
-  %filename.i123 = getelementptr inbounds %struct.optstruct, ptr %call, i64 0, i32 1
-  %13 = load ptr, ptr %filename.i123, align 8, !tbaa !16
-  %tobool10.not.i124 = icmp eq ptr %13, null
-  br i1 %tobool10.not.i124, label %if.end13.i127, label %if.then11.i126
+while.end.i126:                                   ; preds = %if.end9.i123, %if.end.i111
+  %filename.i124 = getelementptr inbounds %struct.optstruct, ptr %call, i64 0, i32 1
+  %13 = load ptr, ptr %filename.i124, align 8, !tbaa !16
+  %tobool10.not.i125 = icmp eq ptr %13, null
+  br i1 %tobool10.not.i125, label %opt_free.exit129, label %if.then11.i127
 
-if.then11.i126:                                   ; preds = %while.end.i125
+if.then11.i127:                                   ; preds = %while.end.i126
   call void @free(ptr noundef nonnull %13) #8
-  br label %if.end13.i127
+  br label %opt_free.exit129
 
-if.end13.i127:                                    ; preds = %if.then11.i126, %while.end.i125
+opt_free.exit129:                                 ; preds = %while.end.i126, %if.then11.i127
   call void @free(ptr noundef nonnull %call) #8
   br label %cleanup
 
-if.else22:                                        ; preds = %sw.default
+if.end.i132:                                      ; preds = %sw.default
   call void (ptr, ...) @mprintf(ptr noundef nonnull @.str.1) #8
   %14 = load ptr, ptr %call, align 8, !tbaa !5
-  %tobool1.not27.i130 = icmp eq ptr %14, null
-  br i1 %tobool1.not27.i130, label %while.end.i146, label %while.body.i135
+  %tobool1.not27.i131 = icmp eq ptr %14, null
+  br i1 %tobool1.not27.i131, label %while.end.i147, label %while.body.i136
 
-while.body.i135:                                  ; preds = %if.else22, %if.end9.i143
-  %handler.028.i132 = phi ptr [ %17, %if.end9.i143 ], [ %14, %if.else22 ]
-  %optarg.i133 = getelementptr inbounds %struct.optnode, ptr %handler.028.i132, i64 0, i32 2
-  %15 = load ptr, ptr %optarg.i133, align 8, !tbaa !10
-  %tobool2.not.i134 = icmp eq ptr %15, null
-  br i1 %tobool2.not.i134, label %if.end5.i139, label %if.then3.i136
+while.body.i136:                                  ; preds = %if.end.i132, %if.end9.i144
+  %handler.028.i133 = phi ptr [ %17, %if.end9.i144 ], [ %14, %if.end.i132 ]
+  %optarg.i134 = getelementptr inbounds %struct.optnode, ptr %handler.028.i133, i64 0, i32 2
+  %15 = load ptr, ptr %optarg.i134, align 8, !tbaa !10
+  %tobool2.not.i135 = icmp eq ptr %15, null
+  br i1 %tobool2.not.i135, label %if.end5.i140, label %if.then3.i137
 
-if.then3.i136:                                    ; preds = %while.body.i135
+if.then3.i137:                                    ; preds = %while.body.i136
   call void @free(ptr noundef nonnull %15) #8
-  br label %if.end5.i139
+  br label %if.end5.i140
 
-if.end5.i139:                                     ; preds = %if.then3.i136, %while.body.i135
-  %optlong.i137 = getelementptr inbounds %struct.optnode, ptr %handler.028.i132, i64 0, i32 1
-  %16 = load ptr, ptr %optlong.i137, align 8, !tbaa !12
-  %tobool6.not.i138 = icmp eq ptr %16, null
-  br i1 %tobool6.not.i138, label %if.end9.i143, label %if.then7.i140
+if.end5.i140:                                     ; preds = %if.then3.i137, %while.body.i136
+  %optlong.i138 = getelementptr inbounds %struct.optnode, ptr %handler.028.i133, i64 0, i32 1
+  %16 = load ptr, ptr %optlong.i138, align 8, !tbaa !12
+  %tobool6.not.i139 = icmp eq ptr %16, null
+  br i1 %tobool6.not.i139, label %if.end9.i144, label %if.then7.i141
 
-if.then7.i140:                                    ; preds = %if.end5.i139
+if.then7.i141:                                    ; preds = %if.end5.i140
   call void @free(ptr noundef nonnull %16) #8
-  br label %if.end9.i143
+  br label %if.end9.i144
 
-if.end9.i143:                                     ; preds = %if.then7.i140, %if.end5.i139
-  %next.i141 = getelementptr inbounds %struct.optnode, ptr %handler.028.i132, i64 0, i32 3
-  %17 = load ptr, ptr %next.i141, align 8, !tbaa !13
-  call void @free(ptr noundef nonnull %handler.028.i132) #8
-  %tobool1.not.i142 = icmp eq ptr %17, null
-  br i1 %tobool1.not.i142, label %while.end.i146, label %while.body.i135, !llvm.loop !14
+if.end9.i144:                                     ; preds = %if.then7.i141, %if.end5.i140
+  %next.i142 = getelementptr inbounds %struct.optnode, ptr %handler.028.i133, i64 0, i32 3
+  %17 = load ptr, ptr %next.i142, align 8, !tbaa !13
+  call void @free(ptr noundef nonnull %handler.028.i133) #8
+  %tobool1.not.i143 = icmp eq ptr %17, null
+  br i1 %tobool1.not.i143, label %while.end.i147, label %while.body.i136, !llvm.loop !14
 
-while.end.i146:                                   ; preds = %if.end9.i143, %if.else22
-  %filename.i144 = getelementptr inbounds %struct.optstruct, ptr %call, i64 0, i32 1
-  %18 = load ptr, ptr %filename.i144, align 8, !tbaa !16
-  %tobool10.not.i145 = icmp eq ptr %18, null
-  br i1 %tobool10.not.i145, label %if.end13.i148, label %if.then11.i147
+while.end.i147:                                   ; preds = %if.end9.i144, %if.end.i132
+  %filename.i145 = getelementptr inbounds %struct.optstruct, ptr %call, i64 0, i32 1
+  %18 = load ptr, ptr %filename.i145, align 8, !tbaa !16
+  %tobool10.not.i146 = icmp eq ptr %18, null
+  br i1 %tobool10.not.i146, label %opt_free.exit150, label %if.then11.i148
 
-if.then11.i147:                                   ; preds = %while.end.i146
+if.then11.i148:                                   ; preds = %while.end.i147
   call void @free(ptr noundef nonnull %18) #8
-  br label %if.end13.i148
+  br label %opt_free.exit150
 
-if.end13.i148:                                    ; preds = %if.then11.i147, %while.end.i146
+opt_free.exit150:                                 ; preds = %while.end.i147, %if.then11.i148
   call void @free(ptr noundef nonnull %call) #8
   br label %cleanup
 
@@ -317,48 +317,48 @@ for.end:                                          ; preds = %for.body
   %filename = getelementptr inbounds %struct.optstruct, ptr %call, i64 0, i32 1
   store ptr %call38, ptr %filename, align 8, !tbaa !16
   %tobool40.not = icmp eq ptr %call38, null
-  br i1 %tobool40.not, label %if.then41, label %for.body46.lr.ph
+  br i1 %tobool40.not, label %if.end.i153, label %for.body46.lr.ph
 
 for.body46.lr.ph:                                 ; preds = %for.end
   %sub54 = add nsw i32 %argc, -1
   %sext = sext i32 %sub54 to i64
   br label %for.body46
 
-if.then41:                                        ; preds = %for.end
+if.end.i153:                                      ; preds = %for.end
   call void (ptr, ...) @mprintf(ptr noundef nonnull @.str) #8
   %24 = load ptr, ptr %call, align 8, !tbaa !5
-  %tobool1.not27.i151 = icmp eq ptr %24, null
-  br i1 %tobool1.not27.i151, label %if.end13.i169, label %while.body.i156
+  %tobool1.not27.i152 = icmp eq ptr %24, null
+  br i1 %tobool1.not27.i152, label %opt_free.exit171, label %while.body.i157
 
-while.body.i156:                                  ; preds = %if.then41, %if.end9.i164
-  %handler.028.i153 = phi ptr [ %27, %if.end9.i164 ], [ %24, %if.then41 ]
-  %optarg.i154 = getelementptr inbounds %struct.optnode, ptr %handler.028.i153, i64 0, i32 2
-  %25 = load ptr, ptr %optarg.i154, align 8, !tbaa !10
-  %tobool2.not.i155 = icmp eq ptr %25, null
-  br i1 %tobool2.not.i155, label %if.end5.i160, label %if.then3.i157
+while.body.i157:                                  ; preds = %if.end.i153, %if.end9.i165
+  %handler.028.i154 = phi ptr [ %27, %if.end9.i165 ], [ %24, %if.end.i153 ]
+  %optarg.i155 = getelementptr inbounds %struct.optnode, ptr %handler.028.i154, i64 0, i32 2
+  %25 = load ptr, ptr %optarg.i155, align 8, !tbaa !10
+  %tobool2.not.i156 = icmp eq ptr %25, null
+  br i1 %tobool2.not.i156, label %if.end5.i161, label %if.then3.i158
 
-if.then3.i157:                                    ; preds = %while.body.i156
+if.then3.i158:                                    ; preds = %while.body.i157
   call void @free(ptr noundef nonnull %25) #8
-  br label %if.end5.i160
+  br label %if.end5.i161
 
-if.end5.i160:                                     ; preds = %if.then3.i157, %while.body.i156
-  %optlong.i158 = getelementptr inbounds %struct.optnode, ptr %handler.028.i153, i64 0, i32 1
-  %26 = load ptr, ptr %optlong.i158, align 8, !tbaa !12
-  %tobool6.not.i159 = icmp eq ptr %26, null
-  br i1 %tobool6.not.i159, label %if.end9.i164, label %if.then7.i161
+if.end5.i161:                                     ; preds = %if.then3.i158, %while.body.i157
+  %optlong.i159 = getelementptr inbounds %struct.optnode, ptr %handler.028.i154, i64 0, i32 1
+  %26 = load ptr, ptr %optlong.i159, align 8, !tbaa !12
+  %tobool6.not.i160 = icmp eq ptr %26, null
+  br i1 %tobool6.not.i160, label %if.end9.i165, label %if.then7.i162
 
-if.then7.i161:                                    ; preds = %if.end5.i160
+if.then7.i162:                                    ; preds = %if.end5.i161
   call void @free(ptr noundef nonnull %26) #8
-  br label %if.end9.i164
+  br label %if.end9.i165
 
-if.end9.i164:                                     ; preds = %if.then7.i161, %if.end5.i160
-  %next.i162 = getelementptr inbounds %struct.optnode, ptr %handler.028.i153, i64 0, i32 3
-  %27 = load ptr, ptr %next.i162, align 8, !tbaa !13
-  call void @free(ptr noundef nonnull %handler.028.i153) #8
-  %tobool1.not.i163 = icmp eq ptr %27, null
-  br i1 %tobool1.not.i163, label %if.end13.i169, label %while.body.i156, !llvm.loop !14
+if.end9.i165:                                     ; preds = %if.then7.i162, %if.end5.i161
+  %next.i163 = getelementptr inbounds %struct.optnode, ptr %handler.028.i154, i64 0, i32 3
+  %27 = load ptr, ptr %next.i163, align 8, !tbaa !13
+  call void @free(ptr noundef nonnull %handler.028.i154) #8
+  %tobool1.not.i164 = icmp eq ptr %27, null
+  br i1 %tobool1.not.i164, label %opt_free.exit171, label %while.body.i157, !llvm.loop !14
 
-if.end13.i169:                                    ; preds = %if.end9.i164, %if.then41
+opt_free.exit171:                                 ; preds = %if.end9.i165, %if.end.i153
   call void @free(ptr noundef nonnull %call) #8
   br label %cleanup
 
@@ -382,8 +382,8 @@ for.inc61:                                        ; preds = %for.body46, %if.the
   %exitcond182.not = icmp eq i64 %indvars.iv.next179, %wide.trip.count
   br i1 %exitcond182.not, label %cleanup, label %for.body46, !llvm.loop !24
 
-cleanup:                                          ; preds = %for.inc61, %while.end, %if.end13.i169, %if.end13.i148, %if.end13.i127, %if.end13.i, %if.then
-  %retval.0 = phi ptr [ null, %if.end13.i169 ], [ null, %if.end13.i ], [ null, %if.end13.i127 ], [ null, %if.end13.i148 ], [ null, %if.then ], [ %call, %while.end ], [ %call, %for.inc61 ]
+cleanup:                                          ; preds = %for.inc61, %while.end, %opt_free.exit171, %opt_free.exit150, %opt_free.exit129, %opt_free.exit, %if.then
+  %retval.0 = phi ptr [ null, %opt_free.exit171 ], [ null, %opt_free.exit ], [ null, %opt_free.exit129 ], [ null, %opt_free.exit150 ], [ null, %if.then ], [ %call, %while.end ], [ %call, %for.inc61 ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %opt_index) #8
   ret ptr %retval.0
 }

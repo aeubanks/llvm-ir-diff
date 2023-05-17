@@ -700,9 +700,9 @@ for.body.i292:                                    ; preds = %.noexc294, %for.bod
 
 invoke.cont24:                                    ; preds = %.noexc294, %.noexc293
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %_fileInfoPopIDs)
-          to label %_ZN13CRecordVectorIyE3AddEy.exit unwind label %lpad.loopexit.split-lp
+          to label %invoke.cont26 unwind label %lpad.loopexit.split-lp
 
-_ZN13CRecordVectorIyE3AddEy.exit:                 ; preds = %invoke.cont24
+invoke.cont26:                                    ; preds = %invoke.cont24
   %_items.i = getelementptr inbounds %"class.NArchive::N7z::CHandler", ptr %this, i64 0, i32 9, i32 0, i32 3
   %82 = load ptr, ptr %_items.i, align 8, !tbaa !15
   %83 = load i32, ptr %_size.i9.i, align 4, !tbaa !14
@@ -712,9 +712,9 @@ _ZN13CRecordVectorIyE3AddEy.exit:                 ; preds = %invoke.cont24
   %inc.i = add nsw i32 %83, 1
   store i32 %inc.i, ptr %_size.i9.i, align 4, !tbaa !14
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %_fileInfoPopIDs)
-          to label %_ZN13CRecordVectorIyE3AddEy.exit302 unwind label %lpad.loopexit.split-lp
+          to label %invoke.cont29 unwind label %lpad.loopexit.split-lp
 
-_ZN13CRecordVectorIyE3AddEy.exit302:              ; preds = %_ZN13CRecordVectorIyE3AddEy.exit
+invoke.cont29:                                    ; preds = %invoke.cont26
   %84 = load ptr, ptr %_items.i, align 8, !tbaa !15
   %85 = load i32, ptr %_size.i9.i, align 4, !tbaa !14
   %idxprom.i298 = sext i32 %85 to i64
@@ -723,9 +723,9 @@ _ZN13CRecordVectorIyE3AddEy.exit302:              ; preds = %_ZN13CRecordVectorI
   %inc.i300 = add nsw i32 %85, 1
   store i32 %inc.i300, ptr %_size.i9.i, align 4, !tbaa !14
   invoke void @_ZN17CBaseRecordVector18ReserveOnePositionEv(ptr noundef nonnull align 8 dereferenceable(32) %_fileInfoPopIDs)
-          to label %_ZN13CRecordVectorIyE3AddEy.exit309 unwind label %lpad.loopexit.split-lp
+          to label %invoke.cont32 unwind label %lpad.loopexit.split-lp
 
-_ZN13CRecordVectorIyE3AddEy.exit309:              ; preds = %_ZN13CRecordVectorIyE3AddEy.exit302
+invoke.cont32:                                    ; preds = %invoke.cont29
   %86 = load ptr, ptr %_items.i, align 8, !tbaa !15
   %87 = load i32, ptr %_size.i9.i, align 4, !tbaa !14
   %idxprom.i305 = sext i32 %87 to i64
@@ -736,7 +736,7 @@ _ZN13CRecordVectorIyE3AddEy.exit309:              ; preds = %_ZN13CRecordVectorI
   %cmp13.i = icmp sgt i32 %87, -1
   br i1 %cmp13.i, label %for.body.lr.ph.i313, label %cleanup.i
 
-for.body.lr.ph.i313:                              ; preds = %_ZN13CRecordVectorIyE3AddEy.exit309
+for.body.lr.ph.i313:                              ; preds = %invoke.cont32
   %wide.trip.count.i312 = zext i32 %inc.i307 to i64
   br label %for.body.i317
 
@@ -760,18 +760,18 @@ for.inc.i323:                                     ; preds = %for.body.i317
   %exitcond.not.i322 = icmp eq i64 %indvars.iv.next.i321, %wide.trip.count.i312
   br i1 %exitcond.not.i322, label %cleanup.i, label %for.body.i317, !llvm.loop !22
 
-cleanup.i:                                        ; preds = %for.inc.i323, %if.then.i320, %_ZN13CRecordVectorIyE3AddEy.exit309
+cleanup.i:                                        ; preds = %for.inc.i323, %if.then.i320, %invoke.cont32
   invoke void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %_fileInfoPopIDs, i32 noundef 0)
-          to label %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit unwind label %lpad.loopexit.split-lp
+          to label %invoke.cont35 unwind label %lpad.loopexit.split-lp
 
-_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit: ; preds = %cleanup.i
+invoke.cont35:                                    ; preds = %cleanup.i
   %91 = load ptr, ptr %_items.i, align 8, !tbaa !15
   store i64 20, ptr %91, align 8, !tbaa !16
   %92 = load i32, ptr %_size.i9.i, align 4, !tbaa !14
   %cmp13.i328 = icmp sgt i32 %92, 0
   br i1 %cmp13.i328, label %for.body.lr.ph.i332, label %cleanup.i344
 
-for.body.lr.ph.i332:                              ; preds = %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit
+for.body.lr.ph.i332:                              ; preds = %invoke.cont35
   %wide.trip.count.i331 = zext i32 %92 to i64
   br label %for.body.i336
 
@@ -795,18 +795,18 @@ for.inc.i342:                                     ; preds = %for.body.i336
   %exitcond.not.i341 = icmp eq i64 %indvars.iv.next.i340, %wide.trip.count.i331
   br i1 %exitcond.not.i341, label %cleanup.i344, label %for.body.i336, !llvm.loop !22
 
-cleanup.i344:                                     ; preds = %for.inc.i342, %if.then.i339, %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit
+cleanup.i344:                                     ; preds = %for.inc.i342, %if.then.i339, %invoke.cont35
   invoke void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %_fileInfoPopIDs, i32 noundef 0)
-          to label %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit347 unwind label %lpad.loopexit.split-lp
+          to label %invoke.cont37 unwind label %lpad.loopexit.split-lp
 
-_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit347: ; preds = %cleanup.i344
+invoke.cont37:                                    ; preds = %cleanup.i344
   %96 = load ptr, ptr %_items.i, align 8, !tbaa !15
   store i64 6, ptr %96, align 8, !tbaa !16
   %97 = load i32, ptr %_size.i9.i, align 4, !tbaa !14
   %cmp13.i349 = icmp sgt i32 %97, 0
   br i1 %cmp13.i349, label %for.body.lr.ph.i353, label %cleanup.i365
 
-for.body.lr.ph.i353:                              ; preds = %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit347
+for.body.lr.ph.i353:                              ; preds = %invoke.cont37
   %wide.trip.count.i352 = zext i32 %97 to i64
   br label %for.body.i357
 
@@ -830,18 +830,18 @@ for.inc.i363:                                     ; preds = %for.body.i357
   %exitcond.not.i362 = icmp eq i64 %indvars.iv.next.i361, %wide.trip.count.i352
   br i1 %exitcond.not.i362, label %cleanup.i365, label %for.body.i357, !llvm.loop !22
 
-cleanup.i365:                                     ; preds = %for.inc.i363, %if.then.i360, %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit347
+cleanup.i365:                                     ; preds = %for.inc.i363, %if.then.i360, %invoke.cont37
   invoke void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %_fileInfoPopIDs, i32 noundef 0)
-          to label %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit368 unwind label %lpad.loopexit.split-lp
+          to label %invoke.cont39 unwind label %lpad.loopexit.split-lp
 
-_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit368: ; preds = %cleanup.i365
+invoke.cont39:                                    ; preds = %cleanup.i365
   %101 = load ptr, ptr %_items.i, align 8, !tbaa !15
   store i64 9, ptr %101, align 8, !tbaa !16
   %102 = load i32, ptr %_size.i9.i, align 4, !tbaa !14
   %cmp13.i370 = icmp sgt i32 %102, 0
   br i1 %cmp13.i370, label %for.body.lr.ph.i374, label %cleanup.i386
 
-for.body.lr.ph.i374:                              ; preds = %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit368
+for.body.lr.ph.i374:                              ; preds = %invoke.cont39
   %wide.trip.count.i373 = zext i32 %102 to i64
   br label %for.body.i378
 
@@ -865,11 +865,11 @@ for.inc.i384:                                     ; preds = %for.body.i378
   %exitcond.not.i383 = icmp eq i64 %indvars.iv.next.i382, %wide.trip.count.i373
   br i1 %exitcond.not.i383, label %cleanup.i386, label %for.body.i378, !llvm.loop !22
 
-cleanup.i386:                                     ; preds = %for.inc.i384, %if.then.i381, %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit368
+cleanup.i386:                                     ; preds = %for.inc.i384, %if.then.i381, %invoke.cont39
   invoke void @_ZN17CBaseRecordVector13InsertOneItemEi(ptr noundef nonnull align 8 dereferenceable(32) %_fileInfoPopIDs, i32 noundef 0)
-          to label %_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit389 unwind label %lpad.loopexit.split-lp
+          to label %invoke.cont41 unwind label %lpad.loopexit.split-lp
 
-_ZN8NArchive3N7zL12InsertToHeadER13CRecordVectorIyEj.exit389: ; preds = %cleanup.i386
+invoke.cont41:                                    ; preds = %cleanup.i386
   %106 = load ptr, ptr %_items.i, align 8, !tbaa !15
   store i64 17, ptr %106, align 8, !tbaa !16
   call void @_ZN17CBaseRecordVectorD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %fileInfoPopIDs) #9
@@ -881,7 +881,7 @@ lpad.loopexit:                                    ; preds = %for.body.i292
           cleanup
   br label %lpad
 
-lpad.loopexit.split-lp:                           ; preds = %if.then.i, %if.then.i54, %if.then.i70, %.noexc74, %if.then.i92, %.noexc96, %if.then.i115, %.noexc119, %if.then.i138, %.noexc142, %if.then.i161, %.noexc165, %if.then.i184, %.noexc188, %if.then.i207, %.noexc211, %if.then.i230, %.noexc234, %if.then.i253, %.noexc257, %if.then.i276, %.noexc280, %invoke.cont22, %invoke.cont24, %_ZN13CRecordVectorIyE3AddEy.exit, %_ZN13CRecordVectorIyE3AddEy.exit302, %if.then.i320, %cleanup.i, %if.then.i339, %cleanup.i344, %if.then.i360, %cleanup.i365, %if.then.i381, %cleanup.i386
+lpad.loopexit.split-lp:                           ; preds = %if.then.i, %if.then.i54, %if.then.i70, %.noexc74, %if.then.i92, %.noexc96, %if.then.i115, %.noexc119, %if.then.i138, %.noexc142, %if.then.i161, %.noexc165, %if.then.i184, %.noexc188, %if.then.i207, %.noexc211, %if.then.i230, %.noexc234, %if.then.i253, %.noexc257, %if.then.i276, %.noexc280, %invoke.cont22, %invoke.cont24, %invoke.cont26, %invoke.cont29, %if.then.i320, %cleanup.i, %if.then.i339, %cleanup.i344, %if.then.i360, %cleanup.i365, %if.then.i381, %cleanup.i386
   %lpad.loopexit.split-lp448 = landingpad { ptr, i32 }
           cleanup
   br label %lpad
@@ -930,68 +930,68 @@ if.end:                                           ; preds = %entry
   %arrayidx.i = getelementptr inbounds i64, ptr %1, i64 %idxprom.i
   %2 = load i64, ptr %arrayidx.i, align 8, !tbaa !16
   %3 = load i64, ptr @_ZN8NArchive3N7z8kPropMapE, align 16, !tbaa !24
-  %cmp1.not.i = icmp eq i64 %3, %2
-  br i1 %cmp1.not.i, label %if.end7, label %for.inc.i
+  %cmp1.i = icmp eq i64 %3, %2
+  br i1 %cmp1.i, label %if.end7, label %for.inc.i
 
 for.inc.i:                                        ; preds = %if.end
   %4 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 1), align 8, !tbaa !24
-  %cmp1.not.1.i = icmp eq i64 %4, %2
-  br i1 %cmp1.not.1.i, label %if.end7, label %for.inc.1.i
+  %cmp1.1.i = icmp eq i64 %4, %2
+  br i1 %cmp1.1.i, label %if.end7, label %for.inc.1.i
 
 for.inc.1.i:                                      ; preds = %for.inc.i
   %5 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 2), align 16, !tbaa !24
-  %cmp1.not.2.i = icmp eq i64 %5, %2
-  br i1 %cmp1.not.2.i, label %if.end7, label %for.inc.2.i
+  %cmp1.2.i = icmp eq i64 %5, %2
+  br i1 %cmp1.2.i, label %if.end7, label %for.inc.2.i
 
 for.inc.2.i:                                      ; preds = %for.inc.1.i
   %6 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 3), align 8, !tbaa !24
-  %cmp1.not.3.i = icmp eq i64 %6, %2
-  br i1 %cmp1.not.3.i, label %if.end7, label %for.inc.3.i
+  %cmp1.3.i = icmp eq i64 %6, %2
+  br i1 %cmp1.3.i, label %if.end7, label %for.inc.3.i
 
 for.inc.3.i:                                      ; preds = %for.inc.2.i
   %7 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 4), align 16, !tbaa !24
-  %cmp1.not.4.i = icmp eq i64 %7, %2
-  br i1 %cmp1.not.4.i, label %if.end7, label %for.inc.4.i
+  %cmp1.4.i = icmp eq i64 %7, %2
+  br i1 %cmp1.4.i, label %if.end7, label %for.inc.4.i
 
 for.inc.4.i:                                      ; preds = %for.inc.3.i
   %8 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 5), align 8, !tbaa !24
-  %cmp1.not.5.i = icmp eq i64 %8, %2
-  br i1 %cmp1.not.5.i, label %if.end7, label %for.inc.5.i
+  %cmp1.5.i = icmp eq i64 %8, %2
+  br i1 %cmp1.5.i, label %if.end7, label %for.inc.5.i
 
 for.inc.5.i:                                      ; preds = %for.inc.4.i
   %9 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 6), align 16, !tbaa !24
-  %cmp1.not.6.i = icmp eq i64 %9, %2
-  br i1 %cmp1.not.6.i, label %if.end7, label %for.inc.6.i
+  %cmp1.6.i = icmp eq i64 %9, %2
+  br i1 %cmp1.6.i, label %if.end7, label %for.inc.6.i
 
 for.inc.6.i:                                      ; preds = %for.inc.5.i
   %10 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 7), align 8, !tbaa !24
-  %cmp1.not.7.i = icmp eq i64 %10, %2
-  br i1 %cmp1.not.7.i, label %if.end7, label %for.inc.7.i
+  %cmp1.7.i = icmp eq i64 %10, %2
+  br i1 %cmp1.7.i, label %if.end7, label %for.inc.7.i
 
 for.inc.7.i:                                      ; preds = %for.inc.6.i
   %11 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 8), align 16, !tbaa !24
-  %cmp1.not.8.i = icmp eq i64 %11, %2
-  br i1 %cmp1.not.8.i, label %if.end7, label %for.inc.8.i
+  %cmp1.8.i = icmp eq i64 %11, %2
+  br i1 %cmp1.8.i, label %if.end7, label %for.inc.8.i
 
 for.inc.8.i:                                      ; preds = %for.inc.7.i
   %12 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 9), align 8, !tbaa !24
-  %cmp1.not.9.i = icmp eq i64 %12, %2
-  br i1 %cmp1.not.9.i, label %if.end7, label %for.inc.9.i
+  %cmp1.9.i = icmp eq i64 %12, %2
+  br i1 %cmp1.9.i, label %if.end7, label %for.inc.9.i
 
 for.inc.9.i:                                      ; preds = %for.inc.8.i
   %13 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 10), align 16, !tbaa !24
-  %cmp1.not.10.i = icmp eq i64 %13, %2
-  br i1 %cmp1.not.10.i, label %if.end7, label %for.inc.10.i
+  %cmp1.10.i = icmp eq i64 %13, %2
+  br i1 %cmp1.10.i, label %if.end7, label %for.inc.10.i
 
 for.inc.10.i:                                     ; preds = %for.inc.9.i
   %14 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 11), align 8, !tbaa !24
-  %cmp1.not.11.i = icmp eq i64 %14, %2
-  br i1 %cmp1.not.11.i, label %if.end7, label %for.inc.11.i
+  %cmp1.11.i = icmp eq i64 %14, %2
+  br i1 %cmp1.11.i, label %if.end7, label %for.inc.11.i
 
 for.inc.11.i:                                     ; preds = %for.inc.10.i
   %15 = load i64, ptr getelementptr inbounds ([13 x %"struct.NArchive::N7z::CPropMap"], ptr @_ZN8NArchive3N7z8kPropMapE, i64 0, i64 12), align 16, !tbaa !24
-  %cmp1.not.12.i = icmp eq i64 %15, %2
-  br i1 %cmp1.not.12.i, label %if.end7, label %return
+  %cmp1.12.i = icmp eq i64 %15, %2
+  br i1 %cmp1.12.i, label %if.end7, label %return
 
 if.end7:                                          ; preds = %for.inc.11.i, %if.end, %for.inc.i, %for.inc.1.i, %for.inc.2.i, %for.inc.3.i, %for.inc.4.i, %for.inc.5.i, %for.inc.6.i, %for.inc.7.i, %for.inc.8.i, %for.inc.9.i, %for.inc.10.i
   %spec.select.i.ph = phi i64 [ 11, %for.inc.10.i ], [ 10, %for.inc.9.i ], [ 9, %for.inc.8.i ], [ 8, %for.inc.7.i ], [ 7, %for.inc.6.i ], [ 6, %for.inc.5.i ], [ 5, %for.inc.4.i ], [ 4, %for.inc.3.i ], [ 3, %for.inc.2.i ], [ 2, %for.inc.1.i ], [ 1, %for.inc.i ], [ 0, %if.end ], [ 12, %for.inc.11.i ]

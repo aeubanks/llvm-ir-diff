@@ -306,8 +306,8 @@ sw.default:                                       ; preds = %entry
   %17 = load i32, ptr @gs_show_enum_sizeof, align 4, !tbaa !12
   tail call void @alloc_free(ptr noundef %16, i32 noundef 1, i32 noundef %17, ptr noundef nonnull @.str.13) #8
   %18 = load ptr, ptr @esp, align 8, !tbaa !10
-  %add.ptr.i60 = getelementptr inbounds %struct.ref_s, ptr %18, i64 -4
-  store ptr %add.ptr.i60, ptr @esp, align 8, !tbaa !10
+  %add.ptr.i61 = getelementptr inbounds %struct.ref_s, ptr %18, i64 -4
+  store ptr %add.ptr.i61, ptr @esp, align 8, !tbaa !10
   br label %cleanup39
 
 cleanup39:                                        ; preds = %if.then23, %if.end25, %if.then, %if.end, %sw.default, %sw.bb

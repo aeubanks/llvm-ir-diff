@@ -13,44 +13,44 @@ entry:
 
 for.cond.loopexit:                                ; preds = %while.body28.lr.ph.split.us82, %do.cond17
   %.us-phi = phi i32 [ 0, %do.cond17 ], [ %spec.select56.us, %while.body28.lr.ph.split.us82 ]
-  %.us-phi85 = phi i32 [ %pdest.7, %do.cond17 ], [ %spec.select57.us84, %while.body28.lr.ph.split.us82 ]
-  %cmp = icmp sgt i32 %.us-phi85, 2
+  %.us-phi84 = phi i32 [ %pdest.7, %do.cond17 ], [ %spec.select57.us83, %while.body28.lr.ph.split.us82 ]
+  %cmp = icmp sgt i32 %.us-phi84, 2
   %inc = zext i1 %cmp to i32
-  %pdest.2 = add nuw nsw i32 %.us-phi85, %inc
+  %pdest.2 = add nuw nsw i32 %.us-phi84, %inc
   %not.cmp = xor i1 %cmp, true
   %j.2 = zext i1 %not.cmp to i32
   br i1 %cmp, label %while.cond.preheader, label %for.end, !llvm.loop !5
 
 while.cond.preheader:                             ; preds = %entry, %for.cond.loopexit
-  %j.291 = phi i32 [ 0, %entry ], [ %j.2, %for.cond.loopexit ]
-  %pdest.290 = phi i32 [ 0, %entry ], [ %pdest.2, %for.cond.loopexit ]
-  %p.addr.089 = phi i32 [ %p, %entry ], [ %.us-phi, %for.cond.loopexit ]
-  %k.addr.088 = phi i32 [ %k, %entry ], [ -1, %for.cond.loopexit ]
-  %cmp558 = icmp sgt i32 %pdest.290, %p.addr.089
+  %j.290 = phi i32 [ 0, %entry ], [ %j.2, %for.cond.loopexit ]
+  %pdest.289 = phi i32 [ 0, %entry ], [ %pdest.2, %for.cond.loopexit ]
+  %p.addr.088 = phi i32 [ %p, %entry ], [ %.us-phi, %for.cond.loopexit ]
+  %k.addr.087 = phi i32 [ %k, %entry ], [ -1, %for.cond.loopexit ]
+  %cmp558 = icmp sgt i32 %pdest.289, %p.addr.088
   br i1 %cmp558, label %while.body.lr.ph, label %do.body10.preheader
 
 while.body.lr.ph:                                 ; preds = %while.cond.preheader
-  %cmp6 = icmp eq i32 %j.291, %p.addr.089
-  %0 = zext i1 %cmp6 to i32
-  %1 = add nsw i32 %pdest.290, %0
-  %cmp5 = icmp sgt i32 %1, %p.addr.089
+  %cmp6 = icmp eq i32 %j.290, %p.addr.088
+  %inc8 = zext i1 %cmp6 to i32
+  %0 = add nsw i32 %pdest.289, %inc8
+  %cmp5 = icmp sgt i32 %0, %p.addr.088
   br label %while.body
 
 do.body10.preheader:                              ; preds = %while.body, %while.cond.preheader
-  %pdest.3.lcssa = phi i32 [ %pdest.290, %while.cond.preheader ], [ %spec.select, %while.body ]
-  %idxprom = sext i32 %k.addr.088 to i64
+  %pdest.3.lcssa = phi i32 [ %pdest.289, %while.cond.preheader ], [ %spec.select, %while.body ]
+  %idxprom = sext i32 %k.addr.087 to i64
   %arrayidx = getelementptr inbounds [1 x i32], ptr @W, i64 0, i64 %idxprom
-  %cmp18 = icmp slt i32 %p.addr.089, 1
+  %cmp18 = icmp slt i32 %p.addr.088, 1
   %arrayidx.promoted = load i32, ptr %arrayidx, align 4, !tbaa !7
   br i1 %cmp18, label %do.body10.split.us, label %do.body10.preheader.split, !llvm.loop !11
 
 do.body10.preheader.split:                        ; preds = %do.body10.preheader
-  %cmp21 = icmp sgt i32 %k.addr.088, 0
-  %2 = icmp eq i32 %arrayidx.promoted, 0
+  %cmp21 = icmp sgt i32 %k.addr.087, 0
+  %1 = icmp eq i32 %arrayidx.promoted, 0
   br i1 %cmp21, label %do.body10.preheader.split.split.us, label %do.body10.preheader.split.split, !llvm.loop !12
 
 do.body10.preheader.split.split.us:               ; preds = %do.body10.preheader.split
-  br i1 %2, label %do.cond17.us69.preheader, label %if.then13.us68
+  br i1 %1, label %do.cond17.us69.preheader, label %if.then13.us68
 
 if.then13.us68:                                   ; preds = %do.body10.preheader.split.split.us
   store i32 0, ptr %arrayidx, align 4, !tbaa !7
@@ -63,16 +63,16 @@ do.cond17.us69:                                   ; preds = %do.cond17.us69.preh
   br label %do.cond17.us69
 
 do.body10.preheader.split.split:                  ; preds = %do.body10.preheader.split
-  br i1 %2, label %do.cond17, label %if.then13
+  br i1 %1, label %do.cond17, label %if.then13
 
 while.body:                                       ; preds = %while.body.lr.ph, %while.body
-  %pdest.359 = phi i32 [ %pdest.290, %while.body.lr.ph ], [ %spec.select, %while.body ]
-  %spec.select = add nsw i32 %pdest.359, %0
+  %pdest.359 = phi i32 [ %pdest.289, %while.body.lr.ph ], [ %spec.select, %while.body ]
+  %spec.select = add nsw i32 %pdest.359, %inc8
   br i1 %cmp5, label %while.body, label %do.body10.preheader, !llvm.loop !13
 
 do.body10.split.us:                               ; preds = %do.body10.preheader
-  %3 = icmp eq i32 %arrayidx.promoted, 0
-  br i1 %3, label %do.cond17.us.preheader, label %if.then13.us.peel
+  %2 = icmp eq i32 %arrayidx.promoted, 0
+  br i1 %2, label %do.cond17.us.preheader, label %if.then13.us.peel
 
 if.then13.us.peel:                                ; preds = %do.body10.split.us
   store i32 0, ptr %arrayidx, align 4, !tbaa !7
@@ -90,23 +90,23 @@ if.then13:                                        ; preds = %do.body10.preheader
 
 do.cond17:                                        ; preds = %do.body10.preheader.split.split, %if.then13
   %pdest.7 = phi i32 [ 1, %if.then13 ], [ %pdest.3.lcssa, %do.body10.preheader.split.split ]
-  %cmp2777.not = icmp eq i32 %j.291, 0
+  %cmp2777.not = icmp eq i32 %j.290, 0
   br i1 %cmp2777.not, label %for.cond.loopexit, label %do.body23.us
 
 do.body23.us:                                     ; preds = %do.cond17, %while.body28.lr.ph.split.us82
-  %k.addr.1.us = phi i32 [ %4, %while.body28.lr.ph.split.us82 ], [ %k.addr.088, %do.cond17 ]
-  %pdest.8.us = phi i32 [ %spec.select57.us84, %while.body28.lr.ph.split.us82 ], [ %pdest.7, %do.cond17 ]
+  %k.addr.1.us = phi i32 [ %3, %while.body28.lr.ph.split.us82 ], [ %k.addr.087, %do.cond17 ]
+  %pdest.8.us = phi i32 [ %spec.select57.us83, %while.body28.lr.ph.split.us82 ], [ %pdest.7, %do.cond17 ]
   %idxprom24.us = sext i32 %k.addr.1.us to i64
   %arrayidx25.us = getelementptr inbounds [1 x i32], ptr @Link, i64 0, i64 %idxprom24.us
-  %4 = load i32, ptr %arrayidx25.us, align 4, !tbaa !7
-  %cmp29.not.us = icmp ne i32 %4, -1
+  %3 = load i32, ptr %arrayidx25.us, align 4, !tbaa !7
+  %cmp29.not.us = icmp ne i32 %3, -1
   %spec.select56.us = zext i1 %cmp29.not.us to i32
-  %cmp27.us = icmp ugt i32 %j.291, %spec.select56.us
+  %cmp27.us = icmp ugt i32 %j.290, %spec.select56.us
   br i1 %cmp27.us, label %while.body28.us, label %while.body28.lr.ph.split.us82, !llvm.loop !16
 
 while.body28.lr.ph.split.us82:                    ; preds = %do.body23.us
-  %spec.select57.us84 = add nsw i32 %pdest.8.us, %spec.select56.us
-  %cmp36.not.us = icmp eq i32 %4, -1
+  %spec.select57.us83 = add nsw i32 %pdest.8.us, %spec.select56.us
+  %cmp36.not.us = icmp eq i32 %3, -1
   br i1 %cmp36.not.us, label %for.cond.loopexit, label %do.body23.us, !llvm.loop !5
 
 while.body28.us:                                  ; preds = %do.body23.us, %while.body28.us
@@ -118,16 +118,16 @@ for.end:                                          ; preds = %for.cond.loopexit
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-do.body10.preheader.split.i:
+do.body10.preheader.split.split.i:
   %arrayidx.promoted.i = load i32, ptr @W, align 4, !tbaa !7
   %cmp12.not.i = icmp eq i32 %arrayidx.promoted.i, 0
   br i1 %cmp12.not.i, label %if.then, label %if.end
 
-if.then:                                          ; preds = %do.body10.preheader.split.i
+if.then:                                          ; preds = %do.body10.preheader.split.split.i
   tail call void @abort() #3
   unreachable
 
-if.end:                                           ; preds = %do.body10.preheader.split.i
+if.end:                                           ; preds = %do.body10.preheader.split.split.i
   store i32 0, ptr @W, align 4, !tbaa !7
   ret i32 0
 }

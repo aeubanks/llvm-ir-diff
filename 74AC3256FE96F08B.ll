@@ -13,18 +13,18 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @bogus(ptr nocapture noundef %insn, ptr noundef readnone %thread, ptr nocapture noundef readnone %delay_list) local_unnamed_addr #1 {
-entry:
+if.end5:
   %bf.load = load i8, ptr %insn, align 4
   %bf.set = or i8 %bf.load, 1
   store i8 %bf.set, ptr %insn, align 4
   %cmp6.not = icmp eq ptr %thread, inttoptr (i64 7 to ptr)
   br i1 %cmp6.not, label %if.end8, label %if.then7
 
-if.then7:                                         ; preds = %entry
+if.then7:                                         ; preds = %if.end5
   tail call void @abort() #4
   unreachable
 
-if.end8:                                          ; preds = %entry
+if.end8:                                          ; preds = %if.end5
   ret void
 }
 

@@ -728,8 +728,8 @@ dict_copy.exit:                                   ; preds = %if.end11.i, %if.end
   call void @alloc_free(ptr noundef %24, i32 noundef 1, i32 noundef 32, ptr noundef nonnull @.str.3) #8
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then4.i, %entry, %dict_copy.exit
-  %retval.0 = phi i32 [ 0, %dict_copy.exit ], [ -25, %entry ], [ -25, %if.then4.i ]
+cleanup:                                          ; preds = %entry, %if.then4.i, %dict_copy.exit
+  %retval.0 = phi i32 [ 0, %dict_copy.exit ], [ -25, %if.then4.i ], [ -25, %entry ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %drto) #8
   ret i32 %retval.0
 }

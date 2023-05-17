@@ -252,7 +252,7 @@ return:                                           ; preds = %if.then, %if.end11,
 
 ; Function Attrs: uwtable
 define dso_local noundef i32 @_ZN13CStreamBinder12CreateEventsEv(ptr noundef nonnull align 8 dereferenceable(184) %this) local_unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+cleanup.cont:
   %call = tail call noalias noundef nonnull dereferenceable(96) ptr @_Znwm(i64 noundef 96) #14
   %_isValid.i = getelementptr inbounds %"class.NWindows::NSynchronization::CSynchro", ptr %call, i64 0, i32 2
   store i8 0, ptr %_isValid.i, align 8, !tbaa !33
@@ -269,22 +269,22 @@ entry:
   %_state.i.i = getelementptr inbounds %"class.NWindows::NSynchronization::CBaseEventWFMO", ptr %this, i64 0, i32 2
   store i8 1, ptr %_state.i.i, align 1, !tbaa !26
   %_thereAreBytesToReadEvent = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 1
-  %call.i19 = tail call i32 @ManualResetEvent_Create(ptr noundef nonnull %_thereAreBytesToReadEvent, i32 noundef 0)
-  %cmp7.not.not = icmp eq i32 %call.i19, 0
+  %call.i20 = tail call i32 @ManualResetEvent_Create(ptr noundef nonnull %_thereAreBytesToReadEvent, i32 noundef 0)
+  %cmp7.not.not = icmp eq i32 %call.i20, 0
   br i1 %cmp7.not.not, label %cleanup.cont12, label %return
 
-cleanup.cont12:                                   ; preds = %entry
+cleanup.cont12:                                   ; preds = %cleanup.cont
   %1 = load ptr, ptr %_synchroFor_allBytesAreWritenEvent_and_readStreamIsClosedEvent, align 8, !tbaa !35
-  %_sync.i.i20 = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 2, i32 0, i32 0, i32 1
-  store ptr %1, ptr %_sync.i.i20, align 8, !tbaa !25
-  %_manual_reset.i.i21 = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 2, i32 0, i32 1
-  store i8 1, ptr %_manual_reset.i.i21, align 8, !tbaa !36
-  %_state.i.i22 = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 2, i32 0, i32 2
-  store i8 0, ptr %_state.i.i22, align 1, !tbaa !26
+  %_sync.i.i21 = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 2, i32 0, i32 0, i32 1
+  store ptr %1, ptr %_sync.i.i21, align 8, !tbaa !25
+  %_manual_reset.i.i22 = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 2, i32 0, i32 1
+  store i8 1, ptr %_manual_reset.i.i22, align 8, !tbaa !36
+  %_state.i.i23 = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 2, i32 0, i32 2
+  store i8 0, ptr %_state.i.i23, align 1, !tbaa !26
   br label %return
 
-return:                                           ; preds = %entry, %cleanup.cont12
-  ret i32 %call.i19
+return:                                           ; preds = %cleanup.cont, %cleanup.cont12
+  ret i32 %call.i20
 }
 
 ; Function Attrs: nobuiltin allocsize(0)
@@ -320,7 +320,7 @@ entry:
 
 ; Function Attrs: uwtable
 define dso_local void @_ZN13CStreamBinder13CreateStreamsEPP19ISequentialInStreamPP20ISequentialOutStream(ptr noundef nonnull align 8 dereferenceable(184) %this, ptr nocapture noundef writeonly %inStream, ptr nocapture noundef writeonly %outStream) local_unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #14
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV28CSequentialInStreamForBinder, i64 0, inrange i32 0, i64 2), ptr %call, align 8, !tbaa !37
@@ -332,8 +332,8 @@ entry:
   %1 = getelementptr inbounds i8, ptr %call8, i64 8
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV29CSequentialOutStreamForBinder, i64 0, inrange i32 0, i64 2), ptr %call8, align 8, !tbaa !37
   store i32 1, ptr %1, align 8, !tbaa !39
-  %m_StreamBinder.i28 = getelementptr inbounds %class.CSequentialOutStreamForBinder, ptr %call8, i64 0, i32 2
-  store ptr %this, ptr %m_StreamBinder.i28, align 8, !tbaa !29
+  %m_StreamBinder.i30 = getelementptr inbounds %class.CSequentialOutStreamForBinder, ptr %call8, i64 0, i32 2
+  store ptr %this, ptr %m_StreamBinder.i30, align 8, !tbaa !29
   store ptr %call8, ptr %outStream, align 8, !tbaa !32
   %_buffer = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 5
   %_bufferSize = getelementptr inbounds %class.CStreamBinder, ptr %this, i64 0, i32 4
@@ -474,16 +474,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !40
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !40
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-for.cond.14.i:                                    ; preds = %for.cond.13.i
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !40
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !40
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %for.cond.14.i
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
   store ptr %this, ptr %outObject, align 8, !tbaa !32
   %vtable = load ptr, ptr %this, align 8, !tbaa !37
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
@@ -491,8 +491,8 @@ if.then:                                          ; preds = %for.cond.14.i
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(24) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
   ret i32 %retval.0
 }
 
@@ -529,7 +529,7 @@ return:                                           ; preds = %entry, %delete.notn
 
 ; Function Attrs: nounwind uwtable
 define linkonce_odr dso_local void @_ZN28CSequentialInStreamForBinderD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %this) unnamed_addr #8 comdat align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   store ptr getelementptr inbounds ({ [8 x ptr] }, ptr @_ZTV28CSequentialInStreamForBinder, i64 0, inrange i32 0, i64 2), ptr %this, align 8, !tbaa !37
   %m_StreamBinder = getelementptr inbounds %class.CSequentialInStreamForBinder, ptr %this, i64 0, i32 2
   %0 = load ptr, ptr %m_StreamBinder, align 8, !tbaa !5
@@ -668,16 +668,16 @@ for.cond.13.i:                                    ; preds = %for.cond.12.i
   %28 = load i8, ptr %arrayidx.14.i, align 2, !tbaa !40
   %29 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 6), align 2, !tbaa !40
   %cmp4.not.14.i = icmp eq i8 %28, %29
-  br i1 %cmp4.not.14.i, label %for.cond.14.i, label %return
+  br i1 %cmp4.not.14.i, label %_ZeqRK4GUIDS1_.exit, label %return
 
-for.cond.14.i:                                    ; preds = %for.cond.13.i
+_ZeqRK4GUIDS1_.exit:                              ; preds = %for.cond.13.i
   %arrayidx.15.i = getelementptr inbounds i8, ptr %iid, i64 15
   %30 = load i8, ptr %arrayidx.15.i, align 1, !tbaa !40
   %31 = load i8, ptr getelementptr inbounds (%struct.GUID, ptr @IID_IUnknown, i64 0, i32 3, i64 7), align 1, !tbaa !40
   %cmp4.not.15.i.not = icmp eq i8 %30, %31
   br i1 %cmp4.not.15.i.not, label %if.then, label %return
 
-if.then:                                          ; preds = %for.cond.14.i
+if.then:                                          ; preds = %_ZeqRK4GUIDS1_.exit
   store ptr %this, ptr %outObject, align 8, !tbaa !32
   %vtable = load ptr, ptr %this, align 8, !tbaa !37
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 1
@@ -685,8 +685,8 @@ if.then:                                          ; preds = %for.cond.14.i
   %call2 = tail call noundef i32 %32(ptr noundef nonnull align 8 dereferenceable(24) %this)
   br label %return
 
-return:                                           ; preds = %for.cond.14.i, %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %if.then
-  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ], [ -2147467262, %for.cond.14.i ]
+return:                                           ; preds = %for.cond.13.i, %for.cond.12.i, %for.cond.11.i, %for.cond.10.i, %for.cond.9.i, %for.cond.8.i, %for.cond.7.i, %for.cond.6.i, %for.cond.5.i, %for.cond.4.i, %for.cond.3.i, %for.cond.2.i, %for.cond.1.i, %for.cond.i, %entry, %_ZeqRK4GUIDS1_.exit, %if.then
+  %retval.0 = phi i32 [ 0, %if.then ], [ -2147467262, %_ZeqRK4GUIDS1_.exit ], [ -2147467262, %entry ], [ -2147467262, %for.cond.i ], [ -2147467262, %for.cond.1.i ], [ -2147467262, %for.cond.2.i ], [ -2147467262, %for.cond.3.i ], [ -2147467262, %for.cond.4.i ], [ -2147467262, %for.cond.5.i ], [ -2147467262, %for.cond.6.i ], [ -2147467262, %for.cond.7.i ], [ -2147467262, %for.cond.8.i ], [ -2147467262, %for.cond.9.i ], [ -2147467262, %for.cond.10.i ], [ -2147467262, %for.cond.11.i ], [ -2147467262, %for.cond.12.i ], [ -2147467262, %for.cond.13.i ]
   ret i32 %retval.0
 }
 

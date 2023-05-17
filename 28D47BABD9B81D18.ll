@@ -30,13 +30,13 @@ _ZN17CBaseRecordVector6DeleteEii.exit:            ; preds = %entry, %if.then.i
   %_items.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 3
   %1 = load ptr, ptr %_items.i, align 8, !tbaa !14
   %isnull.i = icmp eq ptr %1, null
-  br i1 %isnull.i, label %_ZN17CBaseRecordVector12ClearAndFreeEv.exit, label %delete.notnull.i
+  br i1 %isnull.i, label %invoke.cont, label %delete.notnull.i
 
 delete.notnull.i:                                 ; preds = %_ZN17CBaseRecordVector6DeleteEii.exit
   tail call void @_ZdaPv(ptr noundef nonnull %1) #8
-  br label %_ZN17CBaseRecordVector12ClearAndFreeEv.exit
+  br label %invoke.cont
 
-_ZN17CBaseRecordVector12ClearAndFreeEv.exit:      ; preds = %_ZN17CBaseRecordVector6DeleteEii.exit, %delete.notnull.i
+invoke.cont:                                      ; preds = %delete.notnull.i, %_ZN17CBaseRecordVector6DeleteEii.exit
   %_capacity.i = getelementptr inbounds %class.CBaseRecordVector, ptr %this, i64 0, i32 1
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %_capacity.i, i8 0, i64 16, i1 false)
   ret void
@@ -363,14 +363,14 @@ if.end:                                           ; preds = %if.then, %entry
   ret void
 }
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare { i64, i1 } @llvm.umul.with.overflow.i64(i64, i64) #6
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #7
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare { i64, i1 } @llvm.umul.with.overflow.i64(i64, i64) #7
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #7
+declare i32 @llvm.smin.i32(i32, i32) #6
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -378,8 +378,8 @@ attributes #2 = { nobuiltin nounwind "no-trapping-math"="true" "stack-protector-
 attributes #3 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #4 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #5 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #7 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #6 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #7 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #8 = { builtin nounwind }
 attributes #9 = { nounwind }
 attributes #10 = { noreturn }

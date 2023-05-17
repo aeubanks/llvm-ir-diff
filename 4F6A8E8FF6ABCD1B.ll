@@ -961,40 +961,39 @@ if.end9:                                          ; preds = %if.then5, %for.body
   %arrayidx12 = getelementptr inbounds ptr, ptr %11, i64 %indvars.iv109
   %12 = load ptr, ptr %arrayidx12, align 8, !tbaa !22
   %sub = add nsw i32 %8, -1
-  %13 = sext i32 %8 to i64
-  %add3.i = add nsw i64 %13, 254
+  %conv2.i = sext i32 %sub to i64
+  %add3.i = add nsw i64 %conv2.i, 255
   %mul4.i = shl nsw i32 %sub, 1
   %conv5.i = sext i32 %mul4.i to i64
   %div.i = sdiv i64 %add3.i, %conv5.i
   %conv6.i = trunc i64 %div.i to i32
-  %conv2.i80 = sext i32 %sub to i64
   br label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %if.end9, %while.end
   %indvars.iv98 = phi i64 [ 0, %if.end9 ], [ %indvars.iv.next99, %while.end ]
   %val.091 = phi i32 [ 0, %if.end9 ], [ %val.1.lcssa, %while.end ]
   %k.090 = phi i32 [ %conv6.i, %if.end9 ], [ %k.1.lcssa, %while.end ]
-  %14 = sext i32 %k.090 to i64
-  %cmp1786 = icmp sgt i64 %indvars.iv98, %14
+  %13 = sext i32 %k.090 to i64
+  %cmp1786 = icmp sgt i64 %indvars.iv98, %13
   br i1 %cmp1786, label %while.body.preheader, label %while.end
 
 while.body.preheader:                             ; preds = %while.cond.preheader
-  %15 = zext i32 %val.091 to i64
+  %14 = zext i32 %val.091 to i64
   br label %while.body
 
 while.body:                                       ; preds = %while.body.preheader, %while.body
-  %indvars.iv = phi i64 [ %15, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
+  %indvars.iv = phi i64 [ %14, %while.body.preheader ], [ %indvars.iv.next, %while.body ]
   %indvars.iv.next = add i64 %indvars.iv, 1
   %indvars = trunc i64 %indvars.iv.next to i32
   %mul.i = shl nsw i32 %indvars, 1
   %add.i = or i32 %mul.i, 1
   %conv.i = sext i32 %add.i to i64
   %mul1.i = mul nsw i64 %conv.i, 255
-  %add3.i81 = add nsw i64 %mul1.i, %conv2.i80
+  %add3.i81 = add nsw i64 %mul1.i, %conv2.i
   %div.i84 = sdiv i64 %add3.i81, %conv5.i
   %sext = shl i64 %div.i84, 32
-  %16 = ashr exact i64 %sext, 32
-  %cmp17 = icmp sgt i64 %indvars.iv98, %16
+  %15 = ashr exact i64 %sext, 32
+  %cmp17 = icmp sgt i64 %indvars.iv98, %15
   br i1 %cmp17, label %while.body, label %while.end.loopexit, !llvm.loop !66
 
 while.end.loopexit:                               ; preds = %while.body
@@ -1022,36 +1021,36 @@ for.cond25.preheader:                             ; preds = %for.end
 
 for.body28:                                       ; preds = %for.body28, %for.cond25.preheader
   %indvars.iv102 = phi i64 [ 1, %for.cond25.preheader ], [ %indvars.iv.next103.2, %for.body28 ]
-  %17 = sub nsw i64 0, %indvars.iv102
-  %arrayidx32 = getelementptr inbounds i8, ptr %12, i64 %17
+  %16 = sub nsw i64 0, %indvars.iv102
+  %arrayidx32 = getelementptr inbounds i8, ptr %12, i64 %16
   store i8 %.pre, ptr %arrayidx32, align 1, !tbaa !27
-  %18 = load i8, ptr %arrayidx33, align 1, !tbaa !27
-  %19 = add nuw nsw i64 %indvars.iv102, 255
-  %arrayidx36 = getelementptr inbounds i8, ptr %12, i64 %19
-  store i8 %18, ptr %arrayidx36, align 1, !tbaa !27
-  %20 = xor i64 %indvars.iv102, -1
-  %arrayidx32.1 = getelementptr inbounds i8, ptr %12, i64 %20
+  %17 = load i8, ptr %arrayidx33, align 1, !tbaa !27
+  %18 = add nuw nsw i64 %indvars.iv102, 255
+  %arrayidx36 = getelementptr inbounds i8, ptr %12, i64 %18
+  store i8 %17, ptr %arrayidx36, align 1, !tbaa !27
+  %19 = xor i64 %indvars.iv102, -1
+  %arrayidx32.1 = getelementptr inbounds i8, ptr %12, i64 %19
   store i8 %.pre, ptr %arrayidx32.1, align 1, !tbaa !27
-  %21 = load i8, ptr %arrayidx33, align 1, !tbaa !27
-  %22 = add nuw nsw i64 %indvars.iv102, 256
-  %arrayidx36.1 = getelementptr inbounds i8, ptr %12, i64 %22
-  store i8 %21, ptr %arrayidx36.1, align 1, !tbaa !27
-  %23 = sub nuw i64 -2, %indvars.iv102
-  %arrayidx32.2 = getelementptr inbounds i8, ptr %12, i64 %23
+  %20 = load i8, ptr %arrayidx33, align 1, !tbaa !27
+  %21 = add nuw nsw i64 %indvars.iv102, 256
+  %arrayidx36.1 = getelementptr inbounds i8, ptr %12, i64 %21
+  store i8 %20, ptr %arrayidx36.1, align 1, !tbaa !27
+  %22 = sub nuw i64 -2, %indvars.iv102
+  %arrayidx32.2 = getelementptr inbounds i8, ptr %12, i64 %22
   store i8 %.pre, ptr %arrayidx32.2, align 1, !tbaa !27
-  %24 = load i8, ptr %arrayidx33, align 1, !tbaa !27
-  %25 = add nuw nsw i64 %indvars.iv102, 257
-  %arrayidx36.2 = getelementptr inbounds i8, ptr %12, i64 %25
-  store i8 %24, ptr %arrayidx36.2, align 1, !tbaa !27
+  %23 = load i8, ptr %arrayidx33, align 1, !tbaa !27
+  %24 = add nuw nsw i64 %indvars.iv102, 257
+  %arrayidx36.2 = getelementptr inbounds i8, ptr %12, i64 %24
+  store i8 %23, ptr %arrayidx36.2, align 1, !tbaa !27
   %indvars.iv.next103.2 = add nuw nsw i64 %indvars.iv102, 3
   %exitcond108.not.2 = icmp eq i64 %indvars.iv.next103.2, 256
   br i1 %exitcond108.not.2, label %for.inc41, label %for.body28, !llvm.loop !68
 
 for.inc41:                                        ; preds = %for.body28, %for.end
   %indvars.iv.next110 = add nuw nsw i64 %indvars.iv109, 1
-  %26 = load i32, ptr %out_color_components, align 8, !tbaa !23
-  %27 = sext i32 %26 to i64
-  %cmp4 = icmp slt i64 %indvars.iv.next110, %27
+  %25 = load i32, ptr %out_color_components, align 8, !tbaa !23
+  %26 = sext i32 %25 to i64
+  %cmp4 = icmp slt i64 %indvars.iv.next110, %26
   br i1 %cmp4, label %for.body, label %for.end43, !llvm.loop !69
 
 for.end43:                                        ; preds = %for.inc41, %entry

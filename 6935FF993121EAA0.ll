@@ -18,7 +18,7 @@ declare noalias noundef ptr @malloc(i64 noundef) local_unnamed_addr #1
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-entry:
+if.end:
   store i32 0, ptr @i, align 4, !tbaa !10
   ret i32 0
 }

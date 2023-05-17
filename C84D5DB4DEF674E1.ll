@@ -27,7 +27,7 @@ declare void @_Z13RegisterCodecPK10CCodecInfo(ptr noundef) local_unnamed_addr #0
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL17CreateCodecBC_PPCv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -37,7 +37,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL20CreateCodecBC_PPCOutv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -47,7 +47,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL18CreateCodecBC_IA64v() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -57,7 +57,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL21CreateCodecBC_IA64Outv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -67,7 +67,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL17CreateCodecBC_ARMv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -77,7 +77,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL20CreateCodecBC_ARMOutv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -87,7 +87,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL18CreateCodecBC_ARMTv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -97,7 +97,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL21CreateCodecBC_ARMTOutv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -107,7 +107,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL19CreateCodecBC_SPARCv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5
@@ -117,7 +117,7 @@ entry:
 
 ; Function Attrs: uwtable
 define internal noalias noundef nonnull ptr @_ZL22CreateCodecBC_SPARCOutv() #1 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   %call = tail call noalias noundef nonnull dereferenceable(16) ptr @_Znwm(i64 noundef 16) #3
   %0 = getelementptr inbounds i8, ptr %call, i64 8
   store i32 0, ptr %0, align 8, !tbaa !5

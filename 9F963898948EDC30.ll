@@ -92,30 +92,34 @@ if.end16:                                         ; preds = %if.end12
   br i1 %cmp18.not, label %do.body.preheader, label %if.then19
 
 do.body.preheader:                                ; preds = %if.end16
-  %cmp44.i = icmp sgt i64 %0, 0
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %part) #8
   store i8 0, ptr %part, align 1, !tbaa !13
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i32.i) #8
-  %call.i412 = call i64 @fread(ptr noundef nonnull %part, i64 noundef 1, i64 noundef 1, ptr noundef nonnull %call3)
-  %cmp.not.i413 = icmp ne i64 %call.i412, 1
-  %2 = load i8, ptr %part, align 1
-  %cmp1.i414 = icmp eq i8 %2, 0
-  %or.cond415 = select i1 %cmp.not.i413, i1 true, i1 %cmp1.i414
-  br i1 %or.cond415, label %sw.bb, label %if.end4.i
+  %call.i254 = call i64 @fread(ptr noundef nonnull %part, i64 noundef 1, i64 noundef 1, ptr noundef nonnull %call3)
+  %cmp.not.i255 = icmp eq i64 %call.i254, 1
+  br i1 %cmp.not.i255, label %if.end.i.lr.ph, label %sw.bb
+
+if.end.i.lr.ph:                                   ; preds = %do.body.preheader
+  %cmp44.i = icmp sgt i64 %0, 0
+  br label %if.end.i
 
 if.then19:                                        ; preds = %if.end16
   %call20 = tail call i32 @fclose(ptr noundef nonnull %call3)
   br label %cleanup85
 
-if.end4.i:                                        ; preds = %do.body.preheader, %cleanup
-  %3 = phi i8 [ %8, %cleanup ], [ %2, %do.body.preheader ]
-  %fb.0416 = phi ptr [ %fb.6, %cleanup ], [ null, %do.body.preheader ]
+if.end.i:                                         ; preds = %if.end.i.lr.ph, %cleanup
+  %fb.0256 = phi ptr [ null, %if.end.i.lr.ph ], [ %fb.5, %cleanup ]
+  %2 = load i8, ptr %part, align 1, !tbaa !13
+  %cmp1.i = icmp eq i8 %2, 0
+  br i1 %cmp1.i, label %sw.bb, label %if.end4.i
+
+if.end4.i:                                        ; preds = %if.end.i
   %call5.i = call i64 @fread(ptr noundef nonnull %i32.i, i64 noundef 4, i64 noundef 1, ptr noundef nonnull %call3)
   %cmp6.not.i = icmp eq i64 %call5.i, 1
   br i1 %cmp6.not.i, label %if.end15.i, label %if.then8.i
 
 if.then8.i:                                       ; preds = %if.end4.i
-  %cmp10.i = icmp eq i8 %3, 10
+  %cmp10.i = icmp eq i8 %2, 10
   br i1 %cmp10.i, label %land.lhs.true.i, label %sw.default
 
 land.lhs.true.i:                                  ; preds = %if.then8.i
@@ -128,63 +132,63 @@ if.then13.i:                                      ; preds = %land.lhs.true.i
   br label %sw.bb
 
 if.end15.i:                                       ; preds = %if.end4.i
-  %4 = load i32, ptr %i32.i, align 4, !tbaa !12
-  %conv16.i = trunc i32 %4 to i16
-  %shr.i = lshr i32 %4, 16
+  %3 = load i32, ptr %i32.i, align 4, !tbaa !12
+  %conv16.i = trunc i32 %3 to i16
+  %shr.i = lshr i32 %3, 16
   %call19.i = call i64 @fread(ptr noundef nonnull %i32.i, i64 noundef 4, i64 noundef 1, ptr noundef nonnull %call3)
   %cmp20.not.i = icmp eq i64 %call19.i, 1
   br i1 %cmp20.not.i, label %sw.epilog, label %sw.default
 
-sw.bb:                                            ; preds = %cleanup, %do.body.preheader, %if.then13.i
-  %fb.0387 = phi ptr [ %fb.0416, %if.then13.i ], [ null, %do.body.preheader ], [ %fb.6, %cleanup ]
+sw.bb:                                            ; preds = %if.end.i, %cleanup, %do.body.preheader, %if.then13.i
+  %fb.0207 = phi ptr [ %fb.0256, %if.then13.i ], [ null, %do.body.preheader ], [ %fb.0256, %if.end.i ], [ %fb.5, %cleanup ]
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i32.i) #8
   %call23 = call i32 @ferror(ptr noundef nonnull %call3) #8
   %tobool.not = icmp eq i32 %call23, 0
-  br i1 %tobool.not, label %do.end, label %if.then24
+  br i1 %tobool.not, label %cleanup.thread, label %if.then24
 
 if.then24:                                        ; preds = %sw.bb
   call void @perror(ptr noundef nonnull @.str.3) #9
-  br label %do.end
+  br label %cleanup.thread
 
 sw.default:                                       ; preds = %if.end15.i, %land.lhs.true.i, %if.then8.i
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i32.i) #8
-  br label %do.end
+  br label %cleanup.thread
 
 sw.epilog:                                        ; preds = %if.end15.i
-  %5 = load i32, ptr %i32.i, align 4, !tbaa !12
-  %conv24.i = and i32 %4, 65535
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %5) #8
+  %4 = load i32, ptr %i32.i, align 4, !tbaa !12
+  %conv24.i = and i32 %3, 65535
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %4) #8
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %i32.i) #8
-  %cmp26 = icmp eq i32 %5, 0
+  %cmp26 = icmp eq i32 %4, 0
   br i1 %cmp26, label %cleanup, label %if.end28
 
 if.end28:                                         ; preds = %sw.epilog
-  %cmp29 = icmp slt i32 %5, 0
+  %cmp29 = icmp slt i32 %4, 0
   br i1 %cmp29, label %if.then30, label %if.end34
 
 if.then30:                                        ; preds = %if.end28
-  call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.4, i32 noundef %5) #8
-  br label %do.end
+  call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.4, i32 noundef %4) #8
+  br label %cleanup.thread
 
 if.end34:                                         ; preds = %if.end28
-  switch i8 %3, label %sw.default52 [
+  switch i8 %2, label %sw.default52 [
     i8 1, label %sw.bb35
     i8 2, label %sw.bb46
   ]
 
 sw.bb35:                                          ; preds = %if.end34
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.5) #8
-  %cmp36.not = icmp eq ptr %fb.0416, null
+  %cmp36.not = icmp eq ptr %fb.0256, null
   br i1 %cmp36.not, label %if.end39, label %if.then38
 
 if.then38:                                        ; preds = %sw.bb35
-  call void @fileblobDestroy(ptr noundef nonnull %fb.0416) #8
+  call void @fileblobDestroy(ptr noundef nonnull %fb.0256) #8
   br label %if.end39
 
 if.end39:                                         ; preds = %if.then38, %sw.bb35
   %call40 = call ptr @fileblobCreate() #8
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %i16.i) #8
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %5) #8
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.15, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %4) #8
   %call.i119 = call i64 @ftell(ptr noundef nonnull %call3)
   %cond.i = icmp eq i16 %conv16.i, -32756
   br i1 %cond.i, label %sw.bb.i, label %sw.epilog.i
@@ -194,7 +198,7 @@ sw.bb.i:                                          ; preds = %if.end39
   br label %sw.epilog.i
 
 sw.epilog.i:                                      ; preds = %sw.bb.i, %if.end39
-  %conv4.i = zext i32 %5 to i64
+  %conv4.i = zext i32 %4 to i64
   br i1 %cmp44.i, label %land.lhs.true7.i, label %if.then.i
 
 land.lhs.true7.i:                                 ; preds = %sw.epilog.i
@@ -229,12 +233,12 @@ tnef_message.exit:                                ; preds = %if.end.i120
 
 if.then44:                                        ; preds = %tnef_message.exit, %tnef_message.exit.thread
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.6) #8
-  br label %do.end
+  br label %cleanup.thread
 
 sw.bb46:                                          ; preds = %if.end34
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.7) #8
   call void @llvm.lifetime.start.p0(i64 2, ptr nonnull %i16.i122) #8
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.18, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %5) #8
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.18, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %4) #8
   %call.i125 = call i64 @ftell(ptr noundef nonnull %call3)
   switch i16 %conv16.i, label %sw.default.i [
     i16 -32752, label %if.end.i131
@@ -242,14 +246,14 @@ sw.bb46:                                          ; preds = %if.end34
   ]
 
 if.end.i131:                                      ; preds = %sw.bb46
-  %add.i128 = add nuw nsw i32 %5, 1
+  %add.i128 = add nuw nsw i32 %4, 1
   %conv4.i129 = zext i32 %add.i128 to i64
   %call5.i130 = call ptr @cli_malloc(i64 noundef %conv4.i129) #8
   %cmp6.i = icmp eq ptr %call5.i130, null
   br i1 %cmp6.i, label %tnef_attachment.exit.thread, label %if.end9.i
 
 if.end9.i:                                        ; preds = %if.end.i131
-  %conv10.i = zext i32 %5 to i64
+  %conv10.i = zext i32 %4 to i64
   %call11.i = call i64 @fread(ptr noundef nonnull %call5.i130, i64 noundef 1, i64 noundef %conv10.i, ptr noundef nonnull %call3)
   %cmp13.not.i = icmp eq i64 %call11.i, %conv10.i
   br i1 %cmp13.not.i, label %if.end16.i, label %if.then15.i
@@ -262,7 +266,7 @@ if.end16.i:                                       ; preds = %if.end9.i
   %arrayidx.i = getelementptr inbounds i8, ptr %call5.i130, i64 %conv10.i
   store i8 0, ptr %arrayidx.i, align 1, !tbaa !13
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.19, ptr noundef nonnull %call5.i130) #8
-  %cmp17.i = icmp eq ptr %fb.0416, null
+  %cmp17.i = icmp eq ptr %fb.0256, null
   br i1 %cmp17.i, label %if.then19.i, label %if.end25.i
 
 if.then19.i:                                      ; preds = %if.end16.i
@@ -275,13 +279,13 @@ if.then23.i:                                      ; preds = %if.then19.i
   br label %tnef_attachment.exit.thread
 
 if.end25.i:                                       ; preds = %if.then19.i, %if.end16.i
-  %6 = phi ptr [ %call20.i, %if.then19.i ], [ %fb.0416, %if.end16.i ]
-  call void @fileblobSetFilename(ptr noundef nonnull %6, ptr noundef %dir, ptr noundef nonnull %call5.i130) #8
+  %fb.1 = phi ptr [ %call20.i, %if.then19.i ], [ %fb.0256, %if.end16.i ]
+  call void @fileblobSetFilename(ptr noundef nonnull %fb.1, ptr noundef %dir, ptr noundef nonnull %call5.i130) #8
   call void @free(ptr noundef nonnull %call5.i130) #8
   br label %sw.epilog.i135
 
 sw.bb26.i:                                        ; preds = %sw.bb46
-  %cmp27.i132 = icmp eq ptr %fb.0416, null
+  %cmp27.i132 = icmp eq ptr %fb.0256, null
   br i1 %cmp27.i132, label %if.then29.i, label %if.end35.i
 
 if.then29.i:                                      ; preds = %sw.bb26.i
@@ -290,11 +294,11 @@ if.then29.i:                                      ; preds = %sw.bb26.i
   br i1 %cmp31.i, label %tnef_attachment.exit.thread, label %if.end35.i
 
 if.end35.i:                                       ; preds = %if.then29.i, %sw.bb26.i
-  %fb.2 = phi ptr [ %call30.i, %if.then29.i ], [ %fb.0416, %sw.bb26.i ]
+  %fb.2 = phi ptr [ %call30.i, %if.then29.i ], [ %fb.0256, %sw.bb26.i ]
   br label %for.body.i
 
 for.body.i:                                       ; preds = %if.end35.i, %for.inc.i
-  %todo.0129.i = phi i32 [ %dec.i, %for.inc.i ], [ %5, %if.end35.i ]
+  %todo.0129.i = phi i32 [ %dec.i, %for.inc.i ], [ %4, %if.end35.i ]
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %c.i) #8
   %call36.i = call i32 @fgetc(ptr noundef nonnull %call3)
   store i32 %call36.i, ptr %c.i, align 4, !tbaa !12
@@ -313,12 +317,12 @@ for.inc.i:                                        ; preds = %for.body.i
   br i1 %tobool.not.i133, label %sw.epilog.i135, label %for.body.i, !llvm.loop !14
 
 sw.default.i:                                     ; preds = %sw.bb46
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.20, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %5) #8
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.20, i32 noundef %conv24.i, i32 noundef %shr.i, i32 noundef %4) #8
   br label %sw.epilog.i135
 
 sw.epilog.i135:                                   ; preds = %for.inc.i, %sw.default.i, %cleanup.i, %if.end25.i
-  %fb.3 = phi ptr [ %fb.0416, %sw.default.i ], [ %fb.2, %cleanup.i ], [ %6, %if.end25.i ], [ %fb.2, %for.inc.i ]
-  %conv46.i = sext i32 %5 to i64
+  %fb.3 = phi ptr [ %fb.0256, %sw.default.i ], [ %fb.2, %cleanup.i ], [ %fb.1, %if.end25.i ], [ %fb.2, %for.inc.i ]
+  %conv46.i = sext i32 %4 to i64
   br i1 %cmp44.i, label %land.lhs.true49.i, label %if.then67.i
 
 land.lhs.true49.i:                                ; preds = %sw.epilog.i135
@@ -343,8 +347,8 @@ if.end68.i:                                       ; preds = %land.lhs.true56.i
   %cmp72.i = icmp slt i32 %call71.i, 0
   br i1 %cmp72.i, label %tnef_attachment.exit.thread, label %tnef_attachment.exit
 
-tnef_attachment.exit.thread:                      ; preds = %if.end68.i, %if.then29.i, %if.end.i131, %if.then67.i, %if.then23.i, %if.then15.i
-  %fb.4.ph = phi ptr [ %fb.0416, %if.then15.i ], [ null, %if.then23.i ], [ %fb.3, %if.then67.i ], [ %fb.3, %if.end68.i ], [ null, %if.then29.i ], [ %fb.0416, %if.end.i131 ]
+tnef_attachment.exit.thread:                      ; preds = %if.end.i131, %if.then29.i, %if.end68.i, %if.then67.i, %if.then15.i, %if.then23.i
+  %fb.4.ph = phi ptr [ %fb.0256, %if.then15.i ], [ null, %if.then23.i ], [ %fb.3, %if.then67.i ], [ %fb.3, %if.end68.i ], [ null, %if.then29.i ], [ %fb.0256, %if.end.i131 ]
   call void @llvm.lifetime.end.p0(i64 2, ptr nonnull %i16.i122) #8
   br label %if.then50
 
@@ -355,16 +359,16 @@ tnef_attachment.exit:                             ; preds = %if.end68.i
   br i1 %cmp77.not.i.not, label %cleanup, label %if.then50
 
 if.then50:                                        ; preds = %tnef_attachment.exit, %tnef_attachment.exit.thread
-  %fb.4183 = phi ptr [ %fb.4.ph, %tnef_attachment.exit.thread ], [ %fb.3, %tnef_attachment.exit ]
+  %fb.4182 = phi ptr [ %fb.4.ph, %tnef_attachment.exit.thread ], [ %fb.3, %tnef_attachment.exit ]
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.8) #8
-  br label %do.end
+  br label %cleanup.thread
 
 sw.default52:                                     ; preds = %if.end34
-  %conv = zext i8 %3 to i32
+  %conv = zext i8 %2 to i32
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.9, i32 noundef %conv, i32 noundef %conv24.i) #8
-  %7 = load i8, ptr @cli_debug_flag, align 1, !tbaa !13
-  %tobool55.not = icmp eq i8 %7, 0
-  br i1 %tobool55.not, label %do.end, label %if.then56
+  %5 = load i8, ptr @cli_debug_flag, align 1, !tbaa !13
+  %tobool55.not = icmp eq i8 %5, 0
+  br i1 %tobool55.not, label %cleanup.thread, label %if.then56
 
 if.then56:                                        ; preds = %sw.default52
   %call57 = call ptr @cli_gentemp(ptr noundef null) #8
@@ -376,13 +380,13 @@ if.then56:                                        ; preds = %sw.default52
 if.then61:                                        ; preds = %if.then56
   call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.10, ptr noundef %call57) #8
   %call62 = call i64 @lseek(i32 noundef %desc, i64 noundef 0, i32 noundef 0) #8
-  %call63250 = call i32 @cli_readn(i32 noundef %desc, ptr noundef nonnull %buffer, i32 noundef 8192) #8
-  %cmp64251 = icmp sgt i32 %call63250, 0
-  br i1 %cmp64251, label %while.body, label %while.end
+  %call63258 = call i32 @cli_readn(i32 noundef %desc, ptr noundef nonnull %buffer, i32 noundef 8192) #8
+  %cmp64259 = icmp sgt i32 %call63258, 0
+  br i1 %cmp64259, label %while.body, label %while.end
 
 while.body:                                       ; preds = %if.then61, %while.body
-  %call63252 = phi i32 [ %call63, %while.body ], [ %call63250, %if.then61 ]
-  %call67 = call i32 @cli_writen(i32 noundef %call58, ptr noundef nonnull %buffer, i32 noundef %call63252) #8
+  %call63260 = phi i32 [ %call63, %while.body ], [ %call63258, %if.then61 ]
+  %call67 = call i32 @cli_writen(i32 noundef %call58, ptr noundef nonnull %buffer, i32 noundef %call63260) #8
   %call63 = call i32 @cli_readn(i32 noundef %desc, ptr noundef nonnull %buffer, i32 noundef 8192) #8
   %cmp64 = icmp sgt i32 %call63, 0
   br i1 %cmp64, label %while.body, label %while.end, !llvm.loop !16
@@ -394,45 +398,42 @@ while.end:                                        ; preds = %while.body, %if.the
 if.end69:                                         ; preds = %while.end, %if.then56
   call void @free(ptr noundef %call57) #8
   call void @llvm.lifetime.end.p0(i64 8192, ptr nonnull %buffer) #8
-  br label %do.end
+  br label %cleanup.thread
+
+cleanup.thread:                                   ; preds = %if.then30, %if.then50, %if.then44, %if.end69, %sw.default52, %sw.default, %if.then24, %sw.bb
+  %fb.5.ph = phi ptr [ %call40, %if.then44 ], [ %fb.4182, %if.then50 ], [ %fb.0256, %if.end69 ], [ %fb.0256, %sw.default52 ], [ %fb.0256, %if.then30 ], [ %fb.0256, %sw.default ], [ %fb.0207, %if.then24 ], [ %fb.0207, %sw.bb ]
+  %ret.4.ph = phi i32 [ -124, %if.then44 ], [ -124, %if.then50 ], [ -124, %if.end69 ], [ -124, %sw.default52 ], [ -124, %if.then30 ], [ -123, %sw.default ], [ -123, %if.then24 ], [ 0, %sw.bb ]
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %part) #8
+  %call76 = call i32 @fclose(ptr noundef nonnull %call3)
+  %tobool77.not = icmp eq ptr %fb.5.ph, null
+  br i1 %tobool77.not, label %if.end84, label %if.then78
 
 cleanup:                                          ; preds = %tnef_message.exit, %tnef_attachment.exit, %sw.epilog
-  %fb.6 = phi ptr [ %fb.0416, %sw.epilog ], [ %fb.3, %tnef_attachment.exit ], [ %call40, %tnef_message.exit ]
+  %fb.5 = phi ptr [ %fb.0256, %sw.epilog ], [ %fb.3, %tnef_attachment.exit ], [ %call40, %tnef_message.exit ]
   call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %part) #8
   call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %part) #8
   store i8 0, ptr %part, align 1, !tbaa !13
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %i32.i) #8
   %call.i = call i64 @fread(ptr noundef nonnull %part, i64 noundef 1, i64 noundef 1, ptr noundef nonnull %call3)
-  %cmp.not.i = icmp ne i64 %call.i, 1
-  %8 = load i8, ptr %part, align 1
-  %cmp1.i = icmp eq i8 %8, 0
-  %or.cond = select i1 %cmp.not.i, i1 true, i1 %cmp1.i
-  br i1 %or.cond, label %sw.bb, label %if.end4.i
+  %cmp.not.i = icmp eq i64 %call.i, 1
+  br i1 %cmp.not.i, label %if.end.i, label %sw.bb, !llvm.loop !17
 
-do.end:                                           ; preds = %sw.bb, %if.then24, %sw.default, %sw.default52, %if.end69, %if.then44, %if.then50, %if.then30
-  %fb.6.ph = phi ptr [ %fb.0416, %sw.default52 ], [ %fb.0416, %if.end69 ], [ %call40, %if.then44 ], [ %fb.4183, %if.then50 ], [ %fb.0416, %if.then30 ], [ %fb.0416, %sw.default ], [ %fb.0387, %if.then24 ], [ %fb.0387, %sw.bb ]
-  %ret.4.ph = phi i32 [ -124, %sw.default52 ], [ -124, %if.end69 ], [ -124, %if.then44 ], [ -124, %if.then50 ], [ -124, %if.then30 ], [ -123, %sw.default ], [ -123, %if.then24 ], [ 0, %sw.bb ]
-  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %part) #8
-  %call76 = call i32 @fclose(ptr noundef nonnull %call3)
-  %tobool77.not = icmp eq ptr %fb.6.ph, null
-  br i1 %tobool77.not, label %if.end84, label %if.then78
-
-if.then78:                                        ; preds = %do.end
+if.then78:                                        ; preds = %cleanup.thread
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.11) #8
-  %call79 = call ptr @fileblobGetFilename(ptr noundef nonnull %fb.6.ph) #8
+  %call79 = call ptr @fileblobGetFilename(ptr noundef nonnull %fb.5.ph) #8
   %cmp80 = icmp eq ptr %call79, null
   br i1 %cmp80, label %if.then82, label %if.end83
 
 if.then82:                                        ; preds = %if.then78
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.12) #8
-  call void @fileblobSetFilename(ptr noundef nonnull %fb.6.ph, ptr noundef %dir, ptr noundef nonnull @.str.13) #8
+  call void @fileblobSetFilename(ptr noundef nonnull %fb.5.ph, ptr noundef %dir, ptr noundef nonnull @.str.13) #8
   br label %if.end83
 
 if.end83:                                         ; preds = %if.then82, %if.then78
-  call void @fileblobDestroy(ptr noundef nonnull %fb.6.ph) #8
+  call void @fileblobDestroy(ptr noundef nonnull %fb.5.ph) #8
   br label %if.end84
 
-if.end84:                                         ; preds = %if.end83, %do.end
+if.end84:                                         ; preds = %if.end83, %cleanup.thread
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.14, i32 noundef %ret.4.ph) #8
   br label %cleanup85
 
@@ -549,3 +550,4 @@ attributes #9 = { cold }
 !14 = distinct !{!14, !15}
 !15 = !{!"llvm.loop.mustprogress"}
 !16 = distinct !{!16, !15}
+!17 = distinct !{!17, !15}

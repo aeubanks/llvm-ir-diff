@@ -19,8 +19,8 @@ entry:
 define dso_local i32 @bar() local_unnamed_addr #1 {
 entry:
   %.pr = load i32, ptr @d, align 4, !tbaa !5
-  %cmp11 = icmp slt i32 %.pr, 1
-  br i1 %cmp11, label %for.cond1.preheader, label %for.end9
+  %0 = icmp slt i32 %.pr, 1
+  br i1 %0, label %for.cond1.preheader, label %for.end9
 
 for.cond1.preheader:                              ; preds = %entry
   store i32 0, ptr @e, align 4, !tbaa !5

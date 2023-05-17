@@ -325,51 +325,60 @@ for.cond.preheader.us.lr.ph:                      ; preds = %if.end.split.us
 
 for.cond.preheader.us.lr.ph.split.us:             ; preds = %for.cond.preheader.us.lr.ph
   %3 = load ptr, ptr @InputSym, align 8
-  br i1 %tobool67, label %for.cond.preheader.us.us.us, label %while.end
+  br label %for.cond.preheader.us.us
 
-for.cond.preheader.us.us.us:                      ; preds = %for.cond.preheader.us.lr.ph.split.us, %land.rhs.us.us.us
-  %link.0155.us163.us.us = phi ptr [ %link.0.us.us.us, %land.rhs.us.us.us ], [ %link.0153, %for.cond.preheader.us.lr.ph.split.us ]
-  br label %for.cond.us.us.us
+for.cond.preheader.us.us:                         ; preds = %land.rhs.us.us, %for.cond.preheader.us.lr.ph.split.us
+  %link.0155.us163.us = phi ptr [ %link.0153, %for.cond.preheader.us.lr.ph.split.us ], [ %link.0.us.us, %land.rhs.us.us ]
+  br label %for.cond.us.us
 
-for.cond.us.us.us:                                ; preds = %for.cond.us.us.us, %for.cond.preheader.us.us.us
-  %link.0.pn.us.us.us = phi ptr [ %y.0.us.us.us, %for.cond.us.us.us ], [ %link.0155.us163.us.us, %for.cond.preheader.us.us.us ]
-  %y.0.in.us.us.us = getelementptr inbounds [2 x %struct.LIST], ptr %link.0.pn.us.us.us, i64 0, i64 1
-  %y.0.us.us.us = load ptr, ptr %y.0.in.us.us.us, align 8, !tbaa !5
-  %ou119.us.us.us = getelementptr inbounds %struct.word_type, ptr %y.0.us.us.us, i64 0, i32 1
-  %4 = load i8, ptr %ou119.us.us.us, align 8, !tbaa !5
-  switch i8 %4, label %land.rhs.us.us.us [
-    i8 0, label %for.cond.us.us.us
-    i8 121, label %land.lhs.true96.us.us.us
-    i8 122, label %land.lhs.true74.us.us.us
+for.cond.us.us:                                   ; preds = %for.cond.us.us, %for.cond.preheader.us.us
+  %link.0.pn.us.us = phi ptr [ %y.0.us.us, %for.cond.us.us ], [ %link.0155.us163.us, %for.cond.preheader.us.us ]
+  %y.0.in.us.us = getelementptr inbounds [2 x %struct.LIST], ptr %link.0.pn.us.us, i64 0, i64 1
+  %y.0.us.us = load ptr, ptr %y.0.in.us.us, align 8, !tbaa !5
+  %ou119.us.us = getelementptr inbounds %struct.word_type, ptr %y.0.us.us, i64 0, i32 1
+  %4 = load i8, ptr %ou119.us.us, align 8, !tbaa !5
+  switch i8 %4, label %land.rhs.us.us [
+    i8 0, label %for.cond.us.us
+    i8 120, label %sw.bb.us.us
+    i8 122, label %sw.bb.us.us
+    i8 121, label %sw.bb80.us.us
   ]
 
-land.lhs.true96.us.us.us:                         ; preds = %for.cond.us.us.us
-  %oactual97.us.us.us = getelementptr inbounds %struct.closure_type, ptr %y.0.us.us.us, i64 0, i32 5
-  %5 = load ptr, ptr %oactual97.us.us.us, align 8, !tbaa !5
-  %oactual98.us.us.us = getelementptr inbounds %struct.closure_type, ptr %5, i64 0, i32 5
-  %6 = load ptr, ptr %oactual98.us.us.us, align 8, !tbaa !5
-  %cmp99.us.us.us = icmp eq ptr %6, %3
-  br i1 %cmp99.us.us.us, label %while.end, label %land.rhs.us.us.us, !llvm.loop !14
+sw.bb80.us.us:                                    ; preds = %for.cond.us.us
+  br i1 %tobool95.not, label %land.rhs.us.us, label %land.lhs.true96.us.us
 
-land.lhs.true74.us.us.us:                         ; preds = %for.cond.us.us.us
-  %oactual.us.us.us = getelementptr inbounds %struct.closure_type, ptr %y.0.us.us.us, i64 0, i32 5
-  %7 = load ptr, ptr %oactual.us.us.us, align 8, !tbaa !5
-  %oactual75.us.us.us = getelementptr inbounds %struct.closure_type, ptr %7, i64 0, i32 5
-  %8 = load ptr, ptr %oactual75.us.us.us, align 8, !tbaa !5
-  %cmp76.us.us.us = icmp eq ptr %8, %3
-  br i1 %cmp76.us.us.us, label %while.end, label %land.rhs.us.us.us, !llvm.loop !14
+land.lhs.true96.us.us:                            ; preds = %sw.bb80.us.us
+  %oactual97.us.us = getelementptr inbounds %struct.closure_type, ptr %y.0.us.us, i64 0, i32 5
+  %5 = load ptr, ptr %oactual97.us.us, align 8, !tbaa !5
+  %oactual98.us.us = getelementptr inbounds %struct.closure_type, ptr %5, i64 0, i32 5
+  %6 = load ptr, ptr %oactual98.us.us, align 8, !tbaa !5
+  %cmp99.us.us = icmp eq ptr %6, %3
+  br i1 %cmp99.us.us, label %while.end, label %land.rhs.us.us, !llvm.loop !14
 
-land.rhs.us.us.us:                                ; preds = %for.cond.us.us.us, %land.lhs.true74.us.us.us, %land.lhs.true96.us.us.us
-  %osucc108.us.us.us = getelementptr inbounds %struct.LIST, ptr %link.0155.us163.us.us, i64 0, i32 1
-  %cond114.in.us.us.us = select i1 %tobool.not, ptr %link.0155.us163.us.us, ptr %osucc108.us.us.us
-  %link.0.us.us.us = load ptr, ptr %cond114.in.us.us.us, align 8, !tbaa !5
-  %ou111.us.us.us = getelementptr inbounds %struct.word_type, ptr %link.0.us.us.us, i64 0, i32 1
-  %9 = load i8, ptr %ou111.us.us.us, align 8, !tbaa !5
-  %cmp14.not.us.us.us = icmp eq i8 %9, 8
-  br i1 %cmp14.not.us.us.us, label %while.end, label %for.cond.preheader.us.us.us, !llvm.loop !14
+sw.bb.us.us:                                      ; preds = %for.cond.us.us, %for.cond.us.us
+  %cmp72.us.us = icmp eq i8 %4, 122
+  %or.cond300 = and i1 %tobool67, %cmp72.us.us
+  br i1 %or.cond300, label %land.lhs.true74.us.us, label %land.rhs.us.us
+
+land.lhs.true74.us.us:                            ; preds = %sw.bb.us.us
+  %oactual.us.us = getelementptr inbounds %struct.closure_type, ptr %y.0.us.us, i64 0, i32 5
+  %7 = load ptr, ptr %oactual.us.us, align 8, !tbaa !5
+  %oactual75.us.us = getelementptr inbounds %struct.closure_type, ptr %7, i64 0, i32 5
+  %8 = load ptr, ptr %oactual75.us.us, align 8, !tbaa !5
+  %cmp76.us.us = icmp eq ptr %8, %3
+  br i1 %cmp76.us.us, label %while.end, label %land.rhs.us.us, !llvm.loop !14
+
+land.rhs.us.us:                                   ; preds = %for.cond.us.us, %sw.bb80.us.us, %sw.bb.us.us, %land.lhs.true74.us.us, %land.lhs.true96.us.us
+  %osucc108.us.us = getelementptr inbounds %struct.LIST, ptr %link.0155.us163.us, i64 0, i32 1
+  %cond114.in.us.us = select i1 %tobool.not, ptr %link.0155.us163.us, ptr %osucc108.us.us
+  %link.0.us.us = load ptr, ptr %cond114.in.us.us, align 8, !tbaa !5
+  %ou111.us.us = getelementptr inbounds %struct.word_type, ptr %link.0.us.us, i64 0, i32 1
+  %9 = load i8, ptr %ou111.us.us, align 8, !tbaa !5
+  %cmp14.not.us.us = icmp eq i8 %9, 8
+  br i1 %cmp14.not.us.us, label %while.end, label %for.cond.preheader.us.us, !llvm.loop !14
 
 for.cond.preheader.us.lr.ph.split:                ; preds = %for.cond.preheader.us.lr.ph
-  br i1 %tobool67, label %for.cond.preheader.us.us168, label %for.cond.preheader.us.us208
+  br i1 %tobool67, label %for.cond.preheader.us.us168, label %for.cond.preheader.us.lr.ph.split.split.split.us
 
 for.cond.preheader.us.us168:                      ; preds = %for.cond.preheader.us.lr.ph.split, %land.rhs.us.us200
   %link.0155.us163.us169 = phi ptr [ %link.0.us.us198, %land.rhs.us.us200 ], [ %link.0153, %for.cond.preheader.us.lr.ph.split ]
@@ -432,8 +441,48 @@ land.rhs.us.us200:                                ; preds = %for.cond.us.us170, 
   %cmp14.not.us.us202 = icmp eq i8 %20, 8
   br i1 %cmp14.not.us.us202, label %while.end, label %for.cond.preheader.us.us168, !llvm.loop !14
 
-for.cond.preheader.us.us208:                      ; preds = %for.cond.preheader.us.lr.ph.split, %land.rhs.us.us232
-  %link.0155.us163.us209 = phi ptr [ %link.0.us.us230, %land.rhs.us.us232 ], [ %link.0153, %for.cond.preheader.us.lr.ph.split ]
+for.cond.preheader.us.lr.ph.split.split.split.us: ; preds = %for.cond.preheader.us.lr.ph.split
+  br i1 %tobool.not, label %for.cond.preheader.us.us208.us, label %for.cond.preheader.us.us208
+
+for.cond.preheader.us.us208.us:                   ; preds = %for.cond.preheader.us.lr.ph.split.split.split.us, %land.rhs.us.us232.us
+  %link.0155.us163.us209.us = phi ptr [ %link.0.us.us230.us, %land.rhs.us.us232.us ], [ %link.0153, %for.cond.preheader.us.lr.ph.split.split.split.us ]
+  br label %for.cond.us.us210.us
+
+for.cond.us.us210.us:                             ; preds = %for.cond.us.us210.us, %for.cond.preheader.us.us208.us
+  %link.0.pn.us.us211.us = phi ptr [ %y.0.us.us213.us, %for.cond.us.us210.us ], [ %link.0155.us163.us209.us, %for.cond.preheader.us.us208.us ]
+  %y.0.in.us.us212.us = getelementptr inbounds [2 x %struct.LIST], ptr %link.0.pn.us.us211.us, i64 0, i64 1
+  %y.0.us.us213.us = load ptr, ptr %y.0.in.us.us212.us, align 8, !tbaa !5
+  %ou119.us.us214.us = getelementptr inbounds %struct.word_type, ptr %y.0.us.us213.us, i64 0, i32 1
+  %21 = load i8, ptr %ou119.us.us214.us, align 8, !tbaa !5
+  switch i8 %21, label %land.rhs.us.us232.us [
+    i8 0, label %for.cond.us.us210.us
+    i8 121, label %sw.bb80.us.us215.us
+  ]
+
+sw.bb80.us.us215.us:                              ; preds = %for.cond.us.us210.us
+  %oactual83.us.us217.us = getelementptr inbounds %struct.closure_type, ptr %y.0.us.us213.us, i64 0, i32 5
+  %22 = load ptr, ptr %oactual83.us.us217.us, align 8, !tbaa !5
+  %ou184.us.us218.us = getelementptr inbounds %struct.word_type, ptr %22, i64 0, i32 1
+  %23 = load i8, ptr %ou184.us.us218.us, align 8, !tbaa !5
+  %cmp87.us.us219.us = icmp eq i8 %23, 2
+  br i1 %cmp87.us.us219.us, label %land.lhs.true89.us.us220.us, label %land.rhs.us.us232.us
+
+land.lhs.true89.us.us220.us:                      ; preds = %sw.bb80.us.us215.us
+  %oactual91.us.us221.us = getelementptr inbounds %struct.closure_type, ptr %22, i64 0, i32 5
+  %24 = load ptr, ptr %oactual91.us.us221.us, align 8, !tbaa !5
+  %call92.us.us222.us = tail call i32 @SearchUses(ptr noundef %24, ptr noundef %sym) #5
+  %tobool93.not.us.us223.us = icmp eq i32 %call92.us.us222.us, 0
+  br i1 %tobool93.not.us.us223.us, label %land.rhs.us.us232.us, label %while.end, !llvm.loop !14
+
+land.rhs.us.us232.us:                             ; preds = %for.cond.us.us210.us, %sw.bb80.us.us215.us, %land.lhs.true89.us.us220.us
+  %link.0.us.us230.us = load ptr, ptr %link.0155.us163.us209.us, align 8, !tbaa !5
+  %ou111.us.us233.us = getelementptr inbounds %struct.word_type, ptr %link.0.us.us230.us, i64 0, i32 1
+  %25 = load i8, ptr %ou111.us.us233.us, align 8, !tbaa !5
+  %cmp14.not.us.us234.us = icmp eq i8 %25, 8
+  br i1 %cmp14.not.us.us234.us, label %while.end, label %for.cond.preheader.us.us208.us, !llvm.loop !14
+
+for.cond.preheader.us.us208:                      ; preds = %for.cond.preheader.us.lr.ph.split.split.split.us, %land.rhs.us.us232
+  %link.0155.us163.us209 = phi ptr [ %link.0.us.us230, %land.rhs.us.us232 ], [ %link.0153, %for.cond.preheader.us.lr.ph.split.split.split.us ]
   br label %for.cond.us.us210
 
 for.cond.us.us210:                                ; preds = %for.cond.us.us210, %for.cond.preheader.us.us208
@@ -441,34 +490,33 @@ for.cond.us.us210:                                ; preds = %for.cond.us.us210, 
   %y.0.in.us.us212 = getelementptr inbounds [2 x %struct.LIST], ptr %link.0.pn.us.us211, i64 0, i64 1
   %y.0.us.us213 = load ptr, ptr %y.0.in.us.us212, align 8, !tbaa !5
   %ou119.us.us214 = getelementptr inbounds %struct.word_type, ptr %y.0.us.us213, i64 0, i32 1
-  %21 = load i8, ptr %ou119.us.us214, align 8, !tbaa !5
-  switch i8 %21, label %land.rhs.us.us232 [
+  %26 = load i8, ptr %ou119.us.us214, align 8, !tbaa !5
+  switch i8 %26, label %land.rhs.us.us232 [
     i8 0, label %for.cond.us.us210
     i8 121, label %sw.bb80.us.us215
   ]
 
 sw.bb80.us.us215:                                 ; preds = %for.cond.us.us210
   %oactual83.us.us217 = getelementptr inbounds %struct.closure_type, ptr %y.0.us.us213, i64 0, i32 5
-  %22 = load ptr, ptr %oactual83.us.us217, align 8, !tbaa !5
-  %ou184.us.us218 = getelementptr inbounds %struct.word_type, ptr %22, i64 0, i32 1
-  %23 = load i8, ptr %ou184.us.us218, align 8, !tbaa !5
-  %cmp87.us.us219 = icmp eq i8 %23, 2
+  %27 = load ptr, ptr %oactual83.us.us217, align 8, !tbaa !5
+  %ou184.us.us218 = getelementptr inbounds %struct.word_type, ptr %27, i64 0, i32 1
+  %28 = load i8, ptr %ou184.us.us218, align 8, !tbaa !5
+  %cmp87.us.us219 = icmp eq i8 %28, 2
   br i1 %cmp87.us.us219, label %land.lhs.true89.us.us220, label %land.rhs.us.us232
 
 land.lhs.true89.us.us220:                         ; preds = %sw.bb80.us.us215
-  %oactual91.us.us221 = getelementptr inbounds %struct.closure_type, ptr %22, i64 0, i32 5
-  %24 = load ptr, ptr %oactual91.us.us221, align 8, !tbaa !5
-  %call92.us.us222 = tail call i32 @SearchUses(ptr noundef %24, ptr noundef %sym) #5
+  %oactual91.us.us221 = getelementptr inbounds %struct.closure_type, ptr %27, i64 0, i32 5
+  %29 = load ptr, ptr %oactual91.us.us221, align 8, !tbaa !5
+  %call92.us.us222 = tail call i32 @SearchUses(ptr noundef %29, ptr noundef %sym) #5
   %tobool93.not.us.us223 = icmp eq i32 %call92.us.us222, 0
   br i1 %tobool93.not.us.us223, label %land.rhs.us.us232, label %while.end, !llvm.loop !14
 
 land.rhs.us.us232:                                ; preds = %for.cond.us.us210, %sw.bb80.us.us215, %land.lhs.true89.us.us220
   %osucc108.us.us228 = getelementptr inbounds %struct.LIST, ptr %link.0155.us163.us209, i64 0, i32 1
-  %cond114.in.us.us229 = select i1 %tobool.not, ptr %link.0155.us163.us209, ptr %osucc108.us.us228
-  %link.0.us.us230 = load ptr, ptr %cond114.in.us.us229, align 8, !tbaa !5
+  %link.0.us.us230 = load ptr, ptr %osucc108.us.us228, align 8, !tbaa !5
   %ou111.us.us233 = getelementptr inbounds %struct.word_type, ptr %link.0.us.us230, i64 0, i32 1
-  %25 = load i8, ptr %ou111.us.us233, align 8, !tbaa !5
-  %cmp14.not.us.us234 = icmp eq i8 %25, 8
+  %30 = load i8, ptr %ou111.us.us233, align 8, !tbaa !5
+  %cmp14.not.us.us234 = icmp eq i8 %30, 8
   br i1 %cmp14.not.us.us234, label %while.end, label %for.cond.preheader.us.us208, !llvm.loop !14
 
 if.end.split:                                     ; preds = %if.end
@@ -479,8 +527,8 @@ land.rhs:                                         ; preds = %for.cond, %land.lhs
   %cond114.in = select i1 %tobool.not, ptr %link.0155158, ptr %osucc108
   %link.0 = load ptr, ptr %cond114.in, align 8, !tbaa !5
   %ou111 = getelementptr inbounds %struct.word_type, ptr %link.0, i64 0, i32 1
-  %26 = load i8, ptr %ou111, align 8, !tbaa !5
-  %cmp14.not = icmp eq i8 %26, 8
+  %31 = load i8, ptr %ou111, align 8, !tbaa !5
+  %cmp14.not = icmp eq i8 %31, 8
   br i1 %cmp14.not, label %while.end, label %for.cond.preheader, !llvm.loop !14
 
 for.cond.preheader:                               ; preds = %if.end.split, %land.rhs
@@ -492,8 +540,8 @@ for.cond:                                         ; preds = %for.cond.preheader,
   %y.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %link.0.pn, i64 0, i64 1
   %y.0 = load ptr, ptr %y.0.in, align 8, !tbaa !5
   %ou119 = getelementptr inbounds %struct.word_type, ptr %y.0, i64 0, i32 1
-  %27 = load i8, ptr %ou119, align 8, !tbaa !5
-  switch i8 %27, label %land.rhs [
+  %32 = load i8, ptr %ou119, align 8, !tbaa !5
+  switch i8 %32, label %land.rhs [
     i8 0, label %for.cond
     i8 120, label %sw.bb
     i8 122, label %sw.bb
@@ -516,8 +564,8 @@ for.cond46:                                       ; preds = %for.cond46.preheade
   %z.0.in = getelementptr inbounds [2 x %struct.LIST], ptr %zlink.0.pn, i64 0, i64 1
   %z.0 = load ptr, ptr %z.0.in, align 8, !tbaa !5
   %ou147 = getelementptr inbounds %struct.word_type, ptr %z.0, i64 0, i32 1
-  %28 = load i8, ptr %ou147, align 8, !tbaa !5
-  %cmp50 = icmp eq i8 %28, 0
+  %33 = load i8, ptr %ou147, align 8, !tbaa !5
+  %cmp50 = icmp eq i8 %33, 0
   br i1 %cmp50, label %for.cond46, label %for.end57, !llvm.loop !15
 
 for.end57:                                        ; preds = %for.cond46
@@ -526,8 +574,8 @@ for.end57:                                        ; preds = %for.cond46
   %zlink.0 = load ptr, ptr %zlink.0.in, align 8, !tbaa !5
   %cmp36 = icmp ne ptr %zlink.0, %y.0
   %cmp39 = icmp eq ptr %call58, null
-  %29 = select i1 %cmp36, i1 %cmp39, i1 false
-  br i1 %29, label %for.cond46.preheader, label %if.end64.loopexit, !llvm.loop !16
+  %34 = select i1 %cmp36, i1 %cmp39, i1 false
+  br i1 %34, label %for.cond46.preheader, label %if.end64.loopexit, !llvm.loop !16
 
 if.end64.loopexit:                                ; preds = %for.end57, %sw.bb
   %res.1.lcssa = phi ptr [ null, %sw.bb ], [ %call58, %for.end57 ]
@@ -536,17 +584,17 @@ if.end64.loopexit:                                ; preds = %for.end57, %sw.bb
   br i1 %or.cond, label %land.lhs.true68, label %sw.epilog
 
 land.lhs.true68:                                  ; preds = %if.end64.loopexit
-  %30 = load i8, ptr %ou119.le, align 8, !tbaa !5
-  %cmp72 = icmp eq i8 %30, 122
+  %35 = load i8, ptr %ou119.le, align 8, !tbaa !5
+  %cmp72 = icmp eq i8 %35, 122
   br i1 %cmp72, label %land.lhs.true74, label %land.rhs
 
 land.lhs.true74:                                  ; preds = %land.lhs.true68
   %oactual = getelementptr inbounds %struct.closure_type, ptr %y.0, i64 0, i32 5
-  %31 = load ptr, ptr %oactual, align 8, !tbaa !5
-  %oactual75 = getelementptr inbounds %struct.closure_type, ptr %31, i64 0, i32 5
-  %32 = load ptr, ptr %oactual75, align 8, !tbaa !5
-  %33 = load ptr, ptr @InputSym, align 8, !tbaa !8
-  %cmp76 = icmp eq ptr %32, %33
+  %36 = load ptr, ptr %oactual, align 8, !tbaa !5
+  %oactual75 = getelementptr inbounds %struct.closure_type, ptr %36, i64 0, i32 5
+  %37 = load ptr, ptr %oactual75, align 8, !tbaa !5
+  %38 = load ptr, ptr @InputSym, align 8, !tbaa !8
+  %cmp76 = icmp eq ptr %37, %38
   br i1 %cmp76, label %while.end, label %land.rhs
 
 sw.bb80:                                          ; preds = %for.cond
@@ -554,31 +602,31 @@ sw.bb80:                                          ; preds = %for.cond
 
 land.lhs.true82:                                  ; preds = %sw.bb80
   %oactual83 = getelementptr inbounds %struct.closure_type, ptr %y.0, i64 0, i32 5
-  %34 = load ptr, ptr %oactual83, align 8, !tbaa !5
-  %ou184 = getelementptr inbounds %struct.word_type, ptr %34, i64 0, i32 1
-  %35 = load i8, ptr %ou184, align 8, !tbaa !5
-  %cmp87 = icmp eq i8 %35, 2
+  %39 = load ptr, ptr %oactual83, align 8, !tbaa !5
+  %ou184 = getelementptr inbounds %struct.word_type, ptr %39, i64 0, i32 1
+  %40 = load i8, ptr %ou184, align 8, !tbaa !5
+  %cmp87 = icmp eq i8 %40, 2
   br i1 %cmp87, label %land.lhs.true89, label %if.else
 
 land.lhs.true89:                                  ; preds = %land.lhs.true82
-  %oactual91 = getelementptr inbounds %struct.closure_type, ptr %34, i64 0, i32 5
-  %36 = load ptr, ptr %oactual91, align 8, !tbaa !5
-  %call92 = tail call i32 @SearchUses(ptr noundef %36, ptr noundef %sym) #5
+  %oactual91 = getelementptr inbounds %struct.closure_type, ptr %39, i64 0, i32 5
+  %41 = load ptr, ptr %oactual91, align 8, !tbaa !5
+  %call92 = tail call i32 @SearchUses(ptr noundef %41, ptr noundef %sym) #5
   %tobool93.not = icmp ne i32 %call92, 0
-  %brmerge266 = or i1 %tobool93.not, %tobool95.not
+  %brmerge242 = or i1 %tobool93.not, %tobool95.not
   %y.0.lcssa148.mux = select i1 %tobool93.not, ptr %y.0, ptr null
-  br i1 %brmerge266, label %sw.epilog, label %land.lhs.true96
+  br i1 %brmerge242, label %sw.epilog, label %land.lhs.true96
 
 if.else:                                          ; preds = %land.lhs.true82, %sw.bb80
   br i1 %tobool95.not, label %land.rhs, label %land.lhs.true96
 
 land.lhs.true96:                                  ; preds = %land.lhs.true89, %if.else
   %oactual97 = getelementptr inbounds %struct.closure_type, ptr %y.0, i64 0, i32 5
-  %37 = load ptr, ptr %oactual97, align 8, !tbaa !5
-  %oactual98 = getelementptr inbounds %struct.closure_type, ptr %37, i64 0, i32 5
-  %38 = load ptr, ptr %oactual98, align 8, !tbaa !5
-  %39 = load ptr, ptr @InputSym, align 8, !tbaa !8
-  %cmp99 = icmp eq ptr %38, %39
+  %42 = load ptr, ptr %oactual97, align 8, !tbaa !5
+  %oactual98 = getelementptr inbounds %struct.closure_type, ptr %42, i64 0, i32 5
+  %43 = load ptr, ptr %oactual98, align 8, !tbaa !5
+  %44 = load ptr, ptr @InputSym, align 8, !tbaa !8
+  %cmp99 = icmp eq ptr %43, %44
   br i1 %cmp99, label %while.end, label %land.rhs
 
 sw.epilog:                                        ; preds = %land.lhs.true89, %if.end64.loopexit
@@ -586,8 +634,8 @@ sw.epilog:                                        ; preds = %land.lhs.true89, %i
   %cmp9 = icmp eq ptr %res.3, null
   br i1 %cmp9, label %land.rhs, label %while.end, !llvm.loop !14
 
-while.end:                                        ; preds = %land.lhs.true96, %land.lhs.true74, %sw.epilog, %land.rhs, %land.rhs.us.us232, %land.lhs.true89.us.us220, %land.lhs.true96.us.us178, %land.lhs.true74.us.us189, %land.rhs.us.us200, %land.lhs.true89.us.us, %land.lhs.true96.us.us.us, %land.lhs.true74.us.us.us, %land.rhs.us.us.us, %for.cond.preheader.us.lr.ph.split.us, %if.end.split, %if.end.split.us
-  %.us-phi = phi ptr [ null, %if.end.split.us ], [ null, %if.end.split ], [ null, %for.cond.preheader.us.lr.ph.split.us ], [ %y.0.us.us.us, %land.lhs.true96.us.us.us ], [ %y.0.us.us.us, %land.lhs.true74.us.us.us ], [ null, %land.rhs.us.us.us ], [ %y.0.us.us173, %land.lhs.true96.us.us178 ], [ %y.0.us.us173, %land.lhs.true74.us.us189 ], [ null, %land.rhs.us.us200 ], [ %y.0.us.us173, %land.lhs.true89.us.us ], [ %y.0.us.us213, %land.lhs.true89.us.us220 ], [ null, %land.rhs.us.us232 ], [ %y.0, %land.lhs.true96 ], [ %y.0, %land.lhs.true74 ], [ %res.3, %sw.epilog ], [ null, %land.rhs ]
+while.end:                                        ; preds = %land.lhs.true96, %land.lhs.true74, %sw.epilog, %land.rhs, %land.rhs.us.us232, %land.lhs.true89.us.us220, %land.rhs.us.us232.us, %land.lhs.true89.us.us220.us, %land.lhs.true96.us.us178, %land.lhs.true74.us.us189, %land.rhs.us.us200, %land.lhs.true89.us.us, %land.lhs.true96.us.us, %land.lhs.true74.us.us, %land.rhs.us.us, %if.end.split, %if.end.split.us
+  %.us-phi = phi ptr [ null, %if.end.split.us ], [ null, %if.end.split ], [ %y.0.us.us, %land.lhs.true96.us.us ], [ %y.0.us.us, %land.lhs.true74.us.us ], [ null, %land.rhs.us.us ], [ %y.0.us.us173, %land.lhs.true96.us.us178 ], [ %y.0.us.us173, %land.lhs.true74.us.us189 ], [ null, %land.rhs.us.us200 ], [ %y.0.us.us173, %land.lhs.true89.us.us ], [ %y.0.us.us213.us, %land.lhs.true89.us.us220.us ], [ null, %land.rhs.us.us232.us ], [ %y.0.us.us213, %land.lhs.true89.us.us220 ], [ null, %land.rhs.us.us232 ], [ %y.0, %land.lhs.true96 ], [ %y.0, %land.lhs.true74 ], [ %res.3, %sw.epilog ], [ null, %land.rhs ]
   ret ptr %.us-phi
 }
 
@@ -3649,14 +3697,14 @@ if.then3629:                                      ; preds = %for.end3620
   %ou13630 = getelementptr inbounds %struct.word_type, ptr %.pre6875, i64 0, i32 1
   %511 = load i8, ptr %ou13630, align 8, !tbaa !5
   %cmp3633 = icmp eq i8 %511, 0
-  br i1 %cmp3633, label %cond.end3669, label %if.then3635
+  br i1 %cmp3633, label %if.end3637, label %if.then3635
 
 if.then3635:                                      ; preds = %if.then3629
   %512 = load ptr, ptr @no_fpos, align 8, !tbaa !8
   %call3636 = call ptr (i32, i32, ptr, i32, ptr, ...) @Error(i32 noundef 1, i32 noundef 2, ptr noundef nonnull @.str, i32 noundef 0, ptr noundef %512, ptr noundef nonnull @.str.26) #5
-  br label %cond.end3669
+  br label %if.end3637
 
-cond.end3669:                                     ; preds = %if.then3635, %if.then3629
+if.end3637:                                       ; preds = %if.then3635, %if.then3629
   store ptr %.pre6875, ptr @zz_res, align 8, !tbaa !8
   store ptr %hd, ptr @zz_hold, align 8, !tbaa !8
   %513 = load ptr, ptr %hd, align 8, !tbaa !5
@@ -3679,7 +3727,7 @@ cond.end3669:                                     ; preds = %if.then3635, %if.th
   %cmp3671 = icmp eq ptr %510, null
   br i1 %cmp3671, label %if.end3704, label %cond.false3678
 
-cond.false3678:                                   ; preds = %cond.end3669
+cond.false3678:                                   ; preds = %if.end3637
   %521 = load ptr, ptr %510, align 8, !tbaa !5
   store ptr %521, ptr @zz_tmp, align 8, !tbaa !8
   %522 = load ptr, ptr %.pre6875, align 8, !tbaa !5
@@ -3697,7 +3745,7 @@ cond.false3678:                                   ; preds = %cond.end3669
   store ptr %527, ptr %osucc3699, align 8, !tbaa !5
   br label %if.end3704
 
-if.end3704:                                       ; preds = %if.end3482, %cond.end3669, %cond.false3678, %for.end3620
+if.end3704:                                       ; preds = %if.end3482, %if.end3637, %cond.false3678, %for.end3620
   %529 = load ptr, ptr %osucc, align 8, !tbaa !5
   store ptr %529, ptr @xx_link, align 8, !tbaa !8
   store ptr %529, ptr @zz_hold, align 8, !tbaa !8

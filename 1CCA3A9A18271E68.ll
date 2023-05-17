@@ -144,8 +144,8 @@ if.end69:                                         ; preds = %if.end69.sink.split
   %15 = lshr i16 %14, 2
   %16 = and i16 %15, 63
   %cmp74 = icmp ugt i16 %16, 15
-  %spec.select230 = select i1 %cmp74, i16 9, i16 %16
-  switch i16 %spec.select230, label %sw.epilog179 [
+  %spec.select229 = select i1 %cmp74, i16 9, i16 %16
+  switch i16 %spec.select229, label %sw.epilog179 [
     i16 0, label %sw.bb84
     i16 10, label %sw.bb84
     i16 1, label %sw.bb97

@@ -345,7 +345,7 @@ while.end185.i:                                   ; preds = %while.body164.i, %w
   %c.2.lcssa.i = phi i32 [ %c.1.lcssa.i, %while.cond161.preheader.i ], [ %xor183.i, %while.body164.i ]
   %buf4.1.lcssa.i = phi ptr [ %buf4.0.lcssa.i, %while.cond161.preheader.i ], [ %incdec.ptr165.i, %while.body164.i ]
   %tobool186.not.i = icmp eq i64 %len.addr.2.lcssa.i, 0
-  br i1 %tobool186.not.i, label %cleanup, label %do.body.i.preheader
+  br i1 %tobool186.not.i, label %crc32_little.exit, label %do.body.i.preheader
 
 do.body.i.preheader:                              ; preds = %while.end185.i
   %xtraiter = and i64 %len.addr.2.lcssa.i, 1
@@ -371,7 +371,7 @@ do.body.i.prol.loopexit:                          ; preds = %do.body.i.prol, %do
   %len.addr.3.i.unr = phi i64 [ %len.addr.2.lcssa.i, %do.body.i.preheader ], [ %dec195.i.prol, %do.body.i.prol ]
   %c.3.i.unr = phi i32 [ %c.2.lcssa.i, %do.body.i.preheader ], [ %xor194.i.prol, %do.body.i.prol ]
   %63 = icmp eq i64 %len.addr.2.lcssa.i, 1
-  br i1 %63, label %cleanup, label %do.body.i
+  br i1 %63, label %crc32_little.exit, label %do.body.i
 
 do.body.i:                                        ; preds = %do.body.i.prol.loopexit, %do.body.i
   %buf.addr.1.i = phi ptr [ %incdec.ptr187.i.1, %do.body.i ], [ %buf.addr.1.i.unr, %do.body.i.prol.loopexit ]
@@ -397,16 +397,16 @@ do.body.i:                                        ; preds = %do.body.i.prol.loop
   %xor194.i.1 = xor i32 %67, %shr193.i.1
   %dec195.i.1 = add i64 %len.addr.3.i, -2
   %tobool196.not.i.1 = icmp eq i64 %dec195.i.1, 0
-  br i1 %tobool196.not.i.1, label %cleanup, label %do.body.i, !llvm.loop !14
+  br i1 %tobool196.not.i.1, label %crc32_little.exit, label %do.body.i, !llvm.loop !14
 
-cleanup:                                          ; preds = %do.body.i.prol.loopexit, %do.body.i, %while.end185.i
+crc32_little.exit:                                ; preds = %do.body.i.prol.loopexit, %do.body.i, %while.end185.i
   %c.4.i = phi i32 [ %c.2.lcssa.i, %while.end185.i ], [ %xor194.i.lcssa.unr, %do.body.i.prol.loopexit ], [ %xor194.i.1, %do.body.i ]
   %not197.i = xor i32 %c.4.i, -1
   %conv198.i = zext i32 %not197.i to i64
   br label %return
 
-return:                                           ; preds = %entry, %cleanup
-  %retval.1 = phi i64 [ %conv198.i, %cleanup ], [ 0, %entry ]
+return:                                           ; preds = %entry, %crc32_little.exit
+  %retval.1 = phi i64 [ %conv198.i, %crc32_little.exit ], [ 0, %entry ]
   ret i64 %retval.1
 }
 

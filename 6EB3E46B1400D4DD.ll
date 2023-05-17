@@ -158,18 +158,14 @@ if.end:                                           ; preds = %ts_real_time.exit
   %conv.i122 = sitofp i64 %sub.i to float
   %div.i = fdiv float %conv.i122, 1.000000e+06
   %cmp.i123 = icmp sgt i64 %frameNum, 0
-  br i1 %cmp.i123, label %if.then.i137, label %ts_calc_times.exit151
+  br i1 %cmp.i123, label %if.then.i126, label %ts_calc_times.exit151
 
-if.then.i137:                                     ; preds = %if.end
+if.then.i126:                                     ; preds = %if.end
   %conv.i124 = sitofp i64 %totalframes to float
   %mul.i = fmul float %conv.i124, %conv.i
   %conv1.i = sitofp i64 %frameNum to float
   %div.i125 = fdiv float %mul.i, %conv1.i
   %sub.i127 = fsub float %div.i125, %conv.i
-  %4 = insertelement <2 x float> poison, float %sub.i127, i64 0
-  %5 = insertelement <2 x float> %4, float %div.i125, i64 1
-  %6 = fpext <2 x float> %5 to <2 x double>
-  %7 = fadd <2 x double> %6, <double 5.000000e-01, double 5.000000e-01>
   %mul.i130 = fmul float %div.i, %conv.i124
   %div.i132 = fdiv float %mul.i130, %conv1.i
   %conv2.i134 = sitofp i32 %samp_rate to float
@@ -177,23 +173,27 @@ if.then.i137:                                     ; preds = %if.end
   %cmp5.i136 = fcmp ogt float %mul4.i135, 0.000000e+00
   br i1 %cmp5.i136, label %if.then7.i142, label %if.end.i145
 
-if.then7.i142:                                    ; preds = %if.then.i137
+if.then7.i142:                                    ; preds = %if.then.i126
   %conv8.i138 = sext i32 %framesize to i64
   %mul9.i139 = mul nsw i64 %conv8.i138, %totalframes
   %conv10.i140 = sitofp i64 %mul9.i139 to float
   %div14.i141 = fdiv float %conv10.i140, %mul4.i135
   br label %if.end.i145
 
-if.end.i145:                                      ; preds = %if.then7.i142, %if.then.i137
-  %.sink.i143 = phi float [ %div14.i141, %if.then7.i142 ], [ 0.000000e+00, %if.then.i137 ]
-  %8 = fpext float %div.i132 to double
-  %9 = fadd double %8, 5.000000e-01
+if.end.i145:                                      ; preds = %if.then7.i142, %if.then.i126
+  %.sink.i143 = phi float [ %div14.i141, %if.then7.i142 ], [ 0.000000e+00, %if.then.i126 ]
+  %4 = fpext float %div.i132 to double
+  %5 = fadd double %4, 5.000000e-01
+  %6 = insertelement <2 x float> poison, float %sub.i127, i64 0
+  %7 = insertelement <2 x float> %6, float %div.i125, i64 1
+  %8 = fpext <2 x float> %7 to <2 x double>
+  %9 = fadd <2 x double> %8, <double 5.000000e-01, double 5.000000e-01>
   br label %ts_calc_times.exit151
 
 ts_calc_times.exit151:                            ; preds = %if.end, %if.end.i145
   %process_time.sroa.8.0 = phi float [ %.sink.i143, %if.end.i145 ], [ 0.000000e+00, %if.end ]
-  %process_time.sroa.5.0 = phi double [ %9, %if.end.i145 ], [ 5.000000e-01, %if.end ]
-  %10 = phi <2 x double> [ %7, %if.end.i145 ], [ <double 5.000000e-01, double 5.000000e-01>, %if.end ]
+  %process_time.sroa.5.0 = phi double [ %5, %if.end.i145 ], [ 5.000000e-01, %if.end ]
+  %10 = phi <2 x double> [ %9, %if.end.i145 ], [ <double 5.000000e-01, double 5.000000e-01>, %if.end ]
   %cmp4 = icmp sgt i64 %totalframes, 1
   br i1 %cmp4, label %if.then5, label %ts_calc_times.exit151.if.end8_crit_edge
 

@@ -61,8 +61,8 @@ for.body:                                         ; preds = %entry, %list_Delete
   br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %for.body, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %call2.val, %for.body ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %call2.val, %for.body ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %4 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %4, i64 0, i32 4
   %5 = load i32, ptr %total_size.i.i.i, align 8
@@ -74,7 +74,7 @@ while.body.i:                                     ; preds = %for.body, %while.bo
   store ptr %7, ptr %Current.06.i, align 8
   %8 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %8, align 8
-  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit.loopexit, label %while.body.i, !llvm.loop !5
 
 list_Delete.exit.loopexit:                        ; preds = %while.body.i
@@ -300,8 +300,8 @@ for.body:                                         ; preds = %if.end, %for.inc
   %scan.0.val18 = load ptr, ptr %4, align 8
   %5 = getelementptr i8, ptr %scan.0.val18, i64 4
   %call4.val = load i32, ptr %5, align 4
-  %cmp.i20 = icmp sgt i32 %call4.val, -1
-  br i1 %cmp.i20, label %for.inc, label %if.then7
+  %cmp.i20 = icmp slt i32 %call4.val, 0
+  br i1 %cmp.i20, label %if.then7, label %for.inc
 
 if.then7:                                         ; preds = %for.body
   tail call fastcc void @graph_InternSCC(ptr noundef %Graph, ptr noundef nonnull %scan.0.val18)
@@ -340,18 +340,18 @@ entry:
   store ptr %2, ptr %call.i.i57, align 8
   store ptr %call.i.i57, ptr @graph_ROOTS, align 8
   %3 = getelementptr i8, ptr %Node, i64 24
-  %scan.075 = load ptr, ptr %3, align 8
-  %cmp.i.not76 = icmp eq ptr %scan.075, null
-  br i1 %cmp.i.not76, label %for.end, label %for.body
+  %scan.076 = load ptr, ptr %3, align 8
+  %cmp.i.not77 = icmp eq ptr %scan.076, null
+  br i1 %cmp.i.not77, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.inc
-  %scan.077 = phi ptr [ %scan.0, %for.inc ], [ %scan.075, %entry ]
-  %4 = getelementptr i8, ptr %scan.077, i64 8
+  %scan.078 = phi ptr [ %scan.0, %for.inc ], [ %scan.076, %entry ]
+  %4 = getelementptr i8, ptr %scan.078, i64 8
   %scan.0.val = load ptr, ptr %4, align 8
   %5 = getelementptr i8, ptr %scan.0.val, i64 4
   %call4.val52 = load i32, ptr %5, align 4
-  %cmp.i59 = icmp sgt i32 %call4.val52, -1
-  br i1 %cmp.i59, label %if.else, label %if.then
+  %cmp.i59 = icmp slt i32 %call4.val52, 0
+  br i1 %cmp.i59, label %if.then, label %if.else
 
 if.then:                                          ; preds = %for.body
   tail call fastcc void @graph_InternSCC(ptr noundef %Graph, ptr noundef nonnull %scan.0.val)
@@ -361,39 +361,39 @@ if.else:                                          ; preds = %for.body
   %6 = getelementptr i8, ptr %scan.0.val, i64 8
   %call4.val53 = load i32, ptr %6, align 8
   %cmp.i61 = icmp sgt i32 %call4.val53, -1
-  %.pr = load ptr, ptr @graph_ROOTS, align 8
-  %cmp.i.i74 = icmp eq ptr %.pr, null
-  %or.cond = select i1 %cmp.i61, i1 true, i1 %cmp.i.i74
+  %graph_ROOTS.promoted = load ptr, ptr @graph_ROOTS, align 8
+  %cmp.i.i.not74 = icmp eq ptr %graph_ROOTS.promoted, null
+  %or.cond = select i1 %cmp.i61, i1 true, i1 %cmp.i.i.not74
   br i1 %or.cond, label %for.inc, label %land.rhs
 
 land.rhs:                                         ; preds = %if.else, %while.body
-  %7 = phi ptr [ %L.val.i, %while.body ], [ %.pr, %if.else ]
-  %8 = getelementptr i8, ptr %7, i64 8
-  %.val56 = load ptr, ptr %8, align 8
-  %9 = getelementptr i8, ptr %.val56, i64 4
-  %call13.val = load i32, ptr %9, align 4
+  %L.val.i7375 = phi ptr [ %L.val.i, %while.body ], [ %graph_ROOTS.promoted, %if.else ]
+  %7 = getelementptr i8, ptr %L.val.i7375, i64 8
+  %.val56 = load ptr, ptr %7, align 8
+  %8 = getelementptr i8, ptr %.val56, i64 4
+  %call13.val = load i32, ptr %8, align 4
   %cmp = icmp ugt i32 %call13.val, %call4.val52
   br i1 %cmp, label %while.body, label %for.inc
 
 while.body:                                       ; preds = %land.rhs
-  %L.val.i = load ptr, ptr %7, align 8
-  %10 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %10, i64 0, i32 4
-  %11 = load i32, ptr %total_size.i.i.i, align 8
-  %conv26.i.i.i = sext i32 %11 to i64
-  %12 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i = add i64 %12, %conv26.i.i.i
+  %L.val.i = load ptr, ptr %L.val.i7375, align 8
+  %9 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %9, i64 0, i32 4
+  %10 = load i32, ptr %total_size.i.i.i, align 8
+  %conv26.i.i.i = sext i32 %10 to i64
+  %11 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i = add i64 %11, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
-  %13 = load ptr, ptr %10, align 8
-  store ptr %13, ptr %7, align 8
-  %14 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %7, ptr %14, align 8
+  %12 = load ptr, ptr %9, align 8
+  store ptr %12, ptr %L.val.i7375, align 8
+  %13 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %L.val.i7375, ptr %13, align 8
   store ptr %L.val.i, ptr @graph_ROOTS, align 8
-  %cmp.i.i = icmp eq ptr %L.val.i, null
-  br i1 %cmp.i.i, label %for.inc, label %land.rhs, !llvm.loop !12
+  %cmp.i.i.not = icmp eq ptr %L.val.i, null
+  br i1 %cmp.i.i.not, label %for.inc, label %land.rhs, !llvm.loop !12
 
 for.inc:                                          ; preds = %while.body, %land.rhs, %if.then, %if.else
-  %scan.0 = load ptr, ptr %scan.077, align 8
+  %scan.0 = load ptr, ptr %scan.078, align 8
   %cmp.i.not = icmp eq ptr %scan.0, null
   br i1 %cmp.i.not, label %for.end.loopexit, label %for.body, !llvm.loop !13
 
@@ -402,67 +402,67 @@ for.end.loopexit:                                 ; preds = %for.inc
   br label %for.end
 
 for.end:                                          ; preds = %for.end.loopexit, %entry
-  %15 = phi ptr [ %.pre, %for.end.loopexit ], [ %call.i.i57, %entry ]
-  %16 = getelementptr i8, ptr %15, i64 8
-  %.val55 = load ptr, ptr %16, align 8
+  %14 = phi ptr [ %.pre, %for.end.loopexit ], [ %call.i.i57, %entry ]
+  %15 = getelementptr i8, ptr %14, i64 8
+  %.val55 = load ptr, ptr %15, align 8
   %cmp19 = icmp eq ptr %.val55, %Node
-  br i1 %cmp19, label %while.cond21thread-pre-split, label %if.end36
+  br i1 %cmp19, label %while.cond21.preheader, label %if.end36
 
-while.cond21thread-pre-split:                     ; preds = %for.end
-  %.pr73 = load ptr, ptr @graph_UNFINISHED, align 8
-  %cmp.i.i6378 = icmp eq ptr %.pr73, null
-  br i1 %cmp.i.i6378, label %while.end32, label %land.rhs24.lr.ph
+while.cond21.preheader:                           ; preds = %for.end
+  %graph_UNFINISHED.promoted = load ptr, ptr @graph_UNFINISHED, align 8
+  %cmp.i.i63.not80 = icmp eq ptr %graph_UNFINISHED.promoted, null
+  br i1 %cmp.i.i63.not80, label %while.end32, label %land.rhs24.lr.ph
 
-land.rhs24.lr.ph:                                 ; preds = %while.cond21thread-pre-split
+land.rhs24.lr.ph:                                 ; preds = %while.cond21.preheader
   %compcount = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 3
   br label %land.rhs24
 
 land.rhs24:                                       ; preds = %land.rhs24.lr.ph, %while.body29
-  %17 = phi ptr [ %.pr73, %land.rhs24.lr.ph ], [ %L.val.i65, %while.body29 ]
-  %18 = getelementptr i8, ptr %17, i64 8
-  %.val54 = load ptr, ptr %18, align 8
-  %19 = getelementptr i8, ptr %.val54, i64 4
-  %call25.val = load i32, ptr %19, align 4
+  %L.val.i657981 = phi ptr [ %graph_UNFINISHED.promoted, %land.rhs24.lr.ph ], [ %L.val.i65, %while.body29 ]
+  %16 = getelementptr i8, ptr %L.val.i657981, i64 8
+  %.val54 = load ptr, ptr %16, align 8
+  %17 = getelementptr i8, ptr %.val54, i64 4
+  %call25.val = load i32, ptr %17, align 4
   %cmp27.not = icmp ult i32 %call25.val, %0
   br i1 %cmp27.not, label %while.end32, label %while.body29
 
 while.body29:                                     ; preds = %land.rhs24
-  %L.val.i65 = load ptr, ptr %17, align 8
-  %20 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i66 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %20, i64 0, i32 4
-  %21 = load i32, ptr %total_size.i.i.i66, align 8
-  %conv26.i.i.i67 = sext i32 %21 to i64
-  %22 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i68 = add i64 %22, %conv26.i.i.i67
+  %L.val.i65 = load ptr, ptr %L.val.i657981, align 8
+  %18 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i66 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %18, i64 0, i32 4
+  %19 = load i32, ptr %total_size.i.i.i66, align 8
+  %conv26.i.i.i67 = sext i32 %19 to i64
+  %20 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i68 = add i64 %20, %conv26.i.i.i67
   store i64 %add27.i.i.i68, ptr @memory_FREEDBYTES, align 8
-  %23 = load ptr, ptr %20, align 8
-  store ptr %23, ptr %17, align 8
-  %24 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %17, ptr %24, align 8
+  %21 = load ptr, ptr %18, align 8
+  store ptr %21, ptr %L.val.i657981, align 8
+  %22 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %L.val.i657981, ptr %22, align 8
   store ptr %L.val.i65, ptr @graph_UNFINISHED, align 8
-  %25 = load i32, ptr %compcount, align 4
+  %23 = load i32, ptr %compcount, align 4
   %comp_num.i = getelementptr inbounds %struct.GRAPHNODE_STRUCT, ptr %.val54, i64 0, i32 2
-  store i32 %25, ptr %comp_num.i, align 8
-  %cmp.i.i63 = icmp eq ptr %L.val.i65, null
-  br i1 %cmp.i.i63, label %while.end32, label %land.rhs24, !llvm.loop !14
+  store i32 %23, ptr %comp_num.i, align 8
+  %cmp.i.i63.not = icmp eq ptr %L.val.i65, null
+  br i1 %cmp.i.i63.not, label %while.end32, label %land.rhs24, !llvm.loop !14
 
-while.end32:                                      ; preds = %land.rhs24, %while.body29, %while.cond21thread-pre-split
+while.end32:                                      ; preds = %land.rhs24, %while.body29, %while.cond21.preheader
   %compcount33 = getelementptr inbounds %struct.GRAPH_STRUCT, ptr %Graph, i64 0, i32 3
-  %26 = load i32, ptr %compcount33, align 4
-  %inc34 = add i32 %26, 1
+  %24 = load i32, ptr %compcount33, align 4
+  %inc34 = add i32 %24, 1
   store i32 %inc34, ptr %compcount33, align 4
-  %L.val.i69 = load ptr, ptr %15, align 8
-  %27 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i70 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %27, i64 0, i32 4
-  %28 = load i32, ptr %total_size.i.i.i70, align 8
-  %conv26.i.i.i71 = sext i32 %28 to i64
-  %29 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i72 = add i64 %29, %conv26.i.i.i71
+  %L.val.i69 = load ptr, ptr %14, align 8
+  %25 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.i70 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %25, i64 0, i32 4
+  %26 = load i32, ptr %total_size.i.i.i70, align 8
+  %conv26.i.i.i71 = sext i32 %26 to i64
+  %27 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i72 = add i64 %27, %conv26.i.i.i71
   store i64 %add27.i.i.i72, ptr @memory_FREEDBYTES, align 8
-  %30 = load ptr, ptr %27, align 8
-  store ptr %30, ptr %15, align 8
-  %31 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %15, ptr %31, align 8
+  %28 = load ptr, ptr %25, align 8
+  store ptr %28, ptr %14, align 8
+  %29 = load ptr, ptr getelementptr inbounds ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %14, ptr %29, align 8
   store ptr %L.val.i69, ptr @graph_ROOTS, align 8
   br label %if.end36
 

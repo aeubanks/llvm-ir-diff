@@ -104,8 +104,8 @@ if.then50:                                        ; preds = %if.then47
 if.end57:                                         ; preds = %if.then42, %if.end40
   %b_dot_b.0 = phi double [ %call45, %if.then42 ], [ undef, %if.end40 ]
   %eps.0 = phi double [ %mul, %if.then42 ], [ undef, %if.end40 ]
-  %cmp58482 = icmp sgt i32 %1, 0
-  br i1 %cmp58482, label %for.body.lr.ph, label %cleanup
+  %cmp58483 = icmp sgt i32 %1, 0
+  br i1 %cmp58483, label %for.body.lr.ph, label %cleanup
 
 for.body.lr.ph:                                   ; preds = %if.end57
   %cmp59 = icmp slt i32 %4, 2
@@ -114,11 +114,11 @@ for.body.lr.ph:                                   ; preds = %if.end57
   %tobool103.not = icmp eq i32 %2, 0
   %arrayidx118 = getelementptr inbounds ptr, ptr %10, i64 1
   %sub = add i32 %4, -2
-  %cmp121.not477 = icmp slt i32 %4, 3
-  %cmp178480 = icmp sgt i32 %4, 2
+  %cmp121.not478 = icmp slt i32 %4, 3
+  %cmp178481 = icmp sgt i32 %4, 2
   %arrayidx220 = getelementptr inbounds ptr, ptr %11, i64 1
-  %or.cond296.not487 = select i1 %cmp41, i1 true, i1 %tobool103.not
-  %brmerge = or i1 %or.cond296.not487, %cmp59
+  %or.cond296.not477 = select i1 %cmp41, i1 true, i1 %tobool103.not
+  %brmerge = or i1 %or.cond296.not477, %cmp59
   %26 = add i32 %4, -1
   %27 = zext i32 %sub to i64
   %wide.trip.count496 = zext i32 %1 to i64
@@ -132,9 +132,9 @@ for.body.lr.ph:                                   ; preds = %if.end57
 
 for.body:                                         ; preds = %for.body.lr.ph, %if.end248
   %indvars.iv493 = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next494, %if.end248 ]
-  %x_dot_x.0485 = phi double [ undef, %for.body.lr.ph ], [ %x_dot_x.1475, %if.end248 ]
-  %e_dot_e.0484 = phi double [ undef, %for.body.lr.ph ], [ %e_dot_e.1473, %if.end248 ]
-  %zero_guess.0483 = phi i32 [ %3, %for.body.lr.ph ], [ 0, %if.end248 ]
+  %x_dot_x.0486 = phi double [ undef, %for.body.lr.ph ], [ %x_dot_x.1475, %if.end248 ]
+  %e_dot_e.0485 = phi double [ undef, %for.body.lr.ph ], [ %e_dot_e.1473, %if.end248 ]
+  %zero_guess.0484 = phi i32 [ %3, %for.body.lr.ph ], [ 0, %if.end248 ]
   br i1 %cmp59, label %if.end65, label %if.then60
 
 if.then60:                                        ; preds = %for.body
@@ -148,7 +148,7 @@ if.end65:                                         ; preds = %if.then60, %for.bod
   %30 = load ptr, ptr %14, align 8, !tbaa !33
   %call67 = tail call i32 @hypre_SMGRelaxSetMaxIter(ptr noundef %30, i32 noundef %5) #3
   %31 = load ptr, ptr %14, align 8, !tbaa !33
-  %call69 = tail call i32 @hypre_SMGRelaxSetZeroGuess(ptr noundef %31, i32 noundef %zero_guess.0483) #3
+  %call69 = tail call i32 @hypre_SMGRelaxSetZeroGuess(ptr noundef %31, i32 noundef %zero_guess.0484) #3
   %32 = load ptr, ptr %14, align 8, !tbaa !33
   %33 = load ptr, ptr %7, align 8, !tbaa !33
   %34 = load ptr, ptr %10, align 8, !tbaa !33
@@ -192,7 +192,7 @@ if.end98:                                         ; preds = %if.end98.sink.split
   br i1 %or.cond, label %if.then102, label %if.end112
 
 if.then102:                                       ; preds = %if.end98
-  %div105 = fdiv double %e_dot_e.0484, %x_dot_x.0485
+  %div105 = fdiv double %e_dot_e.0485, %x_dot_x.0486
   %cmp106 = fcmp olt double %div105, %eps.0
   %or.cond470 = select i1 %tobool103.not, i1 true, i1 %cmp106
   br i1 %or.cond470, label %cleanup, label %if.end112
@@ -201,8 +201,8 @@ if.end112:                                        ; preds = %if.then102, %if.end
   br i1 %cmp59, label %if.end241.thread498, label %if.then114
 
 if.end241.thread498:                              ; preds = %if.end112
-  %x_dot_x.0.mux499 = select i1 %or.cond296.not487, double %x_dot_x.0485, double 1.000000e+00
-  %e_dot_e.0.mux500 = select i1 %or.cond296.not487, double %e_dot_e.0484, double 0.000000e+00
+  %x_dot_x.0.mux499 = select i1 %or.cond296.not477, double %x_dot_x.0486, double 1.000000e+00
+  %e_dot_e.0.mux500 = select i1 %or.cond296.not477, double %e_dot_e.0485, double 0.000000e+00
   br label %if.end248
 
 if.then114:                                       ; preds = %if.end112
@@ -211,7 +211,7 @@ if.then114:                                       ; preds = %if.end112
   %44 = load ptr, ptr %12, align 8, !tbaa !33
   %45 = load ptr, ptr %arrayidx118, align 8, !tbaa !33
   %call119 = tail call i32 @hypre_SemiRestrict(ptr noundef %42, ptr noundef %43, ptr noundef %44, ptr noundef %45) #3
-  br i1 %cmp121.not477, label %for.end, label %for.body122
+  br i1 %cmp121.not478, label %for.end, label %for.body122
 
 for.body122:                                      ; preds = %if.then114, %for.body122
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.body122 ], [ 1, %if.then114 ]
@@ -260,7 +260,7 @@ for.end:                                          ; preds = %for.body122, %if.th
   %66 = load ptr, ptr %arrayidx172, align 8, !tbaa !33
   %67 = load ptr, ptr %arrayidx174, align 8, !tbaa !33
   %call175 = tail call i32 @hypre_SMGRelax(ptr noundef %64, ptr noundef %65, ptr noundef %66, ptr noundef %67) #3
-  br i1 %cmp178480, label %for.body179, label %if.end226
+  br i1 %cmp178481, label %for.body179, label %if.end226
 
 for.body179:                                      ; preds = %for.end, %for.body179
   %indvars.iv489 = phi i64 [ %indvars.iv.next490, %for.body179 ], [ %27, %for.end ]
@@ -317,8 +317,8 @@ if.end241.thread:                                 ; preds = %if.end226
   br label %if.then243
 
 if.end241:                                        ; preds = %if.end226
-  %x_dot_x.0.mux = select i1 %or.cond296.not487, double %x_dot_x.0485, double 1.000000e+00
-  %e_dot_e.0.mux = select i1 %or.cond296.not487, double %e_dot_e.0484, double 0.000000e+00
+  %x_dot_x.0.mux = select i1 %or.cond296.not477, double %x_dot_x.0486, double 1.000000e+00
+  %e_dot_e.0.mux = select i1 %or.cond296.not477, double %e_dot_e.0485, double 0.000000e+00
   br i1 %cmp59, label %if.end248, label %if.then243
 
 if.then243:                                       ; preds = %if.end241.thread, %if.end241

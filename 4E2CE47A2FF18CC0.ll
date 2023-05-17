@@ -266,7 +266,7 @@ if.end34:                                         ; preds = %if.end
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-iunge.exit159:
+iunge.exit155:
   store float 0x7FF0000000000000, ptr @pinf, align 4, !tbaa !5
   store float 0xFFF0000000000000, ptr @ninf, align 4, !tbaa !5
   store float 0x7FF8000000000000, ptr @NaN, align 4, !tbaa !5

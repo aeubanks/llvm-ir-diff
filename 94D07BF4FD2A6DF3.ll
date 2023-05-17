@@ -66,96 +66,96 @@ for.end:                                          ; preds = %for.body
   store i32 1, ptr %b, align 8, !tbaa !11
   %call = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %3 = load i8, ptr @p, align 16, !tbaa !14
-  %xor81 = xor i8 %3, %call
-  store i8 %xor81, ptr @p, align 16, !tbaa !14
+  %xor818 = xor i8 %3, %call
+  store i8 %xor818, ptr @p, align 16, !tbaa !14
   %call.1 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %4 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 1), align 1, !tbaa !14
-  %xor81.1 = xor i8 %4, %call.1
-  store i8 %xor81.1, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 1), align 1, !tbaa !14
+  %xor818.1 = xor i8 %4, %call.1
+  store i8 %xor818.1, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 1), align 1, !tbaa !14
   %call.2 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %5 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 2), align 2, !tbaa !14
-  %xor81.2 = xor i8 %5, %call.2
-  store i8 %xor81.2, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 2), align 2, !tbaa !14
+  %xor818.2 = xor i8 %5, %call.2
+  store i8 %xor818.2, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 2), align 2, !tbaa !14
   %call.3 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %6 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 3), align 1, !tbaa !14
-  %xor81.3 = xor i8 %6, %call.3
-  store i8 %xor81.3, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 3), align 1, !tbaa !14
+  %xor818.3 = xor i8 %6, %call.3
+  store i8 %xor818.3, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 3), align 1, !tbaa !14
   %call.4 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %7 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 4), align 4, !tbaa !14
-  %xor81.4 = xor i8 %7, %call.4
-  store i8 %xor81.4, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 4), align 4, !tbaa !14
+  %xor818.4 = xor i8 %7, %call.4
+  store i8 %xor818.4, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 4), align 4, !tbaa !14
   %call.5 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %8 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 5), align 1, !tbaa !14
-  %xor81.5 = xor i8 %8, %call.5
-  store i8 %xor81.5, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 5), align 1, !tbaa !14
+  %xor818.5 = xor i8 %8, %call.5
+  store i8 %xor818.5, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 5), align 1, !tbaa !14
   %call.6 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %9 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 6), align 2, !tbaa !14
-  %xor81.6 = xor i8 %9, %call.6
-  store i8 %xor81.6, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 6), align 2, !tbaa !14
+  %xor818.6 = xor i8 %9, %call.6
+  store i8 %xor818.6, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 6), align 2, !tbaa !14
   %call.7 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %10 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 7), align 1, !tbaa !14
-  %xor81.7 = xor i8 %10, %call.7
-  store i8 %xor81.7, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 7), align 1, !tbaa !14
+  %xor818.7 = xor i8 %10, %call.7
+  store i8 %xor818.7, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 7), align 1, !tbaa !14
   %call.8 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %11 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 8), align 8, !tbaa !14
-  %xor81.8 = xor i8 %11, %call.8
-  store i8 %xor81.8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 8), align 8, !tbaa !14
+  %xor818.8 = xor i8 %11, %call.8
+  store i8 %xor818.8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 8), align 8, !tbaa !14
   %call.9 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %12 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 9), align 1, !tbaa !14
-  %xor81.9 = xor i8 %12, %call.9
-  store i8 %xor81.9, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 9), align 1, !tbaa !14
+  %xor818.9 = xor i8 %12, %call.9
+  store i8 %xor818.9, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 9), align 1, !tbaa !14
   %call.10 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %13 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 10), align 2, !tbaa !14
-  %xor81.10 = xor i8 %13, %call.10
-  store i8 %xor81.10, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 10), align 2, !tbaa !14
+  %xor818.10 = xor i8 %13, %call.10
+  store i8 %xor818.10, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 10), align 2, !tbaa !14
   %call.11 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %14 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 11), align 1, !tbaa !14
-  %xor81.11 = xor i8 %14, %call.11
-  store i8 %xor81.11, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 11), align 1, !tbaa !14
+  %xor818.11 = xor i8 %14, %call.11
+  store i8 %xor818.11, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 11), align 1, !tbaa !14
   %call.12 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %15 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 12), align 4, !tbaa !14
-  %xor81.12 = xor i8 %15, %call.12
-  store i8 %xor81.12, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 12), align 4, !tbaa !14
+  %xor818.12 = xor i8 %15, %call.12
+  store i8 %xor818.12, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 12), align 4, !tbaa !14
   %call.13 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %16 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 13), align 1, !tbaa !14
-  %xor81.13 = xor i8 %16, %call.13
-  store i8 %xor81.13, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 13), align 1, !tbaa !14
+  %xor818.13 = xor i8 %16, %call.13
+  store i8 %xor818.13, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 13), align 1, !tbaa !14
   %call.14 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %17 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 14), align 2, !tbaa !14
-  %xor81.14 = xor i8 %17, %call.14
-  store i8 %xor81.14, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 14), align 2, !tbaa !14
+  %xor818.14 = xor i8 %17, %call.14
+  store i8 %xor818.14, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 14), align 2, !tbaa !14
   %call.15 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %18 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 15), align 1, !tbaa !14
-  %xor81.15 = xor i8 %18, %call.15
-  store i8 %xor81.15, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 15), align 1, !tbaa !14
+  %xor818.15 = xor i8 %18, %call.15
+  store i8 %xor818.15, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 15), align 1, !tbaa !14
   %call.16 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %19 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 16), align 16, !tbaa !14
-  %xor81.16 = xor i8 %19, %call.16
-  store i8 %xor81.16, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 16), align 16, !tbaa !14
+  %xor818.16 = xor i8 %19, %call.16
+  store i8 %xor818.16, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 16), align 16, !tbaa !14
   %call.17 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %20 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 17), align 1, !tbaa !14
-  %xor81.17 = xor i8 %20, %call.17
-  store i8 %xor81.17, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 17), align 1, !tbaa !14
+  %xor818.17 = xor i8 %20, %call.17
+  store i8 %xor818.17, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 17), align 1, !tbaa !14
   %call.18 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %21 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 18), align 2, !tbaa !14
-  %xor81.18 = xor i8 %21, %call.18
-  store i8 %xor81.18, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 18), align 2, !tbaa !14
+  %xor818.18 = xor i8 %21, %call.18
+  store i8 %xor818.18, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 18), align 2, !tbaa !14
   %call.19 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %22 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 19), align 1, !tbaa !14
-  %xor81.19 = xor i8 %22, %call.19
-  store i8 %xor81.19, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 19), align 1, !tbaa !14
+  %xor818.19 = xor i8 %22, %call.19
+  store i8 %xor818.19, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 19), align 1, !tbaa !14
   %call.20 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %23 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 20), align 4, !tbaa !14
-  %xor81.20 = xor i8 %23, %call.20
-  store i8 %xor81.20, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 20), align 4, !tbaa !14
+  %xor818.20 = xor i8 %23, %call.20
+  store i8 %xor818.20, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 20), align 4, !tbaa !14
   %call.21 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %24 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 21), align 1, !tbaa !14
-  %xor81.21 = xor i8 %24, %call.21
-  store i8 %xor81.21, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 21), align 1, !tbaa !14
+  %xor818.21 = xor i8 %24, %call.21
+  store i8 %xor818.21, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 21), align 1, !tbaa !14
   %call.22 = call fastcc zeroext i8 @foo(ptr noundef nonnull %s)
   %25 = load i8, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 22), align 2, !tbaa !14
-  %xor81.22 = xor i8 %25, %call.22
-  store i8 %xor81.22, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 22), align 2, !tbaa !14
+  %xor818.22 = xor i8 %25, %call.22
+  store i8 %xor818.22, ptr getelementptr inbounds ([23 x i8], ptr @p, i64 0, i64 22), align 2, !tbaa !14
   call void @llvm.lifetime.end.p0(i64 2512, ptr nonnull %s) #7
   ret void
 }

@@ -64,9 +64,9 @@ for.inc.3:                                        ; preds = %for.inc.2
 for.inc.4:                                        ; preds = %for.inc.3
   %indvars.iv.next.4 = add nuw nsw i64 %indvars.iv, 5
   %exitcond.not.4 = icmp eq i64 %indvars.iv.next.4, 200
-  br i1 %exitcond.not.4, label %for.end, label %land.rhs, !llvm.loop !9
+  br i1 %exitcond.not.4, label %if.then, label %land.rhs, !llvm.loop !9
 
-for.end:                                          ; preds = %for.inc.4
+if.then:                                          ; preds = %for.inc.4
   store i32 200, ptr @useln, align 4, !tbaa !11
   tail call void @error(ptr noundef nonnull @.str) #4
   %.pre = load i32, ptr @useln, align 4, !tbaa !11
@@ -77,8 +77,8 @@ if.end.loopexit:                                  ; preds = %for.inc.3, %for.inc
   %5 = trunc i64 %indvars.iv.lcssa to i32
   br label %if.end
 
-if.end:                                           ; preds = %if.end.loopexit, %for.end
-  %6 = phi i32 [ %5, %if.end.loopexit ], [ %.pre, %for.end ]
+if.end:                                           ; preds = %if.end.loopexit, %if.then
+  %6 = phi i32 [ %5, %if.end.loopexit ], [ %.pre, %if.then ]
   %idxprom3 = sext i32 %6 to i64
   %arrayidx4 = getelementptr inbounds [0 x ptr], ptr @table, i64 0, i64 %idxprom3
   %7 = load ptr, ptr %arrayidx4, align 8, !tbaa !5

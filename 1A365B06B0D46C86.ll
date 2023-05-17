@@ -377,8 +377,8 @@ for.body9:                                        ; preds = %for.body, %for.body
   %call8.i = tail call double @pow(double noundef 1.000000e+01, double noundef %div.i) #17
   %6 = load double, ptr %arrayidx5, align 8, !tbaa !19
   %cmp14 = fcmp olt double %6, %call8.i
-  %.call8.i = select i1 %cmp14, double %6, double %call8.i
-  store double %.call8.i, ptr %arrayidx5, align 8, !tbaa !19
+  %.call = select i1 %cmp14, double %6, double %call8.i
+  store double %.call, ptr %arrayidx5, align 8, !tbaa !19
   %inc = add nsw i32 %i.0111, 1
   %exitcond.not = icmp eq i32 %inc, %2
   br i1 %exitcond.not, label %for.cond.loopexit, label %for.body9, !llvm.loop !37
@@ -423,8 +423,8 @@ for.body37:                                       ; preds = %for.body26, %for.bo
   %call8.i109 = tail call double @pow(double noundef 1.000000e+01, double noundef %div.i108) #17
   %12 = load double, ptr %arrayidx33, align 8, !tbaa !19
   %cmp44 = fcmp olt double %12, %call8.i109
-  %.call8.i109 = select i1 %cmp44, double %12, double %call8.i109
-  store double %.call8.i109, ptr %arrayidx33, align 8, !tbaa !19
+  %.call41 = select i1 %cmp44, double %12, double %call8.i109
+  store double %.call41, ptr %arrayidx33, align 8, !tbaa !19
   %inc55 = add nsw i32 %i.1114, 1
   %exitcond118.not = icmp eq i32 %inc55, %8
   br i1 %exitcond118.not, label %for.cond23.loopexit, label %for.body37, !llvm.loop !39
@@ -588,10 +588,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   %add48 = add nsw i32 %spec.store.select100, %div
   %cmp49 = icmp sgt i32 %add48, 4095
   %sub54 = sub nsw i32 4095, %div
-  %spec.select = call i32 @llvm.smin.i32(i32 %add48, i32 4095)
-  %spec.select106 = select i1 %cmp49, i32 %sub54, i32 %spec.store.select100
-  store i32 %spec.select, ptr %arrayidx7, align 4, !tbaa !17
-  %sub67 = sub nsw i32 %sub67101103, %spec.select106
+  %spec.select = select i1 %cmp49, i32 %sub54, i32 %spec.store.select100
+  %add62 = add nsw i32 %spec.select, %div
+  store i32 %add62, ptr %arrayidx7, align 4, !tbaa !17
+  %sub67 = sub nsw i32 %sub67101103, %spec.select
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %6 = load i32, ptr %stereo, align 4, !tbaa !28
   %7 = sext i32 %6 to i64
@@ -1768,7 +1768,7 @@ sw.bb:                                            ; preds = %if.then96
   %add = add i32 %mul, %75
   %shl = shl i32 %add, 4
   %shl122 = shl i32 %76, 2
-  %add123 = add i32 %shl, %shl122
+  %add123 = add i32 %shl122, %shl
   %add124 = add i32 %add123, %77
   br label %if.then139
 
@@ -2754,29 +2754,29 @@ for.end:                                          ; preds = %vector.body
 
 declare double @exp2(double) local_unnamed_addr
 
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #15
+
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #16
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #16
+declare i32 @llvm.smax.i32(i32, i32) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #16
+declare i32 @llvm.smin.i32(i32, i32) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #16
+declare i32 @llvm.vector.reduce.smax.v8i32(<8 x i32>) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.smax.v8i32(<8 x i32>) #16
+declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.smax.v4i32(<4 x i32>, <4 x i32>) #16
+declare i32 @llvm.vector.reduce.smax.v4i32(<4 x i32>) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.smax.v4i32(<4 x i32>) #16
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #16
+declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #15
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -2793,8 +2793,8 @@ attributes #11 = { nofree norecurse nosync nounwind memory(read, argmem: readwri
 attributes #12 = { nofree norecurse nosync nounwind memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #13 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #14 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #16 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #15 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #16 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #17 = { nounwind }
 
 !llvm.module.flags = !{!0, !1, !2, !3}

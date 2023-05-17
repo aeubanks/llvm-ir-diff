@@ -7,11 +7,11 @@ target triple = "x86_64-unknown-linux-gnu"
 @_ZTIi = external constant ptr
 @str = private unnamed_addr constant [56 x i8] c"Throwing a double from a function which allows doubles!\00", align 1
 @str.8 = private unnamed_addr constant [59 x i8] c"Throwing an int from a function which only allows doubles!\00", align 1
-@str.9 = private unnamed_addr constant [41 x i8] c"std::unexpected called: throwing an int!\00", align 1
-@str.10 = private unnamed_addr constant [35 x i8] c"std::terminate called, as expected\00", align 1
-@str.11 = private unnamed_addr constant [42 x i8] c"std::unexpected called: throwing a double\00", align 1
+@str.10 = private unnamed_addr constant [28 x i8] c"Double successfully caught!\00", align 1
 @str.12 = private unnamed_addr constant [48 x i8] c"std::terminate called, but it was not expected!\00", align 1
-@str.14 = private unnamed_addr constant [28 x i8] c"Double successfully caught!\00", align 1
+@str.13 = private unnamed_addr constant [42 x i8] c"std::unexpected called: throwing a double\00", align 1
+@str.14 = private unnamed_addr constant [35 x i8] c"std::terminate called, as expected\00", align 1
+@str.15 = private unnamed_addr constant [41 x i8] c"std::unexpected called: throwing an int!\00", align 1
 
 ; Function Attrs: mustprogress noreturn uwtable
 define dso_local void @_Z4testb(i1 noundef zeroext %Int) local_unnamed_addr #0 personality ptr @__gxx_personality_v0 {
@@ -108,76 +108,76 @@ lpad.body:                                        ; preds = %lpad.i, %lpad
 catch:                                            ; preds = %lpad.body
   %5 = extractvalue { ptr, i32 } %eh.lpad-body, 0
   %6 = tail call ptr @__cxa_begin_catch(ptr %5) #7
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   tail call void @__cxa_end_catch() #7
   %call4 = tail call noundef ptr @_ZSt14set_unexpectedPFvvE(ptr noundef nonnull @_ZL18UnexpectedHandler1v) #7
   %puts8.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
   %exception.i = tail call ptr @__cxa_allocate_exception(i64 4) #7
   store i32 1, ptr %exception.i, align 16, !tbaa !5
   invoke void @__cxa_throw(ptr nonnull %exception.i, ptr nonnull @_ZTIi, ptr null) #8
-          to label %if.else.cont.i29 unwind label %lpad.i27
+          to label %if.else.cont.i31 unwind label %lpad.i29
 
-lpad.i27:                                         ; preds = %catch
+lpad.i29:                                         ; preds = %catch
   %7 = landingpad { ptr, i32 }
           filter [1 x ptr] [ptr @_ZTId]
           catch ptr @_ZTId
   %8 = extractvalue { ptr, i32 } %7, 1
-  %ehspec.fails.i26 = icmp slt i32 %8, 0
-  br i1 %ehspec.fails.i26, label %ehspec.unexpected.i28, label %lpad5.body
+  %ehspec.fails.i28 = icmp slt i32 %8, 0
+  br i1 %ehspec.fails.i28, label %ehspec.unexpected.i30, label %lpad5.body
 
-ehspec.unexpected.i28:                            ; preds = %lpad.i27
+ehspec.unexpected.i30:                            ; preds = %lpad.i29
   %9 = extractvalue { ptr, i32 } %7, 0
   invoke void @__cxa_call_unexpected(ptr %9) #8
-          to label %.noexc31 unwind label %lpad5
+          to label %.noexc33 unwind label %lpad5
 
-.noexc31:                                         ; preds = %ehspec.unexpected.i28
+.noexc33:                                         ; preds = %ehspec.unexpected.i30
   unreachable
 
-if.else.cont.i29:                                 ; preds = %catch
+if.else.cont.i31:                                 ; preds = %catch
   unreachable
 
-lpad5:                                            ; preds = %ehspec.unexpected.i28
+lpad5:                                            ; preds = %ehspec.unexpected.i30
   %10 = landingpad { ptr, i32 }
           catch ptr @_ZTId
-  %.pre43 = extractvalue { ptr, i32 } %10, 1
+  %.pre44 = extractvalue { ptr, i32 } %10, 1
   br label %lpad5.body
 
-lpad5.body:                                       ; preds = %lpad.i27, %lpad5
-  %.pre-phi44 = phi i32 [ %8, %lpad.i27 ], [ %.pre43, %lpad5 ]
-  %eh.lpad-body32 = phi { ptr, i32 } [ %7, %lpad.i27 ], [ %10, %lpad5 ]
-  %matches9 = icmp eq i32 %.pre-phi44, %.pre-phi
+lpad5.body:                                       ; preds = %lpad.i29, %lpad5
+  %.pre-phi45 = phi i32 [ %8, %lpad.i29 ], [ %.pre44, %lpad5 ]
+  %eh.lpad-body34 = phi { ptr, i32 } [ %7, %lpad.i29 ], [ %10, %lpad5 ]
+  %matches9 = icmp eq i32 %.pre-phi45, %.pre-phi
   br i1 %matches9, label %catch10, label %common.resume
 
 catch10:                                          ; preds = %lpad5.body
-  %11 = extractvalue { ptr, i32 } %eh.lpad-body32, 0
+  %11 = extractvalue { ptr, i32 } %eh.lpad-body34, 0
   %12 = tail call ptr @__cxa_begin_catch(ptr %11) #7
-  %puts42 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
+  %puts26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   tail call void @__cxa_end_catch() #7
   %call17 = tail call noundef ptr @_ZSt13set_terminatePFvvE(ptr noundef nonnull @_ZL17TerminateHandler0v) #7
   %call18 = tail call noundef ptr @_ZSt14set_unexpectedPFvvE(ptr noundef nonnull @_ZL18UnexpectedHandler2v) #7
-  %puts8.i34 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
-  %exception.i35 = tail call ptr @__cxa_allocate_exception(i64 4) #7
-  store i32 1, ptr %exception.i35, align 16, !tbaa !5
-  invoke void @__cxa_throw(ptr nonnull %exception.i35, ptr nonnull @_ZTIi, ptr null) #8
-          to label %if.else.cont.i39 unwind label %lpad.i37
+  %puts8.i36 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.8)
+  %exception.i37 = tail call ptr @__cxa_allocate_exception(i64 4) #7
+  store i32 1, ptr %exception.i37, align 16, !tbaa !5
+  invoke void @__cxa_throw(ptr nonnull %exception.i37, ptr nonnull @_ZTIi, ptr null) #8
+          to label %if.else.cont.i41 unwind label %lpad.i39
 
-lpad.i37:                                         ; preds = %catch10
+lpad.i39:                                         ; preds = %catch10
   %13 = landingpad { ptr, i32 }
           filter [1 x ptr] [ptr @_ZTId]
   %14 = extractvalue { ptr, i32 } %13, 1
-  %ehspec.fails.i36 = icmp slt i32 %14, 0
-  br i1 %ehspec.fails.i36, label %ehspec.unexpected.i38, label %common.resume
+  %ehspec.fails.i38 = icmp slt i32 %14, 0
+  br i1 %ehspec.fails.i38, label %ehspec.unexpected.i40, label %common.resume
 
-ehspec.unexpected.i38:                            ; preds = %lpad.i37
+ehspec.unexpected.i40:                            ; preds = %lpad.i39
   %15 = extractvalue { ptr, i32 } %13, 0
   tail call void @__cxa_call_unexpected(ptr %15) #8
   unreachable
 
-if.else.cont.i39:                                 ; preds = %catch10
+if.else.cont.i41:                                 ; preds = %catch10
   unreachable
 
-common.resume:                                    ; preds = %lpad.body, %lpad5.body, %lpad.i37
-  %common.resume.op = phi { ptr, i32 } [ %13, %lpad.i37 ], [ %eh.lpad-body32, %lpad5.body ], [ %eh.lpad-body, %lpad.body ]
+common.resume:                                    ; preds = %lpad.body, %lpad5.body, %lpad.i39
+  %common.resume.op = phi { ptr, i32 } [ %13, %lpad.i39 ], [ %eh.lpad-body34, %lpad5.body ], [ %eh.lpad-body, %lpad.body ]
   resume { ptr, i32 } %common.resume.op
 }
 
@@ -205,7 +205,7 @@ declare noundef ptr @_ZSt14set_unexpectedPFvvE(ptr noundef) local_unnamed_addr #
 ; Function Attrs: mustprogress noreturn uwtable
 define internal void @_ZL18UnexpectedHandler1v() #0 {
 entry:
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.13)
   %exception = tail call ptr @__cxa_allocate_exception(i64 8) #7
   store double 1.000000e+00, ptr %exception, align 16, !tbaa !9
   tail call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTId, ptr null) #8
@@ -215,7 +215,7 @@ entry:
 ; Function Attrs: mustprogress noreturn nounwind uwtable
 define internal void @_ZL17TerminateHandler0v() #3 {
 entry:
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
   tail call void @exit(i32 noundef 0) #9
   unreachable
 }
@@ -223,7 +223,7 @@ entry:
 ; Function Attrs: mustprogress noreturn uwtable
 define internal void @_ZL18UnexpectedHandler2v() #0 {
 entry:
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.9)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
   %exception = tail call ptr @__cxa_allocate_exception(i64 4) #7
   store i32 1, ptr %exception, align 16, !tbaa !5
   tail call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTIi, ptr null) #8

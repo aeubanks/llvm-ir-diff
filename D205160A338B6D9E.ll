@@ -216,7 +216,7 @@ land.rhs.i:                                       ; preds = %if.end5.i, %for.inc
   %ent.025.i = phi ptr [ %ent.0.i, %for.inc.i ], [ %ent.023.i, %if.end5.i ]
   %3 = load i32, ptr %ent.025.i, align 8, !tbaa !19
   %cmp7.not.i = icmp eq i32 %3, %key
-  br i1 %cmp7.not.i, label %if.then9.i, label %for.inc.i
+  br i1 %cmp7.not.i, label %HashLookup.exit, label %for.inc.i
 
 for.inc.i:                                        ; preds = %land.rhs.i
   %next.i = getelementptr inbounds %struct.hash_entry, ptr %ent.025.i, i64 0, i32 2
@@ -224,22 +224,22 @@ for.inc.i:                                        ; preds = %land.rhs.i
   %tobool.not.i = icmp eq ptr %ent.0.i, null
   br i1 %tobool.not.i, label %if.end, label %land.rhs.i, !llvm.loop !21
 
-if.then9.i:                                       ; preds = %land.rhs.i
+HashLookup.exit:                                  ; preds = %land.rhs.i
   %entry10.i = getelementptr inbounds %struct.hash_entry, ptr %ent.025.i, i64 0, i32 1
   %4 = load ptr, ptr %entry10.i, align 8, !tbaa !22
-  %5 = icmp eq ptr %4, null
-  br i1 %5, label %if.end, label %if.then
+  %tobool.not = icmp eq ptr %4, null
+  br i1 %tobool.not, label %if.end, label %if.then
 
-if.then:                                          ; preds = %if.then9.i
+if.then:                                          ; preds = %HashLookup.exit
   %call2 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, i32 noundef 3)
   tail call void @exit(i32 noundef -1) #8
   unreachable
 
-if.end:                                           ; preds = %for.inc.i, %if.end5.i, %if.then9.i
-  %6 = load ptr, ptr %mapfunc.i, align 8, !tbaa !17
-  %call3 = tail call i32 %6(i32 noundef %key) #7
-  %7 = load i32, ptr @remaining, align 4, !tbaa !5
-  %cmp.i19 = icmp slt i32 %7, 24
+if.end:                                           ; preds = %for.inc.i, %if.end5.i, %HashLookup.exit
+  %5 = load ptr, ptr %mapfunc.i, align 8, !tbaa !17
+  %call3 = tail call i32 %5(i32 noundef %key) #7
+  %6 = load i32, ptr @remaining, align 4, !tbaa !5
+  %cmp.i19 = icmp slt i32 %6, 24
   br i1 %cmp.i19, label %if.then.i22, label %localmalloc.exit
 
 if.then.i22:                                      ; preds = %if.end
@@ -253,21 +253,21 @@ if.then1.i:                                       ; preds = %if.then.i22
   br label %localmalloc.exit
 
 localmalloc.exit:                                 ; preds = %if.end, %if.then.i22, %if.then1.i
-  %8 = phi i32 [ %7, %if.end ], [ 32768, %if.then1.i ], [ 32768, %if.then.i22 ]
-  %9 = load ptr, ptr @temp, align 8, !tbaa !9
-  %add.ptr.i = getelementptr inbounds i8, ptr %9, i64 24
+  %7 = phi i32 [ %6, %if.end ], [ 32768, %if.then1.i ], [ 32768, %if.then.i22 ]
+  %8 = load ptr, ptr @temp, align 8, !tbaa !9
+  %add.ptr.i = getelementptr inbounds i8, ptr %8, i64 24
   store ptr %add.ptr.i, ptr @temp, align 8, !tbaa !9
-  %sub.i = add nsw i32 %8, -24
+  %sub.i = add nsw i32 %7, -24
   store i32 %sub.i, ptr @remaining, align 4, !tbaa !5
-  %10 = load ptr, ptr %hash, align 8, !tbaa !11
+  %9 = load ptr, ptr %hash, align 8, !tbaa !11
   %idxprom = sext i32 %call3 to i64
-  %arrayidx = getelementptr inbounds ptr, ptr %10, i64 %idxprom
-  %11 = load ptr, ptr %arrayidx, align 8, !tbaa !9
-  %next = getelementptr inbounds %struct.hash_entry, ptr %9, i64 0, i32 2
-  store ptr %11, ptr %next, align 8, !tbaa !23
-  store ptr %9, ptr %arrayidx, align 8, !tbaa !9
-  store i32 %key, ptr %9, align 8, !tbaa !19
-  %entry9 = getelementptr inbounds %struct.hash_entry, ptr %9, i64 0, i32 1
+  %arrayidx = getelementptr inbounds ptr, ptr %9, i64 %idxprom
+  %10 = load ptr, ptr %arrayidx, align 8, !tbaa !9
+  %next = getelementptr inbounds %struct.hash_entry, ptr %8, i64 0, i32 2
+  store ptr %10, ptr %next, align 8, !tbaa !23
+  store ptr %8, ptr %arrayidx, align 8, !tbaa !9
+  store i32 %key, ptr %8, align 8, !tbaa !19
+  %entry9 = getelementptr inbounds %struct.hash_entry, ptr %8, i64 0, i32 1
   store ptr %entry1, ptr %entry9, align 8, !tbaa !22
   ret void
 }

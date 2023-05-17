@@ -24,7 +24,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-entry:
+if.end21:
   store i8 -1, ptr @a, align 1, !tbaa !5
   store i8 -1, ptr @b, align 1, !tbaa !5
   ret i32 0

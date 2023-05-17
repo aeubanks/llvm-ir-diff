@@ -2095,7 +2095,7 @@ land.lhs.true46:                                  ; preds = %if.then42
   %add = add nsw i32 %6, %7
   %cmp48.not = icmp sgt i32 %add, %.
   %cmp52.not = icmp sgt i32 %6, 8388607
-  %or.cond220 = or i1 %cmp48.not, %cmp52.not
+  %or.cond220 = or i1 %cmp52.not, %cmp48.not
   br i1 %or.cond220, label %if.then54, label %if.end55
 
 if.then54:                                        ; preds = %land.lhs.true46, %if.then42
@@ -2182,7 +2182,7 @@ land.lhs.true123:                                 ; preds = %if.then119
   %add124 = add nsw i32 %26, %25
   %cmp126.not = icmp sgt i32 %add124, %.
   %cmp130.not = icmp sgt i32 %26, 8388607
-  %or.cond222 = or i1 %cmp126.not, %cmp130.not
+  %or.cond222 = or i1 %cmp130.not, %cmp126.not
   br i1 %or.cond222, label %if.then132, label %if.end136
 
 if.then132:                                       ; preds = %land.lhs.true123, %if.then119

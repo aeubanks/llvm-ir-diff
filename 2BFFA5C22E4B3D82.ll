@@ -694,7 +694,7 @@ if.then.i:                                        ; preds = %while.body
   %7 = load i32, ptr %bytesinpkt, align 8, !tbaa !55
   %conv6.i = sext i32 %7 to i64
   %cmp7.not.i = icmp eq i64 %call.i, %conv6.i
-  br i1 %cmp7.not.i, label %if.end.i, label %if.then9.i
+  br i1 %cmp7.not.i, label %flush_packet.exit, label %if.then9.i
 
 if.then9.i:                                       ; preds = %if.then.i
   %8 = load ptr, ptr %cinfo.i, align 8, !tbaa !16
@@ -703,14 +703,14 @@ if.then9.i:                                       ; preds = %if.then.i
   store i32 36, ptr %msg_code.i, align 8, !tbaa !24
   %10 = load ptr, ptr %9, align 8, !tbaa !26
   tail call void %10(ptr noundef nonnull %8) #6
-  br label %if.end.i
+  br label %flush_packet.exit
 
-if.end.i:                                         ; preds = %if.then9.i, %if.then.i
+flush_packet.exit:                                ; preds = %if.then.i, %if.then9.i
   store i32 0, ptr %bytesinpkt, align 8, !tbaa !55
   br label %if.end
 
-if.end:                                           ; preds = %if.end.i, %while.body
-  %11 = phi i32 [ 0, %if.end.i ], [ %5, %while.body ]
+if.end:                                           ; preds = %flush_packet.exit, %while.body
+  %11 = phi i32 [ 0, %flush_packet.exit ], [ %5, %while.body ]
   %12 = load i64, ptr %cur_accum, align 8, !tbaa !56
   %shr = ashr i64 %12, 8
   store i64 %shr, ptr %cur_accum, align 8, !tbaa !56

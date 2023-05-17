@@ -21,7 +21,7 @@ declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #2 {
-entry:
+if.end:
   tail call void @exit(i32 noundef 0) #4
   unreachable
 }

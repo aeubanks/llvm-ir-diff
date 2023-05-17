@@ -281,8 +281,8 @@ if.end42:                                         ; preds = %if.then40, %if.end3
 
 if.then49:                                        ; preds = %if.end42
   %call.i222 = tail call i64 @strtol(ptr nocapture noundef nonnull %offstr, ptr noundef null, i32 noundef 10) #13
-  %sext230 = shl i64 %call.i222, 32
-  %conv51 = ashr exact i64 %sext230, 32
+  %sext = shl i64 %call.i222, 32
+  %conv51 = ashr exact i64 %sext, 32
   br label %cleanup165
 
 if.else52:                                        ; preds = %if.end42
@@ -433,8 +433,8 @@ if.end155:                                        ; preds = %if.end153, %if.then
   %21 = phi i64 [ %20, %if.end153 ], [ %19, %if.then145 ]
   %add.ptr157 = getelementptr inbounds i8, ptr %offstr, i64 4
   %call.i228 = tail call i64 @strtol(ptr nocapture noundef nonnull %add.ptr157, ptr noundef null, i32 noundef 10) #13
-  %sext = shl i64 %call.i228, 32
-  %conv159 = ashr exact i64 %sext, 32
+  %sext233 = shl i64 %call.i228, 32
+  %conv159 = ashr exact i64 %sext233, 32
   %sub160 = sub nsw i64 %21, %conv159
   br label %cleanup
 

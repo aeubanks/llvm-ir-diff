@@ -13,8 +13,8 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_Copy(ptr noundef readonly %List) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %List, null
-  br i1 %cmp.i, label %cleanup, label %if.end
+  %cmp.i.not = icmp eq ptr %List, null
+  br i1 %cmp.i.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %entry
   %0 = getelementptr i8, ptr %List, i64 8
@@ -49,8 +49,8 @@ cleanup:                                          ; preds = %while.body, %if.end
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_CopyWithElement(ptr noundef readonly %List, ptr nocapture noundef readonly %CopyElement) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %List, null
-  br i1 %cmp.i, label %cleanup, label %if.end
+  %cmp.i.not = icmp eq ptr %List, null
+  br i1 %cmp.i.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %entry
   %0 = getelementptr i8, ptr %List, i64 8
@@ -197,8 +197,8 @@ while.body.i.preheader:                           ; preds = %for.body9, %for.con
   br label %while.body.i
 
 while.body.i:                                     ; preds = %while.body.i.preheader, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %call.i, %while.body.i.preheader ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %call.i, %while.body.i.preheader ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %2 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %2, i64 0, i32 4
   %3 = load i32, ptr %total_size.i.i.i, align 8
@@ -210,7 +210,7 @@ while.body.i:                                     ; preds = %while.body.i.prehea
   store ptr %5, ptr %Current.06.i, align 8
   %6 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %6, align 8
-  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !13
 
 list_Delete.exit:                                 ; preds = %while.body.i, %entry
@@ -246,13 +246,13 @@ entry:
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @list_SortedInOrder(ptr noundef readonly %L, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %L, null
-  br i1 %cmp.i, label %cleanup, label %lor.lhs.false
+  %cmp.i.not = icmp eq ptr %L, null
+  br i1 %cmp.i.not, label %cleanup, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %entry
   %L.val32 = load ptr, ptr %L, align 8
-  %cmp.i33 = icmp eq ptr %L.val32, null
-  br i1 %cmp.i33, label %cleanup, label %do.body
+  %cmp.i33.not = icmp eq ptr %L.val32, null
+  br i1 %cmp.i33.not, label %cleanup, label %do.body
 
 do.body:                                          ; preds = %lor.lhs.false, %if.end
   %Scan1.0 = phi ptr [ %Scan1.0.val31, %if.end ], [ %L, %lor.lhs.false ]
@@ -286,12 +286,12 @@ cleanup:                                          ; preds = %if.end, %land.lhs.t
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_Merge(ptr noundef %List1, ptr noundef %List2, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %List1, null
-  br i1 %cmp.i, label %cleanup, label %if.end
+  %cmp.i.not = icmp eq ptr %List1, null
+  br i1 %cmp.i.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %entry
-  %cmp.i64 = icmp eq ptr %List2, null
-  br i1 %cmp.i64, label %cleanup, label %if.end4
+  %cmp.i64.not = icmp eq ptr %List2, null
+  br i1 %cmp.i64.not, label %cleanup, label %if.end4
 
 if.end4:                                          ; preds = %if.end
   %0 = getelementptr i8, ptr %List1, i64 8
@@ -300,85 +300,87 @@ if.end4:                                          ; preds = %if.end
   %List2.val = load ptr, ptr %1, align 8
   %call7 = tail call i32 %Test(ptr noundef %List1.val, ptr noundef %List2.val) #8
   %tobool8.not = icmp eq i32 %call7, 0
-  br i1 %tobool8.not, label %if.else, label %if.then9
+  br i1 %tobool8.not, label %if.end12.thread, label %if.end12
 
-if.then9:                                         ; preds = %if.end4
-  %List1.val63 = load ptr, ptr %List1, align 8
-  br label %if.end12
-
-if.else:                                          ; preds = %if.end4
+if.end12.thread:                                  ; preds = %if.end4
   %List2.val62 = load ptr, ptr %List2, align 8
-  br label %if.end12
+  br label %land.rhs.preheader
 
-if.end12:                                         ; preds = %if.else, %if.then9
-  %Scan1.0 = phi ptr [ %List1.val63, %if.then9 ], [ %List1, %if.else ]
-  %Scan2.0 = phi ptr [ %List2, %if.then9 ], [ %List2.val62, %if.else ]
-  %ResultStart.0 = phi ptr [ %List1, %if.then9 ], [ %List2, %if.else ]
-  %cmp.i6672 = icmp eq ptr %Scan1.0, null
-  %cmp.i68.not73 = icmp eq ptr %Scan2.0, null
-  %or.cond74 = select i1 %cmp.i6672, i1 true, i1 %cmp.i68.not73
-  br i1 %or.cond74, label %while.end, label %while.body
+if.end12:                                         ; preds = %if.end4
+  %List1.val63 = load ptr, ptr %List1, align 8
+  %cmp.i66.not75 = icmp eq ptr %List1.val63, null
+  br i1 %cmp.i66.not75, label %if.then29, label %land.rhs.preheader
 
-while.body:                                       ; preds = %if.end12, %if.end25
-  %Result.077 = phi ptr [ %Result.0.val, %if.end25 ], [ %ResultStart.0, %if.end12 ]
-  %Scan2.176 = phi ptr [ %Scan2.2, %if.end25 ], [ %Scan2.0, %if.end12 ]
-  %Scan1.175 = phi ptr [ %Scan1.2, %if.end25 ], [ %Scan1.0, %if.end12 ]
-  %2 = getelementptr i8, ptr %Scan1.175, i64 8
+land.rhs.preheader:                               ; preds = %if.end12.thread, %if.end12
+  %ResultStart.089 = phi ptr [ %List2, %if.end12.thread ], [ %List1, %if.end12 ]
+  %Scan2.088 = phi ptr [ %List2.val62, %if.end12.thread ], [ %List2, %if.end12 ]
+  %Scan1.087 = phi ptr [ %List1, %if.end12.thread ], [ %List1.val63, %if.end12 ]
+  br label %land.rhs
+
+land.rhs:                                         ; preds = %land.rhs.preheader, %if.end25
+  %Result.078 = phi ptr [ %Result.0.val, %if.end25 ], [ %ResultStart.089, %land.rhs.preheader ]
+  %Scan2.177 = phi ptr [ %Scan2.2, %if.end25 ], [ %Scan2.088, %land.rhs.preheader ]
+  %Scan1.176 = phi ptr [ %Scan1.2, %if.end25 ], [ %Scan1.087, %land.rhs.preheader ]
+  %cmp.i68.not = icmp eq ptr %Scan2.177, null
+  br i1 %cmp.i68.not, label %if.else30, label %while.body
+
+while.body:                                       ; preds = %land.rhs
+  %2 = getelementptr i8, ptr %Scan1.176, i64 8
   %Scan1.1.val = load ptr, ptr %2, align 8
-  %3 = getelementptr i8, ptr %Scan2.176, i64 8
+  %3 = getelementptr i8, ptr %Scan2.177, i64 8
   %Scan2.1.val = load ptr, ptr %3, align 8
   %call19 = tail call i32 %Test(ptr noundef %Scan1.1.val, ptr noundef %Scan2.1.val) #8
   %tobool20.not = icmp eq i32 %call19, 0
   br i1 %tobool20.not, label %if.else23, label %if.then21
 
 if.then21:                                        ; preds = %while.body
-  store ptr %Scan1.175, ptr %Result.077, align 8
-  %Scan1.1.val61 = load ptr, ptr %Scan1.175, align 8
+  store ptr %Scan1.176, ptr %Result.078, align 8
+  %Scan1.1.val61 = load ptr, ptr %Scan1.176, align 8
   br label %if.end25
 
 if.else23:                                        ; preds = %while.body
-  store ptr %Scan2.176, ptr %Result.077, align 8
-  %Scan2.1.val60 = load ptr, ptr %Scan2.176, align 8
+  store ptr %Scan2.177, ptr %Result.078, align 8
+  %Scan2.1.val60 = load ptr, ptr %Scan2.177, align 8
   br label %if.end25
 
 if.end25:                                         ; preds = %if.else23, %if.then21
-  %Result.0.val = phi ptr [ %Scan1.175, %if.then21 ], [ %Scan2.176, %if.else23 ]
-  %Scan1.2 = phi ptr [ %Scan1.1.val61, %if.then21 ], [ %Scan1.175, %if.else23 ]
-  %Scan2.2 = phi ptr [ %Scan2.176, %if.then21 ], [ %Scan2.1.val60, %if.else23 ]
-  %cmp.i66 = icmp eq ptr %Scan1.2, null
-  %cmp.i68.not = icmp eq ptr %Scan2.2, null
-  %or.cond = select i1 %cmp.i66, i1 true, i1 %cmp.i68.not
-  br i1 %or.cond, label %while.end, label %while.body, !llvm.loop !15
+  %Result.0.val = phi ptr [ %Scan1.176, %if.then21 ], [ %Scan2.177, %if.else23 ]
+  %Scan1.2 = phi ptr [ %Scan1.1.val61, %if.then21 ], [ %Scan1.176, %if.else23 ]
+  %Scan2.2 = phi ptr [ %Scan2.177, %if.then21 ], [ %Scan2.1.val60, %if.else23 ]
+  %cmp.i66.not = icmp eq ptr %Scan1.2, null
+  br i1 %cmp.i66.not, label %if.then29, label %land.rhs, !llvm.loop !15
 
-while.end:                                        ; preds = %if.end25, %if.end12
-  %Scan1.1.lcssa = phi ptr [ %Scan1.0, %if.end12 ], [ %Scan1.2, %if.end25 ]
-  %Scan2.1.lcssa = phi ptr [ %Scan2.0, %if.end12 ], [ %Scan2.2, %if.end25 ]
-  %Result.0.lcssa = phi ptr [ %ResultStart.0, %if.end12 ], [ %Result.0.val, %if.end25 ]
-  %cmp.i66.lcssa = phi i1 [ %cmp.i6672, %if.end12 ], [ %cmp.i66, %if.end25 ]
-  %Scan2.1.Scan1.1 = select i1 %cmp.i66.lcssa, ptr %Scan2.1.lcssa, ptr %Scan1.1.lcssa
-  store ptr %Scan2.1.Scan1.1, ptr %Result.0.lcssa, align 8
+if.then29:                                        ; preds = %if.end25, %if.end12
+  %ResultStart.090 = phi ptr [ %List1, %if.end12 ], [ %ResultStart.089, %if.end25 ]
+  %Scan2.1.lcssa = phi ptr [ %List2, %if.end12 ], [ %Scan2.2, %if.end25 ]
+  %Result.0.lcssa = phi ptr [ %List1, %if.end12 ], [ %Result.0.val, %if.end25 ]
+  store ptr %Scan2.1.lcssa, ptr %Result.0.lcssa, align 8
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end, %entry, %while.end
-  %retval.0 = phi ptr [ %ResultStart.0, %while.end ], [ %List2, %entry ], [ %List1, %if.end ]
+if.else30:                                        ; preds = %land.rhs
+  store ptr %Scan1.176, ptr %Result.078, align 8
+  br label %cleanup
+
+cleanup:                                          ; preds = %if.then29, %if.else30, %if.end, %entry
+  %retval.0 = phi ptr [ %List2, %entry ], [ %List1, %if.end ], [ %ResultStart.089, %if.else30 ], [ %ResultStart.090, %if.then29 ]
   ret ptr %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local void @list_Split(ptr noundef %L, ptr nocapture noundef writeonly %Half1, ptr nocapture noundef writeonly %Half2) local_unnamed_addr #2 {
 entry:
-  %cmp.i = icmp eq ptr %L, null
-  br i1 %cmp.i, label %if.then, label %lor.lhs.false
+  %cmp.i.not = icmp eq ptr %L, null
+  br i1 %cmp.i.not, label %if.then, label %lor.lhs.false
 
 lor.lhs.false:                                    ; preds = %entry
   %L.val29 = load ptr, ptr %L, align 8
-  %cmp.i30 = icmp eq ptr %L.val29, null
-  br i1 %cmp.i30, label %if.then, label %while.cond.preheader
+  %cmp.i30.not = icmp eq ptr %L.val29, null
+  br i1 %cmp.i30.not, label %if.then, label %while.cond.preheader
 
 while.cond.preheader:                             ; preds = %lor.lhs.false
   %DoubleStep.036 = load ptr, ptr %L.val29, align 8
-  %cmp.i3237 = icmp eq ptr %DoubleStep.036, null
-  br i1 %cmp.i3237, label %while.end, label %land.rhs.preheader
+  %cmp.i32.not37 = icmp eq ptr %DoubleStep.036, null
+  br i1 %cmp.i32.not37, label %while.end, label %land.rhs.preheader
 
 land.rhs.preheader:                               ; preds = %while.cond.preheader
   %DoubleStep.0.val2844 = load ptr, ptr %DoubleStep.036, align 8
@@ -400,8 +402,8 @@ while.body:                                       ; preds = %land.rhs.preheader,
   %SingleStep.03846 = phi ptr [ %SingleStep.0.val, %land.rhs ], [ %L.val29, %land.rhs.preheader ]
   %SingleStep.0.val = load ptr, ptr %SingleStep.03846, align 8
   %DoubleStep.0 = load ptr, ptr %DoubleStep.0.val2847, align 8
-  %cmp.i32 = icmp eq ptr %DoubleStep.0, null
-  br i1 %cmp.i32, label %while.end, label %land.rhs, !llvm.loop !16
+  %cmp.i32.not = icmp eq ptr %DoubleStep.0, null
+  br i1 %cmp.i32.not, label %while.end, label %land.rhs, !llvm.loop !16
 
 while.end:                                        ; preds = %while.body, %land.rhs, %land.rhs.preheader, %while.cond.preheader
   %SingleStep.0.lcssa = phi ptr [ %L.val29, %while.cond.preheader ], [ %L.val29, %land.rhs.preheader ], [ %SingleStep.0.val, %land.rhs ], [ %SingleStep.0.val, %while.body ]
@@ -418,49 +420,49 @@ if.end:                                           ; preds = %while.end, %if.then
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_MergeSort(ptr noundef %L, ptr noundef %Test) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %L, null
-  br i1 %cmp.i, label %if.end, label %land.lhs.true
+  %cmp.i.not = icmp eq ptr %L, null
+  br i1 %cmp.i.not, label %if.end, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %entry
   %L.val = load ptr, ptr %L, align 8
-  %cmp.i12 = icmp eq ptr %L.val, null
-  br i1 %cmp.i12, label %if.end, label %while.cond.preheader.i
+  %cmp.i12.not = icmp eq ptr %L.val, null
+  br i1 %cmp.i12.not, label %if.end, label %while.cond.preheader.i
 
 while.cond.preheader.i:                           ; preds = %land.lhs.true
   %DoubleStep.036.i = load ptr, ptr %L.val, align 8
-  %cmp.i3237.i = icmp eq ptr %DoubleStep.036.i, null
-  br i1 %cmp.i3237.i, label %list_Split.exit, label %land.rhs.i.preheader
+  %cmp.i32.not37.i = icmp eq ptr %DoubleStep.036.i, null
+  br i1 %cmp.i32.not37.i, label %while.end.i, label %land.rhs.i.preheader
 
 land.rhs.i.preheader:                             ; preds = %while.cond.preheader.i
-  %DoubleStep.0.val28.i18 = load ptr, ptr %DoubleStep.036.i, align 8
-  %cmp.i34.not.i19 = icmp eq ptr %DoubleStep.0.val28.i18, null
-  br i1 %cmp.i34.not.i19, label %list_Split.exit, label %while.body.i
+  %DoubleStep.0.val28.i20 = load ptr, ptr %DoubleStep.036.i, align 8
+  %cmp.i34.not.i21 = icmp eq ptr %DoubleStep.0.val28.i20, null
+  br i1 %cmp.i34.not.i21, label %while.end.i, label %while.body.i
 
 land.rhs.i:                                       ; preds = %while.body.i
   %DoubleStep.0.val28.i = load ptr, ptr %DoubleStep.0.i, align 8
   %cmp.i34.not.i = icmp eq ptr %DoubleStep.0.val28.i, null
-  br i1 %cmp.i34.not.i, label %list_Split.exit, label %while.body.i, !llvm.loop !16
+  br i1 %cmp.i34.not.i, label %while.end.i, label %while.body.i, !llvm.loop !16
 
 while.body.i:                                     ; preds = %land.rhs.i.preheader, %land.rhs.i
-  %DoubleStep.0.val28.i21 = phi ptr [ %DoubleStep.0.val28.i, %land.rhs.i ], [ %DoubleStep.0.val28.i18, %land.rhs.i.preheader ]
-  %SingleStep.038.i20 = phi ptr [ %SingleStep.0.val.i, %land.rhs.i ], [ %L.val, %land.rhs.i.preheader ]
-  %SingleStep.0.val.i = load ptr, ptr %SingleStep.038.i20, align 8
-  %DoubleStep.0.i = load ptr, ptr %DoubleStep.0.val28.i21, align 8
-  %cmp.i32.i = icmp eq ptr %DoubleStep.0.i, null
-  br i1 %cmp.i32.i, label %list_Split.exit, label %land.rhs.i, !llvm.loop !16
+  %DoubleStep.0.val28.i23 = phi ptr [ %DoubleStep.0.val28.i, %land.rhs.i ], [ %DoubleStep.0.val28.i20, %land.rhs.i.preheader ]
+  %SingleStep.038.i22 = phi ptr [ %SingleStep.0.val.i, %land.rhs.i ], [ %L.val, %land.rhs.i.preheader ]
+  %SingleStep.0.val.i = load ptr, ptr %SingleStep.038.i22, align 8
+  %DoubleStep.0.i = load ptr, ptr %DoubleStep.0.val28.i23, align 8
+  %cmp.i32.not.i = icmp eq ptr %DoubleStep.0.i, null
+  br i1 %cmp.i32.not.i, label %while.end.i, label %land.rhs.i, !llvm.loop !16
 
-list_Split.exit:                                  ; preds = %while.body.i, %land.rhs.i, %land.rhs.i.preheader, %while.cond.preheader.i
-  %SingleStep.0.lcssa.i = phi ptr [ %L.val, %while.cond.preheader.i ], [ %L.val, %land.rhs.i.preheader ], [ %SingleStep.0.val.i, %land.rhs.i ], [ %SingleStep.0.val.i, %while.body.i ]
-  %Prev.0.lcssa.i = phi ptr [ %L, %while.cond.preheader.i ], [ %L, %land.rhs.i.preheader ], [ %SingleStep.038.i20, %land.rhs.i ], [ %SingleStep.038.i20, %while.body.i ]
+while.end.i:                                      ; preds = %land.rhs.i, %while.body.i, %land.rhs.i.preheader, %while.cond.preheader.i
+  %SingleStep.0.lcssa.i = phi ptr [ %L.val, %while.cond.preheader.i ], [ %L.val, %land.rhs.i.preheader ], [ %SingleStep.0.val.i, %while.body.i ], [ %SingleStep.0.val.i, %land.rhs.i ]
+  %Prev.0.lcssa.i = phi ptr [ %L, %while.cond.preheader.i ], [ %L, %land.rhs.i.preheader ], [ %SingleStep.038.i22, %while.body.i ], [ %SingleStep.038.i22, %land.rhs.i ]
   store ptr null, ptr %Prev.0.lcssa.i, align 8
   %call4 = tail call ptr @list_MergeSort(ptr noundef nonnull %L, ptr noundef %Test)
   %call5 = tail call ptr @list_MergeSort(ptr noundef %SingleStep.0.lcssa.i, ptr noundef %Test)
-  %cmp.i.i14 = icmp eq ptr %call4, null
-  br i1 %cmp.i.i14, label %if.end, label %if.end.i
+  %cmp.i.not.i14 = icmp eq ptr %call4, null
+  br i1 %cmp.i.not.i14, label %if.end, label %if.end.i
 
-if.end.i:                                         ; preds = %list_Split.exit
-  %cmp.i64.i = icmp eq ptr %call5, null
-  br i1 %cmp.i64.i, label %if.end, label %if.end4.i
+if.end.i:                                         ; preds = %while.end.i
+  %cmp.i64.not.i = icmp eq ptr %call5, null
+  br i1 %cmp.i64.not.i, label %if.end, label %if.end4.i
 
 if.end4.i:                                        ; preds = %if.end.i
   %0 = getelementptr i8, ptr %call4, i64 8
@@ -469,67 +471,69 @@ if.end4.i:                                        ; preds = %if.end.i
   %List2.val.i = load ptr, ptr %1, align 8
   %call7.i = tail call i32 %Test(ptr noundef %List1.val.i, ptr noundef %List2.val.i) #8
   %tobool8.not.i = icmp eq i32 %call7.i, 0
-  br i1 %tobool8.not.i, label %if.else.i, label %if.then9.i
+  br i1 %tobool8.not.i, label %if.end12.thread.i, label %if.end12.i
 
-if.then9.i:                                       ; preds = %if.end4.i
-  %List1.val63.i = load ptr, ptr %call4, align 8
-  br label %if.end12.i
-
-if.else.i:                                        ; preds = %if.end4.i
+if.end12.thread.i:                                ; preds = %if.end4.i
   %List2.val62.i = load ptr, ptr %call5, align 8
-  br label %if.end12.i
+  br label %land.rhs.preheader.i
 
-if.end12.i:                                       ; preds = %if.else.i, %if.then9.i
-  %Scan1.0.i = phi ptr [ %List1.val63.i, %if.then9.i ], [ %call4, %if.else.i ]
-  %Scan2.0.i = phi ptr [ %call5, %if.then9.i ], [ %List2.val62.i, %if.else.i ]
-  %ResultStart.0.i = phi ptr [ %call4, %if.then9.i ], [ %call5, %if.else.i ]
-  %cmp.i6672.i = icmp eq ptr %Scan1.0.i, null
-  %cmp.i68.not73.i = icmp eq ptr %Scan2.0.i, null
-  %or.cond74.i = select i1 %cmp.i6672.i, i1 true, i1 %cmp.i68.not73.i
-  br i1 %or.cond74.i, label %while.end.i16, label %while.body.i15
+if.end12.i:                                       ; preds = %if.end4.i
+  %List1.val63.i = load ptr, ptr %call4, align 8
+  %cmp.i66.not75.i = icmp eq ptr %List1.val63.i, null
+  br i1 %cmp.i66.not75.i, label %if.then29.i, label %land.rhs.preheader.i
 
-while.body.i15:                                   ; preds = %if.end12.i, %if.end25.i
-  %Result.077.i = phi ptr [ %Result.0.val.i, %if.end25.i ], [ %ResultStart.0.i, %if.end12.i ]
-  %Scan2.176.i = phi ptr [ %Scan2.2.i, %if.end25.i ], [ %Scan2.0.i, %if.end12.i ]
-  %Scan1.175.i = phi ptr [ %Scan1.2.i, %if.end25.i ], [ %Scan1.0.i, %if.end12.i ]
-  %2 = getelementptr i8, ptr %Scan1.175.i, i64 8
+land.rhs.preheader.i:                             ; preds = %if.end12.i, %if.end12.thread.i
+  %ResultStart.089.i = phi ptr [ %call5, %if.end12.thread.i ], [ %call4, %if.end12.i ]
+  %Scan2.088.i = phi ptr [ %List2.val62.i, %if.end12.thread.i ], [ %call5, %if.end12.i ]
+  %Scan1.087.i = phi ptr [ %call4, %if.end12.thread.i ], [ %List1.val63.i, %if.end12.i ]
+  br label %land.rhs.i15
+
+land.rhs.i15:                                     ; preds = %if.end25.i, %land.rhs.preheader.i
+  %Result.078.i = phi ptr [ %Result.0.val.i, %if.end25.i ], [ %ResultStart.089.i, %land.rhs.preheader.i ]
+  %Scan2.177.i = phi ptr [ %Scan2.2.i, %if.end25.i ], [ %Scan2.088.i, %land.rhs.preheader.i ]
+  %Scan1.176.i = phi ptr [ %Scan1.2.i, %if.end25.i ], [ %Scan1.087.i, %land.rhs.preheader.i ]
+  %cmp.i68.not.i = icmp eq ptr %Scan2.177.i, null
+  br i1 %cmp.i68.not.i, label %if.else30.i, label %while.body.i16
+
+while.body.i16:                                   ; preds = %land.rhs.i15
+  %2 = getelementptr i8, ptr %Scan1.176.i, i64 8
   %Scan1.1.val.i = load ptr, ptr %2, align 8
-  %3 = getelementptr i8, ptr %Scan2.176.i, i64 8
+  %3 = getelementptr i8, ptr %Scan2.177.i, i64 8
   %Scan2.1.val.i = load ptr, ptr %3, align 8
   %call19.i = tail call i32 %Test(ptr noundef %Scan1.1.val.i, ptr noundef %Scan2.1.val.i) #8
   %tobool20.not.i = icmp eq i32 %call19.i, 0
   br i1 %tobool20.not.i, label %if.else23.i, label %if.then21.i
 
-if.then21.i:                                      ; preds = %while.body.i15
-  store ptr %Scan1.175.i, ptr %Result.077.i, align 8
-  %Scan1.1.val61.i = load ptr, ptr %Scan1.175.i, align 8
+if.then21.i:                                      ; preds = %while.body.i16
+  store ptr %Scan1.176.i, ptr %Result.078.i, align 8
+  %Scan1.1.val61.i = load ptr, ptr %Scan1.176.i, align 8
   br label %if.end25.i
 
-if.else23.i:                                      ; preds = %while.body.i15
-  store ptr %Scan2.176.i, ptr %Result.077.i, align 8
-  %Scan2.1.val60.i = load ptr, ptr %Scan2.176.i, align 8
+if.else23.i:                                      ; preds = %while.body.i16
+  store ptr %Scan2.177.i, ptr %Result.078.i, align 8
+  %Scan2.1.val60.i = load ptr, ptr %Scan2.177.i, align 8
   br label %if.end25.i
 
 if.end25.i:                                       ; preds = %if.else23.i, %if.then21.i
-  %Result.0.val.i = phi ptr [ %Scan1.175.i, %if.then21.i ], [ %Scan2.176.i, %if.else23.i ]
-  %Scan1.2.i = phi ptr [ %Scan1.1.val61.i, %if.then21.i ], [ %Scan1.175.i, %if.else23.i ]
-  %Scan2.2.i = phi ptr [ %Scan2.176.i, %if.then21.i ], [ %Scan2.1.val60.i, %if.else23.i ]
-  %cmp.i66.i = icmp eq ptr %Scan1.2.i, null
-  %cmp.i68.not.i = icmp eq ptr %Scan2.2.i, null
-  %or.cond.i = select i1 %cmp.i66.i, i1 true, i1 %cmp.i68.not.i
-  br i1 %or.cond.i, label %while.end.i16, label %while.body.i15, !llvm.loop !15
+  %Result.0.val.i = phi ptr [ %Scan1.176.i, %if.then21.i ], [ %Scan2.177.i, %if.else23.i ]
+  %Scan1.2.i = phi ptr [ %Scan1.1.val61.i, %if.then21.i ], [ %Scan1.176.i, %if.else23.i ]
+  %Scan2.2.i = phi ptr [ %Scan2.177.i, %if.then21.i ], [ %Scan2.1.val60.i, %if.else23.i ]
+  %cmp.i66.not.i = icmp eq ptr %Scan1.2.i, null
+  br i1 %cmp.i66.not.i, label %if.then29.i, label %land.rhs.i15, !llvm.loop !15
 
-while.end.i16:                                    ; preds = %if.end25.i, %if.end12.i
-  %Scan1.1.lcssa.i = phi ptr [ %Scan1.0.i, %if.end12.i ], [ %Scan1.2.i, %if.end25.i ]
-  %Scan2.1.lcssa.i = phi ptr [ %Scan2.0.i, %if.end12.i ], [ %Scan2.2.i, %if.end25.i ]
-  %Result.0.lcssa.i = phi ptr [ %ResultStart.0.i, %if.end12.i ], [ %Result.0.val.i, %if.end25.i ]
-  %cmp.i66.lcssa.i = phi i1 [ %cmp.i6672.i, %if.end12.i ], [ %cmp.i66.i, %if.end25.i ]
-  %Scan2.1.Scan1.1.i = select i1 %cmp.i66.lcssa.i, ptr %Scan2.1.lcssa.i, ptr %Scan1.1.lcssa.i
-  store ptr %Scan2.1.Scan1.1.i, ptr %Result.0.lcssa.i, align 8
+if.then29.i:                                      ; preds = %if.end25.i, %if.end12.i
+  %ResultStart.090.i = phi ptr [ %call4, %if.end12.i ], [ %ResultStart.089.i, %if.end25.i ]
+  %Scan2.1.lcssa.i = phi ptr [ %call5, %if.end12.i ], [ %Scan2.2.i, %if.end25.i ]
+  %Result.0.lcssa.i = phi ptr [ %call4, %if.end12.i ], [ %Result.0.val.i, %if.end25.i ]
+  store ptr %Scan2.1.lcssa.i, ptr %Result.0.lcssa.i, align 8
   br label %if.end
 
-if.end:                                           ; preds = %entry, %land.lhs.true, %while.end.i16, %if.end.i, %list_Split.exit
-  %Result.0 = phi ptr [ %ResultStart.0.i, %while.end.i16 ], [ %call5, %list_Split.exit ], [ %call4, %if.end.i ], [ %L, %land.lhs.true ], [ null, %entry ]
+if.else30.i:                                      ; preds = %land.rhs.i15
+  store ptr %Scan1.176.i, ptr %Result.078.i, align 8
+  br label %if.end
+
+if.end:                                           ; preds = %if.else30.i, %if.then29.i, %if.end.i, %while.end.i, %entry, %land.lhs.true
+  %Result.0 = phi ptr [ %L, %land.lhs.true ], [ null, %entry ], [ %call5, %while.end.i ], [ %call4, %if.end.i ], [ %ResultStart.089.i, %if.else30.i ], [ %ResultStart.090.i, %if.then29.i ]
   ret ptr %Result.0
 }
 
@@ -623,12 +627,12 @@ entry:
 define dso_local ptr @list_NNumberMerge(ptr noundef %List1, ptr noundef %List2, ptr noundef %Number) local_unnamed_addr #0 {
 entry:
   store ptr %Number, ptr @NumberFunction, align 8
-  %cmp.i.i = icmp eq ptr %List1, null
-  br i1 %cmp.i.i, label %list_Merge.exit, label %if.end.i
+  %cmp.i.not.i = icmp eq ptr %List1, null
+  br i1 %cmp.i.not.i, label %list_Merge.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %entry
-  %cmp.i64.i = icmp eq ptr %List2, null
-  br i1 %cmp.i64.i, label %list_Merge.exit, label %if.end4.i
+  %cmp.i64.not.i = icmp eq ptr %List2, null
+  br i1 %cmp.i64.not.i, label %list_Merge.exit, label %if.end4.i
 
 if.end4.i:                                        ; preds = %if.end.i
   %0 = getelementptr i8, ptr %List1, i64 8
@@ -639,32 +643,34 @@ if.end4.i:                                        ; preds = %if.end.i
   %2 = load ptr, ptr @NumberFunction, align 8
   %call1.i2 = tail call i32 %2(ptr noundef %List2.val.i) #8
   %cmp.i3.not = icmp ugt i32 %call.i1, %call1.i2
-  br i1 %cmp.i3.not, label %if.else.i, label %if.then9.i
+  br i1 %cmp.i3.not, label %if.end12.thread.i, label %if.end12.i
 
-if.then9.i:                                       ; preds = %if.end4.i
-  %List1.val63.i = load ptr, ptr %List1, align 8
-  br label %if.end12.i
-
-if.else.i:                                        ; preds = %if.end4.i
+if.end12.thread.i:                                ; preds = %if.end4.i
   %List2.val62.i = load ptr, ptr %List2, align 8
-  br label %if.end12.i
+  br label %land.rhs.preheader.i
 
-if.end12.i:                                       ; preds = %if.else.i, %if.then9.i
-  %Scan1.0.i = phi ptr [ %List1.val63.i, %if.then9.i ], [ %List1, %if.else.i ]
-  %Scan2.0.i = phi ptr [ %List2, %if.then9.i ], [ %List2.val62.i, %if.else.i ]
-  %ResultStart.0.i = phi ptr [ %List1, %if.then9.i ], [ %List2, %if.else.i ]
-  %cmp.i6672.i = icmp eq ptr %Scan1.0.i, null
-  %cmp.i68.not73.i = icmp eq ptr %Scan2.0.i, null
-  %or.cond74.i = select i1 %cmp.i6672.i, i1 true, i1 %cmp.i68.not73.i
-  br i1 %or.cond74.i, label %while.end.i, label %while.body.i
+if.end12.i:                                       ; preds = %if.end4.i
+  %List1.val63.i = load ptr, ptr %List1, align 8
+  %cmp.i66.not75.i = icmp eq ptr %List1.val63.i, null
+  br i1 %cmp.i66.not75.i, label %if.then29.i, label %land.rhs.preheader.i
 
-while.body.i:                                     ; preds = %if.end12.i, %if.end25.i
-  %Result.077.i = phi ptr [ %Result.0.val.i, %if.end25.i ], [ %ResultStart.0.i, %if.end12.i ]
-  %Scan2.176.i = phi ptr [ %Scan2.2.i, %if.end25.i ], [ %Scan2.0.i, %if.end12.i ]
-  %Scan1.175.i = phi ptr [ %Scan1.2.i, %if.end25.i ], [ %Scan1.0.i, %if.end12.i ]
-  %3 = getelementptr i8, ptr %Scan1.175.i, i64 8
+land.rhs.preheader.i:                             ; preds = %if.end12.i, %if.end12.thread.i
+  %ResultStart.089.i = phi ptr [ %List2, %if.end12.thread.i ], [ %List1, %if.end12.i ]
+  %Scan2.088.i = phi ptr [ %List2.val62.i, %if.end12.thread.i ], [ %List2, %if.end12.i ]
+  %Scan1.087.i = phi ptr [ %List1, %if.end12.thread.i ], [ %List1.val63.i, %if.end12.i ]
+  br label %land.rhs.i
+
+land.rhs.i:                                       ; preds = %if.end25.i, %land.rhs.preheader.i
+  %Result.078.i = phi ptr [ %Result.0.val.i, %if.end25.i ], [ %ResultStart.089.i, %land.rhs.preheader.i ]
+  %Scan2.177.i = phi ptr [ %Scan2.2.i, %if.end25.i ], [ %Scan2.088.i, %land.rhs.preheader.i ]
+  %Scan1.176.i = phi ptr [ %Scan1.2.i, %if.end25.i ], [ %Scan1.087.i, %land.rhs.preheader.i ]
+  %cmp.i68.not.i = icmp eq ptr %Scan2.177.i, null
+  br i1 %cmp.i68.not.i, label %if.else30.i, label %while.body.i
+
+while.body.i:                                     ; preds = %land.rhs.i
+  %3 = getelementptr i8, ptr %Scan1.176.i, i64 8
   %Scan1.1.val.i = load ptr, ptr %3, align 8
-  %4 = getelementptr i8, ptr %Scan2.176.i, i64 8
+  %4 = getelementptr i8, ptr %Scan2.177.i, i64 8
   %Scan2.1.val.i = load ptr, ptr %4, align 8
   %5 = load ptr, ptr @NumberFunction, align 8
   %call.i = tail call i32 %5(ptr noundef %Scan1.1.val.i) #8
@@ -674,48 +680,48 @@ while.body.i:                                     ; preds = %if.end12.i, %if.end
   br i1 %cmp.i.not, label %if.else23.i, label %if.then21.i
 
 if.then21.i:                                      ; preds = %while.body.i
-  store ptr %Scan1.175.i, ptr %Result.077.i, align 8
-  %Scan1.1.val61.i = load ptr, ptr %Scan1.175.i, align 8
+  store ptr %Scan1.176.i, ptr %Result.078.i, align 8
+  %Scan1.1.val61.i = load ptr, ptr %Scan1.176.i, align 8
   br label %if.end25.i
 
 if.else23.i:                                      ; preds = %while.body.i
-  store ptr %Scan2.176.i, ptr %Result.077.i, align 8
-  %Scan2.1.val60.i = load ptr, ptr %Scan2.176.i, align 8
+  store ptr %Scan2.177.i, ptr %Result.078.i, align 8
+  %Scan2.1.val60.i = load ptr, ptr %Scan2.177.i, align 8
   br label %if.end25.i
 
 if.end25.i:                                       ; preds = %if.else23.i, %if.then21.i
-  %Result.0.val.i = phi ptr [ %Scan1.175.i, %if.then21.i ], [ %Scan2.176.i, %if.else23.i ]
-  %Scan1.2.i = phi ptr [ %Scan1.1.val61.i, %if.then21.i ], [ %Scan1.175.i, %if.else23.i ]
-  %Scan2.2.i = phi ptr [ %Scan2.176.i, %if.then21.i ], [ %Scan2.1.val60.i, %if.else23.i ]
-  %cmp.i66.i = icmp eq ptr %Scan1.2.i, null
-  %cmp.i68.not.i = icmp eq ptr %Scan2.2.i, null
-  %or.cond.i = select i1 %cmp.i66.i, i1 true, i1 %cmp.i68.not.i
-  br i1 %or.cond.i, label %while.end.i, label %while.body.i, !llvm.loop !15
+  %Result.0.val.i = phi ptr [ %Scan1.176.i, %if.then21.i ], [ %Scan2.177.i, %if.else23.i ]
+  %Scan1.2.i = phi ptr [ %Scan1.1.val61.i, %if.then21.i ], [ %Scan1.176.i, %if.else23.i ]
+  %Scan2.2.i = phi ptr [ %Scan2.177.i, %if.then21.i ], [ %Scan2.1.val60.i, %if.else23.i ]
+  %cmp.i66.not.i = icmp eq ptr %Scan1.2.i, null
+  br i1 %cmp.i66.not.i, label %if.then29.i, label %land.rhs.i, !llvm.loop !15
 
-while.end.i:                                      ; preds = %if.end25.i, %if.end12.i
-  %Scan1.1.lcssa.i = phi ptr [ %Scan1.0.i, %if.end12.i ], [ %Scan1.2.i, %if.end25.i ]
-  %Scan2.1.lcssa.i = phi ptr [ %Scan2.0.i, %if.end12.i ], [ %Scan2.2.i, %if.end25.i ]
-  %Result.0.lcssa.i = phi ptr [ %ResultStart.0.i, %if.end12.i ], [ %Result.0.val.i, %if.end25.i ]
-  %cmp.i66.lcssa.i = phi i1 [ %cmp.i6672.i, %if.end12.i ], [ %cmp.i66.i, %if.end25.i ]
-  %Scan2.1.Scan1.1.i = select i1 %cmp.i66.lcssa.i, ptr %Scan2.1.lcssa.i, ptr %Scan1.1.lcssa.i
-  store ptr %Scan2.1.Scan1.1.i, ptr %Result.0.lcssa.i, align 8
+if.then29.i:                                      ; preds = %if.end25.i, %if.end12.i
+  %ResultStart.090.i = phi ptr [ %List1, %if.end12.i ], [ %ResultStart.089.i, %if.end25.i ]
+  %Scan2.1.lcssa.i = phi ptr [ %List2, %if.end12.i ], [ %Scan2.2.i, %if.end25.i ]
+  %Result.0.lcssa.i = phi ptr [ %List1, %if.end12.i ], [ %Result.0.val.i, %if.end25.i ]
+  store ptr %Scan2.1.lcssa.i, ptr %Result.0.lcssa.i, align 8
   br label %list_Merge.exit
 
-list_Merge.exit:                                  ; preds = %entry, %if.end.i, %while.end.i
-  %retval.0.i = phi ptr [ %ResultStart.0.i, %while.end.i ], [ %List2, %entry ], [ %List1, %if.end.i ]
+if.else30.i:                                      ; preds = %land.rhs.i
+  store ptr %Scan1.176.i, ptr %Result.078.i, align 8
+  br label %list_Merge.exit
+
+list_Merge.exit:                                  ; preds = %entry, %if.end.i, %if.then29.i, %if.else30.i
+  %retval.0.i = phi ptr [ %List2, %entry ], [ %List1, %if.end.i ], [ %ResultStart.089.i, %if.else30.i ], [ %ResultStart.090.i, %if.then29.i ]
   ret ptr %retval.0.i
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_DequeueNext(ptr noundef %List) local_unnamed_addr #4 {
 entry:
-  %cmp.i = icmp eq ptr %List, null
-  br i1 %cmp.i, label %cleanup, label %if.end
+  %cmp.i.not = icmp eq ptr %List, null
+  br i1 %cmp.i.not, label %cleanup, label %if.end
 
 if.end:                                           ; preds = %entry
   %List.val = load ptr, ptr %List, align 8
-  %cmp.i13 = icmp eq ptr %List.val, null
-  br i1 %cmp.i13, label %cleanup, label %if.end5
+  %cmp.i13.not = icmp eq ptr %List.val, null
+  br i1 %cmp.i13.not, label %cleanup, label %if.end5
 
 if.end5:                                          ; preds = %if.end
   %0 = getelementptr i8, ptr %List.val, i64 8
@@ -743,23 +749,23 @@ cleanup:                                          ; preds = %if.end, %entry, %if
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local ptr @list_NthElement(ptr noundef readonly %List, i32 noundef %Number) local_unnamed_addr #5 {
 entry:
-  %cond13 = icmp eq ptr %List, null
-  br i1 %cond13, label %return, label %land.rhs
+  %cmp.i.not12 = icmp eq ptr %List, null
+  br i1 %cmp.i.not12, label %return, label %land.rhs
 
 land.rhs:                                         ; preds = %entry, %while.body
-  %Number.addr.015 = phi i32 [ %dec, %while.body ], [ %Number, %entry ]
-  %List.addr.014 = phi ptr [ %List.addr.0.val8, %while.body ], [ %List, %entry ]
-  %dec = add i32 %Number.addr.015, -1
+  %Number.addr.014 = phi i32 [ %dec, %while.body ], [ %Number, %entry ]
+  %List.addr.013 = phi ptr [ %List.addr.0.val8, %while.body ], [ %List, %entry ]
+  %dec = add i32 %Number.addr.014, -1
   %cmp.not = icmp eq i32 %dec, 0
   br i1 %cmp.not, label %if.else, label %while.body
 
 while.body:                                       ; preds = %land.rhs
-  %List.addr.0.val8 = load ptr, ptr %List.addr.014, align 8
-  %cond = icmp eq ptr %List.addr.0.val8, null
-  br i1 %cond, label %return, label %land.rhs, !llvm.loop !19
+  %List.addr.0.val8 = load ptr, ptr %List.addr.013, align 8
+  %cmp.i.not = icmp eq ptr %List.addr.0.val8, null
+  br i1 %cmp.i.not, label %return, label %land.rhs, !llvm.loop !19
 
 if.else:                                          ; preds = %land.rhs
-  %0 = getelementptr i8, ptr %List.addr.014, i64 8
+  %0 = getelementptr i8, ptr %List.addr.013, i64 8
   %List.addr.0.val = load ptr, ptr %0, align 8
   br label %return
 
@@ -834,91 +840,21 @@ while.end:                                        ; preds = %while.body, %entry
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_DeleteElement(ptr noundef %List, ptr noundef %Element, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cond53 = icmp eq ptr %List, null
-  br i1 %cond53, label %cleanup, label %land.rhs
-
-land.rhs:                                         ; preds = %entry, %while.body
-  %List.addr.054 = phi ptr [ %Scan1.055, %while.body ], [ %List, %entry ]
-  %0 = getelementptr i8, ptr %List.addr.054, i64 8
-  %List.addr.0.val = load ptr, ptr %0, align 8
-  %call2 = tail call i32 %Test(ptr noundef %Element, ptr noundef %List.addr.0.val) #8
-  %tobool3.not = icmp eq i32 %call2, 0
-  %Scan1.055 = load ptr, ptr %List.addr.054, align 8
-  br i1 %tobool3.not, label %while.cond9.preheader, label %while.body
-
-while.cond9.preheader:                            ; preds = %land.rhs
-  %cmp.i45.not56 = icmp eq ptr %Scan1.055, null
-  br i1 %cmp.i45.not56, label %cleanup, label %while.body12
-
-while.body:                                       ; preds = %land.rhs
-  %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %1, i64 0, i32 4
-  %2 = load i32, ptr %total_size.i.i, align 8
-  %conv26.i.i = sext i32 %2 to i64
-  %3 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i = add i64 %3, %conv26.i.i
-  store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
-  %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.054, align 8
-  %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.054, ptr %5, align 8
-  %cond = icmp eq ptr %Scan1.055, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !22
-
-while.body12:                                     ; preds = %while.cond9.preheader, %if.end20
-  %Scan1.058 = phi ptr [ %Scan1.0, %if.end20 ], [ %Scan1.055, %while.cond9.preheader ]
-  %Scan2.057 = phi ptr [ %Scan2.1, %if.end20 ], [ %List.addr.054, %while.cond9.preheader ]
-  %6 = getelementptr i8, ptr %Scan1.058, i64 8
-  %Scan1.0.val = load ptr, ptr %6, align 8
-  %call14 = tail call i32 %Test(ptr noundef %Element, ptr noundef %Scan1.0.val) #8
-  %tobool15.not = icmp eq i32 %call14, 0
-  br i1 %tobool15.not, label %if.end20, label %if.then16
-
-if.then16:                                        ; preds = %while.body12
-  %Scan1.0.val40 = load ptr, ptr %Scan1.058, align 8
-  store ptr %Scan1.0.val40, ptr %Scan2.057, align 8
-  %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i47 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
-  %8 = load i32, ptr %total_size.i.i47, align 8
-  %conv26.i.i48 = sext i32 %8 to i64
-  %9 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i49 = add i64 %9, %conv26.i.i48
-  store i64 %add27.i.i49, ptr @memory_FREEDBYTES, align 8
-  %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.058, align 8
-  %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.058, ptr %11, align 8
-  br label %if.end20
-
-if.end20:                                         ; preds = %while.body12, %if.then16
-  %Scan2.1 = phi ptr [ %Scan2.057, %if.then16 ], [ %Scan1.058, %while.body12 ]
-  %Scan1.0 = load ptr, ptr %Scan2.1, align 8
-  %cmp.i45.not = icmp eq ptr %Scan1.0, null
-  br i1 %cmp.i45.not, label %cleanup, label %while.body12, !llvm.loop !23
-
-cleanup:                                          ; preds = %while.body, %if.end20, %entry, %while.cond9.preheader
-  %retval.0 = phi ptr [ %List.addr.054, %while.cond9.preheader ], [ null, %entry ], [ %List.addr.054, %if.end20 ], [ null, %while.body ]
-  ret ptr %retval.0
-}
-
-; Function Attrs: nounwind uwtable
-define dso_local ptr @list_DeleteElementIf(ptr noundef %List, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
-entry:
-  %cond52 = icmp eq ptr %List, null
-  br i1 %cond52, label %cleanup, label %land.rhs
+  %cmp.i.not52 = icmp eq ptr %List, null
+  br i1 %cmp.i.not52, label %cleanup, label %land.rhs
 
 land.rhs:                                         ; preds = %entry, %while.body
   %List.addr.053 = phi ptr [ %Scan1.054, %while.body ], [ %List, %entry ]
   %0 = getelementptr i8, ptr %List.addr.053, i64 8
   %List.addr.0.val = load ptr, ptr %0, align 8
-  %call2 = tail call i32 %Test(ptr noundef %List.addr.0.val) #8
+  %call2 = tail call i32 %Test(ptr noundef %Element, ptr noundef %List.addr.0.val) #8
   %tobool3.not = icmp eq i32 %call2, 0
   %Scan1.054 = load ptr, ptr %List.addr.053, align 8
   br i1 %tobool3.not, label %while.cond9.preheader, label %while.body
 
 while.cond9.preheader:                            ; preds = %land.rhs
-  %cmp.i44.not55 = icmp eq ptr %Scan1.054, null
-  br i1 %cmp.i44.not55, label %cleanup, label %while.body12
+  %cmp.i45.not55 = icmp eq ptr %Scan1.054, null
+  br i1 %cmp.i45.not55, label %cleanup, label %while.body12
 
 while.body:                                       ; preds = %land.rhs
   %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -932,28 +868,28 @@ while.body:                                       ; preds = %land.rhs
   store ptr %4, ptr %List.addr.053, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %List.addr.053, ptr %5, align 8
-  %cond = icmp eq ptr %Scan1.054, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !24
+  %cmp.i.not = icmp eq ptr %Scan1.054, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !22
 
 while.body12:                                     ; preds = %while.cond9.preheader, %if.end20
   %Scan1.057 = phi ptr [ %Scan1.0, %if.end20 ], [ %Scan1.054, %while.cond9.preheader ]
   %Scan2.056 = phi ptr [ %Scan2.1, %if.end20 ], [ %List.addr.053, %while.cond9.preheader ]
   %6 = getelementptr i8, ptr %Scan1.057, i64 8
   %Scan1.0.val = load ptr, ptr %6, align 8
-  %call14 = tail call i32 %Test(ptr noundef %Scan1.0.val) #8
+  %call14 = tail call i32 %Test(ptr noundef %Element, ptr noundef %Scan1.0.val) #8
   %tobool15.not = icmp eq i32 %call14, 0
   br i1 %tobool15.not, label %if.end20, label %if.then16
 
 if.then16:                                        ; preds = %while.body12
-  %Scan1.0.val39 = load ptr, ptr %Scan1.057, align 8
-  store ptr %Scan1.0.val39, ptr %Scan2.056, align 8
+  %Scan1.0.val40 = load ptr, ptr %Scan1.057, align 8
+  store ptr %Scan1.0.val40, ptr %Scan2.056, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i46 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
-  %8 = load i32, ptr %total_size.i.i46, align 8
-  %conv26.i.i47 = sext i32 %8 to i64
+  %total_size.i.i47 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
+  %8 = load i32, ptr %total_size.i.i47, align 8
+  %conv26.i.i48 = sext i32 %8 to i64
   %9 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i48 = add i64 %9, %conv26.i.i47
-  store i64 %add27.i.i48, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i49 = add i64 %9, %conv26.i.i48
+  store i64 %add27.i.i49, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
   store ptr %10, ptr %Scan1.057, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -963,8 +899,8 @@ if.then16:                                        ; preds = %while.body12
 if.end20:                                         ; preds = %while.body12, %if.then16
   %Scan2.1 = phi ptr [ %Scan2.056, %if.then16 ], [ %Scan1.057, %while.body12 ]
   %Scan1.0 = load ptr, ptr %Scan2.1, align 8
-  %cmp.i44.not = icmp eq ptr %Scan1.0, null
-  br i1 %cmp.i44.not, label %cleanup, label %while.body12, !llvm.loop !25
+  %cmp.i45.not = icmp eq ptr %Scan1.0, null
+  br i1 %cmp.i45.not, label %cleanup, label %while.body12, !llvm.loop !23
 
 cleanup:                                          ; preds = %while.body, %if.end20, %entry, %while.cond9.preheader
   %retval.0 = phi ptr [ %List.addr.053, %while.cond9.preheader ], [ null, %entry ], [ %List.addr.053, %if.end20 ], [ null, %while.body ]
@@ -972,23 +908,93 @@ cleanup:                                          ; preds = %while.body, %if.end
 }
 
 ; Function Attrs: nounwind uwtable
-define dso_local ptr @list_DeleteElementIfFree(ptr noundef %List, ptr nocapture noundef readonly %Test, ptr nocapture noundef readonly %Delete) local_unnamed_addr #0 {
+define dso_local ptr @list_DeleteElementIf(ptr noundef %List, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cond59 = icmp eq ptr %List, null
-  br i1 %cond59, label %cleanup, label %land.rhs
+  %cmp.i.not51 = icmp eq ptr %List, null
+  br i1 %cmp.i.not51, label %cleanup, label %land.rhs
 
 land.rhs:                                         ; preds = %entry, %while.body
-  %List.addr.060 = phi ptr [ %Scan1.061, %while.body ], [ %List, %entry ]
-  %0 = getelementptr i8, ptr %List.addr.060, i64 8
+  %List.addr.052 = phi ptr [ %Scan1.053, %while.body ], [ %List, %entry ]
+  %0 = getelementptr i8, ptr %List.addr.052, i64 8
+  %List.addr.0.val = load ptr, ptr %0, align 8
+  %call2 = tail call i32 %Test(ptr noundef %List.addr.0.val) #8
+  %tobool3.not = icmp eq i32 %call2, 0
+  %Scan1.053 = load ptr, ptr %List.addr.052, align 8
+  br i1 %tobool3.not, label %while.cond9.preheader, label %while.body
+
+while.cond9.preheader:                            ; preds = %land.rhs
+  %cmp.i44.not54 = icmp eq ptr %Scan1.053, null
+  br i1 %cmp.i44.not54, label %cleanup, label %while.body12
+
+while.body:                                       ; preds = %land.rhs
+  %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %1, i64 0, i32 4
+  %2 = load i32, ptr %total_size.i.i, align 8
+  %conv26.i.i = sext i32 %2 to i64
+  %3 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i = add i64 %3, %conv26.i.i
+  store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
+  %4 = load ptr, ptr %1, align 8
+  store ptr %4, ptr %List.addr.052, align 8
+  %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %List.addr.052, ptr %5, align 8
+  %cmp.i.not = icmp eq ptr %Scan1.053, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !24
+
+while.body12:                                     ; preds = %while.cond9.preheader, %if.end20
+  %Scan1.056 = phi ptr [ %Scan1.0, %if.end20 ], [ %Scan1.053, %while.cond9.preheader ]
+  %Scan2.055 = phi ptr [ %Scan2.1, %if.end20 ], [ %List.addr.052, %while.cond9.preheader ]
+  %6 = getelementptr i8, ptr %Scan1.056, i64 8
+  %Scan1.0.val = load ptr, ptr %6, align 8
+  %call14 = tail call i32 %Test(ptr noundef %Scan1.0.val) #8
+  %tobool15.not = icmp eq i32 %call14, 0
+  br i1 %tobool15.not, label %if.end20, label %if.then16
+
+if.then16:                                        ; preds = %while.body12
+  %Scan1.0.val39 = load ptr, ptr %Scan1.056, align 8
+  store ptr %Scan1.0.val39, ptr %Scan2.055, align 8
+  %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i46 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
+  %8 = load i32, ptr %total_size.i.i46, align 8
+  %conv26.i.i47 = sext i32 %8 to i64
+  %9 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i48 = add i64 %9, %conv26.i.i47
+  store i64 %add27.i.i48, ptr @memory_FREEDBYTES, align 8
+  %10 = load ptr, ptr %7, align 8
+  store ptr %10, ptr %Scan1.056, align 8
+  %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Scan1.056, ptr %11, align 8
+  br label %if.end20
+
+if.end20:                                         ; preds = %while.body12, %if.then16
+  %Scan2.1 = phi ptr [ %Scan2.055, %if.then16 ], [ %Scan1.056, %while.body12 ]
+  %Scan1.0 = load ptr, ptr %Scan2.1, align 8
+  %cmp.i44.not = icmp eq ptr %Scan1.0, null
+  br i1 %cmp.i44.not, label %cleanup, label %while.body12, !llvm.loop !25
+
+cleanup:                                          ; preds = %while.body, %if.end20, %entry, %while.cond9.preheader
+  %retval.0 = phi ptr [ %List.addr.052, %while.cond9.preheader ], [ null, %entry ], [ %List.addr.052, %if.end20 ], [ null, %while.body ]
+  ret ptr %retval.0
+}
+
+; Function Attrs: nounwind uwtable
+define dso_local ptr @list_DeleteElementIfFree(ptr noundef %List, ptr nocapture noundef readonly %Test, ptr nocapture noundef readonly %Delete) local_unnamed_addr #0 {
+entry:
+  %cmp.i.not58 = icmp eq ptr %List, null
+  br i1 %cmp.i.not58, label %cleanup, label %land.rhs
+
+land.rhs:                                         ; preds = %entry, %while.body
+  %List.addr.059 = phi ptr [ %Scan1.060, %while.body ], [ %List, %entry ]
+  %0 = getelementptr i8, ptr %List.addr.059, i64 8
   %List.addr.0.val44 = load ptr, ptr %0, align 8
   %call2 = tail call i32 %Test(ptr noundef %List.addr.0.val44) #8
   %tobool3.not = icmp eq i32 %call2, 0
-  %Scan1.061 = load ptr, ptr %List.addr.060, align 8
+  %Scan1.060 = load ptr, ptr %List.addr.059, align 8
   br i1 %tobool3.not, label %while.cond10.preheader, label %while.body
 
 while.cond10.preheader:                           ; preds = %land.rhs
-  %cmp.i51.not62 = icmp eq ptr %Scan1.061, null
-  br i1 %cmp.i51.not62, label %cleanup, label %while.body13
+  %cmp.i51.not61 = icmp eq ptr %Scan1.060, null
+  br i1 %cmp.i51.not61, label %cleanup, label %while.body13
 
 while.body:                                       ; preds = %land.rhs
   %List.addr.0.val = load ptr, ptr %0, align 8
@@ -1001,16 +1007,16 @@ while.body:                                       ; preds = %land.rhs
   %add27.i.i = add i64 %3, %conv26.i.i
   store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.060, align 8
+  store ptr %4, ptr %List.addr.059, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.060, ptr %5, align 8
-  %cond = icmp eq ptr %Scan1.061, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !26
+  store ptr %List.addr.059, ptr %5, align 8
+  %cmp.i.not = icmp eq ptr %Scan1.060, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !26
 
 while.body13:                                     ; preds = %while.cond10.preheader, %if.end22
-  %Scan1.064 = phi ptr [ %Scan1.0, %if.end22 ], [ %Scan1.061, %while.cond10.preheader ]
-  %Scan2.063 = phi ptr [ %Scan2.1, %if.end22 ], [ %List.addr.060, %while.cond10.preheader ]
-  %6 = getelementptr i8, ptr %Scan1.064, i64 8
+  %Scan1.063 = phi ptr [ %Scan1.0, %if.end22 ], [ %Scan1.060, %while.cond10.preheader ]
+  %Scan2.062 = phi ptr [ %Scan2.1, %if.end22 ], [ %List.addr.059, %while.cond10.preheader ]
+  %6 = getelementptr i8, ptr %Scan1.063, i64 8
   %Scan1.0.val43 = load ptr, ptr %6, align 8
   %call15 = tail call i32 %Test(ptr noundef %Scan1.0.val43) #8
   %tobool16.not = icmp eq i32 %call15, 0
@@ -1019,8 +1025,8 @@ while.body13:                                     ; preds = %while.cond10.prehea
 if.then17:                                        ; preds = %while.body13
   %Scan1.0.val = load ptr, ptr %6, align 8
   tail call void %Delete(ptr noundef %Scan1.0.val) #8
-  %Scan1.0.val46 = load ptr, ptr %Scan1.064, align 8
-  store ptr %Scan1.0.val46, ptr %Scan2.063, align 8
+  %Scan1.0.val46 = load ptr, ptr %Scan1.063, align 8
+  store ptr %Scan1.0.val46, ptr %Scan2.062, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i53 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i53, align 8
@@ -1029,40 +1035,40 @@ if.then17:                                        ; preds = %while.body13
   %add27.i.i55 = add i64 %9, %conv26.i.i54
   store i64 %add27.i.i55, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.064, align 8
+  store ptr %10, ptr %Scan1.063, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.064, ptr %11, align 8
+  store ptr %Scan1.063, ptr %11, align 8
   br label %if.end22
 
 if.end22:                                         ; preds = %while.body13, %if.then17
-  %Scan2.1 = phi ptr [ %Scan2.063, %if.then17 ], [ %Scan1.064, %while.body13 ]
+  %Scan2.1 = phi ptr [ %Scan2.062, %if.then17 ], [ %Scan1.063, %while.body13 ]
   %Scan1.0 = load ptr, ptr %Scan2.1, align 8
   %cmp.i51.not = icmp eq ptr %Scan1.0, null
   br i1 %cmp.i51.not, label %cleanup, label %while.body13, !llvm.loop !27
 
 cleanup:                                          ; preds = %while.body, %if.end22, %entry, %while.cond10.preheader
-  %retval.0 = phi ptr [ %List.addr.060, %while.cond10.preheader ], [ null, %entry ], [ %List.addr.060, %if.end22 ], [ null, %while.body ]
+  %retval.0 = phi ptr [ %List.addr.059, %while.cond10.preheader ], [ null, %entry ], [ %List.addr.059, %if.end22 ], [ null, %while.body ]
   ret ptr %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_DeleteElementFree(ptr noundef %List, ptr noundef %Element, ptr nocapture noundef readonly %Test, ptr nocapture noundef readonly %Free) local_unnamed_addr #0 {
 entry:
-  %cond60 = icmp eq ptr %List, null
-  br i1 %cond60, label %cleanup, label %land.rhs
+  %cmp.i.not59 = icmp eq ptr %List, null
+  br i1 %cmp.i.not59, label %cleanup, label %land.rhs
 
 land.rhs:                                         ; preds = %entry, %while.body
-  %List.addr.061 = phi ptr [ %Scan1.062, %while.body ], [ %List, %entry ]
-  %0 = getelementptr i8, ptr %List.addr.061, i64 8
+  %List.addr.060 = phi ptr [ %Scan1.061, %while.body ], [ %List, %entry ]
+  %0 = getelementptr i8, ptr %List.addr.060, i64 8
   %List.addr.0.val45 = load ptr, ptr %0, align 8
   %call2 = tail call i32 %Test(ptr noundef %Element, ptr noundef %List.addr.0.val45) #8
   %tobool3.not = icmp eq i32 %call2, 0
-  %Scan1.062 = load ptr, ptr %List.addr.061, align 8
+  %Scan1.061 = load ptr, ptr %List.addr.060, align 8
   br i1 %tobool3.not, label %while.cond10.preheader, label %while.body
 
 while.cond10.preheader:                           ; preds = %land.rhs
-  %cmp.i52.not63 = icmp eq ptr %Scan1.062, null
-  br i1 %cmp.i52.not63, label %cleanup, label %while.body13
+  %cmp.i52.not62 = icmp eq ptr %Scan1.061, null
+  br i1 %cmp.i52.not62, label %cleanup, label %while.body13
 
 while.body:                                       ; preds = %land.rhs
   %List.addr.0.val = load ptr, ptr %0, align 8
@@ -1075,24 +1081,24 @@ while.body:                                       ; preds = %land.rhs
   %add27.i.i = add i64 %3, %conv26.i.i
   store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.061, align 8
+  store ptr %4, ptr %List.addr.060, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.061, ptr %5, align 8
-  %cond = icmp eq ptr %Scan1.062, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !28
+  store ptr %List.addr.060, ptr %5, align 8
+  %cmp.i.not = icmp eq ptr %Scan1.061, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !28
 
 while.body13:                                     ; preds = %while.cond10.preheader, %if.end22
-  %Scan1.065 = phi ptr [ %Scan1.0, %if.end22 ], [ %Scan1.062, %while.cond10.preheader ]
-  %Scan2.064 = phi ptr [ %Scan2.1, %if.end22 ], [ %List.addr.061, %while.cond10.preheader ]
-  %6 = getelementptr i8, ptr %Scan1.065, i64 8
+  %Scan1.064 = phi ptr [ %Scan1.0, %if.end22 ], [ %Scan1.061, %while.cond10.preheader ]
+  %Scan2.063 = phi ptr [ %Scan2.1, %if.end22 ], [ %List.addr.060, %while.cond10.preheader ]
+  %6 = getelementptr i8, ptr %Scan1.064, i64 8
   %Scan1.0.val44 = load ptr, ptr %6, align 8
   %call15 = tail call i32 %Test(ptr noundef %Element, ptr noundef %Scan1.0.val44) #8
   %tobool16.not = icmp eq i32 %call15, 0
   br i1 %tobool16.not, label %if.end22, label %if.then17
 
 if.then17:                                        ; preds = %while.body13
-  %Scan1.0.val47 = load ptr, ptr %Scan1.065, align 8
-  store ptr %Scan1.0.val47, ptr %Scan2.064, align 8
+  %Scan1.0.val47 = load ptr, ptr %Scan1.064, align 8
+  store ptr %Scan1.0.val47, ptr %Scan2.063, align 8
   %Scan1.0.val = load ptr, ptr %6, align 8
   tail call void %Free(ptr noundef %Scan1.0.val) #8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -1103,27 +1109,27 @@ if.then17:                                        ; preds = %while.body13
   %add27.i.i56 = add i64 %9, %conv26.i.i55
   store i64 %add27.i.i56, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.065, align 8
+  store ptr %10, ptr %Scan1.064, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.065, ptr %11, align 8
+  store ptr %Scan1.064, ptr %11, align 8
   br label %if.end22
 
 if.end22:                                         ; preds = %while.body13, %if.then17
-  %Scan2.1 = phi ptr [ %Scan2.064, %if.then17 ], [ %Scan1.065, %while.body13 ]
+  %Scan2.1 = phi ptr [ %Scan2.063, %if.then17 ], [ %Scan1.064, %while.body13 ]
   %Scan1.0 = load ptr, ptr %Scan2.1, align 8
   %cmp.i52.not = icmp eq ptr %Scan1.0, null
   br i1 %cmp.i52.not, label %cleanup, label %while.body13, !llvm.loop !29
 
 cleanup:                                          ; preds = %while.body, %if.end22, %entry, %while.cond10.preheader
-  %retval.0 = phi ptr [ %List.addr.061, %while.cond10.preheader ], [ null, %entry ], [ %List.addr.061, %if.end22 ], [ null, %while.body ]
+  %retval.0 = phi ptr [ %List.addr.060, %while.cond10.preheader ], [ null, %entry ], [ %List.addr.060, %if.end22 ], [ null, %while.body ]
   ret ptr %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_DeleteOneElement(ptr noundef %List, ptr noundef %Element, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %List, null
-  br i1 %cmp.i, label %cleanup, label %if.else
+  %cmp.i.not = icmp eq ptr %List, null
+  br i1 %cmp.i.not, label %cleanup, label %if.else
 
 if.else:                                          ; preds = %entry
   %0 = getelementptr i8, ptr %List, i64 8
@@ -1178,20 +1184,20 @@ cleanup:                                          ; preds = %for.cond, %cleanup.
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_PointerDeleteElement(ptr noundef %List, ptr noundef readnone %Element) local_unnamed_addr #2 {
 entry:
-  %cond49 = icmp eq ptr %List, null
-  br i1 %cond49, label %cleanup, label %land.rhs
+  %cmp.i.not48 = icmp eq ptr %List, null
+  br i1 %cmp.i.not48, label %cleanup, label %land.rhs
 
 land.rhs:                                         ; preds = %entry, %while.body
-  %List.addr.050 = phi ptr [ %List.addr.0.val38, %while.body ], [ %List, %entry ]
-  %0 = getelementptr i8, ptr %List.addr.050, i64 8
+  %List.addr.049 = phi ptr [ %List.addr.0.val38, %while.body ], [ %List, %entry ]
+  %0 = getelementptr i8, ptr %List.addr.049, i64 8
   %List.addr.0.val = load ptr, ptr %0, align 8
   %cmp = icmp eq ptr %List.addr.0.val, %Element
-  %List.addr.0.val38 = load ptr, ptr %List.addr.050, align 8
+  %List.addr.0.val38 = load ptr, ptr %List.addr.049, align 8
   br i1 %cmp, label %while.body, label %while.cond7.preheader
 
 while.cond7.preheader:                            ; preds = %land.rhs
-  %cmp.i41.not52 = icmp eq ptr %List.addr.0.val38, null
-  br i1 %cmp.i41.not52, label %cleanup, label %while.body10
+  %cmp.i41.not51 = icmp eq ptr %List.addr.0.val38, null
+  br i1 %cmp.i41.not51, label %cleanup, label %while.body10
 
 while.body:                                       ; preds = %land.rhs
   %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -1202,23 +1208,23 @@ while.body:                                       ; preds = %land.rhs
   %add27.i.i = add i64 %3, %conv26.i.i
   store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.050, align 8
+  store ptr %4, ptr %List.addr.049, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.050, ptr %5, align 8
-  %cond = icmp eq ptr %List.addr.0.val38, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !31
+  store ptr %List.addr.049, ptr %5, align 8
+  %cmp.i.not = icmp eq ptr %List.addr.0.val38, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !31
 
 while.body10:                                     ; preds = %while.cond7.preheader, %if.end17
-  %Scan1.054 = phi ptr [ %Scan1.0, %if.end17 ], [ %List.addr.0.val38, %while.cond7.preheader ]
-  %Scan2.053 = phi ptr [ %Scan2.1, %if.end17 ], [ %List.addr.050, %while.cond7.preheader ]
-  %6 = getelementptr i8, ptr %Scan1.054, i64 8
+  %Scan1.053 = phi ptr [ %Scan1.0, %if.end17 ], [ %List.addr.0.val38, %while.cond7.preheader ]
+  %Scan2.052 = phi ptr [ %Scan2.1, %if.end17 ], [ %List.addr.049, %while.cond7.preheader ]
+  %6 = getelementptr i8, ptr %Scan1.053, i64 8
   %Scan1.0.val = load ptr, ptr %6, align 8
   %cmp12 = icmp eq ptr %Scan1.0.val, %Element
   br i1 %cmp12, label %if.then13, label %if.end17
 
 if.then13:                                        ; preds = %while.body10
-  %Scan1.0.val36 = load ptr, ptr %Scan1.054, align 8
-  store ptr %Scan1.0.val36, ptr %Scan2.053, align 8
+  %Scan1.0.val36 = load ptr, ptr %Scan1.053, align 8
+  store ptr %Scan1.0.val36, ptr %Scan2.052, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i43 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i43, align 8
@@ -1227,39 +1233,39 @@ if.then13:                                        ; preds = %while.body10
   %add27.i.i45 = add i64 %9, %conv26.i.i44
   store i64 %add27.i.i45, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.054, align 8
+  store ptr %10, ptr %Scan1.053, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.054, ptr %11, align 8
+  store ptr %Scan1.053, ptr %11, align 8
   br label %if.end17
 
 if.end17:                                         ; preds = %while.body10, %if.then13
-  %Scan2.1 = phi ptr [ %Scan2.053, %if.then13 ], [ %Scan1.054, %while.body10 ]
+  %Scan2.1 = phi ptr [ %Scan2.052, %if.then13 ], [ %Scan1.053, %while.body10 ]
   %Scan1.0 = load ptr, ptr %Scan2.1, align 8
   %cmp.i41.not = icmp eq ptr %Scan1.0, null
   br i1 %cmp.i41.not, label %cleanup, label %while.body10, !llvm.loop !32
 
 cleanup:                                          ; preds = %while.body, %if.end17, %entry, %while.cond7.preheader
-  %retval.0 = phi ptr [ %List.addr.050, %while.cond7.preheader ], [ null, %entry ], [ %List.addr.050, %if.end17 ], [ null, %while.body ]
+  %retval.0 = phi ptr [ %List.addr.049, %while.cond7.preheader ], [ null, %entry ], [ %List.addr.049, %if.end17 ], [ null, %while.body ]
   ret ptr %retval.0
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_PointerDeleteElementFree(ptr noundef %List, ptr noundef %Element, ptr nocapture noundef readonly %Free) local_unnamed_addr #0 {
 entry:
-  %cond56 = icmp eq ptr %List, null
-  br i1 %cond56, label %cleanup, label %land.rhs
+  %cmp.i.not55 = icmp eq ptr %List, null
+  br i1 %cmp.i.not55, label %cleanup, label %land.rhs
 
 land.rhs:                                         ; preds = %entry, %while.body
-  %List.addr.057 = phi ptr [ %List.addr.0.val45, %while.body ], [ %List, %entry ]
-  %0 = getelementptr i8, ptr %List.addr.057, i64 8
+  %List.addr.056 = phi ptr [ %List.addr.0.val45, %while.body ], [ %List, %entry ]
+  %0 = getelementptr i8, ptr %List.addr.056, i64 8
   %List.addr.0.val41 = load ptr, ptr %0, align 8
   %cmp = icmp eq ptr %List.addr.0.val41, %Element
-  %List.addr.0.val45 = load ptr, ptr %List.addr.057, align 8
+  %List.addr.0.val45 = load ptr, ptr %List.addr.056, align 8
   br i1 %cmp, label %while.body, label %while.cond8.preheader
 
 while.cond8.preheader:                            ; preds = %land.rhs
-  %cmp.i48.not59 = icmp eq ptr %List.addr.0.val45, null
-  br i1 %cmp.i48.not59, label %cleanup, label %while.body11
+  %cmp.i48.not58 = icmp eq ptr %List.addr.0.val45, null
+  br i1 %cmp.i48.not58, label %cleanup, label %while.body11
 
 while.body:                                       ; preds = %land.rhs
   tail call void %Free(ptr noundef %Element) #8
@@ -1271,23 +1277,23 @@ while.body:                                       ; preds = %land.rhs
   %add27.i.i = add i64 %3, %conv26.i.i
   store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.057, align 8
+  store ptr %4, ptr %List.addr.056, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.057, ptr %5, align 8
-  %cond = icmp eq ptr %List.addr.0.val45, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !33
+  store ptr %List.addr.056, ptr %5, align 8
+  %cmp.i.not = icmp eq ptr %List.addr.0.val45, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !33
 
 while.body11:                                     ; preds = %while.cond8.preheader, %if.end19
-  %Scan1.061 = phi ptr [ %Scan1.0, %if.end19 ], [ %List.addr.0.val45, %while.cond8.preheader ]
-  %Scan2.060 = phi ptr [ %Scan2.1, %if.end19 ], [ %List.addr.057, %while.cond8.preheader ]
-  %6 = getelementptr i8, ptr %Scan1.061, i64 8
+  %Scan1.060 = phi ptr [ %Scan1.0, %if.end19 ], [ %List.addr.0.val45, %while.cond8.preheader ]
+  %Scan2.059 = phi ptr [ %Scan2.1, %if.end19 ], [ %List.addr.056, %while.cond8.preheader ]
+  %6 = getelementptr i8, ptr %Scan1.060, i64 8
   %Scan1.0.val40 = load ptr, ptr %6, align 8
   %cmp13 = icmp eq ptr %Scan1.0.val40, %Element
   br i1 %cmp13, label %if.then14, label %if.end19
 
 if.then14:                                        ; preds = %while.body11
-  %Scan1.0.val43 = load ptr, ptr %Scan1.061, align 8
-  store ptr %Scan1.0.val43, ptr %Scan2.060, align 8
+  %Scan1.0.val43 = load ptr, ptr %Scan1.060, align 8
+  store ptr %Scan1.0.val43, ptr %Scan2.059, align 8
   %Scan1.0.val = load ptr, ptr %6, align 8
   tail call void %Free(ptr noundef %Scan1.0.val) #8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -1298,27 +1304,27 @@ if.then14:                                        ; preds = %while.body11
   %add27.i.i52 = add i64 %9, %conv26.i.i51
   store i64 %add27.i.i52, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.061, align 8
+  store ptr %10, ptr %Scan1.060, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.061, ptr %11, align 8
+  store ptr %Scan1.060, ptr %11, align 8
   br label %if.end19
 
 if.end19:                                         ; preds = %while.body11, %if.then14
-  %Scan2.1 = phi ptr [ %Scan2.060, %if.then14 ], [ %Scan1.061, %while.body11 ]
+  %Scan2.1 = phi ptr [ %Scan2.059, %if.then14 ], [ %Scan1.060, %while.body11 ]
   %Scan1.0 = load ptr, ptr %Scan2.1, align 8
   %cmp.i48.not = icmp eq ptr %Scan1.0, null
   br i1 %cmp.i48.not, label %cleanup, label %while.body11, !llvm.loop !34
 
 cleanup:                                          ; preds = %while.body, %if.end19, %entry, %while.cond8.preheader
-  %retval.0 = phi ptr [ %List.addr.057, %while.cond8.preheader ], [ null, %entry ], [ %List.addr.057, %if.end19 ], [ null, %while.body ]
+  %retval.0 = phi ptr [ %List.addr.056, %while.cond8.preheader ], [ null, %entry ], [ %List.addr.056, %if.end19 ], [ null, %while.body ]
   ret ptr %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_PointerDeleteOneElement(ptr noundef %List, ptr noundef readnone %Element) local_unnamed_addr #2 {
 entry:
-  %cmp.i = icmp eq ptr %List, null
-  br i1 %cmp.i, label %cleanup, label %if.else
+  %cmp.i.not = icmp eq ptr %List, null
+  br i1 %cmp.i.not, label %cleanup, label %if.else
 
 if.else:                                          ; preds = %entry
   %0 = getelementptr i8, ptr %List, i64 8
@@ -1371,60 +1377,60 @@ cleanup:                                          ; preds = %while.cond, %cleanu
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local i32 @list_DeleteFromList(ptr nocapture noundef %List, ptr noundef readnone %Element) local_unnamed_addr #2 {
 entry:
-  %.pr = load ptr, ptr %List, align 8
-  %cmp.i.not47 = icmp eq ptr %.pr, null
+  %0 = load ptr, ptr %List, align 8
+  %cmp.i.not47 = icmp eq ptr %0, null
   br i1 %cmp.i.not47, label %if.end17, label %land.rhs.preheader
 
 land.rhs.preheader:                               ; preds = %entry
-  %0 = getelementptr i8, ptr %.pr, i64 8
-  %.val.peel = load ptr, ptr %0, align 8
+  %1 = getelementptr i8, ptr %0, i64 8
+  %.val.peel = load ptr, ptr %1, align 8
   %cmp.peel = icmp eq ptr %.val.peel, %Element
   br i1 %cmp.peel, label %while.body.peel, label %while.cond6.preheader
 
 while.body.peel:                                  ; preds = %land.rhs.preheader
-  %.val36.peel = load ptr, ptr %.pr, align 8
-  %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.peel = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %1, i64 0, i32 4
-  %2 = load i32, ptr %total_size.i.i.peel, align 8
-  %conv26.i.i.peel = sext i32 %2 to i64
-  %3 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.peel = add i64 %3, %conv26.i.i.peel
+  %.val36.peel = load ptr, ptr %0, align 8
+  %2 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i.peel = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %2, i64 0, i32 4
+  %3 = load i32, ptr %total_size.i.i.peel, align 8
+  %conv26.i.i.peel = sext i32 %3 to i64
+  %4 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.peel = add i64 %4, %conv26.i.i.peel
   store i64 %add27.i.i.peel, ptr @memory_FREEDBYTES, align 8
-  %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %.pr, align 8
-  %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %.pr, ptr %5, align 8
+  %5 = load ptr, ptr %2, align 8
+  store ptr %5, ptr %0, align 8
+  %6 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %0, ptr %6, align 8
   store ptr %.val36.peel, ptr %List, align 8
   %cmp.i.not.peel = icmp eq ptr %.val36.peel, null
   br i1 %cmp.i.not.peel, label %if.end17, label %land.rhs
 
 land.rhs:                                         ; preds = %while.body.peel, %while.body
-  %6 = phi ptr [ %.val36, %while.body ], [ %.val36.peel, %while.body.peel ]
-  %7 = getelementptr i8, ptr %6, i64 8
-  %.val = load ptr, ptr %7, align 8
+  %7 = phi ptr [ %.val36, %while.body ], [ %.val36.peel, %while.body.peel ]
+  %8 = getelementptr i8, ptr %7, i64 8
+  %.val = load ptr, ptr %8, align 8
   %cmp = icmp eq ptr %.val, %Element
   br i1 %cmp, label %while.body, label %while.cond6.preheader
 
 while.cond6.preheader:                            ; preds = %land.rhs, %land.rhs.preheader
+  %.lcssa = phi ptr [ %0, %land.rhs.preheader ], [ %7, %land.rhs ]
   %Found.048.lcssa = phi i32 [ 0, %land.rhs.preheader ], [ 1, %land.rhs ]
-  %.lcssa = phi ptr [ %.pr, %land.rhs.preheader ], [ %6, %land.rhs ]
   %Scan1.049 = load ptr, ptr %.lcssa, align 8
   %cmp.i39.not50 = icmp eq ptr %Scan1.049, null
   br i1 %cmp.i39.not50, label %if.end17, label %while.body9
 
 while.body:                                       ; preds = %land.rhs
-  %.val36 = load ptr, ptr %6, align 8
-  %8 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
-  %9 = load i32, ptr %total_size.i.i, align 8
-  %conv26.i.i = sext i32 %9 to i64
-  %10 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i = add i64 %10, %conv26.i.i
+  %.val36 = load ptr, ptr %7, align 8
+  %9 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %9, i64 0, i32 4
+  %10 = load i32, ptr %total_size.i.i, align 8
+  %conv26.i.i = sext i32 %10 to i64
+  %11 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i = add i64 %11, %conv26.i.i
   store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
-  %11 = load ptr, ptr %8, align 8
-  store ptr %11, ptr %6, align 8
-  %12 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %6, ptr %12, align 8
+  %12 = load ptr, ptr %9, align 8
+  store ptr %12, ptr %7, align 8
+  %13 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %7, ptr %13, align 8
   store ptr %.val36, ptr %List, align 8
   %cmp.i.not = icmp eq ptr %.val36, null
   br i1 %cmp.i.not, label %if.end17, label %land.rhs, !llvm.loop !36
@@ -1433,25 +1439,25 @@ while.body9:                                      ; preds = %while.cond6.prehead
   %Scan1.053 = phi ptr [ %Scan1.0, %if.end ], [ %Scan1.049, %while.cond6.preheader ]
   %Scan2.052 = phi ptr [ %Scan2.1, %if.end ], [ %.lcssa, %while.cond6.preheader ]
   %Found.151 = phi i32 [ %Found.2, %if.end ], [ %Found.048.lcssa, %while.cond6.preheader ]
-  %13 = getelementptr i8, ptr %Scan1.053, i64 8
-  %Scan1.0.val = load ptr, ptr %13, align 8
+  %14 = getelementptr i8, ptr %Scan1.053, i64 8
+  %Scan1.0.val = load ptr, ptr %14, align 8
   %cmp11 = icmp eq ptr %Scan1.0.val, %Element
   br i1 %cmp11, label %if.then12, label %if.end
 
 if.then12:                                        ; preds = %while.body9
   %Scan1.0.val34 = load ptr, ptr %Scan1.053, align 8
   store ptr %Scan1.0.val34, ptr %Scan2.052, align 8
-  %14 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i41 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %14, i64 0, i32 4
-  %15 = load i32, ptr %total_size.i.i41, align 8
-  %conv26.i.i42 = sext i32 %15 to i64
-  %16 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i43 = add i64 %16, %conv26.i.i42
+  %15 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  %total_size.i.i41 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %15, i64 0, i32 4
+  %16 = load i32, ptr %total_size.i.i41, align 8
+  %conv26.i.i42 = sext i32 %16 to i64
+  %17 = load i64, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i43 = add i64 %17, %conv26.i.i42
   store i64 %add27.i.i43, ptr @memory_FREEDBYTES, align 8
-  %17 = load ptr, ptr %14, align 8
-  store ptr %17, ptr %Scan1.053, align 8
-  %18 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.053, ptr %18, align 8
+  %18 = load ptr, ptr %15, align 8
+  store ptr %18, ptr %Scan1.053, align 8
+  %19 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
+  store ptr %Scan1.053, ptr %19, align 8
   br label %if.end
 
 if.end:                                           ; preds = %while.body9, %if.then12
@@ -1531,31 +1537,31 @@ return:                                           ; preds = %for.cond, %if.then9
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @list_IsSetOfPointers(ptr noundef readonly %L) local_unnamed_addr #5 {
 entry:
-  %cmp.i.not13 = icmp eq ptr %L, null
-  br i1 %cmp.i.not13, label %return, label %for.body.preheader
+  %cmp.i.not15 = icmp eq ptr %L, null
+  br i1 %cmp.i.not15, label %return, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
-  %L.addr.0.val1018 = load ptr, ptr %L, align 8
-  %cond20 = icmp eq ptr %L.addr.0.val1018, null
-  br i1 %cond20, label %return, label %while.body.i.preheader
+  %L.addr.0.val1020 = load ptr, ptr %L, align 8
+  %cond22 = icmp eq ptr %L.addr.0.val1020, null
+  br i1 %cond22, label %return, label %while.body.i.preheader
 
 for.body.loopexit:                                ; preds = %if.end.i
-  %L.addr.0.val10 = load ptr, ptr %L.addr.0.val1021, align 8
+  %L.addr.0.val10 = load ptr, ptr %L.addr.0.val1023, align 8
   %cond = icmp eq ptr %L.addr.0.val10, null
   br i1 %cond, label %return, label %while.body.i.preheader, !llvm.loop !40
 
 while.body.i.preheader:                           ; preds = %for.body.preheader, %for.body.loopexit
-  %L.pn = phi ptr [ %L.addr.0.val1021, %for.body.loopexit ], [ %L, %for.body.preheader ]
-  %L.addr.0.val1021 = phi ptr [ %L.addr.0.val10, %for.body.loopexit ], [ %L.addr.0.val1018, %for.body.preheader ]
-  %L.addr.0.val22.in = getelementptr i8, ptr %L.pn, i64 8
-  %L.addr.0.val22 = load ptr, ptr %L.addr.0.val22.in, align 8
+  %L.pn = phi ptr [ %L.addr.0.val1023, %for.body.loopexit ], [ %L, %for.body.preheader ]
+  %L.addr.0.val1023 = phi ptr [ %L.addr.0.val10, %for.body.loopexit ], [ %L.addr.0.val1020, %for.body.preheader ]
+  %L.addr.0.val24.in = getelementptr i8, ptr %L.pn, i64 8
+  %L.addr.0.val24 = load ptr, ptr %L.addr.0.val24.in, align 8
   br label %while.body.i
 
 while.body.i:                                     ; preds = %while.body.i.preheader, %if.end.i
-  %List.addr.07.i = phi ptr [ %List.addr.0.val5.i, %if.end.i ], [ %L.addr.0.val1021, %while.body.i.preheader ]
+  %List.addr.07.i = phi ptr [ %List.addr.0.val5.i, %if.end.i ], [ %L.addr.0.val1023, %while.body.i.preheader ]
   %0 = getelementptr i8, ptr %List.addr.07.i, i64 8
   %List.addr.0.val.i = load ptr, ptr %0, align 8
-  %cmp.i11 = icmp eq ptr %List.addr.0.val.i, %L.addr.0.val22
+  %cmp.i11 = icmp eq ptr %List.addr.0.val.i, %L.addr.0.val24
   br i1 %cmp.i11, label %return, label %if.end.i
 
 if.end.i:                                         ; preds = %while.body.i
@@ -1576,28 +1582,28 @@ entry:
 
 while.body.preheader:                             ; preds = %entry
   %Scan.0.val1129 = load ptr, ptr %List, align 8
-  %cond53.i31 = icmp eq ptr %Scan.0.val1129, null
-  br i1 %cond53.i31, label %list_DeleteElement.exit.thread, label %land.rhs.i.preheader
+  %cmp.i.not52.i31 = icmp eq ptr %Scan.0.val1129, null
+  br i1 %cmp.i.not52.i31, label %list_DeleteElement.exit.thread, label %land.rhs.i.preheader
 
 land.rhs.i.preheader:                             ; preds = %while.body.preheader, %list_DeleteElement.exit
   %Scan.0.val1133 = phi ptr [ %Scan.0.val11, %list_DeleteElement.exit ], [ %Scan.0.val1129, %while.body.preheader ]
-  %Scan.01532 = phi ptr [ %List.addr.054.i, %list_DeleteElement.exit ], [ %List, %while.body.preheader ]
+  %Scan.01532 = phi ptr [ %List.addr.053.i, %list_DeleteElement.exit ], [ %List, %while.body.preheader ]
   %Scan.0.val34.in = getelementptr i8, ptr %Scan.01532, i64 8
   %Scan.0.val34 = load ptr, ptr %Scan.0.val34.in, align 8
   br label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %land.rhs.i.preheader, %while.body.i
-  %List.addr.054.i = phi ptr [ %Scan1.055.i, %while.body.i ], [ %Scan.0.val1133, %land.rhs.i.preheader ]
-  %0 = getelementptr i8, ptr %List.addr.054.i, i64 8
+  %List.addr.053.i = phi ptr [ %Scan1.054.i, %while.body.i ], [ %Scan.0.val1133, %land.rhs.i.preheader ]
+  %0 = getelementptr i8, ptr %List.addr.053.i, i64 8
   %List.addr.0.val.i = load ptr, ptr %0, align 8
   %call2.i = tail call i32 %Test(ptr noundef %Scan.0.val34, ptr noundef %List.addr.0.val.i) #8
   %tobool3.not.i = icmp eq i32 %call2.i, 0
-  %Scan1.055.i = load ptr, ptr %List.addr.054.i, align 8
+  %Scan1.054.i = load ptr, ptr %List.addr.053.i, align 8
   br i1 %tobool3.not.i, label %while.cond9.preheader.i, label %while.body.i
 
 while.cond9.preheader.i:                          ; preds = %land.rhs.i
-  %cmp.i45.not56.i = icmp eq ptr %Scan1.055.i, null
-  br i1 %cmp.i45.not56.i, label %list_DeleteElement.exit, label %while.body12.i
+  %cmp.i45.not55.i = icmp eq ptr %Scan1.054.i, null
+  br i1 %cmp.i45.not55.i, label %list_DeleteElement.exit, label %while.body12.i
 
 while.body.i:                                     ; preds = %land.rhs.i
   %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -1608,24 +1614,24 @@ while.body.i:                                     ; preds = %land.rhs.i
   %add27.i.i.i = add i64 %3, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.054.i, align 8
+  store ptr %4, ptr %List.addr.053.i, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.054.i, ptr %5, align 8
-  %cond.i = icmp eq ptr %Scan1.055.i, null
-  br i1 %cond.i, label %list_DeleteElement.exit.thread, label %land.rhs.i, !llvm.loop !22
+  store ptr %List.addr.053.i, ptr %5, align 8
+  %cmp.i.not.i = icmp eq ptr %Scan1.054.i, null
+  br i1 %cmp.i.not.i, label %list_DeleteElement.exit.thread, label %land.rhs.i, !llvm.loop !22
 
 while.body12.i:                                   ; preds = %while.cond9.preheader.i, %if.end20.i
-  %Scan1.058.i = phi ptr [ %Scan1.0.i, %if.end20.i ], [ %Scan1.055.i, %while.cond9.preheader.i ]
-  %Scan2.057.i = phi ptr [ %Scan2.1.i, %if.end20.i ], [ %List.addr.054.i, %while.cond9.preheader.i ]
-  %6 = getelementptr i8, ptr %Scan1.058.i, i64 8
+  %Scan1.057.i = phi ptr [ %Scan1.0.i, %if.end20.i ], [ %Scan1.054.i, %while.cond9.preheader.i ]
+  %Scan2.056.i = phi ptr [ %Scan2.1.i, %if.end20.i ], [ %List.addr.053.i, %while.cond9.preheader.i ]
+  %6 = getelementptr i8, ptr %Scan1.057.i, i64 8
   %Scan1.0.val.i = load ptr, ptr %6, align 8
   %call14.i = tail call i32 %Test(ptr noundef %Scan.0.val34, ptr noundef %Scan1.0.val.i) #8
   %tobool15.not.i = icmp eq i32 %call14.i, 0
   br i1 %tobool15.not.i, label %if.end20.i, label %if.then16.i
 
 if.then16.i:                                      ; preds = %while.body12.i
-  %Scan1.0.val40.i = load ptr, ptr %Scan1.058.i, align 8
-  store ptr %Scan1.0.val40.i, ptr %Scan2.057.i, align 8
+  %Scan1.0.val40.i = load ptr, ptr %Scan1.057.i, align 8
+  store ptr %Scan1.0.val40.i, ptr %Scan2.056.i, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i47.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i47.i, align 8
@@ -1634,27 +1640,27 @@ if.then16.i:                                      ; preds = %while.body12.i
   %add27.i.i49.i = add i64 %9, %conv26.i.i48.i
   store i64 %add27.i.i49.i, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.058.i, align 8
+  store ptr %10, ptr %Scan1.057.i, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.058.i, ptr %11, align 8
+  store ptr %Scan1.057.i, ptr %11, align 8
   br label %if.end20.i
 
 if.end20.i:                                       ; preds = %if.then16.i, %while.body12.i
-  %Scan2.1.i = phi ptr [ %Scan2.057.i, %if.then16.i ], [ %Scan1.058.i, %while.body12.i ]
+  %Scan2.1.i = phi ptr [ %Scan2.056.i, %if.then16.i ], [ %Scan1.057.i, %while.body12.i ]
   %Scan1.0.i = load ptr, ptr %Scan2.1.i, align 8
   %cmp.i45.not.i = icmp eq ptr %Scan1.0.i, null
   br i1 %cmp.i45.not.i, label %list_DeleteElement.exit, label %while.body12.i, !llvm.loop !23
 
 list_DeleteElement.exit.thread:                   ; preds = %list_DeleteElement.exit, %while.body.i, %while.body.preheader
-  %Scan.01528 = phi ptr [ %List, %while.body.preheader ], [ %Scan.01532, %while.body.i ], [ %List.addr.054.i, %list_DeleteElement.exit ]
+  %Scan.01528 = phi ptr [ %List, %while.body.preheader ], [ %Scan.01532, %while.body.i ], [ %List.addr.053.i, %list_DeleteElement.exit ]
   store ptr null, ptr %Scan.01528, align 8
   br label %while.end
 
 list_DeleteElement.exit:                          ; preds = %if.end20.i, %while.cond9.preheader.i
-  store ptr %List.addr.054.i, ptr %Scan.01532, align 8
-  %Scan.0.val11 = load ptr, ptr %List.addr.054.i, align 8
-  %cond53.i = icmp eq ptr %Scan.0.val11, null
-  br i1 %cond53.i, label %list_DeleteElement.exit.thread, label %land.rhs.i.preheader, !llvm.loop !41
+  store ptr %List.addr.053.i, ptr %Scan.01532, align 8
+  %Scan.0.val11 = load ptr, ptr %List.addr.053.i, align 8
+  %cmp.i.not52.i = icmp eq ptr %Scan.0.val11, null
+  br i1 %cmp.i.not52.i, label %list_DeleteElement.exit.thread, label %land.rhs.i.preheader, !llvm.loop !41
 
 while.end:                                        ; preds = %list_DeleteElement.exit.thread, %entry
   ret ptr %List
@@ -1668,28 +1674,28 @@ entry:
 
 while.body.preheader:                             ; preds = %entry
   %Scan.0.val1129 = load ptr, ptr %List, align 8
-  %cond60.i31 = icmp eq ptr %Scan.0.val1129, null
-  br i1 %cond60.i31, label %list_DeleteElementFree.exit.thread, label %land.rhs.i.preheader
+  %cmp.i.not59.i31 = icmp eq ptr %Scan.0.val1129, null
+  br i1 %cmp.i.not59.i31, label %list_DeleteElementFree.exit.thread, label %land.rhs.i.preheader
 
 land.rhs.i.preheader:                             ; preds = %while.body.preheader, %list_DeleteElementFree.exit
   %Scan.0.val1133 = phi ptr [ %Scan.0.val11, %list_DeleteElementFree.exit ], [ %Scan.0.val1129, %while.body.preheader ]
-  %Scan.01532 = phi ptr [ %List.addr.061.i, %list_DeleteElementFree.exit ], [ %List, %while.body.preheader ]
+  %Scan.01532 = phi ptr [ %List.addr.060.i, %list_DeleteElementFree.exit ], [ %List, %while.body.preheader ]
   %Scan.0.val34.in = getelementptr i8, ptr %Scan.01532, i64 8
   %Scan.0.val34 = load ptr, ptr %Scan.0.val34.in, align 8
   br label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %land.rhs.i.preheader, %while.body.i
-  %List.addr.061.i = phi ptr [ %Scan1.062.i, %while.body.i ], [ %Scan.0.val1133, %land.rhs.i.preheader ]
-  %0 = getelementptr i8, ptr %List.addr.061.i, i64 8
+  %List.addr.060.i = phi ptr [ %Scan1.061.i, %while.body.i ], [ %Scan.0.val1133, %land.rhs.i.preheader ]
+  %0 = getelementptr i8, ptr %List.addr.060.i, i64 8
   %List.addr.0.val45.i = load ptr, ptr %0, align 8
   %call2.i = tail call i32 %Test(ptr noundef %Scan.0.val34, ptr noundef %List.addr.0.val45.i) #8
   %tobool3.not.i = icmp eq i32 %call2.i, 0
-  %Scan1.062.i = load ptr, ptr %List.addr.061.i, align 8
+  %Scan1.061.i = load ptr, ptr %List.addr.060.i, align 8
   br i1 %tobool3.not.i, label %while.cond10.preheader.i, label %while.body.i
 
 while.cond10.preheader.i:                         ; preds = %land.rhs.i
-  %cmp.i52.not63.i = icmp eq ptr %Scan1.062.i, null
-  br i1 %cmp.i52.not63.i, label %list_DeleteElementFree.exit, label %while.body13.i
+  %cmp.i52.not62.i = icmp eq ptr %Scan1.061.i, null
+  br i1 %cmp.i52.not62.i, label %list_DeleteElementFree.exit, label %while.body13.i
 
 while.body.i:                                     ; preds = %land.rhs.i
   %List.addr.0.val.i = load ptr, ptr %0, align 8
@@ -1702,24 +1708,24 @@ while.body.i:                                     ; preds = %land.rhs.i
   %add27.i.i.i = add i64 %3, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.061.i, align 8
+  store ptr %4, ptr %List.addr.060.i, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.061.i, ptr %5, align 8
-  %cond.i = icmp eq ptr %Scan1.062.i, null
-  br i1 %cond.i, label %list_DeleteElementFree.exit.thread, label %land.rhs.i, !llvm.loop !28
+  store ptr %List.addr.060.i, ptr %5, align 8
+  %cmp.i.not.i = icmp eq ptr %Scan1.061.i, null
+  br i1 %cmp.i.not.i, label %list_DeleteElementFree.exit.thread, label %land.rhs.i, !llvm.loop !28
 
 while.body13.i:                                   ; preds = %while.cond10.preheader.i, %if.end22.i
-  %Scan1.065.i = phi ptr [ %Scan1.0.i, %if.end22.i ], [ %Scan1.062.i, %while.cond10.preheader.i ]
-  %Scan2.064.i = phi ptr [ %Scan2.1.i, %if.end22.i ], [ %List.addr.061.i, %while.cond10.preheader.i ]
-  %6 = getelementptr i8, ptr %Scan1.065.i, i64 8
+  %Scan1.064.i = phi ptr [ %Scan1.0.i, %if.end22.i ], [ %Scan1.061.i, %while.cond10.preheader.i ]
+  %Scan2.063.i = phi ptr [ %Scan2.1.i, %if.end22.i ], [ %List.addr.060.i, %while.cond10.preheader.i ]
+  %6 = getelementptr i8, ptr %Scan1.064.i, i64 8
   %Scan1.0.val44.i = load ptr, ptr %6, align 8
   %call15.i = tail call i32 %Test(ptr noundef %Scan.0.val34, ptr noundef %Scan1.0.val44.i) #8
   %tobool16.not.i = icmp eq i32 %call15.i, 0
   br i1 %tobool16.not.i, label %if.end22.i, label %if.then17.i
 
 if.then17.i:                                      ; preds = %while.body13.i
-  %Scan1.0.val47.i = load ptr, ptr %Scan1.065.i, align 8
-  store ptr %Scan1.0.val47.i, ptr %Scan2.064.i, align 8
+  %Scan1.0.val47.i = load ptr, ptr %Scan1.064.i, align 8
+  store ptr %Scan1.0.val47.i, ptr %Scan2.063.i, align 8
   %Scan1.0.val.i = load ptr, ptr %6, align 8
   tail call void %Free(ptr noundef %Scan1.0.val.i) #8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -1730,27 +1736,27 @@ if.then17.i:                                      ; preds = %while.body13.i
   %add27.i.i56.i = add i64 %9, %conv26.i.i55.i
   store i64 %add27.i.i56.i, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.065.i, align 8
+  store ptr %10, ptr %Scan1.064.i, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.065.i, ptr %11, align 8
+  store ptr %Scan1.064.i, ptr %11, align 8
   br label %if.end22.i
 
 if.end22.i:                                       ; preds = %if.then17.i, %while.body13.i
-  %Scan2.1.i = phi ptr [ %Scan2.064.i, %if.then17.i ], [ %Scan1.065.i, %while.body13.i ]
+  %Scan2.1.i = phi ptr [ %Scan2.063.i, %if.then17.i ], [ %Scan1.064.i, %while.body13.i ]
   %Scan1.0.i = load ptr, ptr %Scan2.1.i, align 8
   %cmp.i52.not.i = icmp eq ptr %Scan1.0.i, null
   br i1 %cmp.i52.not.i, label %list_DeleteElementFree.exit, label %while.body13.i, !llvm.loop !29
 
 list_DeleteElementFree.exit.thread:               ; preds = %list_DeleteElementFree.exit, %while.body.i, %while.body.preheader
-  %Scan.01528 = phi ptr [ %List, %while.body.preheader ], [ %Scan.01532, %while.body.i ], [ %List.addr.061.i, %list_DeleteElementFree.exit ]
+  %Scan.01528 = phi ptr [ %List, %while.body.preheader ], [ %Scan.01532, %while.body.i ], [ %List.addr.060.i, %list_DeleteElementFree.exit ]
   store ptr null, ptr %Scan.01528, align 8
   br label %while.end
 
 list_DeleteElementFree.exit:                      ; preds = %if.end22.i, %while.cond10.preheader.i
-  store ptr %List.addr.061.i, ptr %Scan.01532, align 8
-  %Scan.0.val11 = load ptr, ptr %List.addr.061.i, align 8
-  %cond60.i = icmp eq ptr %Scan.0.val11, null
-  br i1 %cond60.i, label %list_DeleteElementFree.exit.thread, label %land.rhs.i.preheader, !llvm.loop !42
+  store ptr %List.addr.060.i, ptr %Scan.01532, align 8
+  %Scan.0.val11 = load ptr, ptr %List.addr.060.i, align 8
+  %cmp.i.not59.i = icmp eq ptr %Scan.0.val11, null
+  br i1 %cmp.i.not59.i, label %list_DeleteElementFree.exit.thread, label %land.rhs.i.preheader, !llvm.loop !42
 
 while.end:                                        ; preds = %list_DeleteElementFree.exit.thread, %entry
   ret ptr %List
@@ -1764,27 +1770,27 @@ entry:
 
 while.body.preheader:                             ; preds = %entry
   %Scan.0.val1130 = load ptr, ptr %List, align 8
-  %cond49.i32 = icmp eq ptr %Scan.0.val1130, null
-  br i1 %cond49.i32, label %list_PointerDeleteElement.exit.thread, label %land.rhs.i.preheader
+  %cmp.i.not48.i32 = icmp eq ptr %Scan.0.val1130, null
+  br i1 %cmp.i.not48.i32, label %list_PointerDeleteElement.exit.thread, label %land.rhs.i.preheader
 
 land.rhs.i.preheader:                             ; preds = %while.body.preheader, %list_PointerDeleteElement.exit
   %Scan.0.val1134 = phi ptr [ %Scan.0.val11, %list_PointerDeleteElement.exit ], [ %Scan.0.val1130, %while.body.preheader ]
-  %Scan.01633 = phi ptr [ %List.addr.050.i, %list_PointerDeleteElement.exit ], [ %List, %while.body.preheader ]
+  %Scan.01633 = phi ptr [ %List.addr.049.i, %list_PointerDeleteElement.exit ], [ %List, %while.body.preheader ]
   %Scan.0.val35.in = getelementptr i8, ptr %Scan.01633, i64 8
   %Scan.0.val35 = load ptr, ptr %Scan.0.val35.in, align 8
   br label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %land.rhs.i.preheader, %while.body.i
-  %List.addr.050.i = phi ptr [ %List.addr.0.val38.i, %while.body.i ], [ %Scan.0.val1134, %land.rhs.i.preheader ]
-  %0 = getelementptr i8, ptr %List.addr.050.i, i64 8
+  %List.addr.049.i = phi ptr [ %List.addr.0.val38.i, %while.body.i ], [ %Scan.0.val1134, %land.rhs.i.preheader ]
+  %0 = getelementptr i8, ptr %List.addr.049.i, i64 8
   %List.addr.0.val.i = load ptr, ptr %0, align 8
   %cmp.i12 = icmp eq ptr %List.addr.0.val.i, %Scan.0.val35
-  %List.addr.0.val38.i = load ptr, ptr %List.addr.050.i, align 8
+  %List.addr.0.val38.i = load ptr, ptr %List.addr.049.i, align 8
   br i1 %cmp.i12, label %while.body.i, label %while.cond7.preheader.i
 
 while.cond7.preheader.i:                          ; preds = %land.rhs.i
-  %cmp.i41.not52.i = icmp eq ptr %List.addr.0.val38.i, null
-  br i1 %cmp.i41.not52.i, label %list_PointerDeleteElement.exit, label %while.body10.i
+  %cmp.i41.not51.i = icmp eq ptr %List.addr.0.val38.i, null
+  br i1 %cmp.i41.not51.i, label %list_PointerDeleteElement.exit, label %while.body10.i
 
 while.body.i:                                     ; preds = %land.rhs.i
   %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -1795,23 +1801,23 @@ while.body.i:                                     ; preds = %land.rhs.i
   %add27.i.i.i = add i64 %3, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.050.i, align 8
+  store ptr %4, ptr %List.addr.049.i, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.050.i, ptr %5, align 8
-  %cond.i = icmp eq ptr %List.addr.0.val38.i, null
-  br i1 %cond.i, label %list_PointerDeleteElement.exit.thread, label %land.rhs.i, !llvm.loop !31
+  store ptr %List.addr.049.i, ptr %5, align 8
+  %cmp.i.not.i = icmp eq ptr %List.addr.0.val38.i, null
+  br i1 %cmp.i.not.i, label %list_PointerDeleteElement.exit.thread, label %land.rhs.i, !llvm.loop !31
 
 while.body10.i:                                   ; preds = %while.cond7.preheader.i, %if.end17.i
-  %Scan1.054.i = phi ptr [ %Scan1.0.i, %if.end17.i ], [ %List.addr.0.val38.i, %while.cond7.preheader.i ]
-  %Scan2.053.i = phi ptr [ %Scan2.1.i, %if.end17.i ], [ %List.addr.050.i, %while.cond7.preheader.i ]
-  %6 = getelementptr i8, ptr %Scan1.054.i, i64 8
+  %Scan1.053.i = phi ptr [ %Scan1.0.i, %if.end17.i ], [ %List.addr.0.val38.i, %while.cond7.preheader.i ]
+  %Scan2.052.i = phi ptr [ %Scan2.1.i, %if.end17.i ], [ %List.addr.049.i, %while.cond7.preheader.i ]
+  %6 = getelementptr i8, ptr %Scan1.053.i, i64 8
   %Scan1.0.val.i = load ptr, ptr %6, align 8
   %cmp12.i = icmp eq ptr %Scan1.0.val.i, %Scan.0.val35
   br i1 %cmp12.i, label %if.then13.i, label %if.end17.i
 
 if.then13.i:                                      ; preds = %while.body10.i
-  %Scan1.0.val36.i = load ptr, ptr %Scan1.054.i, align 8
-  store ptr %Scan1.0.val36.i, ptr %Scan2.053.i, align 8
+  %Scan1.0.val36.i = load ptr, ptr %Scan1.053.i, align 8
+  store ptr %Scan1.0.val36.i, ptr %Scan2.052.i, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i43.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i43.i, align 8
@@ -1820,27 +1826,27 @@ if.then13.i:                                      ; preds = %while.body10.i
   %add27.i.i45.i = add i64 %9, %conv26.i.i44.i
   store i64 %add27.i.i45.i, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.054.i, align 8
+  store ptr %10, ptr %Scan1.053.i, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.054.i, ptr %11, align 8
+  store ptr %Scan1.053.i, ptr %11, align 8
   br label %if.end17.i
 
 if.end17.i:                                       ; preds = %if.then13.i, %while.body10.i
-  %Scan2.1.i = phi ptr [ %Scan2.053.i, %if.then13.i ], [ %Scan1.054.i, %while.body10.i ]
+  %Scan2.1.i = phi ptr [ %Scan2.052.i, %if.then13.i ], [ %Scan1.053.i, %while.body10.i ]
   %Scan1.0.i = load ptr, ptr %Scan2.1.i, align 8
   %cmp.i41.not.i = icmp eq ptr %Scan1.0.i, null
   br i1 %cmp.i41.not.i, label %list_PointerDeleteElement.exit, label %while.body10.i, !llvm.loop !32
 
 list_PointerDeleteElement.exit.thread:            ; preds = %list_PointerDeleteElement.exit, %while.body.i, %while.body.preheader
-  %Scan.01629 = phi ptr [ %List, %while.body.preheader ], [ %Scan.01633, %while.body.i ], [ %List.addr.050.i, %list_PointerDeleteElement.exit ]
+  %Scan.01629 = phi ptr [ %List, %while.body.preheader ], [ %Scan.01633, %while.body.i ], [ %List.addr.049.i, %list_PointerDeleteElement.exit ]
   store ptr null, ptr %Scan.01629, align 8
   br label %while.end
 
 list_PointerDeleteElement.exit:                   ; preds = %if.end17.i, %while.cond7.preheader.i
-  store ptr %List.addr.050.i, ptr %Scan.01633, align 8
-  %Scan.0.val11 = load ptr, ptr %List.addr.050.i, align 8
-  %cond49.i = icmp eq ptr %Scan.0.val11, null
-  br i1 %cond49.i, label %list_PointerDeleteElement.exit.thread, label %land.rhs.i.preheader, !llvm.loop !43
+  store ptr %List.addr.049.i, ptr %Scan.01633, align 8
+  %Scan.0.val11 = load ptr, ptr %List.addr.049.i, align 8
+  %cmp.i.not48.i = icmp eq ptr %Scan.0.val11, null
+  br i1 %cmp.i.not48.i, label %list_PointerDeleteElement.exit.thread, label %land.rhs.i.preheader, !llvm.loop !43
 
 while.end:                                        ; preds = %list_PointerDeleteElement.exit.thread, %entry
   ret ptr %List
@@ -1849,12 +1855,12 @@ while.end:                                        ; preds = %list_PointerDeleteE
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_NPointerUnion(ptr noundef %List1, ptr noundef %List2) local_unnamed_addr #2 {
 entry:
-  %cmp.i.i = icmp eq ptr %List1, null
-  br i1 %cmp.i.i, label %list_Nconc.exit, label %if.end.i
+  %cmp.i.not.i = icmp eq ptr %List1, null
+  br i1 %cmp.i.not.i, label %list_Nconc.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %entry
-  %cmp.i18.i = icmp eq ptr %List2, null
-  br i1 %cmp.i18.i, label %while.body.i.preheader, label %for.cond.i
+  %cmp.i18.not.i = icmp eq ptr %List2, null
+  br i1 %cmp.i18.not.i, label %while.body.i.preheader, label %for.cond.i
 
 for.cond.i:                                       ; preds = %if.end.i, %for.cond.i
   %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %List1, %if.end.i ]
@@ -1874,27 +1880,27 @@ list_Nconc.exit:                                  ; preds = %entry, %for.end.i
 while.body.i.preheader:                           ; preds = %if.end.i, %list_Nconc.exit
   %retval.0.i17 = phi ptr [ %retval.0.i, %list_Nconc.exit ], [ %List1, %if.end.i ]
   %Scan.0.val11.i6 = load ptr, ptr %retval.0.i17, align 8
-  %cond49.i.i8 = icmp eq ptr %Scan.0.val11.i6, null
-  br i1 %cond49.i.i8, label %list_PointerDeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
+  %cmp.i.not48.i.i8 = icmp eq ptr %Scan.0.val11.i6, null
+  br i1 %cmp.i.not48.i.i8, label %list_PointerDeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
 
 land.rhs.i.i.preheader:                           ; preds = %while.body.i.preheader, %list_PointerDeleteElement.exit.i
   %Scan.0.val11.i10 = phi ptr [ %Scan.0.val11.i, %list_PointerDeleteElement.exit.i ], [ %Scan.0.val11.i6, %while.body.i.preheader ]
-  %Scan.016.i9 = phi ptr [ %List.addr.050.i.i, %list_PointerDeleteElement.exit.i ], [ %retval.0.i17, %while.body.i.preheader ]
+  %Scan.016.i9 = phi ptr [ %List.addr.049.i.i, %list_PointerDeleteElement.exit.i ], [ %retval.0.i17, %while.body.i.preheader ]
   %Scan.0.val.i11.in = getelementptr i8, ptr %Scan.016.i9, i64 8
   %Scan.0.val.i11 = load ptr, ptr %Scan.0.val.i11.in, align 8
   br label %land.rhs.i.i
 
 land.rhs.i.i:                                     ; preds = %land.rhs.i.i.preheader, %while.body.i.i
-  %List.addr.050.i.i = phi ptr [ %List.addr.0.val38.i.i, %while.body.i.i ], [ %Scan.0.val11.i10, %land.rhs.i.i.preheader ]
-  %0 = getelementptr i8, ptr %List.addr.050.i.i, i64 8
+  %List.addr.049.i.i = phi ptr [ %List.addr.0.val38.i.i, %while.body.i.i ], [ %Scan.0.val11.i10, %land.rhs.i.i.preheader ]
+  %0 = getelementptr i8, ptr %List.addr.049.i.i, i64 8
   %List.addr.0.val.i.i = load ptr, ptr %0, align 8
   %cmp.i12.i = icmp eq ptr %List.addr.0.val.i.i, %Scan.0.val.i11
-  %List.addr.0.val38.i.i = load ptr, ptr %List.addr.050.i.i, align 8
+  %List.addr.0.val38.i.i = load ptr, ptr %List.addr.049.i.i, align 8
   br i1 %cmp.i12.i, label %while.body.i.i, label %while.cond7.preheader.i.i
 
 while.cond7.preheader.i.i:                        ; preds = %land.rhs.i.i
-  %cmp.i41.not52.i.i = icmp eq ptr %List.addr.0.val38.i.i, null
-  br i1 %cmp.i41.not52.i.i, label %list_PointerDeleteElement.exit.i, label %while.body10.i.i
+  %cmp.i41.not51.i.i = icmp eq ptr %List.addr.0.val38.i.i, null
+  br i1 %cmp.i41.not51.i.i, label %list_PointerDeleteElement.exit.i, label %while.body10.i.i
 
 while.body.i.i:                                   ; preds = %land.rhs.i.i
   %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -1905,23 +1911,23 @@ while.body.i.i:                                   ; preds = %land.rhs.i.i
   %add27.i.i.i.i = add i64 %3, %conv26.i.i.i.i
   store i64 %add27.i.i.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.050.i.i, align 8
+  store ptr %4, ptr %List.addr.049.i.i, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.050.i.i, ptr %5, align 8
-  %cond.i.i = icmp eq ptr %List.addr.0.val38.i.i, null
-  br i1 %cond.i.i, label %list_PointerDeleteElement.exit.thread.i, label %land.rhs.i.i, !llvm.loop !31
+  store ptr %List.addr.049.i.i, ptr %5, align 8
+  %cmp.i.not.i.i = icmp eq ptr %List.addr.0.val38.i.i, null
+  br i1 %cmp.i.not.i.i, label %list_PointerDeleteElement.exit.thread.i, label %land.rhs.i.i, !llvm.loop !31
 
 while.body10.i.i:                                 ; preds = %while.cond7.preheader.i.i, %if.end17.i.i
-  %Scan1.054.i.i = phi ptr [ %Scan1.0.i.i, %if.end17.i.i ], [ %List.addr.0.val38.i.i, %while.cond7.preheader.i.i ]
-  %Scan2.053.i.i = phi ptr [ %Scan2.1.i.i, %if.end17.i.i ], [ %List.addr.050.i.i, %while.cond7.preheader.i.i ]
-  %6 = getelementptr i8, ptr %Scan1.054.i.i, i64 8
+  %Scan1.053.i.i = phi ptr [ %Scan1.0.i.i, %if.end17.i.i ], [ %List.addr.0.val38.i.i, %while.cond7.preheader.i.i ]
+  %Scan2.052.i.i = phi ptr [ %Scan2.1.i.i, %if.end17.i.i ], [ %List.addr.049.i.i, %while.cond7.preheader.i.i ]
+  %6 = getelementptr i8, ptr %Scan1.053.i.i, i64 8
   %Scan1.0.val.i.i = load ptr, ptr %6, align 8
   %cmp12.i.i = icmp eq ptr %Scan1.0.val.i.i, %Scan.0.val.i11
   br i1 %cmp12.i.i, label %if.then13.i.i, label %if.end17.i.i
 
 if.then13.i.i:                                    ; preds = %while.body10.i.i
-  %Scan1.0.val36.i.i = load ptr, ptr %Scan1.054.i.i, align 8
-  store ptr %Scan1.0.val36.i.i, ptr %Scan2.053.i.i, align 8
+  %Scan1.0.val36.i.i = load ptr, ptr %Scan1.053.i.i, align 8
+  store ptr %Scan1.0.val36.i.i, ptr %Scan2.052.i.i, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i43.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i43.i.i, align 8
@@ -1930,27 +1936,27 @@ if.then13.i.i:                                    ; preds = %while.body10.i.i
   %add27.i.i45.i.i = add i64 %9, %conv26.i.i44.i.i
   store i64 %add27.i.i45.i.i, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.054.i.i, align 8
+  store ptr %10, ptr %Scan1.053.i.i, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.054.i.i, ptr %11, align 8
+  store ptr %Scan1.053.i.i, ptr %11, align 8
   br label %if.end17.i.i
 
 if.end17.i.i:                                     ; preds = %if.then13.i.i, %while.body10.i.i
-  %Scan2.1.i.i = phi ptr [ %Scan2.053.i.i, %if.then13.i.i ], [ %Scan1.054.i.i, %while.body10.i.i ]
+  %Scan2.1.i.i = phi ptr [ %Scan2.052.i.i, %if.then13.i.i ], [ %Scan1.053.i.i, %while.body10.i.i ]
   %Scan1.0.i.i = load ptr, ptr %Scan2.1.i.i, align 8
   %cmp.i41.not.i.i = icmp eq ptr %Scan1.0.i.i, null
   br i1 %cmp.i41.not.i.i, label %list_PointerDeleteElement.exit.i, label %while.body10.i.i, !llvm.loop !32
 
 list_PointerDeleteElement.exit.thread.i:          ; preds = %list_PointerDeleteElement.exit.i, %while.body.i.i, %while.body.i.preheader
-  %Scan.016.i5 = phi ptr [ %retval.0.i17, %while.body.i.preheader ], [ %Scan.016.i9, %while.body.i.i ], [ %List.addr.050.i.i, %list_PointerDeleteElement.exit.i ]
+  %Scan.016.i5 = phi ptr [ %retval.0.i17, %while.body.i.preheader ], [ %Scan.016.i9, %while.body.i.i ], [ %List.addr.049.i.i, %list_PointerDeleteElement.exit.i ]
   store ptr null, ptr %Scan.016.i5, align 8
   br label %list_PointerDeleteDuplicates.exit
 
 list_PointerDeleteElement.exit.i:                 ; preds = %if.end17.i.i, %while.cond7.preheader.i.i
-  store ptr %List.addr.050.i.i, ptr %Scan.016.i9, align 8
-  %Scan.0.val11.i = load ptr, ptr %List.addr.050.i.i, align 8
-  %cond49.i.i = icmp eq ptr %Scan.0.val11.i, null
-  br i1 %cond49.i.i, label %list_PointerDeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
+  store ptr %List.addr.049.i.i, ptr %Scan.016.i9, align 8
+  %Scan.0.val11.i = load ptr, ptr %List.addr.049.i.i, align 8
+  %cmp.i.not48.i.i = icmp eq ptr %Scan.0.val11.i, null
+  br i1 %cmp.i.not48.i.i, label %list_PointerDeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
 
 list_PointerDeleteDuplicates.exit:                ; preds = %list_Nconc.exit, %list_PointerDeleteElement.exit.thread.i
   %retval.0.i18 = phi ptr [ null, %list_Nconc.exit ], [ %retval.0.i17, %list_PointerDeleteElement.exit.thread.i ]
@@ -1960,12 +1966,12 @@ list_PointerDeleteDuplicates.exit:                ; preds = %list_Nconc.exit, %l
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NUnion(ptr noundef %List1, ptr noundef %List2, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cmp.i.i = icmp eq ptr %List1, null
-  br i1 %cmp.i.i, label %list_Nconc.exit, label %if.end.i
+  %cmp.i.not.i = icmp eq ptr %List1, null
+  br i1 %cmp.i.not.i, label %list_Nconc.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %entry
-  %cmp.i18.i = icmp eq ptr %List2, null
-  br i1 %cmp.i18.i, label %while.body.i.preheader, label %for.cond.i
+  %cmp.i18.not.i = icmp eq ptr %List2, null
+  br i1 %cmp.i18.not.i, label %while.body.i.preheader, label %for.cond.i
 
 for.cond.i:                                       ; preds = %if.end.i, %for.cond.i
   %List1.addr.0.i = phi ptr [ %List1.addr.0.val17.i, %for.cond.i ], [ %List1, %if.end.i ]
@@ -1985,28 +1991,28 @@ list_Nconc.exit:                                  ; preds = %entry, %for.end.i
 while.body.i.preheader:                           ; preds = %if.end.i, %list_Nconc.exit
   %retval.0.i17 = phi ptr [ %retval.0.i, %list_Nconc.exit ], [ %List1, %if.end.i ]
   %Scan.0.val11.i6 = load ptr, ptr %retval.0.i17, align 8
-  %cond53.i.i8 = icmp eq ptr %Scan.0.val11.i6, null
-  br i1 %cond53.i.i8, label %list_DeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
+  %cmp.i.not52.i.i8 = icmp eq ptr %Scan.0.val11.i6, null
+  br i1 %cmp.i.not52.i.i8, label %list_DeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
 
 land.rhs.i.i.preheader:                           ; preds = %while.body.i.preheader, %list_DeleteElement.exit.i
   %Scan.0.val11.i10 = phi ptr [ %Scan.0.val11.i, %list_DeleteElement.exit.i ], [ %Scan.0.val11.i6, %while.body.i.preheader ]
-  %Scan.015.i9 = phi ptr [ %List.addr.054.i.i, %list_DeleteElement.exit.i ], [ %retval.0.i17, %while.body.i.preheader ]
+  %Scan.015.i9 = phi ptr [ %List.addr.053.i.i, %list_DeleteElement.exit.i ], [ %retval.0.i17, %while.body.i.preheader ]
   %Scan.0.val.i11.in = getelementptr i8, ptr %Scan.015.i9, i64 8
   %Scan.0.val.i11 = load ptr, ptr %Scan.0.val.i11.in, align 8
   br label %land.rhs.i.i
 
 land.rhs.i.i:                                     ; preds = %land.rhs.i.i.preheader, %while.body.i.i
-  %List.addr.054.i.i = phi ptr [ %Scan1.055.i.i, %while.body.i.i ], [ %Scan.0.val11.i10, %land.rhs.i.i.preheader ]
-  %0 = getelementptr i8, ptr %List.addr.054.i.i, i64 8
+  %List.addr.053.i.i = phi ptr [ %Scan1.054.i.i, %while.body.i.i ], [ %Scan.0.val11.i10, %land.rhs.i.i.preheader ]
+  %0 = getelementptr i8, ptr %List.addr.053.i.i, i64 8
   %List.addr.0.val.i.i = load ptr, ptr %0, align 8
   %call2.i.i = tail call i32 %Test(ptr noundef %Scan.0.val.i11, ptr noundef %List.addr.0.val.i.i) #8
   %tobool3.not.i.i = icmp eq i32 %call2.i.i, 0
-  %Scan1.055.i.i = load ptr, ptr %List.addr.054.i.i, align 8
+  %Scan1.054.i.i = load ptr, ptr %List.addr.053.i.i, align 8
   br i1 %tobool3.not.i.i, label %while.cond9.preheader.i.i, label %while.body.i.i
 
 while.cond9.preheader.i.i:                        ; preds = %land.rhs.i.i
-  %cmp.i45.not56.i.i = icmp eq ptr %Scan1.055.i.i, null
-  br i1 %cmp.i45.not56.i.i, label %list_DeleteElement.exit.i, label %while.body12.i.i
+  %cmp.i45.not55.i.i = icmp eq ptr %Scan1.054.i.i, null
+  br i1 %cmp.i45.not55.i.i, label %list_DeleteElement.exit.i, label %while.body12.i.i
 
 while.body.i.i:                                   ; preds = %land.rhs.i.i
   %1 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -2017,24 +2023,24 @@ while.body.i.i:                                   ; preds = %land.rhs.i.i
   %add27.i.i.i.i = add i64 %3, %conv26.i.i.i.i
   store i64 %add27.i.i.i.i, ptr @memory_FREEDBYTES, align 8
   %4 = load ptr, ptr %1, align 8
-  store ptr %4, ptr %List.addr.054.i.i, align 8
+  store ptr %4, ptr %List.addr.053.i.i, align 8
   %5 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.054.i.i, ptr %5, align 8
-  %cond.i.i = icmp eq ptr %Scan1.055.i.i, null
-  br i1 %cond.i.i, label %list_DeleteElement.exit.thread.i, label %land.rhs.i.i, !llvm.loop !22
+  store ptr %List.addr.053.i.i, ptr %5, align 8
+  %cmp.i.not.i.i = icmp eq ptr %Scan1.054.i.i, null
+  br i1 %cmp.i.not.i.i, label %list_DeleteElement.exit.thread.i, label %land.rhs.i.i, !llvm.loop !22
 
 while.body12.i.i:                                 ; preds = %while.cond9.preheader.i.i, %if.end20.i.i
-  %Scan1.058.i.i = phi ptr [ %Scan1.0.i.i, %if.end20.i.i ], [ %Scan1.055.i.i, %while.cond9.preheader.i.i ]
-  %Scan2.057.i.i = phi ptr [ %Scan2.1.i.i, %if.end20.i.i ], [ %List.addr.054.i.i, %while.cond9.preheader.i.i ]
-  %6 = getelementptr i8, ptr %Scan1.058.i.i, i64 8
+  %Scan1.057.i.i = phi ptr [ %Scan1.0.i.i, %if.end20.i.i ], [ %Scan1.054.i.i, %while.cond9.preheader.i.i ]
+  %Scan2.056.i.i = phi ptr [ %Scan2.1.i.i, %if.end20.i.i ], [ %List.addr.053.i.i, %while.cond9.preheader.i.i ]
+  %6 = getelementptr i8, ptr %Scan1.057.i.i, i64 8
   %Scan1.0.val.i.i = load ptr, ptr %6, align 8
   %call14.i.i = tail call i32 %Test(ptr noundef %Scan.0.val.i11, ptr noundef %Scan1.0.val.i.i) #8
   %tobool15.not.i.i = icmp eq i32 %call14.i.i, 0
   br i1 %tobool15.not.i.i, label %if.end20.i.i, label %if.then16.i.i
 
 if.then16.i.i:                                    ; preds = %while.body12.i.i
-  %Scan1.0.val40.i.i = load ptr, ptr %Scan1.058.i.i, align 8
-  store ptr %Scan1.0.val40.i.i, ptr %Scan2.057.i.i, align 8
+  %Scan1.0.val40.i.i = load ptr, ptr %Scan1.057.i.i, align 8
+  store ptr %Scan1.0.val40.i.i, ptr %Scan2.056.i.i, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i47.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i47.i.i, align 8
@@ -2043,27 +2049,27 @@ if.then16.i.i:                                    ; preds = %while.body12.i.i
   %add27.i.i49.i.i = add i64 %9, %conv26.i.i48.i.i
   store i64 %add27.i.i49.i.i, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %Scan1.058.i.i, align 8
+  store ptr %10, ptr %Scan1.057.i.i, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.058.i.i, ptr %11, align 8
+  store ptr %Scan1.057.i.i, ptr %11, align 8
   br label %if.end20.i.i
 
 if.end20.i.i:                                     ; preds = %if.then16.i.i, %while.body12.i.i
-  %Scan2.1.i.i = phi ptr [ %Scan2.057.i.i, %if.then16.i.i ], [ %Scan1.058.i.i, %while.body12.i.i ]
+  %Scan2.1.i.i = phi ptr [ %Scan2.056.i.i, %if.then16.i.i ], [ %Scan1.057.i.i, %while.body12.i.i ]
   %Scan1.0.i.i = load ptr, ptr %Scan2.1.i.i, align 8
   %cmp.i45.not.i.i = icmp eq ptr %Scan1.0.i.i, null
   br i1 %cmp.i45.not.i.i, label %list_DeleteElement.exit.i, label %while.body12.i.i, !llvm.loop !23
 
 list_DeleteElement.exit.thread.i:                 ; preds = %list_DeleteElement.exit.i, %while.body.i.i, %while.body.i.preheader
-  %Scan.015.i5 = phi ptr [ %retval.0.i17, %while.body.i.preheader ], [ %Scan.015.i9, %while.body.i.i ], [ %List.addr.054.i.i, %list_DeleteElement.exit.i ]
+  %Scan.015.i5 = phi ptr [ %retval.0.i17, %while.body.i.preheader ], [ %Scan.015.i9, %while.body.i.i ], [ %List.addr.053.i.i, %list_DeleteElement.exit.i ]
   store ptr null, ptr %Scan.015.i5, align 8
   br label %list_DeleteDuplicates.exit
 
 list_DeleteElement.exit.i:                        ; preds = %if.end20.i.i, %while.cond9.preheader.i.i
-  store ptr %List.addr.054.i.i, ptr %Scan.015.i9, align 8
-  %Scan.0.val11.i = load ptr, ptr %List.addr.054.i.i, align 8
-  %cond53.i.i = icmp eq ptr %Scan.0.val11.i, null
-  br i1 %cond53.i.i, label %list_DeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
+  store ptr %List.addr.053.i.i, ptr %Scan.015.i9, align 8
+  %Scan.0.val11.i = load ptr, ptr %List.addr.053.i.i, align 8
+  %cmp.i.not52.i.i = icmp eq ptr %Scan.0.val11.i, null
+  br i1 %cmp.i.not52.i.i, label %list_DeleteElement.exit.thread.i, label %land.rhs.i.i.preheader
 
 list_DeleteDuplicates.exit:                       ; preds = %list_Nconc.exit, %list_DeleteElement.exit.thread.i
   %retval.0.i18 = phi ptr [ null, %list_Nconc.exit ], [ %retval.0.i17, %list_DeleteElement.exit.thread.i ]
@@ -2073,25 +2079,25 @@ list_DeleteDuplicates.exit:                       ; preds = %list_Nconc.exit, %l
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NListTimes(ptr noundef %List1, ptr noundef %List2) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %List2, null
-  %cmp.i28.not63 = icmp eq ptr %List1, null
-  %or.cond = or i1 %cmp.i, %cmp.i28.not63
+  %cmp.i.not = icmp eq ptr %List2, null
+  %cmp.i28.not64 = icmp eq ptr %List1, null
+  %or.cond = or i1 %cmp.i.not, %cmp.i28.not64
   br i1 %or.cond, label %if.end, label %for.cond4.preheader
 
 for.cond4.preheader:                              ; preds = %entry, %for.cond4.for.inc15_crit_edge
-  %Scan1.065 = phi ptr [ %Scan1.0.val26, %for.cond4.for.inc15_crit_edge ], [ %List1, %entry ]
-  %Result.064 = phi ptr [ %call.i, %for.cond4.for.inc15_crit_edge ], [ null, %entry ]
-  %0 = getelementptr i8, ptr %Scan1.065, i64 8
+  %Scan1.066 = phi ptr [ %Scan1.0.val26, %for.cond4.for.inc15_crit_edge ], [ %List1, %entry ]
+  %Result.065 = phi ptr [ %call.i, %for.cond4.for.inc15_crit_edge ], [ null, %entry ]
+  %0 = getelementptr i8, ptr %Scan1.066, i64 8
   br label %for.body8
 
 for.body8:                                        ; preds = %for.cond4.preheader, %list_Append.exit
-  %Scan2.062 = phi ptr [ %List2, %for.cond4.preheader ], [ %Scan2.0.val27, %list_Append.exit ]
-  %Result.161 = phi ptr [ %Result.064, %for.cond4.preheader ], [ %call.i, %list_Append.exit ]
+  %Scan2.063 = phi ptr [ %List2, %for.cond4.preheader ], [ %Scan2.0.val27, %list_Append.exit ]
+  %Result.162 = phi ptr [ %Result.065, %for.cond4.preheader ], [ %call.i, %list_Append.exit ]
   %Scan1.0.val = load ptr, ptr %0, align 8
-  %1 = getelementptr i8, ptr %Scan2.062, i64 8
+  %1 = getelementptr i8, ptr %Scan2.063, i64 8
   %Scan2.0.val = load ptr, ptr %1, align 8
-  %cmp.i.i = icmp eq ptr %Scan2.0.val, null
-  br i1 %cmp.i.i, label %list_Copy.exit, label %if.end.i
+  %cmp.i.not.i = icmp eq ptr %Scan2.0.val, null
+  br i1 %cmp.i.not.i, label %list_Copy.exit, label %if.end.i
 
 if.end.i:                                         ; preds = %for.body8
   %2 = getelementptr i8, ptr %Scan2.0.val, i64 8
@@ -2120,11 +2126,11 @@ while.body.i:                                     ; preds = %if.end.i, %while.bo
 
 list_Copy.exit:                                   ; preds = %while.body.i, %for.body8, %if.end.i
   %retval.0.i = phi ptr [ null, %for.body8 ], [ %call.i.i.i, %if.end.i ], [ %call.i.i.i, %while.body.i ]
-  %cmp.i.i32 = icmp eq ptr %Scan1.0.val, null
-  br i1 %cmp.i.i32, label %list_Append.exit, label %if.end.i33
+  %cmp.i.not.i32 = icmp eq ptr %Scan1.0.val, null
+  br i1 %cmp.i.not.i32, label %list_Append.exit, label %if.end.i33
 
 if.end.i33:                                       ; preds = %list_Copy.exit
-  %cmp.i20.i = icmp eq ptr %retval.0.i, null
+  %cmp.i20.not.i = icmp eq ptr %retval.0.i, null
   %4 = getelementptr i8, ptr %Scan1.0.val, i64 8
   %List.val.i.i = load ptr, ptr %4, align 8
   %call.i.i.i.i = tail call ptr @memory_Malloc(i32 noundef 16) #8
@@ -2133,7 +2139,7 @@ if.end.i33:                                       ; preds = %list_Copy.exit
   store ptr null, ptr %call.i.i.i.i, align 8
   %Scan2.025.i.i = load ptr, ptr %Scan1.0.val, align 8
   %cmp.i21.not26.i.i = icmp eq ptr %Scan2.025.i.i, null
-  br i1 %cmp.i20.i, label %if.end.i.i, label %if.end.i28.i
+  br i1 %cmp.i20.not.i, label %if.end.i.i, label %if.end.i28.i
 
 if.end.i.i:                                       ; preds = %if.end.i33
   br i1 %cmp.i21.not26.i.i, label %list_Append.exit, label %while.body.i.i
@@ -2187,46 +2193,46 @@ list_Append.exit:                                 ; preds = %while.body.i.i, %li
   %call.i = tail call ptr @memory_Malloc(i32 noundef 16) #8
   %car.i = getelementptr inbounds %struct.LIST_HELP, ptr %call.i, i64 0, i32 1
   store ptr %retval.0.i34, ptr %car.i, align 8
-  store ptr %Result.161, ptr %call.i, align 8
-  %Scan2.0.val27 = load ptr, ptr %Scan2.062, align 8
+  store ptr %Result.162, ptr %call.i, align 8
+  %Scan2.0.val27 = load ptr, ptr %Scan2.063, align 8
   %cmp.i30.not = icmp eq ptr %Scan2.0.val27, null
   br i1 %cmp.i30.not, label %for.cond4.for.inc15_crit_edge, label %for.body8, !llvm.loop !46
 
 for.cond4.for.inc15_crit_edge:                    ; preds = %list_Append.exit
-  %Scan1.0.val26 = load ptr, ptr %Scan1.065, align 8
+  %Scan1.0.val26 = load ptr, ptr %Scan1.066, align 8
   %cmp.i28.not = icmp eq ptr %Scan1.0.val26, null
   br i1 %cmp.i28.not, label %if.end, label %for.cond4.preheader, !llvm.loop !47
 
 if.end:                                           ; preds = %for.cond4.for.inc15_crit_edge, %entry
   %Result.2 = phi ptr [ null, %entry ], [ %call.i, %for.cond4.for.inc15_crit_edge ]
-  br i1 %cmp.i28.not63, label %list_DeleteWithElement.exit, label %while.body.i35
+  br i1 %cmp.i28.not64, label %list_DeleteWithElement.exit, label %while.body.i36
 
-while.body.i35:                                   ; preds = %if.end, %list_Delete.exit
+while.body.i36:                                   ; preds = %if.end, %list_Delete.exit
   %List.addr.08.i = phi ptr [ %List.addr.0.val6.i, %list_Delete.exit ], [ %List1, %if.end ]
   %List.addr.0.val6.i = load ptr, ptr %List.addr.08.i, align 8
   %7 = getelementptr i8, ptr %List.addr.08.i, i64 8
   %List.addr.0.val.i = load ptr, ptr %7, align 8
   %cmp.i.not5.i = icmp eq ptr %List.addr.0.val.i, null
-  br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i50
+  br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i51
 
-while.body.i50:                                   ; preds = %while.body.i35, %while.body.i50
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i50 ], [ %List.addr.0.val.i, %while.body.i35 ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+while.body.i51:                                   ; preds = %while.body.i36, %while.body.i51
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i51 ], [ %List.addr.0.val.i, %while.body.i36 ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %8 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i46 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
-  %9 = load i32, ptr %total_size.i.i.i46, align 8
-  %conv26.i.i.i47 = sext i32 %9 to i64
+  %total_size.i.i.i47 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
+  %9 = load i32, ptr %total_size.i.i.i47, align 8
+  %conv26.i.i.i48 = sext i32 %9 to i64
   %10 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i48 = add i64 %10, %conv26.i.i.i47
-  store i64 %add27.i.i.i48, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i49 = add i64 %10, %conv26.i.i.i48
+  store i64 %add27.i.i.i49, ptr @memory_FREEDBYTES, align 8
   %11 = load ptr, ptr %8, align 8
   store ptr %11, ptr %Current.06.i, align 8
   %12 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %12, align 8
-  %cmp.i.not.i49 = icmp eq ptr %L.addr.0.val.i, null
-  br i1 %cmp.i.not.i49, label %list_Delete.exit, label %while.body.i50, !llvm.loop !13
+  %cmp.i.not.i50 = icmp eq ptr %Current.0.val.i, null
+  br i1 %cmp.i.not.i50, label %list_Delete.exit, label %while.body.i51, !llvm.loop !13
 
-list_Delete.exit:                                 ; preds = %while.body.i50, %while.body.i35
+list_Delete.exit:                                 ; preds = %while.body.i51, %while.body.i36
   %13 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %13, i64 0, i32 4
   %14 = load i32, ptr %total_size.i.i.i, align 8
@@ -2238,69 +2244,69 @@ list_Delete.exit:                                 ; preds = %while.body.i50, %wh
   store ptr %16, ptr %List.addr.08.i, align 8
   %17 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %List.addr.08.i, ptr %17, align 8
-  %cmp.i.not.i = icmp eq ptr %List.addr.0.val6.i, null
-  br i1 %cmp.i.not.i, label %list_DeleteWithElement.exit, label %while.body.i35, !llvm.loop !20
+  %cmp.i.not.i35 = icmp eq ptr %List.addr.0.val6.i, null
+  br i1 %cmp.i.not.i35, label %list_DeleteWithElement.exit, label %while.body.i36, !llvm.loop !20
 
 list_DeleteWithElement.exit:                      ; preds = %list_Delete.exit, %if.end
-  br i1 %cmp.i, label %list_DeleteWithElement.exit45, label %while.body.i44
+  br i1 %cmp.i.not, label %list_DeleteWithElement.exit46, label %while.body.i45
 
-while.body.i44:                                   ; preds = %list_DeleteWithElement.exit, %list_Delete.exit59
-  %List.addr.08.i37 = phi ptr [ %List.addr.0.val6.i38, %list_Delete.exit59 ], [ %List2, %list_DeleteWithElement.exit ]
-  %List.addr.0.val6.i38 = load ptr, ptr %List.addr.08.i37, align 8
-  %18 = getelementptr i8, ptr %List.addr.08.i37, i64 8
-  %List.addr.0.val.i39 = load ptr, ptr %18, align 8
-  %cmp.i.not5.i51 = icmp eq ptr %List.addr.0.val.i39, null
-  br i1 %cmp.i.not5.i51, label %list_Delete.exit59, label %while.body.i58
+while.body.i45:                                   ; preds = %list_DeleteWithElement.exit, %list_Delete.exit60
+  %List.addr.08.i38 = phi ptr [ %List.addr.0.val6.i39, %list_Delete.exit60 ], [ %List2, %list_DeleteWithElement.exit ]
+  %List.addr.0.val6.i39 = load ptr, ptr %List.addr.08.i38, align 8
+  %18 = getelementptr i8, ptr %List.addr.08.i38, i64 8
+  %List.addr.0.val.i40 = load ptr, ptr %18, align 8
+  %cmp.i.not5.i52 = icmp eq ptr %List.addr.0.val.i40, null
+  br i1 %cmp.i.not5.i52, label %list_Delete.exit60, label %while.body.i59
 
-while.body.i58:                                   ; preds = %while.body.i44, %while.body.i58
-  %Current.06.i52 = phi ptr [ %L.addr.0.val.i53, %while.body.i58 ], [ %List.addr.0.val.i39, %while.body.i44 ]
-  %L.addr.0.val.i53 = load ptr, ptr %Current.06.i52, align 8
+while.body.i59:                                   ; preds = %while.body.i45, %while.body.i59
+  %Current.06.i53 = phi ptr [ %Current.0.val.i54, %while.body.i59 ], [ %List.addr.0.val.i40, %while.body.i45 ]
+  %Current.0.val.i54 = load ptr, ptr %Current.06.i53, align 8
   %19 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i54 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %19, i64 0, i32 4
-  %20 = load i32, ptr %total_size.i.i.i54, align 8
-  %conv26.i.i.i55 = sext i32 %20 to i64
+  %total_size.i.i.i55 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %19, i64 0, i32 4
+  %20 = load i32, ptr %total_size.i.i.i55, align 8
+  %conv26.i.i.i56 = sext i32 %20 to i64
   %21 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i56 = add i64 %21, %conv26.i.i.i55
-  store i64 %add27.i.i.i56, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i57 = add i64 %21, %conv26.i.i.i56
+  store i64 %add27.i.i.i57, ptr @memory_FREEDBYTES, align 8
   %22 = load ptr, ptr %19, align 8
-  store ptr %22, ptr %Current.06.i52, align 8
+  store ptr %22, ptr %Current.06.i53, align 8
   %23 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Current.06.i52, ptr %23, align 8
-  %cmp.i.not.i57 = icmp eq ptr %L.addr.0.val.i53, null
-  br i1 %cmp.i.not.i57, label %list_Delete.exit59, label %while.body.i58, !llvm.loop !13
+  store ptr %Current.06.i53, ptr %23, align 8
+  %cmp.i.not.i58 = icmp eq ptr %Current.0.val.i54, null
+  br i1 %cmp.i.not.i58, label %list_Delete.exit60, label %while.body.i59, !llvm.loop !13
 
-list_Delete.exit59:                               ; preds = %while.body.i58, %while.body.i44
+list_Delete.exit60:                               ; preds = %while.body.i59, %while.body.i45
   %24 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  %total_size.i.i.i40 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %24, i64 0, i32 4
-  %25 = load i32, ptr %total_size.i.i.i40, align 8
-  %conv26.i.i.i41 = sext i32 %25 to i64
+  %total_size.i.i.i41 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %24, i64 0, i32 4
+  %25 = load i32, ptr %total_size.i.i.i41, align 8
+  %conv26.i.i.i42 = sext i32 %25 to i64
   %26 = load i64, ptr @memory_FREEDBYTES, align 8
-  %add27.i.i.i42 = add i64 %26, %conv26.i.i.i41
-  store i64 %add27.i.i.i42, ptr @memory_FREEDBYTES, align 8
+  %add27.i.i.i43 = add i64 %26, %conv26.i.i.i42
+  store i64 %add27.i.i.i43, ptr @memory_FREEDBYTES, align 8
   %27 = load ptr, ptr %24, align 8
-  store ptr %27, ptr %List.addr.08.i37, align 8
+  store ptr %27, ptr %List.addr.08.i38, align 8
   %28 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.08.i37, ptr %28, align 8
-  %cmp.i.not.i43 = icmp eq ptr %List.addr.0.val6.i38, null
-  br i1 %cmp.i.not.i43, label %list_DeleteWithElement.exit45, label %while.body.i44, !llvm.loop !20
+  store ptr %List.addr.08.i38, ptr %28, align 8
+  %cmp.i.not.i44 = icmp eq ptr %List.addr.0.val6.i39, null
+  br i1 %cmp.i.not.i44, label %list_DeleteWithElement.exit46, label %while.body.i45, !llvm.loop !20
 
-list_DeleteWithElement.exit45:                    ; preds = %list_Delete.exit59, %list_DeleteWithElement.exit
+list_DeleteWithElement.exit46:                    ; preds = %list_Delete.exit60, %list_DeleteWithElement.exit
   ret ptr %Result.2
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NIntersect(ptr noundef %List1, ptr noundef readonly %List2, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cond68 = icmp eq ptr %List1, null
-  br i1 %cond68, label %cleanup, label %land.rhs.lr.ph
+  %cmp.i.not72 = icmp eq ptr %List1, null
+  br i1 %cmp.i.not72, label %cleanup, label %land.rhs.lr.ph
 
 land.rhs.lr.ph:                                   ; preds = %entry
   %cmp.i.not8.i = icmp eq ptr %List2, null
   br i1 %cmp.i.not8.i, label %land.rhs.us, label %land.rhs
 
 land.rhs.us:                                      ; preds = %land.rhs.lr.ph, %land.rhs.us
-  %List1.addr.069.us = phi ptr [ %List1.addr.0.val45.us, %land.rhs.us ], [ %List1, %land.rhs.lr.ph ]
-  %List1.addr.0.val45.us = load ptr, ptr %List1.addr.069.us, align 8
+  %List1.addr.073.us = phi ptr [ %List1.addr.0.val45.us, %land.rhs.us ], [ %List1, %land.rhs.lr.ph ]
+  %List1.addr.0.val45.us = load ptr, ptr %List1.addr.073.us, align 8
   %0 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.us = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %0, i64 0, i32 4
   %1 = load i32, ptr %total_size.i.i.us, align 8
@@ -2309,15 +2315,15 @@ land.rhs.us:                                      ; preds = %land.rhs.lr.ph, %la
   %add27.i.i.us = add i64 %2, %conv26.i.i.us
   store i64 %add27.i.i.us, ptr @memory_FREEDBYTES, align 8
   %3 = load ptr, ptr %0, align 8
-  store ptr %3, ptr %List1.addr.069.us, align 8
+  store ptr %3, ptr %List1.addr.073.us, align 8
   %4 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List1.addr.069.us, ptr %4, align 8
-  %cond.us = icmp eq ptr %List1.addr.0.val45.us, null
-  br i1 %cond.us, label %cleanup, label %land.rhs.us, !llvm.loop !48
+  store ptr %List1.addr.073.us, ptr %4, align 8
+  %cmp.i.not.us = icmp eq ptr %List1.addr.0.val45.us, null
+  br i1 %cmp.i.not.us, label %cleanup, label %land.rhs.us, !llvm.loop !48
 
-land.rhs:                                         ; preds = %land.rhs.lr.ph, %while.body.critedge.loopexit
-  %List1.addr.069 = phi ptr [ %List1.addr.0.val45, %while.body.critedge.loopexit ], [ %List1, %land.rhs.lr.ph ]
-  %5 = getelementptr i8, ptr %List1.addr.069, i64 8
+land.rhs:                                         ; preds = %land.rhs.lr.ph, %while.body.loopexit
+  %List1.addr.073 = phi ptr [ %List1.addr.0.val45, %while.body.loopexit ], [ %List1, %land.rhs.lr.ph ]
+  %5 = getelementptr i8, ptr %List1.addr.073, i64 8
   %List1.addr.0.val = load ptr, ptr %5, align 8
   br label %while.body.i
 
@@ -2327,15 +2333,15 @@ while.body.i:                                     ; preds = %land.rhs, %if.end.i
   %List.addr.0.val.i = load ptr, ptr %6, align 8
   %call2.i = tail call i32 %Test(ptr noundef %List1.addr.0.val, ptr noundef %List.addr.0.val.i) #8
   %tobool3.not.i = icmp eq i32 %call2.i, 0
-  br i1 %tobool3.not.i, label %if.end.i, label %while.end
+  br i1 %tobool3.not.i, label %if.end.i, label %while.cond8.preheader
 
 if.end.i:                                         ; preds = %while.body.i
   %List.addr.0.val7.i = load ptr, ptr %List.addr.09.i, align 8
   %cmp.i.not.i = icmp eq ptr %List.addr.0.val7.i, null
-  br i1 %cmp.i.not.i, label %while.body.critedge.loopexit, label %while.body.i, !llvm.loop !49
+  br i1 %cmp.i.not.i, label %while.body.loopexit, label %while.body.i, !llvm.loop !49
 
-while.body.critedge.loopexit:                     ; preds = %if.end.i
-  %List1.addr.0.val45 = load ptr, ptr %List1.addr.069, align 8
+while.body.loopexit:                              ; preds = %if.end.i
+  %List1.addr.0.val45 = load ptr, ptr %List1.addr.073, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i, align 8
@@ -2344,25 +2350,21 @@ while.body.critedge.loopexit:                     ; preds = %if.end.i
   %add27.i.i = add i64 %9, %conv26.i.i
   store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %List1.addr.069, align 8
+  store ptr %10, ptr %List1.addr.073, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List1.addr.069, ptr %11, align 8
-  %cond = icmp eq ptr %List1.addr.0.val45, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !48
+  store ptr %List1.addr.073, ptr %11, align 8
+  %cmp.i.not = icmp eq ptr %List1.addr.0.val45, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !48
 
-while.end:                                        ; preds = %while.body.i
-  %cmp.i46 = icmp eq ptr %List1.addr.069, null
-  br i1 %cmp.i46, label %cleanup, label %while.cond8.preheader
-
-while.cond8.preheader:                            ; preds = %while.end
-  %Scan2.070 = load ptr, ptr %List1.addr.069, align 8
-  %cmp.i48.not71 = icmp eq ptr %Scan2.070, null
-  br i1 %cmp.i48.not71, label %cleanup, label %while.body12
+while.cond8.preheader:                            ; preds = %while.body.i
+  %Scan2.075 = load ptr, ptr %List1.addr.073, align 8
+  %cmp.i48.not76 = icmp eq ptr %Scan2.075, null
+  br i1 %cmp.i48.not76, label %cleanup, label %while.body12
 
 while.body12:                                     ; preds = %while.cond8.preheader, %if.end21
-  %Scan2.073 = phi ptr [ %Scan2.0, %if.end21 ], [ %Scan2.070, %while.cond8.preheader ]
-  %Scan1.072 = phi ptr [ %Scan1.1, %if.end21 ], [ %List1.addr.069, %while.cond8.preheader ]
-  %12 = getelementptr i8, ptr %Scan2.073, i64 8
+  %Scan2.078 = phi ptr [ %Scan2.0, %if.end21 ], [ %Scan2.075, %while.cond8.preheader ]
+  %Scan1.077 = phi ptr [ %Scan1.1, %if.end21 ], [ %List1.addr.073, %while.cond8.preheader ]
+  %12 = getelementptr i8, ptr %Scan2.078, i64 8
   %Scan2.0.val = load ptr, ptr %12, align 8
   br label %while.body.i55
 
@@ -2380,12 +2382,12 @@ if.end.i58:                                       ; preds = %while.body.i55
   br i1 %cmp.i.not.i57, label %if.else, label %while.body.i55, !llvm.loop !49
 
 if.then16:                                        ; preds = %while.body.i55
-  %Scan1.0.val42 = load ptr, ptr %Scan1.072, align 8
+  %Scan1.0.val42 = load ptr, ptr %Scan1.077, align 8
   br label %if.end21
 
 if.else:                                          ; preds = %if.end.i58
-  %Scan2.0.val41 = load ptr, ptr %Scan2.073, align 8
-  store ptr %Scan2.0.val41, ptr %Scan1.072, align 8
+  %Scan2.0.val41 = load ptr, ptr %Scan2.078, align 8
+  store ptr %Scan2.0.val41, ptr %Scan1.077, align 8
   %14 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i61 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %14, i64 0, i32 4
   %15 = load i32, ptr %total_size.i.i61, align 8
@@ -2394,36 +2396,36 @@ if.else:                                          ; preds = %if.end.i58
   %add27.i.i63 = add i64 %16, %conv26.i.i62
   store i64 %add27.i.i63, ptr @memory_FREEDBYTES, align 8
   %17 = load ptr, ptr %14, align 8
-  store ptr %17, ptr %Scan2.073, align 8
+  store ptr %17, ptr %Scan2.078, align 8
   %18 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan2.073, ptr %18, align 8
+  store ptr %Scan2.078, ptr %18, align 8
   br label %if.end21
 
 if.end21:                                         ; preds = %if.else, %if.then16
-  %Scan1.1 = phi ptr [ %Scan1.0.val42, %if.then16 ], [ %Scan1.072, %if.else ]
-  %Scan2.1.in = phi ptr [ %Scan2.073, %if.then16 ], [ %Scan1.072, %if.else ]
+  %Scan1.1 = phi ptr [ %Scan1.0.val42, %if.then16 ], [ %Scan1.077, %if.else ]
+  %Scan2.1.in = phi ptr [ %Scan2.078, %if.then16 ], [ %Scan1.077, %if.else ]
   %Scan2.0 = load ptr, ptr %Scan2.1.in, align 8
   %cmp.i48.not = icmp eq ptr %Scan2.0, null
   br i1 %cmp.i48.not, label %cleanup, label %while.body12, !llvm.loop !50
 
-cleanup:                                          ; preds = %while.body.critedge.loopexit, %if.end21, %land.rhs.us, %entry, %while.cond8.preheader, %while.end
-  %List1.addr.066 = phi ptr [ null, %while.end ], [ %List1.addr.069, %while.cond8.preheader ], [ null, %entry ], [ null, %land.rhs.us ], [ %List1.addr.069, %if.end21 ], [ null, %while.body.critedge.loopexit ]
-  ret ptr %List1.addr.066
+cleanup:                                          ; preds = %while.body.loopexit, %if.end21, %land.rhs.us, %entry, %while.cond8.preheader
+  %List1.addr.071 = phi ptr [ %List1.addr.073, %while.cond8.preheader ], [ null, %entry ], [ null, %land.rhs.us ], [ %List1.addr.073, %if.end21 ], [ null, %while.body.loopexit ]
+  ret ptr %List1.addr.071
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_NPointerIntersect(ptr noundef %List1, ptr noundef readonly %List2) local_unnamed_addr #2 {
 entry:
-  %cond67 = icmp eq ptr %List1, null
-  br i1 %cond67, label %cleanup, label %land.rhs.lr.ph
+  %cmp.i.not71 = icmp eq ptr %List1, null
+  br i1 %cmp.i.not71, label %cleanup, label %land.rhs.lr.ph
 
 land.rhs.lr.ph:                                   ; preds = %entry
   %cmp.i.not6.i = icmp eq ptr %List2, null
   br i1 %cmp.i.not6.i, label %land.rhs.us, label %land.rhs
 
 land.rhs.us:                                      ; preds = %land.rhs.lr.ph, %land.rhs.us
-  %List1.addr.068.us = phi ptr [ %List1.addr.0.val44.us, %land.rhs.us ], [ %List1, %land.rhs.lr.ph ]
-  %List1.addr.0.val44.us = load ptr, ptr %List1.addr.068.us, align 8
+  %List1.addr.072.us = phi ptr [ %List1.addr.0.val44.us, %land.rhs.us ], [ %List1, %land.rhs.lr.ph ]
+  %List1.addr.0.val44.us = load ptr, ptr %List1.addr.072.us, align 8
   %0 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.us = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %0, i64 0, i32 4
   %1 = load i32, ptr %total_size.i.i.us, align 8
@@ -2432,15 +2434,15 @@ land.rhs.us:                                      ; preds = %land.rhs.lr.ph, %la
   %add27.i.i.us = add i64 %2, %conv26.i.i.us
   store i64 %add27.i.i.us, ptr @memory_FREEDBYTES, align 8
   %3 = load ptr, ptr %0, align 8
-  store ptr %3, ptr %List1.addr.068.us, align 8
+  store ptr %3, ptr %List1.addr.072.us, align 8
   %4 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List1.addr.068.us, ptr %4, align 8
-  %cond.us = icmp eq ptr %List1.addr.0.val44.us, null
-  br i1 %cond.us, label %cleanup, label %land.rhs.us, !llvm.loop !51
+  store ptr %List1.addr.072.us, ptr %4, align 8
+  %cmp.i.not.us = icmp eq ptr %List1.addr.0.val44.us, null
+  br i1 %cmp.i.not.us, label %cleanup, label %land.rhs.us, !llvm.loop !51
 
-land.rhs:                                         ; preds = %land.rhs.lr.ph, %while.body.critedge.loopexit
-  %List1.addr.068 = phi ptr [ %List1.addr.0.val44, %while.body.critedge.loopexit ], [ %List1, %land.rhs.lr.ph ]
-  %5 = getelementptr i8, ptr %List1.addr.068, i64 8
+land.rhs:                                         ; preds = %land.rhs.lr.ph, %while.body.loopexit
+  %List1.addr.072 = phi ptr [ %List1.addr.0.val44, %while.body.loopexit ], [ %List1, %land.rhs.lr.ph ]
+  %5 = getelementptr i8, ptr %List1.addr.072, i64 8
   %List1.addr.0.val = load ptr, ptr %5, align 8
   br label %while.body.i
 
@@ -2449,15 +2451,15 @@ while.body.i:                                     ; preds = %land.rhs, %if.end.i
   %6 = getelementptr i8, ptr %List.addr.07.i, i64 8
   %List.addr.0.val.i = load ptr, ptr %6, align 8
   %cmp.i45 = icmp eq ptr %List.addr.0.val.i, %List1.addr.0.val
-  br i1 %cmp.i45, label %while.end, label %if.end.i
+  br i1 %cmp.i45, label %while.cond8.preheader, label %if.end.i
 
 if.end.i:                                         ; preds = %while.body.i
   %List.addr.0.val5.i = load ptr, ptr %List.addr.07.i, align 8
   %cmp.i.not.i = icmp eq ptr %List.addr.0.val5.i, null
-  br i1 %cmp.i.not.i, label %while.body.critedge.loopexit, label %while.body.i, !llvm.loop !40
+  br i1 %cmp.i.not.i, label %while.body.loopexit, label %while.body.i, !llvm.loop !40
 
-while.body.critedge.loopexit:                     ; preds = %if.end.i
-  %List1.addr.0.val44 = load ptr, ptr %List1.addr.068, align 8
+while.body.loopexit:                              ; preds = %if.end.i
+  %List1.addr.0.val44 = load ptr, ptr %List1.addr.072, align 8
   %7 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %7, i64 0, i32 4
   %8 = load i32, ptr %total_size.i.i, align 8
@@ -2466,25 +2468,21 @@ while.body.critedge.loopexit:                     ; preds = %if.end.i
   %add27.i.i = add i64 %9, %conv26.i.i
   store i64 %add27.i.i, ptr @memory_FREEDBYTES, align 8
   %10 = load ptr, ptr %7, align 8
-  store ptr %10, ptr %List1.addr.068, align 8
+  store ptr %10, ptr %List1.addr.072, align 8
   %11 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List1.addr.068, ptr %11, align 8
-  %cond = icmp eq ptr %List1.addr.0.val44, null
-  br i1 %cond, label %cleanup, label %land.rhs, !llvm.loop !51
+  store ptr %List1.addr.072, ptr %11, align 8
+  %cmp.i.not = icmp eq ptr %List1.addr.0.val44, null
+  br i1 %cmp.i.not, label %cleanup, label %land.rhs, !llvm.loop !51
 
-while.end:                                        ; preds = %while.body.i
-  %cmp.i46 = icmp eq ptr %List1.addr.068, null
-  br i1 %cmp.i46, label %cleanup, label %while.cond8.preheader
-
-while.cond8.preheader:                            ; preds = %while.end
-  %Scan2.069 = load ptr, ptr %List1.addr.068, align 8
-  %cmp.i48.not70 = icmp eq ptr %Scan2.069, null
-  br i1 %cmp.i48.not70, label %cleanup, label %while.body12
+while.cond8.preheader:                            ; preds = %while.body.i
+  %Scan2.074 = load ptr, ptr %List1.addr.072, align 8
+  %cmp.i48.not75 = icmp eq ptr %Scan2.074, null
+  br i1 %cmp.i48.not75, label %cleanup, label %while.body12
 
 while.body12:                                     ; preds = %while.cond8.preheader, %if.end21
-  %Scan2.072 = phi ptr [ %Scan2.0, %if.end21 ], [ %Scan2.069, %while.cond8.preheader ]
-  %Scan1.071 = phi ptr [ %Scan1.1, %if.end21 ], [ %List1.addr.068, %while.cond8.preheader ]
-  %12 = getelementptr i8, ptr %Scan2.072, i64 8
+  %Scan2.077 = phi ptr [ %Scan2.0, %if.end21 ], [ %Scan2.074, %while.cond8.preheader ]
+  %Scan1.076 = phi ptr [ %Scan1.1, %if.end21 ], [ %List1.addr.072, %while.cond8.preheader ]
+  %12 = getelementptr i8, ptr %Scan2.077, i64 8
   %Scan2.0.val = load ptr, ptr %12, align 8
   br label %while.body.i54
 
@@ -2501,12 +2499,12 @@ if.end.i57:                                       ; preds = %while.body.i54
   br i1 %cmp.i.not.i56, label %if.else, label %while.body.i54, !llvm.loop !40
 
 if.then16:                                        ; preds = %while.body.i54
-  %Scan1.0.val41 = load ptr, ptr %Scan1.071, align 8
+  %Scan1.0.val41 = load ptr, ptr %Scan1.076, align 8
   br label %if.end21
 
 if.else:                                          ; preds = %if.end.i57
-  %Scan2.0.val40 = load ptr, ptr %Scan2.072, align 8
-  store ptr %Scan2.0.val40, ptr %Scan1.071, align 8
+  %Scan2.0.val40 = load ptr, ptr %Scan2.077, align 8
+  store ptr %Scan2.0.val40, ptr %Scan1.076, align 8
   %14 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i60 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %14, i64 0, i32 4
   %15 = load i32, ptr %total_size.i.i60, align 8
@@ -2515,21 +2513,21 @@ if.else:                                          ; preds = %if.end.i57
   %add27.i.i62 = add i64 %16, %conv26.i.i61
   store i64 %add27.i.i62, ptr @memory_FREEDBYTES, align 8
   %17 = load ptr, ptr %14, align 8
-  store ptr %17, ptr %Scan2.072, align 8
+  store ptr %17, ptr %Scan2.077, align 8
   %18 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan2.072, ptr %18, align 8
+  store ptr %Scan2.077, ptr %18, align 8
   br label %if.end21
 
 if.end21:                                         ; preds = %if.else, %if.then16
-  %Scan1.1 = phi ptr [ %Scan1.0.val41, %if.then16 ], [ %Scan1.071, %if.else ]
-  %Scan2.1.in = phi ptr [ %Scan2.072, %if.then16 ], [ %Scan1.071, %if.else ]
+  %Scan1.1 = phi ptr [ %Scan1.0.val41, %if.then16 ], [ %Scan1.076, %if.else ]
+  %Scan2.1.in = phi ptr [ %Scan2.077, %if.then16 ], [ %Scan1.076, %if.else ]
   %Scan2.0 = load ptr, ptr %Scan2.1.in, align 8
   %cmp.i48.not = icmp eq ptr %Scan2.0, null
   br i1 %cmp.i48.not, label %cleanup, label %while.body12, !llvm.loop !52
 
-cleanup:                                          ; preds = %while.body.critedge.loopexit, %if.end21, %land.rhs.us, %entry, %while.cond8.preheader, %while.end
-  %List1.addr.065 = phi ptr [ null, %while.end ], [ %List1.addr.068, %while.cond8.preheader ], [ null, %entry ], [ null, %land.rhs.us ], [ %List1.addr.068, %if.end21 ], [ null, %while.body.critedge.loopexit ]
-  ret ptr %List1.addr.065
+cleanup:                                          ; preds = %while.body.loopexit, %if.end21, %land.rhs.us, %entry, %while.cond8.preheader
+  %List1.addr.070 = phi ptr [ %List1.addr.072, %while.cond8.preheader ], [ null, %entry ], [ null, %land.rhs.us ], [ %List1.addr.072, %if.end21 ], [ null, %while.body.loopexit ]
+  ret ptr %List1.addr.070
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
@@ -2538,16 +2536,16 @@ entry:
   %List1.val = load ptr, ptr %List1, align 8
   store ptr %List2, ptr %List1, align 8
   %cmp.i.not10 = icmp eq ptr %List2, null
-  br i1 %cmp.i.not10, label %while.end, label %while.body
+  br i1 %cmp.i.not10, label %while.end, label %while.condthread-pre-split, !llvm.loop !53
 
-while.body:                                       ; preds = %entry, %while.body
-  %List2.addr.0.val911 = phi ptr [ %List2.addr.0.val9.pr, %while.body ], [ %List2, %entry ]
+while.condthread-pre-split:                       ; preds = %entry, %while.condthread-pre-split
+  %List2.addr.0.val911 = phi ptr [ %List2.addr.0.val9.pr, %while.condthread-pre-split ], [ %List2, %entry ]
   %List2.addr.0.val9.pr = load ptr, ptr %List2.addr.0.val911, align 8
   %cmp.i.not = icmp eq ptr %List2.addr.0.val9.pr, null
-  br i1 %cmp.i.not, label %while.end, label %while.body, !llvm.loop !53
+  br i1 %cmp.i.not, label %while.end, label %while.condthread-pre-split, !llvm.loop !53
 
-while.end:                                        ; preds = %while.body, %entry
-  %List2.addr.0.lcssa = phi ptr [ %List1, %entry ], [ %List2.addr.0.val911, %while.body ]
+while.end:                                        ; preds = %while.condthread-pre-split, %entry
+  %List2.addr.0.lcssa = phi ptr [ %List1, %entry ], [ %List2.addr.0.val911, %while.condthread-pre-split ]
   store ptr %List1.val, ptr %List2.addr.0.lcssa, align 8
   ret void
 }
@@ -2555,14 +2553,14 @@ while.end:                                        ; preds = %while.body, %entry
 ; Function Attrs: nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable
 define dso_local i32 @list_HasIntersection(ptr noundef readonly %List1, ptr noundef readonly %List2) local_unnamed_addr #5 {
 entry:
-  %cmp.i = icmp eq ptr %List2, null
-  %cmp.i13.not17 = icmp eq ptr %List1, null
-  %or.cond = or i1 %cmp.i, %cmp.i13.not17
+  %cmp.i.not = icmp eq ptr %List2, null
+  %cmp.i13.not19 = icmp eq ptr %List1, null
+  %or.cond = or i1 %cmp.i.not, %cmp.i13.not19
   br i1 %or.cond, label %cleanup, label %for.body
 
-for.body:                                         ; preds = %entry, %for.inc
-  %Scan.018 = phi ptr [ %Scan.0.val12, %for.inc ], [ %List1, %entry ]
-  %0 = getelementptr i8, ptr %Scan.018, i64 8
+for.body:                                         ; preds = %entry, %for.inc.loopexit
+  %Scan.020 = phi ptr [ %Scan.0.val12, %for.inc.loopexit ], [ %List1, %entry ]
+  %0 = getelementptr i8, ptr %Scan.020, i64 8
   %Scan.0.val = load ptr, ptr %0, align 8
   br label %while.body.i
 
@@ -2576,47 +2574,45 @@ while.body.i:                                     ; preds = %for.body, %if.end.i
 if.end.i:                                         ; preds = %while.body.i
   %List.addr.0.val5.i = load ptr, ptr %List.addr.07.i, align 8
   %cmp.i.not.i = icmp eq ptr %List.addr.0.val5.i, null
-  br i1 %cmp.i.not.i, label %for.inc, label %while.body.i, !llvm.loop !40
+  br i1 %cmp.i.not.i, label %for.inc.loopexit, label %while.body.i, !llvm.loop !40
 
-for.inc:                                          ; preds = %if.end.i
-  %Scan.0.val12 = load ptr, ptr %Scan.018, align 8
+for.inc.loopexit:                                 ; preds = %if.end.i
+  %Scan.0.val12 = load ptr, ptr %Scan.020, align 8
   %cmp.i13.not = icmp eq ptr %Scan.0.val12, null
   br i1 %cmp.i13.not, label %cleanup, label %for.body, !llvm.loop !54
 
-cleanup:                                          ; preds = %for.inc, %while.body.i, %entry
-  %retval.0 = phi i32 [ 0, %entry ], [ 1, %while.body.i ], [ 0, %for.inc ]
+cleanup:                                          ; preds = %for.inc.loopexit, %while.body.i, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ 1, %while.body.i ], [ 0, %for.inc.loopexit ]
   ret i32 %retval.0
 }
 
 ; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
 define dso_local ptr @list_NPointerDifference(ptr noundef %List1, ptr noundef readonly %List2) local_unnamed_addr #2 {
 entry:
-  %cmp.i = icmp eq ptr %List1, null
-  br i1 %cmp.i, label %if.end, label %for.cond.preheader
-
-for.cond.preheader:                               ; preds = %entry
+  %cmp.i.not = icmp eq ptr %List1, null
   %cmp.i11.not16 = icmp eq ptr %List2, null
-  br i1 %cmp.i11.not16, label %if.end, label %for.body
+  %or.cond = or i1 %cmp.i.not, %cmp.i11.not16
+  br i1 %or.cond, label %if.end, label %for.body
 
-for.body:                                         ; preds = %for.cond.preheader, %list_PointerDeleteElement.exit
-  %Scan.018 = phi ptr [ %Scan.0.val10, %list_PointerDeleteElement.exit ], [ %List2, %for.cond.preheader ]
-  %List1.addr.017 = phi ptr [ %retval.0.i, %list_PointerDeleteElement.exit ], [ %List1, %for.cond.preheader ]
+for.body:                                         ; preds = %entry, %list_PointerDeleteElement.exit
+  %Scan.018 = phi ptr [ %Scan.0.val10, %list_PointerDeleteElement.exit ], [ %List2, %entry ]
+  %List1.addr.017 = phi ptr [ %retval.0.i, %list_PointerDeleteElement.exit ], [ %List1, %entry ]
   %0 = getelementptr i8, ptr %Scan.018, i64 8
   %Scan.0.val = load ptr, ptr %0, align 8
-  %cond49.i = icmp eq ptr %List1.addr.017, null
-  br i1 %cond49.i, label %list_PointerDeleteElement.exit, label %land.rhs.i
+  %cmp.i.not48.i = icmp eq ptr %List1.addr.017, null
+  br i1 %cmp.i.not48.i, label %list_PointerDeleteElement.exit, label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %for.body, %while.body.i
-  %List.addr.050.i = phi ptr [ %List.addr.0.val38.i, %while.body.i ], [ %List1.addr.017, %for.body ]
-  %1 = getelementptr i8, ptr %List.addr.050.i, i64 8
+  %List.addr.049.i = phi ptr [ %List.addr.0.val38.i, %while.body.i ], [ %List1.addr.017, %for.body ]
+  %1 = getelementptr i8, ptr %List.addr.049.i, i64 8
   %List.addr.0.val.i = load ptr, ptr %1, align 8
   %cmp.i13 = icmp eq ptr %List.addr.0.val.i, %Scan.0.val
-  %List.addr.0.val38.i = load ptr, ptr %List.addr.050.i, align 8
+  %List.addr.0.val38.i = load ptr, ptr %List.addr.049.i, align 8
   br i1 %cmp.i13, label %while.body.i, label %while.cond7.preheader.i
 
 while.cond7.preheader.i:                          ; preds = %land.rhs.i
-  %cmp.i41.not52.i = icmp eq ptr %List.addr.0.val38.i, null
-  br i1 %cmp.i41.not52.i, label %list_PointerDeleteElement.exit, label %while.body10.i
+  %cmp.i41.not51.i = icmp eq ptr %List.addr.0.val38.i, null
+  br i1 %cmp.i41.not51.i, label %list_PointerDeleteElement.exit, label %while.body10.i
 
 while.body.i:                                     ; preds = %land.rhs.i
   %2 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -2627,23 +2623,23 @@ while.body.i:                                     ; preds = %land.rhs.i
   %add27.i.i.i = add i64 %4, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
   %5 = load ptr, ptr %2, align 8
-  store ptr %5, ptr %List.addr.050.i, align 8
+  store ptr %5, ptr %List.addr.049.i, align 8
   %6 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.050.i, ptr %6, align 8
-  %cond.i = icmp eq ptr %List.addr.0.val38.i, null
-  br i1 %cond.i, label %list_PointerDeleteElement.exit, label %land.rhs.i, !llvm.loop !31
+  store ptr %List.addr.049.i, ptr %6, align 8
+  %cmp.i.not.i = icmp eq ptr %List.addr.0.val38.i, null
+  br i1 %cmp.i.not.i, label %list_PointerDeleteElement.exit, label %land.rhs.i, !llvm.loop !31
 
 while.body10.i:                                   ; preds = %while.cond7.preheader.i, %if.end17.i
-  %Scan1.054.i = phi ptr [ %Scan1.0.i, %if.end17.i ], [ %List.addr.0.val38.i, %while.cond7.preheader.i ]
-  %Scan2.053.i = phi ptr [ %Scan2.1.i, %if.end17.i ], [ %List.addr.050.i, %while.cond7.preheader.i ]
-  %7 = getelementptr i8, ptr %Scan1.054.i, i64 8
+  %Scan1.053.i = phi ptr [ %Scan1.0.i, %if.end17.i ], [ %List.addr.0.val38.i, %while.cond7.preheader.i ]
+  %Scan2.052.i = phi ptr [ %Scan2.1.i, %if.end17.i ], [ %List.addr.049.i, %while.cond7.preheader.i ]
+  %7 = getelementptr i8, ptr %Scan1.053.i, i64 8
   %Scan1.0.val.i = load ptr, ptr %7, align 8
   %cmp12.i = icmp eq ptr %Scan1.0.val.i, %Scan.0.val
   br i1 %cmp12.i, label %if.then13.i, label %if.end17.i
 
 if.then13.i:                                      ; preds = %while.body10.i
-  %Scan1.0.val36.i = load ptr, ptr %Scan1.054.i, align 8
-  store ptr %Scan1.0.val36.i, ptr %Scan2.053.i, align 8
+  %Scan1.0.val36.i = load ptr, ptr %Scan1.053.i, align 8
+  store ptr %Scan1.0.val36.i, ptr %Scan2.052.i, align 8
   %8 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i43.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
   %9 = load i32, ptr %total_size.i.i43.i, align 8
@@ -2652,58 +2648,56 @@ if.then13.i:                                      ; preds = %while.body10.i
   %add27.i.i45.i = add i64 %10, %conv26.i.i44.i
   store i64 %add27.i.i45.i, ptr @memory_FREEDBYTES, align 8
   %11 = load ptr, ptr %8, align 8
-  store ptr %11, ptr %Scan1.054.i, align 8
+  store ptr %11, ptr %Scan1.053.i, align 8
   %12 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.054.i, ptr %12, align 8
+  store ptr %Scan1.053.i, ptr %12, align 8
   br label %if.end17.i
 
 if.end17.i:                                       ; preds = %if.then13.i, %while.body10.i
-  %Scan2.1.i = phi ptr [ %Scan2.053.i, %if.then13.i ], [ %Scan1.054.i, %while.body10.i ]
+  %Scan2.1.i = phi ptr [ %Scan2.052.i, %if.then13.i ], [ %Scan1.053.i, %while.body10.i ]
   %Scan1.0.i = load ptr, ptr %Scan2.1.i, align 8
   %cmp.i41.not.i = icmp eq ptr %Scan1.0.i, null
   br i1 %cmp.i41.not.i, label %list_PointerDeleteElement.exit, label %while.body10.i, !llvm.loop !32
 
 list_PointerDeleteElement.exit:                   ; preds = %while.body.i, %if.end17.i, %for.body, %while.cond7.preheader.i
-  %retval.0.i = phi ptr [ %List.addr.050.i, %while.cond7.preheader.i ], [ null, %for.body ], [ %List.addr.050.i, %if.end17.i ], [ null, %while.body.i ]
+  %retval.0.i = phi ptr [ %List.addr.049.i, %while.cond7.preheader.i ], [ null, %for.body ], [ %List.addr.049.i, %if.end17.i ], [ null, %while.body.i ]
   %Scan.0.val10 = load ptr, ptr %Scan.018, align 8
   %cmp.i11.not = icmp eq ptr %Scan.0.val10, null
   br i1 %cmp.i11.not, label %if.end, label %for.body, !llvm.loop !55
 
-if.end:                                           ; preds = %list_PointerDeleteElement.exit, %for.cond.preheader, %entry
-  %List1.addr.1 = phi ptr [ null, %entry ], [ %List1, %for.cond.preheader ], [ %retval.0.i, %list_PointerDeleteElement.exit ]
+if.end:                                           ; preds = %list_PointerDeleteElement.exit, %entry
+  %List1.addr.1 = phi ptr [ %List1, %entry ], [ %retval.0.i, %list_PointerDeleteElement.exit ]
   ret ptr %List1.addr.1
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NDifference(ptr noundef %List1, ptr noundef readonly %List2, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %List1, null
-  br i1 %cmp.i, label %if.end, label %for.cond.preheader
-
-for.cond.preheader:                               ; preds = %entry
+  %cmp.i.not = icmp eq ptr %List1, null
   %cmp.i11.not15 = icmp eq ptr %List2, null
-  br i1 %cmp.i11.not15, label %if.end, label %for.body
+  %or.cond = or i1 %cmp.i.not, %cmp.i11.not15
+  br i1 %or.cond, label %if.end, label %for.body
 
-for.body:                                         ; preds = %for.cond.preheader, %list_DeleteElement.exit
-  %Scan.017 = phi ptr [ %Scan.0.val10, %list_DeleteElement.exit ], [ %List2, %for.cond.preheader ]
-  %List1.addr.016 = phi ptr [ %retval.0.i, %list_DeleteElement.exit ], [ %List1, %for.cond.preheader ]
+for.body:                                         ; preds = %entry, %list_DeleteElement.exit
+  %Scan.017 = phi ptr [ %Scan.0.val10, %list_DeleteElement.exit ], [ %List2, %entry ]
+  %List1.addr.016 = phi ptr [ %retval.0.i, %list_DeleteElement.exit ], [ %List1, %entry ]
   %0 = getelementptr i8, ptr %Scan.017, i64 8
   %Scan.0.val = load ptr, ptr %0, align 8
-  %cond53.i = icmp eq ptr %List1.addr.016, null
-  br i1 %cond53.i, label %list_DeleteElement.exit, label %land.rhs.i
+  %cmp.i.not52.i = icmp eq ptr %List1.addr.016, null
+  br i1 %cmp.i.not52.i, label %list_DeleteElement.exit, label %land.rhs.i
 
 land.rhs.i:                                       ; preds = %for.body, %while.body.i
-  %List.addr.054.i = phi ptr [ %Scan1.055.i, %while.body.i ], [ %List1.addr.016, %for.body ]
-  %1 = getelementptr i8, ptr %List.addr.054.i, i64 8
+  %List.addr.053.i = phi ptr [ %Scan1.054.i, %while.body.i ], [ %List1.addr.016, %for.body ]
+  %1 = getelementptr i8, ptr %List.addr.053.i, i64 8
   %List.addr.0.val.i = load ptr, ptr %1, align 8
   %call2.i = tail call i32 %Test(ptr noundef %Scan.0.val, ptr noundef %List.addr.0.val.i) #8
   %tobool3.not.i = icmp eq i32 %call2.i, 0
-  %Scan1.055.i = load ptr, ptr %List.addr.054.i, align 8
+  %Scan1.054.i = load ptr, ptr %List.addr.053.i, align 8
   br i1 %tobool3.not.i, label %while.cond9.preheader.i, label %while.body.i
 
 while.cond9.preheader.i:                          ; preds = %land.rhs.i
-  %cmp.i45.not56.i = icmp eq ptr %Scan1.055.i, null
-  br i1 %cmp.i45.not56.i, label %list_DeleteElement.exit, label %while.body12.i
+  %cmp.i45.not55.i = icmp eq ptr %Scan1.054.i, null
+  br i1 %cmp.i45.not55.i, label %list_DeleteElement.exit, label %while.body12.i
 
 while.body.i:                                     ; preds = %land.rhs.i
   %2 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
@@ -2714,24 +2708,24 @@ while.body.i:                                     ; preds = %land.rhs.i
   %add27.i.i.i = add i64 %4, %conv26.i.i.i
   store i64 %add27.i.i.i, ptr @memory_FREEDBYTES, align 8
   %5 = load ptr, ptr %2, align 8
-  store ptr %5, ptr %List.addr.054.i, align 8
+  store ptr %5, ptr %List.addr.053.i, align 8
   %6 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %List.addr.054.i, ptr %6, align 8
-  %cond.i = icmp eq ptr %Scan1.055.i, null
-  br i1 %cond.i, label %list_DeleteElement.exit, label %land.rhs.i, !llvm.loop !22
+  store ptr %List.addr.053.i, ptr %6, align 8
+  %cmp.i.not.i = icmp eq ptr %Scan1.054.i, null
+  br i1 %cmp.i.not.i, label %list_DeleteElement.exit, label %land.rhs.i, !llvm.loop !22
 
 while.body12.i:                                   ; preds = %while.cond9.preheader.i, %if.end20.i
-  %Scan1.058.i = phi ptr [ %Scan1.0.i, %if.end20.i ], [ %Scan1.055.i, %while.cond9.preheader.i ]
-  %Scan2.057.i = phi ptr [ %Scan2.1.i, %if.end20.i ], [ %List.addr.054.i, %while.cond9.preheader.i ]
-  %7 = getelementptr i8, ptr %Scan1.058.i, i64 8
+  %Scan1.057.i = phi ptr [ %Scan1.0.i, %if.end20.i ], [ %Scan1.054.i, %while.cond9.preheader.i ]
+  %Scan2.056.i = phi ptr [ %Scan2.1.i, %if.end20.i ], [ %List.addr.053.i, %while.cond9.preheader.i ]
+  %7 = getelementptr i8, ptr %Scan1.057.i, i64 8
   %Scan1.0.val.i = load ptr, ptr %7, align 8
   %call14.i = tail call i32 %Test(ptr noundef %Scan.0.val, ptr noundef %Scan1.0.val.i) #8
   %tobool15.not.i = icmp eq i32 %call14.i, 0
   br i1 %tobool15.not.i, label %if.end20.i, label %if.then16.i
 
 if.then16.i:                                      ; preds = %while.body12.i
-  %Scan1.0.val40.i = load ptr, ptr %Scan1.058.i, align 8
-  store ptr %Scan1.0.val40.i, ptr %Scan2.057.i, align 8
+  %Scan1.0.val40.i = load ptr, ptr %Scan1.057.i, align 8
+  store ptr %Scan1.0.val40.i, ptr %Scan2.056.i, align 8
   %8 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i47.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %8, i64 0, i32 4
   %9 = load i32, ptr %total_size.i.i47.i, align 8
@@ -2740,45 +2734,43 @@ if.then16.i:                                      ; preds = %while.body12.i
   %add27.i.i49.i = add i64 %10, %conv26.i.i48.i
   store i64 %add27.i.i49.i, ptr @memory_FREEDBYTES, align 8
   %11 = load ptr, ptr %8, align 8
-  store ptr %11, ptr %Scan1.058.i, align 8
+  store ptr %11, ptr %Scan1.057.i, align 8
   %12 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
-  store ptr %Scan1.058.i, ptr %12, align 8
+  store ptr %Scan1.057.i, ptr %12, align 8
   br label %if.end20.i
 
 if.end20.i:                                       ; preds = %if.then16.i, %while.body12.i
-  %Scan2.1.i = phi ptr [ %Scan2.057.i, %if.then16.i ], [ %Scan1.058.i, %while.body12.i ]
+  %Scan2.1.i = phi ptr [ %Scan2.056.i, %if.then16.i ], [ %Scan1.057.i, %while.body12.i ]
   %Scan1.0.i = load ptr, ptr %Scan2.1.i, align 8
   %cmp.i45.not.i = icmp eq ptr %Scan1.0.i, null
   br i1 %cmp.i45.not.i, label %list_DeleteElement.exit, label %while.body12.i, !llvm.loop !23
 
 list_DeleteElement.exit:                          ; preds = %while.body.i, %if.end20.i, %for.body, %while.cond9.preheader.i
-  %retval.0.i = phi ptr [ %List.addr.054.i, %while.cond9.preheader.i ], [ null, %for.body ], [ %List.addr.054.i, %if.end20.i ], [ null, %while.body.i ]
+  %retval.0.i = phi ptr [ %List.addr.053.i, %while.cond9.preheader.i ], [ null, %for.body ], [ %List.addr.053.i, %if.end20.i ], [ null, %while.body.i ]
   %Scan.0.val10 = load ptr, ptr %Scan.017, align 8
   %cmp.i11.not = icmp eq ptr %Scan.0.val10, null
   br i1 %cmp.i11.not, label %if.end, label %for.body, !llvm.loop !56
 
-if.end:                                           ; preds = %list_DeleteElement.exit, %for.cond.preheader, %entry
-  %List1.addr.1 = phi ptr [ null, %entry ], [ %List1, %for.cond.preheader ], [ %retval.0.i, %list_DeleteElement.exit ]
+if.end:                                           ; preds = %list_DeleteElement.exit, %entry
+  %List1.addr.1 = phi ptr [ %List1, %entry ], [ %retval.0.i, %list_DeleteElement.exit ]
   ret ptr %List1.addr.1
 }
 
 ; Function Attrs: nounwind uwtable
 define dso_local ptr @list_NMultisetDifference(ptr noundef %List1, ptr noundef readonly %List2, ptr nocapture noundef readonly %Test) local_unnamed_addr #0 {
 entry:
-  %cmp.i = icmp eq ptr %List1, null
-  br i1 %cmp.i, label %if.end, label %for.cond.preheader
-
-for.cond.preheader:                               ; preds = %entry
+  %cmp.i.not = icmp eq ptr %List1, null
   %cmp.i11.not15 = icmp eq ptr %List2, null
-  br i1 %cmp.i11.not15, label %if.end, label %for.body
+  %or.cond = or i1 %cmp.i.not, %cmp.i11.not15
+  br i1 %or.cond, label %if.end, label %for.body
 
-for.body:                                         ; preds = %for.cond.preheader, %list_DeleteOneElement.exit
-  %scan.017 = phi ptr [ %scan.0.val10, %list_DeleteOneElement.exit ], [ %List2, %for.cond.preheader ]
-  %List1.addr.016 = phi ptr [ %retval.0.i, %list_DeleteOneElement.exit ], [ %List1, %for.cond.preheader ]
+for.body:                                         ; preds = %entry, %list_DeleteOneElement.exit
+  %scan.017 = phi ptr [ %scan.0.val10, %list_DeleteOneElement.exit ], [ %List2, %entry ]
+  %List1.addr.016 = phi ptr [ %retval.0.i, %list_DeleteOneElement.exit ], [ %List1, %entry ]
   %0 = getelementptr i8, ptr %scan.017, i64 8
   %scan.0.val = load ptr, ptr %0, align 8
-  %cmp.i.i = icmp eq ptr %List1.addr.016, null
-  br i1 %cmp.i.i, label %list_DeleteOneElement.exit, label %if.else.i
+  %cmp.i.not.i = icmp eq ptr %List1.addr.016, null
+  br i1 %cmp.i.not.i, label %list_DeleteOneElement.exit, label %if.else.i
 
 if.else.i:                                        ; preds = %for.body
   %1 = getelementptr i8, ptr %List1.addr.016, i64 8
@@ -2831,8 +2823,8 @@ list_DeleteOneElement.exit:                       ; preds = %for.cond.i, %for.bo
   %cmp.i11.not = icmp eq ptr %scan.0.val10, null
   br i1 %cmp.i11.not, label %if.end, label %for.body, !llvm.loop !57
 
-if.end:                                           ; preds = %list_DeleteOneElement.exit, %for.cond.preheader, %entry
-  %List1.addr.1 = phi ptr [ null, %entry ], [ %List1, %for.cond.preheader ], [ %retval.0.i, %list_DeleteOneElement.exit ]
+if.end:                                           ; preds = %list_DeleteOneElement.exit, %entry
+  %List1.addr.1 = phi ptr [ %List1, %entry ], [ %retval.0.i, %list_DeleteOneElement.exit ]
   ret ptr %List1.addr.1
 }
 
@@ -2893,8 +2885,8 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %cmp.i.not, label %while.body.i, label %for.body, !llvm.loop !59
 
 while.body.i:                                     ; preds = %for.body, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %List, %for.body ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %List, %for.body ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %6 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i11 = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %6, i64 0, i32 4
   %7 = load i32, ptr %total_size.i.i.i11, align 8
@@ -2906,7 +2898,7 @@ while.body.i:                                     ; preds = %for.body, %while.bo
   store ptr %9, ptr %Current.06.i, align 8
   %10 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %10, align 8
-  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !13
 
 list_Delete.exit:                                 ; preds = %while.body.i, %entry
@@ -2962,8 +2954,8 @@ for.inc:                                          ; preds = %for.body
   %cmp.i.not = icmp eq ptr %Scan.0.val10, null
   br i1 %cmp.i.not, label %cleanup, label %for.body, !llvm.loop !61
 
-cleanup:                                          ; preds = %for.inc, %for.body, %entry
-  %retval.0 = phi ptr [ null, %entry ], [ %Scan.0.val9, %for.body ], [ null, %for.inc ]
+cleanup:                                          ; preds = %for.body, %for.inc, %entry
+  %retval.0 = phi ptr [ null, %entry ], [ null, %for.inc ], [ %Scan.0.val9, %for.body ]
   ret ptr %retval.0
 }
 
@@ -3170,17 +3162,19 @@ list_MultisetDistribution.exit38:                 ; preds = %if.end.i36, %list_M
   %Distribution.0.lcssa.i37 = phi ptr [ null, %list_MultisetDistribution.exit ], [ %Distribution.1.i33, %if.end.i36 ]
   %call.i = tail call ptr @list_MergeSort(ptr noundef %Distribution.0.lcssa.i, ptr noundef nonnull @list_CompareElementDistributionLEQ)
   %call.i39 = tail call ptr @list_MergeSort(ptr noundef %Distribution.0.lcssa.i37, ptr noundef nonnull @list_CompareElementDistributionLEQ)
-  %cmp.i56.i = icmp eq ptr %call.i, null
-  %cmp.i3657.i = icmp eq ptr %call.i39, null
-  %spec.select58.i = or i1 %cmp.i56.i, %cmp.i3657.i
-  br i1 %spec.select58.i, label %if.then9.i, label %while.body.i
+  %cmp.i.not52.i = icmp eq ptr %call.i, null
+  br i1 %cmp.i.not52.i, label %land.lhs.true.i, label %lor.rhs.i
 
-while.body.i:                                     ; preds = %list_MultisetDistribution.exit38, %if.end.i40
-  %scan2.060.i = phi ptr [ %scan2.0.val34.i, %if.end.i40 ], [ %call.i39, %list_MultisetDistribution.exit38 ]
-  %scan.059.i = phi ptr [ %scan.0.val35.i, %if.end.i40 ], [ %call.i, %list_MultisetDistribution.exit38 ]
-  %10 = getelementptr i8, ptr %scan.059.i, i64 8
+lor.rhs.i:                                        ; preds = %list_MultisetDistribution.exit38, %if.end.i41
+  %scan2.054.i = phi ptr [ %scan2.0.val34.i, %if.end.i41 ], [ %call.i39, %list_MultisetDistribution.exit38 ]
+  %scan.053.i = phi ptr [ %scan.0.val35.i, %if.end.i41 ], [ %call.i, %list_MultisetDistribution.exit38 ]
+  %cmp.i36.i = icmp eq ptr %scan2.054.i, null
+  br i1 %cmp.i36.i, label %list_CompareDistributions.exit, label %while.body.i
+
+while.body.i:                                     ; preds = %lor.rhs.i
+  %10 = getelementptr i8, ptr %scan.053.i, i64 8
   %scan.0.val.i = load ptr, ptr %10, align 8
-  %11 = getelementptr i8, ptr %scan2.060.i, i64 8
+  %11 = getelementptr i8, ptr %scan2.054.i, i64 8
   %scan2.0.val.i = load ptr, ptr %11, align 8
   %LeftPair.val10.i.i = load ptr, ptr %scan.0.val.i, align 8
   %12 = ptrtoint ptr %LeftPair.val10.i.i to i64
@@ -3193,31 +3187,23 @@ while.body.i:                                     ; preds = %list_MultisetDistri
   %..i.i = zext i1 %cmp4.i.i to i32
   %retval.0.i.i = select i1 %cmp.i38.i, i32 -1, i32 %..i.i
   %cmp.not.i = icmp eq i32 %retval.0.i.i, 0
-  br i1 %cmp.not.i, label %if.end.i40, label %list_CompareDistributions.exit
+  br i1 %cmp.not.i, label %if.end.i41, label %list_CompareDistributions.exit
 
-if.end.i40:                                       ; preds = %while.body.i
-  %scan.0.val35.i = load ptr, ptr %scan.059.i, align 8
-  %scan2.0.val34.i = load ptr, ptr %scan2.060.i, align 8
-  %cmp.i.i = icmp eq ptr %scan.0.val35.i, null
-  %cmp.i36.i = icmp eq ptr %scan2.0.val34.i, null
-  %spec.select.i = select i1 %cmp.i.i, i1 true, i1 %cmp.i36.i
-  br i1 %spec.select.i, label %if.then9.i, label %while.body.i, !llvm.loop !63
+if.end.i41:                                       ; preds = %while.body.i
+  %scan.0.val35.i = load ptr, ptr %scan.053.i, align 8
+  %scan2.0.val34.i = load ptr, ptr %scan2.054.i, align 8
+  %cmp.i.not.i40 = icmp eq ptr %scan.0.val35.i, null
+  br i1 %cmp.i.not.i40, label %land.lhs.true.i, label %lor.rhs.i, !llvm.loop !63
 
-if.then9.i:                                       ; preds = %if.end.i40, %list_MultisetDistribution.exit38
-  %scan.0.lcssa.i = phi ptr [ %call.i, %list_MultisetDistribution.exit38 ], [ %scan.0.val35.i, %if.end.i40 ]
-  %cmp.i36.lcssa.i = phi i1 [ %cmp.i3657.i, %list_MultisetDistribution.exit38 ], [ %cmp.i36.i, %if.end.i40 ]
-  %cmp.i39.i = icmp ne ptr %scan.0.lcssa.i, null
-  %or.cond.i = select i1 %cmp.i39.i, i1 true, i1 %cmp.i36.lcssa.i
-  br i1 %or.cond.i, label %if.else.i41, label %list_CompareDistributions.exit
-
-if.else.i41:                                      ; preds = %if.then9.i
-  %or.cond47.i = select i1 %cmp.i39.i, i1 %cmp.i36.lcssa.i, i1 false
-  %spec.select48.i = zext i1 %or.cond47.i to i32
+land.lhs.true.i:                                  ; preds = %if.end.i41, %list_MultisetDistribution.exit38
+  %scan2.0.lcssa.i = phi ptr [ %call.i39, %list_MultisetDistribution.exit38 ], [ %scan2.0.val34.i, %if.end.i41 ]
+  %cmp.i41.not.i = icmp ne ptr %scan2.0.lcssa.i, null
+  %spec.select50.i = sext i1 %cmp.i41.not.i to i32
   br label %list_CompareDistributions.exit
 
-list_CompareDistributions.exit:                   ; preds = %while.body.i, %if.then9.i, %if.else.i41
-  %result.2.i = phi i32 [ -1, %if.then9.i ], [ %spec.select48.i, %if.else.i41 ], [ %retval.0.i.i, %while.body.i ]
-  br i1 %cmp.i56.i, label %list_DeleteDistribution.exit, label %while.body.i.i.i
+list_CompareDistributions.exit:                   ; preds = %lor.rhs.i, %while.body.i, %land.lhs.true.i
+  %result.2.i = phi i32 [ %spec.select50.i, %land.lhs.true.i ], [ %retval.0.i.i, %while.body.i ], [ 1, %lor.rhs.i ]
+  br i1 %cmp.i.not52.i, label %list_DeleteDistribution.exit, label %while.body.i.i.i
 
 while.body.i.i.i:                                 ; preds = %list_CompareDistributions.exit, %while.body.i.i.i
   %List.addr.08.i.i.i = phi ptr [ %List.addr.0.val6.i.i.i, %while.body.i.i.i ], [ %call.i, %list_CompareDistributions.exit ]
@@ -3250,7 +3236,8 @@ while.body.i.i.i:                                 ; preds = %list_CompareDistrib
   br i1 %cmp.i.not.i.i.i, label %list_DeleteDistribution.exit, label %while.body.i.i.i, !llvm.loop !20
 
 list_DeleteDistribution.exit:                     ; preds = %while.body.i.i.i, %list_CompareDistributions.exit
-  br i1 %cmp.i3657.i, label %list_DeleteDistribution.exit54, label %while.body.i.i.i53
+  %cmp.i.not7.i.i.i42 = icmp eq ptr %call.i39, null
+  br i1 %cmp.i.not7.i.i.i42, label %list_DeleteDistribution.exit54, label %while.body.i.i.i53
 
 while.body.i.i.i53:                               ; preds = %list_DeleteDistribution.exit, %while.body.i.i.i53
   %List.addr.08.i.i.i43 = phi ptr [ %List.addr.0.val6.i.i.i44, %while.body.i.i.i53 ], [ %call.i39, %list_DeleteDistribution.exit ]

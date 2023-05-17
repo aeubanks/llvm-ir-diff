@@ -521,10 +521,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %_Z
 
 while.body.i:                                     ; preds = %for.body, %while.body.i
   %first.addr.04.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %first, %for.body ]
-  %result.addr.03.i = phi double [ %add.i.i, %while.body.i ], [ %zero, %for.body ]
+  %storemerge3.i = phi double [ %add.i.i, %while.body.i ], [ %zero, %for.body ]
   %incdec.ptr.i = getelementptr inbounds double, ptr %first.addr.04.i, i64 1
   %first.addr.0.val.i = load double, ptr %first.addr.04.i, align 8, !tbaa !9
-  %add.i.i = fadd double %result.addr.03.i, %first.addr.0.val.i
+  %add.i.i = fadd double %storemerge3.i, %first.addr.0.val.i
   %cmp.not.i = icmp eq ptr %incdec.ptr.i, %last
   br i1 %cmp.not.i, label %_Z10accumulateIPddET0_T_S2_S1_.exit.loopexit, label %while.body.i, !llvm.loop !31
 
@@ -594,10 +594,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %_Z
 
 while.body.i:                                     ; preds = %for.body, %while.body.i
   %first.addr.06.i = phi ptr [ %incdec.ptr.i, %while.body.i ], [ %first, %for.body ]
-  %result.sroa.0.05.i = phi double [ %add.i.i.i, %while.body.i ], [ %zero.coerce, %for.body ]
+  %storemerge5.i = phi double [ %add.i.i.i, %while.body.i ], [ %zero.coerce, %for.body ]
   %incdec.ptr.i = getelementptr inbounds %struct.Double, ptr %first.addr.06.i, i64 1
   %first.addr.0.val.i = load double, ptr %first.addr.06.i, align 8, !tbaa !33
-  %add.i.i.i = fadd double %result.sroa.0.05.i, %first.addr.0.val.i
+  %add.i.i.i = fadd double %storemerge5.i, %first.addr.0.val.i
   %cmp.not.i = icmp eq ptr %incdec.ptr.i, %last
   br i1 %cmp.not.i, label %_Z10accumulateIP6DoubleS0_ET0_T_S3_S2_.exit.loopexit, label %while.body.i, !llvm.loop !35
 

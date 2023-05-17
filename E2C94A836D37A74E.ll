@@ -89,7 +89,7 @@ lor.end:                                          ; preds = %lor.rhs, %entry
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @test_integer_to_float() local_unnamed_addr #0 {
-entry:
+if.end103:
   ret i32 undef
 }
 
@@ -137,7 +137,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @test_longlong_integer_to_float() local_unnamed_addr #0 {
-entry:
+if.end96:
   ret i32 undef
 }
 
@@ -185,7 +185,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @test_float_to_integer() local_unnamed_addr #0 {
-entry:
+if.end182:
   ret i32 undef
 }
 
@@ -233,7 +233,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i32 @test_float_to_longlong_integer() local_unnamed_addr #0 {
-entry:
+if.end172:
   ret i32 undef
 }
 

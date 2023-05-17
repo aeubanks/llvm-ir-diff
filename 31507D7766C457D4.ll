@@ -156,63 +156,63 @@ if.end10:                                         ; preds = %if.end, %if.then7
   %idxprom = sext i32 %pool_id to i64
   %arrayidx11 = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 1, i64 %idxprom
   %hdr_ptr.0111 = load ptr, ptr %arrayidx11, align 8, !tbaa !16
-  %cond113 = icmp eq ptr %hdr_ptr.0111, null
-  br i1 %cond113, label %if.then17, label %while.body
+  %cond112 = icmp eq ptr %hdr_ptr.0111, null
+  br i1 %cond112, label %if.then17, label %while.body
 
 while.cond:                                       ; preds = %while.body
-  %hdr_ptr.0 = load ptr, ptr %hdr_ptr.0114, align 8, !tbaa !16
+  %hdr_ptr.0 = load ptr, ptr %hdr_ptr.0113, align 8, !tbaa !16
   %cond = icmp eq ptr %hdr_ptr.0, null
   br i1 %cond, label %if.then17, label %while.body, !llvm.loop !33
 
 while.body:                                       ; preds = %if.end10, %while.cond
-  %hdr_ptr.0114 = phi ptr [ %hdr_ptr.0, %while.cond ], [ %hdr_ptr.0111, %if.end10 ]
-  %bytes_left = getelementptr inbounds %struct.anon, ptr %hdr_ptr.0114, i64 0, i32 2
+  %hdr_ptr.0113 = phi ptr [ %hdr_ptr.0, %while.cond ], [ %hdr_ptr.0111, %if.end10 ]
+  %bytes_left = getelementptr inbounds %struct.anon, ptr %hdr_ptr.0113, i64 0, i32 2
   %7 = load i64, ptr %bytes_left, align 8, !tbaa !16
   %cmp13.not = icmp ult i64 %7, %sizeofobject.addr.0
   br i1 %cmp13.not, label %while.cond, label %if.end51, !llvm.loop !33
 
 if.then17:                                        ; preds = %while.cond, %if.end10
-  %prev_hdr_ptr.0.lcssa = phi ptr [ null, %if.end10 ], [ %hdr_ptr.0114, %while.cond ]
+  %prev_hdr_ptr.0.lcssa = phi ptr [ null, %if.end10 ], [ %hdr_ptr.0113, %while.cond ]
   %cmp19 = icmp eq ptr %prev_hdr_ptr.0.lcssa, null
   %first_pool_slop.extra_pool_slop = select i1 %cmp19, ptr @first_pool_slop, ptr @extra_pool_slop
   %slop.0.in = getelementptr inbounds [2 x i64], ptr %first_pool_slop.extra_pool_slop, i64 0, i64 %idxprom
   %slop.0 = load i64, ptr %slop.0.in, align 8, !tbaa !11
   %sub26 = sub i64 999999976, %sizeofobject.addr.0
   %slop.1 = tail call i64 @llvm.umin.i64(i64 %slop.0, i64 %sub26)
-  %add18115 = add i64 %slop.1, %sizeofobject.addr.0
-  %add31116 = add i64 %add18115, 24
-  %call117 = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31116) #7
-  %cmp32.not118 = icmp eq ptr %call117, null
-  br i1 %cmp32.not118, label %if.end34, label %for.end
+  %add18114 = add i64 %slop.1, %sizeofobject.addr.0
+  %add31115 = add i64 %add18114, 24
+  %call116 = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31115) #7
+  %cmp32.not117 = icmp eq ptr %call116, null
+  br i1 %cmp32.not117, label %if.end34, label %for.end
 
 if.end34:                                         ; preds = %if.then17, %if.end37
-  %slop.2119 = phi i64 [ %div108, %if.end37 ], [ %slop.1, %if.then17 ]
-  %div108 = lshr i64 %slop.2119, 1
-  %cmp35 = icmp ult i64 %slop.2119, 100
+  %slop.2118 = phi i64 [ %div106, %if.end37 ], [ %slop.1, %if.then17 ]
+  %div106 = lshr i64 %slop.2118, 1
+  %cmp35 = icmp ult i64 %slop.2118, 100
   br i1 %cmp35, label %if.then36, label %if.end37
 
 if.then36:                                        ; preds = %if.end34
   %8 = load ptr, ptr %cinfo, align 8, !tbaa !13
-  %msg_code.i106 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
-  store i32 53, ptr %msg_code.i106, align 8, !tbaa !14
-  %msg_parm.i107 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 6
-  store i32 2, ptr %msg_parm.i107, align 4, !tbaa !16
+  %msg_code.i107 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 5
+  store i32 53, ptr %msg_code.i107, align 8, !tbaa !14
+  %msg_parm.i108 = getelementptr inbounds %struct.jpeg_error_mgr, ptr %8, i64 0, i32 6
+  store i32 2, ptr %msg_parm.i108, align 4, !tbaa !16
   %9 = load ptr, ptr %cinfo, align 8, !tbaa !13
   %10 = load ptr, ptr %9, align 8, !tbaa !17
   tail call void %10(ptr noundef nonnull %cinfo) #7
   br label %if.end37
 
 if.end37:                                         ; preds = %if.then36, %if.end34
-  %add18 = add i64 %div108, %sizeofobject.addr.0
+  %add18 = add i64 %div106, %sizeofobject.addr.0
   %add31 = add i64 %add18, 24
   %call = tail call ptr @jpeg_get_small(ptr noundef %cinfo, i64 noundef %add31) #7
   %cmp32.not = icmp eq ptr %call, null
   br i1 %cmp32.not, label %if.end34, label %for.end
 
 for.end:                                          ; preds = %if.end37, %if.then17
-  %add41.pre-phi = phi i64 [ %add18115, %if.then17 ], [ %add18, %if.end37 ]
-  %add31.lcssa = phi i64 [ %add31116, %if.then17 ], [ %add31, %if.end37 ]
-  %call.lcssa = phi ptr [ %call117, %if.then17 ], [ %call, %if.end37 ]
+  %add41.pre-phi = phi i64 [ %add18114, %if.then17 ], [ %add18, %if.end37 ]
+  %add31.lcssa = phi i64 [ %add31115, %if.then17 ], [ %add31, %if.end37 ]
+  %call.lcssa = phi ptr [ %call116, %if.then17 ], [ %call, %if.end37 ]
   %total_space_allocated = getelementptr inbounds %struct.my_memory_mgr, ptr %0, i64 0, i32 5
   %11 = load i64, ptr %total_space_allocated, align 8, !tbaa !32
   %add39 = add i64 %11, %add31.lcssa
@@ -225,7 +225,7 @@ for.end:                                          ; preds = %if.end37, %if.then1
   br label %if.end51
 
 if.end51:                                         ; preds = %while.body, %for.end
-  %hdr_ptr.1 = phi ptr [ %call.lcssa, %for.end ], [ %hdr_ptr.0114, %while.body ]
+  %hdr_ptr.1 = phi ptr [ %call.lcssa, %for.end ], [ %hdr_ptr.0113, %while.body ]
   %add.ptr = getelementptr inbounds %union.small_pool_struct, ptr %hdr_ptr.1, i64 1
   %bytes_used52 = getelementptr inbounds %struct.anon, ptr %hdr_ptr.1, i64 0, i32 1
   %12 = load i64, ptr %bytes_used52, align 8, !tbaa !16
@@ -1762,19 +1762,19 @@ declare void @jpeg_free_large(ptr noundef, ptr noundef, i64 noundef) local_unnam
 declare void @jpeg_free_small(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #2
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.smin.i64(i64, i64) #5
+declare i32 @llvm.umin.i32(i32, i32) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.smax.i64(i64, i64) #5
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.smin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i64 @llvm.umin.i64(i64, i64) #5
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umin.i32(i32, i32) #5
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }

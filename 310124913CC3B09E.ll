@@ -17,7 +17,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+if.end:
   store i32 21, ptr getelementptr inbounds ([3 x i32], ptr @a3, i64 0, i64 2), align 4, !tbaa !5
   store i32 42, ptr getelementptr inbounds ([3 x i32], ptr @a3, i64 0, i64 1), align 4, !tbaa !5
   tail call void @exit(i32 noundef 0) #3

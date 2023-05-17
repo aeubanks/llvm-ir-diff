@@ -59,15 +59,15 @@ for.cond5.preheader:                              ; preds = %for.cond5.preheader
   %indvars.iv47 = phi i64 [ %indvars.iv.next48, %for.cond5.preheaderthread-pre-split ], [ 0, %for.cond5.preheader.lr.ph ]
   %8 = phi ptr [ %36, %for.cond5.preheaderthread-pre-split ], [ %1, %for.cond5.preheader.lr.ph ]
   %cmp8.not40 = icmp eq ptr %5, null
-  br i1 %cmp8.not40, label %for.inc15, label %for.body9.lr.ph
+  br i1 %cmp8.not40, label %for.inc15, label %lor.lhs.false2.i.lr.ph
 
-for.body9.lr.ph:                                  ; preds = %for.cond5.preheader
+lor.lhs.false2.i.lr.ph:                           ; preds = %for.cond5.preheader
   %arrayidx5.i = getelementptr inbounds ptr, ptr %8, i64 1
-  br label %for.body9
+  br label %lor.lhs.false2.i
 
-for.body9:                                        ; preds = %for.body9.lr.ph, %findLabelPath.exit
-  %indvars.iv = phi i64 [ 0, %for.body9.lr.ph ], [ %indvars.iv.next, %findLabelPath.exit ]
-  %9 = phi ptr [ %5, %for.body9.lr.ph ], [ %33, %findLabelPath.exit ]
+lor.lhs.false2.i:                                 ; preds = %lor.lhs.false2.i.lr.ph, %findLabelPath.exit
+  %indvars.iv = phi i64 [ 0, %lor.lhs.false2.i.lr.ph ], [ %indvars.iv.next, %findLabelPath.exit ]
+  %9 = phi ptr [ %5, %lor.lhs.false2.i.lr.ph ], [ %33, %findLabelPath.exit ]
   store i32 0, ptr %call1, align 8, !tbaa !13
   %10 = load ptr, ptr @stdout, align 8, !tbaa !11
   %call13 = tail call i32 @fflush(ptr noundef %10)
@@ -80,7 +80,7 @@ for.body9:                                        ; preds = %for.body9.lr.ph, %f
   %tobool3.not.i = icmp eq ptr %14, null
   br i1 %tobool3.not.i, label %findLabelPath.exit, label %lor.lhs.false4.i
 
-lor.lhs.false4.i:                                 ; preds = %for.body9
+lor.lhs.false4.i:                                 ; preds = %lor.lhs.false2.i
   %15 = load ptr, ptr %arrayidx5.i, align 8, !tbaa !11
   %tobool6.i = icmp ne ptr %15, null
   %tobool10.i = icmp ne ptr %call.i, null
@@ -176,13 +176,13 @@ for.end.i:                                        ; preds = %for.inc.i, %for.bod
   tail call void @Bitfield_delete(ptr noundef nonnull %call.i) #10
   br label %findLabelPath.exit
 
-findLabelPath.exit:                               ; preds = %for.body9, %lor.lhs.false4.i, %if.end.i, %for.end.i
+findLabelPath.exit:                               ; preds = %lor.lhs.false2.i, %lor.lhs.false4.i, %if.end.i, %for.end.i
   %indvars.iv.next = add nuw i64 %indvars.iv, 1
   %32 = load ptr, ptr %config, align 8, !tbaa !12
   %arrayidx7 = getelementptr inbounds ptr, ptr %32, i64 %indvars.iv.next
   %33 = load ptr, ptr %arrayidx7, align 8, !tbaa !11
   %cmp8.not = icmp eq ptr %33, null
-  br i1 %cmp8.not, label %for.inc15.loopexit, label %for.body9, !llvm.loop !29
+  br i1 %cmp8.not, label %for.inc15.loopexit, label %lor.lhs.false2.i, !llvm.loop !29
 
 for.inc15.loopexit:                               ; preds = %findLabelPath.exit
   %.pre = load ptr, ptr %signatures, align 8, !tbaa !5
@@ -498,7 +498,7 @@ for.body.lr.ph:                                   ; preds = %if.end9
   %multiThreaded.i = getelementptr inbounds %struct.SearchOptionsStruct, ptr %options, i64 0, i32 1
   %doStatistics.i = getelementptr inbounds %struct.SearchOptionsStruct, ptr %options, i64 0, i32 2
   %vector.i = getelementptr inbounds %struct.NodePtrVecStruct, ptr %result, i64 0, i32 2
-  br i1 %tobool.i.not, label %for.body.us, label %for.body
+  br i1 %tobool.i.not, label %for.body, label %for.body.us
 
 for.body.us:                                      ; preds = %for.body.lr.ph, %for.inc.us
   %edge.081.us = phi ptr [ %edge.0.us, %for.inc.us ], [ %edge.079, %for.body.lr.ph ]
@@ -524,7 +524,7 @@ if.then19.us:                                     ; preds = %if.then16.us
   %11 = load i32, ptr %visited, align 8, !tbaa !36
   %call20.us = tail call ptr @Bitfield_new(i32 noundef %11) #10
   %12 = load ptr, ptr %targetNode.us, align 8, !tbaa !32
-  tail call void @findAndRecordAllPaths(ptr noundef %12, ptr noundef nonnull %arrayidx17, ptr noundef nonnull %arrayidx23, ptr noundef nonnull %result, ptr noundef %call20.us, ptr noundef null, ptr noundef %options)
+  tail call void @findAndRecordAllPaths(ptr noundef %12, ptr noundef nonnull %arrayidx17, ptr noundef nonnull %arrayidx23, ptr noundef nonnull %result, ptr noundef %call20.us, ptr noundef nonnull %storage, ptr noundef %options)
   tail call void @Bitfield_delete(ptr noundef %call20.us) #10
   br label %for.inc.us
 
@@ -533,16 +533,69 @@ if.else.us:                                       ; preds = %if.then16.us
   %13 = load ptr, ptr %targetNode.us, align 8, !tbaa !32
   %call27.us = tail call zeroext i1 @Bitfield_nodeVisited(ptr noundef nonnull %visited, ptr noundef %13) #10
   %call.i.us = tail call ptr @NodePtrVec_new(i32 noundef 2) #10
+  %tobool3.i.us.not = icmp eq ptr %call.i.us, null
+  br i1 %tobool3.i.us.not, label %logResult.exit.us, label %if.end.i.us
+
+if.end.i.us:                                      ; preds = %if.else.us
+  %14 = load i8, ptr %multiThreaded.i, align 4, !tbaa !40, !range !41, !noundef !42
+  %tobool4.not.i.us = icmp eq i8 %14, 0
+  br i1 %tobool4.not.i.us, label %land.lhs.true.i.us, label %if.end7.i.us
+
+land.lhs.true.i.us:                               ; preds = %if.end.i.us
+  %15 = load i8, ptr %doStatistics.i, align 1, !tbaa !43, !range !41, !noundef !42
+  %tobool5.not.i.us = icmp eq i8 %15, 0
+  br i1 %tobool5.not.i.us, label %if.end7.i.us, label %if.then6.i.us
+
+if.then6.i.us:                                    ; preds = %land.lhs.true.i.us
+  %16 = load ptr, ptr @globalStats, align 8, !tbaa !11
+  %tobool1.not.i.i.us = icmp eq ptr %16, null
+  br i1 %tobool1.not.i.i.us, label %if.then2.i.i.us, label %logStats.exit.i.us
+
+if.then2.i.i.us:                                  ; preds = %if.then6.i.us
+  %call.i.i.us = tail call ptr (...) @Stats_new() #10
+  store ptr %call.i.i.us, ptr @globalStats, align 8, !tbaa !11
+  br label %logStats.exit.i.us
+
+logStats.exit.i.us:                               ; preds = %if.then2.i.i.us, %if.then6.i.us
+  %17 = phi ptr [ %call.i.i.us, %if.then2.i.i.us ], [ %16, %if.then6.i.us ]
+  %call4.i.i.us = tail call zeroext i1 @Stats_logPath(ptr noundef %17, ptr noundef nonnull %result) #10
+  br label %if.end7.i.us
+
+if.end7.i.us:                                     ; preds = %logStats.exit.i.us, %land.lhs.true.i.us, %if.end.i.us
+  %18 = load ptr, ptr %vector.i, align 8, !tbaa !23
+  %19 = load ptr, ptr %18, align 8, !tbaa !11
+  %call8.i.us = tail call zeroext i1 @NodePtrVec_push(ptr noundef nonnull %call.i.us, ptr noundef %19) #10
+  %20 = load ptr, ptr %vector.i, align 8, !tbaa !23
+  %21 = load i32, ptr %result, align 8, !tbaa !13
+  %sub.i.us = add nsw i32 %21, -1
+  %idxprom.i.us = sext i32 %sub.i.us to i64
+  %arrayidx10.i.us = getelementptr inbounds ptr, ptr %20, i64 %idxprom.i.us
+  %22 = load ptr, ptr %arrayidx10.i.us, align 8, !tbaa !11
+  %call11.i.us = tail call zeroext i1 @NodePtrVec_push(ptr noundef nonnull %call.i.us, ptr noundef %22) #10
+  %call12.i.us = tail call zeroext i1 @NodeVecVec_insert(ptr noundef nonnull %storage, ptr noundef nonnull %call.i.us) #10
+  br i1 %call12.i.us, label %if.end16.i.us, label %if.then13.i.us
+
+if.then13.i.us:                                   ; preds = %if.end7.i.us
+  %puts.i.us = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %23 = load ptr, ptr @stdout, align 8, !tbaa !11
+  %call15.i.us = tail call i32 @fflush(ptr noundef %23)
+  br label %if.end16.i.us
+
+if.end16.i.us:                                    ; preds = %if.then13.i.us, %if.end7.i.us
+  tail call void @NodePtrVec_delete(ptr noundef nonnull %call.i.us) #10
+  br label %logResult.exit.us
+
+logResult.exit.us:                                ; preds = %if.else.us, %if.end16.i.us
   %call28.us = tail call ptr @NodePtrVec_pop(ptr noundef nonnull %result) #10
   br label %for.inc.us
 
-for.inc.us:                                       ; preds = %if.else.us, %if.then19.us, %land.lhs.true.us, %for.body.us
+for.inc.us:                                       ; preds = %logResult.exit.us, %if.then19.us, %land.lhs.true.us, %for.body.us
   %nextEdge.us = getelementptr inbounds %struct.EdgeListStruct, ptr %edge.081.us, i64 0, i32 2
   %edge.0.us = load ptr, ptr %nextEdge.us, align 8, !tbaa !11
   %cmp.not.us = icmp eq ptr %edge.0.us, null
-  br i1 %cmp.not.us, label %for.cond32.preheader, label %for.body.us, !llvm.loop !40
+  br i1 %cmp.not.us, label %for.cond32.preheader, label %for.body.us, !llvm.loop !44
 
-for.cond32.preheader:                             ; preds = %for.inc, %for.inc.us
+for.cond32.preheader:                             ; preds = %for.inc.us, %for.inc
   %edge.182.pr = load ptr, ptr %edges, align 8, !tbaa !11
   %cmp33.not83 = icmp eq ptr %edge.182.pr, null
   br i1 %cmp33.not83, label %for.end38, label %for.body34
@@ -550,97 +603,44 @@ for.cond32.preheader:                             ; preds = %for.inc, %for.inc.u
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
   %edge.081 = phi ptr [ %edge.0, %for.inc ], [ %edge.079, %for.body.lr.ph ]
   %targetNode = getelementptr inbounds %struct.EdgeListStruct, ptr %edge.081, i64 0, i32 1
-  %14 = load ptr, ptr %targetNode, align 8, !tbaa !32
-  %label = getelementptr inbounds %struct.NodeStruct, ptr %14, i64 0, i32 2
-  %15 = load ptr, ptr %label, align 8, !tbaa !34
-  %tobool11.not = icmp eq ptr %15, null
+  %24 = load ptr, ptr %targetNode, align 8, !tbaa !32
+  %label = getelementptr inbounds %struct.NodeStruct, ptr %24, i64 0, i32 2
+  %25 = load ptr, ptr %label, align 8, !tbaa !34
+  %tobool11.not = icmp eq ptr %25, null
   br i1 %tobool11.not, label %for.inc, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %for.body
-  %16 = load ptr, ptr %labels, align 8, !tbaa !11
-  %call14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %15, ptr noundef nonnull dereferenceable(1) %16) #11
+  %26 = load ptr, ptr %labels, align 8, !tbaa !11
+  %call14 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %25, ptr noundef nonnull dereferenceable(1) %26) #11
   %cmp15 = icmp eq i32 %call14, 0
   br i1 %cmp15, label %if.then16, label %for.inc
 
 if.then16:                                        ; preds = %land.lhs.true
-  %17 = load ptr, ptr %arrayidx17, align 8, !tbaa !11
-  %cmp18.not = icmp eq ptr %17, null
+  %27 = load ptr, ptr %arrayidx17, align 8, !tbaa !11
+  %cmp18.not = icmp eq ptr %27, null
   br i1 %cmp18.not, label %if.else, label %if.then19
 
 if.then19:                                        ; preds = %if.then16
-  %18 = load i32, ptr %visited, align 8, !tbaa !36
-  %call20 = tail call ptr @Bitfield_new(i32 noundef %18) #10
-  %19 = load ptr, ptr %targetNode, align 8, !tbaa !32
-  tail call void @findAndRecordAllPaths(ptr noundef %19, ptr noundef nonnull %arrayidx17, ptr noundef nonnull %arrayidx23, ptr noundef nonnull %result, ptr noundef %call20, ptr noundef nonnull %storage, ptr noundef %options)
+  %28 = load i32, ptr %visited, align 8, !tbaa !36
+  %call20 = tail call ptr @Bitfield_new(i32 noundef %28) #10
+  %29 = load ptr, ptr %targetNode, align 8, !tbaa !32
+  tail call void @findAndRecordAllPaths(ptr noundef %29, ptr noundef nonnull %arrayidx17, ptr noundef nonnull %arrayidx23, ptr noundef nonnull %result, ptr noundef %call20, ptr noundef null, ptr noundef %options)
   tail call void @Bitfield_delete(ptr noundef %call20) #10
   br label %for.inc
 
 if.else:                                          ; preds = %if.then16
-  %call25 = tail call zeroext i1 @NodePtrVec_push(ptr noundef nonnull %result, ptr noundef nonnull %14) #10
-  %20 = load ptr, ptr %targetNode, align 8, !tbaa !32
-  %call27 = tail call zeroext i1 @Bitfield_nodeVisited(ptr noundef nonnull %visited, ptr noundef %20) #10
+  %call25 = tail call zeroext i1 @NodePtrVec_push(ptr noundef nonnull %result, ptr noundef nonnull %24) #10
+  %30 = load ptr, ptr %targetNode, align 8, !tbaa !32
+  %call27 = tail call zeroext i1 @Bitfield_nodeVisited(ptr noundef nonnull %visited, ptr noundef %30) #10
   %call.i = tail call ptr @NodePtrVec_new(i32 noundef 2) #10
-  %tobool3.i.not = icmp eq ptr %call.i, null
-  br i1 %tobool3.i.not, label %logResult.exit, label %if.end.i
-
-if.end.i:                                         ; preds = %if.else
-  %21 = load i8, ptr %multiThreaded.i, align 4, !tbaa !41, !range !42, !noundef !43
-  %tobool4.not.i = icmp eq i8 %21, 0
-  br i1 %tobool4.not.i, label %land.lhs.true.i, label %if.end7.i
-
-land.lhs.true.i:                                  ; preds = %if.end.i
-  %22 = load i8, ptr %doStatistics.i, align 1, !tbaa !44, !range !42, !noundef !43
-  %tobool5.not.i = icmp eq i8 %22, 0
-  br i1 %tobool5.not.i, label %if.end7.i, label %if.then6.i
-
-if.then6.i:                                       ; preds = %land.lhs.true.i
-  %23 = load ptr, ptr @globalStats, align 8, !tbaa !11
-  %tobool1.not.i.i = icmp eq ptr %23, null
-  br i1 %tobool1.not.i.i, label %if.then2.i.i, label %logStats.exit.i
-
-if.then2.i.i:                                     ; preds = %if.then6.i
-  %call.i.i = tail call ptr (...) @Stats_new() #10
-  store ptr %call.i.i, ptr @globalStats, align 8, !tbaa !11
-  br label %logStats.exit.i
-
-logStats.exit.i:                                  ; preds = %if.then2.i.i, %if.then6.i
-  %24 = phi ptr [ %call.i.i, %if.then2.i.i ], [ %23, %if.then6.i ]
-  %call4.i.i = tail call zeroext i1 @Stats_logPath(ptr noundef %24, ptr noundef nonnull %result) #10
-  br label %if.end7.i
-
-if.end7.i:                                        ; preds = %logStats.exit.i, %land.lhs.true.i, %if.end.i
-  %25 = load ptr, ptr %vector.i, align 8, !tbaa !23
-  %26 = load ptr, ptr %25, align 8, !tbaa !11
-  %call8.i = tail call zeroext i1 @NodePtrVec_push(ptr noundef nonnull %call.i, ptr noundef %26) #10
-  %27 = load ptr, ptr %vector.i, align 8, !tbaa !23
-  %28 = load i32, ptr %result, align 8, !tbaa !13
-  %sub.i = add nsw i32 %28, -1
-  %idxprom.i = sext i32 %sub.i to i64
-  %arrayidx10.i = getelementptr inbounds ptr, ptr %27, i64 %idxprom.i
-  %29 = load ptr, ptr %arrayidx10.i, align 8, !tbaa !11
-  %call11.i = tail call zeroext i1 @NodePtrVec_push(ptr noundef nonnull %call.i, ptr noundef %29) #10
-  %call12.i = tail call zeroext i1 @NodeVecVec_insert(ptr noundef nonnull %storage, ptr noundef nonnull %call.i) #10
-  br i1 %call12.i, label %if.end16.i, label %if.then13.i
-
-if.then13.i:                                      ; preds = %if.end7.i
-  %puts.i = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
-  %30 = load ptr, ptr @stdout, align 8, !tbaa !11
-  %call15.i = tail call i32 @fflush(ptr noundef %30)
-  br label %if.end16.i
-
-if.end16.i:                                       ; preds = %if.then13.i, %if.end7.i
-  tail call void @NodePtrVec_delete(ptr noundef nonnull %call.i) #10
-  br label %logResult.exit
-
-logResult.exit:                                   ; preds = %if.else, %if.end16.i
   %call28 = tail call ptr @NodePtrVec_pop(ptr noundef nonnull %result) #10
   br label %for.inc
 
-for.inc:                                          ; preds = %for.body, %land.lhs.true, %logResult.exit, %if.then19
+for.inc:                                          ; preds = %for.body, %land.lhs.true, %if.else, %if.then19
   %nextEdge = getelementptr inbounds %struct.EdgeListStruct, ptr %edge.081, i64 0, i32 2
   %edge.0 = load ptr, ptr %nextEdge, align 8, !tbaa !11
   %cmp.not = icmp eq ptr %edge.0, null
-  br i1 %cmp.not, label %for.cond32.preheader, label %for.body, !llvm.loop !40
+  br i1 %cmp.not, label %for.cond32.preheader, label %for.body, !llvm.loop !44
 
 for.body34:                                       ; preds = %for.cond32.preheader, %for.body34
   %edge.184 = phi ptr [ %edge.1, %for.body34 ], [ %edge.182.pr, %for.cond32.preheader ]
@@ -905,7 +905,7 @@ if.end:                                           ; preds = %entry
   %0 = load ptr, ptr @stdout, align 8, !tbaa !11
   %1 = tail call i64 @fwrite(ptr nonnull @.str.1, i64 28, i64 1, ptr %0)
   %multiThreaded = getelementptr inbounds %struct.SearchOptionsStruct, ptr %options, i64 0, i32 1
-  store i8 0, ptr %multiThreaded, align 4, !tbaa !41
+  store i8 0, ptr %multiThreaded, align 4, !tbaa !40
   %call2 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #12
   %arrayidx = getelementptr inbounds ptr, ptr %call2, i64 1
   store ptr null, ptr %arrayidx, align 8, !tbaa !11
@@ -1070,7 +1070,7 @@ for.end59:                                        ; preds = %for.inc57, %if.end
   call void @YAMLWriteInt(ptr noundef nonnull @.str.4, i32 noundef %51) #10
   call void @YAMLWriteString(ptr noundef nonnull @.str.5, ptr noundef nonnull %timeStr) #10
   %writeOutputFile = getelementptr inbounds %struct.SearchOptionsStruct, ptr %options, i64 0, i32 3
-  %52 = load i8, ptr %writeOutputFile, align 2, !tbaa !61, !range !42, !noundef !43
+  %52 = load i8, ptr %writeOutputFile, align 2, !tbaa !61, !range !41, !noundef !42
   %tobool71.not = icmp eq i8 %52, 0
   br i1 %tobool71.not, label %if.end78, label %land.lhs.true
 
@@ -1090,12 +1090,12 @@ if.then74:                                        ; preds = %land.lhs.true
 
 if.end78:                                         ; preds = %if.then74, %land.lhs.true, %for.end59
   %doStatistics = getelementptr inbounds %struct.SearchOptionsStruct, ptr %options, i64 0, i32 2
-  %56 = load i8, ptr %doStatistics, align 1, !tbaa !44, !range !42, !noundef !43
+  %56 = load i8, ptr %doStatistics, align 1, !tbaa !43, !range !41, !noundef !42
   %tobool79.not = icmp eq i8 %56, 0
   br i1 %tobool79.not, label %cleanup, label %land.lhs.true81
 
 land.lhs.true81:                                  ; preds = %if.end78
-  %57 = load i8, ptr %multiThreaded, align 4, !tbaa !41, !range !42, !noundef !43
+  %57 = load i8, ptr %multiThreaded, align 4, !tbaa !40, !range !41, !noundef !42
   %tobool83.not = icmp eq i8 %57, 0
   br i1 %tobool83.not, label %if.then84, label %cleanup
 
@@ -1157,8 +1157,8 @@ for.inc.i:                                        ; preds = %if.then5.i, %for.bo
   %cmp.not.not.i = icmp slt i64 %indvars.iv.i, %77
   br i1 %cmp.not.not.i, label %for.body.i, label %cleanup, !llvm.loop !74
 
-cleanup:                                          ; preds = %for.inc.i, %if.end78, %land.lhs.true81, %if.then84, %if.then.i, %entry
-  %retval.0 = phi i32 [ 0, %entry ], [ %51, %if.then.i ], [ %51, %if.then84 ], [ %51, %land.lhs.true81 ], [ %51, %if.end78 ], [ %51, %for.inc.i ]
+cleanup:                                          ; preds = %for.inc.i, %if.then.i, %if.then84, %if.end78, %land.lhs.true81, %entry
+  %retval.0 = phi i32 [ 0, %entry ], [ %51, %land.lhs.true81 ], [ %51, %if.end78 ], [ %51, %if.then84 ], [ %51, %if.then.i ], [ %51, %for.inc.i ]
   call void @llvm.lifetime.end.p0(i64 50, ptr nonnull %timeStr) #10
   ret i32 %retval.0
 }
@@ -1243,11 +1243,11 @@ attributes #12 = { nounwind allocsize(0) }
 !37 = !{!"BitfieldStruct", !10, i64 0, !7, i64 8}
 !38 = distinct !{!38, !28}
 !39 = distinct !{!39, !28}
-!40 = distinct !{!40, !28}
-!41 = !{!17, !18, i64 4}
-!42 = !{i8 0, i8 2}
-!43 = !{}
-!44 = !{!17, !18, i64 5}
+!40 = !{!17, !18, i64 4}
+!41 = !{i8 0, i8 2}
+!42 = !{}
+!43 = !{!17, !18, i64 5}
+!44 = distinct !{!44, !28}
 !45 = distinct !{!45, !28}
 !46 = !{!47, !10, i64 0}
 !47 = !{!"SystemCallMapStruct", !10, i64 0, !10, i64 4, !7, i64 8}

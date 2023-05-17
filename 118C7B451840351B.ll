@@ -411,9 +411,9 @@ _ZN10COutBuffer9FlushPartEv.exit.i:               ; preds = %if.then32.i.i, %if.
   %add45.i.i = add i64 %15, %conv44.i.i
   store i64 %add45.i.i, ptr %_processedSize.i.i, align 8, !tbaa !21
   %cmp2.not.not.i = icmp eq i32 %result.0.i.i, 0
-  br i1 %cmp2.not.not.i, label %while.cond.i, label %if.then
+  br i1 %cmp2.not.not.i, label %while.cond.i, label %invoke.cont
 
-if.then:                                          ; preds = %_ZN10COutBuffer9FlushPartEv.exit.i
+invoke.cont:                                      ; preds = %_ZN10COutBuffer9FlushPartEv.exit.i
   %exception = call ptr @__cxa_allocate_exception(i64 4) #8
   store i32 %result.0.i.i, ptr %exception, align 4, !tbaa !25
   call void @__cxa_throw(ptr nonnull %exception, ptr nonnull @_ZTI19COutBufferException, ptr null) #9

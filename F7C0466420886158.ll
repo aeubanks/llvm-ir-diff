@@ -90,7 +90,7 @@ while.end:                                        ; preds = %while.body, %entry
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
-  %number.i32 = alloca i32, align 4
+  %number.i35 = alloca i32, align 4
   %number.i = alloca i32, align 4
   %tree = alloca ptr, align 8
   %searchedValues = alloca [100 x i32], align 16
@@ -117,30 +117,30 @@ while.body.i:                                     ; preds = %entry, %while.body.
 fillTree.exit:                                    ; preds = %while.body.i, %entry
   %puts5.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.14)
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %number.i) #7
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %number.i32) #7
-  %puts.i33 = call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
-  %call1.i34 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.1, ptr noundef nonnull %number.i32)
-  %3 = load i32, ptr %number.i32, align 4
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %number.i35) #7
+  %puts.i36 = call i32 @puts(ptr nonnull dereferenceable(1) @str.15)
+  %call1.i37 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.1, ptr noundef nonnull %number.i35)
+  %3 = load i32, ptr %number.i35, align 4
   %cmp28.not.i = icmp eq i32 %3, 0
-  br i1 %cmp28.not.i, label %fillSearchedValues.exit, label %while.body.i36
+  br i1 %cmp28.not.i, label %fillSearchedValues.exit, label %while.body.i39
 
-while.body.i36:                                   ; preds = %fillTree.exit, %while.body.i36
-  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %while.body.i36 ], [ 0, %fillTree.exit ]
-  %4 = phi i32 [ %5, %while.body.i36 ], [ %3, %fillTree.exit ]
+while.body.i39:                                   ; preds = %fillTree.exit, %while.body.i39
+  %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %while.body.i39 ], [ 0, %fillTree.exit ]
+  %4 = phi i32 [ %5, %while.body.i39 ], [ %3, %fillTree.exit ]
   %arrayidx.i = getelementptr inbounds i32, ptr %searchedValues, i64 %indvars.iv.i
   store i32 %4, ptr %arrayidx.i, align 4, !tbaa !5
-  %call3.i35 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.1, ptr noundef nonnull %number.i32)
+  %call3.i38 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.1, ptr noundef nonnull %number.i35)
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %cmp.i = icmp ult i64 %indvars.iv.i, 99
-  %5 = load i32, ptr %number.i32, align 4
+  %5 = load i32, ptr %number.i35, align 4
   %cmp2.i = icmp ne i32 %5, 0
   %6 = select i1 %cmp.i, i1 %cmp2.i, i1 false
-  br i1 %6, label %while.body.i36, label %fillSearchedValues.exit, !llvm.loop !11
+  br i1 %6, label %while.body.i39, label %fillSearchedValues.exit, !llvm.loop !11
 
-fillSearchedValues.exit:                          ; preds = %while.body.i36, %fillTree.exit
+fillSearchedValues.exit:                          ; preds = %while.body.i39, %fillTree.exit
   %puts7.i = call i32 @puts(ptr nonnull dereferenceable(1) @str.16)
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %number.i32) #7
-  %puts37 = call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %number.i35) #7
+  %puts32 = call i32 @puts(ptr nonnull dereferenceable(1) @str.18)
   %7 = load ptr, ptr %tree, align 8, !tbaa !12
   %call2 = call i32 @getSizeBinaryTree(ptr noundef %7) #7
   %call3 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.7, i32 noundef %call2)
@@ -166,8 +166,8 @@ for.body10:                                       ; preds = %fillSearchedValues.
   br i1 %exitcond.not, label %for.end22, label %for.body10, !llvm.loop !14
 
 for.end22:                                        ; preds = %for.body10
-  %puts38 = call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
-  %puts39 = call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
+  %puts33 = call i32 @puts(ptr nonnull dereferenceable(1) @str.19)
+  %puts34 = call i32 @puts(ptr nonnull dereferenceable(1) @str.20)
   call void @llvm.lifetime.end.p0(i64 400, ptr nonnull %searchedValues) #7
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tree) #7
   ret i32 0

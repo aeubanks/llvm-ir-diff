@@ -23,14 +23,14 @@ for.body.lr.ph:                                   ; preds = %entry
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
-  %prow.0226 = phi ptr [ %prow.0222, %for.body.lr.ph ], [ %prow.0, %for.inc ]
-  %length = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0226, i64 0, i32 1
+  %prow.0224 = phi ptr [ %prow.0222, %for.body.lr.ph ], [ %prow.0, %for.inc ]
+  %length = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0224, i64 0, i32 1
   %0 = load i32, ptr %length, align 4, !tbaa !9
   %cmp1 = icmp eq i32 %0, 2
   br i1 %cmp1, label %if.then, label %for.inc
 
 if.then:                                          ; preds = %for.body
-  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0226, i64 0, i32 3
+  %first_col = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0224, i64 0, i32 3
   %1 = load ptr, ptr %first_col, align 8, !tbaa !12
   %col_num = getelementptr inbounds %struct.sm_element_struct, ptr %1, i64 0, i32 1
   %2 = load i32, ptr %col_num, align 4, !tbaa !13
@@ -51,7 +51,7 @@ cond.true:                                        ; preds = %land.lhs.true
 
 cond.end:                                         ; preds = %if.then, %land.lhs.true, %cond.true
   %cond = phi ptr [ %5, %cond.true ], [ null, %land.lhs.true ], [ null, %if.then ]
-  %last_col = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0226, i64 0, i32 4
+  %last_col = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0224, i64 0, i32 4
   %6 = load ptr, ptr %last_col, align 8, !tbaa !18
   %col_num8 = getelementptr inbounds %struct.sm_element_struct, ptr %6, i64 0, i32 1
   %7 = load i32, ptr %col_num8, align 4, !tbaa !13
@@ -117,7 +117,7 @@ cond.true55:                                      ; preds = %land.lhs.true50
 if.then65:                                        ; preds = %cond.end22, %cond.end45, %land.lhs.true50, %cond.true55
   %c1.1.ph = phi ptr [ %cond46, %cond.true55 ], [ %cond46, %land.lhs.true50 ], [ %cond46, %cond.end45 ], [ %cond, %cond.end22 ]
   %c2.1.ph = phi ptr [ %18, %cond.true55 ], [ null, %land.lhs.true50 ], [ null, %cond.end45 ], [ %cond23, %cond.end22 ]
-  %19 = load i32, ptr %prow.0226, align 8, !tbaa !21
+  %19 = load i32, ptr %prow.0224, align 8, !tbaa !21
   %first_row66 = getelementptr inbounds %struct.sm_col_struct, ptr %c1.1.ph, i64 0, i32 3
   %20 = load ptr, ptr %first_row66, align 8, !tbaa !22
   %21 = load i32, ptr %20, align 8, !tbaa !23
@@ -131,7 +131,7 @@ if.then69:                                        ; preds = %if.then65
   br label %if.then75
 
 for.inc:                                          ; preds = %if.else, %for.body
-  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0226, i64 0, i32 5
+  %next_row = getelementptr inbounds %struct.sm_row_struct, ptr %prow.0224, i64 0, i32 5
   %prow.0 = load ptr, ptr %next_row, align 8, !tbaa !5
   %cmp.not = icmp eq ptr %prow.0, null
   br i1 %cmp.not, label %cleanup, label %for.body
@@ -161,38 +161,38 @@ cond.end85:                                       ; preds = %if.then75, %land.lh
   %call = tail call ptr (ptr, ...) @sm_row_dup(ptr noundef %cond86) #2
   tail call void (ptr, i32, ...) @sm_row_remove(ptr noundef %call, i32 noundef %24) #2
   %first_row87 = getelementptr inbounds %struct.sm_col_struct, ptr %c2.1.ph, i64 0, i32 3
-  %p.0230 = load ptr, ptr %first_row87, align 8, !tbaa !5
-  %cmp89.not231 = icmp eq ptr %p.0230, null
-  br i1 %cmp89.not231, label %for.end106, label %for.body90.lr.ph
+  %p.0228 = load ptr, ptr %first_row87, align 8, !tbaa !5
+  %cmp89.not229 = icmp eq ptr %p.0228, null
+  br i1 %cmp89.not229, label %for.end106, label %for.body90.lr.ph
 
 for.body90.lr.ph:                                 ; preds = %cond.end85
   %first_col94 = getelementptr inbounds %struct.sm_row_struct, ptr %call, i64 0, i32 3
   br label %for.body90
 
 for.body90:                                       ; preds = %for.body90.lr.ph, %for.inc104
-  %p.0232 = phi ptr [ %p.0230, %for.body90.lr.ph ], [ %p.0, %for.inc104 ]
-  %29 = load i32, ptr %p.0232, align 8, !tbaa !23
+  %p.0230 = phi ptr [ %p.0228, %for.body90.lr.ph ], [ %p.0, %for.inc104 ]
+  %29 = load i32, ptr %p.0230, align 8, !tbaa !23
   %cmp92.not = icmp eq i32 %29, %19
   br i1 %cmp92.not, label %for.inc104, label %if.then93
 
 if.then93:                                        ; preds = %for.body90
-  %p1.0227 = load ptr, ptr %first_col94, align 8, !tbaa !5
-  %cmp96.not228 = icmp eq ptr %p1.0227, null
-  br i1 %cmp96.not228, label %for.inc104, label %for.body97
+  %p1.0225 = load ptr, ptr %first_col94, align 8, !tbaa !5
+  %cmp96.not226 = icmp eq ptr %p1.0225, null
+  br i1 %cmp96.not226, label %for.inc104, label %for.body97
 
 for.body97:                                       ; preds = %if.then93, %for.body97
-  %p1.0229 = phi ptr [ %p1.0, %for.body97 ], [ %p1.0227, %if.then93 ]
-  %30 = load i32, ptr %p.0232, align 8, !tbaa !23
-  %col_num99 = getelementptr inbounds %struct.sm_element_struct, ptr %p1.0229, i64 0, i32 1
+  %p1.0227 = phi ptr [ %p1.0, %for.body97 ], [ %p1.0225, %if.then93 ]
+  %30 = load i32, ptr %p.0230, align 8, !tbaa !23
+  %col_num99 = getelementptr inbounds %struct.sm_element_struct, ptr %p1.0227, i64 0, i32 1
   %31 = load i32, ptr %col_num99, align 4, !tbaa !13
   %call100 = tail call ptr (ptr, i32, i32, ...) @sm_insert(ptr noundef %A, i32 noundef %30, i32 noundef %31) #2
-  %next_col = getelementptr inbounds %struct.sm_element_struct, ptr %p1.0229, i64 0, i32 4
+  %next_col = getelementptr inbounds %struct.sm_element_struct, ptr %p1.0227, i64 0, i32 4
   %p1.0 = load ptr, ptr %next_col, align 8, !tbaa !5
   %cmp96.not = icmp eq ptr %p1.0, null
   br i1 %cmp96.not, label %for.inc104, label %for.body97
 
 for.inc104:                                       ; preds = %for.body97, %if.then93, %for.body90
-  %next_row105 = getelementptr inbounds %struct.sm_element_struct, ptr %p.0232, i64 0, i32 2
+  %next_row105 = getelementptr inbounds %struct.sm_element_struct, ptr %p.0230, i64 0, i32 2
   %p.0 = load ptr, ptr %next_row105, align 8, !tbaa !5
   %cmp89.not = icmp eq ptr %p.0, null
   br i1 %cmp89.not, label %for.end106, label %for.body90

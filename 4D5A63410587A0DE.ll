@@ -171,32 +171,32 @@ for.body91:                                       ; preds = %for.body91.preheade
   %edges93 = getelementptr inbounds %struct.NodeStruct, ptr %12, i64 0, i32 7
   %edges.0276 = load ptr, ptr %edges93, align 8, !tbaa !18
   %cmp95.not277 = icmp eq ptr %edges.0276, null
-  br i1 %cmp95.not277, label %for.end115, label %for.body97.lr.ph
+  br i1 %cmp95.not277, label %for.end115, label %for.cond.preheader.i.lr.ph
 
-for.body97.lr.ph:                                 ; preds = %for.body91
+for.cond.preheader.i.lr.ph:                       ; preds = %for.body91
   %13 = load ptr, ptr %call, align 8, !tbaa !5, !nonnull !22
   %edgeReferenceArray102 = getelementptr inbounds %struct.SearchDiagramStruct, ptr %call, i64 %indvars.iv309, i32 1
   %14 = load ptr, ptr %edgeReferenceArray102, align 8, !tbaa !23
-  br label %for.body97
+  br label %for.cond.preheader.i
 
-for.body97:                                       ; preds = %for.body97.lr.ph, %SearchDiagram_findNode.exit
-  %indvars.iv300 = phi i64 [ 0, %for.body97.lr.ph ], [ %indvars.iv.next301, %SearchDiagram_findNode.exit ]
-  %edges.0279 = phi ptr [ %edges.0276, %for.body97.lr.ph ], [ %edges.0, %SearchDiagram_findNode.exit ]
+for.cond.preheader.i:                             ; preds = %for.cond.preheader.i.lr.ph, %SearchDiagram_findNode.exit
+  %indvars.iv300 = phi i64 [ 0, %for.cond.preheader.i.lr.ph ], [ %indvars.iv.next301, %SearchDiagram_findNode.exit ]
+  %edges.0279 = phi ptr [ %edges.0276, %for.cond.preheader.i.lr.ph ], [ %edges.0, %SearchDiagram_findNode.exit ]
   %targetNode = getelementptr inbounds %struct.EdgeListStruct, ptr %edges.0279, i64 0, i32 1
   %15 = load ptr, ptr %targetNode, align 8, !tbaa !24
   %cmp5.i273 = icmp eq ptr %13, %15
   br i1 %cmp5.i273, label %SearchDiagram_findNode.exit, label %for.cond.i
 
-for.cond.i:                                       ; preds = %for.body97, %for.cond.i
-  %indvars.iv.i274 = phi i64 [ %indvars.iv.next.i, %for.cond.i ], [ 0, %for.body97 ]
+for.cond.i:                                       ; preds = %for.cond.preheader.i, %for.cond.i
+  %indvars.iv.i274 = phi i64 [ %indvars.iv.next.i, %for.cond.i ], [ 0, %for.cond.preheader.i ]
   %indvars.iv.next.i = add nuw i64 %indvars.iv.i274, 1
   %arrayidx.i = getelementptr inbounds %struct.SearchDiagramStruct, ptr %call, i64 %indvars.iv.next.i
   %16 = load ptr, ptr %arrayidx.i, align 8, !tbaa !5, !nonnull !22
   %cmp5.i = icmp eq ptr %16, %15
   br i1 %cmp5.i, label %SearchDiagram_findNode.exit, label %for.cond.i
 
-SearchDiagram_findNode.exit:                      ; preds = %for.cond.i, %for.body97
-  %arrayidx18.i.lcssa = phi ptr [ %call, %for.body97 ], [ %arrayidx.i, %for.cond.i ]
+SearchDiagram_findNode.exit:                      ; preds = %for.cond.i, %for.cond.preheader.i
+  %arrayidx18.i.lcssa = phi ptr [ %call, %for.cond.preheader.i ], [ %arrayidx.i, %for.cond.i ]
   %arrayidx104 = getelementptr inbounds %struct.EdgeReferencesStruct, ptr %14, i64 %indvars.iv300
   store ptr %15, ptr %arrayidx104, align 8, !tbaa !26
   %edgeReferenceArray106 = getelementptr inbounds %struct.SearchDiagramStruct, ptr %arrayidx18.i.lcssa, i64 0, i32 1
@@ -207,7 +207,7 @@ SearchDiagram_findNode.exit:                      ; preds = %for.cond.i, %for.bo
   %indvars.iv.next301 = add nuw i64 %indvars.iv300, 1
   %edges.0 = load ptr, ptr %nextEdge, align 8, !tbaa !18
   %cmp95.not = icmp eq ptr %edges.0, null
-  br i1 %cmp95.not, label %for.end115, label %for.body97, !llvm.loop !29
+  br i1 %cmp95.not, label %for.end115, label %for.cond.preheader.i, !llvm.loop !29
 
 for.end115:                                       ; preds = %SearchDiagram_findNode.exit, %for.body91
   %indvars.iv.next310 = add nuw i64 %indvars.iv309, 1
@@ -227,32 +227,32 @@ for.body121:                                      ; preds = %for.body121.prehead
   %edges123 = getelementptr inbounds %struct.NodeStruct, ptr %19, i64 0, i32 7
   %edges.1283 = load ptr, ptr %edges123, align 8, !tbaa !18
   %cmp125.not284 = icmp eq ptr %edges.1283, null
-  br i1 %cmp125.not284, label %for.end147, label %for.body127.lr.ph
+  br i1 %cmp125.not284, label %for.end147, label %for.cond.preheader.i252.lr.ph
 
-for.body127.lr.ph:                                ; preds = %for.body121
+for.cond.preheader.i252.lr.ph:                    ; preds = %for.body121
   %20 = load ptr, ptr %call, align 8, !tbaa !5, !nonnull !22
   %edgeReferenceArray133 = getelementptr inbounds %struct.SearchDiagramStruct, ptr %call, i64 %indvars.iv306, i32 1
   %21 = load ptr, ptr %edgeReferenceArray133, align 8, !tbaa !23
-  br label %for.body127
+  br label %for.cond.preheader.i252
 
-for.body127:                                      ; preds = %for.body127.lr.ph, %SearchDiagram_findNode.exit262
-  %indvars.iv303 = phi i64 [ 0, %for.body127.lr.ph ], [ %indvars.iv.next304, %SearchDiagram_findNode.exit262 ]
-  %edges.1286 = phi ptr [ %edges.1283, %for.body127.lr.ph ], [ %edges.1, %SearchDiagram_findNode.exit262 ]
+for.cond.preheader.i252:                          ; preds = %for.cond.preheader.i252.lr.ph, %SearchDiagram_findNode.exit262
+  %indvars.iv303 = phi i64 [ 0, %for.cond.preheader.i252.lr.ph ], [ %indvars.iv.next304, %SearchDiagram_findNode.exit262 ]
+  %edges.1286 = phi ptr [ %edges.1283, %for.cond.preheader.i252.lr.ph ], [ %edges.1, %SearchDiagram_findNode.exit262 ]
   %targetNode128 = getelementptr inbounds %struct.EdgeListStruct, ptr %edges.1286, i64 0, i32 1
   %22 = load ptr, ptr %targetNode128, align 8, !tbaa !24
   %cmp5.i259280 = icmp eq ptr %20, %22
   br i1 %cmp5.i259280, label %SearchDiagram_findNode.exit262, label %for.cond.i256
 
-for.cond.i256:                                    ; preds = %for.body127, %for.cond.i256
-  %indvars.iv.i257281 = phi i64 [ %indvars.iv.next.i253, %for.cond.i256 ], [ 0, %for.body127 ]
+for.cond.i256:                                    ; preds = %for.cond.preheader.i252, %for.cond.i256
+  %indvars.iv.i257281 = phi i64 [ %indvars.iv.next.i253, %for.cond.i256 ], [ 0, %for.cond.preheader.i252 ]
   %indvars.iv.next.i253 = add nuw i64 %indvars.iv.i257281, 1
   %arrayidx.i254 = getelementptr inbounds %struct.SearchDiagramStruct, ptr %call, i64 %indvars.iv.next.i253
   %23 = load ptr, ptr %arrayidx.i254, align 8, !tbaa !5, !nonnull !22
   %cmp5.i259 = icmp eq ptr %23, %22
   br i1 %cmp5.i259, label %SearchDiagram_findNode.exit262, label %for.cond.i256
 
-SearchDiagram_findNode.exit262:                   ; preds = %for.cond.i256, %for.body127
-  %arrayidx18.i258.lcssa = phi ptr [ %call, %for.body127 ], [ %arrayidx.i254, %for.cond.i256 ]
+SearchDiagram_findNode.exit262:                   ; preds = %for.cond.i256, %for.cond.preheader.i252
+  %arrayidx18.i258.lcssa = phi ptr [ %call, %for.cond.preheader.i252 ], [ %arrayidx.i254, %for.cond.i256 ]
   %arrayidx135 = getelementptr inbounds %struct.EdgeReferencesStruct, ptr %21, i64 %indvars.iv303
   store ptr %22, ptr %arrayidx135, align 8, !tbaa !26
   %edgeReferenceArray137 = getelementptr inbounds %struct.SearchDiagramStruct, ptr %arrayidx18.i258.lcssa, i64 0, i32 1
@@ -263,7 +263,7 @@ SearchDiagram_findNode.exit262:                   ; preds = %for.cond.i256, %for
   %indvars.iv.next304 = add nuw i64 %indvars.iv303, 1
   %edges.1 = load ptr, ptr %nextEdge145, align 8, !tbaa !18
   %cmp125.not = icmp eq ptr %edges.1, null
-  br i1 %cmp125.not, label %for.end147, label %for.body127, !llvm.loop !30
+  br i1 %cmp125.not, label %for.end147, label %for.cond.preheader.i252, !llvm.loop !30
 
 for.end147:                                       ; preds = %SearchDiagram_findNode.exit262, %for.body121
   %indvars.iv.next307 = add i64 %indvars.iv306, -1

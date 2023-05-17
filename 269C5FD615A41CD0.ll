@@ -102,14 +102,14 @@ if.then13:                                        ; preds = %prepOutput.exit
   tail call void @outsmall() #7
   tail call void @output() #7
   %11 = load i32, ptr @finalShot, align 4, !tbaa !5
-  %cmp.i48 = icmp eq i32 %11, 0
-  br i1 %cmp.i48, label %if.then.i49, label %prepOutput.exit50
+  %cmp.i49 = icmp eq i32 %11, 0
+  br i1 %cmp.i49, label %if.then.i50, label %prepOutput.exit51
 
-if.then.i49:                                      ; preds = %if.then13
+if.then.i50:                                      ; preds = %if.then13
   tail call void @savewolf() #7
-  br label %prepOutput.exit50
+  br label %prepOutput.exit51
 
-prepOutput.exit50:                                ; preds = %if.then13, %if.then.i49
+prepOutput.exit51:                                ; preds = %if.then13, %if.then.i50
   tail call void @rebin(i32 noundef 0) #7
   %call14 = tail call i32 @findcost() #7
   store i32 %call14, ptr @funccost, align 4, !tbaa !5
@@ -120,13 +120,13 @@ prepOutput.exit50:                                ; preds = %if.then13, %if.then
   %12 = load ptr, ptr @fpo, align 8, !tbaa !12
   br i1 %cmp16, label %if.then18, label %if.else21
 
-if.then18:                                        ; preds = %prepOutput.exit50
+if.then18:                                        ; preds = %prepOutput.exit51
   %13 = tail call i64 @fwrite(ptr nonnull @.str.4, i64 47, i64 1, ptr %12)
   %14 = load ptr, ptr @fpo, align 8, !tbaa !12
   %call20 = tail call i32 @fflush(ptr noundef %14)
   br label %cleanup
 
-if.else21:                                        ; preds = %prepOutput.exit50
+if.else21:                                        ; preds = %prepOutput.exit51
   %15 = tail call i64 @fwrite(ptr nonnull @.str.5, i64 37, i64 1, ptr %12)
   %16 = load ptr, ptr @fpo, align 8, !tbaa !12
   %call23 = tail call i32 @fflush(ptr noundef %16)

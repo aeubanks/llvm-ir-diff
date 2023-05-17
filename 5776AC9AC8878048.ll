@@ -180,40 +180,40 @@ cond.false45.i:                                   ; preds = %if.end39.i
   %type46.i = getelementptr inbounds %struct.obj, ptr %15, i64 0, i32 1
   %16 = load i16, ptr %type46.i, align 2, !tbaa !5
   %17 = icmp eq i16 %16, 1
-  br i1 %17, label %if.end53.i, label %if.then8
+  br i1 %17, label %ltrace_fcn_name.exit, label %if.then8
 
-if.end53.i:                                       ; preds = %cond.false45.i
+ltrace_fcn_name.exit:                             ; preds = %cond.false45.i
   %storage_as54.i = getelementptr inbounds %struct.obj, ptr %15, i64 0, i32 2
   %18 = load ptr, ptr %storage_as54.i, align 8, !tbaa !10
-  %19 = icmp eq ptr %18, null
-  br i1 %19, label %if.then8, label %if.end
+  %cmp6 = icmp eq ptr %18, null
+  br i1 %cmp6, label %if.then8, label %if.end
 
-if.then8:                                         ; preds = %cond.false.i, %if.end.i, %cond.false11.i, %cond.false25.i, %if.end33.i, %cond.false45.i, %if.then, %if.end6.i, %if.end19.i, %if.end39.i, %if.end53.i
-  %20 = load ptr, ptr @sym_begin, align 8, !tbaa !11
-  %21 = load ptr, ptr @sym_quote, align 8, !tbaa !11
+if.then8:                                         ; preds = %if.end39.i, %if.end19.i, %if.end6.i, %if.then, %cond.false45.i, %if.end33.i, %cond.false25.i, %cond.false11.i, %if.end.i, %cond.false.i, %ltrace_fcn_name.exit
+  %19 = load ptr, ptr @sym_begin, align 8, !tbaa !11
+  %20 = load ptr, ptr @sym_quote, align 8, !tbaa !11
   %call9 = tail call ptr @cons(ptr noundef %fcn_name, ptr noundef null) #4
-  %call10 = tail call ptr @cons(ptr noundef %21, ptr noundef %call9) #4
+  %call10 = tail call ptr @cons(ptr noundef %20, ptr noundef %call9) #4
   %call11 = tail call ptr @cdr(ptr noundef %2) #4
   %call12 = tail call ptr @cons(ptr noundef %call11, ptr noundef null) #4
   %call13 = tail call ptr @cons(ptr noundef %call10, ptr noundef %call12) #4
-  %call14 = tail call ptr @cons(ptr noundef %20, ptr noundef %call13) #4
+  %call14 = tail call ptr @cons(ptr noundef %19, ptr noundef %call13) #4
   %call15 = tail call ptr @setcdr(ptr noundef %2, ptr noundef %call14) #4
   br label %if.end
 
-if.end:                                           ; preds = %if.then8, %if.end53.i
-  %22 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  %conv16 = trunc i64 %22 to i16
+if.end:                                           ; preds = %if.then8, %ltrace_fcn_name.exit
+  %21 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  %conv16 = trunc i64 %21 to i16
   store i16 %conv16, ptr %type, align 2, !tbaa !5
   br label %if.end33
 
 cond.false21:                                     ; preds = %cond.false
-  %23 = sext i16 %0 to i64
+  %22 = sext i16 %0 to i64
   br label %cond.end24
 
 cond.end24:                                       ; preds = %entry, %cond.false21
-  %cond25 = phi i64 [ %23, %cond.false21 ], [ 0, %entry ]
-  %24 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
-  %cmp27 = icmp eq i64 %cond25, %24
+  %cond25 = phi i64 [ %22, %cond.false21 ], [ 0, %entry ]
+  %23 = load i64, ptr @tc_closure_traced, align 8, !tbaa !13
+  %cmp27 = icmp eq i64 %cond25, %23
   br i1 %cmp27, label %if.end33, label %if.else30
 
 if.else30:                                        ; preds = %cond.end24

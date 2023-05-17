@@ -518,8 +518,8 @@ entry:
   store ptr @outPath, ptr %outPath, align 8, !tbaa !16
   tail call void @id3_inittag(ptr noundef nonnull @id3tag) #13
   store i32 0, ptr @id3tag, align 4, !tbaa !17
-  %cmp1004 = icmp sgt i32 %argc, 1
-  br i1 %cmp1004, label %while.body.lr.ph, label %while.end598
+  %cmp1003 = icmp sgt i32 %argc, 1
+  br i1 %cmp1003, label %while.body.lr.ph, label %while.end598
 
 while.body.lr.ph:                                 ; preds = %entry
   %original = getelementptr inbounds %struct.lame_global_flags, ptr %gfp, i64 0, i32 13
@@ -558,12 +558,12 @@ while.body.lr.ph:                                 ; preds = %entry
   br label %while.body
 
 while.body:                                       ; preds = %while.body.lr.ph, %if.end597
-  %inc1008 = phi i32 [ 1, %while.body.lr.ph ], [ %inc, %if.end597 ]
-  %user_quality.01007 = phi i32 [ 0, %while.body.lr.ph ], [ %user_quality.3, %if.end597 ]
-  %autoconvert.01006 = phi i32 [ 0, %while.body.lr.ph ], [ %autoconvert.3, %if.end597 ]
-  %i.01005 = phi i32 [ 0, %while.body.lr.ph ], [ %i.4, %if.end597 ]
+  %inc1007 = phi i32 [ 1, %while.body.lr.ph ], [ %inc, %if.end597 ]
+  %user_quality.01006 = phi i32 [ 0, %while.body.lr.ph ], [ %user_quality.3, %if.end597 ]
+  %autoconvert.01005 = phi i32 [ 0, %while.body.lr.ph ], [ %autoconvert.3, %if.end597 ]
+  %i.01004 = phi i32 [ 0, %while.body.lr.ph ], [ %i.4, %if.end597 ]
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %token) #13
-  %idxprom = sext i32 %inc1008 to i64
+  %idxprom = sext i32 %inc1007 to i64
   %arrayidx2 = getelementptr inbounds ptr, ptr %argv, i64 %idxprom
   %1 = load ptr, ptr %arrayidx2, align 8, !tbaa !5
   %incdec.ptr = getelementptr inbounds i8, ptr %1, i64 1
@@ -573,7 +573,7 @@ while.body:                                       ; preds = %while.body.lr.ph, %
   br i1 %cmp3, label %if.then, label %if.else575
 
 if.then:                                          ; preds = %while.body
-  %add = add nsw i32 %i.01005, 2
+  %add = add nsw i32 %i.01004, 2
   %cmp5 = icmp slt i32 %add, %argc
   br i1 %cmp5, label %if.then7, label %if.end
 
@@ -757,8 +757,8 @@ if.else113:                                       ; preds = %if.else107
 
 if.then117:                                       ; preds = %if.else113
   store i32 1, ptr @id3tag, align 4, !tbaa !17
-  %call.i917 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null, i32 noundef 10) #13
-  %conv.i = trunc i64 %call.i917 to i32
+  %call.i918 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null, i32 noundef 10) #13
+  %conv.i = trunc i64 %call.i918 to i32
   %spec.store.select = tail call i32 @llvm.smax.i32(i32 %conv.i, i32 1)
   %spec.store.select665 = tail call i32 @llvm.umin.i32(i32 %spec.store.select, i32 99)
   %conv127 = trunc i32 %spec.store.select665 to i8
@@ -783,8 +783,8 @@ if.then132.if.end147_crit_edge:                   ; preds = %if.then132
 
 for.cond.preheader:                               ; preds = %if.then132
   %12 = load i32, ptr @genre_last, align 4, !tbaa !29
-  %cmp138.not1000 = icmp slt i32 %12, 0
-  br i1 %cmp138.not1000, label %if.end147, label %for.body.preheader
+  %cmp138.not999 = icmp slt i32 %12, 0
+  br i1 %cmp138.not999, label %if.end147, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %for.cond.preheader
   %13 = add nuw i32 %12, 1
@@ -797,20 +797,20 @@ for.body:                                         ; preds = %for.body.preheader,
   %14 = load ptr, ptr %arrayidx141, align 8, !tbaa !5
   %call142 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %14, ptr noundef nonnull dereferenceable(1) %nextArg.0) #16
   %tobool143.not = icmp eq i32 %call142, 0
-  br i1 %tobool143.not, label %if.end147.loopexit.split.loop.exit1059, label %for.inc
+  br i1 %tobool143.not, label %if.end147.loopexit.split.loop.exit1058, label %for.inc
 
 for.inc:                                          ; preds = %for.body
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %if.end147, label %for.body, !llvm.loop !30
 
-if.end147.loopexit.split.loop.exit1059:           ; preds = %for.body
+if.end147.loopexit.split.loop.exit1058:           ; preds = %for.body
   %15 = trunc i64 %indvars.iv to i32
   br label %if.end147
 
-if.end147:                                        ; preds = %for.inc, %if.end147.loopexit.split.loop.exit1059, %if.then132.if.end147_crit_edge, %for.cond.preheader
-  %16 = phi i32 [ %.pre, %if.then132.if.end147_crit_edge ], [ %12, %for.cond.preheader ], [ %12, %if.end147.loopexit.split.loop.exit1059 ], [ %12, %for.inc ]
-  %argUsed.1 = phi i32 [ %conv134, %if.then132.if.end147_crit_edge ], [ 0, %for.cond.preheader ], [ %15, %if.end147.loopexit.split.loop.exit1059 ], [ %13, %for.inc ]
+if.end147:                                        ; preds = %for.inc, %if.end147.loopexit.split.loop.exit1058, %if.then132.if.end147_crit_edge, %for.cond.preheader
+  %16 = phi i32 [ %.pre, %if.then132.if.end147_crit_edge ], [ %12, %for.cond.preheader ], [ %12, %if.end147.loopexit.split.loop.exit1058 ], [ %12, %for.inc ]
+  %argUsed.1 = phi i32 [ %conv134, %if.then132.if.end147_crit_edge ], [ 0, %for.cond.preheader ], [ %15, %if.end147.loopexit.split.loop.exit1058 ], [ %13, %for.inc ]
   %cmp148 = icmp sgt i32 %argUsed.1, %16
   br i1 %cmp148, label %if.then150, label %if.end152
 
@@ -832,8 +832,8 @@ if.else155:                                       ; preds = %if.else128
   br i1 %cmp157, label %if.then159, label %if.else169
 
 if.then159:                                       ; preds = %if.else155
-  %call.i918 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
-  %18 = tail call double @llvm.fmuladd.f64(double %call.i918, double 1.000000e+03, double 5.000000e-01)
+  %call.i919 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
+  %18 = tail call double @llvm.fmuladd.f64(double %call.i919, double 1.000000e+03, double 5.000000e-01)
   %conv161 = fptosi double %18 to i32
   store i32 %conv161, ptr %lowpassfreq475, align 8, !tbaa !21
   %cmp164 = icmp slt i32 %conv161, 1
@@ -851,8 +851,8 @@ if.else169:                                       ; preds = %if.else155
   br i1 %cmp171, label %if.then173, label %if.else182
 
 if.then173:                                       ; preds = %if.else169
-  %call.i919 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
-  %21 = tail call double @llvm.fmuladd.f64(double %call.i919, double 1.000000e+03, double 5.000000e-01)
+  %call.i920 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
+  %21 = tail call double @llvm.fmuladd.f64(double %call.i920, double 1.000000e+03, double 5.000000e-01)
   %conv175 = fptosi double %21 to i32
   store i32 %conv175, ptr %lowpasswidth304, align 8, !tbaa !32
   %cmp177 = icmp slt i32 %conv175, 0
@@ -870,8 +870,8 @@ if.else182:                                       ; preds = %if.else169
   br i1 %cmp184, label %if.then186, label %if.else195
 
 if.then186:                                       ; preds = %if.else182
-  %call.i920 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
-  %24 = tail call double @llvm.fmuladd.f64(double %call.i920, double 1.000000e+03, double 5.000000e-01)
+  %call.i921 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
+  %24 = tail call double @llvm.fmuladd.f64(double %call.i921, double 1.000000e+03, double 5.000000e-01)
   %conv188 = fptosi double %24 to i32
   store i32 %conv188, ptr %highpassfreq476, align 4, !tbaa !33
   %cmp190 = icmp slt i32 %conv188, 1
@@ -889,8 +889,8 @@ if.else195:                                       ; preds = %if.else182
   br i1 %cmp197, label %if.then199, label %if.else208
 
 if.then199:                                       ; preds = %if.else195
-  %call.i921 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
-  %27 = tail call double @llvm.fmuladd.f64(double %call.i921, double 1.000000e+03, double 5.000000e-01)
+  %call.i922 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
+  %27 = tail call double @llvm.fmuladd.f64(double %call.i922, double 1.000000e+03, double 5.000000e-01)
   %conv201 = fptosi double %27 to i32
   store i32 %conv201, ptr %highpasswidth302, align 4, !tbaa !34
   %cmp203 = icmp slt i32 %conv201, 0
@@ -908,8 +908,8 @@ if.else208:                                       ; preds = %if.else195
   br i1 %cmp210, label %if.then212, label %if.else221
 
 if.then212:                                       ; preds = %if.else208
-  %call.i922 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
-  %conv214 = fptrunc double %call.i922 to float
+  %call.i923 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0, ptr noundef null) #13
+  %conv214 = fptrunc double %call.i923 to float
   store float %conv214, ptr %cwlimit, align 8, !tbaa !35
   %cmp216 = fcmp ugt float %conv214, 0.000000e+00
   br i1 %cmp216, label %if.end377, label %if.then218
@@ -1073,16 +1073,16 @@ if.else354:                                       ; preds = %if.else229
 
 if.end377:                                        ; preds = %if.then51, %if.then61, %if.then72, %if.else78, %if.then93, %if.then105, %if.then117, %if.then159, %if.then186, %if.then212, %if.else354, %if.then249, %if.then283, %if.then315, %if.then329, %if.then299, %if.then267, %if.then237, %if.then199, %if.then173, %if.end152, %if.then111, %if.then99, %if.then87, %if.then77, %if.then67, %if.then56, %if.then37
   %argUsed.3 = phi i32 [ 1, %if.then37 ], [ 0, %if.then51 ], [ 0, %if.then56 ], [ 0, %if.then61 ], [ 0, %if.then67 ], [ 0, %if.then72 ], [ 0, %if.then77 ], [ 0, %if.else78 ], [ 1, %if.then87 ], [ 1, %if.then93 ], [ 1, %if.then99 ], [ 1, %if.then105 ], [ 1, %if.then111 ], [ 1, %if.then117 ], [ 1, %if.end152 ], [ 1, %if.then159 ], [ 1, %if.then173 ], [ 1, %if.then186 ], [ 1, %if.then199 ], [ 1, %if.then212 ], [ 1, %if.then237 ], [ 1, %if.then249 ], [ 1, %if.then267 ], [ 1, %if.then283 ], [ 1, %if.then299 ], [ 1, %if.then315 ], [ 1, %if.then329 ], [ 0, %if.else354 ]
-  %add378 = add nsw i32 %argUsed.3, %inc1008
+  %add378 = add nsw i32 %argUsed.3, %inc1007
   br label %if.end597
 
 while.body383:                                    ; preds = %if.end28, %if.end573
   %34 = phi i8 [ %45, %if.end573 ], [ %7, %if.end28 ]
   %incdec.ptr381994 = phi ptr [ %incdec.ptr381, %if.end573 ], [ %incdec.ptr33, %if.end28 ]
-  %user_quality.1993 = phi i32 [ %user_quality.2942, %if.end573 ], [ %user_quality.01007, %if.end28 ]
-  %autoconvert.1992 = phi i32 [ %autoconvert.2940, %if.end573 ], [ %autoconvert.01006, %if.end28 ]
-  %i.1991 = phi i32 [ %i.3, %if.end573 ], [ %inc1008, %if.end28 ]
-  %err.1990 = phi i32 [ %err.2938, %if.end573 ], [ 0, %if.end28 ]
+  %user_quality.1993 = phi i32 [ %user_quality.2943, %if.end573 ], [ %user_quality.01006, %if.end28 ]
+  %autoconvert.1992 = phi i32 [ %autoconvert.2941, %if.end573 ], [ %autoconvert.01005, %if.end28 ]
+  %i.1991 = phi i32 [ %i.3, %if.end573 ], [ %inc1007, %if.end28 ]
+  %err.1990 = phi i32 [ %err.2939, %if.end573 ], [ 0, %if.end28 ]
   %35 = load i8, ptr %incdec.ptr381994, align 1, !tbaa !14
   %tobool384.not = icmp eq i8 %35, 0
   %nextArg.0. = select i1 %tobool384.not, ptr %nextArg.0, ptr %incdec.ptr381994
@@ -1154,23 +1154,23 @@ if.else419:                                       ; preds = %sw.bb
 
 sw.bb426:                                         ; preds = %while.body383
   store i32 1, ptr %VBR479, align 8, !tbaa !41
-  %call.i923 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
-  %conv.i924 = trunc i64 %call.i923 to i32
-  %spec.select = tail call i32 @llvm.smax.i32(i32 %conv.i924, i32 0)
-  %spec.store.select932 = tail call i32 @llvm.umin.i32(i32 %spec.select, i32 9)
-  store i32 %spec.store.select932, ptr %VBR_q428, align 4
+  %call.i924 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
+  %conv.i925 = trunc i64 %call.i924 to i32
+  %spec.select = tail call i32 @llvm.smax.i32(i32 %conv.i925, i32 0)
+  %spec.store.select917 = tail call i32 @llvm.umin.i32(i32 %spec.select, i32 9)
+  store i32 %spec.store.select917, ptr %VBR_q428, align 4
   br label %if.then566
 
 sw.bb441:                                         ; preds = %while.body383
-  %call.i925 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
-  %conv.i926 = trunc i64 %call.i925 to i32
-  %spec.store.select664 = tail call i32 @llvm.smax.i32(i32 %conv.i926, i32 0)
+  %call.i926 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
+  %conv.i927 = trunc i64 %call.i926 to i32
+  %spec.store.select664 = tail call i32 @llvm.smax.i32(i32 %conv.i927, i32 0)
   %spec.store.select666 = tail call i32 @llvm.umin.i32(i32 %spec.store.select664, i32 9)
   br label %if.then566
 
 sw.bb451:                                         ; preds = %while.body383
-  %call.i927 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null) #13
-  %conv453 = fptrunc double %call.i927 to float
+  %call.i928 = tail call double @strtod(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null) #13
+  %conv453 = fptrunc double %call.i928 to float
   %conv454 = fpext float %conv453 to double
   %38 = tail call double @llvm.fmuladd.f64(double %conv454, double 1.000000e+03, double 5.000000e-01)
   %conv455 = fptosi double %38 to i32
@@ -1178,16 +1178,16 @@ sw.bb451:                                         ; preds = %while.body383
   br label %if.then566
 
 sw.bb456:                                         ; preds = %while.body383
-  %call.i928 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
-  %conv.i929 = trunc i64 %call.i928 to i32
-  store i32 %conv.i929, ptr %brate458, align 8, !tbaa !36
-  store i32 %conv.i929, ptr %VBR_min_bitrate_kbps460, align 8, !tbaa !43
+  %call.i929 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
+  %conv.i930 = trunc i64 %call.i929 to i32
+  store i32 %conv.i930, ptr %brate458, align 8, !tbaa !36
+  store i32 %conv.i930, ptr %VBR_min_bitrate_kbps460, align 8, !tbaa !43
   br label %if.then566
 
 sw.bb461:                                         ; preds = %while.body383
-  %call.i930 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
-  %conv.i931 = trunc i64 %call.i930 to i32
-  store i32 %conv.i931, ptr %VBR_max_bitrate_kbps463, align 4, !tbaa !22
+  %call.i931 = tail call i64 @strtol(ptr nocapture noundef nonnull %nextArg.0., ptr noundef null, i32 noundef 10) #13
+  %conv.i932 = trunc i64 %call.i931 to i32
+  store i32 %conv.i932, ptr %VBR_max_bitrate_kbps463, align 4, !tbaa !22
   br label %if.then566
 
 sw.bb464:                                         ; preds = %while.body383
@@ -1337,17 +1337,17 @@ if.then566:                                       ; preds = %sw.bb481, %if.then5
   %err.2.ph = phi i32 [ %err.1990, %sw.bb426 ], [ 1, %if.else419 ], [ %err.1990, %if.then417 ], [ %err.1990, %if.then411 ], [ %err.1990, %if.then405 ], [ %err.1990, %if.then399 ], [ %err.1990, %if.then393 ], [ %err.1990, %sw.bb441 ], [ %err.1990, %sw.bb451 ], [ %err.1990, %sw.bb456 ], [ %err.1990, %sw.bb461 ], [ 1, %if.else523 ], [ %err.1990, %if.then521 ], [ %err.1990, %if.then515 ], [ %err.1990, %if.then509 ], [ %err.1990, %if.then503 ], [ %err.1990, %if.then497 ], [ %err.1990, %if.then491 ], [ 1, %if.else555 ], [ %err.1990, %if.then553 ], [ %err.1990, %if.then547 ], [ %err.1990, %if.then542 ], [ %err.1990, %sw.bb481 ]
   %user_quality.2.ph = phi i32 [ %user_quality.1993, %sw.bb426 ], [ %user_quality.1993, %if.else419 ], [ %user_quality.1993, %if.then417 ], [ %user_quality.1993, %if.then411 ], [ %user_quality.1993, %if.then405 ], [ %user_quality.1993, %if.then399 ], [ %user_quality.1993, %if.then393 ], [ %spec.store.select666, %sw.bb441 ], [ %user_quality.1993, %sw.bb451 ], [ %user_quality.1993, %sw.bb456 ], [ %user_quality.1993, %sw.bb461 ], [ %user_quality.1993, %if.else523 ], [ %user_quality.1993, %if.then521 ], [ %user_quality.1993, %if.then515 ], [ %user_quality.1993, %if.then509 ], [ %user_quality.1993, %if.then503 ], [ %user_quality.1993, %if.then497 ], [ %user_quality.1993, %if.then491 ], [ %user_quality.1993, %if.else555 ], [ %user_quality.1993, %if.then553 ], [ %user_quality.1993, %if.then547 ], [ %user_quality.1993, %if.then542 ], [ %user_quality.1993, %sw.bb481 ]
   %cmp567 = icmp ne ptr %nextArg.0., %incdec.ptr381994
-  %spec.select1012 = select i1 %cmp567, ptr %incdec.ptr381994, ptr @.str.110
+  %spec.select1011 = select i1 %cmp567, ptr %incdec.ptr381994, ptr @.str.110
   %inc571 = zext i1 %cmp567 to i32
-  %spec.select1013 = add nsw i32 %i.1991, %inc571
+  %spec.select1012 = add nsw i32 %i.1991, %inc571
   br label %if.end573
 
 if.end573:                                        ; preds = %if.then566, %sw.bb464, %sw.bb465, %sw.bb467, %sw.bb468, %sw.bb469, %sw.bb472, %sw.bb474, %sw.bb477, %sw.bb478, %sw.bb480, %sw.bb532, %sw.bb533, %sw.bb534, %sw.bb536, %sw.bb560, %sw.bb561, %sw.default
-  %.str.110 = phi ptr [ %incdec.ptr381994, %sw.default ], [ %incdec.ptr381994, %sw.bb561 ], [ %incdec.ptr381994, %sw.bb560 ], [ %incdec.ptr381994, %sw.bb536 ], [ %incdec.ptr381994, %sw.bb534 ], [ %incdec.ptr381994, %sw.bb533 ], [ %incdec.ptr381994, %sw.bb532 ], [ %incdec.ptr381994, %sw.bb480 ], [ %incdec.ptr381994, %sw.bb478 ], [ %incdec.ptr381994, %sw.bb477 ], [ %incdec.ptr381994, %sw.bb474 ], [ %incdec.ptr381994, %sw.bb472 ], [ %incdec.ptr381994, %sw.bb469 ], [ %incdec.ptr381994, %sw.bb468 ], [ %incdec.ptr381994, %sw.bb467 ], [ %incdec.ptr381994, %sw.bb465 ], [ %incdec.ptr381994, %sw.bb464 ], [ %spec.select1012, %if.then566 ]
-  %user_quality.2942 = phi i32 [ %user_quality.1993, %sw.default ], [ %user_quality.1993, %sw.bb561 ], [ %user_quality.1993, %sw.bb560 ], [ %user_quality.1993, %sw.bb536 ], [ %user_quality.1993, %sw.bb534 ], [ %user_quality.1993, %sw.bb533 ], [ %user_quality.1993, %sw.bb532 ], [ %user_quality.1993, %sw.bb480 ], [ %user_quality.1993, %sw.bb478 ], [ %user_quality.1993, %sw.bb477 ], [ %user_quality.1993, %sw.bb474 ], [ %user_quality.1993, %sw.bb472 ], [ %user_quality.1993, %sw.bb469 ], [ %user_quality.1993, %sw.bb468 ], [ %user_quality.1993, %sw.bb467 ], [ %user_quality.1993, %sw.bb465 ], [ %user_quality.1993, %sw.bb464 ], [ %user_quality.2.ph, %if.then566 ]
-  %autoconvert.2940 = phi i32 [ %autoconvert.1992, %sw.default ], [ %autoconvert.1992, %sw.bb561 ], [ %autoconvert.1992, %sw.bb560 ], [ %autoconvert.1992, %sw.bb536 ], [ %autoconvert.1992, %sw.bb534 ], [ %autoconvert.1992, %sw.bb533 ], [ %autoconvert.1992, %sw.bb532 ], [ %autoconvert.1992, %sw.bb480 ], [ %autoconvert.1992, %sw.bb478 ], [ %autoconvert.1992, %sw.bb477 ], [ %autoconvert.1992, %sw.bb474 ], [ %autoconvert.1992, %sw.bb472 ], [ 1, %sw.bb469 ], [ %autoconvert.1992, %sw.bb468 ], [ %autoconvert.1992, %sw.bb467 ], [ %autoconvert.1992, %sw.bb465 ], [ %autoconvert.1992, %sw.bb464 ], [ %autoconvert.1992, %if.then566 ]
-  %err.2938 = phi i32 [ 1, %sw.default ], [ %err.1990, %sw.bb561 ], [ %err.1990, %sw.bb560 ], [ %err.1990, %sw.bb536 ], [ %err.1990, %sw.bb534 ], [ %err.1990, %sw.bb533 ], [ %err.1990, %sw.bb532 ], [ %err.1990, %sw.bb480 ], [ %err.1990, %sw.bb478 ], [ %err.1990, %sw.bb477 ], [ %err.1990, %sw.bb474 ], [ %err.1990, %sw.bb472 ], [ %err.1990, %sw.bb469 ], [ %err.1990, %sw.bb468 ], [ %err.1990, %sw.bb467 ], [ %err.1990, %sw.bb465 ], [ %err.1990, %sw.bb464 ], [ %err.2.ph, %if.then566 ]
-  %i.3 = phi i32 [ %i.1991, %sw.default ], [ %i.1991, %sw.bb561 ], [ %i.1991, %sw.bb560 ], [ %i.1991, %sw.bb536 ], [ %i.1991, %sw.bb534 ], [ %i.1991, %sw.bb533 ], [ %i.1991, %sw.bb532 ], [ %i.1991, %sw.bb480 ], [ %i.1991, %sw.bb478 ], [ %i.1991, %sw.bb477 ], [ %i.1991, %sw.bb474 ], [ %i.1991, %sw.bb472 ], [ %i.1991, %sw.bb469 ], [ %i.1991, %sw.bb468 ], [ %i.1991, %sw.bb467 ], [ %i.1991, %sw.bb465 ], [ %i.1991, %sw.bb464 ], [ %spec.select1013, %if.then566 ]
+  %.str.110 = phi ptr [ %incdec.ptr381994, %sw.default ], [ %incdec.ptr381994, %sw.bb561 ], [ %incdec.ptr381994, %sw.bb560 ], [ %incdec.ptr381994, %sw.bb536 ], [ %incdec.ptr381994, %sw.bb534 ], [ %incdec.ptr381994, %sw.bb533 ], [ %incdec.ptr381994, %sw.bb532 ], [ %incdec.ptr381994, %sw.bb480 ], [ %incdec.ptr381994, %sw.bb478 ], [ %incdec.ptr381994, %sw.bb477 ], [ %incdec.ptr381994, %sw.bb474 ], [ %incdec.ptr381994, %sw.bb472 ], [ %incdec.ptr381994, %sw.bb469 ], [ %incdec.ptr381994, %sw.bb468 ], [ %incdec.ptr381994, %sw.bb467 ], [ %incdec.ptr381994, %sw.bb465 ], [ %incdec.ptr381994, %sw.bb464 ], [ %spec.select1011, %if.then566 ]
+  %user_quality.2943 = phi i32 [ %user_quality.1993, %sw.default ], [ %user_quality.1993, %sw.bb561 ], [ %user_quality.1993, %sw.bb560 ], [ %user_quality.1993, %sw.bb536 ], [ %user_quality.1993, %sw.bb534 ], [ %user_quality.1993, %sw.bb533 ], [ %user_quality.1993, %sw.bb532 ], [ %user_quality.1993, %sw.bb480 ], [ %user_quality.1993, %sw.bb478 ], [ %user_quality.1993, %sw.bb477 ], [ %user_quality.1993, %sw.bb474 ], [ %user_quality.1993, %sw.bb472 ], [ %user_quality.1993, %sw.bb469 ], [ %user_quality.1993, %sw.bb468 ], [ %user_quality.1993, %sw.bb467 ], [ %user_quality.1993, %sw.bb465 ], [ %user_quality.1993, %sw.bb464 ], [ %user_quality.2.ph, %if.then566 ]
+  %autoconvert.2941 = phi i32 [ %autoconvert.1992, %sw.default ], [ %autoconvert.1992, %sw.bb561 ], [ %autoconvert.1992, %sw.bb560 ], [ %autoconvert.1992, %sw.bb536 ], [ %autoconvert.1992, %sw.bb534 ], [ %autoconvert.1992, %sw.bb533 ], [ %autoconvert.1992, %sw.bb532 ], [ %autoconvert.1992, %sw.bb480 ], [ %autoconvert.1992, %sw.bb478 ], [ %autoconvert.1992, %sw.bb477 ], [ %autoconvert.1992, %sw.bb474 ], [ %autoconvert.1992, %sw.bb472 ], [ 1, %sw.bb469 ], [ %autoconvert.1992, %sw.bb468 ], [ %autoconvert.1992, %sw.bb467 ], [ %autoconvert.1992, %sw.bb465 ], [ %autoconvert.1992, %sw.bb464 ], [ %autoconvert.1992, %if.then566 ]
+  %err.2939 = phi i32 [ 1, %sw.default ], [ %err.1990, %sw.bb561 ], [ %err.1990, %sw.bb560 ], [ %err.1990, %sw.bb536 ], [ %err.1990, %sw.bb534 ], [ %err.1990, %sw.bb533 ], [ %err.1990, %sw.bb532 ], [ %err.1990, %sw.bb480 ], [ %err.1990, %sw.bb478 ], [ %err.1990, %sw.bb477 ], [ %err.1990, %sw.bb474 ], [ %err.1990, %sw.bb472 ], [ %err.1990, %sw.bb469 ], [ %err.1990, %sw.bb468 ], [ %err.1990, %sw.bb467 ], [ %err.1990, %sw.bb465 ], [ %err.1990, %sw.bb464 ], [ %err.2.ph, %if.then566 ]
+  %i.3 = phi i32 [ %i.1991, %sw.default ], [ %i.1991, %sw.bb561 ], [ %i.1991, %sw.bb560 ], [ %i.1991, %sw.bb536 ], [ %i.1991, %sw.bb534 ], [ %i.1991, %sw.bb533 ], [ %i.1991, %sw.bb532 ], [ %i.1991, %sw.bb480 ], [ %i.1991, %sw.bb478 ], [ %i.1991, %sw.bb477 ], [ %i.1991, %sw.bb474 ], [ %i.1991, %sw.bb472 ], [ %i.1991, %sw.bb469 ], [ %i.1991, %sw.bb468 ], [ %i.1991, %sw.bb467 ], [ %i.1991, %sw.bb465 ], [ %i.1991, %sw.bb464 ], [ %spec.select1012, %if.then566 ]
   %incdec.ptr381 = getelementptr inbounds i8, ptr %.str.110, i64 1
   %45 = load i8, ptr %.str.110, align 1, !tbaa !14
   %tobool382.not = icmp eq i8 %45, 0
@@ -1378,10 +1378,10 @@ while.end598.thread:                              ; preds = %if.else583
   br label %if.then604
 
 if.end597:                                        ; preds = %if.end573, %if.end28, %if.then579, %if.then587, %if.end377
-  %err.3 = phi i32 [ 0, %if.end377 ], [ 0, %if.then579 ], [ 0, %if.then587 ], [ 0, %if.end28 ], [ %err.2938, %if.end573 ]
-  %i.4 = phi i32 [ %add378, %if.end377 ], [ %inc1008, %if.then579 ], [ %inc1008, %if.then587 ], [ %inc1008, %if.end28 ], [ %i.3, %if.end573 ]
-  %autoconvert.3 = phi i32 [ %autoconvert.01006, %if.end377 ], [ %autoconvert.01006, %if.then579 ], [ %autoconvert.01006, %if.then587 ], [ %autoconvert.01006, %if.end28 ], [ %autoconvert.2940, %if.end573 ]
-  %user_quality.3 = phi i32 [ %user_quality.01007, %if.end377 ], [ %user_quality.01007, %if.then579 ], [ %user_quality.01007, %if.then587 ], [ %user_quality.01007, %if.end28 ], [ %user_quality.2942, %if.end573 ]
+  %err.3 = phi i32 [ 0, %if.end377 ], [ 0, %if.then579 ], [ 0, %if.then587 ], [ 0, %if.end28 ], [ %err.2939, %if.end573 ]
+  %i.4 = phi i32 [ %add378, %if.end377 ], [ %inc1007, %if.then579 ], [ %inc1007, %if.then587 ], [ %inc1007, %if.end28 ], [ %i.3, %if.end573 ]
+  %autoconvert.3 = phi i32 [ %autoconvert.01005, %if.end377 ], [ %autoconvert.01005, %if.then579 ], [ %autoconvert.01005, %if.then587 ], [ %autoconvert.01005, %if.end28 ], [ %autoconvert.2941, %if.end573 ]
+  %user_quality.3 = phi i32 [ %user_quality.01006, %if.end377 ], [ %user_quality.01006, %if.then579 ], [ %user_quality.01006, %if.then587 ], [ %user_quality.01006, %if.end28 ], [ %user_quality.2943, %if.end573 ]
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %token) #13
   %inc = add nsw i32 %i.4, 1
   %cmp = icmp slt i32 %inc, %argc
@@ -1428,8 +1428,8 @@ if.end611:                                        ; preds = %if.end605
 
 if.end611.thread:                                 ; preds = %if.end605
   %59 = load i8, ptr @outPath, align 16, !tbaa !14
-  %cmp613943 = icmp eq i8 %59, 0
-  br i1 %cmp613943, label %if.else621, label %if.end625
+  %cmp613944 = icmp eq i8 %59, 0
+  br i1 %cmp613944, label %if.else621, label %if.end625
 
 if.end625.thread:                                 ; preds = %if.end611
   store i16 45, ptr @outPath, align 16
@@ -1440,11 +1440,11 @@ if.else621:                                       ; preds = %if.end611.thread
   %strlen = tail call i64 @strlen(ptr nonnull dereferenceable(1) @outPath)
   %endptr = getelementptr inbounds i8, ptr @outPath, i64 %strlen
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(5) %endptr, ptr noundef nonnull align 1 dereferenceable(5) @.str.156, i64 5, i1 false)
-  %.pr944 = load i8, ptr @outPath, align 16, !tbaa !14
+  %.pr945 = load i8, ptr @outPath, align 16, !tbaa !14
   br label %if.end625
 
 if.end625:                                        ; preds = %if.end611.thread, %if.else621, %if.end611
-  %60 = phi i8 [ %59, %if.end611.thread ], [ %.pr944, %if.else621 ], [ %58, %if.end611 ]
+  %60 = phi i8 [ %59, %if.end611.thread ], [ %.pr945, %if.else621 ], [ %58, %if.end611 ]
   %cmp627 = icmp eq i8 %60, 45
   br i1 %cmp627, label %if.then629, label %if.end635
 

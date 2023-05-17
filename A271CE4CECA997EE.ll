@@ -38,16 +38,8 @@ if.then12:                                        ; preds = %entry
   %3 = load i8, ptr %s_blocksize_bits, align 4, !tbaa !10
   %sh_prom = zext i8 %3 to i64
   %shr = ashr i64 %0, %sh_prom
-  %4 = and i64 %shr, 4294967295
-  %tobool.not.i = icmp eq i64 %4, 0
-  br i1 %tobool.not.i, label %if.end.i, label %if.then.i
-
-if.then.i:                                        ; preds = %if.then12
-  tail call void @abort() #3
-  unreachable
-
-if.end.i:                                         ; preds = %if.then12
-  tail call void @exit(i32 noundef 0) #3
+  %conv6 = trunc i64 %shr to i32
+  tail call fastcc void @isofs_bread(i32 noundef %conv6)
   unreachable
 
 cleanup:                                          ; preds = %entry
@@ -56,6 +48,21 @@ cleanup:                                          ; preds = %entry
 
 ; Function Attrs: noreturn
 declare void @abort() local_unnamed_addr #2
+
+; Function Attrs: noreturn nounwind uwtable
+define internal fastcc void @isofs_bread(i32 noundef %block) unnamed_addr #0 {
+entry:
+  %tobool.not = icmp eq i32 %block, 0
+  br i1 %tobool.not, label %if.end, label %if.then
+
+if.then:                                          ; preds = %entry
+  tail call void @abort() #3
+  unreachable
+
+if.end:                                           ; preds = %entry
+  tail call void @exit(i32 noundef 0) #3
+  unreachable
+}
 
 ; Function Attrs: noreturn
 declare void @exit(i32 noundef) local_unnamed_addr #2

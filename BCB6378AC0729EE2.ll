@@ -369,10 +369,10 @@ for.body9.preheader.i.i:                          ; preds = %for.end.i76.i
   %sub5.i.i = add i32 %45, -1
   %46 = load i32, ptr %PicHeightInMapUnits.i, align 4, !tbaa !9
   %sub2.i.i = sub i32 %46, %45
-  %div3132.i.i = lshr i32 %sub2.i.i, 1
+  %div3128.i.i = lshr i32 %sub2.i.i, 1
   %47 = load i32, ptr %PicWidthInMbs.i, align 8, !tbaa !15
   %sub.i.i = sub i32 %47, %45
-  %div131.i.i = lshr i32 %sub.i.i, 1
+  %div127.i.i = lshr i32 %sub.i.i, 1
   %.pre149.i.i = load ptr, ptr @MapUnitToSliceGroupMap, align 8, !tbaa !19
   br label %for.body9.i.i
 
@@ -381,12 +381,12 @@ for.body9.i.i:                                    ; preds = %for.inc81.i.i, %for
   %k.0147.i.i = phi i32 [ %add82.i.i, %for.inc81.i.i ], [ 0, %for.body9.preheader.i.i ]
   %yDir.0146.i.i = phi i32 [ %yDir.1.i.i, %for.inc81.i.i ], [ %45, %for.body9.preheader.i.i ]
   %xDir.0145.i.i = phi i32 [ %xDir.1.i.i, %for.inc81.i.i ], [ %sub5.i.i, %for.body9.preheader.i.i ]
-  %y.0144.i.i = phi i32 [ %y.1.i.i, %for.inc81.i.i ], [ %div3132.i.i, %for.body9.preheader.i.i ]
-  %x.0143.i.i = phi i32 [ %x.1.i.i, %for.inc81.i.i ], [ %div131.i.i, %for.body9.preheader.i.i ]
-  %bottomBound.0142.i.i = phi i32 [ %bottomBound.1.i.i, %for.inc81.i.i ], [ %div3132.i.i, %for.body9.preheader.i.i ]
-  %rightBound.0141.i.i = phi i32 [ %rightBound.1.i.i, %for.inc81.i.i ], [ %div131.i.i, %for.body9.preheader.i.i ]
-  %topBound.0140.i.i = phi i32 [ %topBound.1.i.i, %for.inc81.i.i ], [ %div3132.i.i, %for.body9.preheader.i.i ]
-  %leftBound.0139.i.i = phi i32 [ %leftBound.1.i.i, %for.inc81.i.i ], [ %div131.i.i, %for.body9.preheader.i.i ]
+  %y.0144.i.i = phi i32 [ %y.1.i.i, %for.inc81.i.i ], [ %div3128.i.i, %for.body9.preheader.i.i ]
+  %x.0143.i.i = phi i32 [ %x.1.i.i, %for.inc81.i.i ], [ %div127.i.i, %for.body9.preheader.i.i ]
+  %bottomBound.0142.i.i = phi i32 [ %bottomBound.1.i.i, %for.inc81.i.i ], [ %div3128.i.i, %for.body9.preheader.i.i ]
+  %rightBound.0141.i.i = phi i32 [ %rightBound.1.i.i, %for.inc81.i.i ], [ %div127.i.i, %for.body9.preheader.i.i ]
+  %topBound.0140.i.i = phi i32 [ %topBound.1.i.i, %for.inc81.i.i ], [ %div3128.i.i, %for.body9.preheader.i.i ]
+  %leftBound.0139.i.i = phi i32 [ %leftBound.1.i.i, %for.inc81.i.i ], [ %div127.i.i, %for.body9.preheader.i.i ]
   %49 = load i32, ptr %PicWidthInMbs.i, align 8, !tbaa !15
   %mul11.i.i = mul i32 %49, %y.0144.i.i
   %add12.i.i = add i32 %mul11.i.i, %x.0143.i.i
@@ -413,7 +413,7 @@ if.end.i.i:                                       ; preds = %if.then.i.i, %for.b
 
 if.then29.i.i:                                    ; preds = %if.end.i.i
   %52 = tail call i32 @llvm.smax.i32(i32 %x.0143.i.i, i32 1)
-  %cond.i127.i.i = add nsw i32 %52, -1
+  %cond.i132.i.i = add nsw i32 %52, -1
   %53 = load i32, ptr %slice_group_change_direction_flag.i.i, align 4, !tbaa !34
   %mul33.i.i = shl i32 %53, 1
   %sub34.i.i = add i32 %mul33.i.i, -1
@@ -422,14 +422,14 @@ if.then29.i.i:                                    ; preds = %if.end.i.i
 if.else.i.i:                                      ; preds = %if.end.i.i
   %cmp35.i.i = icmp eq i32 %xDir.0145.i.i, 1
   %cmp38.i.i = icmp eq i32 %x.0143.i.i, %rightBound.0141.i.i
-  %or.cond133.i.i = select i1 %cmp35.i.i, i1 %cmp38.i.i, i1 false
-  br i1 %or.cond133.i.i, label %if.then40.i.i, label %if.else48.i.i
+  %or.cond129.i.i = select i1 %cmp35.i.i, i1 %cmp38.i.i, i1 false
+  br i1 %or.cond129.i.i, label %if.then40.i.i, label %if.else48.i.i
 
 if.then40.i.i:                                    ; preds = %if.else.i.i
   %add41.i.i = add nsw i32 %x.0143.i.i, 1
   %54 = load i32, ptr %PicWidthInMbs.i, align 8, !tbaa !15
   %sub43.i.i = add nsw i32 %54, -1
-  %cond.i128.i.i = tail call i32 @llvm.smin.i32(i32 %add41.i.i, i32 %sub43.i.i)
+  %cond.i133.i.i = tail call i32 @llvm.smin.i32(i32 %add41.i.i, i32 %sub43.i.i)
   %55 = load i32, ptr %slice_group_change_direction_flag.i.i, align 4, !tbaa !34
   %mul46.i.i = shl i32 %55, 1
   %sub47.i.i = sub i32 1, %mul46.i.i
@@ -438,12 +438,12 @@ if.then40.i.i:                                    ; preds = %if.else.i.i
 if.else48.i.i:                                    ; preds = %if.else.i.i
   %cmp49.i.i = icmp eq i32 %yDir.0146.i.i, -1
   %cmp52.i.i = icmp eq i32 %y.0144.i.i, %topBound.0140.i.i
-  %or.cond134.i.i = select i1 %cmp49.i.i, i1 %cmp52.i.i, i1 false
-  br i1 %or.cond134.i.i, label %if.then54.i.i, label %if.else60.i.i
+  %or.cond130.i.i = select i1 %cmp49.i.i, i1 %cmp52.i.i, i1 false
+  br i1 %or.cond130.i.i, label %if.then54.i.i, label %if.else60.i.i
 
 if.then54.i.i:                                    ; preds = %if.else48.i.i
   %56 = tail call i32 @llvm.smax.i32(i32 %y.0144.i.i, i32 1)
-  %cond.i129.i.i = add nsw i32 %56, -1
+  %cond.i134.i.i = add nsw i32 %56, -1
   %57 = load i32, ptr %slice_group_change_direction_flag.i.i, align 4, !tbaa !34
   %mul58.i.i = shl i32 %57, 1
   %sub59.i.i = sub i32 1, %mul58.i.i
@@ -452,14 +452,14 @@ if.then54.i.i:                                    ; preds = %if.else48.i.i
 if.else60.i.i:                                    ; preds = %if.else48.i.i
   %cmp61.i.i = icmp eq i32 %yDir.0146.i.i, 1
   %cmp64.i.i = icmp eq i32 %y.0144.i.i, %bottomBound.0142.i.i
-  %or.cond135.i.i = select i1 %cmp61.i.i, i1 %cmp64.i.i, i1 false
-  br i1 %or.cond135.i.i, label %if.then66.i.i, label %if.else74.i.i
+  %or.cond131.i.i = select i1 %cmp61.i.i, i1 %cmp64.i.i, i1 false
+  br i1 %or.cond131.i.i, label %if.then66.i.i, label %if.else74.i.i
 
 if.then66.i.i:                                    ; preds = %if.else60.i.i
   %add67.i.i = add nsw i32 %y.0144.i.i, 1
   %58 = load i32, ptr %PicHeightInMapUnits.i, align 4, !tbaa !9
   %sub69.i.i = add nsw i32 %58, -1
-  %cond.i130.i.i = tail call i32 @llvm.smin.i32(i32 %add67.i.i, i32 %sub69.i.i)
+  %cond.i135.i.i = tail call i32 @llvm.smin.i32(i32 %add67.i.i, i32 %sub69.i.i)
   %59 = load i32, ptr %slice_group_change_direction_flag.i.i, align 4, !tbaa !34
   %mul72.i.i = shl i32 %59, 1
   %sub73.i.i = add i32 %mul72.i.i, -1
@@ -471,12 +471,12 @@ if.else74.i.i:                                    ; preds = %if.else60.i.i
   br label %for.inc81.i.i
 
 for.inc81.i.i:                                    ; preds = %if.else74.i.i, %if.then66.i.i, %if.then54.i.i, %if.then40.i.i, %if.then29.i.i
-  %leftBound.1.i.i = phi i32 [ %cond.i127.i.i, %if.then29.i.i ], [ %leftBound.0139.i.i, %if.then40.i.i ], [ %leftBound.0139.i.i, %if.then54.i.i ], [ %leftBound.0139.i.i, %if.then66.i.i ], [ %leftBound.0139.i.i, %if.else74.i.i ]
-  %topBound.1.i.i = phi i32 [ %topBound.0140.i.i, %if.then29.i.i ], [ %topBound.0140.i.i, %if.then40.i.i ], [ %cond.i129.i.i, %if.then54.i.i ], [ %topBound.0140.i.i, %if.then66.i.i ], [ %topBound.0140.i.i, %if.else74.i.i ]
-  %rightBound.1.i.i = phi i32 [ %rightBound.0141.i.i, %if.then29.i.i ], [ %cond.i128.i.i, %if.then40.i.i ], [ %rightBound.0141.i.i, %if.then54.i.i ], [ %rightBound.0141.i.i, %if.then66.i.i ], [ %rightBound.0141.i.i, %if.else74.i.i ]
-  %bottomBound.1.i.i = phi i32 [ %bottomBound.0142.i.i, %if.then29.i.i ], [ %bottomBound.0142.i.i, %if.then40.i.i ], [ %bottomBound.0142.i.i, %if.then54.i.i ], [ %cond.i130.i.i, %if.then66.i.i ], [ %bottomBound.0142.i.i, %if.else74.i.i ]
-  %x.1.i.i = phi i32 [ %cond.i127.i.i, %if.then29.i.i ], [ %cond.i128.i.i, %if.then40.i.i ], [ %x.0143.i.i, %if.then54.i.i ], [ %x.0143.i.i, %if.then66.i.i ], [ %add75.i.i, %if.else74.i.i ]
-  %y.1.i.i = phi i32 [ %y.0144.i.i, %if.then29.i.i ], [ %y.0144.i.i, %if.then40.i.i ], [ %cond.i129.i.i, %if.then54.i.i ], [ %cond.i130.i.i, %if.then66.i.i ], [ %add76.i.i, %if.else74.i.i ]
+  %leftBound.1.i.i = phi i32 [ %cond.i132.i.i, %if.then29.i.i ], [ %leftBound.0139.i.i, %if.then40.i.i ], [ %leftBound.0139.i.i, %if.then54.i.i ], [ %leftBound.0139.i.i, %if.then66.i.i ], [ %leftBound.0139.i.i, %if.else74.i.i ]
+  %topBound.1.i.i = phi i32 [ %topBound.0140.i.i, %if.then29.i.i ], [ %topBound.0140.i.i, %if.then40.i.i ], [ %cond.i134.i.i, %if.then54.i.i ], [ %topBound.0140.i.i, %if.then66.i.i ], [ %topBound.0140.i.i, %if.else74.i.i ]
+  %rightBound.1.i.i = phi i32 [ %rightBound.0141.i.i, %if.then29.i.i ], [ %cond.i133.i.i, %if.then40.i.i ], [ %rightBound.0141.i.i, %if.then54.i.i ], [ %rightBound.0141.i.i, %if.then66.i.i ], [ %rightBound.0141.i.i, %if.else74.i.i ]
+  %bottomBound.1.i.i = phi i32 [ %bottomBound.0142.i.i, %if.then29.i.i ], [ %bottomBound.0142.i.i, %if.then40.i.i ], [ %bottomBound.0142.i.i, %if.then54.i.i ], [ %cond.i135.i.i, %if.then66.i.i ], [ %bottomBound.0142.i.i, %if.else74.i.i ]
+  %x.1.i.i = phi i32 [ %cond.i132.i.i, %if.then29.i.i ], [ %cond.i133.i.i, %if.then40.i.i ], [ %x.0143.i.i, %if.then54.i.i ], [ %x.0143.i.i, %if.then66.i.i ], [ %add75.i.i, %if.else74.i.i ]
+  %y.1.i.i = phi i32 [ %y.0144.i.i, %if.then29.i.i ], [ %y.0144.i.i, %if.then40.i.i ], [ %cond.i134.i.i, %if.then54.i.i ], [ %cond.i135.i.i, %if.then66.i.i ], [ %add76.i.i, %if.else74.i.i ]
   %xDir.1.i.i = phi i32 [ 0, %if.then29.i.i ], [ 0, %if.then40.i.i ], [ %sub59.i.i, %if.then54.i.i ], [ %sub73.i.i, %if.then66.i.i ], [ %xDir.0145.i.i, %if.else74.i.i ]
   %yDir.1.i.i = phi i32 [ %sub34.i.i, %if.then29.i.i ], [ %sub47.i.i, %if.then40.i.i ], [ 0, %if.then54.i.i ], [ 0, %if.then66.i.i ], [ %yDir.0146.i.i, %if.else74.i.i ]
   %add82.i.i = add nuw i32 %k.0147.i.i, %conv16.i.i
@@ -755,248 +755,182 @@ entry:
   %1 = load i32, ptr %PicSizeInMbs.i, align 4, !tbaa !42
   %cmp8.i = icmp sgt i32 %1, 0
   %2 = load ptr, ptr @MBAmap, align 8
-  %3 = zext i32 %1 to i64
-  br i1 %cmp8.i, label %entry.split.us, label %for.body.preheader
+  %wide.trip.count.i = zext i32 %1 to i64
+  br i1 %cmp8.i, label %land.rhs.i.us, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(32) @FirstMBInSlice, i8 -1, i64 32, i1 false), !tbaa !5
   br label %for.end
 
-entry.split.us:                                   ; preds = %entry
-  %4 = load i8, ptr %2, align 1, !tbaa !23
-  %cmp1.not.i8.us = icmp eq i8 %4, 0
-  br i1 %cmp1.not.i8.us, label %while.end.i.us, label %while.body.i.us
+land.rhs.i.us:                                    ; preds = %entry, %while.body.i.us
+  %indvars.iv.i.us = phi i64 [ %indvars.iv.next.i.us, %while.body.i.us ], [ 0, %entry ]
+  %arrayidx.i.i.us = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us
+  %3 = load i8, ptr %arrayidx.i.i.us, align 1, !tbaa !23
+  %cmp1.not.i.us = icmp eq i8 %3, 0
+  br i1 %cmp1.not.i.us, label %while.end.loopexit.split.loop.exit12.i.us, label %while.body.i.us
 
-land.rhs.i.us:                                    ; preds = %while.body.i.us
-  %arrayidx.i.i.us = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us
-  %5 = load i8, ptr %arrayidx.i.i.us, align 1, !tbaa !23
-  %cmp1.not.i.us = icmp eq i8 %5, 0
-  br i1 %cmp1.not.i.us, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us, label %while.body.i.us, !llvm.loop !52
+while.body.i.us:                                  ; preds = %land.rhs.i.us
+  %indvars.iv.next.i.us = add nuw nsw i64 %indvars.iv.i.us, 1
+  %exitcond.not.i.us = icmp eq i64 %indvars.iv.next.i.us, %wide.trip.count.i
+  br i1 %exitcond.not.i.us, label %FmoGetFirstMBOfSliceGroup.exit.us, label %land.rhs.i.us, !llvm.loop !52
 
-while.body.i.us:                                  ; preds = %entry.split.us, %land.rhs.i.us
-  %indvars.iv.i9.us = phi i64 [ %indvars.iv.next.i.us, %land.rhs.i.us ], [ 0, %entry.split.us ]
-  %indvars.iv.next.i.us = add nuw nsw i64 %indvars.iv.i9.us, 1
-  %exitcond.not.i.us = icmp eq i64 %indvars.iv.next.i.us, %3
-  br i1 %exitcond.not.i.us, label %while.end.i.us, label %land.rhs.i.us, !llvm.loop !52
+while.end.loopexit.split.loop.exit12.i.us:        ; preds = %land.rhs.i.us
+  %4 = trunc i64 %indvars.iv.i.us to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us
 
-while.end.i.us:                                   ; preds = %while.body.i.us, %entry.split.us, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us
-  %i.0.lcssa.i.us = phi i32 [ %32, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us ], [ 0, %entry.split.us ], [ %1, %while.body.i.us ]
-  %cmp.lcssa.i.us = phi i1 [ %cmp.i.us.le, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us ], [ true, %entry.split.us ], [ false, %while.body.i.us ]
-  %cond.fr.i.us = freeze i1 %cmp.lcssa.i.us
-  %spec.select.i.us = select i1 %cond.fr.i.us, i32 %i.0.lcssa.i.us, i32 -1
-  store i32 %spec.select.i.us, ptr @FirstMBInSlice, align 16, !tbaa !5
-  %cmp1.not.i8.us.1 = icmp eq i8 %4, 1
-  br i1 %cmp1.not.i8.us.1, label %while.end.i.us.1, label %while.body.i.us.1
+FmoGetFirstMBOfSliceGroup.exit.us:                ; preds = %while.body.i.us, %while.end.loopexit.split.loop.exit12.i.us
+  %i.0..i.us = phi i32 [ %4, %while.end.loopexit.split.loop.exit12.i.us ], [ -1, %while.body.i.us ]
+  store i32 %i.0..i.us, ptr @FirstMBInSlice, align 16, !tbaa !5
+  br label %land.rhs.i.us.1
 
-while.body.i.us.1:                                ; preds = %while.end.i.us, %land.rhs.i.us.1
-  %indvars.iv.i9.us.1 = phi i64 [ %indvars.iv.next.i.us.1, %land.rhs.i.us.1 ], [ 0, %while.end.i.us ]
-  %indvars.iv.next.i.us.1 = add nuw nsw i64 %indvars.iv.i9.us.1, 1
-  %exitcond.not.i.us.1 = icmp eq i64 %indvars.iv.next.i.us.1, %3
-  br i1 %exitcond.not.i.us.1, label %while.end.i.us.1, label %land.rhs.i.us.1, !llvm.loop !52
+land.rhs.i.us.1:                                  ; preds = %while.body.i.us.1, %FmoGetFirstMBOfSliceGroup.exit.us
+  %indvars.iv.i.us.1 = phi i64 [ 0, %FmoGetFirstMBOfSliceGroup.exit.us ], [ %indvars.iv.next.i.us.1, %while.body.i.us.1 ]
+  %arrayidx.i.i.us.1 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us.1
+  %5 = load i8, ptr %arrayidx.i.i.us.1, align 1, !tbaa !23
+  %cmp1.not.i.us.1 = icmp eq i8 %5, 1
+  br i1 %cmp1.not.i.us.1, label %while.end.loopexit.split.loop.exit12.i.us.1, label %while.body.i.us.1
 
-land.rhs.i.us.1:                                  ; preds = %while.body.i.us.1
-  %arrayidx.i.i.us.1 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us.1
-  %6 = load i8, ptr %arrayidx.i.i.us.1, align 1, !tbaa !23
-  %cmp1.not.i.us.1 = icmp eq i8 %6, 1
-  br i1 %cmp1.not.i.us.1, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.1, label %while.body.i.us.1, !llvm.loop !52
+while.body.i.us.1:                                ; preds = %land.rhs.i.us.1
+  %indvars.iv.next.i.us.1 = add nuw nsw i64 %indvars.iv.i.us.1, 1
+  %exitcond.not.i.us.1 = icmp eq i64 %indvars.iv.next.i.us.1, %wide.trip.count.i
+  br i1 %exitcond.not.i.us.1, label %FmoGetFirstMBOfSliceGroup.exit.us.1, label %land.rhs.i.us.1, !llvm.loop !52
 
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.1: ; preds = %land.rhs.i.us.1
-  %cmp.i.us.le.1 = icmp ult i64 %indvars.iv.next.i.us.1, %3
-  %7 = trunc i64 %indvars.iv.next.i.us.1 to i32
-  br label %while.end.i.us.1
+while.end.loopexit.split.loop.exit12.i.us.1:      ; preds = %land.rhs.i.us.1
+  %6 = trunc i64 %indvars.iv.i.us.1 to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us.1
 
-while.end.i.us.1:                                 ; preds = %while.body.i.us.1, %while.end.i.us, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.1
-  %i.0.lcssa.i.us.1 = phi i32 [ %7, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.1 ], [ 0, %while.end.i.us ], [ %1, %while.body.i.us.1 ]
-  %cmp.lcssa.i.us.1 = phi i1 [ %cmp.i.us.le.1, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.1 ], [ true, %while.end.i.us ], [ false, %while.body.i.us.1 ]
-  %cond.fr.i.us.1 = freeze i1 %cmp.lcssa.i.us.1
-  %spec.select.i.us.1 = select i1 %cond.fr.i.us.1, i32 %i.0.lcssa.i.us.1, i32 -1
-  store i32 %spec.select.i.us.1, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 1), align 4, !tbaa !5
-  %cmp1.not.i8.us.2 = icmp eq i8 %4, 2
-  br i1 %cmp1.not.i8.us.2, label %while.end.i.us.2, label %while.body.i.us.2
+FmoGetFirstMBOfSliceGroup.exit.us.1:              ; preds = %while.body.i.us.1, %while.end.loopexit.split.loop.exit12.i.us.1
+  %i.0..i.us.1 = phi i32 [ %6, %while.end.loopexit.split.loop.exit12.i.us.1 ], [ -1, %while.body.i.us.1 ]
+  store i32 %i.0..i.us.1, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 1), align 4, !tbaa !5
+  br label %land.rhs.i.us.2
 
-while.body.i.us.2:                                ; preds = %while.end.i.us.1, %land.rhs.i.us.2
-  %indvars.iv.i9.us.2 = phi i64 [ %indvars.iv.next.i.us.2, %land.rhs.i.us.2 ], [ 0, %while.end.i.us.1 ]
-  %indvars.iv.next.i.us.2 = add nuw nsw i64 %indvars.iv.i9.us.2, 1
-  %exitcond.not.i.us.2 = icmp eq i64 %indvars.iv.next.i.us.2, %3
-  br i1 %exitcond.not.i.us.2, label %while.end.i.us.2, label %land.rhs.i.us.2, !llvm.loop !52
+land.rhs.i.us.2:                                  ; preds = %while.body.i.us.2, %FmoGetFirstMBOfSliceGroup.exit.us.1
+  %indvars.iv.i.us.2 = phi i64 [ 0, %FmoGetFirstMBOfSliceGroup.exit.us.1 ], [ %indvars.iv.next.i.us.2, %while.body.i.us.2 ]
+  %arrayidx.i.i.us.2 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us.2
+  %7 = load i8, ptr %arrayidx.i.i.us.2, align 1, !tbaa !23
+  %cmp1.not.i.us.2 = icmp eq i8 %7, 2
+  br i1 %cmp1.not.i.us.2, label %while.end.loopexit.split.loop.exit12.i.us.2, label %while.body.i.us.2
 
-land.rhs.i.us.2:                                  ; preds = %while.body.i.us.2
-  %arrayidx.i.i.us.2 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us.2
-  %8 = load i8, ptr %arrayidx.i.i.us.2, align 1, !tbaa !23
-  %cmp1.not.i.us.2 = icmp eq i8 %8, 2
-  br i1 %cmp1.not.i.us.2, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.2, label %while.body.i.us.2, !llvm.loop !52
+while.body.i.us.2:                                ; preds = %land.rhs.i.us.2
+  %indvars.iv.next.i.us.2 = add nuw nsw i64 %indvars.iv.i.us.2, 1
+  %exitcond.not.i.us.2 = icmp eq i64 %indvars.iv.next.i.us.2, %wide.trip.count.i
+  br i1 %exitcond.not.i.us.2, label %FmoGetFirstMBOfSliceGroup.exit.us.2, label %land.rhs.i.us.2, !llvm.loop !52
 
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.2: ; preds = %land.rhs.i.us.2
-  %cmp.i.us.le.2 = icmp ult i64 %indvars.iv.next.i.us.2, %3
-  %9 = trunc i64 %indvars.iv.next.i.us.2 to i32
-  %10 = freeze i1 %cmp.i.us.le.2
-  %11 = select i1 %10, i32 %9, i32 -1
-  br label %while.end.i.us.2
+while.end.loopexit.split.loop.exit12.i.us.2:      ; preds = %land.rhs.i.us.2
+  %8 = trunc i64 %indvars.iv.i.us.2 to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us.2
 
-while.end.i.us.2:                                 ; preds = %while.body.i.us.2, %while.end.i.us.1, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.2
-  %cmp.lcssa.i.us.2 = phi i32 [ %11, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.2 ], [ 0, %while.end.i.us.1 ], [ -1, %while.body.i.us.2 ]
-  store i32 %cmp.lcssa.i.us.2, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 2), align 8, !tbaa !5
-  %cmp1.not.i8.us.3 = icmp eq i8 %4, 3
-  br i1 %cmp1.not.i8.us.3, label %while.end.i.us.3.thread, label %while.body.i.us.3
+FmoGetFirstMBOfSliceGroup.exit.us.2:              ; preds = %while.body.i.us.2, %while.end.loopexit.split.loop.exit12.i.us.2
+  %i.0..i.us.2 = phi i32 [ %8, %while.end.loopexit.split.loop.exit12.i.us.2 ], [ -1, %while.body.i.us.2 ]
+  store i32 %i.0..i.us.2, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 2), align 8, !tbaa !5
+  br label %land.rhs.i.us.3
 
-while.end.i.us.3.thread:                          ; preds = %while.end.i.us.2
-  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 3), align 4, !tbaa !5
-  br label %while.body.i.us.4.preheader
+land.rhs.i.us.3:                                  ; preds = %while.body.i.us.3, %FmoGetFirstMBOfSliceGroup.exit.us.2
+  %indvars.iv.i.us.3 = phi i64 [ 0, %FmoGetFirstMBOfSliceGroup.exit.us.2 ], [ %indvars.iv.next.i.us.3, %while.body.i.us.3 ]
+  %arrayidx.i.i.us.3 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us.3
+  %9 = load i8, ptr %arrayidx.i.i.us.3, align 1, !tbaa !23
+  %cmp1.not.i.us.3 = icmp eq i8 %9, 3
+  br i1 %cmp1.not.i.us.3, label %while.end.loopexit.split.loop.exit12.i.us.3, label %while.body.i.us.3
 
-while.body.i.us.3:                                ; preds = %while.end.i.us.2, %land.rhs.i.us.3
-  %indvars.iv.i9.us.3 = phi i64 [ %indvars.iv.next.i.us.3, %land.rhs.i.us.3 ], [ 0, %while.end.i.us.2 ]
-  %indvars.iv.next.i.us.3 = add nuw nsw i64 %indvars.iv.i9.us.3, 1
-  %exitcond.not.i.us.3 = icmp eq i64 %indvars.iv.next.i.us.3, %3
-  br i1 %exitcond.not.i.us.3, label %while.end.i.us.3, label %land.rhs.i.us.3, !llvm.loop !52
+while.body.i.us.3:                                ; preds = %land.rhs.i.us.3
+  %indvars.iv.next.i.us.3 = add nuw nsw i64 %indvars.iv.i.us.3, 1
+  %exitcond.not.i.us.3 = icmp eq i64 %indvars.iv.next.i.us.3, %wide.trip.count.i
+  br i1 %exitcond.not.i.us.3, label %FmoGetFirstMBOfSliceGroup.exit.us.3, label %land.rhs.i.us.3, !llvm.loop !52
 
-land.rhs.i.us.3:                                  ; preds = %while.body.i.us.3
-  %arrayidx.i.i.us.3 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us.3
-  %12 = load i8, ptr %arrayidx.i.i.us.3, align 1, !tbaa !23
-  %cmp1.not.i.us.3 = icmp eq i8 %12, 3
-  br i1 %cmp1.not.i.us.3, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.3, label %while.body.i.us.3, !llvm.loop !52
+while.end.loopexit.split.loop.exit12.i.us.3:      ; preds = %land.rhs.i.us.3
+  %10 = trunc i64 %indvars.iv.i.us.3 to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us.3
 
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.3: ; preds = %land.rhs.i.us.3
-  %cmp.i.us.le.3 = icmp ult i64 %indvars.iv.next.i.us.3, %3
-  %13 = trunc i64 %indvars.iv.next.i.us.3 to i32
-  %14 = freeze i1 %cmp.i.us.le.3
-  %15 = select i1 %14, i32 %13, i32 -1
-  br label %while.end.i.us.3
+FmoGetFirstMBOfSliceGroup.exit.us.3:              ; preds = %while.body.i.us.3, %while.end.loopexit.split.loop.exit12.i.us.3
+  %i.0..i.us.3 = phi i32 [ %10, %while.end.loopexit.split.loop.exit12.i.us.3 ], [ -1, %while.body.i.us.3 ]
+  store i32 %i.0..i.us.3, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 3), align 4, !tbaa !5
+  br label %land.rhs.i.us.4
 
-while.end.i.us.3:                                 ; preds = %while.body.i.us.3, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.3
-  %cmp.lcssa.i.us.3 = phi i32 [ %15, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.3 ], [ -1, %while.body.i.us.3 ]
-  store i32 %cmp.lcssa.i.us.3, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 3), align 4, !tbaa !5
-  %cmp1.not.i8.us.4 = icmp eq i8 %4, 4
-  br i1 %cmp1.not.i8.us.4, label %while.end.i.us.4.thread, label %while.body.i.us.4.preheader
+land.rhs.i.us.4:                                  ; preds = %while.body.i.us.4, %FmoGetFirstMBOfSliceGroup.exit.us.3
+  %indvars.iv.i.us.4 = phi i64 [ 0, %FmoGetFirstMBOfSliceGroup.exit.us.3 ], [ %indvars.iv.next.i.us.4, %while.body.i.us.4 ]
+  %arrayidx.i.i.us.4 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us.4
+  %11 = load i8, ptr %arrayidx.i.i.us.4, align 1, !tbaa !23
+  %cmp1.not.i.us.4 = icmp eq i8 %11, 4
+  br i1 %cmp1.not.i.us.4, label %while.end.loopexit.split.loop.exit12.i.us.4, label %while.body.i.us.4
 
-while.body.i.us.4.preheader:                      ; preds = %while.end.i.us.3.thread, %while.end.i.us.3
-  br label %while.body.i.us.4
+while.body.i.us.4:                                ; preds = %land.rhs.i.us.4
+  %indvars.iv.next.i.us.4 = add nuw nsw i64 %indvars.iv.i.us.4, 1
+  %exitcond.not.i.us.4 = icmp eq i64 %indvars.iv.next.i.us.4, %wide.trip.count.i
+  br i1 %exitcond.not.i.us.4, label %FmoGetFirstMBOfSliceGroup.exit.us.4, label %land.rhs.i.us.4, !llvm.loop !52
 
-while.end.i.us.4.thread:                          ; preds = %while.end.i.us.3
-  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 4), align 16, !tbaa !5
-  br label %while.body.i.us.5.preheader
+while.end.loopexit.split.loop.exit12.i.us.4:      ; preds = %land.rhs.i.us.4
+  %12 = trunc i64 %indvars.iv.i.us.4 to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us.4
 
-while.body.i.us.4:                                ; preds = %while.body.i.us.4.preheader, %land.rhs.i.us.4
-  %indvars.iv.i9.us.4 = phi i64 [ %indvars.iv.next.i.us.4, %land.rhs.i.us.4 ], [ 0, %while.body.i.us.4.preheader ]
-  %indvars.iv.next.i.us.4 = add nuw nsw i64 %indvars.iv.i9.us.4, 1
-  %exitcond.not.i.us.4 = icmp eq i64 %indvars.iv.next.i.us.4, %3
-  br i1 %exitcond.not.i.us.4, label %while.end.i.us.4, label %land.rhs.i.us.4, !llvm.loop !52
+FmoGetFirstMBOfSliceGroup.exit.us.4:              ; preds = %while.body.i.us.4, %while.end.loopexit.split.loop.exit12.i.us.4
+  %i.0..i.us.4 = phi i32 [ %12, %while.end.loopexit.split.loop.exit12.i.us.4 ], [ -1, %while.body.i.us.4 ]
+  store i32 %i.0..i.us.4, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 4), align 16, !tbaa !5
+  br label %land.rhs.i.us.5
 
-land.rhs.i.us.4:                                  ; preds = %while.body.i.us.4
-  %arrayidx.i.i.us.4 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us.4
-  %16 = load i8, ptr %arrayidx.i.i.us.4, align 1, !tbaa !23
-  %cmp1.not.i.us.4 = icmp eq i8 %16, 4
-  br i1 %cmp1.not.i.us.4, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.4, label %while.body.i.us.4, !llvm.loop !52
+land.rhs.i.us.5:                                  ; preds = %while.body.i.us.5, %FmoGetFirstMBOfSliceGroup.exit.us.4
+  %indvars.iv.i.us.5 = phi i64 [ 0, %FmoGetFirstMBOfSliceGroup.exit.us.4 ], [ %indvars.iv.next.i.us.5, %while.body.i.us.5 ]
+  %arrayidx.i.i.us.5 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us.5
+  %13 = load i8, ptr %arrayidx.i.i.us.5, align 1, !tbaa !23
+  %cmp1.not.i.us.5 = icmp eq i8 %13, 5
+  br i1 %cmp1.not.i.us.5, label %while.end.loopexit.split.loop.exit12.i.us.5, label %while.body.i.us.5
 
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.4: ; preds = %land.rhs.i.us.4
-  %cmp.i.us.le.4 = icmp ult i64 %indvars.iv.next.i.us.4, %3
-  %17 = trunc i64 %indvars.iv.next.i.us.4 to i32
-  %18 = freeze i1 %cmp.i.us.le.4
-  %19 = select i1 %18, i32 %17, i32 -1
-  br label %while.end.i.us.4
+while.body.i.us.5:                                ; preds = %land.rhs.i.us.5
+  %indvars.iv.next.i.us.5 = add nuw nsw i64 %indvars.iv.i.us.5, 1
+  %exitcond.not.i.us.5 = icmp eq i64 %indvars.iv.next.i.us.5, %wide.trip.count.i
+  br i1 %exitcond.not.i.us.5, label %FmoGetFirstMBOfSliceGroup.exit.us.5, label %land.rhs.i.us.5, !llvm.loop !52
 
-while.end.i.us.4:                                 ; preds = %while.body.i.us.4, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.4
-  %cmp.lcssa.i.us.4 = phi i32 [ %19, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.4 ], [ -1, %while.body.i.us.4 ]
-  store i32 %cmp.lcssa.i.us.4, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 4), align 16, !tbaa !5
-  %cmp1.not.i8.us.5 = icmp eq i8 %4, 5
-  br i1 %cmp1.not.i8.us.5, label %while.end.i.us.5.thread, label %while.body.i.us.5.preheader
+while.end.loopexit.split.loop.exit12.i.us.5:      ; preds = %land.rhs.i.us.5
+  %14 = trunc i64 %indvars.iv.i.us.5 to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us.5
 
-while.body.i.us.5.preheader:                      ; preds = %while.end.i.us.4.thread, %while.end.i.us.4
-  br label %while.body.i.us.5
+FmoGetFirstMBOfSliceGroup.exit.us.5:              ; preds = %while.body.i.us.5, %while.end.loopexit.split.loop.exit12.i.us.5
+  %i.0..i.us.5 = phi i32 [ %14, %while.end.loopexit.split.loop.exit12.i.us.5 ], [ -1, %while.body.i.us.5 ]
+  store i32 %i.0..i.us.5, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 5), align 4, !tbaa !5
+  br label %land.rhs.i.us.6
 
-while.end.i.us.5.thread:                          ; preds = %while.end.i.us.4
-  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 5), align 4, !tbaa !5
-  br label %while.body.i.us.6.preheader
+land.rhs.i.us.6:                                  ; preds = %while.body.i.us.6, %FmoGetFirstMBOfSliceGroup.exit.us.5
+  %indvars.iv.i.us.6 = phi i64 [ 0, %FmoGetFirstMBOfSliceGroup.exit.us.5 ], [ %indvars.iv.next.i.us.6, %while.body.i.us.6 ]
+  %arrayidx.i.i.us.6 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us.6
+  %15 = load i8, ptr %arrayidx.i.i.us.6, align 1, !tbaa !23
+  %cmp1.not.i.us.6 = icmp eq i8 %15, 6
+  br i1 %cmp1.not.i.us.6, label %while.end.loopexit.split.loop.exit12.i.us.6, label %while.body.i.us.6
 
-while.body.i.us.5:                                ; preds = %while.body.i.us.5.preheader, %land.rhs.i.us.5
-  %indvars.iv.i9.us.5 = phi i64 [ %indvars.iv.next.i.us.5, %land.rhs.i.us.5 ], [ 0, %while.body.i.us.5.preheader ]
-  %indvars.iv.next.i.us.5 = add nuw nsw i64 %indvars.iv.i9.us.5, 1
-  %exitcond.not.i.us.5 = icmp eq i64 %indvars.iv.next.i.us.5, %3
-  br i1 %exitcond.not.i.us.5, label %while.end.i.us.5, label %land.rhs.i.us.5, !llvm.loop !52
+while.body.i.us.6:                                ; preds = %land.rhs.i.us.6
+  %indvars.iv.next.i.us.6 = add nuw nsw i64 %indvars.iv.i.us.6, 1
+  %exitcond.not.i.us.6 = icmp eq i64 %indvars.iv.next.i.us.6, %wide.trip.count.i
+  br i1 %exitcond.not.i.us.6, label %FmoGetFirstMBOfSliceGroup.exit.us.6, label %land.rhs.i.us.6, !llvm.loop !52
 
-land.rhs.i.us.5:                                  ; preds = %while.body.i.us.5
-  %arrayidx.i.i.us.5 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us.5
-  %20 = load i8, ptr %arrayidx.i.i.us.5, align 1, !tbaa !23
-  %cmp1.not.i.us.5 = icmp eq i8 %20, 5
-  br i1 %cmp1.not.i.us.5, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.5, label %while.body.i.us.5, !llvm.loop !52
+while.end.loopexit.split.loop.exit12.i.us.6:      ; preds = %land.rhs.i.us.6
+  %16 = trunc i64 %indvars.iv.i.us.6 to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us.6
 
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.5: ; preds = %land.rhs.i.us.5
-  %cmp.i.us.le.5 = icmp ult i64 %indvars.iv.next.i.us.5, %3
-  %21 = trunc i64 %indvars.iv.next.i.us.5 to i32
-  %22 = freeze i1 %cmp.i.us.le.5
-  %23 = select i1 %22, i32 %21, i32 -1
-  br label %while.end.i.us.5
+FmoGetFirstMBOfSliceGroup.exit.us.6:              ; preds = %while.body.i.us.6, %while.end.loopexit.split.loop.exit12.i.us.6
+  %i.0..i.us.6 = phi i32 [ %16, %while.end.loopexit.split.loop.exit12.i.us.6 ], [ -1, %while.body.i.us.6 ]
+  store i32 %i.0..i.us.6, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 6), align 8, !tbaa !5
+  br label %land.rhs.i.us.7
 
-while.end.i.us.5:                                 ; preds = %while.body.i.us.5, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.5
-  %cmp.lcssa.i.us.5 = phi i32 [ %23, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.5 ], [ -1, %while.body.i.us.5 ]
-  store i32 %cmp.lcssa.i.us.5, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 5), align 4, !tbaa !5
-  %cmp1.not.i8.us.6 = icmp eq i8 %4, 6
-  br i1 %cmp1.not.i8.us.6, label %while.end.i.us.6.thread, label %while.body.i.us.6.preheader
+land.rhs.i.us.7:                                  ; preds = %while.body.i.us.7, %FmoGetFirstMBOfSliceGroup.exit.us.6
+  %indvars.iv.i.us.7 = phi i64 [ 0, %FmoGetFirstMBOfSliceGroup.exit.us.6 ], [ %indvars.iv.next.i.us.7, %while.body.i.us.7 ]
+  %arrayidx.i.i.us.7 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.i.us.7
+  %17 = load i8, ptr %arrayidx.i.i.us.7, align 1, !tbaa !23
+  %cmp1.not.i.us.7 = icmp eq i8 %17, 7
+  br i1 %cmp1.not.i.us.7, label %while.end.loopexit.split.loop.exit12.i.us.7, label %while.body.i.us.7
 
-while.body.i.us.6.preheader:                      ; preds = %while.end.i.us.5.thread, %while.end.i.us.5
-  br label %while.body.i.us.6
+while.body.i.us.7:                                ; preds = %land.rhs.i.us.7
+  %indvars.iv.next.i.us.7 = add nuw nsw i64 %indvars.iv.i.us.7, 1
+  %exitcond.not.i.us.7 = icmp eq i64 %indvars.iv.next.i.us.7, %wide.trip.count.i
+  br i1 %exitcond.not.i.us.7, label %FmoGetFirstMBOfSliceGroup.exit.us.7, label %land.rhs.i.us.7, !llvm.loop !52
 
-while.end.i.us.6.thread:                          ; preds = %while.end.i.us.5
-  store i32 0, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 6), align 8, !tbaa !5
-  br label %while.body.i.us.7.preheader
+while.end.loopexit.split.loop.exit12.i.us.7:      ; preds = %land.rhs.i.us.7
+  %18 = trunc i64 %indvars.iv.i.us.7 to i32
+  br label %FmoGetFirstMBOfSliceGroup.exit.us.7
 
-while.body.i.us.6:                                ; preds = %while.body.i.us.6.preheader, %land.rhs.i.us.6
-  %indvars.iv.i9.us.6 = phi i64 [ %indvars.iv.next.i.us.6, %land.rhs.i.us.6 ], [ 0, %while.body.i.us.6.preheader ]
-  %indvars.iv.next.i.us.6 = add nuw nsw i64 %indvars.iv.i9.us.6, 1
-  %exitcond.not.i.us.6 = icmp eq i64 %indvars.iv.next.i.us.6, %3
-  br i1 %exitcond.not.i.us.6, label %while.end.i.us.6, label %land.rhs.i.us.6, !llvm.loop !52
-
-land.rhs.i.us.6:                                  ; preds = %while.body.i.us.6
-  %arrayidx.i.i.us.6 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us.6
-  %24 = load i8, ptr %arrayidx.i.i.us.6, align 1, !tbaa !23
-  %cmp1.not.i.us.6 = icmp eq i8 %24, 6
-  br i1 %cmp1.not.i.us.6, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.6, label %while.body.i.us.6, !llvm.loop !52
-
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.6: ; preds = %land.rhs.i.us.6
-  %cmp.i.us.le.6 = icmp ult i64 %indvars.iv.next.i.us.6, %3
-  %25 = trunc i64 %indvars.iv.next.i.us.6 to i32
-  %26 = freeze i1 %cmp.i.us.le.6
-  %27 = select i1 %26, i32 %25, i32 -1
-  br label %while.end.i.us.6
-
-while.end.i.us.6:                                 ; preds = %while.body.i.us.6, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.6
-  %cmp.lcssa.i.us.6 = phi i32 [ %27, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.6 ], [ -1, %while.body.i.us.6 ]
-  store i32 %cmp.lcssa.i.us.6, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 6), align 8, !tbaa !5
-  %cmp1.not.i8.us.7 = icmp eq i8 %4, 7
-  br i1 %cmp1.not.i8.us.7, label %while.end.i.us.7, label %while.body.i.us.7.preheader
-
-while.body.i.us.7.preheader:                      ; preds = %while.end.i.us.6.thread, %while.end.i.us.6
-  br label %while.body.i.us.7
-
-while.body.i.us.7:                                ; preds = %while.body.i.us.7.preheader, %land.rhs.i.us.7
-  %indvars.iv.i9.us.7 = phi i64 [ %indvars.iv.next.i.us.7, %land.rhs.i.us.7 ], [ 0, %while.body.i.us.7.preheader ]
-  %indvars.iv.next.i.us.7 = add nuw nsw i64 %indvars.iv.i9.us.7, 1
-  %exitcond.not.i.us.7 = icmp eq i64 %indvars.iv.next.i.us.7, %3
-  br i1 %exitcond.not.i.us.7, label %while.end.i.us.7, label %land.rhs.i.us.7, !llvm.loop !52
-
-land.rhs.i.us.7:                                  ; preds = %while.body.i.us.7
-  %arrayidx.i.i.us.7 = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next.i.us.7
-  %28 = load i8, ptr %arrayidx.i.i.us.7, align 1, !tbaa !23
-  %cmp1.not.i.us.7 = icmp eq i8 %28, 7
-  br i1 %cmp1.not.i.us.7, label %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.7, label %while.body.i.us.7, !llvm.loop !52
-
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.7: ; preds = %land.rhs.i.us.7
-  %cmp.i.us.le.7 = icmp ult i64 %indvars.iv.next.i.us.7, %3
-  %29 = trunc i64 %indvars.iv.next.i.us.7 to i32
-  %30 = freeze i1 %cmp.i.us.le.7
-  %31 = select i1 %30, i32 %29, i32 -1
-  br label %while.end.i.us.7
-
-while.end.i.us.7:                                 ; preds = %while.body.i.us.7, %while.end.i.us.6, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.7
-  %cmp.lcssa.i.us.7 = phi i32 [ %31, %land.rhs.i.while.end.split.loop.exit.i_crit_edge.us.7 ], [ 0, %while.end.i.us.6 ], [ -1, %while.body.i.us.7 ]
-  store i32 %cmp.lcssa.i.us.7, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 7), align 4, !tbaa !5
+FmoGetFirstMBOfSliceGroup.exit.us.7:              ; preds = %while.body.i.us.7, %while.end.loopexit.split.loop.exit12.i.us.7
+  %i.0..i.us.7 = phi i32 [ %18, %while.end.loopexit.split.loop.exit12.i.us.7 ], [ -1, %while.body.i.us.7 ]
+  store i32 %i.0..i.us.7, ptr getelementptr inbounds ([8 x i32], ptr @FirstMBInSlice, i64 0, i64 7), align 4, !tbaa !5
   br label %for.end
 
-land.rhs.i.while.end.split.loop.exit.i_crit_edge.us: ; preds = %land.rhs.i.us
-  %cmp.i.us.le = icmp ult i64 %indvars.iv.next.i.us, %3
-  %32 = trunc i64 %indvars.iv.next.i.us to i32
-  br label %while.end.i.us
-
-for.end:                                          ; preds = %for.body.preheader, %while.end.i.us.7
+for.end:                                          ; preds = %for.body.preheader, %FmoGetFirstMBOfSliceGroup.exit.us.7
   ret i32 0
 }
 
@@ -1007,49 +941,33 @@ entry:
   %PicSizeInMbs = getelementptr inbounds %struct.ImageParameters, ptr %0, i64 0, i32 119
   %1 = load i32, ptr %PicSizeInMbs, align 4, !tbaa !42
   %cmp8 = icmp sgt i32 %1, 0
-  br i1 %cmp8, label %land.rhs.lr.ph, label %while.end.thread
+  br i1 %cmp8, label %land.rhs.lr.ph, label %while.end
 
 land.rhs.lr.ph:                                   ; preds = %entry
   %2 = load ptr, ptr @MBAmap, align 8, !tbaa !19
-  %3 = zext i32 %1 to i64
   %wide.trip.count = zext i32 %1 to i64
-  %4 = load i8, ptr %2, align 1, !tbaa !23
-  %conv.i23 = zext i8 %4 to i32
-  %cmp1.not24 = icmp eq i32 %conv.i23, %SliceGroupID
-  br i1 %cmp1.not24, label %while.end, label %while.body
+  br label %land.rhs
 
-land.rhs:                                         ; preds = %while.body
-  %arrayidx.i = getelementptr inbounds i8, ptr %2, i64 %indvars.iv.next
-  %5 = load i8, ptr %arrayidx.i, align 1, !tbaa !23
-  %conv.i = zext i8 %5 to i32
+land.rhs:                                         ; preds = %land.rhs.lr.ph, %while.body
+  %indvars.iv = phi i64 [ 0, %land.rhs.lr.ph ], [ %indvars.iv.next, %while.body ]
+  %arrayidx.i = getelementptr inbounds i8, ptr %2, i64 %indvars.iv
+  %3 = load i8, ptr %arrayidx.i, align 1, !tbaa !23
+  %conv.i = zext i8 %3 to i32
   %cmp1.not = icmp eq i32 %conv.i, %SliceGroupID
-  br i1 %cmp1.not, label %land.rhs.while.end.split.loop.exit_crit_edge, label %while.body, !llvm.loop !52
+  br i1 %cmp1.not, label %while.end.loopexit.split.loop.exit12, label %while.body
 
-while.body:                                       ; preds = %land.rhs.lr.ph, %land.rhs
-  %indvars.iv25 = phi i64 [ %indvars.iv.next, %land.rhs ], [ 0, %land.rhs.lr.ph ]
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv25, 1
+while.body:                                       ; preds = %land.rhs
+  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %while.end.loopexit, label %land.rhs, !llvm.loop !52
+  br i1 %exitcond.not, label %while.end, label %land.rhs, !llvm.loop !52
 
-land.rhs.while.end.split.loop.exit_crit_edge:     ; preds = %land.rhs
-  %cmp.le = icmp ult i64 %indvars.iv.next, %3
-  %6 = trunc i64 %indvars.iv.next to i32
+while.end.loopexit.split.loop.exit12:             ; preds = %land.rhs
+  %4 = trunc i64 %indvars.iv to i32
   br label %while.end
 
-while.end.loopexit:                               ; preds = %while.body
-  %cmp.le33 = icmp ult i64 %indvars.iv.next, %3
-  br label %while.end
-
-while.end:                                        ; preds = %while.end.loopexit, %land.rhs.lr.ph, %land.rhs.while.end.split.loop.exit_crit_edge
-  %i.0.lcssa = phi i32 [ %6, %land.rhs.while.end.split.loop.exit_crit_edge ], [ 0, %land.rhs.lr.ph ], [ %1, %while.end.loopexit ]
-  %cmp.lcssa = phi i1 [ %cmp.le, %land.rhs.while.end.split.loop.exit_crit_edge ], [ true, %land.rhs.lr.ph ], [ %cmp.le33, %while.end.loopexit ]
-  %cond.fr = freeze i1 %cmp.lcssa
-  %spec.select = select i1 %cond.fr, i32 %i.0.lcssa, i32 -1
-  br label %while.end.thread
-
-while.end.thread:                                 ; preds = %while.end, %entry
-  %7 = phi i32 [ -1, %entry ], [ %spec.select, %while.end ]
-  ret i32 %7
+while.end:                                        ; preds = %while.body, %while.end.loopexit.split.loop.exit12, %entry
+  %i.0. = phi i32 [ -1, %entry ], [ %4, %while.end.loopexit.split.loop.exit12 ], [ -1, %while.body ]
+  ret i32 %i.0.
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
@@ -1091,7 +1009,7 @@ while.cond:                                       ; preds = %land.rhs, %entry
 land.rhs:                                         ; preds = %while.cond
   %arrayidx = getelementptr inbounds i8, ptr %0, i64 %indvars.iv.next
   %5 = load i8, ptr %arrayidx, align 1, !tbaa !23
-  %cmp1.not = icmp eq i8 %5, %1
+  %cmp1.not = icmp eq i8 %1, %5
   br i1 %cmp1.not, label %while.end.split.loop.exit11, label %while.cond, !llvm.loop !53
 
 while.end.split.loop.exit11:                      ; preds = %land.rhs
@@ -1124,7 +1042,7 @@ land.rhs:                                         ; preds = %while.cond
   %idxprom = and i64 %indvars.iv.next, 4294967295
   %arrayidx = getelementptr inbounds i8, ptr %0, i64 %idxprom
   %4 = load i8, ptr %arrayidx, align 1, !tbaa !23
-  %cmp1.not = icmp eq i8 %4, %1
+  %cmp1.not = icmp eq i8 %1, %4
   br i1 %cmp1.not, label %while.end.split.loop.exit13, label %while.cond, !llvm.loop !54
 
 while.end.split.loop.exit13:                      ; preds = %land.rhs
@@ -1241,7 +1159,7 @@ while.cond.i:                                     ; preds = %land.rhs.i, %entry
 land.rhs.i:                                       ; preds = %while.cond.i
   %arrayidx.i4 = getelementptr inbounds i8, ptr %0, i64 %indvars.iv.next.i
   %5 = load i8, ptr %arrayidx.i4, align 1, !tbaa !23
-  %cmp1.not.i = icmp eq i8 %5, %1
+  %cmp1.not.i = icmp eq i8 %1, %5
   br i1 %cmp1.not.i, label %while.end.split.loop.exit11.i, label %while.cond.i, !llvm.loop !53
 
 while.end.split.loop.exit11.i:                    ; preds = %land.rhs.i

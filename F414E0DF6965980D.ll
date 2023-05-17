@@ -137,9 +137,14 @@ call.i.noexc:                                     ; preds = %if.then26
   %pc.i = getelementptr inbounds %struct.Exp, ptr %call32, i64 0, i32 2
   store i32 %sub, ptr %pc.i, align 4, !tbaa !26
   %call2.i45 = invoke noalias noundef nonnull dereferenceable(24) ptr @_Znwm(i64 noundef 24) #7
-          to label %_ZN3ExpC2EjPc4Type3Loci.exit unwind label %lpad
+          to label %invoke.cont unwind label %lpad
 
-_ZN3ExpC2EjPc4Type3Loci.exit:                     ; preds = %call.i.noexc
+if.else29:                                        ; preds = %if.end25
+  %8 = load ptr, ptr @stderr, align 8, !tbaa !9
+  %9 = tail call i64 @fwrite(ptr nonnull @.str, i64 42, i64 1, ptr %8) #9
+  br label %cleanup
+
+invoke.cont:                                      ; preds = %call.i.noexc
   store i32 0, ptr %call2.i45, align 8, !tbaa !27
   %et.i.i = getelementptr inbounds %struct.Exp_, ptr %call2.i45, i64 0, i32 1
   store i32 1, ptr %et.i.i, align 4, !tbaa !31
@@ -150,15 +155,10 @@ _ZN3ExpC2EjPc4Type3Loci.exit:                     ; preds = %call.i.noexc
   %id.i.i = getelementptr inbounds %struct.Exp_, ptr %call2.i45, i64 0, i32 4
   store ptr %call.i44, ptr %id.i.i, align 8, !tbaa !34
   store ptr %call2.i45, ptr %call32, align 8, !tbaa !35
-  %8 = load ptr, ptr @stkptr, align 8, !tbaa !9
-  %incdec.ptr33 = getelementptr inbounds ptr, ptr %8, i64 1
+  %10 = load ptr, ptr @stkptr, align 8, !tbaa !9
+  %incdec.ptr33 = getelementptr inbounds ptr, ptr %10, i64 1
   store ptr %incdec.ptr33, ptr @stkptr, align 8, !tbaa !9
-  store ptr %call32, ptr %8, align 8, !tbaa !9
-  br label %cleanup
-
-if.else29:                                        ; preds = %if.end25
-  %9 = load ptr, ptr @stderr, align 8, !tbaa !9
-  %10 = tail call i64 @fwrite(ptr nonnull @.str, i64 42, i64 1, ptr %9) #9
+  store ptr %call32, ptr %10, align 8, !tbaa !9
   br label %cleanup
 
 lpad:                                             ; preds = %call.i.noexc, %if.then26
@@ -167,8 +167,8 @@ lpad:                                             ; preds = %call.i.noexc, %if.t
   tail call void @_ZdlPv(ptr noundef nonnull %call32) #10
   resume { ptr, i32 } %11
 
-cleanup:                                          ; preds = %_ZN3ExpC2EjPc4Type3Loci.exit, %if.else29
-  %retval.0 = phi i32 [ 0, %_ZN3ExpC2EjPc4Type3Loci.exit ], [ 1, %if.else29 ]
+cleanup:                                          ; preds = %invoke.cont, %if.else29
+  %retval.0 = phi i32 [ 0, %invoke.cont ], [ 1, %if.else29 ]
   ret i32 %retval.0
 }
 

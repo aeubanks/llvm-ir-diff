@@ -168,8 +168,8 @@ entry:
   store i32 %and.i.peel, ptr %bitIndex.i, align 8, !tbaa !12
   %and3.peel = and i32 %conv10.i.peel, 127
   %2 = and i32 %shl6.i.peel, 32768
-  %tobool.not.not.not.peel = icmp eq i32 %2, 0
-  br i1 %tobool.not.not.not.peel, label %for.end, label %for.body
+  %tobool.not.peel = icmp eq i32 %2, 0
+  br i1 %tobool.not.peel, label %for.end, label %for.body
 
 for.body:                                         ; preds = %entry, %for.body
   %size.010 = phi i32 [ %or, %for.body ], [ %and3.peel, %entry ]
@@ -190,8 +190,8 @@ for.body:                                         ; preds = %entry, %for.body
   %and3 = and i32 %conv10.i, 127
   %or = or i32 %and3, %shl
   %5 = and i32 %shl6.i, 32768
-  %tobool.not.not.not = icmp eq i32 %5, 0
-  br i1 %tobool.not.not.not, label %for.end, label %for.body, !llvm.loop !15
+  %tobool.not = icmp eq i32 %5, 0
+  br i1 %tobool.not, label %for.end, label %for.body, !llvm.loop !15
 
 for.end:                                          ; preds = %for.body, %entry
   %or.lcssa = phi i32 [ %and3.peel, %entry ], [ %or, %for.body ]
@@ -234,15 +234,15 @@ if.end:                                           ; preds = %entry
   br i1 %tobool.not, label %if.else, label %if.then1
 
 if.then1:                                         ; preds = %if.end
-  br i1 %tobool.not.i, label %if.end5, label %if.end3.i
+  br i1 %tobool.not.i, label %if.end5, label %while.body.i.preheader
 
-if.end3.i:                                        ; preds = %if.then1
+while.body.i.preheader:                           ; preds = %if.then1
   %sub = sub i32 8, %0
   br label %while.body.i
 
-while.body.i:                                     ; preds = %if.end31.i, %if.end3.i
-  %numBits.addr.059.i = phi i32 [ %sub, %if.end3.i ], [ %sub6.i, %if.end31.i ]
-  %invBitIndex.058.i = phi i32 [ %sub, %if.end3.i ], [ %invBitIndex.1.i, %if.end31.i ]
+while.body.i:                                     ; preds = %while.body.i.preheader, %if.end31.i
+  %numBits.addr.059.i = phi i32 [ %sub6.i, %if.end31.i ], [ %sub, %while.body.i.preheader ]
+  %invBitIndex.058.i = phi i32 [ %invBitIndex.1.i, %if.end31.i ], [ %sub, %while.body.i.preheader ]
   %cond.i = tail call i32 @llvm.umin.i32(i32 %invBitIndex.058.i, i32 %numBits.addr.059.i)
   %sub6.i = sub i32 %numBits.addr.059.i, %cond.i
   %sub7.i = sub i32 %invBitIndex.058.i, %cond.i

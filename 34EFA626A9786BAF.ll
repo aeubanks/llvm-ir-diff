@@ -114,52 +114,38 @@ entry:
   %div14 = fdiv float 1.000000e+00, %0
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %scaledAabbMin) #14
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %scaledAabbMax) #14
-  %aabbMax.val = load float, ptr %aabbMax, align 4
-  %aabbMin.val = load float, ptr %aabbMin, align 4
   %1 = load <2 x float>, ptr %m_localScaling, align 4, !tbaa !23
   %2 = fdiv <2 x float> <float 1.000000e+00, float 1.000000e+00>, %1
-  %3 = extractelement <2 x float> %1, i64 0
-  %cmp = fcmp ult float %3, 0.000000e+00
-  %.pn = select i1 %cmp, float %aabbMax.val, float %aabbMin.val
-  %4 = extractelement <2 x float> %1, i64 1
-  %cmp43 = fcmp ult float %4, 0.000000e+00
-  %aabbMin.pn = select i1 %cmp43, ptr %aabbMax, ptr %aabbMin
-  %.pn201.in = getelementptr inbounds float, ptr %aabbMin.pn, i64 1
-  %.pn201 = load float, ptr %.pn201.in, align 4, !tbaa !23
-  %5 = insertelement <2 x float> poison, float %.pn, i64 0
-  %6 = insertelement <2 x float> %5, float %.pn201, i64 1
+  %3 = fcmp ult <2 x float> %1, zeroinitializer
+  %4 = load <2 x float>, ptr %aabbMin, align 4
+  %5 = load <2 x float>, ptr %aabbMax, align 4
+  %6 = select <2 x i1> %3, <2 x float> %5, <2 x float> %4
   %7 = fmul <2 x float> %2, %6
   store <2 x float> %7, ptr %scaledAabbMin, align 8, !tbaa !23
   %cmp69 = fcmp ult float %0, 0.000000e+00
-  %aabbMin.pn203 = select i1 %cmp69, ptr %aabbMax, ptr %aabbMin
-  %.pn202.in = getelementptr inbounds float, ptr %aabbMin.pn203, i64 2
-  %.pn202 = load float, ptr %.pn202.in, align 4, !tbaa !23
-  %cond87 = fmul float %div14, %.pn202
+  %arrayidx73 = getelementptr inbounds float, ptr %aabbMin, i64 2
+  %8 = load float, ptr %arrayidx73, align 4
+  %arrayidx81 = getelementptr inbounds float, ptr %aabbMax, i64 2
+  %9 = load float, ptr %arrayidx81, align 4
+  %cond87.v = select i1 %cmp69, float %9, float %8
+  %cond87 = fmul float %div14, %cond87.v
   %arrayidx90 = getelementptr inbounds float, ptr %scaledAabbMin, i64 2
   store float %cond87, ptr %arrayidx90, align 8, !tbaa !23
-  %cmp95 = fcmp ugt float %3, 0.000000e+00
-  %.pn204 = select i1 %cmp95, float %aabbMax.val, float %aabbMin.val
-  %cmp121 = fcmp ugt float %4, 0.000000e+00
-  %aabbMin.pn206 = select i1 %cmp121, ptr %aabbMax, ptr %aabbMin
-  %.pn205.in = getelementptr inbounds float, ptr %aabbMin.pn206, i64 1
-  %.pn205 = load float, ptr %.pn205.in, align 4, !tbaa !23
-  %8 = insertelement <2 x float> poison, float %.pn204, i64 0
-  %9 = insertelement <2 x float> %8, float %.pn205, i64 1
-  %10 = fmul <2 x float> %2, %9
-  store <2 x float> %10, ptr %scaledAabbMax, align 8, !tbaa !23
+  %10 = fcmp ugt <2 x float> %1, zeroinitializer
+  %11 = select <2 x i1> %10, <2 x float> %5, <2 x float> %4
+  %12 = fmul <2 x float> %2, %11
+  store <2 x float> %12, ptr %scaledAabbMax, align 8, !tbaa !23
   %cmp147 = fcmp ugt float %0, 0.000000e+00
-  %aabbMin.pn208 = select i1 %cmp147, ptr %aabbMax, ptr %aabbMin
-  %.pn207.in = getelementptr inbounds float, ptr %aabbMin.pn208, i64 2
-  %.pn207 = load float, ptr %.pn207.in, align 4, !tbaa !23
-  %cond165 = fmul float %div14, %.pn207
+  %cond165.v = select i1 %cmp147, float %9, float %8
+  %cond165 = fmul float %div14, %cond165.v
   %arrayidx168 = getelementptr inbounds float, ptr %scaledAabbMax, i64 2
   store float %cond165, ptr %arrayidx168, align 8, !tbaa !23
   %m_bvhTriMeshShape = getelementptr inbounds %class.btScaledBvhTriangleMeshShape, ptr %this, i64 0, i32 2
-  %11 = load ptr, ptr %m_bvhTriMeshShape, align 8, !tbaa !11
-  %vtable = load ptr, ptr %11, align 8, !tbaa !5
+  %13 = load ptr, ptr %m_bvhTriMeshShape, align 8, !tbaa !11
+  %vtable = load ptr, ptr %13, align 8, !tbaa !5
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 12
-  %12 = load ptr, ptr %vfn, align 8
-  invoke void %12(ptr noundef nonnull align 8 dereferenceable(93) %11, ptr noundef nonnull %scaledCallback, ptr noundef nonnull align 4 dereferenceable(16) %scaledAabbMin, ptr noundef nonnull align 4 dereferenceable(16) %scaledAabbMax)
+  %14 = load ptr, ptr %vfn, align 8
+  invoke void %14(ptr noundef nonnull align 8 dereferenceable(93) %13, ptr noundef nonnull %scaledCallback, ptr noundef nonnull align 4 dereferenceable(16) %scaledAabbMin, ptr noundef nonnull align 4 dereferenceable(16) %scaledAabbMax)
           to label %invoke.cont169 unwind label %lpad19
 
 invoke.cont169:                                   ; preds = %entry
@@ -170,7 +156,7 @@ invoke.cont169:                                   ; preds = %entry
   ret void
 
 lpad19:                                           ; preds = %entry
-  %13 = landingpad { ptr, i32 }
+  %15 = landingpad { ptr, i32 }
           cleanup
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %scaledAabbMax) #14
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %scaledAabbMin) #14
@@ -179,13 +165,13 @@ lpad19:                                           ; preds = %entry
 
 invoke.cont174:                                   ; preds = %lpad19
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %scaledCallback) #14
-  resume { ptr, i32 } %13
+  resume { ptr, i32 } %15
 
 terminate.lpad:                                   ; preds = %lpad19
-  %14 = landingpad { ptr, i32 }
+  %16 = landingpad { ptr, i32 }
           catch ptr null
-  %15 = extractvalue { ptr, i32 } %14, 0
-  call void @__clang_call_terminate(ptr %15) #15
+  %17 = extractvalue { ptr, i32 } %16, 0
+  call void @__clang_call_terminate(ptr %17) #15
   unreachable
 }
 
@@ -238,20 +224,20 @@ entry:
   %mul8.i122 = fmul float %localAabbMax.sroa.7.0.copyload, %2
   %mul14.i125 = fmul float %localAabbMax.sroa.11.0.copyload, %3
   %cmp = fcmp ult float %1, 0.000000e+00
-  %mul.i119.mul.i = select i1 %cmp, float %mul.i119, float %mul.i
+  %cond.in.sroa.speculated = select i1 %cmp, float %mul.i119, float %mul.i
   %cmp18 = fcmp ult float %2, 0.000000e+00
-  %cond26 = select i1 %cmp18, float %mul8.i122, float %mul8.i
+  %call20.pn.sroa.phi.sroa.speculated = select i1 %cmp18, float %mul8.i122, float %mul8.i
   %cmp32 = fcmp ult float %3, 0.000000e+00
-  %cond40 = select i1 %cmp32, float %mul14.i125, float %mul14.i
+  %call34.pn.sroa.phi.sroa.speculated = select i1 %cmp32, float %mul14.i125, float %mul14.i
   %cmp46 = fcmp ugt float %1, 0.000000e+00
-  %cond54 = select i1 %cmp46, float %mul.i119, float %mul.i
+  %cond54.in.sroa.speculated = select i1 %cmp46, float %mul.i119, float %mul.i
   %cmp60 = fcmp ugt float %2, 0.000000e+00
-  %cond68 = select i1 %cmp60, float %mul8.i122, float %mul8.i
+  %call62.pn.sroa.phi.sroa.speculated = select i1 %cmp60, float %mul8.i122, float %mul8.i
   %cmp74 = fcmp ugt float %3, 0.000000e+00
-  %cond82 = select i1 %cmp74, float %mul14.i125, float %mul14.i
-  %sub.i = fsub float %cond54, %mul.i119.mul.i
-  %sub8.i = fsub float %cond68, %cond26
-  %sub14.i = fsub float %cond82, %cond40
+  %call76.pn.sroa.phi.sroa.speculated = select i1 %cmp74, float %mul14.i125, float %mul14.i
+  %sub.i = fsub float %cond54.in.sroa.speculated, %cond.in.sroa.speculated
+  %sub8.i = fsub float %call62.pn.sroa.phi.sroa.speculated, %call20.pn.sroa.phi.sroa.speculated
+  %sub14.i = fsub float %call76.pn.sroa.phi.sroa.speculated, %call34.pn.sroa.phi.sroa.speculated
   %mul.i.i = fmul float %sub.i, 5.000000e-01
   %mul4.i.i = fmul float %sub8.i, 5.000000e-01
   %mul8.i.i = fmul float %sub14.i, 5.000000e-01
@@ -262,9 +248,9 @@ entry:
   %add.i = fadd float %mul.i.i, %call91
   %add8.i = fadd float %call91, %mul4.i.i
   %add13.i = fadd float %call91, %mul8.i.i
-  %add.i147 = fadd float %cond54, %mul.i119.mul.i
-  %add8.i150 = fadd float %cond68, %cond26
-  %add14.i = fadd float %cond82, %cond40
+  %add.i147 = fadd float %cond54.in.sroa.speculated, %cond.in.sroa.speculated
+  %add8.i150 = fadd float %call62.pn.sroa.phi.sroa.speculated, %call20.pn.sroa.phi.sroa.speculated
+  %add14.i = fadd float %call76.pn.sroa.phi.sroa.speculated, %call34.pn.sroa.phi.sroa.speculated
   %mul.i.i158 = fmul float %add.i147, 5.000000e-01
   %mul4.i.i160 = fmul float %add8.i150, 5.000000e-01
   %mul8.i.i162 = fmul float %add14.i, 5.000000e-01

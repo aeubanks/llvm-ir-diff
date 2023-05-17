@@ -53,8 +53,8 @@ while.end:                                        ; preds = %while.body
   br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %while.end, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %.pre, %while.end ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %.pre, %while.end ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %6 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %6, i64 0, i32 4
   %7 = load i32, ptr %total_size.i.i.i, align 8
@@ -66,7 +66,7 @@ while.body.i:                                     ; preds = %while.end, %while.b
   store ptr %9, ptr %Current.06.i, align 8
   %10 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %10, align 8
-  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !7
 
 list_Delete.exit:                                 ; preds = %while.body.i, %for.body, %while.end
@@ -119,8 +119,8 @@ while.end:                                        ; preds = %while.body
   br i1 %cmp.i.not5.i, label %list_Delete.exit, label %while.body.i
 
 while.body.i:                                     ; preds = %while.end, %while.body.i
-  %Current.06.i = phi ptr [ %L.addr.0.val.i, %while.body.i ], [ %.pre, %while.end ]
-  %L.addr.0.val.i = load ptr, ptr %Current.06.i, align 8
+  %Current.06.i = phi ptr [ %Current.0.val.i, %while.body.i ], [ %.pre, %while.end ]
+  %Current.0.val.i = load ptr, ptr %Current.06.i, align 8
   %6 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   %total_size.i.i.i = getelementptr inbounds %struct.MEMORY_RESOURCEHELP, ptr %6, i64 0, i32 4
   %7 = load i32, ptr %total_size.i.i.i, align 8
@@ -132,7 +132,7 @@ while.body.i:                                     ; preds = %while.end, %while.b
   store ptr %9, ptr %Current.06.i, align 8
   %10 = load ptr, ptr getelementptr ([0 x ptr], ptr @memory_ARRAY, i64 0, i64 16), align 8
   store ptr %Current.06.i, ptr %10, align 8
-  %cmp.i.not.i = icmp eq ptr %L.addr.0.val.i, null
+  %cmp.i.not.i = icmp eq ptr %Current.0.val.i, null
   br i1 %cmp.i.not.i, label %list_Delete.exit, label %while.body.i, !llvm.loop !7
 
 list_Delete.exit:                                 ; preds = %while.body.i, %for.body, %while.end

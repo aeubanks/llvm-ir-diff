@@ -27,16 +27,16 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
 
 for.body3:                                        ; preds = %for.body, %for.body3
   %i.038 = phi i64 [ %inc, %for.body3 ], [ 1, %for.body ]
-  %f.037 = phi ptr [ %add.ptr.i34, %for.body3 ], [ %add.ptr.i, %for.body ]
+  %f.037 = phi ptr [ %add.ptr.i35, %for.body3 ], [ %add.ptr.i, %for.body ]
   %2 = load i64, ptr %f.037, align 8, !tbaa !5
-  %add.i33 = add i64 %2, 1
-  %add.ptr.i34 = getelementptr inbounds i64, ptr %f.037, i64 %add.i33
+  %add.i34 = add i64 %2, 1
+  %add.ptr.i35 = getelementptr inbounds i64, ptr %f.037, i64 %add.i34
   %inc = add nuw i64 %i.038, 1
   %cmp2 = icmp ult i64 %inc, %e.043
   br i1 %cmp2, label %for.body3, label %for.end, !llvm.loop !9
 
 for.end:                                          ; preds = %for.body3, %for.body
-  %f.0.lcssa = phi ptr [ %add.ptr.i, %for.body ], [ %add.ptr.i34, %for.body3 ]
+  %f.0.lcssa = phi ptr [ %add.ptr.i, %for.body ], [ %add.ptr.i35, %for.body3 ]
   %3 = load i64, ptr %f.0.lcssa, align 8, !tbaa !5
   %cmp5 = icmp eq i64 %3, 2
   br i1 %cmp5, label %if.then, label %if.else
@@ -47,8 +47,8 @@ if.then:                                          ; preds = %for.end
 
 if.else:                                          ; preds = %for.end
   %sub6 = add i64 %3, -1
-  %div35 = and i64 %sub6, -2
-  %add = add i64 %div35, -1
+  %div33 = and i64 %sub6, -2
+  %add = add i64 %div33, -1
   %add9 = add i64 %d.041, 1
   %mul10 = mul i64 %add, %add9
   %mul11 = shl i64 %d.041, 1

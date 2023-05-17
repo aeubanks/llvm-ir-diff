@@ -143,18 +143,18 @@ for.body:                                         ; preds = %for.body, %entry
   %max.08 = phi double [ %0, %entry ], [ %max.1.2, %for.body ]
   %arrayidx = getelementptr inbounds [1000 x double], ptr @U, i64 0, i64 %indvars.iv
   %1 = load double, ptr %arrayidx, align 8, !tbaa !5
-  %cmp.i = fcmp ogt double %1, %max.08
-  %max.1 = select i1 %cmp.i, double %1, double %max.08
+  %cmp.i.inv = fcmp ogt double %1, %max.08
+  %max.1 = select i1 %cmp.i.inv, double %1, double %max.08
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %arrayidx.1 = getelementptr inbounds [1000 x double], ptr @U, i64 0, i64 %indvars.iv.next
   %2 = load double, ptr %arrayidx.1, align 8, !tbaa !5
-  %cmp.i.1 = fcmp ogt double %2, %max.1
-  %max.1.1 = select i1 %cmp.i.1, double %2, double %max.1
+  %cmp.i.inv.1 = fcmp ogt double %2, %max.1
+  %max.1.1 = select i1 %cmp.i.inv.1, double %2, double %max.1
   %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
   %arrayidx.2 = getelementptr inbounds [1000 x double], ptr @U, i64 0, i64 %indvars.iv.next.1
   %3 = load double, ptr %arrayidx.2, align 8, !tbaa !5
-  %cmp.i.2 = fcmp ogt double %3, %max.1.1
-  %max.1.2 = select i1 %cmp.i.2, double %3, double %max.1.1
+  %cmp.i.inv.2 = fcmp ogt double %3, %max.1.1
+  %max.1.2 = select i1 %cmp.i.inv.2, double %3, double %max.1.1
   %indvars.iv.next.2 = add nuw nsw i64 %indvars.iv, 3
   %exitcond.not.2 = icmp eq i64 %indvars.iv.next.2, 1000
   br i1 %exitcond.not.2, label %for.cond.cleanup, label %for.body, !llvm.loop !11
@@ -703,15 +703,15 @@ declare i64 @clock() local_unnamed_addr #11
 define dso_local noundef ptr @_ZN9Benchmark4findEPKc(ptr nocapture noundef readonly %name) local_unnamed_addr #10 align 2 {
 entry:
   %0 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %cmp8 = icmp sgt i32 %0, 0
-  br i1 %cmp8, label %for.body, label %cleanup
+  %cmp.not8 = icmp sgt i32 %0, 0
+  br i1 %cmp.not8, label %for.body, label %cleanup
 
 for.cond:                                         ; preds = %for.body
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %1 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
   %2 = sext i32 %1 to i64
-  %cmp = icmp slt i64 %indvars.iv.next, %2
-  br i1 %cmp, label %for.body, label %cleanup, !llvm.loop !39
+  %cmp.not = icmp slt i64 %indvars.iv.next, %2
+  br i1 %cmp.not, label %for.body, label %cleanup, !llvm.loop !39
 
 for.body:                                         ; preds = %entry, %for.cond
   %indvars.iv = phi i64 [ %indvars.iv.next, %for.cond ], [ 0, %entry ]
@@ -729,8 +729,8 @@ if.then:                                          ; preds = %for.body
   br label %cleanup
 
 cleanup:                                          ; preds = %for.cond, %entry, %if.then
-  %switch = phi ptr [ %5, %if.then ], [ null, %entry ], [ null, %for.cond ]
-  ret ptr %switch
+  %spec.select = phi ptr [ %5, %if.then ], [ null, %entry ], [ null, %for.cond ]
+  ret ptr %spec.select
 }
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
@@ -919,17 +919,16 @@ if.then25:                                        ; preds = %for.cond.3
 
 if.else:                                          ; preds = %for.cond.3
   %call27 = call i64 @strtol(ptr nocapture noundef nonnull %call23, ptr noundef null, i32 noundef 0) #23
-  %conv28 = trunc i64 %call27 to i32
   %7 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %cmp8.i = icmp sgt i32 %7, 0
-  br i1 %cmp8.i, label %for.body.i, label %if.then31
+  %cmp.not8.i = icmp sgt i32 %7, 0
+  br i1 %cmp.not8.i, label %for.body.i, label %if.then31
 
 for.cond.i:                                       ; preds = %for.body.i
   %indvars.iv.next.i = add nuw nsw i64 %indvars.iv.i, 1
   %8 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
   %9 = sext i32 %8 to i64
-  %cmp.i = icmp slt i64 %indvars.iv.next.i, %9
-  br i1 %cmp.i, label %for.body.i, label %if.then31, !llvm.loop !39
+  %cmp.not.i = icmp slt i64 %indvars.iv.next.i, %9
+  br i1 %cmp.not.i, label %for.body.i, label %if.then31, !llvm.loop !39
 
 for.body.i:                                       ; preds = %if.else, %for.cond.i
   %indvars.iv.i = phi i64 [ %indvars.iv.next.i, %for.cond.i ], [ 0, %if.else ]
@@ -954,6 +953,7 @@ if.then31:                                        ; preds = %for.cond.i, %for.co
   unreachable
 
 if.else33:                                        ; preds = %_ZN9Benchmark4findEPKc.exit
+  %conv28 = trunc i64 %call27 to i32
   call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %12, i32 noundef %conv28)
   br label %if.end35
 
@@ -965,10 +965,9 @@ if.end35:                                         ; preds = %if.else33, %if.then
 
 if.else.1:                                        ; preds = %if.end35
   %call27.1 = call i64 @strtol(ptr nocapture noundef nonnull %call23.1, ptr noundef null, i32 noundef 0) #23
-  %conv28.1 = trunc i64 %call27.1 to i32
   %13 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %cmp8.i.1 = icmp sgt i32 %13, 0
-  br i1 %cmp8.i.1, label %for.body.i.1, label %if.then31
+  %cmp.not8.i.1 = icmp sgt i32 %13, 0
+  br i1 %cmp.not8.i.1, label %for.body.i.1, label %if.then31
 
 for.body.i.1:                                     ; preds = %if.else.1, %for.cond.i.1
   %indvars.iv.i.1 = phi i64 [ %indvars.iv.next.i.1, %for.cond.i.1 ], [ 0, %if.else.1 ]
@@ -985,8 +984,8 @@ for.cond.i.1:                                     ; preds = %for.body.i.1
   %indvars.iv.next.i.1 = add nuw nsw i64 %indvars.iv.i.1, 1
   %16 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
   %17 = sext i32 %16 to i64
-  %cmp.i.1 = icmp slt i64 %indvars.iv.next.i.1, %17
-  br i1 %cmp.i.1, label %for.body.i.1, label %if.then31, !llvm.loop !39
+  %cmp.not.i.1 = icmp slt i64 %indvars.iv.next.i.1, %17
+  br i1 %cmp.not.i.1, label %for.body.i.1, label %if.then31, !llvm.loop !39
 
 _ZN9Benchmark4findEPKc.exit.1:                    ; preds = %for.body.i.1
   %18 = load ptr, ptr %arrayidx.i57.1, align 8, !tbaa !40
@@ -994,6 +993,7 @@ _ZN9Benchmark4findEPKc.exit.1:                    ; preds = %for.body.i.1
   br i1 %cmp30.1, label %if.then31, label %if.else33.1
 
 if.else33.1:                                      ; preds = %_ZN9Benchmark4findEPKc.exit.1
+  %conv28.1 = trunc i64 %call27.1 to i32
   call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %18, i32 noundef %conv28.1)
   br label %if.end35.1
 
@@ -1009,10 +1009,9 @@ if.end35.1:                                       ; preds = %if.then25.1, %if.el
 
 if.else.2:                                        ; preds = %if.end35.1
   %call27.2 = call i64 @strtol(ptr nocapture noundef nonnull %call23.2, ptr noundef null, i32 noundef 0) #23
-  %conv28.2 = trunc i64 %call27.2 to i32
   %19 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %cmp8.i.2 = icmp sgt i32 %19, 0
-  br i1 %cmp8.i.2, label %for.body.i.2, label %if.then31
+  %cmp.not8.i.2 = icmp sgt i32 %19, 0
+  br i1 %cmp.not8.i.2, label %for.body.i.2, label %if.then31
 
 for.body.i.2:                                     ; preds = %if.else.2, %for.cond.i.2
   %indvars.iv.i.2 = phi i64 [ %indvars.iv.next.i.2, %for.cond.i.2 ], [ 0, %if.else.2 ]
@@ -1029,8 +1028,8 @@ for.cond.i.2:                                     ; preds = %for.body.i.2
   %indvars.iv.next.i.2 = add nuw nsw i64 %indvars.iv.i.2, 1
   %22 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
   %23 = sext i32 %22 to i64
-  %cmp.i.2 = icmp slt i64 %indvars.iv.next.i.2, %23
-  br i1 %cmp.i.2, label %for.body.i.2, label %if.then31, !llvm.loop !39
+  %cmp.not.i.2 = icmp slt i64 %indvars.iv.next.i.2, %23
+  br i1 %cmp.not.i.2, label %for.body.i.2, label %if.then31, !llvm.loop !39
 
 _ZN9Benchmark4findEPKc.exit.2:                    ; preds = %for.body.i.2
   %24 = load ptr, ptr %arrayidx.i57.2, align 8, !tbaa !40
@@ -1038,6 +1037,7 @@ _ZN9Benchmark4findEPKc.exit.2:                    ; preds = %for.body.i.2
   br i1 %cmp30.2, label %if.then31, label %if.else33.2
 
 if.else33.2:                                      ; preds = %_ZN9Benchmark4findEPKc.exit.2
+  %conv28.2 = trunc i64 %call27.2 to i32
   call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %24, i32 noundef %conv28.2)
   br label %if.end35.2
 
@@ -1053,10 +1053,9 @@ if.end35.2:                                       ; preds = %if.then25.2, %if.el
 
 if.else.3:                                        ; preds = %if.end35.2
   %call27.3 = call i64 @strtol(ptr nocapture noundef nonnull %call23.3, ptr noundef null, i32 noundef 0) #23
-  %conv28.3 = trunc i64 %call27.3 to i32
   %25 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
-  %cmp8.i.3 = icmp sgt i32 %25, 0
-  br i1 %cmp8.i.3, label %for.body.i.3, label %if.then31
+  %cmp.not8.i.3 = icmp sgt i32 %25, 0
+  br i1 %cmp.not8.i.3, label %for.body.i.3, label %if.then31
 
 for.body.i.3:                                     ; preds = %if.else.3, %for.cond.i.3
   %indvars.iv.i.3 = phi i64 [ %indvars.iv.next.i.3, %for.cond.i.3 ], [ 0, %if.else.3 ]
@@ -1073,8 +1072,8 @@ for.cond.i.3:                                     ; preds = %for.body.i.3
   %indvars.iv.next.i.3 = add nuw nsw i64 %indvars.iv.i.3, 1
   %28 = load i32, ptr @_ZN9Benchmark5countE, align 4, !tbaa !37
   %29 = sext i32 %28 to i64
-  %cmp.i.3 = icmp slt i64 %indvars.iv.next.i.3, %29
-  br i1 %cmp.i.3, label %for.body.i.3, label %if.then31, !llvm.loop !39
+  %cmp.not.i.3 = icmp slt i64 %indvars.iv.next.i.3, %29
+  br i1 %cmp.not.i.3, label %for.body.i.3, label %if.then31, !llvm.loop !39
 
 _ZN9Benchmark4findEPKc.exit.3:                    ; preds = %for.body.i.3
   %30 = load ptr, ptr %arrayidx.i57.3, align 8, !tbaa !40
@@ -1082,6 +1081,7 @@ _ZN9Benchmark4findEPKc.exit.3:                    ; preds = %for.body.i.3
   br i1 %cmp30.3, label %if.then31, label %if.else33.3
 
 if.else33.3:                                      ; preds = %_ZN9Benchmark4findEPKc.exit.3
+  %conv28.3 = trunc i64 %call27.3 to i32
   call void @_ZNK9Benchmark9time_bothEi(ptr noundef nonnull align 8 dereferenceable(8) %30, i32 noundef %conv28.3)
   br label %if.end35.3
 
@@ -1135,11 +1135,11 @@ entry:
 ; Function Attrs: mustprogress nofree nosync nounwind willreturn memory(none)
 declare ptr @__ctype_b_loc() local_unnamed_addr #19
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #20
-
 ; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #21
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #20
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #21
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare <2 x double> @llvm.fmuladd.v2f64(<2 x double>, <2 x double>, <2 x double>) #22
@@ -1164,8 +1164,8 @@ attributes #16 = { mustprogress norecurse uwtable "min-legal-vector-width"="0" "
 attributes #17 = { mustprogress nofree nounwind willreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #18 = { mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #19 = { mustprogress nofree nosync nounwind willreturn memory(none) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #20 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #21 = { nofree nounwind }
+attributes #20 = { nofree nounwind }
+attributes #21 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #22 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #23 = { nounwind }
 attributes #24 = { nounwind willreturn memory(read) }

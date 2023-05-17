@@ -460,7 +460,7 @@ if.then:                                          ; preds = %entry
   %conv3 = sext i32 %n1 to i64
   %narrow = tail call i32 @llvm.umax.i32(i32 %n2, i32 1)
   %mul = sext i32 %narrow to i64
-  %nn.0 = mul nsw i64 %conv3, %mul
+  %nn.0 = mul nsw i64 %mul, %conv3
   %call8 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef %nn.0)
   br label %if.end10
 
@@ -810,7 +810,7 @@ entry:
   tail call void @create_seq(double noundef 0x41B2B9B0A1000000, double noundef 0x41D2309CE5400000)
   tail call void @rank(i32 noundef 1)
   store i32 0, ptr @passed_verification, align 4, !tbaa !9
-  %puts27 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
+  %puts26 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.31)
   %call13 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, i32 noundef 1)
   tail call void @rank(i32 noundef 1)
   %call13.1 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.20, i32 noundef 2)
@@ -946,7 +946,7 @@ if.then:                                          ; preds = %full_verify.exit
 
 if.end:                                           ; preds = %if.then, %full_verify.exit
   %str.str.28.i = phi ptr [ @str, %if.then ], [ @str.28, %full_verify.exit ]
-  %call.i26 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef nonnull @.str.21)
+  %call.i27 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, ptr noundef nonnull @.str.21)
   %call1.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 66)
   %call8.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, i64 noundef 33554432)
   %call11.i = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, i32 noundef 10)

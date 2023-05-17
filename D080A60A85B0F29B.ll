@@ -813,8 +813,8 @@ entry:
   %3 = load i32, ptr %MCU_vert_offset, align 4, !tbaa !44
   %MCU_rows_per_iMCU_row = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 3
   %4 = load i32, ptr %MCU_rows_per_iMCU_row, align 8, !tbaa !40
-  %cmp169 = icmp slt i32 %3, %4
-  br i1 %cmp169, label %for.body.lr.ph, label %for.end64
+  %cmp189 = icmp slt i32 %3, %4
+  br i1 %cmp189, label %for.body.lr.ph, label %for.end64
 
 for.body.lr.ph:                                   ; preds = %entry
   %MCU_ctr = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 1
@@ -828,14 +828,14 @@ for.body.lr.ph:                                   ; preds = %entry
   br label %for.body
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.end60
-  %5 = phi i32 [ %4, %for.body.lr.ph ], [ %39, %for.end60 ]
+  %5 = phi i32 [ %4, %for.body.lr.ph ], [ %66, %for.end60 ]
   %6 = phi i32 [ %.pre, %for.body.lr.ph ], [ 0, %for.end60 ]
-  %yoffset.0170 = phi i32 [ %3, %for.body.lr.ph ], [ %inc63, %for.end60 ]
-  %cmp4.not167 = icmp ugt i32 %6, %sub
-  br i1 %cmp4.not167, label %for.end60, label %for.body5
+  %yoffset.0190 = phi i32 [ %3, %for.body.lr.ph ], [ %inc63, %for.end60 ]
+  %cmp4.not186 = icmp ugt i32 %6, %sub
+  br i1 %cmp4.not186, label %for.end60, label %for.body5
 
 for.body5:                                        ; preds = %for.body, %for.inc58
-  %MCU_col_num.0168 = phi i32 [ %inc59, %for.inc58 ], [ %6, %for.body ]
+  %MCU_col_num.0187 = phi i32 [ %inc59, %for.inc58 ], [ %6, %for.body ]
   %7 = load ptr, ptr %MCU_buffer, align 8, !tbaa !31
   %8 = load i32, ptr %blocks_in_MCU, align 8, !tbaa !83
   %conv = sext i32 %8 to i64
@@ -854,211 +854,329 @@ for.cond9.preheader:                              ; preds = %for.body5
   br i1 %cmp10164, label %for.body12.lr.ph, label %for.inc58
 
 for.body12.lr.ph:                                 ; preds = %for.cond9.preheader
-  %cmp20 = icmp ult i32 %MCU_col_num.0168, %sub
-  br label %for.body12
+  %cmp20 = icmp ult i32 %MCU_col_num.0187, %sub
+  %cmp20.fr = freeze i1 %cmp20
+  br i1 %cmp20.fr, label %for.body12.us, label %for.body12
+
+for.body12.us:                                    ; preds = %for.body12.lr.ph, %for.inc55.us
+  %12 = phi i32 [ %21, %for.inc55.us ], [ %11, %for.body12.lr.ph ]
+  %indvars.iv212 = phi i64 [ %indvars.iv.next213, %for.inc55.us ], [ 0, %for.body12.lr.ph ]
+  %blkn.0166.us = phi i32 [ %blkn.2.us, %for.inc55.us ], [ 0, %for.body12.lr.ph ]
+  %arrayidx13.us = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 63, i64 %indvars.iv212
+  %13 = load ptr, ptr %arrayidx13.us, align 8, !tbaa !31
+  %component_needed.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 12
+  %14 = load i32, ptr %component_needed.us, align 8, !tbaa !76
+  %tobool14.not.us = icmp eq i32 %14, 0
+  br i1 %tobool14.not.us, label %if.then15.us, label %if.end16.us
+
+if.end16.us:                                      ; preds = %for.body12.us
+  %15 = load ptr, ptr %idct, align 8, !tbaa !77
+  %component_index.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 1
+  %16 = load i32, ptr %component_index.us, align 4, !tbaa !53
+  %idxprom18.us = sext i32 %16 to i64
+  %arrayidx19.us = getelementptr inbounds %struct.jpeg_inverse_dct, ptr %15, i64 0, i32 1, i64 %idxprom18.us
+  %17 = load ptr, ptr %arrayidx19.us, align 8, !tbaa !31
+  %MCU_width.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 13
+  %cond.us = load i32, ptr %MCU_width.us, align 4, !tbaa !49
+  %cond.us.fr = freeze i32 %cond.us
+  %DCT_scaled_size.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 9
+  %MCU_sample_width.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 16
+  %18 = load i32, ptr %MCU_sample_width.us, align 8, !tbaa !84
+  %mul25.us = mul i32 %18, %MCU_col_num.0187
+  %MCU_height.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 14
+  %19 = load i32, ptr %MCU_height.us, align 8, !tbaa !57
+  %cmp27148.us = icmp sgt i32 %19, 0
+  br i1 %cmp27148.us, label %for.body29.lr.ph.us, label %for.inc55.us
+
+if.then15.us:                                     ; preds = %for.body12.us
+  %MCU_blocks.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 15
+  %20 = load i32, ptr %MCU_blocks.us, align 4, !tbaa !85
+  %add.us = add nsw i32 %20, %blkn.0166.us
+  br label %for.inc55.us
+
+for.inc55.us.loopexit:                            ; preds = %if.end46.us.us
+  %.pre219 = load i32, ptr %comps_in_scan, align 8, !tbaa !39
+  br label %for.inc55.us
+
+for.inc55.us:                                     ; preds = %for.body29.lr.ph.split.us181, %for.inc55.us.loopexit, %if.end16.us, %if.then15.us
+  %21 = phi i32 [ %12, %if.then15.us ], [ %12, %if.end16.us ], [ %.pre219, %for.inc55.us.loopexit ], [ %12, %for.body29.lr.ph.split.us181 ]
+  %blkn.2.us = phi i32 [ %add.us, %if.then15.us ], [ %blkn.0166.us, %if.end16.us ], [ %add48.us.us, %for.inc55.us.loopexit ], [ %26, %for.body29.lr.ph.split.us181 ]
+  %indvars.iv.next213 = add nuw nsw i64 %indvars.iv212, 1
+  %22 = sext i32 %21 to i64
+  %cmp10.us = icmp slt i64 %indvars.iv.next213, %22
+  br i1 %cmp10.us, label %for.body12.us, label %for.inc58, !llvm.loop !86
+
+for.body29.lr.ph.us:                              ; preds = %if.end16.us
+  %last_row_height.us = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 18
+  %cmp37145.us = icmp sgt i32 %cond.us.fr, 0
+  br i1 %cmp37145.us, label %for.body29.us.us.preheader, label %for.body29.lr.ph.split.us181
+
+for.body29.us.us.preheader:                       ; preds = %for.body29.lr.ph.us
+  %arrayidx23.us = getelementptr inbounds ptr, ptr %output_buf, i64 %indvars.iv212
+  %23 = load ptr, ptr %arrayidx23.us, align 8, !tbaa !31
+  %24 = load i32, ptr %DCT_scaled_size.us, align 4, !tbaa !78
+  %mul24.us = mul nsw i32 %24, %yoffset.0190
+  %idx.ext.us = sext i32 %mul24.us to i64
+  %add.ptr.us = getelementptr inbounds ptr, ptr %23, i64 %idx.ext.us
+  %wide.trip.count210 = zext i32 %cond.us.fr to i64
+  br label %for.body29.us.us
+
+for.body29.lr.ph.split.us181:                     ; preds = %for.body29.lr.ph.us
+  %25 = mul i32 %cond.us.fr, %19
+  %26 = add i32 %blkn.0166.us, %25
+  br label %for.inc55.us
+
+for.body29.us.us:                                 ; preds = %for.body29.us.us.preheader, %if.end46.us.us
+  %27 = phi i32 [ %33, %if.end46.us.us ], [ %19, %for.body29.us.us.preheader ]
+  %28 = phi i32 [ %34, %if.end46.us.us ], [ %24, %for.body29.us.us.preheader ]
+  %29 = phi i32 [ %35, %if.end46.us.us ], [ %cond.us.fr, %for.body29.us.us.preheader ]
+  %blkn.1151.us.us = phi i32 [ %add48.us.us, %if.end46.us.us ], [ %blkn.0166.us, %for.body29.us.us.preheader ]
+  %output_ptr.0150.us.us = phi ptr [ %add.ptr51.us.us, %if.end46.us.us ], [ %add.ptr.us, %for.body29.us.us.preheader ]
+  %yindex.0149.us.us = phi i32 [ %inc53.us.us, %if.end46.us.us ], [ 0, %for.body29.us.us.preheader ]
+  %30 = load i32, ptr %input_iMCU_row, align 8, !tbaa !38
+  %cmp30.us.us = icmp ult i32 %30, %sub2
+  br i1 %cmp30.us.us, label %if.then35.us.us, label %lor.lhs.false.us.us
+
+lor.lhs.false.us.us:                              ; preds = %for.body29.us.us
+  %add32.us.us = add nsw i32 %yindex.0149.us.us, %yoffset.0190
+  %31 = load i32, ptr %last_row_height.us, align 8, !tbaa !42
+  %cmp33.us.us = icmp slt i32 %add32.us.us, %31
+  br i1 %cmp33.us.us, label %if.then35.us.us, label %if.end46.us.us
+
+if.then35.us.us:                                  ; preds = %lor.lhs.false.us.us, %for.body29.us.us
+  %32 = sext i32 %blkn.1151.us.us to i64
+  br label %for.body39.us.us
+
+if.end46.us.us.loopexit:                          ; preds = %for.body39.us.us
+  %.pre217 = load i32, ptr %MCU_width.us, align 4, !tbaa !56
+  %.pre218 = load i32, ptr %MCU_height.us, align 8, !tbaa !57
+  br label %if.end46.us.us
+
+if.end46.us.us:                                   ; preds = %if.end46.us.us.loopexit, %lor.lhs.false.us.us
+  %33 = phi i32 [ %.pre218, %if.end46.us.us.loopexit ], [ %27, %lor.lhs.false.us.us ]
+  %34 = phi i32 [ %38, %if.end46.us.us.loopexit ], [ %28, %lor.lhs.false.us.us ]
+  %35 = phi i32 [ %.pre217, %if.end46.us.us.loopexit ], [ %29, %lor.lhs.false.us.us ]
+  %add48.us.us = add nsw i32 %35, %blkn.1151.us.us
+  %idx.ext50.us.us = sext i32 %34 to i64
+  %add.ptr51.us.us = getelementptr inbounds ptr, ptr %output_ptr.0150.us.us, i64 %idx.ext50.us.us
+  %inc53.us.us = add nuw nsw i32 %yindex.0149.us.us, 1
+  %cmp27.us.us = icmp slt i32 %inc53.us.us, %33
+  br i1 %cmp27.us.us, label %for.body29.us.us, label %for.inc55.us.loopexit, !llvm.loop !87
+
+for.body39.us.us:                                 ; preds = %for.body39.us.us, %if.then35.us.us
+  %indvars.iv206 = phi i64 [ %indvars.iv.next207, %for.body39.us.us ], [ 0, %if.then35.us.us ]
+  %output_col.0147.us.us = phi i32 [ %add45.us.us, %for.body39.us.us ], [ %mul25.us, %if.then35.us.us ]
+  %36 = add nsw i64 %indvars.iv206, %32
+  %arrayidx43.us.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 4, i64 %36
+  %37 = load ptr, ptr %arrayidx43.us.us, align 8, !tbaa !31
+  tail call void %17(ptr noundef %cinfo, ptr noundef nonnull %13, ptr noundef %37, ptr noundef %output_ptr.0150.us.us, i32 noundef %output_col.0147.us.us) #5
+  %38 = load i32, ptr %DCT_scaled_size.us, align 4, !tbaa !78
+  %add45.us.us = add i32 %38, %output_col.0147.us.us
+  %indvars.iv.next207 = add nuw nsw i64 %indvars.iv206, 1
+  %exitcond211.not = icmp eq i64 %indvars.iv.next207, %wide.trip.count210
+  br i1 %exitcond211.not, label %if.end46.us.us.loopexit, label %for.body39.us.us, !llvm.loop !88
 
 if.then:                                          ; preds = %for.body5
-  store i32 %yoffset.0170, ptr %MCU_vert_offset, align 4, !tbaa !44
-  store i32 %MCU_col_num.0168, ptr %MCU_ctr, align 8, !tbaa !43
+  store i32 %yoffset.0190, ptr %MCU_vert_offset, align 4, !tbaa !44
+  store i32 %MCU_col_num.0187, ptr %MCU_ctr, align 8, !tbaa !43
   br label %cleanup
 
 for.body12:                                       ; preds = %for.body12.lr.ph, %for.inc55
-  %12 = phi i32 [ %11, %for.body12.lr.ph ], [ %37, %for.inc55 ]
-  %indvars.iv178 = phi i64 [ 0, %for.body12.lr.ph ], [ %indvars.iv.next179, %for.inc55 ]
-  %blkn.0166 = phi i32 [ 0, %for.body12.lr.ph ], [ %blkn.2, %for.inc55 ]
-  %arrayidx13 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 63, i64 %indvars.iv178
-  %13 = load ptr, ptr %arrayidx13, align 8, !tbaa !31
-  %component_needed = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 12
-  %14 = load i32, ptr %component_needed, align 8, !tbaa !76
-  %tobool14.not = icmp eq i32 %14, 0
+  %39 = phi i32 [ %64, %for.inc55 ], [ %11, %for.body12.lr.ph ]
+  %indvars.iv201 = phi i64 [ %indvars.iv.next202, %for.inc55 ], [ 0, %for.body12.lr.ph ]
+  %blkn.0166 = phi i32 [ %blkn.2, %for.inc55 ], [ 0, %for.body12.lr.ph ]
+  %arrayidx13 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 63, i64 %indvars.iv201
+  %40 = load ptr, ptr %arrayidx13, align 8, !tbaa !31
+  %component_needed = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 12
+  %41 = load i32, ptr %component_needed, align 8, !tbaa !76
+  %tobool14.not = icmp eq i32 %41, 0
   br i1 %tobool14.not, label %if.then15, label %if.end16
 
 if.then15:                                        ; preds = %for.body12
-  %MCU_blocks = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 15
-  %15 = load i32, ptr %MCU_blocks, align 4, !tbaa !84
-  %add = add nsw i32 %15, %blkn.0166
+  %MCU_blocks = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 15
+  %42 = load i32, ptr %MCU_blocks, align 4, !tbaa !85
+  %add = add nsw i32 %42, %blkn.0166
   br label %for.inc55
 
 if.end16:                                         ; preds = %for.body12
-  %16 = load ptr, ptr %idct, align 8, !tbaa !77
-  %component_index = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 1
-  %17 = load i32, ptr %component_index, align 4, !tbaa !53
-  %idxprom18 = sext i32 %17 to i64
-  %arrayidx19 = getelementptr inbounds %struct.jpeg_inverse_dct, ptr %16, i64 0, i32 1, i64 %idxprom18
-  %18 = load ptr, ptr %arrayidx19, align 8, !tbaa !31
-  %MCU_width = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 13
-  %last_col_width = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 17
-  %cond.in = select i1 %cmp20, ptr %MCU_width, ptr %last_col_width
-  %cond = load i32, ptr %cond.in, align 4, !tbaa !49
+  %43 = load ptr, ptr %idct, align 8, !tbaa !77
+  %component_index = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 1
+  %44 = load i32, ptr %component_index, align 4, !tbaa !53
+  %idxprom18 = sext i32 %44 to i64
+  %arrayidx19 = getelementptr inbounds %struct.jpeg_inverse_dct, ptr %43, i64 0, i32 1, i64 %idxprom18
+  %45 = load ptr, ptr %arrayidx19, align 8, !tbaa !31
+  %MCU_width = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 13
+  %last_col_width = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 17
+  %cond = load i32, ptr %last_col_width, align 4, !tbaa !49
   %cond.fr = freeze i32 %cond
-  %DCT_scaled_size = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 9
-  %MCU_sample_width = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 16
-  %19 = load i32, ptr %MCU_sample_width, align 8, !tbaa !85
-  %mul25 = mul i32 %19, %MCU_col_num.0168
-  %MCU_height = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 14
-  %20 = load i32, ptr %MCU_height, align 8, !tbaa !57
-  %cmp27148 = icmp sgt i32 %20, 0
+  %DCT_scaled_size = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 9
+  %MCU_sample_width = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 16
+  %46 = load i32, ptr %MCU_sample_width, align 8, !tbaa !84
+  %mul25 = mul i32 %46, %MCU_col_num.0187
+  %MCU_height = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 14
+  %47 = load i32, ptr %MCU_height, align 8, !tbaa !57
+  %cmp27148 = icmp sgt i32 %47, 0
   br i1 %cmp27148, label %for.body29.lr.ph, label %for.inc55
 
 for.body29.lr.ph:                                 ; preds = %if.end16
-  %last_row_height = getelementptr inbounds %struct.jpeg_component_info, ptr %13, i64 0, i32 18
+  %last_row_height = getelementptr inbounds %struct.jpeg_component_info, ptr %40, i64 0, i32 18
   %cmp37145 = icmp sgt i32 %cond.fr, 0
   br i1 %cmp37145, label %for.body29.us.preheader, label %for.body29.lr.ph.split
 
 for.body29.us.preheader:                          ; preds = %for.body29.lr.ph
-  %arrayidx23 = getelementptr inbounds ptr, ptr %output_buf, i64 %indvars.iv178
-  %21 = load ptr, ptr %arrayidx23, align 8, !tbaa !31
-  %22 = load i32, ptr %DCT_scaled_size, align 4, !tbaa !78
-  %mul24 = mul nsw i32 %22, %yoffset.0170
+  %arrayidx23 = getelementptr inbounds ptr, ptr %output_buf, i64 %indvars.iv201
+  %48 = load ptr, ptr %arrayidx23, align 8, !tbaa !31
+  %49 = load i32, ptr %DCT_scaled_size, align 4, !tbaa !78
+  %mul24 = mul nsw i32 %49, %yoffset.0190
   %idx.ext = sext i32 %mul24 to i64
-  %add.ptr = getelementptr inbounds ptr, ptr %21, i64 %idx.ext
+  %add.ptr = getelementptr inbounds ptr, ptr %48, i64 %idx.ext
   %wide.trip.count = zext i32 %cond.fr to i64
   br label %for.body29.us
 
 for.body29.us:                                    ; preds = %for.body29.us.preheader, %if.end46.us
-  %23 = phi i32 [ %28, %if.end46.us ], [ %20, %for.body29.us.preheader ]
-  %24 = phi i32 [ %29, %if.end46.us ], [ %22, %for.body29.us.preheader ]
+  %50 = phi i32 [ %55, %if.end46.us ], [ %47, %for.body29.us.preheader ]
+  %51 = phi i32 [ %56, %if.end46.us ], [ %49, %for.body29.us.preheader ]
   %blkn.1151.us = phi i32 [ %add48.us, %if.end46.us ], [ %blkn.0166, %for.body29.us.preheader ]
   %output_ptr.0150.us = phi ptr [ %add.ptr51.us, %if.end46.us ], [ %add.ptr, %for.body29.us.preheader ]
   %yindex.0149.us = phi i32 [ %inc53.us, %if.end46.us ], [ 0, %for.body29.us.preheader ]
-  %25 = load i32, ptr %input_iMCU_row, align 8, !tbaa !38
-  %cmp30.us = icmp ult i32 %25, %sub2
+  %52 = load i32, ptr %input_iMCU_row, align 8, !tbaa !38
+  %cmp30.us = icmp ult i32 %52, %sub2
   br i1 %cmp30.us, label %if.then35.us, label %lor.lhs.false.us
 
 lor.lhs.false.us:                                 ; preds = %for.body29.us
-  %add32.us = add nsw i32 %yindex.0149.us, %yoffset.0170
-  %26 = load i32, ptr %last_row_height, align 8, !tbaa !42
-  %cmp33.us = icmp slt i32 %add32.us, %26
+  %add32.us = add nsw i32 %yindex.0149.us, %yoffset.0190
+  %53 = load i32, ptr %last_row_height, align 8, !tbaa !42
+  %cmp33.us = icmp slt i32 %add32.us, %53
   br i1 %cmp33.us, label %if.then35.us, label %if.end46.us
 
 if.then35.us:                                     ; preds = %lor.lhs.false.us, %for.body29.us
-  %27 = sext i32 %blkn.1151.us to i64
+  %54 = sext i32 %blkn.1151.us to i64
   br label %for.body39.us
 
 if.end46.us.loopexit:                             ; preds = %for.body39.us
-  %.pre181 = load i32, ptr %MCU_height, align 8, !tbaa !57
+  %.pre215 = load i32, ptr %MCU_height, align 8, !tbaa !57
   br label %if.end46.us
 
 if.end46.us:                                      ; preds = %if.end46.us.loopexit, %lor.lhs.false.us
-  %28 = phi i32 [ %.pre181, %if.end46.us.loopexit ], [ %23, %lor.lhs.false.us ]
-  %29 = phi i32 [ %33, %if.end46.us.loopexit ], [ %24, %lor.lhs.false.us ]
-  %30 = load i32, ptr %MCU_width, align 4, !tbaa !56
-  %add48.us = add nsw i32 %30, %blkn.1151.us
-  %idx.ext50.us = sext i32 %29 to i64
+  %55 = phi i32 [ %.pre215, %if.end46.us.loopexit ], [ %50, %lor.lhs.false.us ]
+  %56 = phi i32 [ %60, %if.end46.us.loopexit ], [ %51, %lor.lhs.false.us ]
+  %57 = load i32, ptr %MCU_width, align 4, !tbaa !56
+  %add48.us = add nsw i32 %57, %blkn.1151.us
+  %idx.ext50.us = sext i32 %56 to i64
   %add.ptr51.us = getelementptr inbounds ptr, ptr %output_ptr.0150.us, i64 %idx.ext50.us
   %inc53.us = add nuw nsw i32 %yindex.0149.us, 1
-  %cmp27.us = icmp slt i32 %inc53.us, %28
-  br i1 %cmp27.us, label %for.body29.us, label %for.inc55.loopexit, !llvm.loop !86
+  %cmp27.us = icmp slt i32 %inc53.us, %55
+  br i1 %cmp27.us, label %for.body29.us, label %for.inc55.loopexit, !llvm.loop !87
 
 for.body39.us:                                    ; preds = %if.then35.us, %for.body39.us
   %indvars.iv = phi i64 [ 0, %if.then35.us ], [ %indvars.iv.next, %for.body39.us ]
   %output_col.0147.us = phi i32 [ %mul25, %if.then35.us ], [ %add45.us, %for.body39.us ]
-  %31 = add nsw i64 %indvars.iv, %27
-  %arrayidx43.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 4, i64 %31
-  %32 = load ptr, ptr %arrayidx43.us, align 8, !tbaa !31
-  tail call void %18(ptr noundef %cinfo, ptr noundef nonnull %13, ptr noundef %32, ptr noundef %output_ptr.0150.us, i32 noundef %output_col.0147.us) #5
-  %33 = load i32, ptr %DCT_scaled_size, align 4, !tbaa !78
-  %add45.us = add i32 %33, %output_col.0147.us
+  %58 = add nsw i64 %indvars.iv, %54
+  %arrayidx43.us = getelementptr inbounds %struct.my_coef_controller, ptr %0, i64 0, i32 4, i64 %58
+  %59 = load ptr, ptr %arrayidx43.us, align 8, !tbaa !31
+  tail call void %45(ptr noundef %cinfo, ptr noundef nonnull %40, ptr noundef %59, ptr noundef %output_ptr.0150.us, i32 noundef %output_col.0147.us) #5
+  %60 = load i32, ptr %DCT_scaled_size, align 4, !tbaa !78
+  %add45.us = add i32 %60, %output_col.0147.us
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %if.end46.us.loopexit, label %for.body39.us, !llvm.loop !87
+  br i1 %exitcond.not, label %if.end46.us.loopexit, label %for.body39.us, !llvm.loop !88
 
 for.body29.lr.ph.split:                           ; preds = %for.body29.lr.ph
-  %34 = load i32, ptr %MCU_width, align 4, !tbaa !56
-  %35 = mul i32 %34, %20
-  %36 = add i32 %blkn.0166, %35
+  %61 = load i32, ptr %MCU_width, align 4, !tbaa !56
+  %62 = mul i32 %61, %47
+  %63 = add i32 %blkn.0166, %62
   br label %for.inc55
 
 for.inc55.loopexit:                               ; preds = %if.end46.us
-  %.pre182 = load i32, ptr %comps_in_scan, align 8, !tbaa !39
+  %.pre216 = load i32, ptr %comps_in_scan, align 8, !tbaa !39
   br label %for.inc55
 
 for.inc55:                                        ; preds = %for.body29.lr.ph.split, %for.inc55.loopexit, %if.end16, %if.then15
-  %37 = phi i32 [ %12, %if.then15 ], [ %12, %if.end16 ], [ %.pre182, %for.inc55.loopexit ], [ %12, %for.body29.lr.ph.split ]
-  %blkn.2 = phi i32 [ %add, %if.then15 ], [ %blkn.0166, %if.end16 ], [ %add48.us, %for.inc55.loopexit ], [ %36, %for.body29.lr.ph.split ]
-  %indvars.iv.next179 = add nuw nsw i64 %indvars.iv178, 1
-  %38 = sext i32 %37 to i64
-  %cmp10 = icmp slt i64 %indvars.iv.next179, %38
-  br i1 %cmp10, label %for.body12, label %for.inc58, !llvm.loop !88
+  %64 = phi i32 [ %39, %if.then15 ], [ %39, %if.end16 ], [ %.pre216, %for.inc55.loopexit ], [ %39, %for.body29.lr.ph.split ]
+  %blkn.2 = phi i32 [ %add, %if.then15 ], [ %blkn.0166, %if.end16 ], [ %add48.us, %for.inc55.loopexit ], [ %63, %for.body29.lr.ph.split ]
+  %indvars.iv.next202 = add nuw nsw i64 %indvars.iv201, 1
+  %65 = sext i32 %64 to i64
+  %cmp10 = icmp slt i64 %indvars.iv.next202, %65
+  br i1 %cmp10, label %for.body12, label %for.inc58, !llvm.loop !86
 
-for.inc58:                                        ; preds = %for.inc55, %for.cond9.preheader
-  %inc59 = add i32 %MCU_col_num.0168, 1
+for.inc58:                                        ; preds = %for.inc55, %for.inc55.us, %for.cond9.preheader
+  %inc59 = add i32 %MCU_col_num.0187, 1
   %cmp4.not = icmp ugt i32 %inc59, %sub
   br i1 %cmp4.not, label %for.end60.loopexit, label %for.body5, !llvm.loop !89
 
 for.end60.loopexit:                               ; preds = %for.inc58
-  %.pre183 = load i32, ptr %MCU_rows_per_iMCU_row, align 8, !tbaa !40
+  %.pre220 = load i32, ptr %MCU_rows_per_iMCU_row, align 8, !tbaa !40
   br label %for.end60
 
 for.end60:                                        ; preds = %for.end60.loopexit, %for.body
-  %39 = phi i32 [ %.pre183, %for.end60.loopexit ], [ %5, %for.body ]
+  %66 = phi i32 [ %.pre220, %for.end60.loopexit ], [ %5, %for.body ]
   store i32 0, ptr %MCU_ctr, align 8, !tbaa !43
-  %inc63 = add nsw i32 %yoffset.0170, 1
-  %cmp = icmp slt i32 %inc63, %39
+  %inc63 = add nsw i32 %yoffset.0190, 1
+  %cmp = icmp slt i32 %inc63, %66
   br i1 %cmp, label %for.body, label %for.end64.loopexit, !llvm.loop !90
 
 for.end64.loopexit:                               ; preds = %for.end60
-  %.pre184 = load i32, ptr %total_iMCU_rows, align 8, !tbaa !41
+  %.pre221 = load i32, ptr %total_iMCU_rows, align 8, !tbaa !41
   br label %for.end64
 
 for.end64:                                        ; preds = %for.end64.loopexit, %entry
-  %40 = phi i32 [ %.pre184, %for.end64.loopexit ], [ %2, %entry ]
+  %67 = phi i32 [ %.pre221, %for.end64.loopexit ], [ %2, %entry ]
   %output_iMCU_row = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 37
-  %41 = load i32, ptr %output_iMCU_row, align 8, !tbaa !51
-  %inc65 = add i32 %41, 1
+  %68 = load i32, ptr %output_iMCU_row, align 8, !tbaa !51
+  %inc65 = add i32 %68, 1
   store i32 %inc65, ptr %output_iMCU_row, align 8, !tbaa !51
   %input_iMCU_row66 = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 35
-  %42 = load i32, ptr %input_iMCU_row66, align 8, !tbaa !38
-  %inc67 = add i32 %42, 1
+  %69 = load i32, ptr %input_iMCU_row66, align 8, !tbaa !38
+  %inc67 = add i32 %69, 1
   store i32 %inc67, ptr %input_iMCU_row66, align 8, !tbaa !38
-  %cmp69 = icmp ult i32 %inc67, %40
+  %cmp69 = icmp ult i32 %inc67, %67
   br i1 %cmp69, label %if.then71, label %if.end72
 
 if.then71:                                        ; preds = %for.end64
-  %43 = load ptr, ptr %coef1, align 8, !tbaa !16
+  %70 = load ptr, ptr %coef1, align 8, !tbaa !16
   %comps_in_scan.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 62
-  %44 = load i32, ptr %comps_in_scan.i, align 8, !tbaa !39
-  %cmp.i = icmp sgt i32 %44, 1
+  %71 = load i32, ptr %comps_in_scan.i, align 8, !tbaa !39
+  %cmp.i = icmp sgt i32 %71, 1
   br i1 %cmp.i, label %if.then.i, label %if.else.i
 
 if.then.i:                                        ; preds = %if.then71
-  %MCU_rows_per_iMCU_row.i = getelementptr inbounds %struct.my_coef_controller, ptr %43, i64 0, i32 3
+  %MCU_rows_per_iMCU_row.i = getelementptr inbounds %struct.my_coef_controller, ptr %70, i64 0, i32 3
   store i32 1, ptr %MCU_rows_per_iMCU_row.i, align 8, !tbaa !40
   br label %start_iMCU_row.exit
 
 if.else.i:                                        ; preds = %if.then71
-  %sub.i = add i32 %40, -1
+  %sub.i = add i32 %67, -1
   %cmp2.i = icmp ult i32 %inc67, %sub.i
   %cur_comp_info.i = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 63
-  %45 = load ptr, ptr %cur_comp_info.i, align 8, !tbaa !31
-  %MCU_rows_per_iMCU_row4.i = getelementptr inbounds %struct.my_coef_controller, ptr %43, i64 0, i32 3
+  %72 = load ptr, ptr %cur_comp_info.i, align 8, !tbaa !31
+  %MCU_rows_per_iMCU_row4.i = getelementptr inbounds %struct.my_coef_controller, ptr %70, i64 0, i32 3
   br i1 %cmp2.i, label %if.then3.i, label %if.else5.i
 
 if.then3.i:                                       ; preds = %if.else.i
-  %v_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %45, i64 0, i32 3
-  %46 = load i32, ptr %v_samp_factor.i, align 4, !tbaa !24
-  store i32 %46, ptr %MCU_rows_per_iMCU_row4.i, align 8, !tbaa !40
+  %v_samp_factor.i = getelementptr inbounds %struct.jpeg_component_info, ptr %72, i64 0, i32 3
+  %73 = load i32, ptr %v_samp_factor.i, align 4, !tbaa !24
+  store i32 %73, ptr %MCU_rows_per_iMCU_row4.i, align 8, !tbaa !40
   br label %start_iMCU_row.exit
 
 if.else5.i:                                       ; preds = %if.else.i
-  %last_row_height.i = getelementptr inbounds %struct.jpeg_component_info, ptr %45, i64 0, i32 18
-  %47 = load i32, ptr %last_row_height.i, align 8, !tbaa !42
-  store i32 %47, ptr %MCU_rows_per_iMCU_row4.i, align 8, !tbaa !40
+  %last_row_height.i = getelementptr inbounds %struct.jpeg_component_info, ptr %72, i64 0, i32 18
+  %74 = load i32, ptr %last_row_height.i, align 8, !tbaa !42
+  store i32 %74, ptr %MCU_rows_per_iMCU_row4.i, align 8, !tbaa !40
   br label %start_iMCU_row.exit
 
 start_iMCU_row.exit:                              ; preds = %if.then.i, %if.then3.i, %if.else5.i
-  %MCU_ctr.i = getelementptr inbounds %struct.my_coef_controller, ptr %43, i64 0, i32 1
+  %MCU_ctr.i = getelementptr inbounds %struct.my_coef_controller, ptr %70, i64 0, i32 1
   store i32 0, ptr %MCU_ctr.i, align 8, !tbaa !43
-  %MCU_vert_offset.i = getelementptr inbounds %struct.my_coef_controller, ptr %43, i64 0, i32 2
+  %MCU_vert_offset.i = getelementptr inbounds %struct.my_coef_controller, ptr %70, i64 0, i32 2
   store i32 0, ptr %MCU_vert_offset.i, align 4, !tbaa !44
   br label %cleanup
 
 if.end72:                                         ; preds = %for.end64
   %inputctl = getelementptr inbounds %struct.jpeg_decompress_struct, ptr %cinfo, i64 0, i32 77
-  %48 = load ptr, ptr %inputctl, align 8, !tbaa !69
-  %finish_input_pass = getelementptr inbounds %struct.jpeg_input_controller, ptr %48, i64 0, i32 3
-  %49 = load ptr, ptr %finish_input_pass, align 8, !tbaa !70
-  tail call void %49(ptr noundef nonnull %cinfo) #5
+  %75 = load ptr, ptr %inputctl, align 8, !tbaa !69
+  %finish_input_pass = getelementptr inbounds %struct.jpeg_input_controller, ptr %75, i64 0, i32 3
+  %76 = load ptr, ptr %finish_input_pass, align 8, !tbaa !70
+  tail call void %76(ptr noundef nonnull %cinfo) #5
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end72, %start_iMCU_row.exit, %if.then
@@ -1707,8 +1825,8 @@ attributes #5 = { nounwind }
 !81 = !{!"llvm.loop.unswitch.partial.disable"}
 !82 = distinct !{!82, !33}
 !83 = !{!6, !10, i64 464}
-!84 = !{!25, !10, i64 60}
-!85 = !{!25, !10, i64 64}
+!84 = !{!25, !10, i64 64}
+!85 = !{!25, !10, i64 60}
 !86 = distinct !{!86, !33}
 !87 = distinct !{!87, !33}
 !88 = distinct !{!88, !33}

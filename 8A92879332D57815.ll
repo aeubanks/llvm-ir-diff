@@ -44,7 +44,7 @@ if.else:                                          ; preds = %for.cond
   %sub = xor i32 %notmask, -1
   %conv4 = zext i32 %sub to i64
   %or = select i1 %tobool.not, i64 0, i64 %conv4
-  %x.1 = or i64 %shl, %or
+  %x.1 = or i64 %or, %shl
   %cmp6 = icmp ugt i32 %add, 70
   br i1 %cmp6, label %cleanup, label %for.cond
 
@@ -62,11 +62,11 @@ entry:
 
 for.body:                                         ; preds = %entry, %cleanup301
   %i.0450 = phi i64 [ 0, %entry ], [ %inc, %cleanup301 ]
-  %add.i.i413.lcssa445449 = phi i64 [ %simple_rand.seed.promoted, %entry ], [ %add.i.i413, %cleanup301 ]
+  %add.i.i425.lcssa445449 = phi i64 [ %simple_rand.seed.promoted, %entry ], [ %add.i.i425, %cleanup301 ]
   br label %for.cond.i
 
 for.cond.i:                                       ; preds = %if.else.i, %for.body
-  %add.i22.i = phi i64 [ %add.i.i413.lcssa445449, %for.body ], [ %add.i.i, %if.else.i ]
+  %add.i22.i = phi i64 [ %add.i.i425.lcssa445449, %for.body ], [ %add.i.i, %if.else.i ]
   %x.0.i = phi i64 [ 0, %for.body ], [ %x.1.i, %if.else.i ]
   %tot_bits.0.i = phi i32 [ 0, %for.body ], [ %add.i, %if.else.i ]
   %mul.i.i = mul i64 %add.i22.i, 1103515245
@@ -93,62 +93,62 @@ if.else.i:                                        ; preds = %for.cond.i
 
 random_bitstring.exit:                            ; preds = %for.cond.i, %if.else.i
   %retval.0.i = phi i64 [ %x.0.i, %for.cond.i ], [ %x.1.i, %if.else.i ]
-  %retval.0.i.fr = freeze i64 %retval.0.i
-  br label %for.cond.i416
+  %call.fr = freeze i64 %retval.0.i
+  br label %for.cond.i428
 
-for.cond.i416:                                    ; preds = %if.else.i427, %random_bitstring.exit
-  %add.i22.i409 = phi i64 [ %add.i.i, %random_bitstring.exit ], [ %add.i.i413, %if.else.i427 ]
-  %x.0.i410 = phi i64 [ 0, %random_bitstring.exit ], [ %x.1.i425, %if.else.i427 ]
-  %tot_bits.0.i411 = phi i32 [ 0, %random_bitstring.exit ], [ %add.i417, %if.else.i427 ]
-  %mul.i.i412 = mul i64 %add.i22.i409, 1103515245
-  %add.i.i413 = add i64 %mul.i.i412, 12345
-  %3 = trunc i64 %add.i.i413 to i32
+for.cond.i428:                                    ; preds = %if.else.i439, %random_bitstring.exit
+  %add.i22.i421 = phi i64 [ %add.i.i, %random_bitstring.exit ], [ %add.i.i425, %if.else.i439 ]
+  %x.0.i422 = phi i64 [ 0, %random_bitstring.exit ], [ %x.1.i437, %if.else.i439 ]
+  %tot_bits.0.i423 = phi i32 [ 0, %random_bitstring.exit ], [ %add.i429, %if.else.i439 ]
+  %mul.i.i424 = mul i64 %add.i22.i421, 1103515245
+  %add.i.i425 = add i64 %mul.i.i424, 12345
+  %3 = trunc i64 %add.i.i425 to i32
   %4 = lshr i32 %3, 9
-  %conv.i414 = and i32 %4, 15
-  %cmp.i415 = icmp eq i32 %conv.i414, 0
-  br i1 %cmp.i415, label %random_bitstring.exit429, label %if.else.i427
+  %conv.i426 = and i32 %4, 15
+  %cmp.i427 = icmp eq i32 %conv.i426, 0
+  br i1 %cmp.i427, label %random_bitstring.exit441, label %if.else.i439
 
-if.else.i427:                                     ; preds = %for.cond.i416
-  %add.i417 = add nuw nsw i32 %conv.i414, %tot_bits.0.i411
-  %sh_prom.i418 = zext i32 %conv.i414 to i64
-  %shl.i419 = shl i64 %x.0.i410, %sh_prom.i418
-  %5 = and i64 %add.i.i413, 256
-  %tobool.not.i420 = icmp eq i64 %5, 0
-  %notmask.i421 = shl nsw i32 -1, %conv.i414
-  %sub.i422 = xor i32 %notmask.i421, -1
-  %conv4.i423 = zext i32 %sub.i422 to i64
-  %or.i424 = select i1 %tobool.not.i420, i64 0, i64 %conv4.i423
-  %x.1.i425 = or i64 %or.i424, %shl.i419
-  %cmp6.i426 = icmp ugt i32 %add.i417, 70
-  br i1 %cmp6.i426, label %random_bitstring.exit429, label %for.cond.i416
+if.else.i439:                                     ; preds = %for.cond.i428
+  %add.i429 = add nuw nsw i32 %conv.i426, %tot_bits.0.i423
+  %sh_prom.i430 = zext i32 %conv.i426 to i64
+  %shl.i431 = shl i64 %x.0.i422, %sh_prom.i430
+  %5 = and i64 %add.i.i425, 256
+  %tobool.not.i432 = icmp eq i64 %5, 0
+  %notmask.i433 = shl nsw i32 -1, %conv.i426
+  %sub.i434 = xor i32 %notmask.i433, -1
+  %conv4.i435 = zext i32 %sub.i434 to i64
+  %or.i436 = select i1 %tobool.not.i432, i64 0, i64 %conv4.i435
+  %x.1.i437 = or i64 %or.i436, %shl.i431
+  %cmp6.i438 = icmp ugt i32 %add.i429, 70
+  br i1 %cmp6.i438, label %random_bitstring.exit441, label %for.cond.i428
 
-random_bitstring.exit429:                         ; preds = %for.cond.i416, %if.else.i427
-  %retval.0.i428 = phi i64 [ %x.0.i410, %for.cond.i416 ], [ %x.1.i425, %if.else.i427 ]
-  %cmp2.not = icmp eq i64 %retval.0.i428, 0
+random_bitstring.exit441:                         ; preds = %for.cond.i428, %if.else.i439
+  %retval.0.i440 = phi i64 [ %x.0.i422, %for.cond.i428 ], [ %x.1.i437, %if.else.i439 ]
+  %cmp2.not = icmp eq i64 %retval.0.i440, 0
   br i1 %cmp2.not, label %cleanup301, label %cleanup.cont
 
-cleanup.cont:                                     ; preds = %random_bitstring.exit429
-  %shl.mask = and i64 %retval.0.i.fr, 9223372036854775807
+cleanup.cont:                                     ; preds = %random_bitstring.exit441
+  %shl.mask = and i64 %call.fr, 9223372036854775807
   %cmp14 = icmp ne i64 %shl.mask, 0
-  %cmp15 = icmp ne i64 %retval.0.i428, -1
+  %cmp15 = icmp ne i64 %retval.0.i440, -1
   %or.cond.not = or i1 %cmp14, %cmp15
   br i1 %or.cond.not, label %if.end17, label %cleanup301
 
 if.end17:                                         ; preds = %cleanup.cont
-  %rem19 = srem i64 %retval.0.i.fr, %retval.0.i428
+  %rem19 = srem i64 %call.fr, %retval.0.i440
   %cond = tail call i64 @llvm.abs.i64(i64 %rem19, i1 true)
-  %cond26 = tail call i64 @llvm.abs.i64(i64 %retval.0.i428, i1 true)
+  %cond26 = tail call i64 @llvm.abs.i64(i64 %retval.0.i440, i1 true)
   %cmp27.not = icmp ult i64 %cond, %cond26
   br i1 %cmp27.not, label %save_time, label %if.then32
 
 if.then32:                                        ; preds = %if.end17
-  store i64 %add.i.i413, ptr @simple_rand.seed, align 8, !tbaa !5
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
 save_time:                                        ; preds = %if.end17
-  %conv = trunc i64 %retval.0.i.fr to i32
-  %conv42 = trunc i64 %retval.0.i428 to i32
+  %conv = trunc i64 %call.fr to i32
+  %conv42 = trunc i64 %retval.0.i440 to i32
   %cmp45.not = icmp eq i32 %conv42, 0
   br i1 %cmp45.not, label %cleanup301, label %cleanup.cont65
 
@@ -174,7 +174,7 @@ lor.lhs.false103:                                 ; preds = %if.end79
   br i1 %or.cond312, label %if.then111, label %cleanup.cont118
 
 if.then111:                                       ; preds = %lor.lhs.false103, %if.end79
-  store i64 %add.i.i413, ptr @simple_rand.seed, align 8, !tbaa !5
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
@@ -186,8 +186,8 @@ cleanup.cont118:                                  ; preds = %lor.lhs.false103
 cleanup.cont158:                                  ; preds = %cleanup.cont118
   %sext = shl i32 %conv, 16
   %conv165 = ashr exact i32 %sext, 16
-  %sext430 = shl i32 %conv42, 16
-  %conv166 = ashr exact i32 %sext430, 16
+  %sext408 = shl i32 %conv42, 16
+  %conv166 = ashr exact i32 %sext408, 16
   %rem171 = srem i32 %conv165, %conv166
   %cond182 = tail call i32 @llvm.abs.i32(i32 %rem171, i1 true)
   %cond192 = tail call i32 @llvm.abs.i32(i32 %conv166, i1 true)
@@ -195,7 +195,7 @@ cleanup.cont158:                                  ; preds = %cleanup.cont118
   br i1 %cmp195.not, label %if.end209, label %if.then208
 
 if.then208:                                       ; preds = %cleanup.cont158
-  store i64 %add.i.i413, ptr @simple_rand.seed, align 8, !tbaa !5
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
@@ -205,10 +205,10 @@ if.end209:                                        ; preds = %cleanup.cont158
   br i1 %cmp217.not, label %cleanup301, label %cleanup.cont249
 
 cleanup.cont249:                                  ; preds = %if.end209
-  %sext433 = shl i32 %conv, 24
-  %conv256 = ashr exact i32 %sext433, 24
-  %sext434 = shl i32 %conv42, 24
-  %conv257 = ashr exact i32 %sext434, 24
+  %sext411 = shl i32 %conv, 24
+  %conv256 = ashr exact i32 %sext411, 24
+  %sext412 = shl i32 %conv42, 24
+  %conv257 = ashr exact i32 %sext412, 24
   %rem262.lhs.trunc = trunc i32 %conv256 to i16
   %rem262.rhs.trunc = trunc i32 %conv257 to i16
   %rem262444 = srem i16 %rem262.lhs.trunc, %rem262.rhs.trunc
@@ -219,17 +219,17 @@ cleanup.cont249:                                  ; preds = %if.end209
   br i1 %cmp286.not, label %cleanup301, label %if.then299
 
 if.then299:                                       ; preds = %cleanup.cont249
-  store i64 %add.i.i413, ptr @simple_rand.seed, align 8, !tbaa !5
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @abort() #5
   unreachable
 
-cleanup301:                                       ; preds = %cleanup.cont249, %if.end209, %cleanup.cont118, %cleanup.cont65, %save_time, %cleanup.cont, %random_bitstring.exit429
+cleanup301:                                       ; preds = %cleanup.cont249, %if.end209, %cleanup.cont118, %cleanup.cont65, %save_time, %cleanup.cont, %random_bitstring.exit441
   %inc = add nuw nsw i64 %i.0450, 1
   %exitcond.not = icmp eq i64 %inc, 10000
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !9
 
 for.end:                                          ; preds = %cleanup301
-  store i64 %add.i.i413, ptr @simple_rand.seed, align 8, !tbaa !5
+  store i64 %add.i.i425, ptr @simple_rand.seed, align 8, !tbaa !5
   tail call void @exit(i32 noundef 0) #5
   unreachable
 }

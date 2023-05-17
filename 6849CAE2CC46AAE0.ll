@@ -106,7 +106,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @_ZN27btConvex2dConvex2dAlgorithm10CreateFuncD0Ev(ptr noundef nonnull align 8 dereferenceable(40) %this) unnamed_addr #2 align 2 personality ptr @__gxx_personality_v0 {
-entry:
+invoke.cont:
   tail call void @_ZdlPv(ptr noundef nonnull %this) #11
   ret void
 }
@@ -410,10 +410,12 @@ entry:
   %result70 = alloca %"struct.btConvexCast::CastResult", align 8
   %voronoiSimplex73 = alloca %class.btVoronoiSimplexSolver, align 4
   %ccd176 = alloca %class.btGjkConvexCast, align 8
+  %m_interpolationWorldTransform.i = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 2
   %m_origin.i = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 2, i32 1
-  %m_origin.i164 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 1, i32 1
+  %m_worldTransform.i = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 1
+  %m_origin.i172 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 1, i32 1
   %0 = load float, ptr %m_origin.i, align 4, !tbaa !58
-  %1 = load float, ptr %m_origin.i164, align 4, !tbaa !58
+  %1 = load float, ptr %m_origin.i172, align 4, !tbaa !58
   %sub.i = fsub float %0, %1
   %arrayidx5.i = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 2, i32 1, i32 0, i64 1
   %2 = load float, ptr %arrayidx5.i, align 4, !tbaa !58
@@ -428,38 +430,40 @@ entry:
   %mul8.i.i = fmul float %sub8.i, %sub8.i
   %6 = tail call float @llvm.fmuladd.f32(float %sub.i, float %sub.i, float %mul8.i.i)
   %7 = tail call float @llvm.fmuladd.f32(float %sub14.i, float %sub14.i, float %6)
+  %m_interpolationWorldTransform.i173 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2
+  %m_worldTransform.i175 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1
   %m_ccdMotionThreshold.i = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 22
   %8 = load float, ptr %m_ccdMotionThreshold.i, align 4, !tbaa !59
   %mul.i = fmul float %8, %8
   %cmp = fcmp olt float %7, %mul.i
-  br i1 %cmp, label %land.lhs.true, label %if.end
+  br i1 %cmp, label %land.lhs.true, label %invoke.cont21
 
 land.lhs.true:                                    ; preds = %entry
-  %arrayidx11.i173 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2, i32 1, i32 0, i64 2
-  %9 = load float, ptr %arrayidx11.i173, align 4, !tbaa !58
-  %arrayidx13.i174 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1, i32 1, i32 0, i64 2
-  %10 = load float, ptr %arrayidx13.i174, align 4, !tbaa !58
-  %sub14.i175 = fsub float %9, %10
-  %m_origin.i166 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2, i32 1
-  %11 = load float, ptr %m_origin.i166, align 4, !tbaa !58
-  %m_origin.i168 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1, i32 1
-  %12 = load float, ptr %m_origin.i168, align 4, !tbaa !58
-  %sub.i169 = fsub float %11, %12
-  %arrayidx5.i170 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2, i32 1, i32 0, i64 1
-  %13 = load float, ptr %arrayidx5.i170, align 4, !tbaa !58
-  %arrayidx7.i171 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1, i32 1, i32 0, i64 1
-  %14 = load float, ptr %arrayidx7.i171, align 4, !tbaa !58
-  %sub8.i172 = fsub float %13, %14
-  %mul8.i.i182 = fmul float %sub8.i172, %sub8.i172
-  %15 = tail call float @llvm.fmuladd.f32(float %sub.i169, float %sub.i169, float %mul8.i.i182)
-  %16 = tail call float @llvm.fmuladd.f32(float %sub14.i175, float %sub14.i175, float %15)
-  %m_ccdMotionThreshold.i184 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 22
-  %17 = load float, ptr %m_ccdMotionThreshold.i184, align 4, !tbaa !59
-  %mul.i185 = fmul float %17, %17
-  %cmp17 = fcmp olt float %16, %mul.i185
-  br i1 %cmp17, label %cleanup, label %if.end
+  %arrayidx11.i181 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2, i32 1, i32 0, i64 2
+  %9 = load float, ptr %arrayidx11.i181, align 4, !tbaa !58
+  %arrayidx13.i182 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1, i32 1, i32 0, i64 2
+  %10 = load float, ptr %arrayidx13.i182, align 4, !tbaa !58
+  %sub14.i183 = fsub float %9, %10
+  %m_origin.i174 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2, i32 1
+  %11 = load float, ptr %m_origin.i174, align 4, !tbaa !58
+  %m_origin.i176 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1, i32 1
+  %12 = load float, ptr %m_origin.i176, align 4, !tbaa !58
+  %sub.i177 = fsub float %11, %12
+  %arrayidx5.i178 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2, i32 1, i32 0, i64 1
+  %13 = load float, ptr %arrayidx5.i178, align 4, !tbaa !58
+  %arrayidx7.i179 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1, i32 1, i32 0, i64 1
+  %14 = load float, ptr %arrayidx7.i179, align 4, !tbaa !58
+  %sub8.i180 = fsub float %13, %14
+  %mul8.i.i190 = fmul float %sub8.i180, %sub8.i180
+  %15 = tail call float @llvm.fmuladd.f32(float %sub.i177, float %sub.i177, float %mul8.i.i190)
+  %16 = tail call float @llvm.fmuladd.f32(float %sub14.i183, float %sub14.i183, float %15)
+  %m_ccdMotionThreshold.i192 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 22
+  %17 = load float, ptr %m_ccdMotionThreshold.i192, align 4, !tbaa !59
+  %mul.i193 = fmul float %17, %17
+  %cmp17 = fcmp olt float %16, %mul.i193
+  br i1 %cmp17, label %cleanup, label %invoke.cont21
 
-if.end:                                           ; preds = %land.lhs.true, %entry
+invoke.cont21:                                    ; preds = %land.lhs.true, %entry
   %m_collisionShape.i = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 9
   %18 = load ptr, ptr %m_collisionShape.i, align 8, !tbaa !38
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %sphere1) #13
@@ -488,12 +492,8 @@ if.end:                                           ; preds = %land.lhs.true, %ent
   invoke void @_ZN15btGjkConvexCastC1EPK13btConvexShapeS2_P22btVoronoiSimplexSolver(ptr noundef nonnull align 8 dereferenceable(32) %ccd1, ptr noundef %18, ptr noundef nonnull %sphere1, ptr noundef nonnull %voronoiSimplex)
           to label %invoke.cont23 unwind label %lpad22
 
-invoke.cont23:                                    ; preds = %if.end
-  %m_worldTransform.i186 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 1
-  %m_interpolationWorldTransform.i187 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 2
-  %m_worldTransform.i188 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 1
-  %m_interpolationWorldTransform.i189 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 2
-  %call34 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %ccd1, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i186, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i187, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i188, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i189, ptr noundef nonnull align 8 dereferenceable(188) %result)
+invoke.cont23:                                    ; preds = %invoke.cont21
+  %call34 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %ccd1, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i175, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i173, ptr noundef nonnull align 8 dereferenceable(188) %result)
           to label %invoke.cont33 unwind label %lpad24
 
 invoke.cont33:                                    ; preds = %invoke.cont23
@@ -510,7 +510,7 @@ if.then39:                                        ; preds = %if.then35
   store float %21, ptr %m_hitFraction.i, align 4, !tbaa !70
   br label %if.end42
 
-lpad22:                                           ; preds = %if.end56, %if.end
+lpad22:                                           ; preds = %if.end56, %invoke.cont21
   %22 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup
@@ -522,13 +522,13 @@ lpad24:                                           ; preds = %invoke.cont23
           to label %ehcleanup unwind label %terminate.lpad
 
 if.end42:                                         ; preds = %if.then39, %if.then35
-  %m_hitFraction.i191 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 20
-  %24 = load float, ptr %m_hitFraction.i191, align 4, !tbaa !70
+  %m_hitFraction.i199 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 20
+  %24 = load float, ptr %m_hitFraction.i199, align 4, !tbaa !70
   %cmp46 = fcmp ogt float %24, %21
   br i1 %cmp46, label %if.then47, label %if.end50
 
 if.then47:                                        ; preds = %if.end42
-  store float %21, ptr %m_hitFraction.i191, align 4, !tbaa !70
+  store float %21, ptr %m_hitFraction.i199, align 4, !tbaa !70
   br label %if.end50
 
 if.end50:                                         ; preds = %if.then47, %if.end42
@@ -541,58 +541,58 @@ if.then53:                                        ; preds = %if.end50
 if.end56:                                         ; preds = %if.end50, %if.then53, %invoke.cont33
   %resultFraction.0 = phi float [ %21, %if.then53 ], [ 1.000000e+00, %if.end50 ], [ 1.000000e+00, %invoke.cont33 ]
   invoke void @_ZN12btConvexCastD2Ev(ptr noundef nonnull align 8 dereferenceable(32) %ccd1)
-          to label %invoke.cont57 unwind label %lpad22
+          to label %invoke.cont75 unwind label %lpad22
 
-invoke.cont57:                                    ; preds = %if.end56
+invoke.cont75:                                    ; preds = %if.end56
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ccd1) #13
   call void @llvm.lifetime.end.p0(i64 356, ptr nonnull %voronoiSimplex) #13
   call void @llvm.lifetime.end.p0(i64 192, ptr nonnull %result) #13
   call void @_ZN13btConvexShapeD2Ev(ptr noundef nonnull align 8 dereferenceable(64) %sphere1)
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %sphere1) #13
-  %m_collisionShape.i193 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 9
-  %25 = load ptr, ptr %m_collisionShape.i193, align 8, !tbaa !38
+  %m_collisionShape.i201 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 9
+  %25 = load ptr, ptr %m_collisionShape.i201, align 8, !tbaa !38
   call void @llvm.lifetime.start.p0(i64 64, ptr nonnull %sphere0) #13
-  %m_ccdSweptSphereRadius.i194 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 21
-  %26 = load float, ptr %m_ccdSweptSphereRadius.i194, align 8, !tbaa !60
+  %m_ccdSweptSphereRadius.i202 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 21
+  %26 = load float, ptr %m_ccdSweptSphereRadius.i202, align 8, !tbaa !60
   call void @_ZN21btConvexInternalShapeC2Ev(ptr noundef nonnull align 8 dereferenceable(64) %sphere0)
   store ptr getelementptr inbounds ({ [20 x ptr] }, ptr @_ZTV13btSphereShape, i64 0, inrange i32 0, i64 2), ptr %sphere0, align 8, !tbaa !10
-  %m_shapeType.i195 = getelementptr inbounds %class.btCollisionShape, ptr %sphere0, i64 0, i32 1
-  store i32 8, ptr %m_shapeType.i195, align 8, !tbaa !61
-  %m_implicitShapeDimensions.i196 = getelementptr inbounds %class.btConvexInternalShape, ptr %sphere0, i64 0, i32 2
-  store float %26, ptr %m_implicitShapeDimensions.i196, align 8, !tbaa !58
-  %m_collisionMargin.i197 = getelementptr inbounds %class.btConvexInternalShape, ptr %sphere0, i64 0, i32 3
-  store float %26, ptr %m_collisionMargin.i197, align 8, !tbaa !63
+  %m_shapeType.i203 = getelementptr inbounds %class.btCollisionShape, ptr %sphere0, i64 0, i32 1
+  store i32 8, ptr %m_shapeType.i203, align 8, !tbaa !61
+  %m_implicitShapeDimensions.i204 = getelementptr inbounds %class.btConvexInternalShape, ptr %sphere0, i64 0, i32 2
+  store float %26, ptr %m_implicitShapeDimensions.i204, align 8, !tbaa !58
+  %m_collisionMargin.i205 = getelementptr inbounds %class.btConvexInternalShape, ptr %sphere0, i64 0, i32 3
+  store float %26, ptr %m_collisionMargin.i205, align 8, !tbaa !63
   call void @llvm.lifetime.start.p0(i64 192, ptr nonnull %result70) #13
   store ptr getelementptr inbounds ({ [6 x ptr] }, ptr @_ZTVN12btConvexCast10CastResultE, i64 0, inrange i32 0, i64 2), ptr %result70, align 8, !tbaa !10
-  %m_fraction.i198 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %result70, i64 0, i32 5
-  store float 0x43ABC16D60000000, ptr %m_fraction.i198, align 8, !tbaa !66
-  %m_debugDrawer.i199 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %result70, i64 0, i32 7
-  store ptr null, ptr %m_debugDrawer.i199, align 8, !tbaa !68
-  %m_allowedPenetration.i200 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %result70, i64 0, i32 8
-  store float 0.000000e+00, ptr %m_allowedPenetration.i200, align 8, !tbaa !69
+  %m_fraction.i206 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %result70, i64 0, i32 5
+  store float 0x43ABC16D60000000, ptr %m_fraction.i206, align 8, !tbaa !66
+  %m_debugDrawer.i207 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %result70, i64 0, i32 7
+  store ptr null, ptr %m_debugDrawer.i207, align 8, !tbaa !68
+  %m_allowedPenetration.i208 = getelementptr inbounds %"struct.btConvexCast::CastResult", ptr %result70, i64 0, i32 8
+  store float 0.000000e+00, ptr %m_allowedPenetration.i208, align 8, !tbaa !69
   call void @llvm.lifetime.start.p0(i64 356, ptr nonnull %voronoiSimplex73) #13
-  %m_usedVertices.i.i201 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %voronoiSimplex73, i64 0, i32 10, i32 1
-  store i8 0, ptr %m_usedVertices.i.i201, align 4
+  %m_usedVertices.i.i209 = getelementptr inbounds %class.btVoronoiSimplexSolver, ptr %voronoiSimplex73, i64 0, i32 10, i32 1
+  store i8 0, ptr %m_usedVertices.i.i209, align 4
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ccd176) #13
   invoke void @_ZN15btGjkConvexCastC1EPK13btConvexShapeS2_P22btVoronoiSimplexSolver(ptr noundef nonnull align 8 dereferenceable(32) %ccd176, ptr noundef nonnull %sphere0, ptr noundef %25, ptr noundef nonnull %voronoiSimplex73)
           to label %invoke.cont78 unwind label %lpad77
 
-invoke.cont78:                                    ; preds = %invoke.cont57
-  %call89 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %ccd176, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i186, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i187, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i188, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i189, ptr noundef nonnull align 8 dereferenceable(188) %result70)
+invoke.cont78:                                    ; preds = %invoke.cont75
+  %call89 = invoke noundef zeroext i1 @_ZN15btGjkConvexCast16calcTimeOfImpactERK11btTransformS2_S2_S2_RN12btConvexCast10CastResultE(ptr noundef nonnull align 8 dereferenceable(32) %ccd176, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i, ptr noundef nonnull align 4 dereferenceable(64) %m_worldTransform.i175, ptr noundef nonnull align 4 dereferenceable(64) %m_interpolationWorldTransform.i173, ptr noundef nonnull align 8 dereferenceable(188) %result70)
           to label %invoke.cont88 unwind label %lpad79
 
 invoke.cont88:                                    ; preds = %invoke.cont78
   br i1 %call89, label %if.then90, label %if.end112
 
 if.then90:                                        ; preds = %invoke.cont88
-  %m_hitFraction.i208 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 20
-  %27 = load float, ptr %m_hitFraction.i208, align 4, !tbaa !70
-  %28 = load float, ptr %m_fraction.i198, align 8, !tbaa !66
+  %m_hitFraction.i216 = getelementptr inbounds %class.btCollisionObject, ptr %col0, i64 0, i32 20
+  %27 = load float, ptr %m_hitFraction.i216, align 4, !tbaa !70
+  %28 = load float, ptr %m_fraction.i206, align 8, !tbaa !66
   %cmp94 = fcmp ogt float %27, %28
   br i1 %cmp94, label %if.then95, label %if.end98
 
 if.then95:                                        ; preds = %if.then90
-  store float %28, ptr %m_hitFraction.i208, align 4, !tbaa !70
+  store float %28, ptr %m_hitFraction.i216, align 4, !tbaa !70
   br label %if.end98
 
 ehcleanup:                                        ; preds = %lpad24, %lpad22
@@ -607,7 +607,7 @@ invoke.cont65:                                    ; preds = %ehcleanup
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %sphere1) #13
   br label %ehcleanup126
 
-lpad77:                                           ; preds = %if.end112, %invoke.cont57
+lpad77:                                           ; preds = %if.end112, %invoke.cont75
   %29 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup116
@@ -619,13 +619,13 @@ lpad79:                                           ; preds = %invoke.cont78
           to label %ehcleanup116 unwind label %terminate.lpad
 
 if.end98:                                         ; preds = %if.then95, %if.then90
-  %m_hitFraction.i210 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 20
-  %31 = load float, ptr %m_hitFraction.i210, align 4, !tbaa !70
+  %m_hitFraction.i218 = getelementptr inbounds %class.btCollisionObject, ptr %col1, i64 0, i32 20
+  %31 = load float, ptr %m_hitFraction.i218, align 4, !tbaa !70
   %cmp102 = fcmp ogt float %31, %28
   br i1 %cmp102, label %if.then103, label %if.end106
 
 if.then103:                                       ; preds = %if.end98
-  store float %28, ptr %m_hitFraction.i210, align 4, !tbaa !70
+  store float %28, ptr %m_hitFraction.i218, align 4, !tbaa !70
   br label %if.end106
 
 if.end106:                                        ; preds = %if.then103, %if.end98
@@ -649,7 +649,7 @@ invoke.cont113:                                   ; preds = %if.end112
   br label %cleanup
 
 ehcleanup116:                                     ; preds = %lpad79, %lpad77
-  %.pn213 = phi { ptr, i32 } [ %29, %lpad77 ], [ %30, %lpad79 ]
+  %.pn167 = phi { ptr, i32 } [ %29, %lpad77 ], [ %30, %lpad79 ]
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ccd176) #13
   call void @llvm.lifetime.end.p0(i64 356, ptr nonnull %voronoiSimplex73) #13
   call void @llvm.lifetime.end.p0(i64 192, ptr nonnull %result70) #13
@@ -665,8 +665,8 @@ cleanup:                                          ; preds = %land.lhs.true, %inv
   ret float %retval.0
 
 ehcleanup126:                                     ; preds = %invoke.cont123, %invoke.cont65
-  %.pn213.pn = phi { ptr, i32 } [ %.pn213, %invoke.cont123 ], [ %.pn, %invoke.cont65 ]
-  resume { ptr, i32 } %.pn213.pn
+  %.pn167.pn.pn.pn = phi { ptr, i32 } [ %.pn167, %invoke.cont123 ], [ %.pn, %invoke.cont65 ]
+  resume { ptr, i32 } %.pn167.pn.pn.pn
 
 terminate.lpad:                                   ; preds = %ehcleanup116, %lpad79, %ehcleanup, %lpad24
   %32 = landingpad { ptr, i32 }

@@ -29,7 +29,7 @@ while.end:                                        ; preds = %while.cond.while.en
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+if.end:
   store i32 -4, ptr @glob, align 4, !tbaa !5
   tail call void @exit(i32 noundef 0) #3
   unreachable

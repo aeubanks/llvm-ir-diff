@@ -46,7 +46,7 @@ entry:
   br label %for.body10
 
 for.body10:                                       ; preds = %entry, %for.body10
-  %i.168 = phi i32 [ 0, %entry ], [ %inc43, %for.body10 ]
+  %i.166 = phi i32 [ 0, %entry ], [ %inc43, %for.body10 ]
   store i32 7, ptr getelementptr inbounds ([51 x i32], ptr @Array1Glob, i64 0, i64 8), align 16, !tbaa !15
   store i32 7, ptr getelementptr inbounds ([51 x i32], ptr @Array1Glob, i64 0, i64 9), align 4, !tbaa !15
   store i32 8, ptr getelementptr inbounds ([51 x i32], ptr @Array1Glob, i64 0, i64 38), align 8, !tbaa !15
@@ -63,7 +63,7 @@ for.body10:                                       ; preds = %entry, %for.body10
   %IntComp2.i = getelementptr inbounds %struct.Record, ptr %2, i64 0, i32 3
   store i32 5, ptr %IntComp2.i, align 8, !tbaa !14
   store ptr %2, ptr %2, align 8, !tbaa !9
-  %inc43 = add nuw nsw i32 %i.168, 1
+  %inc43 = add nuw nsw i32 %i.166, 1
   %exitcond.not = icmp eq i32 %inc43, 100000000
   br i1 %exitcond.not, label %for.end44, label %for.body10, !llvm.loop !16
 
@@ -144,9 +144,9 @@ entry:
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: write, inaccessiblemem: none) uwtable
 define dso_local i32 @Proc6(i32 noundef %EnumParIn, ptr nocapture noundef writeonly %EnumParOut) local_unnamed_addr #7 {
 entry:
-  %cmp.i = icmp eq i32 %EnumParIn, 10001
-  %spec.select = select i1 %cmp.i, i32 10001, i32 10002
-  store i32 %spec.select, ptr %EnumParOut, align 4, !tbaa !18
+  %cmp.i.not = icmp eq i32 %EnumParIn, 10001
+  %spec.store.select = select i1 %cmp.i.not, i32 10001, i32 10002
+  store i32 %spec.store.select, ptr %EnumParOut, align 4
   switch i32 %EnumParIn, label %sw.epilog [
     i32 0, label %sw.epilog.sink.split
     i32 10000, label %sw.bb1
@@ -231,18 +231,18 @@ entry:
 
 ; Function Attrs: nofree nounwind memory(argmem: read) uwtable
 define dso_local i32 @Func2(ptr nocapture noundef readonly %StrParI1, ptr nocapture noundef readonly %StrParI2) local_unnamed_addr #10 {
-while.cond.peel.next:
+entry:
   %arrayidx = getelementptr inbounds i8, ptr %StrParI1, i64 1
   %0 = load i8, ptr %arrayidx, align 1, !tbaa !18
   %arrayidx2 = getelementptr inbounds i8, ptr %StrParI2, i64 2
   %1 = load i8, ptr %arrayidx2, align 1, !tbaa !18
   %cmp.not.i.not = icmp eq i8 %1, %0
-  br label %while.cond
+  br i1 %cmp.not.i.not, label %while.body, label %if.else
 
-while.cond:                                       ; preds = %while.cond, %while.cond.peel.next
-  br i1 %cmp.not.i.not, label %while.cond, label %if.else, !llvm.loop !20
+while.body:                                       ; preds = %entry, %while.body
+  br label %while.body
 
-if.else:                                          ; preds = %while.cond
+if.else:                                          ; preds = %entry
   %call18 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %StrParI1, ptr noundef nonnull dereferenceable(1) %StrParI2) #15
   %cmp19 = icmp sgt i32 %call18, 0
   %. = zext i1 %cmp19 to i32
@@ -303,5 +303,3 @@ attributes #15 = { nounwind willreturn memory(read) }
 !17 = !{!"llvm.loop.mustprogress"}
 !18 = !{!7, !7, i64 0}
 !19 = !{}
-!20 = distinct !{!20, !21}
-!21 = !{!"llvm.loop.peeled.count", i32 1}

@@ -9,8 +9,8 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local i32 @main() local_unnamed_addr #0 {
 entry:
   %0 = load i32, ptr @u, align 4, !tbaa !5
-  %and = and i32 %0, 32768
-  %cmp.not = icmp eq i32 %and, 0
+  %1 = and i32 %0, 32768
+  %cmp.not = icmp eq i32 %1, 0
   br i1 %cmp.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry

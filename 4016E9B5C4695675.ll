@@ -128,45 +128,45 @@ return:                                           ; preds = %while.body, %if.els
 ; Function Attrs: nofree nounwind uwtable
 define dso_local ptr @pset_union(ptr noundef readonly %s1, ptr noundef %s2) local_unnamed_addr #6 {
 entry:
-  %cmp.not32 = icmp eq ptr %s1, null
-  br i1 %cmp.not32, label %cleanup, label %while.body.lr.ph
+  %cmp.not34 = icmp eq ptr %s1, null
+  br i1 %cmp.not34, label %cleanup, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %cmp.not4.i = icmp eq ptr %s2, null
   br i1 %cmp.not4.i, label %while.body.us, label %while.body
 
 while.body.us:                                    ; preds = %while.body.lr.ph, %if.end9.us
-  %curr.035.us = phi ptr [ %call1.us, %if.end9.us ], [ null, %while.body.lr.ph ]
-  %hd.034.us = phi ptr [ %hd.1.us, %if.end9.us ], [ null, %while.body.lr.ph ]
-  %s1.addr.033.us = phi ptr [ %1, %if.end9.us ], [ %s1, %while.body.lr.ph ]
-  %0 = load i32, ptr %s1.addr.033.us, align 8, !tbaa !14
+  %curr.037.us = phi ptr [ %call1.us, %if.end9.us ], [ null, %while.body.lr.ph ]
+  %hd.036.us = phi ptr [ %hd.1.us, %if.end9.us ], [ null, %while.body.lr.ph ]
+  %s1.addr.035.us = phi ptr [ %1, %if.end9.us ], [ %s1, %while.body.lr.ph ]
+  %0 = load i32, ptr %s1.addr.035.us, align 8, !tbaa !14
   %call1.us = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #8
   %cmp2.us = icmp eq ptr %call1.us, null
   br i1 %cmp2.us, label %cleanup, label %if.end.us
 
 if.end.us:                                        ; preds = %while.body.us
   store i32 %0, ptr %call1.us, align 8, !tbaa !14
-  %cmp6.us = icmp eq ptr %hd.034.us, null
+  %cmp6.us = icmp eq ptr %hd.036.us, null
   br i1 %cmp6.us, label %if.end9.us, label %if.else.us
 
 if.else.us:                                       ; preds = %if.end.us
-  %nextpos.us = getelementptr inbounds %struct.pnode, ptr %curr.035.us, i64 0, i32 1
+  %nextpos.us = getelementptr inbounds %struct.pnode, ptr %curr.037.us, i64 0, i32 1
   store ptr %call1.us, ptr %nextpos.us, align 8, !tbaa !16
   br label %if.end9.us
 
 if.end9.us:                                       ; preds = %if.else.us, %if.end.us
-  %hd.1.us = phi ptr [ %hd.034.us, %if.else.us ], [ %call1.us, %if.end.us ]
-  %nextpos10.us = getelementptr inbounds %struct.pnode, ptr %s1.addr.033.us, i64 0, i32 1
+  %hd.1.us = phi ptr [ %hd.036.us, %if.else.us ], [ %call1.us, %if.end.us ]
+  %nextpos10.us = getelementptr inbounds %struct.pnode, ptr %s1.addr.035.us, i64 0, i32 1
   %1 = load ptr, ptr %nextpos10.us, align 8, !tbaa !16
   %cmp.not.us = icmp eq ptr %1, null
   br i1 %cmp.not.us, label %if.else13, label %while.body.us, !llvm.loop !19
 
 while.body:                                       ; preds = %while.body.lr.ph, %if.end9
-  %new1.036 = phi ptr [ %new1.1, %if.end9 ], [ undef, %while.body.lr.ph ]
-  %curr.035 = phi ptr [ %new1.1, %if.end9 ], [ null, %while.body.lr.ph ]
-  %hd.034 = phi ptr [ %hd.1, %if.end9 ], [ null, %while.body.lr.ph ]
-  %s1.addr.033 = phi ptr [ %5, %if.end9 ], [ %s1, %while.body.lr.ph ]
-  %2 = load i32, ptr %s1.addr.033, align 8, !tbaa !14
+  %new1.038 = phi ptr [ %new1.1, %if.end9 ], [ undef, %while.body.lr.ph ]
+  %curr.037 = phi ptr [ %new1.1, %if.end9 ], [ null, %while.body.lr.ph ]
+  %hd.036 = phi ptr [ %hd.1, %if.end9 ], [ null, %while.body.lr.ph ]
+  %s1.addr.035 = phi ptr [ %5, %if.end9 ], [ %s1, %while.body.lr.ph ]
+  %2 = load i32, ptr %s1.addr.035, align 8, !tbaa !14
   br label %while.body.i
 
 while.body.i:                                     ; preds = %while.body, %if.else.i
@@ -179,27 +179,27 @@ if.else.i:                                        ; preds = %while.body.i
   %nextpos.i = getelementptr inbounds %struct.pnode, ptr %p.addr.05.i, i64 0, i32 1
   %4 = load ptr, ptr %nextpos.i, align 8, !tbaa !16
   %cmp.not.i = icmp eq ptr %4, null
-  br i1 %cmp.not.i, label %if.then.critedge.loopexit, label %while.body.i, !llvm.loop !17
+  br i1 %cmp.not.i, label %if.then.loopexit, label %while.body.i, !llvm.loop !17
 
-if.then.critedge.loopexit:                        ; preds = %if.else.i
+if.then.loopexit:                                 ; preds = %if.else.i
   %call1 = tail call noalias dereferenceable_or_null(16) ptr @malloc(i64 noundef 16) #8
   %cmp2 = icmp eq ptr %call1, null
   br i1 %cmp2, label %cleanup, label %if.end
 
-if.end:                                           ; preds = %if.then.critedge.loopexit
+if.end:                                           ; preds = %if.then.loopexit
   store i32 %2, ptr %call1, align 8, !tbaa !14
-  %cmp6 = icmp eq ptr %hd.034, null
+  %cmp6 = icmp eq ptr %hd.036, null
   br i1 %cmp6, label %if.end9, label %if.else
 
 if.else:                                          ; preds = %if.end
-  %nextpos = getelementptr inbounds %struct.pnode, ptr %curr.035, i64 0, i32 1
+  %nextpos = getelementptr inbounds %struct.pnode, ptr %curr.037, i64 0, i32 1
   store ptr %call1, ptr %nextpos, align 8, !tbaa !16
   br label %if.end9
 
 if.end9:                                          ; preds = %while.body.i, %if.end, %if.else
-  %hd.1 = phi ptr [ %hd.034, %if.else ], [ %call1, %if.end ], [ %hd.034, %while.body.i ]
-  %new1.1 = phi ptr [ %call1, %if.else ], [ %call1, %if.end ], [ %new1.036, %while.body.i ]
-  %nextpos10 = getelementptr inbounds %struct.pnode, ptr %s1.addr.033, i64 0, i32 1
+  %hd.1 = phi ptr [ %hd.036, %if.else ], [ %call1, %if.end ], [ %hd.036, %while.body.i ]
+  %new1.1 = phi ptr [ %call1, %if.else ], [ %call1, %if.end ], [ %new1.038, %while.body.i ]
+  %nextpos10 = getelementptr inbounds %struct.pnode, ptr %s1.addr.035, i64 0, i32 1
   %5 = load ptr, ptr %nextpos10, align 8, !tbaa !16
   %cmp.not = icmp eq ptr %5, null
   br i1 %cmp.not, label %while.end, label %while.body, !llvm.loop !19
@@ -209,14 +209,14 @@ while.end:                                        ; preds = %if.end9
   br i1 %cmp11, label %cleanup, label %if.else13
 
 if.else13:                                        ; preds = %if.end9.us, %while.end
-  %curr.0.lcssa50 = phi ptr [ %new1.1, %while.end ], [ %call1.us, %if.end9.us ]
-  %hd.0.lcssa49 = phi ptr [ %hd.1, %while.end ], [ %hd.1.us, %if.end9.us ]
-  %nextpos14 = getelementptr inbounds %struct.pnode, ptr %curr.0.lcssa50, i64 0, i32 1
+  %curr.0.lcssa52 = phi ptr [ %new1.1, %while.end ], [ %call1.us, %if.end9.us ]
+  %hd.0.lcssa51 = phi ptr [ %hd.1, %while.end ], [ %hd.1.us, %if.end9.us ]
+  %nextpos14 = getelementptr inbounds %struct.pnode, ptr %curr.0.lcssa52, i64 0, i32 1
   store ptr %s2, ptr %nextpos14, align 8, !tbaa !16
   br label %cleanup
 
-cleanup:                                          ; preds = %if.then.critedge.loopexit, %while.body.us, %entry, %if.else13, %while.end
-  %retval.0 = phi ptr [ %hd.0.lcssa49, %if.else13 ], [ %s2, %while.end ], [ %s2, %entry ], [ null, %while.body.us ], [ null, %if.then.critedge.loopexit ]
+cleanup:                                          ; preds = %if.then.loopexit, %while.body.us, %entry, %if.else13, %while.end
+  %retval.0 = phi ptr [ %hd.0.lcssa51, %if.else13 ], [ %s2, %while.end ], [ %s2, %entry ], [ null, %while.body.us ], [ null, %if.then.loopexit ]
   ret ptr %retval.0
 }
 
@@ -281,7 +281,7 @@ while.end11:                                      ; preds = %while.cond2.prehead
 define dso_local i32 @eq_pset(ptr noundef readonly %s1, ptr noundef readonly %s2) local_unnamed_addr #5 {
 entry:
   %cmp21.not.i = icmp eq ptr %s1, null
-  br i1 %cmp21.not.i, label %land.rhs.critedge, label %while.cond2.preheader.i
+  br i1 %cmp21.not.i, label %land.rhs, label %while.cond2.preheader.i
 
 while.cond2.preheader.i:                          ; preds = %entry, %while.end.i
   %s2.addr.023.i = phi ptr [ %s2.addr.119.i, %while.end.i ], [ %s2, %entry ]
@@ -309,15 +309,15 @@ while.end.i:                                      ; preds = %while.body7.i
   %nextpos10.i = getelementptr inbounds %struct.pnode, ptr %s1.addr.022.i, i64 0, i32 1
   %3 = load ptr, ptr %nextpos10.i, align 8, !tbaa !16
   %cmp.not.i = icmp eq ptr %3, null
-  br i1 %cmp.not.i, label %land.rhs.critedge, label %while.cond2.preheader.i, !llvm.loop !21
+  br i1 %cmp.not.i, label %land.rhs, label %while.cond2.preheader.i, !llvm.loop !21
 
-land.rhs.critedge:                                ; preds = %while.end.i, %entry
+land.rhs:                                         ; preds = %while.end.i, %entry
   %cmp21.not.i5 = icmp eq ptr %s2, null
   br i1 %cmp21.not.i5, label %land.end, label %while.cond2.preheader.i9
 
-while.cond2.preheader.i9:                         ; preds = %land.rhs.critedge, %while.end.i19
-  %s2.addr.023.i6 = phi ptr [ %s2.addr.119.i11, %while.end.i19 ], [ %s1, %land.rhs.critedge ]
-  %s1.addr.022.i7 = phi ptr [ %7, %while.end.i19 ], [ %s2, %land.rhs.critedge ]
+while.cond2.preheader.i9:                         ; preds = %land.rhs, %while.end.i19
+  %s2.addr.023.i6 = phi ptr [ %s2.addr.119.i11, %while.end.i19 ], [ %s1, %land.rhs ]
+  %s1.addr.022.i7 = phi ptr [ %7, %while.end.i19 ], [ %s2, %land.rhs ]
   %cmp318.not.i8 = icmp eq ptr %s2.addr.023.i6, null
   br i1 %cmp318.not.i8, label %land.end, label %while.body7.lr.ph.i10
 
@@ -343,8 +343,8 @@ while.end.i19:                                    ; preds = %while.body7.i13
   %cmp.not.i18 = icmp eq ptr %7, null
   br i1 %cmp.not.i18, label %land.end, label %while.cond2.preheader.i9, !llvm.loop !21
 
-land.end:                                         ; preds = %while.cond2.preheader.i, %if.end.i, %while.end.i19, %while.cond2.preheader.i9, %if.end.i16, %land.rhs.critedge
-  %land.ext = phi i32 [ 1, %land.rhs.critedge ], [ 0, %if.end.i16 ], [ 1, %while.end.i19 ], [ 0, %while.cond2.preheader.i9 ], [ 0, %if.end.i ], [ 0, %while.cond2.preheader.i ]
+land.end:                                         ; preds = %while.cond2.preheader.i, %if.end.i, %while.end.i19, %while.cond2.preheader.i9, %if.end.i16, %land.rhs
+  %land.ext = phi i32 [ 1, %land.rhs ], [ 0, %if.end.i16 ], [ 1, %while.end.i19 ], [ 0, %while.cond2.preheader.i9 ], [ 0, %if.end.i ], [ 0, %while.cond2.preheader.i ]
   ret i32 %land.ext
 }
 

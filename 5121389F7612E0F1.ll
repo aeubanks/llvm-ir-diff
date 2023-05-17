@@ -512,28 +512,28 @@ if.end253:                                        ; preds = %cond.true130, %cond
   %cmp255 = icmp eq i32 %rFrameL.0, %conv254
   %cmp255.not = xor i1 %cmp255, true
   %cmp258.not = icmp eq i32 %rFrameU.0, %conv254
-  %or.cond738 = select i1 %cmp255.not, i1 true, i1 %cmp258.not
+  %or.cond735 = select i1 %cmp255.not, i1 true, i1 %cmp258.not
   %cmp262.not = icmp eq i32 %rFrameUR.0, %conv254
-  %or.cond739 = select i1 %or.cond738, i1 true, i1 %cmp262.not
-  br i1 %or.cond739, label %if.else265, label %if.end293
+  %or.cond736 = select i1 %or.cond735, i1 true, i1 %cmp262.not
+  br i1 %or.cond736, label %if.else265, label %if.end293
 
 if.else265:                                       ; preds = %if.end253
   %cmp258.not.not = xor i1 %cmp258.not, true
-  %or.cond740.not = select i1 %cmp255, i1 true, i1 %cmp258.not.not
-  %or.cond741 = select i1 %or.cond740.not, i1 true, i1 %cmp262.not
-  %or.cond741.not = xor i1 %or.cond741, true
-  %brmerge = or i1 %cmp255, %or.cond741.not
-  %.mux = select i1 %or.cond741, i32 0, i32 2
+  %or.cond737.not = select i1 %cmp255, i1 true, i1 %cmp258.not.not
+  %or.cond738 = select i1 %or.cond737.not, i1 true, i1 %cmp262.not
+  %or.cond738.not = xor i1 %or.cond738, true
+  %brmerge = or i1 %cmp255, %or.cond738.not
+  %.mux = select i1 %or.cond738, i32 0, i32 2
   br i1 %brmerge, label %if.end293, label %land.lhs.true282
 
 land.lhs.true282:                                 ; preds = %if.else265
   %cmp284.not = icmp ne i32 %rFrameU.0, %conv254
-  %or.cond742 = select i1 %cmp284.not, i1 %cmp262.not, i1 false
-  %spec.select746 = select i1 %or.cond742, i32 3, i32 0
+  %or.cond739 = select i1 %cmp284.not, i1 %cmp262.not, i1 false
+  %spec.select743 = select i1 %or.cond739, i32 3, i32 0
   br label %if.end293
 
 if.end293:                                        ; preds = %land.lhs.true282, %if.else265, %if.end253
-  %mvPredType.0 = phi i32 [ 1, %if.end253 ], [ %.mux, %if.else265 ], [ %spec.select746, %land.lhs.true282 ]
+  %mvPredType.0 = phi i32 [ 1, %if.end253 ], [ %.mux, %if.else265 ], [ %spec.select743, %land.lhs.true282 ]
   %cmp294 = icmp eq i32 %blockshape_x, 8
   %cmp297 = icmp eq i32 %blockshape_y, 16
   %or.cond = and i1 %cmp294, %cmp297
@@ -548,7 +548,7 @@ if.then302:                                       ; preds = %if.then299
   br label %if.then345
 
 if.else308:                                       ; preds = %if.then299
-  %spec.select743 = select i1 %cmp262.not, i32 3, i32 %mvPredType.0
+  %spec.select740 = select i1 %cmp262.not, i32 3, i32 %mvPredType.0
   br label %if.then345
 
 if.else315:                                       ; preds = %if.end293
@@ -562,15 +562,15 @@ if.then321:                                       ; preds = %if.else315
   br i1 %cmp322, label %if.then324, label %if.else330
 
 if.then324:                                       ; preds = %if.then321
-  %spec.select744 = select i1 %cmp258.not, i32 2, i32 %mvPredType.0
+  %spec.select741 = select i1 %cmp258.not, i32 2, i32 %mvPredType.0
   br label %if.then345
 
 if.else330:                                       ; preds = %if.then321
-  %spec.select745 = select i1 %cmp255, i32 1, i32 %mvPredType.0
+  %spec.select742 = select i1 %cmp255, i32 1, i32 %mvPredType.0
   br label %if.then345
 
 if.then345:                                       ; preds = %if.else315, %if.then302, %if.else308, %if.then324, %if.else330
-  %mvPredType.1 = phi i32 [ %mvPredType.0, %if.else315 ], [ %spec.select, %if.then302 ], [ %spec.select743, %if.else308 ], [ %spec.select744, %if.then324 ], [ %spec.select745, %if.else330 ]
+  %mvPredType.1 = phi i32 [ %mvPredType.0, %if.else315 ], [ %spec.select, %if.then302 ], [ %spec.select740, %if.else308 ], [ %spec.select741, %if.then324 ], [ %spec.select742, %if.else330 ]
   %mb_data392 = getelementptr inbounds %struct.ImageParameters, ptr %2, i64 0, i32 61
   %current_mb_nr393 = getelementptr inbounds %struct.ImageParameters, ptr %2, i64 0, i32 3
   %tobool400.not = icmp eq i32 %68, 0
@@ -656,12 +656,12 @@ sw.bb:                                            ; preds = %if.end610
 
 if.else617:                                       ; preds = %sw.bb
   %cond.i = call i32 @llvm.smin.i32(i32 %cond375, i32 %mv_c.0)
-  %cond.i735 = call i32 @llvm.smin.i32(i32 %cond360, i32 %cond.i)
-  %cond.i736 = call i32 @llvm.smax.i32(i32 %cond375, i32 %mv_c.0)
-  %cond.i737 = call i32 @llvm.smax.i32(i32 %cond360, i32 %cond.i736)
+  %cond.i744 = call i32 @llvm.smin.i32(i32 %cond360, i32 %cond.i)
+  %cond.i745 = call i32 @llvm.smax.i32(i32 %cond375, i32 %mv_c.0)
+  %cond.i746 = call i32 @llvm.smax.i32(i32 %cond360, i32 %cond.i745)
   %.neg = add nsw i32 %cond375, %cond360
   %add618 = add nsw i32 %.neg, %mv_c.0
-  %88 = add nsw i32 %cond.i737, %cond.i735
+  %88 = add nsw i32 %cond.i746, %cond.i744
   %sub624 = sub nsw i32 %add618, %88
   br label %sw.epilog
 
@@ -876,12 +876,12 @@ sw.bb.1:                                          ; preds = %if.end610.1
 
 if.else617.1:                                     ; preds = %sw.bb.1
   %cond.i.1 = call i32 @llvm.smin.i32(i32 %mv_b.0.1, i32 %mv_c.0.1)
-  %cond.i735.1 = call i32 @llvm.smin.i32(i32 %mv_a.0.1, i32 %cond.i.1)
-  %cond.i736.1 = call i32 @llvm.smax.i32(i32 %mv_b.0.1, i32 %mv_c.0.1)
-  %cond.i737.1 = call i32 @llvm.smax.i32(i32 %mv_a.0.1, i32 %cond.i736.1)
+  %cond.i744.1 = call i32 @llvm.smin.i32(i32 %mv_a.0.1, i32 %cond.i.1)
+  %cond.i745.1 = call i32 @llvm.smax.i32(i32 %mv_b.0.1, i32 %mv_c.0.1)
+  %cond.i746.1 = call i32 @llvm.smax.i32(i32 %mv_a.0.1, i32 %cond.i745.1)
   %.neg.1 = add i32 %mv_b.0.1, %mv_a.0.1
   %add618.1 = add i32 %.neg.1, %mv_c.0.1
-  %128 = add i32 %cond.i737.1, %cond.i735.1
+  %128 = add i32 %cond.i746.1, %cond.i744.1
   %sub624.1 = sub i32 %add618.1, %128
   br label %sw.epilog.1
 
@@ -922,8 +922,8 @@ entry:
   %max_num_references = getelementptr inbounds %struct.ImageParameters, ptr %2, i64 0, i32 8
   %3 = load i32, ptr %max_num_references, align 8, !tbaa !31
   %4 = tail call i32 @llvm.smax.i32(i32 %3, i32 15)
-  %cond.i377 = add nuw nsw i32 %4, 1
-  %conv = sitofp i32 %cond.i377 to double
+  %cond.i381 = add nuw nsw i32 %4, 1
+  %conv = sitofp i32 %cond.i381 to double
   %call7 = tail call double @log(double noundef %conv) #10
   %div = fdiv double %call7, 0x3FE62E42FEFA39EF
   %add9 = fadd double %div, 1.000000e-10
@@ -945,8 +945,8 @@ entry:
   %mul24 = shl nsw i32 %conv23, 1
   %add25 = add nsw i32 %mul24, 3
   %shr26 = ashr i32 %add25, 1
-  %notmask379 = shl nsw i32 -1, %shr26
-  %sub28 = xor i32 %notmask379, -1
+  %notmask377 = shl nsw i32 -1, %shr26
+  %sub28 = xor i32 %notmask377, -1
   store i32 %sub28, ptr @max_mvd, align 4, !tbaa !18
   %7 = load ptr, ptr @img, align 8, !tbaa !5
   %max_imgpel_value = getelementptr inbounds %struct.ImageParameters, ptr %7, i64 0, i32 156
@@ -1219,8 +1219,8 @@ for.end134:                                       ; preds = %for.body126, %for.e
   store i16 0, ptr %43, align 2, !tbaa !28
   %44 = load ptr, ptr @spiral_hpel_search_x, align 8, !tbaa !5
   store i16 0, ptr %44, align 2, !tbaa !28
-  %cond.i378 = tail call i32 @llvm.smax.i32(i32 %1, i32 1)
-  %45 = add nuw i32 %cond.i378, 1
+  %cond.i382 = tail call i32 @llvm.smax.i32(i32 %1, i32 1)
+  %45 = add nuw i32 %cond.i382, 1
   %invariant.gep = getelementptr i16, ptr %42, i64 -1
   %invariant.gep596 = getelementptr i16, ptr %42, i64 -1
   %invariant.gep598 = getelementptr i16, ptr %41, i64 -1
@@ -1573,9 +1573,9 @@ lor.rhs239:                                       ; preds = %for.end227
 lor.end246:                                       ; preds = %lor.end.thread, %lor.rhs239
   %88 = phi i32 [ %.pre, %lor.end.thread ], [ %83, %lor.rhs239 ]
   %.sink = phi i32 [ 0, %lor.end.thread ], [ %85, %lor.rhs239 ]
-  %not.380 = phi i32 [ 0, %lor.end.thread ], [ %87, %lor.rhs239 ]
+  %not.378 = phi i32 [ 0, %lor.end.thread ], [ %87, %lor.rhs239 ]
   store i32 %.sink, ptr @start_me_refinement_hp, align 4
-  store i32 %not.380, ptr @start_me_refinement_qp, align 4, !tbaa !18
+  store i32 %not.378, ptr @start_me_refinement_qp, align 4, !tbaa !18
   switch i32 %88, label %sw.default [
     i32 0, label %for.inc284
     i32 1, label %sw.bb264
@@ -2626,9 +2626,9 @@ if.then128:                                       ; preds = %if.then117
   %cond.i4.i = call i32 @llvm.smin.i32(i32 %cond.i.i, i32 %77)
   %conv133 = trunc i32 %cond.i4.i to i16
   %conv137 = sext i16 %75 to i32
-  %cond.i.i1399 = call i32 @llvm.smax.i32(i32 %conv137, i32 %sub129)
-  %cond.i4.i1400 = call i32 @llvm.smin.i32(i32 %cond.i.i1399, i32 %77)
-  %conv139 = trunc i32 %cond.i4.i1400 to i16
+  %cond.i.i1401 = call i32 @llvm.smax.i32(i32 %conv137, i32 %sub129)
+  %cond.i4.i1402 = call i32 @llvm.smin.i32(i32 %cond.i.i1401, i32 %77)
+  %conv139 = trunc i32 %cond.i4.i1402 to i16
   br label %if.end141
 
 if.end141:                                        ; preds = %if.then117, %if.then128
@@ -2637,9 +2637,9 @@ if.end141:                                        ; preds = %if.then117, %if.the
   %add142 = add nsw i32 %77, -2047
   %sub143 = sub nsw i32 2047, %77
   %conv145 = sext i16 %79 to i32
-  %cond.i.i1401 = call i32 @llvm.smax.i32(i32 %conv145, i32 %add142)
-  %cond.i4.i1402 = call i32 @llvm.smin.i32(i32 %cond.i.i1401, i32 %sub143)
-  %conv147 = trunc i32 %cond.i4.i1402 to i16
+  %cond.i.i1403 = call i32 @llvm.smax.i32(i32 %conv145, i32 %add142)
+  %cond.i4.i1404 = call i32 @llvm.smin.i32(i32 %cond.i.i1403, i32 %sub143)
+  %conv147 = trunc i32 %cond.i4.i1404 to i16
   store i16 %conv147, ptr %mv, align 4, !tbaa !28
   %80 = load ptr, ptr @img, align 8, !tbaa !5
   %LevelIndex = getelementptr inbounds %struct.ImageParameters, ptr %80, i64 0, i32 2
@@ -2652,9 +2652,9 @@ if.end141:                                        ; preds = %if.then117, %if.the
   %83 = load i32, ptr %arrayidx156, align 4, !tbaa !18
   %sub157 = sub nsw i32 %83, %77
   %conv159 = sext i16 %78 to i32
-  %cond.i.i1403 = call i32 @llvm.smax.i32(i32 %conv159, i32 %add152)
-  %cond.i4.i1404 = call i32 @llvm.smin.i32(i32 %cond.i.i1403, i32 %sub157)
-  %conv161 = trunc i32 %cond.i4.i1404 to i16
+  %cond.i.i1405 = call i32 @llvm.smax.i32(i32 %conv159, i32 %add152)
+  %cond.i4.i1406 = call i32 @llvm.smin.i32(i32 %cond.i.i1405, i32 %sub157)
+  %conv161 = trunc i32 %cond.i4.i1406 to i16
   store i16 %conv161, ptr %arrayidx126, align 2, !tbaa !28
   %84 = load i16, ptr %13, align 2, !tbaa !28
   %85 = load i16, ptr %arrayidx122, align 2, !tbaa !28
@@ -2678,13 +2678,13 @@ if.then173:                                       ; preds = %if.end113
 if.then186:                                       ; preds = %if.then173
   %sub187 = sub nsw i32 0, %92
   %conv189 = sext i16 %88 to i32
-  %cond.i.i1405 = call i32 @llvm.smax.i32(i32 %conv189, i32 %sub187)
-  %cond.i4.i1406 = call i32 @llvm.smin.i32(i32 %cond.i.i1405, i32 %92)
-  %conv191 = trunc i32 %cond.i4.i1406 to i16
-  %conv195 = sext i16 %90 to i32
-  %cond.i.i1407 = call i32 @llvm.smax.i32(i32 %conv195, i32 %sub187)
+  %cond.i.i1407 = call i32 @llvm.smax.i32(i32 %conv189, i32 %sub187)
   %cond.i4.i1408 = call i32 @llvm.smin.i32(i32 %cond.i.i1407, i32 %92)
-  %conv197 = trunc i32 %cond.i4.i1408 to i16
+  %conv191 = trunc i32 %cond.i4.i1408 to i16
+  %conv195 = sext i16 %90 to i32
+  %cond.i.i1409 = call i32 @llvm.smax.i32(i32 %conv195, i32 %sub187)
+  %cond.i4.i1410 = call i32 @llvm.smin.i32(i32 %cond.i.i1409, i32 %92)
+  %conv197 = trunc i32 %cond.i4.i1410 to i16
   br label %if.end199
 
 if.end199:                                        ; preds = %if.then173, %if.then186
@@ -2693,9 +2693,9 @@ if.end199:                                        ; preds = %if.then173, %if.the
   %add200 = add nsw i32 %92, -2047
   %sub201 = sub nsw i32 2047, %92
   %conv203 = sext i16 %94 to i32
-  %cond.i.i1409 = call i32 @llvm.smax.i32(i32 %conv203, i32 %add200)
-  %cond.i4.i1410 = call i32 @llvm.smin.i32(i32 %cond.i.i1409, i32 %sub201)
-  %conv205 = trunc i32 %cond.i4.i1410 to i16
+  %cond.i.i1411 = call i32 @llvm.smax.i32(i32 %conv203, i32 %add200)
+  %cond.i4.i1412 = call i32 @llvm.smin.i32(i32 %cond.i.i1411, i32 %sub201)
+  %conv205 = trunc i32 %cond.i4.i1412 to i16
   store i16 %conv205, ptr %mv, align 4, !tbaa !28
   %95 = load ptr, ptr @img, align 8, !tbaa !5
   %LevelIndex207 = getelementptr inbounds %struct.ImageParameters, ptr %95, i64 0, i32 2
@@ -2708,9 +2708,9 @@ if.end199:                                        ; preds = %if.then173, %if.the
   %98 = load i32, ptr %arrayidx215, align 4, !tbaa !18
   %sub216 = sub nsw i32 %98, %92
   %conv218 = sext i16 %93 to i32
-  %cond.i.i1411 = call i32 @llvm.smax.i32(i32 %conv218, i32 %add211)
-  %cond.i4.i1412 = call i32 @llvm.smin.i32(i32 %cond.i.i1411, i32 %sub216)
-  %conv220 = trunc i32 %cond.i4.i1412 to i16
+  %cond.i.i1413 = call i32 @llvm.smax.i32(i32 %conv218, i32 %add211)
+  %cond.i4.i1414 = call i32 @llvm.smin.i32(i32 %cond.i.i1413, i32 %sub216)
+  %conv220 = trunc i32 %cond.i4.i1414 to i16
   store i16 %conv220, ptr %arrayidx183, align 2, !tbaa !28
   %99 = load i16, ptr %13, align 2, !tbaa !28
   %100 = load i16, ptr %arrayidx179, align 2, !tbaa !28
@@ -2931,13 +2931,13 @@ if.then302:                                       ; preds = %if.end299
   %shl = shl i32 %sub303, %mul305
   %shl308 = shl i32 %136, %mul305
   %conv310 = sext i16 %132 to i32
-  %cond.i.i1413 = call i32 @llvm.smax.i32(i32 %conv310, i32 %shl)
-  %cond.i4.i1414 = call i32 @llvm.smin.i32(i32 %cond.i.i1413, i32 %shl308)
-  %conv312 = trunc i32 %cond.i4.i1414 to i16
-  %conv322 = sext i16 %133 to i32
-  %cond.i.i1415 = call i32 @llvm.smax.i32(i32 %conv322, i32 %shl)
+  %cond.i.i1415 = call i32 @llvm.smax.i32(i32 %conv310, i32 %shl)
   %cond.i4.i1416 = call i32 @llvm.smin.i32(i32 %cond.i.i1415, i32 %shl308)
-  %conv324 = trunc i32 %cond.i4.i1416 to i16
+  %conv312 = trunc i32 %cond.i4.i1416 to i16
+  %conv322 = sext i16 %133 to i32
+  %cond.i.i1417 = call i32 @llvm.smax.i32(i32 %conv322, i32 %shl)
+  %cond.i4.i1418 = call i32 @llvm.smin.i32(i32 %cond.i.i1417, i32 %shl308)
+  %conv324 = trunc i32 %cond.i4.i1418 to i16
   br label %if.end326
 
 if.end326:                                        ; preds = %if.end299.if.end326_crit_edge, %if.then302
@@ -2950,9 +2950,9 @@ if.end326:                                        ; preds = %if.end299.if.end326
   %sub331 = sub nsw i32 2047, %136
   %shl334 = shl i32 %sub331, %mul329.pre-phi
   %conv336 = sext i16 %138 to i32
-  %cond.i.i1417 = call i32 @llvm.smax.i32(i32 %conv336, i32 %shl330)
-  %cond.i4.i1418 = call i32 @llvm.smin.i32(i32 %cond.i.i1417, i32 %shl334)
-  %conv338 = trunc i32 %cond.i4.i1418 to i16
+  %cond.i.i1419 = call i32 @llvm.smax.i32(i32 %conv336, i32 %shl330)
+  %cond.i4.i1420 = call i32 @llvm.smin.i32(i32 %cond.i.i1419, i32 %shl334)
+  %conv338 = trunc i32 %cond.i4.i1420 to i16
   store i16 %conv338, ptr %mv, align 4, !tbaa !28
   %139 = load ptr, ptr @img, align 8, !tbaa !5
   %LevelIndex340 = getelementptr inbounds %struct.ImageParameters, ptr %139, i64 0, i32 2
@@ -2967,9 +2967,9 @@ if.end326:                                        ; preds = %if.end299.if.end326
   %sub352 = sub nsw i32 %142, %136
   %shl355 = shl i32 %sub352, %mul329.pre-phi
   %conv357 = sext i16 %137 to i32
-  %cond.i.i1419 = call i32 @llvm.smax.i32(i32 %conv357, i32 %shl347)
-  %cond.i4.i1420 = call i32 @llvm.smin.i32(i32 %cond.i.i1419, i32 %shl355)
-  %conv359 = trunc i32 %cond.i4.i1420 to i16
+  %cond.i.i1421 = call i32 @llvm.smax.i32(i32 %conv357, i32 %shl347)
+  %cond.i4.i1422 = call i32 @llvm.smin.i32(i32 %cond.i.i1421, i32 %shl355)
+  %conv359 = trunc i32 %cond.i4.i1422 to i16
   store i16 %conv359, ptr %134, align 2, !tbaa !28
   %143 = load ptr, ptr @enc_picture, align 8, !tbaa !5
   %ref_idx361 = getelementptr inbounds %struct.storable_picture, ptr %143, i64 0, i32 35
@@ -3006,13 +3006,13 @@ if.else379:                                       ; preds = %if.end113
 if.then392:                                       ; preds = %if.else379
   %sub393 = sub nsw i32 0, %156
   %conv395 = sext i16 %152 to i32
-  %cond.i.i1421 = call i32 @llvm.smax.i32(i32 %conv395, i32 %sub393)
-  %cond.i4.i1422 = call i32 @llvm.smin.i32(i32 %cond.i.i1421, i32 %156)
-  %conv397 = trunc i32 %cond.i4.i1422 to i16
-  %conv401 = sext i16 %154 to i32
-  %cond.i.i1423 = call i32 @llvm.smax.i32(i32 %conv401, i32 %sub393)
+  %cond.i.i1423 = call i32 @llvm.smax.i32(i32 %conv395, i32 %sub393)
   %cond.i4.i1424 = call i32 @llvm.smin.i32(i32 %cond.i.i1423, i32 %156)
-  %conv403 = trunc i32 %cond.i4.i1424 to i16
+  %conv397 = trunc i32 %cond.i4.i1424 to i16
+  %conv401 = sext i16 %154 to i32
+  %cond.i.i1425 = call i32 @llvm.smax.i32(i32 %conv401, i32 %sub393)
+  %cond.i4.i1426 = call i32 @llvm.smin.i32(i32 %cond.i.i1425, i32 %156)
+  %conv403 = trunc i32 %cond.i4.i1426 to i16
   br label %if.end405
 
 if.end405:                                        ; preds = %if.else379, %if.then392
@@ -3021,9 +3021,9 @@ if.end405:                                        ; preds = %if.else379, %if.the
   %add406 = add nsw i32 %156, -2047
   %sub407 = sub nsw i32 2047, %156
   %conv409 = sext i16 %158 to i32
-  %cond.i.i1425 = call i32 @llvm.smax.i32(i32 %conv409, i32 %add406)
-  %cond.i4.i1426 = call i32 @llvm.smin.i32(i32 %cond.i.i1425, i32 %sub407)
-  %conv411 = trunc i32 %cond.i4.i1426 to i16
+  %cond.i.i1427 = call i32 @llvm.smax.i32(i32 %conv409, i32 %add406)
+  %cond.i4.i1428 = call i32 @llvm.smin.i32(i32 %cond.i.i1427, i32 %sub407)
+  %conv411 = trunc i32 %cond.i4.i1428 to i16
   store i16 %conv411, ptr %mv, align 4, !tbaa !28
   %159 = load ptr, ptr @img, align 8, !tbaa !5
   %LevelIndex413 = getelementptr inbounds %struct.ImageParameters, ptr %159, i64 0, i32 2
@@ -3036,9 +3036,9 @@ if.end405:                                        ; preds = %if.else379, %if.the
   %162 = load i32, ptr %arrayidx421, align 4, !tbaa !18
   %sub422 = sub nsw i32 %162, %156
   %conv424 = sext i16 %157 to i32
-  %cond.i.i1427 = call i32 @llvm.smax.i32(i32 %conv424, i32 %add417)
-  %cond.i4.i1428 = call i32 @llvm.smin.i32(i32 %cond.i.i1427, i32 %sub422)
-  %conv426 = trunc i32 %cond.i4.i1428 to i16
+  %cond.i.i1429 = call i32 @llvm.smax.i32(i32 %conv424, i32 %add417)
+  %cond.i4.i1430 = call i32 @llvm.smin.i32(i32 %cond.i.i1429, i32 %sub422)
+  %conv426 = trunc i32 %cond.i4.i1430 to i16
   store i16 %conv426, ptr %arrayidx389, align 2, !tbaa !28
   %163 = load i16, ptr %13, align 2, !tbaa !28
   %164 = load i16, ptr %arrayidx385, align 2, !tbaa !28
@@ -3571,7 +3571,7 @@ land.lhs.true894:                                 ; preds = %if.end892
 if.then897:                                       ; preds = %land.lhs.true894
   %284 = load i32, ptr @start_me_refinement_hp, align 4, !tbaa !18
   %tobool898.not = icmp eq i32 %284, 0
-  %spec.select1429 = select i1 %tobool898.not, i32 2147483647, i32 %min_mcostbi.0.lcssa
+  %spec.select1399 = select i1 %tobool898.not, i32 2147483647, i32 %min_mcostbi.0.lcssa
   br i1 %cmp865.not, label %land.lhs.true904, label %if.else911
 
 land.lhs.true904:                                 ; preds = %if.then897
@@ -3582,7 +3582,7 @@ land.lhs.true904:                                 ; preds = %if.then897
 
 if.then906:                                       ; preds = %land.lhs.true904
   %conv907 = sext i16 %iterlist.0.lcssa to i32
-  %call910 = call i32 @EPZSSubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %conv907, i32 noundef %add, i32 noundef %add7, i32 noundef 1, ptr noundef %pred_mv2.0.lcssa, ptr noundef %pred_mv1.0.lcssa, ptr noundef nonnull %bimv, ptr noundef nonnull %mv, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1429, ptr noundef %lambda_factor) #10
+  %call910 = call i32 @EPZSSubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %conv907, i32 noundef %add, i32 noundef %add7, i32 noundef 1, ptr noundef %pred_mv2.0.lcssa, ptr noundef %pred_mv1.0.lcssa, ptr noundef nonnull %bimv, ptr noundef nonnull %mv, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1399, ptr noundef %lambda_factor) #10
   br label %if.end921
 
 if.else911:                                       ; preds = %land.lhs.true904, %if.then897
@@ -3592,7 +3592,7 @@ if.else911:                                       ; preds = %land.lhs.true904, %
   %287 = load i16, ptr %arrayidx914, align 2, !tbaa !28
   %arrayidx916 = getelementptr inbounds [2 x i16], ptr %bimv, i64 0, i64 1
   %arrayidx918 = getelementptr inbounds [2 x i16], ptr %mv, i64 0, i64 1
-  %call919 = call i32 @SubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %conv912, i32 noundef %add, i32 noundef %add7, i32 noundef 1, i16 noundef signext %286, i16 noundef signext %287, ptr noundef nonnull %bimv, ptr noundef nonnull %arrayidx916, ptr noundef nonnull %mv, ptr noundef nonnull %arrayidx918, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1429, ptr noundef %lambda_factor) #10
+  %call919 = call i32 @SubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %conv912, i32 noundef %add, i32 noundef %add7, i32 noundef 1, i16 noundef signext %286, i16 noundef signext %287, ptr noundef nonnull %bimv, ptr noundef nonnull %arrayidx916, ptr noundef nonnull %mv, ptr noundef nonnull %arrayidx918, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1399, ptr noundef %lambda_factor) #10
   br label %if.end921
 
 if.end921:                                        ; preds = %if.then906, %if.else911, %land.lhs.true894, %if.end892
@@ -3615,7 +3615,7 @@ if.then928:                                       ; preds = %land.lhs.true925
   %292 = load i32, ptr @start_me_refinement_qp, align 4
   %tobool931 = icmp ne i32 %292, 0
   %or.cond1037 = select i1 %tobool929, i1 %tobool931, i1 false
-  %spec.select1430 = select i1 %or.cond1037, i32 %min_mcostbi.3, i32 2147483647
+  %spec.select1400 = select i1 %or.cond1037, i32 %min_mcostbi.3, i32 2147483647
   %SearchMode934 = getelementptr inbounds %struct.InputParameters, ptr %288, i64 0, i32 169
   %293 = load i32, ptr %SearchMode934, align 4, !tbaa !51
   %cmp935 = icmp eq i32 %293, 3
@@ -3630,7 +3630,7 @@ land.lhs.true937:                                 ; preds = %if.then928
 if.then940:                                       ; preds = %land.lhs.true937
   %295 = xor i16 %iterlist.0.lcssa, 1
   %xor942 = sext i16 %295 to i32
-  %call945 = call i32 @EPZSSubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %xor942, i32 noundef %add, i32 noundef %add7, i32 noundef 1, ptr noundef %pred_mv1.0.lcssa, ptr noundef %pred_mv2.0.lcssa, ptr noundef nonnull %mv, ptr noundef nonnull %bimv, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1430, ptr noundef %lambda_factor) #10
+  %call945 = call i32 @EPZSSubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %xor942, i32 noundef %add, i32 noundef %add7, i32 noundef 1, ptr noundef %pred_mv1.0.lcssa, ptr noundef %pred_mv2.0.lcssa, ptr noundef nonnull %mv, ptr noundef nonnull %bimv, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1400, ptr noundef %lambda_factor) #10
   br label %if.end957
 
 if.else946:                                       ; preds = %land.lhs.true937, %if.then928
@@ -3641,7 +3641,7 @@ if.else946:                                       ; preds = %land.lhs.true937, %
   %298 = load i16, ptr %arrayidx950, align 2, !tbaa !28
   %arrayidx952 = getelementptr inbounds [2 x i16], ptr %mv, i64 0, i64 1
   %arrayidx954 = getelementptr inbounds [2 x i16], ptr %bimv, i64 0, i64 1
-  %call955 = call i32 @SubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %xor948, i32 noundef %add, i32 noundef %add7, i32 noundef 1, i16 noundef signext %297, i16 noundef signext %298, ptr noundef nonnull %mv, ptr noundef nonnull %arrayidx952, ptr noundef nonnull %bimv, ptr noundef nonnull %arrayidx954, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1430, ptr noundef %lambda_factor) #10
+  %call955 = call i32 @SubPelBlockSearchBiPred(ptr noundef nonnull @orig_pic, i16 noundef signext 0, i32 noundef %xor948, i32 noundef %add, i32 noundef %add7, i32 noundef 1, i16 noundef signext %297, i16 noundef signext %298, ptr noundef nonnull %mv, ptr noundef nonnull %arrayidx952, ptr noundef nonnull %bimv, ptr noundef nonnull %arrayidx954, i32 noundef 9, i32 noundef 9, i32 noundef %spec.select1400, ptr noundef %lambda_factor) #10
   br label %if.end957
 
 if.end957:                                        ; preds = %if.then940, %if.else946, %land.lhs.true925, %if.end921
@@ -6419,26 +6419,26 @@ cond.true809:                                     ; preds = %if.end802
   br label %cond.end816
 
 cond.false812:                                    ; preds = %if.end802
-  %cond.i2059 = call i32 @llvm.smax.i32(i32 %l0_refA.0, i32 %l0_refB.0)
+  %cond.i2068 = call i32 @llvm.smax.i32(i32 %l0_refA.0, i32 %l0_refB.0)
   br label %cond.end816
 
 cond.end816:                                      ; preds = %cond.false812, %cond.true809
-  %cond817 = phi i32 [ %cond.i, %cond.true809 ], [ %cond.i2059, %cond.false812 ]
+  %cond817 = phi i32 [ %cond.i, %cond.true809 ], [ %cond.i2068, %cond.false812 ]
   %cmp820 = icmp sgt i32 %cond817, -1
   %cmp824 = icmp sgt i32 %l0_refC.0, -1
   %or.cond1745 = select i1 %cmp820, i1 %cmp824, i1 false
   br i1 %or.cond1745, label %cond.true826, label %cond.false830
 
 cond.true826:                                     ; preds = %cond.end816
-  %cond.i2060 = call i32 @llvm.smin.i32(i32 %cond817, i32 %l0_refC.0)
+  %cond.i2069 = call i32 @llvm.smin.i32(i32 %cond817, i32 %l0_refC.0)
   br label %cond.end834
 
 cond.false830:                                    ; preds = %cond.end816
-  %cond.i2061 = call i32 @llvm.smax.i32(i32 %cond817, i32 %l0_refC.0)
+  %cond.i2070 = call i32 @llvm.smax.i32(i32 %cond817, i32 %l0_refC.0)
   br label %cond.end834
 
 cond.end834:                                      ; preds = %cond.false830, %cond.true826
-  %cond835 = phi i32 [ %cond.i2060, %cond.true826 ], [ %cond.i2061, %cond.false830 ]
+  %cond835 = phi i32 [ %cond.i2069, %cond.true826 ], [ %cond.i2070, %cond.false830 ]
   %conv836 = trunc i32 %cond835 to i16
   %cmp838 = icmp sgt i32 %l1_refA.0, -1
   %cmp842 = icmp sgt i32 %l1_refB.0, -1
@@ -6446,33 +6446,33 @@ cond.end834:                                      ; preds = %cond.false830, %con
   br i1 %or.cond1746, label %cond.true844, label %cond.false848
 
 cond.true844:                                     ; preds = %cond.end834
-  %cond.i2062 = call i32 @llvm.smin.i32(i32 %l1_refA.0, i32 %l1_refB.0)
+  %cond.i2071 = call i32 @llvm.smin.i32(i32 %l1_refA.0, i32 %l1_refB.0)
   br label %cond.end852
 
 cond.false848:                                    ; preds = %cond.end834
-  %cond.i2063 = call i32 @llvm.smax.i32(i32 %l1_refA.0, i32 %l1_refB.0)
+  %cond.i2072 = call i32 @llvm.smax.i32(i32 %l1_refA.0, i32 %l1_refB.0)
   br label %cond.end852
 
 cond.end852:                                      ; preds = %cond.false848, %cond.true844
-  %cond853 = phi i32 [ %cond.i2062, %cond.true844 ], [ %cond.i2063, %cond.false848 ]
+  %cond853 = phi i32 [ %cond.i2071, %cond.true844 ], [ %cond.i2072, %cond.false848 ]
   %cmp856 = icmp sgt i32 %cond853, -1
   %cmp860 = icmp sgt i32 %l1_refC.0, -1
   %or.cond1747 = select i1 %cmp856, i1 %cmp860, i1 false
   br i1 %or.cond1747, label %cond.true862, label %cond.false866
 
 cond.true862:                                     ; preds = %cond.end852
-  %cond.i2064 = call i32 @llvm.smin.i32(i32 %cond853, i32 %l1_refC.0)
+  %cond.i2073 = call i32 @llvm.smin.i32(i32 %cond853, i32 %l1_refC.0)
   br label %cond.end870
 
 cond.false866:                                    ; preds = %cond.end852
-  %cond.i2065 = call i32 @llvm.smax.i32(i32 %cond853, i32 %l1_refC.0)
+  %cond.i2074 = call i32 @llvm.smax.i32(i32 %cond853, i32 %l1_refC.0)
   br label %cond.end870
 
 cond.end870:                                      ; preds = %cond.false866, %cond.true862
-  %cond871 = phi i32 [ %cond.i2064, %cond.true862 ], [ %cond.i2065, %cond.false866 ]
+  %cond871 = phi i32 [ %cond.i2073, %cond.true862 ], [ %cond.i2074, %cond.false866 ]
   %conv872 = trunc i32 %cond871 to i16
-  %sext2068.mask = and i32 %cond835, 32768
-  %cmp874 = icmp eq i32 %sext2068.mask, 0
+  %sext2060.mask = and i32 %cond835, 32768
+  %cmp874 = icmp eq i32 %sext2060.mask, 0
   br i1 %cmp874, label %if.then876, label %if.end881
 
 if.then876:                                       ; preds = %cond.end870
@@ -6487,8 +6487,8 @@ if.then876:                                       ; preds = %cond.end870
   br label %if.end881
 
 if.end881:                                        ; preds = %if.then876, %cond.end870
-  %sext2069.mask = and i32 %cond871, 32768
-  %cmp883 = icmp eq i32 %sext2069.mask, 0
+  %sext2061.mask = and i32 %cond871, 32768
+  %cmp883 = icmp eq i32 %sext2061.mask, 0
   br i1 %cmp883, label %if.then885, label %if.end891
 
 if.then885:                                       ; preds = %if.end881
@@ -6685,8 +6685,8 @@ land.lhs.true1029:                                ; preds = %if.end1026
   %247 = load ptr, ptr %246, align 8, !tbaa !5
   %248 = load i16, ptr %247, align 2, !tbaa !28
   %249 = add i16 %248, -8192
-  %or.cond2070 = icmp ult i16 %249, -16384
-  br i1 %or.cond2070, label %if.then1180, label %lor.lhs.false1063
+  %or.cond2062 = icmp ult i16 %249, -16384
+  br i1 %or.cond2062, label %if.then1180, label %lor.lhs.false1063
 
 lor.lhs.false1063:                                ; preds = %land.lhs.true1029
   %arrayidx1076 = getelementptr inbounds i16, ptr %247, i64 1
@@ -6716,8 +6716,8 @@ lor.lhs.false1104:                                ; preds = %lor.lhs.false1083
   %257 = load ptr, ptr %256, align 8, !tbaa !5
   %258 = load i16, ptr %257, align 2, !tbaa !28
   %259 = add i16 %258, -8192
-  %or.cond2071 = icmp ult i16 %259, -16384
-  br i1 %or.cond2071, label %if.then1180, label %lor.lhs.false1138
+  %or.cond2063 = icmp ult i16 %259, -16384
+  br i1 %or.cond2063, label %if.then1180, label %lor.lhs.false1138
 
 lor.lhs.false1138:                                ; preds = %lor.lhs.false1104
   %arrayidx1151 = getelementptr inbounds i16, ptr %257, i64 1
@@ -6725,8 +6725,8 @@ lor.lhs.false1138:                                ; preds = %lor.lhs.false1104
   %conv1152 = sext i16 %260 to i32
   %cmp1157 = icmp sgt i32 %252, %conv1152
   %cmp1178 = icmp slt i32 %253, %conv1152
-  %or.cond2072 = or i1 %cmp1157, %cmp1178
-  br i1 %or.cond2072, label %if.then1180, label %if.else1195
+  %or.cond2064 = or i1 %cmp1157, %cmp1178
+  br i1 %or.cond2064, label %if.then1180, label %if.else1195
 
 if.then1180:                                      ; preds = %lor.lhs.false1138, %lor.lhs.false1104, %lor.lhs.false1083, %lor.lhs.false1063, %land.lhs.true1029
   %261 = load ptr, ptr @direct_ref_idx, align 8, !tbaa !5
@@ -6952,8 +6952,8 @@ for.cond1394.preheader:                           ; preds = %for.body1332
   %idxprom1397 = sext i32 %320 to i64
   %arrayidx1398 = getelementptr inbounds [6 x i32], ptr @listXsize, i64 0, i64 %idxprom1397
   %321 = load i32, ptr %arrayidx1398, align 4, !tbaa !18
-  %cond.i2066 = tail call i32 @llvm.smin.i32(i32 %319, i32 %321)
-  %cmp14002087 = icmp sgt i32 %cond.i2066, 0
+  %cond.i2075 = tail call i32 @llvm.smin.i32(i32 %319, i32 %321)
+  %cmp14002087 = icmp sgt i32 %cond.i2075, 0
   br i1 %cmp14002087, label %for.body1402.lr.ph, label %if.else1645
 
 for.body1402.lr.ph:                               ; preds = %for.cond1394.preheader
@@ -6963,7 +6963,7 @@ for.body1402.lr.ph:                               ; preds = %for.cond1394.prehea
   %323 = load ptr, ptr %arrayidx1408, align 8, !tbaa !5
   %arrayidx1410 = getelementptr inbounds i64, ptr %323, i64 %idxprom1347
   %324 = load i64, ptr %arrayidx1410, align 8, !tbaa !130
-  %wide.trip.count = zext i32 %cond.i2066 to i64
+  %wide.trip.count = zext i32 %cond.i2075 to i64
   br label %for.body1402
 
 if.then1362:                                      ; preds = %for.body1332
@@ -7084,8 +7084,8 @@ if.end1529:                                       ; preds = %if.else1461, %if.th
   %362 = phi ptr [ %350, %if.else1461 ], [ %.pre2182, %if.then1430 ]
   %363 = load i16, ptr %362, align 2, !tbaa !28
   %364 = add i16 %363, -8192
-  %or.cond2073 = icmp ult i16 %364, -16384
-  br i1 %or.cond2073, label %if.then1613, label %lor.lhs.false1547
+  %or.cond2065 = icmp ult i16 %364, -16384
+  br i1 %or.cond2065, label %if.then1613, label %lor.lhs.false1547
 
 lor.lhs.false1547:                                ; preds = %if.end1529
   %arrayidx1552 = getelementptr inbounds i16, ptr %362, i64 1
@@ -7104,8 +7104,8 @@ lor.lhs.false1560:                                ; preds = %lor.lhs.false1547
   %368 = load i32, ptr %arrayidx1570, align 4, !tbaa !18
   %cmp1571 = icmp slt i32 %368, %conv1553
   %369 = add i16 %361, -8192
-  %or.cond2074 = icmp ult i16 %369, -16384
-  %or.cond2207 = select i1 %cmp1571, i1 true, i1 %or.cond2074
+  %or.cond2066 = icmp ult i16 %369, -16384
+  %or.cond2207 = select i1 %cmp1571, i1 true, i1 %or.cond2066
   br i1 %or.cond2207, label %if.then1613, label %lor.lhs.false1589
 
 lor.lhs.false1589:                                ; preds = %lor.lhs.false1560
@@ -7113,8 +7113,8 @@ lor.lhs.false1589:                                ; preds = %lor.lhs.false1560
   %conv1594 = ashr exact i32 %sext, 16
   %cmp1599 = icmp sgt i32 %367, %conv1594
   %cmp1611 = icmp slt i32 %368, %conv1594
-  %or.cond2075 = or i1 %cmp1599, %cmp1611
-  br i1 %or.cond2075, label %if.then1613, label %if.else1628
+  %or.cond2067 = or i1 %cmp1599, %cmp1611
+  br i1 %or.cond2067, label %if.then1613, label %if.else1628
 
 if.then1613:                                      ; preds = %lor.lhs.false1589, %lor.lhs.false1560, %lor.lhs.false1547, %if.end1529
   %370 = load ptr, ptr @direct_ref_idx, align 8, !tbaa !5

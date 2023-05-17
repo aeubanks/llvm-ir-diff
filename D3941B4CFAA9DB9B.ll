@@ -17,10 +17,10 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str.6 = private unnamed_addr constant [12 x i8] c"x:%d  y:%d\0A\00", align 1
 @.str.9 = private unnamed_addr constant [24 x i8] c"l:%d  r:%d  b:%d  t:%d\0A\00", align 1
 @stdout = external local_unnamed_addr global ptr, align 8
-@str = private unnamed_addr constant [8 x i8] c"PtsOut:\00", align 1
-@str.10 = private unnamed_addr constant [10 x i8] c"PtsArray:\00", align 1
-@str.11 = private unnamed_addr constant [12 x i8] c"Rectangles:\00", align 1
-@str.12 = private unnamed_addr constant [24 x i8] c"Fatal error in unbust.c\00", align 1
+@str = private unnamed_addr constant [24 x i8] c"Fatal error in unbust.c\00", align 1
+@str.10 = private unnamed_addr constant [8 x i8] c"PtsOut:\00", align 1
+@str.11 = private unnamed_addr constant [10 x i8] c"PtsArray:\00", align 1
+@str.12 = private unnamed_addr constant [12 x i8] c"Rectangles:\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @unbust() local_unnamed_addr #0 {
@@ -103,7 +103,7 @@ for.body.preheader.i:                             ; preds = %coincide.exit
   %16 = add nuw i32 %.pr, 1
   %wide.trip.count.i = zext i32 %16 to i64
   %min.iters.check = icmp ult i32 %.pr, 9
-  br i1 %min.iters.check, label %for.body.i194.preheader, label %vector.ph
+  br i1 %min.iters.check, label %for.body.i205.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %for.body.preheader.i
   %17 = add nsw i64 %wide.trip.count.i, -1
@@ -135,24 +135,24 @@ vector.body:                                      ; preds = %vector.body, %vecto
 middle.block:                                     ; preds = %vector.body
   %rdx.minmax = tail call <4 x i32> @llvm.smin.v4i32(<4 x i32> %23, <4 x i32> %24)
   %26 = tail call i32 @llvm.vector.reduce.smin.v4i32(<4 x i32> %rdx.minmax)
-  br label %for.body.i194.preheader
+  br label %for.body.i205.preheader
 
-for.body.i194.preheader:                          ; preds = %for.body.preheader.i, %middle.block
-  %indvars.iv.i191.ph = phi i64 [ 1, %for.body.preheader.i ], [ %ind.end, %middle.block ]
+for.body.i205.preheader:                          ; preds = %for.body.preheader.i, %middle.block
+  %indvars.iv.i202.ph = phi i64 [ 1, %for.body.preheader.i ], [ %ind.end, %middle.block ]
   %ymin.045.i.ph = phi i32 [ 100000000, %for.body.preheader.i ], [ %26, %middle.block ]
-  br label %for.body.i194
+  br label %for.body.i205
 
-for.body.i194:                                    ; preds = %for.body.i194.preheader, %for.body.i194
-  %indvars.iv.i191 = phi i64 [ %indvars.iv.next.i193, %for.body.i194 ], [ %indvars.iv.i191.ph, %for.body.i194.preheader ]
-  %ymin.045.i = phi i32 [ %spec.select.i, %for.body.i194 ], [ %ymin.045.i.ph, %for.body.i194.preheader ]
-  %yc.i192 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %indvars.iv.i191, i32 1
-  %27 = load i32, ptr %yc.i192, align 4, !tbaa !14
+for.body.i205:                                    ; preds = %for.body.i205.preheader, %for.body.i205
+  %indvars.iv.i202 = phi i64 [ %indvars.iv.next.i204, %for.body.i205 ], [ %indvars.iv.i202.ph, %for.body.i205.preheader ]
+  %ymin.045.i = phi i32 [ %spec.select.i, %for.body.i205 ], [ %ymin.045.i.ph, %for.body.i205.preheader ]
+  %yc.i203 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %indvars.iv.i202, i32 1
+  %27 = load i32, ptr %yc.i203, align 4, !tbaa !14
   %spec.select.i = tail call i32 @llvm.smin.i32(i32 %27, i32 %ymin.045.i)
-  %indvars.iv.next.i193 = add nuw nsw i64 %indvars.iv.i191, 1
-  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i193, %wide.trip.count.i
-  br i1 %exitcond.not.i, label %for.body10.i.preheader, label %for.body.i194, !llvm.loop !19
+  %indvars.iv.next.i204 = add nuw nsw i64 %indvars.iv.i202, 1
+  %exitcond.not.i = icmp eq i64 %indvars.iv.next.i204, %wide.trip.count.i
+  br i1 %exitcond.not.i, label %for.body10.i.preheader, label %for.body.i205, !llvm.loop !19
 
-for.body10.i.preheader:                           ; preds = %for.body.i194
+for.body10.i.preheader:                           ; preds = %for.body.i205
   %28 = add nsw i64 %wide.trip.count.i, -1
   %xtraiter = and i64 %28, 1
   %29 = icmp eq i32 %16, 2
@@ -248,16 +248,16 @@ if.end:                                           ; preds = %firstP.exit
   %43 = load i32, ptr %arrayidx.i, align 4, !tbaa !9
   %44 = load ptr, ptr @PtsOut, align 8, !tbaa !5
   %45 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i195 = add nsw i32 %45, 1
-  store i32 %inc.i195, ptr %44, align 4, !tbaa !9
-  %idxprom3.i = sext i32 %inc.i195 to i64
+  %inc.i206 = add nsw i32 %45, 1
+  store i32 %inc.i206, ptr %44, align 4, !tbaa !9
+  %idxprom3.i = sext i32 %inc.i206 to i64
   %arrayidx4.i = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i
   store i32 %43, ptr %arrayidx4.i, align 4, !tbaa !9
-  %yc.i196 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i, i32 1
-  %46 = load i32, ptr %yc.i196, align 4, !tbaa !14
+  %yc.i207 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i, i32 1
+  %46 = load i32, ptr %yc.i207, align 4, !tbaa !14
   %47 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i197 = sext i32 %47 to i64
-  %yc12.i = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i197, i32 1
+  %idxprom10.i208 = sext i32 %47 to i64
+  %yc12.i = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i208, i32 1
   store i32 %46, ptr %yc12.i, align 4, !tbaa !14
   br label %for.cond
 
@@ -287,99 +287,99 @@ if.then9:                                         ; preds = %if.then6
   br i1 %cmp11, label %cleanup, label %if.else
 
 if.else:                                          ; preds = %if.then9
-  %idxprom.i206 = sext i32 %P.0 to i64
-  %arrayidx.i207 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i206
-  %48 = load i32, ptr %arrayidx.i207, align 4, !tbaa !9
+  %idxprom.i217 = sext i32 %P.0 to i64
+  %arrayidx.i218 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i217
+  %48 = load i32, ptr %arrayidx.i218, align 4, !tbaa !9
   %49 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i208 = add nsw i32 %49, 1
-  store i32 %inc.i208, ptr %44, align 4, !tbaa !9
-  %idxprom3.i209 = sext i32 %inc.i208 to i64
-  %arrayidx4.i210 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i209
-  store i32 %48, ptr %arrayidx4.i210, align 4, !tbaa !9
-  %yc.i211 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i206, i32 1
-  %50 = load i32, ptr %yc.i211, align 4, !tbaa !14
+  %inc.i219 = add nsw i32 %49, 1
+  store i32 %inc.i219, ptr %44, align 4, !tbaa !9
+  %idxprom3.i220 = sext i32 %inc.i219 to i64
+  %arrayidx4.i221 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i220
+  store i32 %48, ptr %arrayidx4.i221, align 4, !tbaa !9
+  %yc.i222 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i217, i32 1
+  %50 = load i32, ptr %yc.i222, align 4, !tbaa !14
   %51 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i212 = sext i32 %51 to i64
-  %yc12.i213 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i212, i32 1
-  store i32 %50, ptr %yc12.i213, align 4, !tbaa !14
+  %idxprom10.i223 = sext i32 %51 to i64
+  %yc12.i224 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i223, i32 1
+  store i32 %50, ptr %yc12.i224, align 4, !tbaa !14
   %52 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i214 = sext i32 %52 to i64
-  %arrayidx1.i215 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i214
-  %53 = load i32, ptr %arrayidx1.i215, align 4, !tbaa !9
-  store i32 %53, ptr %arrayidx.i207, align 4, !tbaa !9
+  %idxprom.i225 = sext i32 %52 to i64
+  %arrayidx1.i226 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i225
+  %53 = load i32, ptr %arrayidx1.i226, align 4, !tbaa !9
+  store i32 %53, ptr %arrayidx.i218, align 4, !tbaa !9
   %54 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i218 = add nsw i32 %54, -1
-  store i32 %dec.i218, ptr %0, align 4, !tbaa !9
+  %dec.i229 = add nsw i32 %54, -1
+  store i32 %dec.i229, ptr %0, align 4, !tbaa !9
   %idxprom8.i = sext i32 %54 to i64
-  %yc.i219 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i, i32 1
-  %55 = load i32, ptr %yc.i219, align 4, !tbaa !14
-  store i32 %55, ptr %yc.i211, align 4, !tbaa !14
+  %yc.i230 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i, i32 1
+  %55 = load i32, ptr %yc.i230, align 4, !tbaa !14
+  store i32 %55, ptr %yc.i222, align 4, !tbaa !14
   %cmp13.not.not = icmp slt i32 %call10, %54
   %spec.select = select i1 %cmp13.not.not, i32 %call10, i32 %P.0
   br label %for.cond.backedge
 
 if.else17:                                        ; preds = %if.then6
-  %idxprom.i221 = sext i32 %P.0 to i64
-  %arrayidx.i222 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i221
-  %56 = load i32, ptr %arrayidx.i222, align 4, !tbaa !9
+  %idxprom.i232 = sext i32 %P.0 to i64
+  %arrayidx.i233 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i232
+  %56 = load i32, ptr %arrayidx.i233, align 4, !tbaa !9
   %57 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i223 = add nsw i32 %57, 1
-  store i32 %inc.i223, ptr %44, align 4, !tbaa !9
-  %idxprom3.i224 = sext i32 %inc.i223 to i64
-  %arrayidx4.i225 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i224
-  store i32 %56, ptr %arrayidx4.i225, align 4, !tbaa !9
-  %yc.i226 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i221, i32 1
-  %58 = load i32, ptr %yc.i226, align 4, !tbaa !14
+  %inc.i234 = add nsw i32 %57, 1
+  store i32 %inc.i234, ptr %44, align 4, !tbaa !9
+  %idxprom3.i235 = sext i32 %inc.i234 to i64
+  %arrayidx4.i236 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i235
+  store i32 %56, ptr %arrayidx4.i236, align 4, !tbaa !9
+  %yc.i237 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i232, i32 1
+  %58 = load i32, ptr %yc.i237, align 4, !tbaa !14
   %59 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i227 = sext i32 %59 to i64
-  %yc12.i228 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i227, i32 1
-  store i32 %58, ptr %yc12.i228, align 4, !tbaa !14
+  %idxprom10.i238 = sext i32 %59 to i64
+  %yc12.i239 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i238, i32 1
+  store i32 %58, ptr %yc12.i239, align 4, !tbaa !14
   %60 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i229 = sext i32 %60 to i64
-  %arrayidx1.i230 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i229
-  %61 = load i32, ptr %arrayidx1.i230, align 4, !tbaa !9
-  store i32 %61, ptr %arrayidx.i222, align 4, !tbaa !9
+  %idxprom.i240 = sext i32 %60 to i64
+  %arrayidx1.i241 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i240
+  %61 = load i32, ptr %arrayidx1.i241, align 4, !tbaa !9
+  store i32 %61, ptr %arrayidx.i233, align 4, !tbaa !9
   %62 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i233 = add nsw i32 %62, -1
-  store i32 %dec.i233, ptr %0, align 4, !tbaa !9
-  %idxprom8.i234 = sext i32 %62 to i64
-  %yc.i235 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i234, i32 1
-  %63 = load i32, ptr %yc.i235, align 4, !tbaa !14
-  store i32 %63, ptr %yc.i226, align 4, !tbaa !14
+  %dec.i244 = add nsw i32 %62, -1
+  store i32 %dec.i244, ptr %0, align 4, !tbaa !9
+  %idxprom8.i245 = sext i32 %62 to i64
+  %yc.i246 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i245, i32 1
+  %63 = load i32, ptr %yc.i246, align 4, !tbaa !14
+  store i32 %63, ptr %yc.i237, align 4, !tbaa !14
   %cmp20.not.not = icmp slt i32 %call7, %62
-  %spec.select421 = select i1 %cmp20.not.not, i32 %call7, i32 %P.0
+  %spec.select191 = select i1 %cmp20.not.not, i32 %call7, i32 %P.0
   br label %for.cond.backedge
 
 if.else24:                                        ; preds = %sw.bb
-  %idxprom.i237 = sext i32 %P.0 to i64
-  %arrayidx.i238 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i237
-  %64 = load i32, ptr %arrayidx.i238, align 4, !tbaa !9
+  %idxprom.i248 = sext i32 %P.0 to i64
+  %arrayidx.i249 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i248
+  %64 = load i32, ptr %arrayidx.i249, align 4, !tbaa !9
   %65 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i239 = add nsw i32 %65, 1
-  store i32 %inc.i239, ptr %44, align 4, !tbaa !9
-  %idxprom3.i240 = sext i32 %inc.i239 to i64
-  %arrayidx4.i241 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i240
-  store i32 %64, ptr %arrayidx4.i241, align 4, !tbaa !9
-  %yc.i242 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i237, i32 1
-  %66 = load i32, ptr %yc.i242, align 4, !tbaa !14
+  %inc.i250 = add nsw i32 %65, 1
+  store i32 %inc.i250, ptr %44, align 4, !tbaa !9
+  %idxprom3.i251 = sext i32 %inc.i250 to i64
+  %arrayidx4.i252 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i251
+  store i32 %64, ptr %arrayidx4.i252, align 4, !tbaa !9
+  %yc.i253 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i248, i32 1
+  %66 = load i32, ptr %yc.i253, align 4, !tbaa !14
   %67 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i243 = sext i32 %67 to i64
-  %yc12.i244 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i243, i32 1
-  store i32 %66, ptr %yc12.i244, align 4, !tbaa !14
+  %idxprom10.i254 = sext i32 %67 to i64
+  %yc12.i255 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i254, i32 1
+  store i32 %66, ptr %yc12.i255, align 4, !tbaa !14
   %68 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i245 = sext i32 %68 to i64
-  %arrayidx1.i246 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i245
-  %69 = load i32, ptr %arrayidx1.i246, align 4, !tbaa !9
-  store i32 %69, ptr %arrayidx.i238, align 4, !tbaa !9
+  %idxprom.i256 = sext i32 %68 to i64
+  %arrayidx1.i257 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i256
+  %69 = load i32, ptr %arrayidx1.i257, align 4, !tbaa !9
+  store i32 %69, ptr %arrayidx.i249, align 4, !tbaa !9
   %70 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i249 = add nsw i32 %70, -1
-  store i32 %dec.i249, ptr %0, align 4, !tbaa !9
-  %idxprom8.i250 = sext i32 %70 to i64
-  %yc.i251 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i250, i32 1
-  %71 = load i32, ptr %yc.i251, align 4, !tbaa !14
-  store i32 %71, ptr %yc.i242, align 4, !tbaa !14
+  %dec.i260 = add nsw i32 %70, -1
+  store i32 %dec.i260, ptr %0, align 4, !tbaa !9
+  %idxprom8.i261 = sext i32 %70 to i64
+  %yc.i262 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i261, i32 1
+  %71 = load i32, ptr %yc.i262, align 4, !tbaa !14
+  store i32 %71, ptr %yc.i253, align 4, !tbaa !14
   %cmp27.not.not = icmp slt i32 %call4, %70
-  %spec.select422 = select i1 %cmp27.not.not, i32 %call4, i32 %P.0
+  %spec.select192 = select i1 %cmp27.not.not, i32 %call4, i32 %P.0
   br label %for.cond.backedge
 
 sw.bb31:                                          ; preds = %for.cond
@@ -398,99 +398,99 @@ if.then37:                                        ; preds = %if.then34
   br i1 %cmp39, label %cleanup, label %if.else41
 
 if.else41:                                        ; preds = %if.then37
-  %idxprom.i261 = sext i32 %P.0 to i64
-  %arrayidx.i262 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i261
-  %72 = load i32, ptr %arrayidx.i262, align 4, !tbaa !9
+  %idxprom.i272 = sext i32 %P.0 to i64
+  %arrayidx.i273 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i272
+  %72 = load i32, ptr %arrayidx.i273, align 4, !tbaa !9
   %73 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i263 = add nsw i32 %73, 1
-  store i32 %inc.i263, ptr %44, align 4, !tbaa !9
-  %idxprom3.i264 = sext i32 %inc.i263 to i64
-  %arrayidx4.i265 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i264
-  store i32 %72, ptr %arrayidx4.i265, align 4, !tbaa !9
-  %yc.i266 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i261, i32 1
-  %74 = load i32, ptr %yc.i266, align 4, !tbaa !14
+  %inc.i274 = add nsw i32 %73, 1
+  store i32 %inc.i274, ptr %44, align 4, !tbaa !9
+  %idxprom3.i275 = sext i32 %inc.i274 to i64
+  %arrayidx4.i276 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i275
+  store i32 %72, ptr %arrayidx4.i276, align 4, !tbaa !9
+  %yc.i277 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i272, i32 1
+  %74 = load i32, ptr %yc.i277, align 4, !tbaa !14
   %75 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i267 = sext i32 %75 to i64
-  %yc12.i268 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i267, i32 1
-  store i32 %74, ptr %yc12.i268, align 4, !tbaa !14
+  %idxprom10.i278 = sext i32 %75 to i64
+  %yc12.i279 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i278, i32 1
+  store i32 %74, ptr %yc12.i279, align 4, !tbaa !14
   %76 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i269 = sext i32 %76 to i64
-  %arrayidx1.i270 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i269
-  %77 = load i32, ptr %arrayidx1.i270, align 4, !tbaa !9
-  store i32 %77, ptr %arrayidx.i262, align 4, !tbaa !9
+  %idxprom.i280 = sext i32 %76 to i64
+  %arrayidx1.i281 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i280
+  %77 = load i32, ptr %arrayidx1.i281, align 4, !tbaa !9
+  store i32 %77, ptr %arrayidx.i273, align 4, !tbaa !9
   %78 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i273 = add nsw i32 %78, -1
-  store i32 %dec.i273, ptr %0, align 4, !tbaa !9
-  %idxprom8.i274 = sext i32 %78 to i64
-  %yc.i275 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i274, i32 1
-  %79 = load i32, ptr %yc.i275, align 4, !tbaa !14
-  store i32 %79, ptr %yc.i266, align 4, !tbaa !14
+  %dec.i284 = add nsw i32 %78, -1
+  store i32 %dec.i284, ptr %0, align 4, !tbaa !9
+  %idxprom8.i285 = sext i32 %78 to i64
+  %yc.i286 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i285, i32 1
+  %79 = load i32, ptr %yc.i286, align 4, !tbaa !14
+  store i32 %79, ptr %yc.i277, align 4, !tbaa !14
   %cmp44.not.not = icmp slt i32 %call38, %78
-  %spec.select423 = select i1 %cmp44.not.not, i32 %call38, i32 %P.0
+  %spec.select193 = select i1 %cmp44.not.not, i32 %call38, i32 %P.0
   br label %for.cond.backedge
 
 if.else48:                                        ; preds = %if.then34
-  %idxprom.i277 = sext i32 %P.0 to i64
-  %arrayidx.i278 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i277
-  %80 = load i32, ptr %arrayidx.i278, align 4, !tbaa !9
+  %idxprom.i288 = sext i32 %P.0 to i64
+  %arrayidx.i289 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i288
+  %80 = load i32, ptr %arrayidx.i289, align 4, !tbaa !9
   %81 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i279 = add nsw i32 %81, 1
-  store i32 %inc.i279, ptr %44, align 4, !tbaa !9
-  %idxprom3.i280 = sext i32 %inc.i279 to i64
-  %arrayidx4.i281 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i280
-  store i32 %80, ptr %arrayidx4.i281, align 4, !tbaa !9
-  %yc.i282 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i277, i32 1
-  %82 = load i32, ptr %yc.i282, align 4, !tbaa !14
+  %inc.i290 = add nsw i32 %81, 1
+  store i32 %inc.i290, ptr %44, align 4, !tbaa !9
+  %idxprom3.i291 = sext i32 %inc.i290 to i64
+  %arrayidx4.i292 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i291
+  store i32 %80, ptr %arrayidx4.i292, align 4, !tbaa !9
+  %yc.i293 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i288, i32 1
+  %82 = load i32, ptr %yc.i293, align 4, !tbaa !14
   %83 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i283 = sext i32 %83 to i64
-  %yc12.i284 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i283, i32 1
-  store i32 %82, ptr %yc12.i284, align 4, !tbaa !14
+  %idxprom10.i294 = sext i32 %83 to i64
+  %yc12.i295 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i294, i32 1
+  store i32 %82, ptr %yc12.i295, align 4, !tbaa !14
   %84 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i285 = sext i32 %84 to i64
-  %arrayidx1.i286 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i285
-  %85 = load i32, ptr %arrayidx1.i286, align 4, !tbaa !9
-  store i32 %85, ptr %arrayidx.i278, align 4, !tbaa !9
+  %idxprom.i296 = sext i32 %84 to i64
+  %arrayidx1.i297 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i296
+  %85 = load i32, ptr %arrayidx1.i297, align 4, !tbaa !9
+  store i32 %85, ptr %arrayidx.i289, align 4, !tbaa !9
   %86 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i289 = add nsw i32 %86, -1
-  store i32 %dec.i289, ptr %0, align 4, !tbaa !9
-  %idxprom8.i290 = sext i32 %86 to i64
-  %yc.i291 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i290, i32 1
-  %87 = load i32, ptr %yc.i291, align 4, !tbaa !14
-  store i32 %87, ptr %yc.i282, align 4, !tbaa !14
+  %dec.i300 = add nsw i32 %86, -1
+  store i32 %dec.i300, ptr %0, align 4, !tbaa !9
+  %idxprom8.i301 = sext i32 %86 to i64
+  %yc.i302 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i301, i32 1
+  %87 = load i32, ptr %yc.i302, align 4, !tbaa !14
+  store i32 %87, ptr %yc.i293, align 4, !tbaa !14
   %cmp51.not.not = icmp slt i32 %call35, %86
-  %spec.select424 = select i1 %cmp51.not.not, i32 %call35, i32 %P.0
+  %spec.select194 = select i1 %cmp51.not.not, i32 %call35, i32 %P.0
   br label %for.cond.backedge
 
 if.else55:                                        ; preds = %sw.bb31
-  %idxprom.i293 = sext i32 %P.0 to i64
-  %arrayidx.i294 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i293
-  %88 = load i32, ptr %arrayidx.i294, align 4, !tbaa !9
+  %idxprom.i304 = sext i32 %P.0 to i64
+  %arrayidx.i305 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i304
+  %88 = load i32, ptr %arrayidx.i305, align 4, !tbaa !9
   %89 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i295 = add nsw i32 %89, 1
-  store i32 %inc.i295, ptr %44, align 4, !tbaa !9
-  %idxprom3.i296 = sext i32 %inc.i295 to i64
-  %arrayidx4.i297 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i296
-  store i32 %88, ptr %arrayidx4.i297, align 4, !tbaa !9
-  %yc.i298 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i293, i32 1
-  %90 = load i32, ptr %yc.i298, align 4, !tbaa !14
+  %inc.i306 = add nsw i32 %89, 1
+  store i32 %inc.i306, ptr %44, align 4, !tbaa !9
+  %idxprom3.i307 = sext i32 %inc.i306 to i64
+  %arrayidx4.i308 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i307
+  store i32 %88, ptr %arrayidx4.i308, align 4, !tbaa !9
+  %yc.i309 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i304, i32 1
+  %90 = load i32, ptr %yc.i309, align 4, !tbaa !14
   %91 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i299 = sext i32 %91 to i64
-  %yc12.i300 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i299, i32 1
-  store i32 %90, ptr %yc12.i300, align 4, !tbaa !14
+  %idxprom10.i310 = sext i32 %91 to i64
+  %yc12.i311 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i310, i32 1
+  store i32 %90, ptr %yc12.i311, align 4, !tbaa !14
   %92 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i301 = sext i32 %92 to i64
-  %arrayidx1.i302 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i301
-  %93 = load i32, ptr %arrayidx1.i302, align 4, !tbaa !9
-  store i32 %93, ptr %arrayidx.i294, align 4, !tbaa !9
+  %idxprom.i312 = sext i32 %92 to i64
+  %arrayidx1.i313 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i312
+  %93 = load i32, ptr %arrayidx1.i313, align 4, !tbaa !9
+  store i32 %93, ptr %arrayidx.i305, align 4, !tbaa !9
   %94 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i305 = add nsw i32 %94, -1
-  store i32 %dec.i305, ptr %0, align 4, !tbaa !9
-  %idxprom8.i306 = sext i32 %94 to i64
-  %yc.i307 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i306, i32 1
-  %95 = load i32, ptr %yc.i307, align 4, !tbaa !14
-  store i32 %95, ptr %yc.i298, align 4, !tbaa !14
+  %dec.i316 = add nsw i32 %94, -1
+  store i32 %dec.i316, ptr %0, align 4, !tbaa !9
+  %idxprom8.i317 = sext i32 %94 to i64
+  %yc.i318 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i317, i32 1
+  %95 = load i32, ptr %yc.i318, align 4, !tbaa !14
+  store i32 %95, ptr %yc.i309, align 4, !tbaa !14
   %cmp58.not.not = icmp slt i32 %call32, %94
-  %spec.select425 = select i1 %cmp58.not.not, i32 %call32, i32 %P.0
+  %spec.select195 = select i1 %cmp58.not.not, i32 %call32, i32 %P.0
   br label %for.cond.backedge
 
 sw.bb62:                                          ; preds = %for.cond
@@ -509,99 +509,99 @@ if.then68:                                        ; preds = %if.then65
   br i1 %cmp70, label %cleanup, label %if.else72
 
 if.else72:                                        ; preds = %if.then68
-  %idxprom.i317 = sext i32 %P.0 to i64
-  %arrayidx.i318 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i317
-  %96 = load i32, ptr %arrayidx.i318, align 4, !tbaa !9
+  %idxprom.i328 = sext i32 %P.0 to i64
+  %arrayidx.i329 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i328
+  %96 = load i32, ptr %arrayidx.i329, align 4, !tbaa !9
   %97 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i319 = add nsw i32 %97, 1
-  store i32 %inc.i319, ptr %44, align 4, !tbaa !9
-  %idxprom3.i320 = sext i32 %inc.i319 to i64
-  %arrayidx4.i321 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i320
-  store i32 %96, ptr %arrayidx4.i321, align 4, !tbaa !9
-  %yc.i322 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i317, i32 1
-  %98 = load i32, ptr %yc.i322, align 4, !tbaa !14
+  %inc.i330 = add nsw i32 %97, 1
+  store i32 %inc.i330, ptr %44, align 4, !tbaa !9
+  %idxprom3.i331 = sext i32 %inc.i330 to i64
+  %arrayidx4.i332 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i331
+  store i32 %96, ptr %arrayidx4.i332, align 4, !tbaa !9
+  %yc.i333 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i328, i32 1
+  %98 = load i32, ptr %yc.i333, align 4, !tbaa !14
   %99 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i323 = sext i32 %99 to i64
-  %yc12.i324 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i323, i32 1
-  store i32 %98, ptr %yc12.i324, align 4, !tbaa !14
+  %idxprom10.i334 = sext i32 %99 to i64
+  %yc12.i335 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i334, i32 1
+  store i32 %98, ptr %yc12.i335, align 4, !tbaa !14
   %100 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i325 = sext i32 %100 to i64
-  %arrayidx1.i326 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i325
-  %101 = load i32, ptr %arrayidx1.i326, align 4, !tbaa !9
-  store i32 %101, ptr %arrayidx.i318, align 4, !tbaa !9
+  %idxprom.i336 = sext i32 %100 to i64
+  %arrayidx1.i337 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i336
+  %101 = load i32, ptr %arrayidx1.i337, align 4, !tbaa !9
+  store i32 %101, ptr %arrayidx.i329, align 4, !tbaa !9
   %102 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i329 = add nsw i32 %102, -1
-  store i32 %dec.i329, ptr %0, align 4, !tbaa !9
-  %idxprom8.i330 = sext i32 %102 to i64
-  %yc.i331 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i330, i32 1
-  %103 = load i32, ptr %yc.i331, align 4, !tbaa !14
-  store i32 %103, ptr %yc.i322, align 4, !tbaa !14
+  %dec.i340 = add nsw i32 %102, -1
+  store i32 %dec.i340, ptr %0, align 4, !tbaa !9
+  %idxprom8.i341 = sext i32 %102 to i64
+  %yc.i342 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i341, i32 1
+  %103 = load i32, ptr %yc.i342, align 4, !tbaa !14
+  store i32 %103, ptr %yc.i333, align 4, !tbaa !14
   %cmp75.not.not = icmp slt i32 %call69, %102
-  %spec.select426 = select i1 %cmp75.not.not, i32 %call69, i32 %P.0
+  %spec.select196 = select i1 %cmp75.not.not, i32 %call69, i32 %P.0
   br label %for.cond.backedge
 
 if.else79:                                        ; preds = %if.then65
-  %idxprom.i333 = sext i32 %P.0 to i64
-  %arrayidx.i334 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i333
-  %104 = load i32, ptr %arrayidx.i334, align 4, !tbaa !9
+  %idxprom.i344 = sext i32 %P.0 to i64
+  %arrayidx.i345 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i344
+  %104 = load i32, ptr %arrayidx.i345, align 4, !tbaa !9
   %105 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i335 = add nsw i32 %105, 1
-  store i32 %inc.i335, ptr %44, align 4, !tbaa !9
-  %idxprom3.i336 = sext i32 %inc.i335 to i64
-  %arrayidx4.i337 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i336
-  store i32 %104, ptr %arrayidx4.i337, align 4, !tbaa !9
-  %yc.i338 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i333, i32 1
-  %106 = load i32, ptr %yc.i338, align 4, !tbaa !14
+  %inc.i346 = add nsw i32 %105, 1
+  store i32 %inc.i346, ptr %44, align 4, !tbaa !9
+  %idxprom3.i347 = sext i32 %inc.i346 to i64
+  %arrayidx4.i348 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i347
+  store i32 %104, ptr %arrayidx4.i348, align 4, !tbaa !9
+  %yc.i349 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i344, i32 1
+  %106 = load i32, ptr %yc.i349, align 4, !tbaa !14
   %107 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i339 = sext i32 %107 to i64
-  %yc12.i340 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i339, i32 1
-  store i32 %106, ptr %yc12.i340, align 4, !tbaa !14
+  %idxprom10.i350 = sext i32 %107 to i64
+  %yc12.i351 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i350, i32 1
+  store i32 %106, ptr %yc12.i351, align 4, !tbaa !14
   %108 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i341 = sext i32 %108 to i64
-  %arrayidx1.i342 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i341
-  %109 = load i32, ptr %arrayidx1.i342, align 4, !tbaa !9
-  store i32 %109, ptr %arrayidx.i334, align 4, !tbaa !9
+  %idxprom.i352 = sext i32 %108 to i64
+  %arrayidx1.i353 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i352
+  %109 = load i32, ptr %arrayidx1.i353, align 4, !tbaa !9
+  store i32 %109, ptr %arrayidx.i345, align 4, !tbaa !9
   %110 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i345 = add nsw i32 %110, -1
-  store i32 %dec.i345, ptr %0, align 4, !tbaa !9
-  %idxprom8.i346 = sext i32 %110 to i64
-  %yc.i347 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i346, i32 1
-  %111 = load i32, ptr %yc.i347, align 4, !tbaa !14
-  store i32 %111, ptr %yc.i338, align 4, !tbaa !14
+  %dec.i356 = add nsw i32 %110, -1
+  store i32 %dec.i356, ptr %0, align 4, !tbaa !9
+  %idxprom8.i357 = sext i32 %110 to i64
+  %yc.i358 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i357, i32 1
+  %111 = load i32, ptr %yc.i358, align 4, !tbaa !14
+  store i32 %111, ptr %yc.i349, align 4, !tbaa !14
   %cmp82.not.not = icmp slt i32 %call66, %110
-  %spec.select427 = select i1 %cmp82.not.not, i32 %call66, i32 %P.0
+  %spec.select197 = select i1 %cmp82.not.not, i32 %call66, i32 %P.0
   br label %for.cond.backedge
 
 if.else86:                                        ; preds = %sw.bb62
-  %idxprom.i349 = sext i32 %P.0 to i64
-  %arrayidx.i350 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i349
-  %112 = load i32, ptr %arrayidx.i350, align 4, !tbaa !9
+  %idxprom.i360 = sext i32 %P.0 to i64
+  %arrayidx.i361 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i360
+  %112 = load i32, ptr %arrayidx.i361, align 4, !tbaa !9
   %113 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i351 = add nsw i32 %113, 1
-  store i32 %inc.i351, ptr %44, align 4, !tbaa !9
-  %idxprom3.i352 = sext i32 %inc.i351 to i64
-  %arrayidx4.i353 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i352
-  store i32 %112, ptr %arrayidx4.i353, align 4, !tbaa !9
-  %yc.i354 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i349, i32 1
-  %114 = load i32, ptr %yc.i354, align 4, !tbaa !14
+  %inc.i362 = add nsw i32 %113, 1
+  store i32 %inc.i362, ptr %44, align 4, !tbaa !9
+  %idxprom3.i363 = sext i32 %inc.i362 to i64
+  %arrayidx4.i364 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i363
+  store i32 %112, ptr %arrayidx4.i364, align 4, !tbaa !9
+  %yc.i365 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i360, i32 1
+  %114 = load i32, ptr %yc.i365, align 4, !tbaa !14
   %115 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i355 = sext i32 %115 to i64
-  %yc12.i356 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i355, i32 1
-  store i32 %114, ptr %yc12.i356, align 4, !tbaa !14
+  %idxprom10.i366 = sext i32 %115 to i64
+  %yc12.i367 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i366, i32 1
+  store i32 %114, ptr %yc12.i367, align 4, !tbaa !14
   %116 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i357 = sext i32 %116 to i64
-  %arrayidx1.i358 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i357
-  %117 = load i32, ptr %arrayidx1.i358, align 4, !tbaa !9
-  store i32 %117, ptr %arrayidx.i350, align 4, !tbaa !9
+  %idxprom.i368 = sext i32 %116 to i64
+  %arrayidx1.i369 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i368
+  %117 = load i32, ptr %arrayidx1.i369, align 4, !tbaa !9
+  store i32 %117, ptr %arrayidx.i361, align 4, !tbaa !9
   %118 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i361 = add nsw i32 %118, -1
-  store i32 %dec.i361, ptr %0, align 4, !tbaa !9
-  %idxprom8.i362 = sext i32 %118 to i64
-  %yc.i363 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i362, i32 1
-  %119 = load i32, ptr %yc.i363, align 4, !tbaa !14
-  store i32 %119, ptr %yc.i354, align 4, !tbaa !14
+  %dec.i372 = add nsw i32 %118, -1
+  store i32 %dec.i372, ptr %0, align 4, !tbaa !9
+  %idxprom8.i373 = sext i32 %118 to i64
+  %yc.i374 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i373, i32 1
+  %119 = load i32, ptr %yc.i374, align 4, !tbaa !14
+  store i32 %119, ptr %yc.i365, align 4, !tbaa !14
   %cmp89.not.not = icmp slt i32 %call63, %118
-  %spec.select428 = select i1 %cmp89.not.not, i32 %call63, i32 %P.0
+  %spec.select198 = select i1 %cmp89.not.not, i32 %call63, i32 %P.0
   br label %for.cond.backedge
 
 sw.bb93:                                          ; preds = %for.cond
@@ -620,122 +620,122 @@ if.then99:                                        ; preds = %if.then96
   br i1 %cmp101, label %cleanup, label %if.else103
 
 if.else103:                                       ; preds = %if.then99
-  %idxprom.i373 = sext i32 %P.0 to i64
-  %arrayidx.i374 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i373
-  %120 = load i32, ptr %arrayidx.i374, align 4, !tbaa !9
+  %idxprom.i384 = sext i32 %P.0 to i64
+  %arrayidx.i385 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i384
+  %120 = load i32, ptr %arrayidx.i385, align 4, !tbaa !9
   %121 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i375 = add nsw i32 %121, 1
-  store i32 %inc.i375, ptr %44, align 4, !tbaa !9
-  %idxprom3.i376 = sext i32 %inc.i375 to i64
-  %arrayidx4.i377 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i376
-  store i32 %120, ptr %arrayidx4.i377, align 4, !tbaa !9
-  %yc.i378 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i373, i32 1
-  %122 = load i32, ptr %yc.i378, align 4, !tbaa !14
+  %inc.i386 = add nsw i32 %121, 1
+  store i32 %inc.i386, ptr %44, align 4, !tbaa !9
+  %idxprom3.i387 = sext i32 %inc.i386 to i64
+  %arrayidx4.i388 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i387
+  store i32 %120, ptr %arrayidx4.i388, align 4, !tbaa !9
+  %yc.i389 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i384, i32 1
+  %122 = load i32, ptr %yc.i389, align 4, !tbaa !14
   %123 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i379 = sext i32 %123 to i64
-  %yc12.i380 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i379, i32 1
-  store i32 %122, ptr %yc12.i380, align 4, !tbaa !14
+  %idxprom10.i390 = sext i32 %123 to i64
+  %yc12.i391 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i390, i32 1
+  store i32 %122, ptr %yc12.i391, align 4, !tbaa !14
   %124 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i381 = sext i32 %124 to i64
-  %arrayidx1.i382 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i381
-  %125 = load i32, ptr %arrayidx1.i382, align 4, !tbaa !9
-  store i32 %125, ptr %arrayidx.i374, align 4, !tbaa !9
+  %idxprom.i392 = sext i32 %124 to i64
+  %arrayidx1.i393 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i392
+  %125 = load i32, ptr %arrayidx1.i393, align 4, !tbaa !9
+  store i32 %125, ptr %arrayidx.i385, align 4, !tbaa !9
   %126 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i385 = add nsw i32 %126, -1
-  store i32 %dec.i385, ptr %0, align 4, !tbaa !9
-  %idxprom8.i386 = sext i32 %126 to i64
-  %yc.i387 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i386, i32 1
-  %127 = load i32, ptr %yc.i387, align 4, !tbaa !14
-  store i32 %127, ptr %yc.i378, align 4, !tbaa !14
+  %dec.i396 = add nsw i32 %126, -1
+  store i32 %dec.i396, ptr %0, align 4, !tbaa !9
+  %idxprom8.i397 = sext i32 %126 to i64
+  %yc.i398 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i397, i32 1
+  %127 = load i32, ptr %yc.i398, align 4, !tbaa !14
+  store i32 %127, ptr %yc.i389, align 4, !tbaa !14
   %cmp106.not.not = icmp slt i32 %call100, %126
-  %spec.select429 = select i1 %cmp106.not.not, i32 %call100, i32 %P.0
+  %spec.select199 = select i1 %cmp106.not.not, i32 %call100, i32 %P.0
   br label %for.cond.backedge
 
 if.else110:                                       ; preds = %if.then96
-  %idxprom.i389 = sext i32 %P.0 to i64
-  %arrayidx.i390 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i389
-  %128 = load i32, ptr %arrayidx.i390, align 4, !tbaa !9
+  %idxprom.i400 = sext i32 %P.0 to i64
+  %arrayidx.i401 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i400
+  %128 = load i32, ptr %arrayidx.i401, align 4, !tbaa !9
   %129 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i391 = add nsw i32 %129, 1
-  store i32 %inc.i391, ptr %44, align 4, !tbaa !9
-  %idxprom3.i392 = sext i32 %inc.i391 to i64
-  %arrayidx4.i393 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i392
-  store i32 %128, ptr %arrayidx4.i393, align 4, !tbaa !9
-  %yc.i394 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i389, i32 1
-  %130 = load i32, ptr %yc.i394, align 4, !tbaa !14
+  %inc.i402 = add nsw i32 %129, 1
+  store i32 %inc.i402, ptr %44, align 4, !tbaa !9
+  %idxprom3.i403 = sext i32 %inc.i402 to i64
+  %arrayidx4.i404 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i403
+  store i32 %128, ptr %arrayidx4.i404, align 4, !tbaa !9
+  %yc.i405 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i400, i32 1
+  %130 = load i32, ptr %yc.i405, align 4, !tbaa !14
   %131 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i395 = sext i32 %131 to i64
-  %yc12.i396 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i395, i32 1
-  store i32 %130, ptr %yc12.i396, align 4, !tbaa !14
+  %idxprom10.i406 = sext i32 %131 to i64
+  %yc12.i407 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i406, i32 1
+  store i32 %130, ptr %yc12.i407, align 4, !tbaa !14
   %132 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i397 = sext i32 %132 to i64
-  %arrayidx1.i398 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i397
-  %133 = load i32, ptr %arrayidx1.i398, align 4, !tbaa !9
-  store i32 %133, ptr %arrayidx.i390, align 4, !tbaa !9
+  %idxprom.i408 = sext i32 %132 to i64
+  %arrayidx1.i409 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i408
+  %133 = load i32, ptr %arrayidx1.i409, align 4, !tbaa !9
+  store i32 %133, ptr %arrayidx.i401, align 4, !tbaa !9
   %134 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i401 = add nsw i32 %134, -1
-  store i32 %dec.i401, ptr %0, align 4, !tbaa !9
-  %idxprom8.i402 = sext i32 %134 to i64
-  %yc.i403 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i402, i32 1
-  %135 = load i32, ptr %yc.i403, align 4, !tbaa !14
-  store i32 %135, ptr %yc.i394, align 4, !tbaa !14
+  %dec.i412 = add nsw i32 %134, -1
+  store i32 %dec.i412, ptr %0, align 4, !tbaa !9
+  %idxprom8.i413 = sext i32 %134 to i64
+  %yc.i414 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i413, i32 1
+  %135 = load i32, ptr %yc.i414, align 4, !tbaa !14
+  store i32 %135, ptr %yc.i405, align 4, !tbaa !14
   %cmp113.not.not = icmp slt i32 %call97, %134
-  %spec.select430 = select i1 %cmp113.not.not, i32 %call97, i32 %P.0
+  %spec.select200 = select i1 %cmp113.not.not, i32 %call97, i32 %P.0
   br label %for.cond.backedge
 
 if.else117:                                       ; preds = %sw.bb93
-  %idxprom.i405 = sext i32 %P.0 to i64
-  %arrayidx.i406 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i405
-  %136 = load i32, ptr %arrayidx.i406, align 4, !tbaa !9
+  %idxprom.i416 = sext i32 %P.0 to i64
+  %arrayidx.i417 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i416
+  %136 = load i32, ptr %arrayidx.i417, align 4, !tbaa !9
   %137 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i407 = add nsw i32 %137, 1
-  store i32 %inc.i407, ptr %44, align 4, !tbaa !9
-  %idxprom3.i408 = sext i32 %inc.i407 to i64
-  %arrayidx4.i409 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i408
-  store i32 %136, ptr %arrayidx4.i409, align 4, !tbaa !9
-  %yc.i410 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i405, i32 1
-  %138 = load i32, ptr %yc.i410, align 4, !tbaa !14
+  %inc.i418 = add nsw i32 %137, 1
+  store i32 %inc.i418, ptr %44, align 4, !tbaa !9
+  %idxprom3.i419 = sext i32 %inc.i418 to i64
+  %arrayidx4.i420 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i419
+  store i32 %136, ptr %arrayidx4.i420, align 4, !tbaa !9
+  %yc.i421 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i416, i32 1
+  %138 = load i32, ptr %yc.i421, align 4, !tbaa !14
   %139 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i411 = sext i32 %139 to i64
-  %yc12.i412 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i411, i32 1
-  store i32 %138, ptr %yc12.i412, align 4, !tbaa !14
+  %idxprom10.i422 = sext i32 %139 to i64
+  %yc12.i423 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i422, i32 1
+  store i32 %138, ptr %yc12.i423, align 4, !tbaa !14
   %140 = load i32, ptr %0, align 4, !tbaa !9
-  %idxprom.i413 = sext i32 %140 to i64
-  %arrayidx1.i414 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i413
-  %141 = load i32, ptr %arrayidx1.i414, align 4, !tbaa !9
-  store i32 %141, ptr %arrayidx.i406, align 4, !tbaa !9
+  %idxprom.i424 = sext i32 %140 to i64
+  %arrayidx1.i425 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i424
+  %141 = load i32, ptr %arrayidx1.i425, align 4, !tbaa !9
+  store i32 %141, ptr %arrayidx.i417, align 4, !tbaa !9
   %142 = load i32, ptr %0, align 4, !tbaa !9
-  %dec.i417 = add nsw i32 %142, -1
-  store i32 %dec.i417, ptr %0, align 4, !tbaa !9
-  %idxprom8.i418 = sext i32 %142 to i64
-  %yc.i419 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i418, i32 1
-  %143 = load i32, ptr %yc.i419, align 4, !tbaa !14
-  store i32 %143, ptr %yc.i410, align 4, !tbaa !14
+  %dec.i428 = add nsw i32 %142, -1
+  store i32 %dec.i428, ptr %0, align 4, !tbaa !9
+  %idxprom8.i429 = sext i32 %142 to i64
+  %yc.i430 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom8.i429, i32 1
+  %143 = load i32, ptr %yc.i430, align 4, !tbaa !14
+  store i32 %143, ptr %yc.i421, align 4, !tbaa !14
   %cmp120.not.not = icmp slt i32 %call94, %142
-  %spec.select431 = select i1 %cmp120.not.not, i32 %call94, i32 %P.0
+  %spec.select201 = select i1 %cmp120.not.not, i32 %call94, i32 %P.0
   br label %for.cond.backedge
 
 for.cond.backedge:                                ; preds = %if.else117, %if.else110, %if.else103, %if.else86, %if.else79, %if.else72, %if.else55, %if.else48, %if.else41, %if.else24, %if.else17, %if.else, %for.cond
-  %P.0.be = phi i32 [ %P.0, %for.cond ], [ %spec.select429, %if.else103 ], [ %spec.select430, %if.else110 ], [ %spec.select431, %if.else117 ], [ %spec.select426, %if.else72 ], [ %spec.select427, %if.else79 ], [ %spec.select428, %if.else86 ], [ %spec.select423, %if.else41 ], [ %spec.select424, %if.else48 ], [ %spec.select425, %if.else55 ], [ %spec.select, %if.else ], [ %spec.select421, %if.else17 ], [ %spec.select422, %if.else24 ]
+  %P.0.be = phi i32 [ %P.0, %for.cond ], [ %spec.select199, %if.else103 ], [ %spec.select200, %if.else110 ], [ %spec.select201, %if.else117 ], [ %spec.select196, %if.else72 ], [ %spec.select197, %if.else79 ], [ %spec.select198, %if.else86 ], [ %spec.select193, %if.else41 ], [ %spec.select194, %if.else48 ], [ %spec.select195, %if.else55 ], [ %spec.select, %if.else ], [ %spec.select191, %if.else17 ], [ %spec.select192, %if.else24 ]
   %status.0.be = phi i32 [ %status.0, %for.cond ], [ 2, %if.else103 ], [ 4, %if.else110 ], [ 3, %if.else117 ], [ 4, %if.else72 ], [ 3, %if.else79 ], [ 1, %if.else86 ], [ 1, %if.else41 ], [ 2, %if.else48 ], [ 4, %if.else55 ], [ 3, %if.else ], [ 1, %if.else17 ], [ 2, %if.else24 ]
   br label %for.cond
 
 cleanup:                                          ; preds = %if.then99, %if.then68, %if.then37, %if.then9
-  %idxprom.i365 = sext i32 %P.0 to i64
-  %arrayidx.i366 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i365
-  %144 = load i32, ptr %arrayidx.i366, align 4, !tbaa !9
+  %idxprom.i376 = sext i32 %P.0 to i64
+  %arrayidx.i377 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i376
+  %144 = load i32, ptr %arrayidx.i377, align 4, !tbaa !9
   %145 = load i32, ptr %44, align 4, !tbaa !9
-  %inc.i367 = add nsw i32 %145, 1
-  store i32 %inc.i367, ptr %44, align 4, !tbaa !9
-  %idxprom3.i368 = sext i32 %inc.i367 to i64
-  %arrayidx4.i369 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i368
-  store i32 %144, ptr %arrayidx4.i369, align 4, !tbaa !9
-  %yc.i370 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i365, i32 1
-  %146 = load i32, ptr %yc.i370, align 4, !tbaa !14
+  %inc.i378 = add nsw i32 %145, 1
+  store i32 %inc.i378, ptr %44, align 4, !tbaa !9
+  %idxprom3.i379 = sext i32 %inc.i378 to i64
+  %arrayidx4.i380 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom3.i379
+  store i32 %144, ptr %arrayidx4.i380, align 4, !tbaa !9
+  %yc.i381 = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom.i376, i32 1
+  %146 = load i32, ptr %yc.i381, align 4, !tbaa !14
   %147 = load i32, ptr %44, align 4, !tbaa !9
-  %idxprom10.i371 = sext i32 %147 to i64
-  %yc12.i372 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i371, i32 1
-  store i32 %146, ptr %yc12.i372, align 4, !tbaa !14
+  %idxprom10.i382 = sext i32 %147 to i64
+  %yc12.i383 = getelementptr inbounds %struct.bustbox, ptr %44, i64 %idxprom10.i382, i32 1
+  store i32 %146, ptr %yc12.i383, align 4, !tbaa !14
   tail call void @condense()
   ret void
 }
@@ -972,8 +972,8 @@ entry:
   %yc = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom, i32 1
   %2 = load i32, ptr %yc, align 4, !tbaa !14
   %3 = load i32, ptr %0, align 4, !tbaa !9
-  %cmp.not52 = icmp slt i32 %3, 1
-  br i1 %cmp.not52, label %if.end33, label %for.body.preheader
+  %cmp.not53 = icmp slt i32 %3, 1
+  br i1 %cmp.not53, label %if.end33, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %4 = zext i32 %Pt to i64
@@ -983,8 +983,8 @@ for.body.preheader:                               ; preds = %entry
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
   %indvars.iv = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
-  %smallP.055 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
-  %small.054 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
+  %smallP.056 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
+  %small.055 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
   %cmp5 = icmp eq i64 %indvars.iv, %4
   br i1 %cmp5, label %for.inc, label %if.end
 
@@ -1002,15 +1002,15 @@ if.end11:                                         ; preds = %if.end
 
 if.then16:                                        ; preds = %if.end11
   %sub = sub nsw i32 %7, %2
-  %cmp20 = icmp slt i32 %sub, %small.054
-  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.054)
+  %cmp20 = icmp slt i32 %sub, %small.055
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.055)
   %8 = trunc i64 %indvars.iv to i32
-  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.055
+  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.056
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then16, %if.end11, %if.end, %for.body
-  %small.1 = phi i32 [ %small.054, %for.body ], [ %small.054, %if.end ], [ %small.054, %if.end11 ], [ %spec.select, %if.then16 ]
-  %smallP.1 = phi i32 [ %smallP.055, %for.body ], [ %smallP.055, %if.end ], [ %smallP.055, %if.end11 ], [ %spec.select49, %if.then16 ]
+  %small.1 = phi i32 [ %small.055, %for.body ], [ %small.055, %if.end ], [ %small.055, %if.end11 ], [ %spec.select, %if.then16 ]
+  %smallP.1 = phi i32 [ %smallP.056, %for.body ], [ %smallP.056, %if.end ], [ %smallP.056, %if.end11 ], [ %spec.select49, %if.then16 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !23
@@ -1108,8 +1108,8 @@ entry:
   %yc = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom, i32 1
   %2 = load i32, ptr %yc, align 4, !tbaa !14
   %3 = load i32, ptr %0, align 4, !tbaa !9
-  %cmp.not52 = icmp slt i32 %3, 1
-  br i1 %cmp.not52, label %if.end33, label %for.body.preheader
+  %cmp.not53 = icmp slt i32 %3, 1
+  br i1 %cmp.not53, label %if.end33, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %4 = zext i32 %Pt to i64
@@ -1119,8 +1119,8 @@ for.body.preheader:                               ; preds = %entry
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
   %indvars.iv = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
-  %smallP.055 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
-  %small.054 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
+  %smallP.056 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
+  %small.055 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
   %cmp5 = icmp eq i64 %indvars.iv, %4
   br i1 %cmp5, label %for.inc, label %if.end
 
@@ -1138,15 +1138,15 @@ if.end11:                                         ; preds = %if.end
 
 if.then16:                                        ; preds = %if.end11
   %sub = sub nsw i32 %1, %7
-  %cmp20 = icmp slt i32 %sub, %small.054
-  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.054)
+  %cmp20 = icmp slt i32 %sub, %small.055
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.055)
   %8 = trunc i64 %indvars.iv to i32
-  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.055
+  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.056
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then16, %if.end11, %if.end, %for.body
-  %small.1 = phi i32 [ %small.054, %for.body ], [ %small.054, %if.end ], [ %small.054, %if.end11 ], [ %spec.select, %if.then16 ]
-  %smallP.1 = phi i32 [ %smallP.055, %for.body ], [ %smallP.055, %if.end ], [ %smallP.055, %if.end11 ], [ %spec.select49, %if.then16 ]
+  %small.1 = phi i32 [ %small.055, %for.body ], [ %small.055, %if.end ], [ %small.055, %if.end11 ], [ %spec.select, %if.then16 ]
+  %smallP.1 = phi i32 [ %smallP.056, %for.body ], [ %smallP.056, %if.end ], [ %smallP.056, %if.end11 ], [ %spec.select49, %if.then16 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !30
@@ -1218,8 +1218,8 @@ entry:
   %yc = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom, i32 1
   %2 = load i32, ptr %yc, align 4, !tbaa !14
   %3 = load i32, ptr %0, align 4, !tbaa !9
-  %cmp.not52 = icmp slt i32 %3, 1
-  br i1 %cmp.not52, label %if.end33, label %for.body.preheader
+  %cmp.not53 = icmp slt i32 %3, 1
+  br i1 %cmp.not53, label %if.end33, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %4 = zext i32 %Pt to i64
@@ -1229,8 +1229,8 @@ for.body.preheader:                               ; preds = %entry
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
   %indvars.iv = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
-  %smallP.055 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
-  %small.054 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
+  %smallP.056 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
+  %small.055 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
   %cmp5 = icmp eq i64 %indvars.iv, %4
   br i1 %cmp5, label %for.inc, label %if.end
 
@@ -1248,15 +1248,15 @@ if.end11:                                         ; preds = %if.end
 
 if.then16:                                        ; preds = %if.end11
   %sub = sub nsw i32 %7, %1
-  %cmp20 = icmp slt i32 %sub, %small.054
-  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.054)
+  %cmp20 = icmp slt i32 %sub, %small.055
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.055)
   %8 = trunc i64 %indvars.iv to i32
-  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.055
+  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.056
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then16, %if.end11, %if.end, %for.body
-  %small.1 = phi i32 [ %small.054, %for.body ], [ %small.054, %if.end ], [ %small.054, %if.end11 ], [ %spec.select, %if.then16 ]
-  %smallP.1 = phi i32 [ %smallP.055, %for.body ], [ %smallP.055, %if.end ], [ %smallP.055, %if.end11 ], [ %spec.select49, %if.then16 ]
+  %small.1 = phi i32 [ %small.055, %for.body ], [ %small.055, %if.end ], [ %small.055, %if.end11 ], [ %spec.select, %if.then16 ]
+  %smallP.1 = phi i32 [ %smallP.056, %for.body ], [ %smallP.056, %if.end ], [ %smallP.056, %if.end11 ], [ %spec.select49, %if.then16 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !31
@@ -1333,7 +1333,7 @@ for.cond.preheader:                               ; preds = %entry
   br i1 %cmp3.not122, label %for.end86, label %for.body
 
 if.then:                                          ; preds = %entry
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   tail call void @dumpError()
   tail call void @exit(i32 noundef 0) #12
   unreachable
@@ -1466,8 +1466,8 @@ entry:
   %yc = getelementptr inbounds %struct.bustbox, ptr %0, i64 %idxprom, i32 1
   %2 = load i32, ptr %yc, align 4, !tbaa !14
   %3 = load i32, ptr %0, align 4, !tbaa !9
-  %cmp.not52 = icmp slt i32 %3, 1
-  br i1 %cmp.not52, label %if.end33, label %for.body.preheader
+  %cmp.not53 = icmp slt i32 %3, 1
+  br i1 %cmp.not53, label %if.end33, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %entry
   %4 = zext i32 %Pt to i64
@@ -1477,8 +1477,8 @@ for.body.preheader:                               ; preds = %entry
 
 for.body:                                         ; preds = %for.body.preheader, %for.inc
   %indvars.iv = phi i64 [ 1, %for.body.preheader ], [ %indvars.iv.next, %for.inc ]
-  %smallP.055 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
-  %small.054 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
+  %smallP.056 = phi i32 [ 0, %for.body.preheader ], [ %smallP.1, %for.inc ]
+  %small.055 = phi i32 [ 100000000, %for.body.preheader ], [ %small.1, %for.inc ]
   %cmp5 = icmp eq i64 %indvars.iv, %4
   br i1 %cmp5, label %for.inc, label %if.end
 
@@ -1496,15 +1496,15 @@ if.end11:                                         ; preds = %if.end
 
 if.then16:                                        ; preds = %if.end11
   %sub = sub nsw i32 %2, %7
-  %cmp20 = icmp slt i32 %sub, %small.054
-  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.054)
+  %cmp20 = icmp slt i32 %sub, %small.055
+  %spec.select = tail call i32 @llvm.smin.i32(i32 %sub, i32 %small.055)
   %8 = trunc i64 %indvars.iv to i32
-  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.055
+  %spec.select49 = select i1 %cmp20, i32 %8, i32 %smallP.056
   br label %for.inc
 
 for.inc:                                          ; preds = %if.then16, %if.end11, %if.end, %for.body
-  %small.1 = phi i32 [ %small.054, %for.body ], [ %small.054, %if.end ], [ %small.054, %if.end11 ], [ %spec.select, %if.then16 ]
-  %smallP.1 = phi i32 [ %smallP.055, %for.body ], [ %smallP.055, %if.end ], [ %smallP.055, %if.end11 ], [ %spec.select49, %if.then16 ]
+  %small.1 = phi i32 [ %small.055, %for.body ], [ %small.055, %if.end ], [ %small.055, %if.end11 ], [ %spec.select, %if.then16 ]
+  %smallP.1 = phi i32 [ %smallP.056, %for.body ], [ %smallP.056, %if.end ], [ %smallP.056, %if.end11 ], [ %spec.select49, %if.then16 ]
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
   br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !36
@@ -1727,7 +1727,7 @@ declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_a
 ; Function Attrs: nofree nounwind uwtable
 define dso_local void @dumpError() local_unnamed_addr #8 {
 entry:
-  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
   %0 = load ptr, ptr @PtsOut, align 8, !tbaa !5
   %1 = load i32, ptr %0, align 4, !tbaa !9
   %cmp.not58 = icmp slt i32 %1, 1
@@ -1749,7 +1749,7 @@ for.body:                                         ; preds = %entry, %for.body
   br i1 %cmp.not.not, label %for.body, label %for.end, !llvm.loop !38
 
 for.end:                                          ; preds = %for.body, %entry
-  %puts56 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.10)
+  %puts56 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
   %8 = load ptr, ptr @PtsArray, align 8, !tbaa !5
   %9 = load i32, ptr %8, align 4, !tbaa !9
   %cmp10.not60 = icmp slt i32 %9, 1
@@ -1771,7 +1771,7 @@ for.body11:                                       ; preds = %for.end, %for.body1
   br i1 %cmp10.not.not, label %for.body11, label %for.end21, !llvm.loop !39
 
 for.end21:                                        ; preds = %for.body11, %for.end
-  %puts57 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.11)
+  %puts57 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.12)
   %16 = load ptr, ptr @rectang, align 8, !tbaa !5
   %17 = load i32, ptr %16, align 4, !tbaa !24
   %cmp25.not62 = icmp slt i32 %17, 1
@@ -1805,23 +1805,23 @@ for.end39:                                        ; preds = %for.body26, %for.en
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fflush(ptr nocapture noundef) local_unnamed_addr #7
 
+; Function Attrs: nofree nounwind
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #9
+
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
+
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #9
-
-; Function Attrs: nofree nounwind
-declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #10
-
-; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
+declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #9
+declare <4 x i32> @llvm.smin.v4i32(<4 x i32>, <4 x i32>) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.vector.reduce.smin.v4i32(<4 x i32>) #9
+declare i32 @llvm.vector.reduce.smin.v4i32(<4 x i32>) #10
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1832,8 +1832,8 @@ attributes #5 = { nofree nosync nounwind memory(readwrite, argmem: write, inacce
 attributes #6 = { nofree norecurse nosync nounwind memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nofree nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nofree nounwind }
+attributes #9 = { nofree nounwind }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #12 = { noreturn nounwind }
 

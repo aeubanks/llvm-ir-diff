@@ -1971,7 +1971,7 @@ cond.end1670:                                     ; preds = %if.then1641
   store ptr %271, ptr %arrayidx1653, align 8, !tbaa !5
   store ptr %272, ptr @xx_tmp, align 8, !tbaa !10
   %cmp1672 = icmp eq ptr %272, null
-  %or.cond1981 = or i1 %cmp1672, %cmp.not
+  %or.cond1981 = or i1 %cmp.not, %cmp1672
   br i1 %or.cond1981, label %cond.end1703, label %cond.false1679
 
 cond.false1679:                                   ; preds = %cond.end1670

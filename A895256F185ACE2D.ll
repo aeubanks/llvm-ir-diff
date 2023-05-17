@@ -62,24 +62,24 @@ lor.lhs.false.i:                                  ; preds = %if.then
   %inc.i = add nsw i32 %2, 1
   store i32 %inc.i, ptr @check, align 4, !tbaa !5
   %cmp1.i = icmp sgt i32 %2, 1
-  br i1 %cmp1.i, label %if.then.i, label %if.end11
+  br i1 %cmp1.i, label %if.then.i, label %s.exit
 
 if.then.i:                                        ; preds = %lor.lhs.false.i, %if.then
   tail call void @abort() #4
   unreachable
 
-if.end11:                                         ; preds = %lor.lhs.false.i
+s.exit:                                           ; preds = %lor.lhs.false.i
   %call.i46 = tail call i32 @strcmp(ptr noundef nonnull dereferenceable(1) %1, ptr noundef nonnull dereferenceable(2) @.str)
   %cmp.not.i47 = icmp eq i32 %call.i46, 0
   br i1 %cmp.not.i47, label %lor.lhs.false.i50, label %if.then.i51
 
-lor.lhs.false.i50:                                ; preds = %if.end11
+lor.lhs.false.i50:                                ; preds = %s.exit
   %inc.i48 = add nsw i32 %2, 2
   store i32 %inc.i48, ptr @check, align 4, !tbaa !5
   %cmp1.i49 = icmp sgt i32 %2, 0
   br i1 %cmp1.i49, label %if.then.i51, label %s.exit53
 
-if.then.i51:                                      ; preds = %lor.lhs.false.i50, %if.end11
+if.then.i51:                                      ; preds = %lor.lhs.false.i50, %s.exit
   tail call void @abort() #4
   unreachable
 

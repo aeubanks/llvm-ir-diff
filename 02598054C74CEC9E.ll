@@ -537,8 +537,8 @@ if.end11:                                         ; preds = %while.cond
   %13 = load i32, ptr %cyclicBufferPos17, align 8, !tbaa !55
   %14 = load i32, ptr %hashNumAvail, align 8, !tbaa !49
   %spec.select = tail call i32 @llvm.umin.i32(i32 %11, i32 %14)
-  %sub24 = sub i32 %14, %spec.select
-  %add25 = add i32 %sub24, 1
+  %sub24 = add i32 %14, 1
+  %add25 = sub i32 %sub24, %spec.select
   %size.0 = tail call i32 @llvm.umin.i32(i32 %add25, i32 %sub14)
   %15 = load i32, ptr %cyclicBufferSize, align 4, !tbaa !56
   %sub29 = sub i32 %15, %13
@@ -974,7 +974,7 @@ if.then:                                          ; preds = %if.end.i, %if.end2.
   br label %if.end
 
 if.end:                                           ; preds = %if.end26.i, %entry, %if.then
-  %retval.0.i6 = phi i32 [ 12, %if.then ], [ 0, %entry ], [ 0, %if.end26.i ]
+  %retval.0.i6 = phi i32 [ 12, %if.then ], [ 0, %if.end26.i ], [ 0, %entry ]
   ret i32 %retval.0.i6
 }
 

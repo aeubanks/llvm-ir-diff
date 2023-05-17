@@ -281,13 +281,13 @@ entry:
 invoke.cont2:                                     ; preds = %entry
   %1 = load ptr, ptr %agg.tmp, align 8, !tbaa !31
   %cmp.i.i.i = icmp eq ptr %1, %0
-  br i1 %cmp.i.i.i, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit, label %if.then.i.i42
+  br i1 %cmp.i.i.i, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit, label %if.then.i.i43
 
-if.then.i.i42:                                    ; preds = %invoke.cont2
+if.then.i.i43:                                    ; preds = %invoke.cont2
   call void @_ZdlPv(ptr noundef %1) #13
   br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 
-_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit: ; preds = %invoke.cont2, %if.then.i.i42
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit: ; preds = %invoke.cont2, %if.then.i.i43
   %cmp.not = icmp eq i64 %call, 0
   br i1 %cmp.not, label %cond.false, label %cond.end
 
@@ -299,14 +299,14 @@ lpad1:                                            ; preds = %entry
   %2 = landingpad { ptr, i32 }
           cleanup
   %3 = load ptr, ptr %agg.tmp, align 8, !tbaa !31
-  %cmp.i.i.i43 = icmp eq ptr %3, %0
-  br i1 %cmp.i.i.i43, label %ehcleanup, label %if.then.i.i44
+  %cmp.i.i.i44 = icmp eq ptr %3, %0
+  br i1 %cmp.i.i.i44, label %ehcleanup, label %if.then.i.i45
 
-if.then.i.i44:                                    ; preds = %lpad1
+if.then.i.i45:                                    ; preds = %lpad1
   call void @_ZdlPv(ptr noundef %3) #13
   br label %ehcleanup
 
-ehcleanup:                                        ; preds = %if.then.i.i44, %lpad1
+ehcleanup:                                        ; preds = %if.then.i.i45, %lpad1
   resume { ptr, i32 } %2
 
 cond.end:                                         ; preds = %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit

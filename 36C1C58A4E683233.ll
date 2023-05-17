@@ -191,56 +191,56 @@ entry:
   %m_convexConcaveCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 11
   store ptr %call15, ptr %m_convexConcaveCreateFunc, align 8, !tbaa !21
   %call18 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i128 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call18, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i128, align 8, !tbaa !19
+  %m_swapped.i.i130 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call18, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i130, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN33btConvexConcaveCollisionAlgorithm17SwappedCreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call18, align 8, !tbaa !5
   %m_swappedConvexConcaveCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 12
   store ptr %call18, ptr %m_swappedConvexConcaveCreateFunc, align 8, !tbaa !22
   %call21 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i129 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call21, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i129, align 8, !tbaa !19
+  %m_swapped.i.i131 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call21, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i131, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN28btCompoundCollisionAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call21, align 8, !tbaa !5
   %m_compoundCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 13
   store ptr %call21, ptr %m_compoundCreateFunc, align 8, !tbaa !23
   %call24 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i130 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call24, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i130, align 8, !tbaa !19
+  %m_swapped.i.i132 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call24, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i132, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN28btCompoundCollisionAlgorithm17SwappedCreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call24, align 8, !tbaa !5
   %m_swappedCompoundCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 14
   store ptr %call24, ptr %m_swappedCompoundCreateFunc, align 8, !tbaa !24
   %call27 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i131 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call27, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i131, align 8, !tbaa !19
+  %m_swapped.i.i133 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call27, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i133, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN16btEmptyAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call27, align 8, !tbaa !5
   %m_emptyCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 15
   store ptr %call27, ptr %m_emptyCreateFunc, align 8, !tbaa !25
   %call30 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i132 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call30, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i132, align 8, !tbaa !19
+  %m_swapped.i.i134 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call30, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i134, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN32btSphereSphereCollisionAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call30, align 8, !tbaa !5
   %m_sphereSphereCF = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 16
   store ptr %call30, ptr %m_sphereSphereCF, align 8, !tbaa !26
   %call33 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i133 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call33, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i133, align 8, !tbaa !19
+  %m_swapped.i.i135 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call33, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i135, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN34btSphereTriangleCollisionAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call33, align 8, !tbaa !5
   %m_sphereTriangleCF = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 18
   store ptr %call33, ptr %m_sphereTriangleCF, align 8, !tbaa !27
   %call36 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i134 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call36, i64 0, i32 1
+  %m_swapped.i.i136 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call36, i64 0, i32 1
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN34btSphereTriangleCollisionAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call36, align 8, !tbaa !5
   %m_triangleSphereCF = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 19
   store ptr %call36, ptr %m_triangleSphereCF, align 8, !tbaa !28
-  store i8 1, ptr %m_swapped.i.i134, align 8, !tbaa !19
+  store i8 1, ptr %m_swapped.i.i136, align 8, !tbaa !19
   %call40 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 16, i32 noundef 16)
-  %m_swapped.i.i135 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call40, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i135, align 8, !tbaa !19
+  %m_swapped.i.i137 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call40, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i137, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN26btBoxBoxCollisionAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call40, align 8, !tbaa !5
   %m_boxBoxCF = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 17
   store ptr %call40, ptr %m_boxBoxCF, align 8, !tbaa !29
   %call43 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 24, i32 noundef 16)
-  %m_swapped.i.i136 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call43, i64 0, i32 1
-  store i8 0, ptr %m_swapped.i.i136, align 8, !tbaa !19
+  %m_swapped.i.i138 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call43, i64 0, i32 1
+  store i8 0, ptr %m_swapped.i.i138, align 8, !tbaa !19
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN31btConvexPlaneCollisionAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call43, align 8, !tbaa !5
   %m_numPerturbationIterations.i = getelementptr inbounds %"struct.btConvexPlaneCollisionAlgorithm::CreateFunc", ptr %call43, i64 0, i32 1
   store i32 1, ptr %m_numPerturbationIterations.i, align 4, !tbaa !30
@@ -249,18 +249,18 @@ entry:
   %m_convexPlaneCF = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 21
   store ptr %call43, ptr %m_convexPlaneCF, align 8, !tbaa !33
   %call46 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 24, i32 noundef 16)
-  %m_swapped.i.i137 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call46, i64 0, i32 1
+  %m_swapped.i.i139 = getelementptr inbounds %struct.btCollisionAlgorithmCreateFunc, ptr %call46, i64 0, i32 1
   store ptr getelementptr inbounds ({ [5 x ptr] }, ptr @_ZTVN31btConvexPlaneCollisionAlgorithm10CreateFuncE, i64 0, inrange i32 0, i64 2), ptr %call46, align 8, !tbaa !5
-  %m_numPerturbationIterations.i138 = getelementptr inbounds %"struct.btConvexPlaneCollisionAlgorithm::CreateFunc", ptr %call46, i64 0, i32 1
-  store i32 1, ptr %m_numPerturbationIterations.i138, align 4, !tbaa !30
-  %m_minimumPointsPerturbationThreshold.i139 = getelementptr inbounds %"struct.btConvexPlaneCollisionAlgorithm::CreateFunc", ptr %call46, i64 0, i32 2
-  store i32 1, ptr %m_minimumPointsPerturbationThreshold.i139, align 8, !tbaa !32
+  %m_numPerturbationIterations.i140 = getelementptr inbounds %"struct.btConvexPlaneCollisionAlgorithm::CreateFunc", ptr %call46, i64 0, i32 1
+  store i32 1, ptr %m_numPerturbationIterations.i140, align 4, !tbaa !30
+  %m_minimumPointsPerturbationThreshold.i141 = getelementptr inbounds %"struct.btConvexPlaneCollisionAlgorithm::CreateFunc", ptr %call46, i64 0, i32 2
+  store i32 1, ptr %m_minimumPointsPerturbationThreshold.i141, align 8, !tbaa !32
   %m_planeConvexCF = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 20
   store ptr %call46, ptr %m_planeConvexCF, align 8, !tbaa !34
-  store i8 1, ptr %m_swapped.i.i137, align 8, !tbaa !19
+  store i8 1, ptr %m_swapped.i.i139, align 8, !tbaa !19
   %m_customCollisionAlgorithmMaxElementSize = getelementptr inbounds %struct.btDefaultCollisionConstructionInfo, ptr %constructionInfo, i64 0, i32 5
   %4 = load i32, ptr %m_customCollisionAlgorithmMaxElementSize, align 8, !tbaa !35
-  %.sroa.speculated177 = tail call i32 @llvm.smax.i32(i32 %4, i32 160)
+  %.sroa.speculated179 = tail call i32 @llvm.smax.i32(i32 %4, i32 160)
   %5 = load ptr, ptr %constructionInfo, align 8, !tbaa !36
   %tobool57.not = icmp eq ptr %5, null
   %m_ownsStackAllocator62 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 3
@@ -277,8 +277,8 @@ if.else61:                                        ; preds = %entry
   %6 = load i32, ptr %m_defaultStackAllocatorSize, align 4, !tbaa !38
   %conv.i.i = zext i32 %6 to i64
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(25) %call66, i8 0, i64 25, i1 false)
-  %call.i.i144 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %conv.i.i, i32 noundef 16)
-  store ptr %call.i.i144, ptr %call66, align 8, !tbaa !39
+  %call.i.i146 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %conv.i.i, i32 noundef 16)
+  store ptr %call.i.i146, ptr %call66, align 8, !tbaa !39
   %totalsize.i.i = getelementptr inbounds %class.btStackAlloc, ptr %call66, i64 0, i32 1
   store i32 %6, ptr %totalsize.i.i, align 8, !tbaa !41
   br label %if.end69
@@ -307,17 +307,17 @@ if.else74:                                        ; preds = %if.end69
   store i32 %9, ptr %m_maxElements.i, align 4, !tbaa !47
   %mul.i = mul nsw i32 %9, 744
   %conv.i = zext i32 %mul.i to i64
-  %call.i145 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %conv.i, i32 noundef 16)
+  %call.i147 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %conv.i, i32 noundef 16)
   %m_pool.i = getelementptr inbounds %class.btPoolAllocator, ptr %call79, i64 0, i32 4
-  store ptr %call.i145, ptr %m_pool.i, align 8, !tbaa !48
+  store ptr %call.i147, ptr %m_pool.i, align 8, !tbaa !48
   %m_firstFree.i = getelementptr inbounds %class.btPoolAllocator, ptr %call79, i64 0, i32 3
-  store ptr %call.i145, ptr %m_firstFree.i, align 8, !tbaa !49
+  store ptr %call.i147, ptr %m_firstFree.i, align 8, !tbaa !49
   %10 = load i32, ptr %m_maxElements.i, align 4, !tbaa !47
   %m_freeCount.i = getelementptr inbounds %class.btPoolAllocator, ptr %call79, i64 0, i32 2
   store i32 %10, ptr %m_freeCount.i, align 8, !tbaa !50
   %dec15.i = add nsw i32 %10, -1
   %tobool.not16.i = icmp eq i32 %dec15.i, 0
-  br i1 %tobool.not16.i, label %_ZN15btPoolAllocatorC2Eii.exit, label %while.body.lr.ph.i
+  br i1 %tobool.not16.i, label %invoke.cont80, label %while.body.lr.ph.i
 
 while.body.lr.ph.i:                               ; preds = %if.else74
   %11 = load i32, ptr %call79, align 8, !tbaa !45
@@ -329,7 +329,7 @@ while.body.lr.ph.i:                               ; preds = %if.else74
 
 while.body.i.prol:                                ; preds = %while.body.lr.ph.i, %while.body.i.prol
   %dec18.i.prol = phi i32 [ %dec.i.prol, %while.body.i.prol ], [ %dec15.i, %while.body.lr.ph.i ]
-  %p.017.i.prol = phi ptr [ %add.ptr.i.prol, %while.body.i.prol ], [ %call.i145, %while.body.lr.ph.i ]
+  %p.017.i.prol = phi ptr [ %add.ptr.i.prol, %while.body.i.prol ], [ %call.i147, %while.body.lr.ph.i ]
   %prol.iter = phi i32 [ %prol.iter.next, %while.body.i.prol ], [ 0, %while.body.lr.ph.i ]
   %add.ptr.i.prol = getelementptr inbounds i8, ptr %p.017.i.prol, i64 %idx.ext.i
   store ptr %add.ptr.i.prol, ptr %p.017.i.prol, align 8, !tbaa !51
@@ -341,9 +341,9 @@ while.body.i.prol:                                ; preds = %while.body.lr.ph.i,
 while.body.i.prol.loopexit:                       ; preds = %while.body.i.prol, %while.body.lr.ph.i
   %add.ptr.i.lcssa.unr = phi ptr [ undef, %while.body.lr.ph.i ], [ %add.ptr.i.prol, %while.body.i.prol ]
   %dec18.i.unr = phi i32 [ %dec15.i, %while.body.lr.ph.i ], [ %dec.i.prol, %while.body.i.prol ]
-  %p.017.i.unr = phi ptr [ %call.i145, %while.body.lr.ph.i ], [ %add.ptr.i.prol, %while.body.i.prol ]
+  %p.017.i.unr = phi ptr [ %call.i147, %while.body.lr.ph.i ], [ %add.ptr.i.prol, %while.body.i.prol ]
   %13 = icmp ult i32 %12, 7
-  br i1 %13, label %_ZN15btPoolAllocatorC2Eii.exit, label %while.body.i
+  br i1 %13, label %invoke.cont80, label %while.body.i
 
 while.body.i:                                     ; preds = %while.body.i.prol.loopexit, %while.body.i
   %dec18.i = phi i32 [ %dec.i.7, %while.body.i ], [ %dec18.i.unr, %while.body.i.prol.loopexit ]
@@ -366,15 +366,15 @@ while.body.i:                                     ; preds = %while.body.i.prol.l
   store ptr %add.ptr.i.7, ptr %add.ptr.i.6, align 8, !tbaa !51
   %dec.i.7 = add nsw i32 %dec18.i, -8
   %tobool.not.i.7 = icmp eq i32 %dec.i.7, 0
-  br i1 %tobool.not.i.7, label %_ZN15btPoolAllocatorC2Eii.exit, label %while.body.i
+  br i1 %tobool.not.i.7, label %invoke.cont80, label %while.body.i
 
-_ZN15btPoolAllocatorC2Eii.exit:                   ; preds = %while.body.i.prol.loopexit, %while.body.i, %if.else74
-  %p.0.lcssa.i = phi ptr [ %call.i145, %if.else74 ], [ %add.ptr.i.lcssa.unr, %while.body.i.prol.loopexit ], [ %add.ptr.i.7, %while.body.i ]
+invoke.cont80:                                    ; preds = %while.body.i.prol.loopexit, %while.body.i, %if.else74
+  %p.0.lcssa.i = phi ptr [ %call.i147, %if.else74 ], [ %add.ptr.i.lcssa.unr, %while.body.i.prol.loopexit ], [ %add.ptr.i.7, %while.body.i ]
   store ptr null, ptr %p.0.lcssa.i, align 8, !tbaa !51
   br label %if.end82
 
-if.end82:                                         ; preds = %_ZN15btPoolAllocatorC2Eii.exit, %if.then71
-  %call79.sink = phi ptr [ %call79, %_ZN15btPoolAllocatorC2Eii.exit ], [ %8, %if.then71 ]
+if.end82:                                         ; preds = %invoke.cont80, %if.then71
+  %call79.sink = phi ptr [ %call79, %invoke.cont80 ], [ %8, %if.then71 ]
   %m_persistentManifoldPool81 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 4
   store ptr %call79.sink, ptr %m_persistentManifoldPool81, align 8, !tbaa !54
   %m_collisionAlgorithmPool = getelementptr inbounds %struct.btDefaultCollisionConstructionInfo, ptr %constructionInfo, i64 0, i32 2
@@ -392,79 +392,79 @@ if.else87:                                        ; preds = %if.end82
   %call92 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef 32, i32 noundef 16)
   %m_defaultMaxCollisionAlgorithmPoolSize = getelementptr inbounds %struct.btDefaultCollisionConstructionInfo, ptr %constructionInfo, i64 0, i32 4
   %15 = load i32, ptr %m_defaultMaxCollisionAlgorithmPoolSize, align 4, !tbaa !57
-  store i32 %.sroa.speculated177, ptr %call92, align 8, !tbaa !45
-  %m_maxElements.i146 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 1
-  store i32 %15, ptr %m_maxElements.i146, align 4, !tbaa !47
-  %mul.i147 = mul nsw i32 %15, %.sroa.speculated177
-  %conv.i148 = zext i32 %mul.i147 to i64
-  %call.i164 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %conv.i148, i32 noundef 16)
-  %m_pool.i149 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 4
-  store ptr %call.i164, ptr %m_pool.i149, align 8, !tbaa !48
-  %m_firstFree.i150 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 3
-  store ptr %call.i164, ptr %m_firstFree.i150, align 8, !tbaa !49
-  %16 = load i32, ptr %m_maxElements.i146, align 4, !tbaa !47
-  %m_freeCount.i151 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 2
-  store i32 %16, ptr %m_freeCount.i151, align 8, !tbaa !50
-  %dec15.i152 = add nsw i32 %16, -1
-  %tobool.not16.i153 = icmp eq i32 %dec15.i152, 0
-  br i1 %tobool.not16.i153, label %_ZN15btPoolAllocatorC2Eii.exit165, label %while.body.lr.ph.i155
+  store i32 %.sroa.speculated179, ptr %call92, align 8, !tbaa !45
+  %m_maxElements.i148 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 1
+  store i32 %15, ptr %m_maxElements.i148, align 4, !tbaa !47
+  %mul.i149 = mul nsw i32 %15, %.sroa.speculated179
+  %conv.i150 = zext i32 %mul.i149 to i64
+  %call.i166 = tail call noundef ptr @_Z22btAlignedAllocInternalmi(i64 noundef %conv.i150, i32 noundef 16)
+  %m_pool.i151 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 4
+  store ptr %call.i166, ptr %m_pool.i151, align 8, !tbaa !48
+  %m_firstFree.i152 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 3
+  store ptr %call.i166, ptr %m_firstFree.i152, align 8, !tbaa !49
+  %16 = load i32, ptr %m_maxElements.i148, align 4, !tbaa !47
+  %m_freeCount.i153 = getelementptr inbounds %class.btPoolAllocator, ptr %call92, i64 0, i32 2
+  store i32 %16, ptr %m_freeCount.i153, align 8, !tbaa !50
+  %dec15.i154 = add nsw i32 %16, -1
+  %tobool.not16.i155 = icmp eq i32 %dec15.i154, 0
+  br i1 %tobool.not16.i155, label %invoke.cont93, label %while.body.lr.ph.i157
 
-while.body.lr.ph.i155:                            ; preds = %if.else87
+while.body.lr.ph.i157:                            ; preds = %if.else87
   %17 = load i32, ptr %call92, align 8, !tbaa !45
-  %idx.ext.i154 = sext i32 %17 to i64
+  %idx.ext.i156 = sext i32 %17 to i64
   %18 = add i32 %16, -2
-  %xtraiter182 = and i32 %dec15.i152, 7
+  %xtraiter182 = and i32 %dec15.i154, 7
   %lcmp.mod183.not = icmp eq i32 %xtraiter182, 0
-  br i1 %lcmp.mod183.not, label %while.body.i161.prol.loopexit, label %while.body.i161.prol
+  br i1 %lcmp.mod183.not, label %while.body.i163.prol.loopexit, label %while.body.i163.prol
 
-while.body.i161.prol:                             ; preds = %while.body.lr.ph.i155, %while.body.i161.prol
-  %dec18.i156.prol = phi i32 [ %dec.i159.prol, %while.body.i161.prol ], [ %dec15.i152, %while.body.lr.ph.i155 ]
-  %p.017.i157.prol = phi ptr [ %add.ptr.i158.prol, %while.body.i161.prol ], [ %call.i164, %while.body.lr.ph.i155 ]
-  %prol.iter184 = phi i32 [ %prol.iter184.next, %while.body.i161.prol ], [ 0, %while.body.lr.ph.i155 ]
-  %add.ptr.i158.prol = getelementptr inbounds i8, ptr %p.017.i157.prol, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.prol, ptr %p.017.i157.prol, align 8, !tbaa !51
-  %dec.i159.prol = add nsw i32 %dec18.i156.prol, -1
+while.body.i163.prol:                             ; preds = %while.body.lr.ph.i157, %while.body.i163.prol
+  %dec18.i158.prol = phi i32 [ %dec.i161.prol, %while.body.i163.prol ], [ %dec15.i154, %while.body.lr.ph.i157 ]
+  %p.017.i159.prol = phi ptr [ %add.ptr.i160.prol, %while.body.i163.prol ], [ %call.i166, %while.body.lr.ph.i157 ]
+  %prol.iter184 = phi i32 [ %prol.iter184.next, %while.body.i163.prol ], [ 0, %while.body.lr.ph.i157 ]
+  %add.ptr.i160.prol = getelementptr inbounds i8, ptr %p.017.i159.prol, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.prol, ptr %p.017.i159.prol, align 8, !tbaa !51
+  %dec.i161.prol = add nsw i32 %dec18.i158.prol, -1
   %prol.iter184.next = add i32 %prol.iter184, 1
   %prol.iter184.cmp.not = icmp eq i32 %prol.iter184.next, %xtraiter182
-  br i1 %prol.iter184.cmp.not, label %while.body.i161.prol.loopexit, label %while.body.i161.prol, !llvm.loop !58
+  br i1 %prol.iter184.cmp.not, label %while.body.i163.prol.loopexit, label %while.body.i163.prol, !llvm.loop !58
 
-while.body.i161.prol.loopexit:                    ; preds = %while.body.i161.prol, %while.body.lr.ph.i155
-  %add.ptr.i158.lcssa.unr = phi ptr [ undef, %while.body.lr.ph.i155 ], [ %add.ptr.i158.prol, %while.body.i161.prol ]
-  %dec18.i156.unr = phi i32 [ %dec15.i152, %while.body.lr.ph.i155 ], [ %dec.i159.prol, %while.body.i161.prol ]
-  %p.017.i157.unr = phi ptr [ %call.i164, %while.body.lr.ph.i155 ], [ %add.ptr.i158.prol, %while.body.i161.prol ]
+while.body.i163.prol.loopexit:                    ; preds = %while.body.i163.prol, %while.body.lr.ph.i157
+  %add.ptr.i160.lcssa.unr = phi ptr [ undef, %while.body.lr.ph.i157 ], [ %add.ptr.i160.prol, %while.body.i163.prol ]
+  %dec18.i158.unr = phi i32 [ %dec15.i154, %while.body.lr.ph.i157 ], [ %dec.i161.prol, %while.body.i163.prol ]
+  %p.017.i159.unr = phi ptr [ %call.i166, %while.body.lr.ph.i157 ], [ %add.ptr.i160.prol, %while.body.i163.prol ]
   %19 = icmp ult i32 %18, 7
-  br i1 %19, label %_ZN15btPoolAllocatorC2Eii.exit165, label %while.body.i161
+  br i1 %19, label %invoke.cont93, label %while.body.i163
 
-while.body.i161:                                  ; preds = %while.body.i161.prol.loopexit, %while.body.i161
-  %dec18.i156 = phi i32 [ %dec.i159.7, %while.body.i161 ], [ %dec18.i156.unr, %while.body.i161.prol.loopexit ]
-  %p.017.i157 = phi ptr [ %add.ptr.i158.7, %while.body.i161 ], [ %p.017.i157.unr, %while.body.i161.prol.loopexit ]
-  %add.ptr.i158 = getelementptr inbounds i8, ptr %p.017.i157, i64 %idx.ext.i154
-  store ptr %add.ptr.i158, ptr %p.017.i157, align 8, !tbaa !51
-  %add.ptr.i158.1 = getelementptr inbounds i8, ptr %add.ptr.i158, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.1, ptr %add.ptr.i158, align 8, !tbaa !51
-  %add.ptr.i158.2 = getelementptr inbounds i8, ptr %add.ptr.i158.1, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.2, ptr %add.ptr.i158.1, align 8, !tbaa !51
-  %add.ptr.i158.3 = getelementptr inbounds i8, ptr %add.ptr.i158.2, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.3, ptr %add.ptr.i158.2, align 8, !tbaa !51
-  %add.ptr.i158.4 = getelementptr inbounds i8, ptr %add.ptr.i158.3, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.4, ptr %add.ptr.i158.3, align 8, !tbaa !51
-  %add.ptr.i158.5 = getelementptr inbounds i8, ptr %add.ptr.i158.4, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.5, ptr %add.ptr.i158.4, align 8, !tbaa !51
-  %add.ptr.i158.6 = getelementptr inbounds i8, ptr %add.ptr.i158.5, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.6, ptr %add.ptr.i158.5, align 8, !tbaa !51
-  %add.ptr.i158.7 = getelementptr inbounds i8, ptr %add.ptr.i158.6, i64 %idx.ext.i154
-  store ptr %add.ptr.i158.7, ptr %add.ptr.i158.6, align 8, !tbaa !51
-  %dec.i159.7 = add nsw i32 %dec18.i156, -8
-  %tobool.not.i160.7 = icmp eq i32 %dec.i159.7, 0
-  br i1 %tobool.not.i160.7, label %_ZN15btPoolAllocatorC2Eii.exit165, label %while.body.i161
+while.body.i163:                                  ; preds = %while.body.i163.prol.loopexit, %while.body.i163
+  %dec18.i158 = phi i32 [ %dec.i161.7, %while.body.i163 ], [ %dec18.i158.unr, %while.body.i163.prol.loopexit ]
+  %p.017.i159 = phi ptr [ %add.ptr.i160.7, %while.body.i163 ], [ %p.017.i159.unr, %while.body.i163.prol.loopexit ]
+  %add.ptr.i160 = getelementptr inbounds i8, ptr %p.017.i159, i64 %idx.ext.i156
+  store ptr %add.ptr.i160, ptr %p.017.i159, align 8, !tbaa !51
+  %add.ptr.i160.1 = getelementptr inbounds i8, ptr %add.ptr.i160, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.1, ptr %add.ptr.i160, align 8, !tbaa !51
+  %add.ptr.i160.2 = getelementptr inbounds i8, ptr %add.ptr.i160.1, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.2, ptr %add.ptr.i160.1, align 8, !tbaa !51
+  %add.ptr.i160.3 = getelementptr inbounds i8, ptr %add.ptr.i160.2, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.3, ptr %add.ptr.i160.2, align 8, !tbaa !51
+  %add.ptr.i160.4 = getelementptr inbounds i8, ptr %add.ptr.i160.3, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.4, ptr %add.ptr.i160.3, align 8, !tbaa !51
+  %add.ptr.i160.5 = getelementptr inbounds i8, ptr %add.ptr.i160.4, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.5, ptr %add.ptr.i160.4, align 8, !tbaa !51
+  %add.ptr.i160.6 = getelementptr inbounds i8, ptr %add.ptr.i160.5, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.6, ptr %add.ptr.i160.5, align 8, !tbaa !51
+  %add.ptr.i160.7 = getelementptr inbounds i8, ptr %add.ptr.i160.6, i64 %idx.ext.i156
+  store ptr %add.ptr.i160.7, ptr %add.ptr.i160.6, align 8, !tbaa !51
+  %dec.i161.7 = add nsw i32 %dec18.i158, -8
+  %tobool.not.i162.7 = icmp eq i32 %dec.i161.7, 0
+  br i1 %tobool.not.i162.7, label %invoke.cont93, label %while.body.i163
 
-_ZN15btPoolAllocatorC2Eii.exit165:                ; preds = %while.body.i161.prol.loopexit, %while.body.i161, %if.else87
-  %p.0.lcssa.i162 = phi ptr [ %call.i164, %if.else87 ], [ %add.ptr.i158.lcssa.unr, %while.body.i161.prol.loopexit ], [ %add.ptr.i158.7, %while.body.i161 ]
-  store ptr null, ptr %p.0.lcssa.i162, align 8, !tbaa !51
+invoke.cont93:                                    ; preds = %while.body.i163.prol.loopexit, %while.body.i163, %if.else87
+  %p.0.lcssa.i164 = phi ptr [ %call.i166, %if.else87 ], [ %add.ptr.i160.lcssa.unr, %while.body.i163.prol.loopexit ], [ %add.ptr.i160.7, %while.body.i163 ]
+  store ptr null, ptr %p.0.lcssa.i164, align 8, !tbaa !51
   br label %if.end95
 
-if.end95:                                         ; preds = %_ZN15btPoolAllocatorC2Eii.exit165, %if.then84
-  %call92.sink = phi ptr [ %call92, %_ZN15btPoolAllocatorC2Eii.exit165 ], [ %14, %if.then84 ]
+if.end95:                                         ; preds = %invoke.cont93, %if.then84
+  %call92.sink = phi ptr [ %call92, %invoke.cont93 ], [ %14, %if.then84 ]
   %m_collisionAlgorithmPool94 = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 6
   store ptr %call92.sink, ptr %m_collisionAlgorithmPool94, align 8, !tbaa !59
   ret void
@@ -761,28 +761,29 @@ if.then25:                                        ; preds = %if.end21
   br label %return
 
 if.end26:                                         ; preds = %if.end21
-  %or.cond78 = and i1 %cmp.i, %cmp.i71
-  br i1 %or.cond78, label %if.then30, label %if.end31
+  br i1 %cmp.i, label %land.lhs.true28, label %if.end36
 
-if.then30:                                        ; preds = %if.end26
+land.lhs.true28:                                  ; preds = %if.end26
+  br i1 %cmp.i71, label %if.then30, label %land.lhs.true33
+
+if.then30:                                        ; preds = %land.lhs.true28
   %m_convexConvexCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 10
   br label %return
 
-if.end31:                                         ; preds = %if.end26
-  %1 = add i32 %proxyType1, -21
+land.lhs.true33:                                  ; preds = %land.lhs.true28
+  %1 = add nsw i32 %proxyType1, -21
   %2 = icmp ult i32 %1, 9
-  %or.cond80 = and i1 %cmp.i, %2
-  br i1 %or.cond80, label %if.then35, label %if.end36
+  br i1 %2, label %if.then35, label %if.else
 
-if.then35:                                        ; preds = %if.end31
+if.then35:                                        ; preds = %land.lhs.true33
   %m_convexConcaveCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 11
   br label %return
 
-if.end36:                                         ; preds = %if.end31
-  %3 = add i32 %proxyType0, -21
+if.end36:                                         ; preds = %if.end26
+  %3 = add nsw i32 %proxyType0, -21
   %4 = icmp ult i32 %3, 9
-  %or.cond82 = and i1 %cmp.i71, %4
-  br i1 %or.cond82, label %if.then40, label %if.end41
+  %or.cond80 = select i1 %cmp.i71, i1 %4, i1 false
+  br i1 %or.cond80, label %if.then40, label %if.end41
 
 if.then40:                                        ; preds = %if.end36
   %m_swappedConvexConcaveCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 12
@@ -796,7 +797,7 @@ if.then43:                                        ; preds = %if.end41
   %m_compoundCreateFunc = getelementptr inbounds %class.btDefaultCollisionConfiguration, ptr %this, i64 0, i32 13
   br label %return
 
-if.else:                                          ; preds = %if.end41
+if.else:                                          ; preds = %land.lhs.true33, %if.end41
   %cmp.i77 = icmp eq i32 %proxyType1, 31
   br i1 %cmp.i77, label %if.then45, label %if.end47
 

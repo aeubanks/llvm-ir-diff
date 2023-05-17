@@ -125,10 +125,10 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
 for.cond299.preheader.lr.ph:                      ; preds = %for.body
   %cmp300510 = icmp slt i32 %29, 1
   %cmp306493 = icmp slt i32 %27, 1
-  %reass.add = sub i32 %spec.select, %28
-  %reass.mul = mul i32 %reass.add, %cond61
-  %reass.add490 = sub i32 %cond92, %28
-  %reass.mul491 = mul i32 %reass.add490, %cond111
+  %mul324487 = sub i32 %spec.select, %28
+  %sub325 = mul i32 %mul324487, %cond61
+  %mul327488 = sub i32 %cond92, %28
+  %sub328 = mul i32 %cond111, %mul327488
   %cmp303500 = icmp slt i32 %28, 1
   %or.cond.not632 = select i1 %cmp300510, i1 true, i1 %cmp303500
   %brmerge = select i1 %or.cond.not632, i1 true, i1 %cmp306493
@@ -208,8 +208,8 @@ for.cond305.for.end_crit_edge.us.us.us.us.us.us:  ; preds = %for.cond305.for.end
 
 for.cond302.for.end323_crit_edge.split.us.us.us.us.us.us: ; preds = %for.cond305.for.end_crit_edge.us.us.us.us.us.us
   %45 = add i32 %31, %yi.0512.us.us.us.us.us
-  %add326.us.us.us.us.us = add i32 %reass.mul, %33
-  %add329.us.us.us.us.us = add i32 %reass.mul491, %45
+  %add326.us.us.us.us.us = add nsw i32 %33, %sub325
+  %add329.us.us.us.us.us = add nsw i32 %45, %sub328
   %inc331.us.us.us.us.us = add nuw nsw i32 %loopk.1511.us.us.us.us.us, 1
   %exitcond628.not = icmp eq i32 %inc331.us.us.us.us.us, %29
   br i1 %exitcond628.not, label %for.end335, label %for.cond302.preheader.us.us.us.us.us, !llvm.loop !25

@@ -18,40 +18,59 @@ if.end:                                           ; preds = %entry
   %add = add i32 %ip, 5
   %add.ptr1 = getelementptr inbounds i8, ptr %data, i64 %size
   %add.ptr2 = getelementptr inbounds i8, ptr %add.ptr1, i64 -4
+  %cmp4236248 = icmp ugt ptr %add.ptr2, %data
   %sub.ptr.rhs.cast201 = ptrtoint ptr %data to i64
-  %tobool68.not = icmp eq i32 %encoding, 0
-  %cmp4237276 = icmp ugt ptr %add.ptr2, %data
-  br i1 %cmp4237276, label %for.body.preheader, label %for.end128
+  br i1 %cmp4236248, label %for.body.lr.ph.lr.ph, label %cleanup124.thread
 
-for.body.preheader:                               ; preds = %if.end, %cleanup124
-  %add.ptr279 = phi ptr [ %add.ptr, %cleanup124 ], [ %data, %if.end ]
-  %prevPosT.0278 = phi i64 [ %prevPosT.2, %cleanup124 ], [ -1, %if.end ]
-  %prevMask.0277 = phi i32 [ %prevMask.4, %cleanup124 ], [ %and, %if.end ]
+for.body.lr.ph.lr.ph:                             ; preds = %if.end
+  %tobool68.not = icmp eq i32 %encoding, 0
+  br label %for.body.lr.ph
+
+for.body.lr.ph:                                   ; preds = %for.body.lr.ph.lr.ph, %cleanup124
+  %add.ptr251 = phi ptr [ %data, %for.body.lr.ph.lr.ph ], [ %add.ptr, %cleanup124 ]
+  %prevPosT.0250 = phi i64 [ -1, %for.body.lr.ph.lr.ph ], [ %prevPosT.2, %cleanup124 ]
+  %prevMask.0249 = phi i32 [ %and, %for.body.lr.ph.lr.ph ], [ %prevMask.4, %cleanup124 ]
   br label %for.body
 
-for.body:                                         ; preds = %for.body.preheader, %for.inc
-  %p.0238 = phi ptr [ %incdec.ptr, %for.inc ], [ %add.ptr279, %for.body.preheader ]
-  %1 = load i8, ptr %p.0238, align 1, !tbaa !9
+for.body:                                         ; preds = %for.body.lr.ph, %for.inc
+  %p.0237 = phi ptr [ %add.ptr251, %for.body.lr.ph ], [ %incdec.ptr, %for.inc ]
+  %1 = load i8, ptr %p.0237, align 1, !tbaa !9
   %2 = and i8 %1, -2
   %cmp6 = icmp eq i8 %2, -24
   br i1 %cmp6, label %if.end13, label %for.inc
 
 for.inc:                                          ; preds = %for.body
-  %incdec.ptr = getelementptr inbounds i8, ptr %p.0238, i64 1
-  %exitcond.not = icmp eq ptr %incdec.ptr, %add.ptr2
-  br i1 %exitcond.not, label %for.end128, label %for.body, !llvm.loop !10
+  %incdec.ptr = getelementptr inbounds i8, ptr %p.0237, i64 1
+  %cmp4 = icmp ult ptr %incdec.ptr, %add.ptr2
+  br i1 %cmp4, label %for.body, label %cleanup124.thread, !llvm.loop !10
+
+cleanup124.thread:                                ; preds = %cleanup124, %for.inc, %if.end
+  %prevMask.0.lcssa = phi i32 [ %and, %if.end ], [ %prevMask.0249, %for.inc ], [ %prevMask.4, %cleanup124 ]
+  %prevPosT.0.lcssa = phi i64 [ -1, %if.end ], [ %prevPosT.0250, %for.inc ], [ %prevPosT.2, %cleanup124 ]
+  %p.0.lcssa = phi ptr [ %data, %if.end ], [ %incdec.ptr, %for.inc ], [ %add.ptr, %cleanup124 ]
+  %sub.ptr.lhs.cast = ptrtoint ptr %p.0.lcssa to i64
+  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast201
+  %sub129 = sub i64 %sub.ptr.sub, %prevPosT.0.lcssa
+  %cmp130 = icmp ugt i64 %sub129, 3
+  %conv132 = trunc i64 %sub129 to i32
+  %sub133 = add nsw i32 %conv132, -1
+  %shl134 = shl nuw nsw i32 %prevMask.0.lcssa, %sub133
+  %and135 = and i32 %shl134, 7
+  %cond = select i1 %cmp130, i32 0, i32 %and135
+  store i32 %cond, ptr %state, align 4, !tbaa !5
+  br label %cleanup136
 
 if.end13:                                         ; preds = %for.body
-  %sub.ptr.lhs.cast200 = ptrtoint ptr %p.0238 to i64
+  %sub.ptr.lhs.cast200 = ptrtoint ptr %p.0237 to i64
   %sub.ptr.sub202 = sub i64 %sub.ptr.lhs.cast200, %sub.ptr.rhs.cast201
-  %sub = sub i64 %sub.ptr.sub202, %prevPosT.0278
+  %sub = sub i64 %sub.ptr.sub202, %prevPosT.0250
   %cmp14 = icmp ugt i64 %sub, 3
   br i1 %cmp14, label %if.end41, label %if.else
 
 if.else:                                          ; preds = %if.end13
   %conv17 = trunc i64 %sub to i32
   %sub18 = add nsw i32 %conv17, -1
-  %shl = shl nuw nsw i32 %prevMask.0277, %sub18
+  %shl = shl nuw nsw i32 %prevMask.0249, %sub18
   %and19 = and i32 %shl, 7
   %cmp20.not = icmp eq i32 %and19, 0
   br i1 %cmp20.not, label %if.end41, label %if.then22
@@ -62,11 +81,11 @@ if.then22:                                        ; preds = %if.else
   %3 = load i8, ptr %arrayidx, align 1, !tbaa !9
   %conv23 = zext i8 %3 to i64
   %sub24 = sub nsw i64 4, %conv23
-  %arrayidx26 = getelementptr inbounds i8, ptr %p.0238, i64 %sub24
+  %arrayidx26 = getelementptr inbounds i8, ptr %p.0237, i64 %sub24
   %4 = load i8, ptr %arrayidx26, align 1, !tbaa !9
   %5 = lshr i64 232, %idxprom
-  %.fr251 = freeze i64 %5
-  %6 = and i64 %.fr251, 1
+  %.fr234 = freeze i64 %5
+  %6 = and i64 %.fr234, 1
   %tobool.not = icmp eq i64 %6, 0
   br i1 %tobool.not, label %switch.early.test, label %cleanup.thread212
 
@@ -102,7 +121,7 @@ switch.early.test198:                             ; preds = %switch.early.test, 
 if.end41:                                         ; preds = %switch.early.test198, %if.end13, %if.else
   %prevMask.2 = phi i32 [ %prevMask.1208, %switch.early.test198 ], [ 0, %if.else ], [ 0, %if.end13 ]
   %bufferPos.2 = phi i64 [ %bufferPos.1211, %switch.early.test198 ], [ %sub.ptr.sub202, %if.else ], [ %sub.ptr.sub202, %if.end13 ]
-  %arrayidx42 = getelementptr inbounds i8, ptr %p.0238, i64 4
+  %arrayidx42 = getelementptr inbounds i8, ptr %p.0237, i64 4
   %7 = load i8, ptr %arrayidx42, align 1, !tbaa !9
   switch i8 %7, label %if.else118 [
     i8 0, label %if.then51
@@ -112,26 +131,26 @@ if.end41:                                         ; preds = %switch.early.test19
 if.then51:                                        ; preds = %if.end41, %if.end41
   %conv53 = zext i8 %7 to i32
   %shl54 = shl nuw i32 %conv53, 24
-  %arrayidx55 = getelementptr inbounds i8, ptr %p.0238, i64 3
+  %arrayidx55 = getelementptr inbounds i8, ptr %p.0237, i64 3
   %8 = load i8, ptr %arrayidx55, align 1, !tbaa !9
   %conv56 = zext i8 %8 to i32
   %shl57 = shl nuw nsw i32 %conv56, 16
   %or58 = or i32 %shl57, %shl54
-  %arrayidx59 = getelementptr inbounds i8, ptr %p.0238, i64 2
+  %arrayidx59 = getelementptr inbounds i8, ptr %p.0237, i64 2
   %9 = load i8, ptr %arrayidx59, align 1, !tbaa !9
   %conv60 = zext i8 %9 to i32
   %shl61 = shl nuw nsw i32 %conv60, 8
   %or62 = or i32 %or58, %shl61
-  %arrayidx63 = getelementptr inbounds i8, ptr %p.0238, i64 1
+  %arrayidx63 = getelementptr inbounds i8, ptr %p.0237, i64 1
   %10 = load i8, ptr %arrayidx63, align 1, !tbaa !9
   %conv64 = zext i8 %10 to i32
   %or65 = or i32 %or62, %conv64
   %conv70 = trunc i64 %bufferPos.2 to i32
   %add71 = add i32 %add, %conv70
-  %cmp78 = icmp eq i32 %prevMask.2, 0
   %11 = sub i32 0, %add71
-  %dest.0246.p = select i1 %tobool68.not, i32 %11, i32 %add71
-  %dest.0246 = add i32 %or65, %dest.0246.p
+  %dest.0.p = select i1 %tobool68.not, i32 %11, i32 %add71
+  %cmp78 = icmp eq i32 %prevMask.2, 0
+  %dest.0243 = add i32 %or65, %dest.0.p
   br i1 %cmp78, label %for.end103, label %if.end81.lr.ph
 
 if.end81.lr.ph:                                   ; preds = %if.then51
@@ -146,8 +165,8 @@ if.end81.lr.ph:                                   ; preds = %if.then51
   br label %if.end81
 
 if.end81:                                         ; preds = %cleanup99, %if.end81.lr.ph
-  %dest.0247 = phi i32 [ %dest.0246, %if.end81.lr.ph ], [ %dest.0, %cleanup99 ]
-  %shr = lshr i32 %dest.0247, %sub85
+  %dest.0244 = phi i32 [ %dest.0243, %if.end81.lr.ph ], [ %dest.0, %cleanup99 ]
+  %shr = lshr i32 %dest.0244, %sub85
   %trunc = trunc i32 %shr to i8
   switch i8 %trunc, label %for.end103 [
     i8 -1, label %cleanup99
@@ -155,13 +174,13 @@ if.end81:                                         ; preds = %cleanup99, %if.end8
   ]
 
 cleanup99:                                        ; preds = %if.end81, %if.end81
-  %13 = xor i32 %dest.0247, %notmask
+  %13 = xor i32 %dest.0244, %notmask
   %xor = xor i32 %13, -1
-  %dest.0 = add i32 %dest.0246.p, %xor
+  %dest.0 = add i32 %dest.0.p, %xor
   br label %if.end81
 
 for.end103:                                       ; preds = %if.end81, %if.then51
-  %dest.0.lcssa = phi i32 [ %dest.0246, %if.then51 ], [ %dest.0247, %if.end81 ]
+  %dest.0.lcssa = phi i32 [ %dest.0243, %if.then51 ], [ %dest.0244, %if.end81 ]
   %14 = shl i32 %dest.0.lcssa, 7
   %15 = ashr i32 %14, 31
   %conv107 = trunc i32 %15 to i8
@@ -189,27 +208,11 @@ cleanup124:                                       ; preds = %cleanup.thread212, 
   %prevPosT.2 = phi i64 [ %prevPosT.1210, %switch.early.test198 ], [ %prevPosT.1210, %switch.early.test198 ], [ %bufferPos.2, %for.end103 ], [ %bufferPos.2, %if.else118 ], [ %sub.ptr.sub202, %cleanup.thread212 ]
   %bufferPos.4 = phi i64 [ %bufferPos.1211, %switch.early.test198 ], [ %bufferPos.1211, %switch.early.test198 ], [ %add117, %for.end103 ], [ %inc122, %if.else118 ], [ %inc216, %cleanup.thread212 ]
   %add.ptr = getelementptr inbounds i8, ptr %data, i64 %bufferPos.4
-  %cmp4237 = icmp ult ptr %add.ptr, %add.ptr2
-  br i1 %cmp4237, label %for.body.preheader, label %for.end128
+  %cmp4236 = icmp ult ptr %add.ptr, %add.ptr2
+  br i1 %cmp4236, label %for.body.lr.ph, label %cleanup124.thread
 
-for.end128:                                       ; preds = %cleanup124, %for.inc, %if.end
-  %prevMask.0275 = phi i32 [ %and, %if.end ], [ %prevMask.0277, %for.inc ], [ %prevMask.4, %cleanup124 ]
-  %prevPosT.0273 = phi i64 [ -1, %if.end ], [ %prevPosT.0278, %for.inc ], [ %prevPosT.2, %cleanup124 ]
-  %p.0.lcssa = phi ptr [ %data, %if.end ], [ %add.ptr2, %for.inc ], [ %add.ptr, %cleanup124 ]
-  %sub.ptr.lhs.cast = ptrtoint ptr %p.0.lcssa to i64
-  %sub.ptr.sub = sub i64 %sub.ptr.lhs.cast, %sub.ptr.rhs.cast201
-  %sub129 = sub i64 %sub.ptr.sub, %prevPosT.0273
-  %cmp130 = icmp ugt i64 %sub129, 3
-  %conv132 = trunc i64 %sub129 to i32
-  %sub133 = add nsw i32 %conv132, -1
-  %shl134 = shl nuw nsw i32 %prevMask.0275, %sub133
-  %and135 = and i32 %shl134, 7
-  %cond = select i1 %cmp130, i32 0, i32 %and135
-  store i32 %cond, ptr %state, align 4, !tbaa !5
-  br label %cleanup136
-
-cleanup136:                                       ; preds = %entry, %for.end128
-  %retval.0 = phi i64 [ %sub.ptr.sub, %for.end128 ], [ 0, %entry ]
+cleanup136:                                       ; preds = %entry, %cleanup124.thread
+  %retval.0 = phi i64 [ %sub.ptr.sub, %cleanup124.thread ], [ 0, %entry ]
   ret i64 %retval.0
 }
 

@@ -52,14 +52,14 @@ declare i32 @halide_upgrade_buffer_t(ptr, ptr, ptr, ptr) local_unnamed_addr #0
 ; Function Attrs: nounwind
 define i32 @_Z78FftConvolve8x8xRHalide_x86_64_linux_c_plus_plus_name_mangling_no_runtime_sse41P15halide_buffer_tS0_S0_(ptr noalias %input.buffer, ptr noalias %kernel.buffer, ptr noalias %"result$2.buffer") local_unnamed_addr #1 {
 entry:
-  %"inv_fft0_S1_R8_n0$2.013" = alloca [64 x float], align 16
-  %"inv_unzipped$214" = alloca [64 x float], align 16
-  %"inv_X8$5.116" = alloca [64 x float], align 16
-  %"inv_X8$5.017" = alloca [64 x float], align 16
-  %"inv_fft0_S1_R8_n0$2.118" = alloca [32 x float], align 16
-  %"inv_zipped$2.121.sroa.0" = alloca [8 x float], align 16
-  %"kernel_fft0_S1_R8_n0$2.122" = alloca [40 x float], align 16
-  %"kernel_fft0_S1_R8_n0$2.023" = alloca [40 x float], align 16
+  %"inv_fft0_S1_R8_n0$2.04" = alloca [64 x float], align 16
+  %"inv_unzipped$25" = alloca [64 x float], align 16
+  %"inv_X8$5.17" = alloca [64 x float], align 16
+  %"inv_X8$5.08" = alloca [64 x float], align 16
+  %"inv_fft0_S1_R8_n0$2.19" = alloca [32 x float], align 16
+  %"inv_zipped$2.112.sroa.0" = alloca [8 x float], align 16
+  %"kernel_fft0_S1_R8_n0$2.113" = alloca [40 x float], align 16
+  %"kernel_fft0_S1_R8_n0$2.014" = alloca [40 x float], align 16
   %.not = icmp eq ptr %"result$2.buffer", null
   br i1 %.not, label %"assert failed", label %"assert succeeded", !prof !5
 
@@ -68,11 +68,11 @@ entry:
   br label %destructor_block
 
 "assert succeeded":                               ; preds = %entry
-  %.not24 = icmp eq ptr %kernel.buffer, null
-  br i1 %.not24, label %"assert failed1", label %"assert succeeded2", !prof !5
+  %.not15 = icmp eq ptr %kernel.buffer, null
+  br i1 %.not15, label %"assert failed1", label %"assert succeeded2", !prof !5
 
-destructor_block:                                 ; preds = %"end for result$2.s0.n1", %"for k$2.s0.n1.preheader", %_halide_buffer_is_bounds_query.exit12, %"assert failed94", %"assert failed92", %"assert failed78", %"assert failed76", %"assert failed74", %"assert failed72", %"assert failed68", %"assert failed66", %"assert failed62", %"assert failed60", %"assert failed58", %"assert failed56", %"assert failed52", %"assert failed50", %"assert failed48", %"assert failed46", %"assert failed44", %"assert failed40", %"assert failed38", %"assert failed36", %"assert failed34", %"assert failed32", %"assert failed30", %"assert failed28", %"assert failed26", %"assert failed24", %"assert failed22", %"assert failed20", %"assert failed18", %"assert failed16", %"assert failed14", %"assert failed3", %"assert failed1", %"assert failed"
-  %1 = phi i32 [ %0, %"assert failed" ], [ %2, %"assert failed1" ], [ %3, %"assert failed3" ], [ %141, %"assert failed14" ], [ %147, %"assert failed16" ], [ %153, %"assert failed18" ], [ %160, %"assert failed20" ], [ %162, %"assert failed22" ], [ %169, %"assert failed24" ], [ %171, %"assert failed26" ], [ %180, %"assert failed28" ], [ %182, %"assert failed30" ], [ %189, %"assert failed32" ], [ %191, %"assert failed34" ], [ %198, %"assert failed36" ], [ %200, %"assert failed38" ], [ %204, %"assert failed40" ], [ %206, %"assert failed44" ], [ %208, %"assert failed46" ], [ %210, %"assert failed48" ], [ %212, %"assert failed50" ], [ %214, %"assert failed52" ], [ %224, %"assert failed56" ], [ %226, %"assert failed58" ], [ %231, %"assert failed60" ], [ %234, %"assert failed62" ], [ %238, %"assert failed66" ], [ %240, %"assert failed68" ], [ %244, %"assert failed72" ], [ %246, %"assert failed74" ], [ %251, %"assert failed76" ], [ %675, %"assert failed78" ], [ %1140, %"assert failed92" ], [ %1141, %"assert failed94" ], [ 0, %_halide_buffer_is_bounds_query.exit12 ], [ 0, %"for k$2.s0.n1.preheader" ], [ 0, %"end for result$2.s0.n1" ]
+destructor_block:                                 ; preds = %"end for result$2.s0.n1", %"for k$2.s0.n1.preheader", %_halide_buffer_is_bounds_query.exit40, %"assert failed94", %"assert failed92", %"assert failed78", %"assert failed76", %"assert failed74", %"assert failed72", %"assert failed68", %"assert failed66", %"assert failed62", %"assert failed60", %"assert failed58", %"assert failed56", %"assert failed52", %"assert failed50", %"assert failed48", %"assert failed46", %"assert failed44", %"assert failed40", %"assert failed38", %"assert failed36", %"assert failed34", %"assert failed32", %"assert failed30", %"assert failed28", %"assert failed26", %"assert failed24", %"assert failed22", %"assert failed20", %"assert failed18", %"assert failed16", %"assert failed14", %"assert failed3", %"assert failed1", %"assert failed"
+  %1 = phi i32 [ %0, %"assert failed" ], [ %2, %"assert failed1" ], [ %3, %"assert failed3" ], [ %141, %"assert failed14" ], [ %147, %"assert failed16" ], [ %153, %"assert failed18" ], [ %160, %"assert failed20" ], [ %162, %"assert failed22" ], [ %169, %"assert failed24" ], [ %171, %"assert failed26" ], [ %180, %"assert failed28" ], [ %182, %"assert failed30" ], [ %189, %"assert failed32" ], [ %191, %"assert failed34" ], [ %198, %"assert failed36" ], [ %200, %"assert failed38" ], [ %204, %"assert failed40" ], [ %206, %"assert failed44" ], [ %208, %"assert failed46" ], [ %210, %"assert failed48" ], [ %212, %"assert failed50" ], [ %214, %"assert failed52" ], [ %224, %"assert failed56" ], [ %226, %"assert failed58" ], [ %231, %"assert failed60" ], [ %234, %"assert failed62" ], [ %238, %"assert failed66" ], [ %240, %"assert failed68" ], [ %244, %"assert failed72" ], [ %246, %"assert failed74" ], [ %251, %"assert failed76" ], [ %675, %"assert failed78" ], [ %1140, %"assert failed92" ], [ %1141, %"assert failed94" ], [ 0, %_halide_buffer_is_bounds_query.exit40 ], [ 0, %"for k$2.s0.n1.preheader" ], [ 0, %"end for result$2.s0.n1" ]
   ret i32 %1
 
 "assert failed1":                                 ; preds = %"assert succeeded"
@@ -80,8 +80,8 @@ destructor_block:                                 ; preds = %"end for result$2.s
   br label %destructor_block
 
 "assert succeeded2":                              ; preds = %"assert succeeded"
-  %.not25 = icmp eq ptr %input.buffer, null
-  br i1 %.not25, label %"assert failed3", label %"assert succeeded4", !prof !5
+  %.not16 = icmp eq ptr %input.buffer, null
+  br i1 %.not16, label %"assert failed3", label %"assert succeeded4", !prof !5
 
 "assert failed3":                                 ; preds = %"assert succeeded2"
   %3 = tail call i32 @halide_error_buffer_argument_is_null(ptr null, ptr nonnull @str.3) #2
@@ -209,14 +209,14 @@ true_bb:                                          ; preds = %_halide_buffer_is_b
 after_bb:                                         ; preds = %"assert succeeded4", %_halide_buffer_is_bounds_query.exit, %true_bb
   %94 = phi ptr [ %32, %"assert succeeded4" ], [ %32, %_halide_buffer_is_bounds_query.exit ], [ %.pre, %true_bb ]
   %95 = icmp eq ptr %94, null
-  br i1 %95, label %_halide_buffer_is_bounds_query.exit4, label %after_bb7
+  br i1 %95, label %_halide_buffer_is_bounds_query.exit32, label %after_bb7
 
-_halide_buffer_is_bounds_query.exit4:             ; preds = %after_bb
+_halide_buffer_is_bounds_query.exit32:            ; preds = %after_bb
   %96 = load i64, ptr %kernel.buffer, align 8, !tbaa !23
   %97 = icmp eq i64 %96, 0
   br i1 %97, label %true_bb5, label %after_bb7
 
-true_bb5:                                         ; preds = %_halide_buffer_is_bounds_query.exit4
+true_bb5:                                         ; preds = %_halide_buffer_is_bounds_query.exit32
   %98 = load ptr, ptr %39, align 8, !tbaa !18
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %kernel.buffer, i8 0, i64 24, i1 false)
   store i8 2, ptr %33, align 8, !tbaa !15
@@ -232,17 +232,17 @@ true_bb5:                                         ; preds = %_halide_buffer_is_b
   store i64 0, ptr %102, align 8, !tbaa !25
   br label %after_bb7
 
-after_bb7:                                        ; preds = %after_bb, %_halide_buffer_is_bounds_query.exit4, %true_bb5
+after_bb7:                                        ; preds = %after_bb, %_halide_buffer_is_bounds_query.exit32, %true_bb5
   %103 = load ptr, ptr %52, align 8, !tbaa !6
   %104 = icmp eq ptr %103, null
-  br i1 %104, label %_halide_buffer_is_bounds_query.exit7, label %after_bb10
+  br i1 %104, label %_halide_buffer_is_bounds_query.exit35, label %after_bb10
 
-_halide_buffer_is_bounds_query.exit7:             ; preds = %after_bb7
+_halide_buffer_is_bounds_query.exit35:            ; preds = %after_bb7
   %105 = load i64, ptr %"result$2.buffer", align 8, !tbaa !23
   %106 = icmp eq i64 %105, 0
   br i1 %106, label %true_bb8, label %after_bb10
 
-true_bb8:                                         ; preds = %_halide_buffer_is_bounds_query.exit7
+true_bb8:                                         ; preds = %_halide_buffer_is_bounds_query.exit35
   %107 = load ptr, ptr %60, align 8, !tbaa !18
   %108 = add nsw i32 %"result$2.extent.0.required.s", 1
   %109 = mul nsw i32 %108, %70
@@ -281,45 +281,45 @@ true_bb8:                                         ; preds = %_halide_buffer_is_b
   store i64 0, ptr %115, align 8, !tbaa !25
   br label %after_bb10
 
-after_bb10:                                       ; preds = %after_bb7, %_halide_buffer_is_bounds_query.exit7, %true_bb8
+after_bb10:                                       ; preds = %after_bb7, %_halide_buffer_is_bounds_query.exit35, %true_bb8
   %116 = load ptr, ptr %4, align 8, !tbaa !6
   %117 = icmp eq ptr %116, null
-  br i1 %117, label %118, label %_halide_buffer_is_bounds_query.exit10
+  br i1 %117, label %118, label %_halide_buffer_is_bounds_query.exit38
 
 118:                                              ; preds = %after_bb10
   %119 = load i64, ptr %input.buffer, align 8, !tbaa !23
   %120 = icmp eq i64 %119, 0
-  br label %_halide_buffer_is_bounds_query.exit10
+  br label %_halide_buffer_is_bounds_query.exit38
 
-_halide_buffer_is_bounds_query.exit10:            ; preds = %after_bb10, %118
+_halide_buffer_is_bounds_query.exit38:            ; preds = %after_bb10, %118
   %121 = phi i1 [ false, %after_bb10 ], [ %120, %118 ]
   %122 = load ptr, ptr %31, align 8, !tbaa !6
   %123 = icmp eq ptr %122, null
-  br i1 %123, label %124, label %_halide_buffer_is_bounds_query.exit11
+  br i1 %123, label %124, label %_halide_buffer_is_bounds_query.exit39
 
-124:                                              ; preds = %_halide_buffer_is_bounds_query.exit10
+124:                                              ; preds = %_halide_buffer_is_bounds_query.exit38
   %125 = load i64, ptr %kernel.buffer, align 8, !tbaa !23
   %126 = icmp eq i64 %125, 0
-  br label %_halide_buffer_is_bounds_query.exit11
+  br label %_halide_buffer_is_bounds_query.exit39
 
-_halide_buffer_is_bounds_query.exit11:            ; preds = %_halide_buffer_is_bounds_query.exit10, %124
-  %127 = phi i1 [ false, %_halide_buffer_is_bounds_query.exit10 ], [ %126, %124 ]
+_halide_buffer_is_bounds_query.exit39:            ; preds = %_halide_buffer_is_bounds_query.exit38, %124
+  %127 = phi i1 [ false, %_halide_buffer_is_bounds_query.exit38 ], [ %126, %124 ]
   %128 = or i1 %121, %127
   %129 = load ptr, ptr %52, align 8, !tbaa !6
   %130 = icmp eq ptr %129, null
-  br i1 %130, label %131, label %_halide_buffer_is_bounds_query.exit12
+  br i1 %130, label %131, label %_halide_buffer_is_bounds_query.exit40
 
-131:                                              ; preds = %_halide_buffer_is_bounds_query.exit11
+131:                                              ; preds = %_halide_buffer_is_bounds_query.exit39
   %132 = load i64, ptr %"result$2.buffer", align 8, !tbaa !23
   %133 = icmp eq i64 %132, 0
-  br label %_halide_buffer_is_bounds_query.exit12
+  br label %_halide_buffer_is_bounds_query.exit40
 
-_halide_buffer_is_bounds_query.exit12:            ; preds = %_halide_buffer_is_bounds_query.exit11, %131
-  %134 = phi i1 [ false, %_halide_buffer_is_bounds_query.exit11 ], [ %133, %131 ]
+_halide_buffer_is_bounds_query.exit40:            ; preds = %_halide_buffer_is_bounds_query.exit39, %131
+  %134 = phi i1 [ false, %_halide_buffer_is_bounds_query.exit39 ], [ %133, %131 ]
   %135 = or i1 %128, %134
   br i1 %135, label %destructor_block, label %true_bb11
 
-true_bb11:                                        ; preds = %_halide_buffer_is_bounds_query.exit12
+true_bb11:                                        ; preds = %_halide_buffer_is_bounds_query.exit40
   %136 = icmp eq i8 %7, 2
   %137 = icmp eq i8 %9, 32
   %138 = and i1 %136, %137
@@ -465,8 +465,8 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
 "assert succeeded39":                             ; preds = %"assert succeeded37"
   %201 = icmp sle i32 %62, %b31
   %202 = sub nsw i32 %83, %64
-  %.not26 = icmp slt i32 %202, %62
-  %203 = and i1 %201, %.not26
+  %.not17 = icmp slt i32 %202, %62
+  %203 = and i1 %201, %.not17
   br i1 %203, label %"assert succeeded41", label %"assert failed40", !prof !26
 
 "assert failed40":                                ; preds = %"assert succeeded39"
@@ -624,181 +624,181 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %257 = add nsw i64 %256, %254
   %258 = sub nsw i64 0, %257
   %259 = getelementptr inbounds float, ptr %32, i64 %258
-  %260 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 1
-  %261 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 2
-  %262 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 3
+  %260 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 1
+  %261 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 2
+  %262 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 3
   %263 = load <4 x float>, ptr %259, align 4, !tbaa !27
-  store <4 x float> %263, ptr %"inv_X8$5.017", align 16, !tbaa !30
+  store <4 x float> %263, ptr %"inv_X8$5.08", align 16, !tbaa !30
   %264 = sub nsw i64 4, %254
   %265 = sub nsw i64 %264, %256
   %266 = getelementptr inbounds float, ptr %32, i64 %265
-  %267 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 4
-  %268 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 5
-  %269 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 6
-  %270 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 7
+  %267 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 4
+  %268 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 5
+  %269 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 6
+  %270 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 7
   %271 = load <4 x float>, ptr %266, align 4, !tbaa !27
   store <4 x float> %271, ptr %267, align 16, !tbaa !30
   %reass.add.1 = sub nsw i64 1, %255
   %reass.mul.1 = mul nsw i64 %reass.add.1, %235
   %272 = sub nsw i64 %reass.mul.1, %254
   %273 = getelementptr inbounds float, ptr %32, i64 %272
-  %274 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 8
-  %275 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 9
-  %276 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 10
-  %277 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 11
+  %274 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 8
+  %275 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 9
+  %276 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 10
+  %277 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 11
   %278 = load <4 x float>, ptr %273, align 4, !tbaa !27
   store <4 x float> %278, ptr %274, align 16, !tbaa !30
   %279 = add nsw i64 %264, %reass.mul.1
   %280 = getelementptr inbounds float, ptr %32, i64 %279
-  %281 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 12
-  %282 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 13
-  %283 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 14
-  %284 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 15
+  %281 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 12
+  %282 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 13
+  %283 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 14
+  %284 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 15
   %285 = load <4 x float>, ptr %280, align 4, !tbaa !27
   store <4 x float> %285, ptr %281, align 16, !tbaa !30
   %reass.add.2 = sub nsw i64 2, %255
   %reass.mul.2 = mul nsw i64 %reass.add.2, %235
   %286 = sub nsw i64 %reass.mul.2, %254
   %287 = getelementptr inbounds float, ptr %32, i64 %286
-  %288 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 16
+  %288 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 16
   %289 = load <4 x float>, ptr %287, align 4, !tbaa !27
   store <4 x float> %289, ptr %288, align 16, !tbaa !30
   %290 = add nsw i64 %264, %reass.mul.2
   %291 = getelementptr inbounds float, ptr %32, i64 %290
-  %292 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 20
+  %292 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 20
   %293 = load <4 x float>, ptr %291, align 4, !tbaa !27
   store <4 x float> %293, ptr %292, align 16, !tbaa !30
   %reass.add.3 = sub nsw i64 3, %255
   %reass.mul.3 = mul nsw i64 %reass.add.3, %235
   %294 = sub nsw i64 %reass.mul.3, %254
   %295 = getelementptr inbounds float, ptr %32, i64 %294
-  %296 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 24
+  %296 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 24
   %297 = load <4 x float>, ptr %295, align 4, !tbaa !27
   store <4 x float> %297, ptr %296, align 16, !tbaa !30
   %298 = add nsw i64 %264, %reass.mul.3
   %299 = getelementptr inbounds float, ptr %32, i64 %298
-  %300 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 28
+  %300 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 28
   %301 = load <4 x float>, ptr %299, align 4, !tbaa !27
   store <4 x float> %301, ptr %300, align 16, !tbaa !30
   %reass.add.4 = sub nsw i64 4, %255
   %reass.mul.4 = mul nsw i64 %reass.add.4, %235
   %302 = sub nsw i64 %reass.mul.4, %254
   %303 = getelementptr inbounds float, ptr %32, i64 %302
-  %304 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 32
-  %305 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 33
-  %306 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 35
+  %304 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 32
+  %305 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 33
+  %306 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 35
   %307 = load <4 x float>, ptr %303, align 4, !tbaa !27
   store <4 x float> %307, ptr %304, align 16, !tbaa !30
   %308 = add nsw i64 %264, %reass.mul.4
   %309 = getelementptr inbounds float, ptr %32, i64 %308
-  %310 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 36
-  %311 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 37
-  %312 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 39
+  %310 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 36
+  %311 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 37
+  %312 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 39
   %313 = load <4 x float>, ptr %309, align 4, !tbaa !27
   store <4 x float> %313, ptr %310, align 16, !tbaa !30
   %reass.add.5 = sub nsw i64 5, %255
   %reass.mul.5 = mul nsw i64 %reass.add.5, %235
   %314 = sub nsw i64 %reass.mul.5, %254
   %315 = getelementptr inbounds float, ptr %32, i64 %314
-  %316 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 40
+  %316 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 40
   %317 = load <4 x float>, ptr %315, align 4, !tbaa !27
   store <4 x float> %317, ptr %316, align 16, !tbaa !30
   %318 = add nsw i64 %264, %reass.mul.5
   %319 = getelementptr inbounds float, ptr %32, i64 %318
-  %320 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 44
+  %320 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 44
   %321 = load <4 x float>, ptr %319, align 4, !tbaa !27
   store <4 x float> %321, ptr %320, align 16, !tbaa !30
   %reass.add.6 = sub nsw i64 6, %255
   %reass.mul.6 = mul nsw i64 %reass.add.6, %235
   %322 = sub nsw i64 %reass.mul.6, %254
   %323 = getelementptr inbounds float, ptr %32, i64 %322
-  %324 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 48
+  %324 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 48
   %325 = load <4 x float>, ptr %323, align 4, !tbaa !27
   store <4 x float> %325, ptr %324, align 16, !tbaa !30
   %326 = add nsw i64 %264, %reass.mul.6
   %327 = getelementptr inbounds float, ptr %32, i64 %326
-  %328 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 52
+  %328 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 52
   %329 = load <4 x float>, ptr %327, align 4, !tbaa !27
   store <4 x float> %329, ptr %328, align 16, !tbaa !30
   %reass.add.7 = sub nsw i64 7, %255
   %reass.mul.7 = mul nsw i64 %reass.add.7, %235
   %330 = sub nsw i64 %reass.mul.7, %254
   %331 = getelementptr inbounds float, ptr %32, i64 %330
-  %332 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 56
+  %332 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 56
   %333 = load <4 x float>, ptr %331, align 4, !tbaa !27
   store <4 x float> %333, ptr %332, align 16, !tbaa !30
   %334 = add nsw i64 %264, %reass.mul.7
   %335 = getelementptr inbounds float, ptr %32, i64 %334
-  %336 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 60
+  %336 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 60
   %337 = load <4 x float>, ptr %335, align 4, !tbaa !27
   store <4 x float> %337, ptr %336, align 16, !tbaa !30
-  %338 = load <4 x float>, ptr %"inv_X8$5.017", align 16, !tbaa !32
+  %338 = load <4 x float>, ptr %"inv_X8$5.08", align 16, !tbaa !32
   %339 = load <4 x float>, ptr %304, align 16, !tbaa !42
   %340 = fadd <4 x float> %338, %339
-  %341 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 32
+  %341 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 32
   %342 = load <4 x float>, ptr %267, align 16, !tbaa !47
   %343 = load <4 x float>, ptr %310, align 16, !tbaa !49
   %344 = fadd <4 x float> %342, %343
   %345 = load <4 x float>, ptr %288, align 16, !tbaa !51
   %346 = load <4 x float>, ptr %324, align 16, !tbaa !55
   %347 = fadd <4 x float> %345, %346
-  %348 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 40
+  %348 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 40
   %349 = load <4 x float>, ptr %292, align 16, !tbaa !59
   %350 = load <4 x float>, ptr %328, align 16, !tbaa !61
   %351 = fadd <4 x float> %349, %350
   %352 = fadd <4 x float> %340, %347
-  %353 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 28
+  %353 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 28
   store <4 x float> %352, ptr %353, align 16, !tbaa !63
   %354 = fadd <4 x float> %344, %351
   %355 = fsub <4 x float> %340, %347
-  %356 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 20
+  %356 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 20
   store <4 x float> %355, ptr %356, align 16, !tbaa !74
   %357 = fsub <4 x float> %344, %351
   %358 = fsub <4 x float> %338, %339
-  %359 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 36
+  %359 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 36
   %360 = fsub <4 x float> %342, %343
   %361 = fsub <4 x float> %349, %350
-  %362 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 44
+  %362 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 44
   %363 = fsub <4 x float> %346, %345
   %364 = fadd <4 x float> %358, %361
-  %365 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 24
+  %365 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 24
   store <4 x float> %364, ptr %365, align 16, !tbaa !77
   %366 = fadd <4 x float> %360, %363
   %367 = fsub <4 x float> %358, %361
-  %368 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 16
+  %368 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 16
   store <4 x float> %367, ptr %368, align 16, !tbaa !79
   %369 = fsub <4 x float> %360, %363
   %370 = load <4 x float>, ptr %274, align 16, !tbaa !81
   %371 = load <4 x float>, ptr %316, align 16, !tbaa !84
   %372 = fadd <4 x float> %370, %371
-  %373 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 48
+  %373 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 48
   %374 = load <4 x float>, ptr %281, align 16, !tbaa !87
   %375 = load <4 x float>, ptr %320, align 16, !tbaa !89
   %376 = fadd <4 x float> %374, %375
   %377 = load <4 x float>, ptr %296, align 16, !tbaa !91
   %378 = load <4 x float>, ptr %332, align 16, !tbaa !94
   %379 = fadd <4 x float> %377, %378
-  %380 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 56
+  %380 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 56
   %381 = load <4 x float>, ptr %300, align 16, !tbaa !97
   %382 = load <4 x float>, ptr %336, align 16, !tbaa !99
   %383 = fadd <4 x float> %381, %382
   %384 = fadd <4 x float> %372, %379
-  %385 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 12
+  %385 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 12
   %386 = fadd <4 x float> %376, %383
   %387 = fsub <4 x float> %376, %383
-  %388 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 4
+  %388 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 4
   %389 = fsub <4 x float> %379, %372
   %390 = fsub <4 x float> %370, %371
-  %391 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 52
+  %391 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 52
   %392 = fsub <4 x float> %374, %375
   %393 = fsub <4 x float> %381, %382
-  %394 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 60
+  %394 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 60
   %395 = fsub <4 x float> %378, %377
   %396 = fadd <4 x float> %390, %393
   %397 = fadd <4 x float> %392, %395
   %398 = fadd <4 x float> %397, %396
   %399 = fmul <4 x float> %398, <float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000>
-  %400 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 8
+  %400 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 8
   %401 = fsub <4 x float> %397, %396
   %402 = fmul <4 x float> %401, <float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000>
   %403 = fsub <4 x float> %393, %390
@@ -832,72 +832,72 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %424 = fsub <4 x float> %367, %406
   store <4 x float> %424, ptr %394, align 16, !tbaa !122
   %425 = fsub <4 x float> %369, %409
-  store <4 x float> %411, ptr %"inv_fft0_S1_R8_n0$2.118", align 16, !tbaa !124
-  %426 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 4
+  store <4 x float> %411, ptr %"inv_fft0_S1_R8_n0$2.19", align 16, !tbaa !124
+  %426 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 4
   store <4 x float> %413, ptr %426, align 16, !tbaa !135
-  %427 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 8
+  %427 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 8
   store <4 x float> %415, ptr %427, align 16, !tbaa !137
-  %428 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 12
+  %428 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 12
   store <4 x float> %417, ptr %428, align 16, !tbaa !140
-  %429 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 16
+  %429 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 16
   store <4 x float> %419, ptr %429, align 16, !tbaa !142
-  %430 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 20
+  %430 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 20
   store <4 x float> %421, ptr %430, align 16, !tbaa !146
-  %431 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 24
+  %431 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 24
   store <4 x float> %423, ptr %431, align 16, !tbaa !148
-  %432 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 28
+  %432 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 28
   store <4 x float> %425, ptr %432, align 16, !tbaa !151
   %433 = fadd <4 x float> %410, %410
-  store <4 x float> %433, ptr %"inv_zipped$2.121.sroa.0", align 16, !tbaa !153
+  store <4 x float> %433, ptr %"inv_zipped$2.112.sroa.0", align 16, !tbaa !153
   %434 = fadd <4 x float> %411, %411
-  %"inv_zipped$2.121.sroa.0.16.sroa_idx641" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 16
-  store <4 x float> %434, ptr %"inv_zipped$2.121.sroa.0.16.sroa_idx641", align 16, !tbaa !153
+  %"inv_zipped$2.112.sroa.0.16.sroa_idx641" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 16
+  store <4 x float> %434, ptr %"inv_zipped$2.112.sroa.0.16.sroa_idx641", align 16, !tbaa !153
   %435 = fadd <4 x float> %412, %424
-  %"inv_zipped$2.121.sroa.25.32.vecblend" = shufflevector <4 x float> %435, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.32.vecblend" = shufflevector <4 x float> %435, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %436 = fsub <4 x float> %413, %425
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.32.vecblend" = shufflevector <4 x float> %436, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.32.vecblend" = shufflevector <4 x float> %436, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %437 = fadd <4 x float> %413, %425
-  %"inv_zipped$2.121.sroa.25.48.vec.expand" = shufflevector <4 x float> %437, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.48.vecblend" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.32.vecblend", <32 x float> %"inv_zipped$2.121.sroa.25.48.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.48.vec.expand" = shufflevector <4 x float> %437, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.48.vecblend" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.32.vecblend", <32 x float> %"inv_zipped$2.112.sroa.25.48.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %438 = fsub <4 x float> %424, %412
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vec.expand" = shufflevector <4 x float> %438, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.32.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vec.expand" = shufflevector <4 x float> %438, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.32.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %439 = fadd <4 x float> %414, %422
-  %"inv_zipped$2.121.sroa.25.64.vec.expand" = shufflevector <4 x float> %439, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.64.vecblend" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.48.vecblend", <32 x float> %"inv_zipped$2.121.sroa.25.64.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.64.vec.expand" = shufflevector <4 x float> %439, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.64.vecblend" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.48.vecblend", <32 x float> %"inv_zipped$2.112.sroa.25.64.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %440 = fsub <4 x float> %415, %423
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vec.expand" = shufflevector <4 x float> %440, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vec.expand" = shufflevector <4 x float> %440, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %441 = fadd <4 x float> %415, %423
-  %"inv_zipped$2.121.sroa.25.80.vec.expand" = shufflevector <4 x float> %441, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.80.vecblend" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.64.vecblend", <32 x float> %"inv_zipped$2.121.sroa.25.80.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.80.vec.expand" = shufflevector <4 x float> %441, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.80.vecblend" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.64.vecblend", <32 x float> %"inv_zipped$2.112.sroa.25.80.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %442 = fsub <4 x float> %422, %414
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vec.expand" = shufflevector <4 x float> %442, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vec.expand" = shufflevector <4 x float> %442, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %443 = fadd <4 x float> %416, %420
-  %"inv_zipped$2.121.sroa.25.96.vec.expand" = shufflevector <4 x float> %443, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.96.vecblend" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.80.vecblend", <32 x float> %"inv_zipped$2.121.sroa.25.96.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.96.vec.expand" = shufflevector <4 x float> %443, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.96.vecblend" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.80.vecblend", <32 x float> %"inv_zipped$2.112.sroa.25.96.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %444 = fsub <4 x float> %417, %421
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vec.expand" = shufflevector <4 x float> %444, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vec.expand" = shufflevector <4 x float> %444, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %445 = fadd <4 x float> %417, %421
-  %"inv_zipped$2.121.sroa.25.112.vec.expand" = shufflevector <4 x float> %445, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.112.vecblend" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.96.vecblend", <32 x float> %"inv_zipped$2.121.sroa.25.112.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.112.vec.expand" = shufflevector <4 x float> %445, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.112.vecblend" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.96.vecblend", <32 x float> %"inv_zipped$2.112.sroa.25.112.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %446 = fsub <4 x float> %420, %416
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vec.expand" = shufflevector <4 x float> %446, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vec.expand" = shufflevector <4 x float> %446, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %447 = fadd <4 x float> %418, %418
-  %"inv_zipped$2.121.sroa.25.128.vec.expand" = shufflevector <4 x float> %447, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.128.vecblend" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.112.vecblend", <32 x float> %"inv_zipped$2.121.sroa.25.128.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.128.vec.expand" = shufflevector <4 x float> %447, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.128.vecblend" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.112.vecblend", <32 x float> %"inv_zipped$2.112.sroa.25.128.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
   %448 = fsub <4 x float> %419, %419
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vec.expand" = shufflevector <4 x float> %448, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vec.expand" = shufflevector <4 x float> %448, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
   %449 = fadd <4 x float> %419, %419
-  %"inv_zipped$2.121.sroa.25.144.vec.expand" = shufflevector <4 x float> %449, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
-  %"inv_zipped$2.121.sroa.25.144.vecblend" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend", <32 x float> %"inv_zipped$2.121.sroa.25.144.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
+  %"inv_zipped$2.112.sroa.25.144.vec.expand" = shufflevector <4 x float> %449, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
+  %"inv_zipped$2.112.sroa.25.144.vecblend" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend", <32 x float> %"inv_zipped$2.112.sroa.25.144.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
   %450 = fsub <4 x float> %418, %418
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vec.expand" = shufflevector <4 x float> %450, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vec.expand" = shufflevector <4 x float> %450, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vecblend" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vecblend", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vec.expand", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
   %451 = fadd <4 x float> %433, %434
   %452 = extractelement <4 x float> %451, i64 0
   %453 = fadd <4 x float> %447, %449
@@ -908,63 +908,63 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %458 = extractelement <4 x float> %447, i64 2
   %459 = extractelement <4 x float> %449, i64 2
   %460 = fadd float %458, %459
-  %461 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 10
+  %461 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 10
   %462 = fadd float %452, %457
   store float %462, ptr %270, align 4, !tbaa !155
-  %463 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 7
+  %463 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 7
   %464 = fsub float %452, %457
   store float %464, ptr %268, align 4, !tbaa !158
   %465 = fsub float %454, %460
-  %466 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 5
+  %466 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 5
   store float %465, ptr %466, align 4, !tbaa !161
   %467 = fsub <4 x float> %433, %434
   %468 = extractelement <4 x float> %467, i64 0
   %469 = fsub <4 x float> %447, %449
   %470 = extractelement <4 x float> %469, i64 0
-  %471 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 9
+  %471 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 9
   %472 = fsub float %458, %459
   %473 = fsub float %456, %455
-  %474 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 11
+  %474 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 11
   %475 = fadd float %468, %472
   store float %475, ptr %269, align 8, !tbaa !167
-  %476 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 6
+  %476 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 6
   %477 = fsub float %468, %472
   store float %477, ptr %267, align 16, !tbaa !169
   %478 = fsub float %470, %473
   store float %478, ptr %388, align 16, !tbaa !171
-  %"inv_zipped$2.121.sroa.0.4.sroa_idx632" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 4
-  %"inv_zipped$2.121.sroa.0.4.inv_zipped$2.121.sroa.0.4." = load float, ptr %"inv_zipped$2.121.sroa.0.4.sroa_idx632", align 4, !tbaa !173
-  %"inv_zipped$2.121.sroa.0.20.sroa_idx646" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 20
-  %"inv_zipped$2.121.sroa.0.20.inv_zipped$2.121.sroa.0.20." = load float, ptr %"inv_zipped$2.121.sroa.0.20.sroa_idx646", align 4, !tbaa !185
-  %479 = fadd float %"inv_zipped$2.121.sroa.0.4.inv_zipped$2.121.sroa.0.4.", %"inv_zipped$2.121.sroa.0.20.inv_zipped$2.121.sroa.0.20."
+  %"inv_zipped$2.112.sroa.0.4.sroa_idx632" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 4
+  %"inv_zipped$2.112.sroa.0.4.inv_zipped$2.112.sroa.0.4." = load float, ptr %"inv_zipped$2.112.sroa.0.4.sroa_idx632", align 4, !tbaa !173
+  %"inv_zipped$2.112.sroa.0.20.sroa_idx646" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 20
+  %"inv_zipped$2.112.sroa.0.20.inv_zipped$2.112.sroa.0.20." = load float, ptr %"inv_zipped$2.112.sroa.0.20.sroa_idx646", align 4, !tbaa !185
+  %479 = fadd float %"inv_zipped$2.112.sroa.0.4.inv_zipped$2.112.sroa.0.4.", %"inv_zipped$2.112.sroa.0.20.inv_zipped$2.112.sroa.0.20."
   %480 = extractelement <4 x float> %447, i64 1
   %481 = extractelement <4 x float> %449, i64 1
   %482 = fadd float %480, %481
-  %"inv_zipped$2.121.sroa.0.12.sroa_idx638" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 12
-  %"inv_zipped$2.121.sroa.0.12.inv_zipped$2.121.sroa.0.12." = load float, ptr %"inv_zipped$2.121.sroa.0.12.sroa_idx638", align 4, !tbaa !189
-  %"inv_zipped$2.121.sroa.0.28.sroa_idx649" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 28
-  %"inv_zipped$2.121.sroa.0.28.inv_zipped$2.121.sroa.0.28." = load float, ptr %"inv_zipped$2.121.sroa.0.28.sroa_idx649", align 4, !tbaa !192
-  %483 = fadd float %"inv_zipped$2.121.sroa.0.12.inv_zipped$2.121.sroa.0.12.", %"inv_zipped$2.121.sroa.0.28.inv_zipped$2.121.sroa.0.28."
-  %"inv_zipped$2.121.sroa.25.140.vec.extract" = extractelement <4 x float> %447, i64 3
-  %"inv_zipped$2.121.sroa.25.156.vec.extract" = extractelement <4 x float> %449, i64 3
-  %484 = fadd float %"inv_zipped$2.121.sroa.25.140.vec.extract", %"inv_zipped$2.121.sroa.25.156.vec.extract"
-  %485 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 14
+  %"inv_zipped$2.112.sroa.0.12.sroa_idx638" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 12
+  %"inv_zipped$2.112.sroa.0.12.inv_zipped$2.112.sroa.0.12." = load float, ptr %"inv_zipped$2.112.sroa.0.12.sroa_idx638", align 4, !tbaa !189
+  %"inv_zipped$2.112.sroa.0.28.sroa_idx649" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 28
+  %"inv_zipped$2.112.sroa.0.28.inv_zipped$2.112.sroa.0.28." = load float, ptr %"inv_zipped$2.112.sroa.0.28.sroa_idx649", align 4, !tbaa !192
+  %483 = fadd float %"inv_zipped$2.112.sroa.0.12.inv_zipped$2.112.sroa.0.12.", %"inv_zipped$2.112.sroa.0.28.inv_zipped$2.112.sroa.0.28."
+  %"inv_zipped$2.112.sroa.25.140.vec.extract" = extractelement <4 x float> %447, i64 3
+  %"inv_zipped$2.112.sroa.25.156.vec.extract" = extractelement <4 x float> %449, i64 3
+  %484 = fadd float %"inv_zipped$2.112.sroa.25.140.vec.extract", %"inv_zipped$2.112.sroa.25.156.vec.extract"
+  %485 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 14
   %486 = fadd float %479, %483
   store float %486, ptr %262, align 4, !tbaa !195
   %487 = fadd float %482, %484
-  %488 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 3
+  %488 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 3
   store float %487, ptr %488, align 4, !tbaa !198
   %489 = fsub float %482, %484
   store float %489, ptr %260, align 4, !tbaa !202
   %490 = fsub float %483, %479
-  %491 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 1
+  %491 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 1
   store float %490, ptr %491, align 4, !tbaa !205
-  %492 = fsub float %"inv_zipped$2.121.sroa.0.4.inv_zipped$2.121.sroa.0.4.", %"inv_zipped$2.121.sroa.0.20.inv_zipped$2.121.sroa.0.20."
+  %492 = fsub float %"inv_zipped$2.112.sroa.0.4.inv_zipped$2.112.sroa.0.4.", %"inv_zipped$2.112.sroa.0.20.inv_zipped$2.112.sroa.0.20."
   %493 = fsub float %480, %481
-  %494 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 13
-  %495 = fsub float %"inv_zipped$2.121.sroa.25.140.vec.extract", %"inv_zipped$2.121.sroa.25.156.vec.extract"
-  %496 = fsub float %"inv_zipped$2.121.sroa.0.28.inv_zipped$2.121.sroa.0.28.", %"inv_zipped$2.121.sroa.0.12.inv_zipped$2.121.sroa.0.12."
-  %497 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 15
+  %494 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 13
+  %495 = fsub float %"inv_zipped$2.112.sroa.25.140.vec.extract", %"inv_zipped$2.112.sroa.25.156.vec.extract"
+  %496 = fsub float %"inv_zipped$2.112.sroa.0.28.inv_zipped$2.112.sroa.0.28.", %"inv_zipped$2.112.sroa.0.12.inv_zipped$2.112.sroa.0.12."
+  %497 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 15
   %498 = fadd float %492, %495
   %499 = fadd float %493, %496
   %500 = fadd float %499, %498
@@ -972,17 +972,17 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   store float %501, ptr %261, align 8, !tbaa !208
   %502 = fsub float %499, %498
   %503 = fmul float %502, 0x3FE6A09E60000000
-  %504 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 2
+  %504 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 2
   store float %503, ptr %504, align 8, !tbaa !210
   %505 = fsub float %495, %492
   %506 = fsub float %493, %496
   %507 = fadd float %506, %505
   %508 = fmul float %507, 0x3FE6A09E60000000
-  store float %508, ptr %"inv_X8$5.017", align 16, !tbaa !212
+  store float %508, ptr %"inv_X8$5.08", align 16, !tbaa !212
   %509 = fsub float %496, %493
   %510 = fadd float %509, %505
   %511 = fmul float %510, 0x3FE6A09E60000000
-  store float %511, ptr %"inv_X8$5.116", align 16, !tbaa !214
+  store float %511, ptr %"inv_X8$5.17", align 16, !tbaa !214
   %512 = fadd float %462, %486
   store float %512, ptr %274, align 16, !tbaa !216
   %513 = fadd float %475, %501
@@ -1008,11 +1008,11 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %523 = fsub float %478, %511
   store float %523, ptr %497, align 4, !tbaa !247
   %524 = fmul float %512, 5.000000e-01
-  store float %524, ptr %"kernel_fft0_S1_R8_n0$2.023", align 16, !tbaa !249
+  store float %524, ptr %"kernel_fft0_S1_R8_n0$2.014", align 16, !tbaa !249
   %525 = fmul float %513, 5.000000e-01
-  %526 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 1
+  %526 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 1
   store float %525, ptr %526, align 4, !tbaa !262
-  %527 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 1
+  %527 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 1
   %528 = shufflevector <4 x float> %453, <4 x float> %469, <2 x i32> <i32 0, i32 4>
   %529 = insertelement <2 x float> poison, float %460, i64 0
   %530 = insertelement <2 x float> %529, float %473, i64 1
@@ -1029,27 +1029,27 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %538 = extractelement <2 x float> %536, i64 1
   store float %538, ptr %471, align 4, !tbaa !272
   %539 = fmul <2 x float> %536, <float 5.000000e-01, float 5.000000e-01>
-  store <2 x float> %539, ptr %"kernel_fft0_S1_R8_n0$2.122", align 16, !tbaa !274
+  store <2 x float> %539, ptr %"kernel_fft0_S1_R8_n0$2.113", align 16, !tbaa !274
   %540 = fmul float %514, 5.000000e-01
-  %541 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 2
+  %541 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 2
   store float %540, ptr %541, align 8, !tbaa !286
   %542 = fmul float %515, 5.000000e-01
-  %543 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 2
+  %543 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 2
   store float %542, ptr %543, align 8, !tbaa !289
   %544 = fmul float %516, 5.000000e-01
-  %545 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 3
+  %545 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 3
   store float %544, ptr %545, align 4, !tbaa !292
   %546 = fmul float %517, 5.000000e-01
-  %547 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 3
+  %547 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 3
   store float %546, ptr %547, align 4, !tbaa !294
   %548 = fmul float %518, 5.000000e-01
-  %549 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 4
+  %549 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 4
   store float %548, ptr %549, align 16, !tbaa !296
-  %550 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 4
+  %550 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 4
   %551 = fmul float %519, 5.000000e-01
-  %552 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 5
+  %552 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 5
   store float %551, ptr %552, align 4, !tbaa !300
-  %553 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 5
+  %553 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 5
   %554 = fsub <2 x float> %531, %535
   %555 = extractelement <2 x float> %554, i64 0
   store float %555, ptr %385, align 16, !tbaa !302
@@ -1058,34 +1058,34 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %557 = fmul <2 x float> %554, <float 5.000000e-01, float 5.000000e-01>
   store <2 x float> %557, ptr %550, align 16, !tbaa !307
   %558 = fmul float %520, 5.000000e-01
-  %559 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 6
+  %559 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 6
   store float %558, ptr %559, align 8, !tbaa !310
   %560 = fmul float %521, 5.000000e-01
-  %561 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 6
+  %561 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 6
   store float %560, ptr %561, align 8, !tbaa !313
   %562 = fmul float %522, 5.000000e-01
-  %563 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 7
+  %563 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 7
   store float %562, ptr %563, align 4, !tbaa !316
   %564 = fmul float %523, 5.000000e-01
-  %565 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 7
+  %565 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 7
   store float %564, ptr %565, align 4, !tbaa !318
-  %strided.vec = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
-  %strided.vec487 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
-  %strided.vec488 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
-  %strided.vec489 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
-  %strided.vec490 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
-  %strided.vec491 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
-  %strided.vec492 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
-  %strided.vec493 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
+  %strided.vec = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
+  %strided.vec487 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
+  %strided.vec488 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
+  %strided.vec489 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
+  %strided.vec490 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
+  %strided.vec491 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
+  %strided.vec492 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
+  %strided.vec493 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
   %566 = fadd <4 x float> %strided.vec, %strided.vec490
-  %strided.vec495 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
-  %strided.vec496 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
-  %strided.vec497 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
-  %strided.vec498 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
-  %strided.vec499 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
-  %strided.vec500 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
-  %strided.vec501 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
-  %strided.vec502 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
+  %strided.vec495 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
+  %strided.vec496 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
+  %strided.vec497 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
+  %strided.vec498 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.128.vecblend", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
+  %strided.vec499 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
+  %strided.vec500 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
+  %strided.vec501 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
+  %strided.vec502 = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vecblend", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
   %567 = fadd <4 x float> %strided.vec495, %strided.vec499
   %568 = fadd <4 x float> %strided.vec488, %strided.vec492
   %569 = fadd <4 x float> %strided.vec497, %strided.vec501
@@ -1157,7 +1157,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %635 = fmul <4 x float> %619, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
   %636 = fmul <4 x float> %620, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
   %637 = fmul <4 x float> %621, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
-  %638 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 8
+  %638 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 8
   %639 = shufflevector <4 x float> %623, <4 x float> %625, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
   %640 = shufflevector <4 x float> %627, <4 x float> %629, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
   %641 = shufflevector <4 x float> %631, <4 x float> %633, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
@@ -1167,7 +1167,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %interleaved.vec = shufflevector <16 x float> %643, <16 x float> %644, <32 x i32> <i32 0, i32 4, i32 8, i32 12, i32 16, i32 20, i32 24, i32 28, i32 1, i32 5, i32 9, i32 13, i32 17, i32 21, i32 25, i32 29, i32 2, i32 6, i32 10, i32 14, i32 18, i32 22, i32 26, i32 30, i32 3, i32 7, i32 11, i32 15, i32 19, i32 23, i32 27, i32 31>
   store <32 x float> %interleaved.vec, ptr %638, align 16, !tbaa !320
   %645 = fmul <4 x float> %622, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
-  %646 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 8
+  %646 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 8
   %647 = shufflevector <4 x float> %624, <4 x float> %626, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
   %648 = shufflevector <4 x float> %628, <4 x float> %630, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
   %649 = shufflevector <4 x float> %632, <4 x float> %634, <8 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7>
@@ -1176,33 +1176,33 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %652 = shufflevector <8 x float> %649, <8 x float> %650, <16 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15>
   %interleaved.vec503 = shufflevector <16 x float> %651, <16 x float> %652, <32 x i32> <i32 0, i32 4, i32 8, i32 12, i32 16, i32 20, i32 24, i32 28, i32 1, i32 5, i32 9, i32 13, i32 17, i32 21, i32 25, i32 29, i32 2, i32 6, i32 10, i32 14, i32 18, i32 22, i32 26, i32 30, i32 3, i32 7, i32 11, i32 15, i32 19, i32 23, i32 27, i32 31>
   store <32 x float> %interleaved.vec503, ptr %646, align 16, !tbaa !321
-  %653 = load float, ptr %"kernel_fft0_S1_R8_n0$2.122", align 16, !tbaa !322
-  %654 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 32
+  %653 = load float, ptr %"kernel_fft0_S1_R8_n0$2.113", align 16, !tbaa !322
+  %654 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 32
   store float %653, ptr %654, align 16, !tbaa !324
-  %655 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 32
+  %655 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 32
   store float 0.000000e+00, ptr %655, align 16, !tbaa !331
   %656 = load <4 x float>, ptr %527, align 4, !tbaa !338
   %657 = load <4 x float>, ptr %550, align 16, !tbaa !339
   %658 = shufflevector <4 x float> %657, <4 x float> undef, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
   %659 = fadd <4 x float> %656, %658
   %660 = fmul <4 x float> %659, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
-  %661 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 33
+  %661 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 33
   store <4 x float> %660, ptr %661, align 4, !tbaa !340
   %662 = load <4 x float>, ptr %549, align 16, !tbaa !341
   %663 = shufflevector <4 x float> %662, <4 x float> undef, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
   %664 = load <4 x float>, ptr %526, align 4, !tbaa !342
   %665 = fsub <4 x float> %663, %664
   %666 = fmul <4 x float> %665, <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
-  %667 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 33
+  %667 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 33
   store <4 x float> %666, ptr %667, align 4, !tbaa !343
   %"kernel_fft0_S1_R8_n0$2.0.value.x4" = shufflevector <4 x float> %660, <4 x float> undef, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
   %668 = fsub <4 x float> zeroinitializer, %666
   %"kernel_fft0_S1_R8_n0$2.1.value.x4" = shufflevector <4 x float> %668, <4 x float> poison, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
-  %669 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 36
+  %669 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 36
   store <4 x float> %"kernel_fft0_S1_R8_n0$2.0.value.x4", ptr %669, align 16, !tbaa !344
-  %670 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 36
+  %670 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 36
   store <4 x float> %"kernel_fft0_S1_R8_n0$2.1.value.x4", ptr %670, align 16, !tbaa !346
-  store float 0.000000e+00, ptr %"kernel_fft0_S1_R8_n0$2.122", align 16, !tbaa !322
+  store float 0.000000e+00, ptr %"kernel_fft0_S1_R8_n0$2.113", align 16, !tbaa !322
   %"kernel_fft0_S1_R8_n0$2.0.value.s.x4" = fadd <4 x float> %664, %663
   %"kernel_fft0_S1_R8_n0$2.1.value.s.x4" = fsub <4 x float> %656, %658
   %671 = fmul <4 x float> %"kernel_fft0_S1_R8_n0$2.0.value.s.x4", <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
@@ -1229,68 +1229,68 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %679 = sext i32 %t6928 to i64
   %680 = shl nsw i64 %221, 2
   %681 = sub nsw i64 %680, %679
-  %682 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 32
-  %683 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 32
+  %682 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 32
+  %683 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 32
   %684 = shl nsw i64 %221, 1
   %685 = sub nsw i64 %684, %679
   %686 = mul nsw i64 %221, 6
   %687 = sub nsw i64 %686, %679
-  %688 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 40
-  %689 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 40
-  %690 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 28
-  %691 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 28
-  %692 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 20
-  %693 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 20
-  %694 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 36
-  %695 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 36
-  %696 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 44
-  %697 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 44
-  %698 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 24
-  %699 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 24
-  %700 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 16
-  %701 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 16
+  %688 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 40
+  %689 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 40
+  %690 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 28
+  %691 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 28
+  %692 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 20
+  %693 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 20
+  %694 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 36
+  %695 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 36
+  %696 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 44
+  %697 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 44
+  %698 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 24
+  %699 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 24
+  %700 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 16
+  %701 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 16
   %702 = sub nsw i64 %221, %679
   %703 = mul nsw i64 %221, 5
   %704 = sub nsw i64 %703, %679
-  %705 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 48
-  %706 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 48
+  %705 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 48
+  %706 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 48
   %707 = mul nsw i64 %221, 3
   %708 = sub nsw i64 %707, %679
   %709 = mul nsw i64 %221, 7
   %710 = sub nsw i64 %709, %679
-  %711 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 56
-  %712 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 56
-  %713 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 12
-  %714 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 12
-  %715 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 4
-  %716 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 4
-  %717 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 52
-  %718 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 52
-  %719 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 60
-  %720 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 60
-  %721 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 8
-  %722 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 8
-  %723 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 10
-  %724 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 7
-  %725 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 5
-  %726 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 9
-  %727 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 11
-  %728 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 6
-  %729 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 14
-  %730 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 3
-  %731 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 1
-  %732 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 13
-  %733 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 15
-  %734 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 2
-  %735 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 10
-  %736 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 10
-  %737 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 6
-  %738 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 6
-  %739 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 14
-  %740 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 14
-  %741 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 2
-  %742 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 2
-  %743 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 33
+  %711 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 56
+  %712 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 56
+  %713 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 12
+  %714 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 12
+  %715 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 4
+  %716 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 4
+  %717 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 52
+  %718 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 52
+  %719 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 60
+  %720 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 60
+  %721 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 8
+  %722 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 8
+  %723 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 10
+  %724 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 7
+  %725 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 5
+  %726 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 9
+  %727 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 11
+  %728 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 6
+  %729 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 14
+  %730 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 3
+  %731 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 1
+  %732 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 13
+  %733 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 15
+  %734 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 2
+  %735 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 10
+  %736 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 10
+  %737 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 6
+  %738 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 6
+  %739 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 14
+  %740 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 14
+  %741 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 2
+  %742 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 2
+  %743 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 33
   %744 = icmp sgt i32 %68, -1
   %745 = add nsw i32 %70, %68
   %746 = icmp slt i32 %745, 9
@@ -1298,19 +1298,19 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %748 = icmp sgt i32 %84, -1
   %749 = icmp slt i32 %82, 9
   %750 = and i1 %749, %748
-  %751 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 34
-  %752 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 34
-  %753 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 38
-  %754 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 38
-  %755 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 37
-  %756 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 37
-  %757 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 37
-  %758 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 35
-  %759 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 35
-  %760 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 35
-  %761 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 39
-  %762 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 39
-  %763 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 39
+  %751 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 34
+  %752 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 34
+  %753 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 38
+  %754 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 38
+  %755 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 37
+  %756 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 37
+  %757 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 37
+  %758 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 35
+  %759 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 35
+  %760 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 35
+  %761 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 39
+  %762 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 39
+  %763 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 39
   %764 = icmp sgt i32 %70, 0
   %a39 = ashr i32 %64, 2
   %765 = icmp sgt i32 %64, 3
@@ -1324,23 +1324,23 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %773 = add nsw i64 %772, -4
   %774 = add nsw i64 %220, -4
   %775 = zext i32 %a39 to i64
-  %"inv_zipped$2.121.sroa.0.16.sroa_idx642" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 16
-  %776 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 8
-  %777 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 8
-  %"inv_zipped$2.121.sroa.0.28.sroa_idx650" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 28
-  %"inv_zipped$2.121.sroa.0.12.sroa_idx637" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 12
-  %"inv_zipped$2.121.sroa.0.8.sroa_idx635" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 8
-  %"inv_zipped$2.121.sroa.0.12.sroa_idx639" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 12
-  %"inv_zipped$2.121.sroa.0.4.sroa_idx633" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 4
-  %"inv_zipped$2.121.sroa.0.16.sroa_idx644" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 16
-  %"inv_zipped$2.121.sroa.0.28.sroa_idx651" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 28
-  %"inv_zipped$2.121.sroa.0.20.sroa_idx647" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 20
-  %"inv_zipped$2.121.sroa.0.24.sroa_idx648" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 24
-  %"inv_zipped$2.121.sroa.0.16.sroa_idx645" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 16
-  %"inv_zipped$2.121.sroa.0.12.sroa_idx640" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 12
-  %"inv_zipped$2.121.sroa.0.4.sroa_idx634" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 4
-  %"inv_zipped$2.121.sroa.0.8.sroa_idx636" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 8
-  %"inv_zipped$2.121.sroa.0.16.sroa_idx643" = getelementptr inbounds i8, ptr %"inv_zipped$2.121.sroa.0", i64 16
+  %"inv_zipped$2.112.sroa.0.16.sroa_idx642" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 16
+  %776 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 8
+  %777 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 8
+  %"inv_zipped$2.112.sroa.0.28.sroa_idx650" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 28
+  %"inv_zipped$2.112.sroa.0.12.sroa_idx637" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 12
+  %"inv_zipped$2.112.sroa.0.8.sroa_idx635" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 8
+  %"inv_zipped$2.112.sroa.0.12.sroa_idx639" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 12
+  %"inv_zipped$2.112.sroa.0.4.sroa_idx633" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 4
+  %"inv_zipped$2.112.sroa.0.16.sroa_idx644" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 16
+  %"inv_zipped$2.112.sroa.0.28.sroa_idx651" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 28
+  %"inv_zipped$2.112.sroa.0.20.sroa_idx647" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 20
+  %"inv_zipped$2.112.sroa.0.24.sroa_idx648" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 24
+  %"inv_zipped$2.112.sroa.0.16.sroa_idx645" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 16
+  %"inv_zipped$2.112.sroa.0.12.sroa_idx640" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 12
+  %"inv_zipped$2.112.sroa.0.4.sroa_idx634" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 4
+  %"inv_zipped$2.112.sroa.0.8.sroa_idx636" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 8
+  %"inv_zipped$2.112.sroa.0.16.sroa_idx643" = getelementptr inbounds i8, ptr %"inv_zipped$2.112.sroa.0", i64 16
   %xtraiter = and i64 %775, 1
   %778 = icmp eq i32 %a39, 1
   %unroll_iter = and i64 %775, 4294967294
@@ -1348,7 +1348,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   br label %"for result$2.s0.i"
 
 "for result$2.s0.i":                              ; preds = %"for result$2.s0.i.preheader", %"end for result$2.s0.n1"
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.0" = phi <32 x float> [ %"inv_fft1_S1_R8_n1$2.120.sroa.14.144.vecblend", %"for result$2.s0.i.preheader" ], [ %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vecblend674", %"end for result$2.s0.n1" ]
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.0" = phi <32 x float> [ %"inv_fft1_S1_R8_n1$2.111.sroa.14.144.vecblend", %"for result$2.s0.i.preheader" ], [ %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vecblend674", %"end for result$2.s0.n1" ]
   %indvars.iv246 = phi i64 [ %771, %"for result$2.s0.i.preheader" ], [ %indvars.iv.next247, %"end for result$2.s0.n1" ]
   %779 = mul nsw i64 %indvars.iv246, %228
   %780 = sub nsw i64 %779, %679
@@ -1451,7 +1451,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %866 = fsub <4 x float> %855, %853
   %867 = fadd <4 x float> %866, %862
   %868 = fmul <4 x float> %867, <float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000>
-  store <4 x float> %868, ptr %"inv_fft0_S1_R8_n0$2.013", align 16, !tbaa !395
+  store <4 x float> %868, ptr %"inv_fft0_S1_R8_n0$2.04", align 16, !tbaa !395
   %869 = fadd <4 x float> %808, %848
   store <4 x float> %869, ptr %682, align 16, !tbaa !397
   %870 = fadd <4 x float> %809, %849
@@ -1484,7 +1484,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   store <4 x float> %883, ptr %719, align 16, !tbaa !439
   %884 = fsub <4 x float> %819, %868
   store <4 x float> %884, ptr %720, align 16, !tbaa !441
-  store <4 x float> %869, ptr %"inv_fft0_S1_R8_n0$2.118", align 16, !tbaa !124
+  store <4 x float> %869, ptr %"inv_fft0_S1_R8_n0$2.19", align 16, !tbaa !124
   store <4 x float> %871, ptr %426, align 16, !tbaa !135
   store <4 x float> %873, ptr %427, align 16, !tbaa !137
   store <4 x float> %875, ptr %428, align 16, !tbaa !140
@@ -1494,56 +1494,56 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   store <4 x float> %883, ptr %432, align 16, !tbaa !151
   %885 = fadd <4 x float> %869, %869
   %886 = fsub <4 x float> %870, %870
-  store <4 x float> %886, ptr %"inv_zipped$2.121.sroa.0", align 16, !tbaa !153
+  store <4 x float> %886, ptr %"inv_zipped$2.112.sroa.0", align 16, !tbaa !153
   %887 = fadd <4 x float> %870, %870
   %888 = fsub <4 x float> %869, %869
-  store <4 x float> %888, ptr %"inv_zipped$2.121.sroa.0.16.sroa_idx642", align 16, !tbaa !153
+  store <4 x float> %888, ptr %"inv_zipped$2.112.sroa.0.16.sroa_idx642", align 16, !tbaa !153
   %889 = fadd <4 x float> %871, %883
-  %"inv_zipped$2.015.sroa.29.32.vec.expand700" = shufflevector <4 x float> %889, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.32.vec.expand700" = shufflevector <4 x float> %889, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %890 = fsub <4 x float> %872, %884
-  %"inv_zipped$2.121.sroa.25.32.vec.expand583" = shufflevector <4 x float> %890, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.32.vec.expand583" = shufflevector <4 x float> %890, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %891 = fadd <4 x float> %872, %884
-  %"inv_zipped$2.015.sroa.29.48.vec.expand714" = shufflevector <4 x float> %891, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.015.sroa.29.48.vecblend715" = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.32.vec.expand700", <32 x float> %"inv_zipped$2.015.sroa.29.48.vec.expand714", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.48.vec.expand714" = shufflevector <4 x float> %891, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.48.vecblend715" = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.32.vec.expand700", <32 x float> %"inv_zipped$2.06.sroa.29.48.vec.expand714", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %892 = fsub <4 x float> %883, %871
-  %"inv_zipped$2.121.sroa.25.48.vec.expand593" = shufflevector <4 x float> %892, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.48.vecblend594" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.32.vec.expand583", <32 x float> %"inv_zipped$2.121.sroa.25.48.vec.expand593", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.48.vec.expand593" = shufflevector <4 x float> %892, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.48.vecblend594" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.32.vec.expand583", <32 x float> %"inv_zipped$2.112.sroa.25.48.vec.expand593", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %893 = fadd <4 x float> %873, %881
-  %"inv_zipped$2.015.sroa.29.64.vec.expand731" = shufflevector <4 x float> %893, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.015.sroa.29.64.vecblend732" = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.48.vecblend715", <32 x float> %"inv_zipped$2.015.sroa.29.64.vec.expand731", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.64.vec.expand731" = shufflevector <4 x float> %893, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.64.vecblend732" = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.48.vecblend715", <32 x float> %"inv_zipped$2.06.sroa.29.64.vec.expand731", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %894 = fsub <4 x float> %874, %882
-  %"inv_zipped$2.121.sroa.25.64.vec.expand606" = shufflevector <4 x float> %894, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.64.vecblend607" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.48.vecblend594", <32 x float> %"inv_zipped$2.121.sroa.25.64.vec.expand606", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.64.vec.expand606" = shufflevector <4 x float> %894, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.64.vecblend607" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.48.vecblend594", <32 x float> %"inv_zipped$2.112.sroa.25.64.vec.expand606", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %895 = fadd <4 x float> %874, %882
-  %"inv_zipped$2.015.sroa.29.80.vec.expand734" = shufflevector <4 x float> %895, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.015.sroa.29.80.vecblend735" = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.64.vecblend732", <32 x float> %"inv_zipped$2.015.sroa.29.80.vec.expand734", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.80.vec.expand734" = shufflevector <4 x float> %895, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.80.vecblend735" = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.64.vecblend732", <32 x float> %"inv_zipped$2.06.sroa.29.80.vec.expand734", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %896 = fsub <4 x float> %881, %873
-  %"inv_zipped$2.121.sroa.25.80.vec.expand609" = shufflevector <4 x float> %896, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.80.vecblend610" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.64.vecblend607", <32 x float> %"inv_zipped$2.121.sroa.25.80.vec.expand609", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.80.vec.expand609" = shufflevector <4 x float> %896, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.80.vecblend610" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.64.vecblend607", <32 x float> %"inv_zipped$2.112.sroa.25.80.vec.expand609", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %897 = fadd <4 x float> %875, %879
-  %"inv_zipped$2.015.sroa.29.96.vec.expand740" = shufflevector <4 x float> %897, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.015.sroa.29.96.vecblend741" = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.80.vecblend735", <32 x float> %"inv_zipped$2.015.sroa.29.96.vec.expand740", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.96.vec.expand740" = shufflevector <4 x float> %897, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.96.vecblend741" = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.80.vecblend735", <32 x float> %"inv_zipped$2.06.sroa.29.96.vec.expand740", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %898 = fsub <4 x float> %876, %880
-  %"inv_zipped$2.121.sroa.25.96.vec.expand615" = shufflevector <4 x float> %898, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.96.vecblend616" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.80.vecblend610", <32 x float> %"inv_zipped$2.121.sroa.25.96.vec.expand615", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.96.vec.expand615" = shufflevector <4 x float> %898, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.96.vecblend616" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.80.vecblend610", <32 x float> %"inv_zipped$2.112.sroa.25.96.vec.expand615", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %899 = fadd <4 x float> %876, %880
-  %"inv_zipped$2.015.sroa.29.112.vec.expand746" = shufflevector <4 x float> %899, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.015.sroa.29.112.vecblend747" = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.96.vecblend741", <32 x float> %"inv_zipped$2.015.sroa.29.112.vec.expand746", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.112.vec.expand746" = shufflevector <4 x float> %899, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.112.vecblend747" = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.96.vecblend741", <32 x float> %"inv_zipped$2.06.sroa.29.112.vec.expand746", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %900 = fsub <4 x float> %879, %875
-  %"inv_zipped$2.121.sroa.25.112.vec.expand621" = shufflevector <4 x float> %900, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.112.vecblend622" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.96.vecblend616", <32 x float> %"inv_zipped$2.121.sroa.25.112.vec.expand621", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.112.vec.expand621" = shufflevector <4 x float> %900, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.112.vecblend622" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.96.vecblend616", <32 x float> %"inv_zipped$2.112.sroa.25.112.vec.expand621", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
   %901 = fadd <4 x float> %877, %877
-  %"inv_zipped$2.015.sroa.29.128.vec.expand752" = shufflevector <4 x float> %901, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.015.sroa.29.128.vecblend753" = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.112.vecblend747", <32 x float> %"inv_zipped$2.015.sroa.29.128.vec.expand752", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.128.vec.expand752" = shufflevector <4 x float> %901, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.06.sroa.29.128.vecblend753" = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.112.vecblend747", <32 x float> %"inv_zipped$2.06.sroa.29.128.vec.expand752", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
   %902 = fsub <4 x float> %878, %878
-  %"inv_zipped$2.121.sroa.25.128.vec.expand627" = shufflevector <4 x float> %902, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_zipped$2.121.sroa.25.128.vecblend628" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.112.vecblend622", <32 x float> %"inv_zipped$2.121.sroa.25.128.vec.expand627", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.128.vec.expand627" = shufflevector <4 x float> %902, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_zipped$2.112.sroa.25.128.vecblend628" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.112.vecblend622", <32 x float> %"inv_zipped$2.112.sroa.25.128.vec.expand627", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 56, i32 57, i32 58, i32 59, i32 poison, i32 poison, i32 poison, i32 poison>
   %903 = fadd <4 x float> %878, %878
-  %"inv_zipped$2.015.sroa.29.144.vec.expand755" = shufflevector <4 x float> %903, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
-  %"inv_zipped$2.015.sroa.29.144.vecblend756" = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.128.vecblend753", <32 x float> %"inv_zipped$2.015.sroa.29.144.vec.expand755", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
+  %"inv_zipped$2.06.sroa.29.144.vec.expand755" = shufflevector <4 x float> %903, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
+  %"inv_zipped$2.06.sroa.29.144.vecblend756" = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.128.vecblend753", <32 x float> %"inv_zipped$2.06.sroa.29.144.vec.expand755", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
   %904 = fsub <4 x float> %877, %877
-  %"inv_zipped$2.121.sroa.25.144.vec.expand630" = shufflevector <4 x float> %904, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
-  %"inv_zipped$2.121.sroa.25.144.vecblend631" = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend628", <32 x float> %"inv_zipped$2.121.sroa.25.144.vec.expand630", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
+  %"inv_zipped$2.112.sroa.25.144.vec.expand630" = shufflevector <4 x float> %904, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3>
+  %"inv_zipped$2.112.sroa.25.144.vecblend631" = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend628", <32 x float> %"inv_zipped$2.112.sroa.25.144.vec.expand630", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 20, i32 21, i32 22, i32 23, i32 24, i32 25, i32 26, i32 27, i32 60, i32 61, i32 62, i32 63>
   %905 = fadd <4 x float> %885, %887
   %906 = extractelement <4 x float> %905, i64 0
   %907 = fadd <4 x float> %901, %903
@@ -1577,9 +1577,9 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %931 = extractelement <4 x float> %885, i64 1
   %932 = extractelement <4 x float> %887, i64 1
   %933 = fadd float %931, %932
-  %"inv_zipped$2.015.sroa.0.12.vec.extract" = extractelement <4 x float> %885, i64 3
-  %"inv_zipped$2.015.sroa.14.28.vec.extract" = extractelement <4 x float> %887, i64 3
-  %934 = fadd float %"inv_zipped$2.015.sroa.0.12.vec.extract", %"inv_zipped$2.015.sroa.14.28.vec.extract"
+  %"inv_zipped$2.06.sroa.0.12.vec.extract" = extractelement <4 x float> %885, i64 3
+  %"inv_zipped$2.06.sroa.14.28.vec.extract" = extractelement <4 x float> %887, i64 3
+  %934 = fadd float %"inv_zipped$2.06.sroa.0.12.vec.extract", %"inv_zipped$2.06.sroa.14.28.vec.extract"
   %935 = extractelement <4 x float> %901, i64 3
   %936 = extractelement <4 x float> %903, i64 3
   %937 = fadd float %935, %936
@@ -1590,7 +1590,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %941 = fsub <4 x float> %901, %903
   %942 = extractelement <4 x float> %941, i64 1
   %943 = fsub float %935, %936
-  %944 = fsub float %"inv_zipped$2.015.sroa.14.28.vec.extract", %"inv_zipped$2.015.sroa.0.12.vec.extract"
+  %944 = fsub float %"inv_zipped$2.06.sroa.14.28.vec.extract", %"inv_zipped$2.06.sroa.0.12.vec.extract"
   %945 = fadd float %940, %943
   %946 = fadd float %942, %944
   %947 = fadd float %946, %945
@@ -1603,7 +1603,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %953 = fsub float %944, %942
   %954 = fadd float %953, %951
   %955 = fmul float %954, 0x3FE6A09E60000000
-  store float %955, ptr %"inv_unzipped$214", align 16, !tbaa !463
+  store float %955, ptr %"inv_unzipped$25", align 16, !tbaa !463
   %956 = fadd float %915, %938
   %957 = fadd float %925, %948
   %958 = load float, ptr %724, align 4, !tbaa !443
@@ -1612,7 +1612,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %961 = fsub float %960, %955
   store float %961, ptr %733, align 4, !tbaa !465
   %962 = fmul float %956, 5.000000e-01
-  store float %962, ptr %"inv_X8$5.017", align 16, !tbaa !212
+  store float %962, ptr %"inv_X8$5.08", align 16, !tbaa !212
   %963 = fmul float %957, 5.000000e-01
   store float %963, ptr %260, align 4, !tbaa !202
   %964 = insertelement <4 x float> poison, float %917, i64 0
@@ -1646,7 +1646,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   store float %987, ptr %721, align 16, !tbaa !478
   %988 = fsub <2 x float> %929, %986
   %989 = fmul float %987, 5.000000e-01
-  store float %989, ptr %"inv_X8$5.116", align 16, !tbaa !214
+  store float %989, ptr %"inv_X8$5.17", align 16, !tbaa !214
   %990 = insertelement <4 x float> poison, float %926, i64 0
   %991 = insertelement <4 x float> %990, float %918, i64 1
   %992 = insertelement <4 x float> %991, float %930, i64 2
@@ -1680,23 +1680,23 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   store <2 x float> %1013, ptr %269, align 8, !tbaa !493
   %1014 = fmul float %961, 5.000000e-01
   store float %1014, ptr %463, align 4, !tbaa !264
-  %strided.vec513 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
-  %strided.vec514 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
-  %strided.vec515 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
-  %strided.vec516 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
-  %strided.vec517 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
-  %strided.vec518 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
-  %strided.vec519 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
-  %strided.vec520 = shufflevector <32 x float> %"inv_zipped$2.015.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
+  %strided.vec513 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
+  %strided.vec514 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
+  %strided.vec515 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
+  %strided.vec516 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.128.vecblend753", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
+  %strided.vec517 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
+  %strided.vec518 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
+  %strided.vec519 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
+  %strided.vec520 = shufflevector <32 x float> %"inv_zipped$2.06.sroa.29.144.vecblend756", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
   %1015 = fadd <4 x float> %strided.vec513, %strided.vec517
-  %strided.vec522 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
-  %strided.vec523 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
-  %strided.vec524 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
-  %strided.vec525 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
-  %strided.vec526 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
-  %strided.vec527 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
-  %strided.vec528 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
-  %strided.vec529 = shufflevector <32 x float> %"inv_zipped$2.121.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
+  %strided.vec522 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 0, i32 8, i32 16, i32 24>
+  %strided.vec523 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 1, i32 9, i32 17, i32 25>
+  %strided.vec524 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 2, i32 10, i32 18, i32 26>
+  %strided.vec525 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.128.vecblend628", <32 x float> poison, <4 x i32> <i32 3, i32 11, i32 19, i32 27>
+  %strided.vec526 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 4, i32 12, i32 20, i32 28>
+  %strided.vec527 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 5, i32 13, i32 21, i32 29>
+  %strided.vec528 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 6, i32 14, i32 22, i32 30>
+  %strided.vec529 = shufflevector <32 x float> %"inv_zipped$2.112.sroa.25.144.vecblend631", <32 x float> poison, <4 x i32> <i32 7, i32 15, i32 23, i32 31>
   %1016 = fadd <4 x float> %strided.vec522, %strided.vec526
   %1017 = fadd <4 x float> %strided.vec515, %strided.vec519
   %1018 = fadd <4 x float> %strided.vec524, %strided.vec528
@@ -1814,10 +1814,10 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1113 = shufflevector <4 x float> %1048, <4 x float> %1036, <2 x i32> <i32 3, i32 7>
   store <2 x float> %1113, ptr %742, align 8, !tbaa !521
   %1114 = shufflevector <4 x float> %1052, <4 x float> %1037, <2 x i32> <i32 3, i32 7>
-  store <2 x float> %1114, ptr %"inv_fft0_S1_R8_n0$2.013", align 16, !tbaa !523
+  store <2 x float> %1114, ptr %"inv_fft0_S1_R8_n0$2.04", align 16, !tbaa !523
   %1115 = shufflevector <4 x float> %1055, <4 x float> %1038, <2 x i32> <i32 3, i32 7>
-  store <2 x float> %1115, ptr %"inv_fft0_S1_R8_n0$2.118", align 16, !tbaa !525
-  %1116 = load float, ptr %"inv_X8$5.116", align 16, !tbaa !214
+  store <2 x float> %1115, ptr %"inv_fft0_S1_R8_n0$2.19", align 16, !tbaa !525
+  %1116 = load float, ptr %"inv_X8$5.17", align 16, !tbaa !214
   store float %1116, ptr %304, align 16, !tbaa !527
   store float 0.000000e+00, ptr %341, align 16, !tbaa !530
   %1117 = load <4 x float>, ptr %491, align 4, !tbaa !491
@@ -1837,7 +1837,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %"fwd_fft0_S1_R8_n0$2.1.value.x4" = shufflevector <4 x float> %1127, <4 x float> poison, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
   store <4 x float> %"fwd_fft0_S1_R8_n0$2.0.value.x4", ptr %310, align 16, !tbaa !49
   store <4 x float> %"fwd_fft0_S1_R8_n0$2.1.value.x4", ptr %359, align 16, !tbaa !106
-  store float 0.000000e+00, ptr %"inv_X8$5.116", align 16, !tbaa !214
+  store float 0.000000e+00, ptr %"inv_X8$5.17", align 16, !tbaa !214
   %"fwd_fft0_S1_R8_n0$2.0.value.s.x4" = fadd <4 x float> %1124, %1123
   %"fwd_fft0_S1_R8_n0$2.1.value.s.x4" = fsub <4 x float> %1117, %1119
   %1128 = fmul <4 x float> %"fwd_fft0_S1_R8_n0$2.0.value.s.x4", <float 5.000000e-01, float 5.000000e-01, float 5.000000e-01, float 5.000000e-01>
@@ -1872,7 +1872,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   br label %destructor_block
 
 "produce inv_X8$4":                               ; preds = %"assert succeeded93"
-  %1142 = load <2 x float>, ptr %"inv_X8$5.017", align 16, !tbaa !535
+  %1142 = load <2 x float>, ptr %"inv_X8$5.08", align 16, !tbaa !535
   %1143 = load float, ptr %491, align 4, !tbaa !205
   %1144 = load float, ptr %305, align 4, !tbaa !536
   %1145 = load float, ptr %667, align 4, !tbaa !538
@@ -2082,10 +2082,10 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1348 = shufflevector <4 x float> %1127, <4 x float> %1128, <4 x i32> <i32 poison, i32 poison, i32 3, i32 5>
   %1349 = insertelement <4 x float> %1348, float 0.000000e+00, i64 1
   %1350 = insertelement <4 x float> %1349, float %1145, i64 0
-  %1351 = load <2 x float>, ptr %"kernel_fft0_S1_R8_n0$2.023", align 16, !tbaa !591
+  %1351 = load <2 x float>, ptr %"kernel_fft0_S1_R8_n0$2.014", align 16, !tbaa !591
   %1352 = fmul <2 x float> %1142, %1351
   %1353 = extractelement <2 x float> %1352, i64 0
-  %1354 = load <2 x float>, ptr %"kernel_fft0_S1_R8_n0$2.122", align 16, !tbaa !274
+  %1354 = load <2 x float>, ptr %"kernel_fft0_S1_R8_n0$2.113", align 16, !tbaa !274
   %1355 = extractelement <2 x float> %1354, i64 0
   %1356 = fmul float %1355, 0.000000e+00
   %1357 = fsub float %1353, %1356
@@ -2162,7 +2162,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1428 = shufflevector <4 x float> %1426, <4 x float> %1427, <4 x i32> <i32 0, i32 5, i32 2, i32 3>
   %1429 = extractelement <4 x float> %1426, i64 2
   %1430 = fadd float %1419, %1429
-  store float %1430, ptr %"inv_zipped$2.121.sroa.0.28.sroa_idx650", align 4, !tbaa !192
+  store float %1430, ptr %"inv_zipped$2.112.sroa.0.28.sroa_idx650", align 4, !tbaa !192
   %1431 = fsub float %1359, %1397
   %1432 = fsub float %1327, %1325
   %1433 = fadd float %1333, %1432
@@ -2173,7 +2173,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1438 = insertelement <4 x float> poison, float %1437, i64 0
   %1439 = insertelement <4 x float> %1438, float %1431, i64 1
   %1440 = insertelement <4 x float> %1439, float %1436, i64 2
-  %"inv_zipped$2.015.sroa.14.16.vec.insert" = insertelement <4 x float> %1440, float %1420, i64 3
+  %"inv_zipped$2.06.sroa.14.16.vec.insert" = insertelement <4 x float> %1440, float %1420, i64 3
   %1441 = fmul <2 x float> %1142, %1351
   %1442 = extractelement <2 x float> %1441, i64 1
   %1443 = extractelement <2 x float> %1354, i64 1
@@ -2188,7 +2188,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1452 = fadd <4 x float> %1428, %1451
   %1453 = fsub <4 x float> %1428, %1451
   %1454 = shufflevector <4 x float> %1452, <4 x float> %1453, <4 x i32> <i32 0, i32 5, i32 6, i32 3>
-  store <4 x float> %1454, ptr %"inv_zipped$2.121.sroa.0.12.sroa_idx637", align 4, !tbaa !600
+  store <4 x float> %1454, ptr %"inv_zipped$2.112.sroa.0.12.sroa_idx637", align 4, !tbaa !600
   %1455 = fadd <2 x float> %1299, %1317
   %1456 = fadd <2 x float> %1304, %1309
   %1457 = fsub <2 x float> %1455, %1456
@@ -2197,7 +2197,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1460 = fadd <2 x float> %1455, %1456
   %1461 = extractelement <2 x float> %1460, i64 0
   %1462 = fmul float %1461, 0x3FE6A09E60000000
-  store float %1462, ptr %"inv_zipped$2.121.sroa.0.8.sroa_idx635", align 8, !tbaa !601
+  store float %1462, ptr %"inv_zipped$2.112.sroa.0.8.sroa_idx635", align 8, !tbaa !601
   %1463 = shufflevector <4 x float> <float 0x3FE6A09E60000000, float poison, float poison, float poison>, <4 x float> %1428, <2 x i32> <i32 0, i32 4>
   %1464 = fmul <2 x float> %1321, %1463
   %1465 = fsub <2 x float> %1321, %1463
@@ -2213,29 +2213,29 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1474 = fmul <2 x float> %1470, %1473
   %1475 = fsub <2 x float> %1470, %1473
   %1476 = shufflevector <2 x float> %1474, <2 x float> %1475, <2 x i32> <i32 0, i32 3>
-  store <2 x float> %1476, ptr %"inv_zipped$2.121.sroa.0", align 16, !tbaa !603
-  %"inv_zipped$2.121.sroa.0.12.inv_zipped$2.121.sroa.0.12.571" = load float, ptr %"inv_zipped$2.121.sroa.0.12.sroa_idx639", align 4, !tbaa !189
-  %"inv_zipped$2.015.sroa.0.4.vec.extract" = extractelement <2 x float> %1465, i64 1
-  %"inv_zipped$2.121.sroa.0.4.inv_zipped$2.121.sroa.0.4.566" = load float, ptr %"inv_zipped$2.121.sroa.0.4.sroa_idx633", align 4, !tbaa !173
+  store <2 x float> %1476, ptr %"inv_zipped$2.112.sroa.0", align 16, !tbaa !603
+  %"inv_zipped$2.112.sroa.0.12.inv_zipped$2.112.sroa.0.12.571" = load float, ptr %"inv_zipped$2.112.sroa.0.12.sroa_idx639", align 4, !tbaa !189
+  %"inv_zipped$2.06.sroa.0.4.vec.extract" = extractelement <2 x float> %1465, i64 1
+  %"inv_zipped$2.112.sroa.0.4.inv_zipped$2.112.sroa.0.4.566" = load float, ptr %"inv_zipped$2.112.sroa.0.4.sroa_idx633", align 4, !tbaa !173
   %1477 = shufflevector <2 x float> %1464, <2 x float> poison, <4 x i32> <i32 0, i32 poison, i32 poison, i32 poison>
-  %1478 = insertelement <4 x float> %1477, float %"inv_zipped$2.015.sroa.0.4.vec.extract", i64 1
+  %1478 = insertelement <4 x float> %1477, float %"inv_zipped$2.06.sroa.0.4.vec.extract", i64 1
   %1479 = insertelement <4 x float> %1478, float %1459, i64 2
   %1480 = shufflevector <4 x float> %1479, <4 x float> %1472, <4 x i32> <i32 0, i32 1, i32 2, i32 4>
-  %1481 = fadd <4 x float> %"inv_zipped$2.015.sroa.14.16.vec.insert", %1480
+  %1481 = fadd <4 x float> %"inv_zipped$2.06.sroa.14.16.vec.insert", %1480
   %1482 = shufflevector <4 x float> %1481, <4 x float> poison, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
-  %"inv_zipped$2.121.sroa.0.16.inv_zipped$2.121.sroa.0.16." = load <4 x float>, ptr %"inv_zipped$2.121.sroa.0.16.sroa_idx644", align 16, !tbaa !604
+  %"inv_zipped$2.112.sroa.0.16.inv_zipped$2.112.sroa.0.16." = load <4 x float>, ptr %"inv_zipped$2.112.sroa.0.16.sroa_idx644", align 16, !tbaa !604
   %1483 = shufflevector <2 x float> %1474, <2 x float> poison, <4 x i32> <i32 0, i32 poison, i32 poison, i32 poison>
-  %1484 = insertelement <4 x float> %1483, float %"inv_zipped$2.121.sroa.0.4.inv_zipped$2.121.sroa.0.4.566", i64 1
+  %1484 = insertelement <4 x float> %1483, float %"inv_zipped$2.112.sroa.0.4.inv_zipped$2.112.sroa.0.4.566", i64 1
   %1485 = insertelement <4 x float> %1484, float %1462, i64 2
-  %1486 = insertelement <4 x float> %1485, float %"inv_zipped$2.121.sroa.0.12.inv_zipped$2.121.sroa.0.12.571", i64 3
-  %1487 = fadd <4 x float> %"inv_zipped$2.121.sroa.0.16.inv_zipped$2.121.sroa.0.16.", %1486
+  %1486 = insertelement <4 x float> %1485, float %"inv_zipped$2.112.sroa.0.12.inv_zipped$2.112.sroa.0.12.571", i64 3
+  %1487 = fadd <4 x float> %"inv_zipped$2.112.sroa.0.16.inv_zipped$2.112.sroa.0.16.", %1486
   %1488 = shufflevector <4 x float> %1487, <4 x float> poison, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
-  %1489 = fsub <4 x float> %"inv_zipped$2.015.sroa.14.16.vec.insert", %1480
+  %1489 = fsub <4 x float> %"inv_zipped$2.06.sroa.14.16.vec.insert", %1480
   %1490 = shufflevector <4 x float> %1489, <4 x float> poison, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
-  %1491 = fsub <4 x float> %"inv_zipped$2.121.sroa.0.16.inv_zipped$2.121.sroa.0.16.", %1486
+  %1491 = fsub <4 x float> %"inv_zipped$2.112.sroa.0.16.inv_zipped$2.112.sroa.0.16.", %1486
   %1492 = shufflevector <4 x float> %1491, <4 x float> poison, <4 x i32> <i32 3, i32 2, i32 1, i32 0>
-  store <4 x float> %1482, ptr %"inv_fft0_S1_R8_n0$2.013", align 16, !tbaa !395
-  store <4 x float> %1488, ptr %"inv_fft0_S1_R8_n0$2.118", align 16, !tbaa !124
+  store <4 x float> %1482, ptr %"inv_fft0_S1_R8_n0$2.04", align 16, !tbaa !395
+  store <4 x float> %1488, ptr %"inv_fft0_S1_R8_n0$2.19", align 16, !tbaa !124
   store <4 x float> %1490, ptr %716, align 16, !tbaa !390
   store <4 x float> %1492, ptr %426, align 16, !tbaa !135
   br label %"for inv_fft0_S1_R8_n0$2.s1.n1"
@@ -2243,26 +2243,26 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
 "for inv_fft0_S1_R8_n0$2.s1.n1":                  ; preds = %"produce inv_X8$4", %"for inv_fft0_S1_R8_n0$2.s1.n1"
   %indvars.iv231 = phi i64 [ 1, %"produce inv_X8$4" ], [ %indvars.iv.next232, %"for inv_fft0_S1_R8_n0$2.s1.n1" ]
   %1493 = shl nuw nsw i64 %indvars.iv231, 3
-  %1494 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1493
+  %1494 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1493
   %1495 = load float, ptr %1494, align 16, !tbaa !30
-  %1496 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1493
+  %1496 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1493
   %1497 = load float, ptr %1496, align 16, !tbaa !320
   %1498 = fmul float %1495, %1497
-  %1499 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1493
+  %1499 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1493
   %1500 = load float, ptr %1499, align 16, !tbaa !494
-  %1501 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1493
+  %1501 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1493
   %1502 = load float, ptr %1501, align 16, !tbaa !321
   %1503 = fmul float %1500, %1502
   %1504 = fsub float %1498, %1503
   %1505 = or i64 %1493, 4
-  %1506 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1505
+  %1506 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1505
   %1507 = load float, ptr %1506, align 16, !tbaa !30
-  %1508 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1505
+  %1508 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1505
   %1509 = load float, ptr %1508, align 16, !tbaa !320
   %1510 = fmul float %1507, %1509
-  %1511 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1505
+  %1511 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1505
   %1512 = load float, ptr %1511, align 16, !tbaa !494
-  %1513 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1505
+  %1513 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1505
   %1514 = load float, ptr %1513, align 16, !tbaa !321
   %1515 = fmul float %1512, %1514
   %1516 = fsub float %1510, %1515
@@ -2275,26 +2275,26 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1523 = fadd float %1521, %1522
   %1524 = fadd float %1520, %1523
   %1525 = or i64 %1493, 2
-  %1526 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1525
+  %1526 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1525
   %1527 = load float, ptr %1526, align 8, !tbaa !30
-  %1528 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1525
+  %1528 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1525
   %1529 = load float, ptr %1528, align 8, !tbaa !320
   %1530 = fmul float %1527, %1529
-  %1531 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1525
+  %1531 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1525
   %1532 = load float, ptr %1531, align 8, !tbaa !494
-  %1533 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1525
+  %1533 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1525
   %1534 = load float, ptr %1533, align 8, !tbaa !321
   %1535 = fmul float %1532, %1534
   %1536 = fsub float %1530, %1535
   %1537 = or i64 %1493, 6
-  %1538 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1537
+  %1538 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1537
   %1539 = load float, ptr %1538, align 8, !tbaa !30
-  %1540 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1537
+  %1540 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1537
   %1541 = load float, ptr %1540, align 8, !tbaa !320
   %1542 = fmul float %1539, %1541
-  %1543 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1537
+  %1543 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1537
   %1544 = load float, ptr %1543, align 8, !tbaa !494
-  %1545 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1537
+  %1545 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1537
   %1546 = load float, ptr %1545, align 8, !tbaa !321
   %1547 = fmul float %1544, %1546
   %1548 = fsub float %1542, %1547
@@ -2321,26 +2321,26 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1569 = fsub float %1562, %1564
   %1570 = fsub float %1563, %1566
   %1571 = or i64 %1493, 1
-  %1572 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1571
+  %1572 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1571
   %1573 = load float, ptr %1572, align 4, !tbaa !30
-  %1574 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1571
+  %1574 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1571
   %1575 = load float, ptr %1574, align 4, !tbaa !320
   %1576 = fmul float %1573, %1575
-  %1577 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1571
+  %1577 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1571
   %1578 = load float, ptr %1577, align 4, !tbaa !494
-  %1579 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1571
+  %1579 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1571
   %1580 = load float, ptr %1579, align 4, !tbaa !321
   %1581 = fmul float %1578, %1580
   %1582 = fsub float %1576, %1581
   %1583 = or i64 %1493, 5
-  %1584 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1583
+  %1584 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1583
   %1585 = load float, ptr %1584, align 4, !tbaa !30
-  %1586 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1583
+  %1586 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1583
   %1587 = load float, ptr %1586, align 4, !tbaa !320
   %1588 = fmul float %1585, %1587
-  %1589 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1583
+  %1589 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1583
   %1590 = load float, ptr %1589, align 4, !tbaa !494
-  %1591 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1583
+  %1591 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1583
   %1592 = load float, ptr %1591, align 4, !tbaa !321
   %1593 = fmul float %1590, %1592
   %1594 = fsub float %1588, %1593
@@ -2353,26 +2353,26 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1601 = fadd float %1599, %1600
   %1602 = fadd float %1598, %1601
   %1603 = or i64 %1493, 3
-  %1604 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1603
+  %1604 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1603
   %1605 = load float, ptr %1604, align 4, !tbaa !30
-  %1606 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1603
+  %1606 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1603
   %1607 = load float, ptr %1606, align 4, !tbaa !320
   %1608 = fmul float %1605, %1607
-  %1609 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1603
+  %1609 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1603
   %1610 = load float, ptr %1609, align 4, !tbaa !494
-  %1611 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1603
+  %1611 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1603
   %1612 = load float, ptr %1611, align 4, !tbaa !321
   %1613 = fmul float %1610, %1612
   %1614 = fsub float %1608, %1613
   %1615 = or i64 %1493, 7
-  %1616 = getelementptr inbounds float, ptr %"inv_X8$5.017", i64 %1615
+  %1616 = getelementptr inbounds float, ptr %"inv_X8$5.08", i64 %1615
   %1617 = load float, ptr %1616, align 4, !tbaa !30
-  %1618 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.023", i64 %1615
+  %1618 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.014", i64 %1615
   %1619 = load float, ptr %1618, align 4, !tbaa !320
   %1620 = fmul float %1617, %1619
-  %1621 = getelementptr inbounds float, ptr %"inv_X8$5.116", i64 %1615
+  %1621 = getelementptr inbounds float, ptr %"inv_X8$5.17", i64 %1615
   %1622 = load float, ptr %1621, align 4, !tbaa !494
-  %1623 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.122", i64 %1615
+  %1623 = getelementptr inbounds float, ptr %"kernel_fft0_S1_R8_n0$2.113", i64 %1615
   %1624 = load float, ptr %1623, align 4, !tbaa !321
   %1625 = fmul float %1622, %1624
   %1626 = fsub float %1620, %1625
@@ -2423,55 +2423,55 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1671 = fsub float %1560, %1638
   %1672 = fsub float %1569, %1654
   %1673 = fsub float %1570, %1657
-  %1674 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1493
+  %1674 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1493
   store float %1658, ptr %1674, align 16, !tbaa !605
-  %1675 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1493
+  %1675 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1493
   store float %1659, ptr %1675, align 16, !tbaa !606
-  %1676 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1571
+  %1676 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1571
   store float %1660, ptr %1676, align 4, !tbaa !605
-  %1677 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1571
+  %1677 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1571
   store float %1661, ptr %1677, align 4, !tbaa !606
-  %1678 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1525
+  %1678 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1525
   store float %1662, ptr %1678, align 8, !tbaa !605
-  %1679 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1525
+  %1679 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1525
   store float %1663, ptr %1679, align 8, !tbaa !606
-  %1680 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1603
+  %1680 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1603
   store float %1664, ptr %1680, align 4, !tbaa !605
-  %1681 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1603
+  %1681 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1603
   store float %1665, ptr %1681, align 4, !tbaa !606
-  %1682 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1505
+  %1682 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1505
   store float %1666, ptr %1682, align 16, !tbaa !605
-  %1683 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1505
+  %1683 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1505
   store float %1667, ptr %1683, align 16, !tbaa !606
-  %1684 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1583
+  %1684 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1583
   store float %1668, ptr %1684, align 4, !tbaa !605
-  %1685 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1583
+  %1685 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1583
   store float %1669, ptr %1685, align 4, !tbaa !606
-  %1686 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1537
+  %1686 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1537
   store float %1670, ptr %1686, align 8, !tbaa !605
-  %1687 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1537
+  %1687 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1537
   store float %1671, ptr %1687, align 8, !tbaa !606
-  %1688 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.013", i64 %1615
+  %1688 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.04", i64 %1615
   store float %1672, ptr %1688, align 4, !tbaa !605
-  %1689 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.118", i64 %1615
+  %1689 = getelementptr inbounds float, ptr %"inv_fft0_S1_R8_n0$2.19", i64 %1615
   store float %1673, ptr %1689, align 4, !tbaa !606
   %indvars.iv.next232 = add nuw nsw i64 %indvars.iv231, 1
-  %.not34 = icmp eq i64 %indvars.iv.next232, 4
-  br i1 %.not34, label %"produce inv_zipped$2", label %"for inv_fft0_S1_R8_n0$2.s1.n1"
+  %.not25 = icmp eq i64 %indvars.iv.next232, 4
+  br i1 %.not25, label %"produce inv_zipped$2", label %"for inv_fft0_S1_R8_n0$2.s1.n1"
 
 "produce inv_zipped$2":                           ; preds = %"for inv_fft0_S1_R8_n0$2.s1.n1"
-  store float %1558, ptr %"inv_zipped$2.121.sroa.0.28.sroa_idx651", align 4, !tbaa !192
-  store float %1560, ptr %"inv_zipped$2.121.sroa.0.20.sroa_idx647", align 4, !tbaa !185
-  store float %1568, ptr %"inv_zipped$2.121.sroa.0.24.sroa_idx648", align 8, !tbaa !607
-  store float %1570, ptr %"inv_zipped$2.121.sroa.0.16.sroa_idx645", align 16, !tbaa !609
-  store float %1636, ptr %"inv_zipped$2.121.sroa.0.12.sroa_idx640", align 4, !tbaa !189
-  store float %1638, ptr %"inv_zipped$2.121.sroa.0.4.sroa_idx634", align 4, !tbaa !173
-  store float %1650, ptr %"inv_zipped$2.121.sroa.0.8.sroa_idx636", align 8, !tbaa !601
-  store float %1657, ptr %"inv_zipped$2.121.sroa.0", align 16, !tbaa !611
-  %1690 = load <4 x float>, ptr %"inv_fft0_S1_R8_n0$2.013", align 16, !tbaa !395
+  store float %1558, ptr %"inv_zipped$2.112.sroa.0.28.sroa_idx651", align 4, !tbaa !192
+  store float %1560, ptr %"inv_zipped$2.112.sroa.0.20.sroa_idx647", align 4, !tbaa !185
+  store float %1568, ptr %"inv_zipped$2.112.sroa.0.24.sroa_idx648", align 8, !tbaa !607
+  store float %1570, ptr %"inv_zipped$2.112.sroa.0.16.sroa_idx645", align 16, !tbaa !609
+  store float %1636, ptr %"inv_zipped$2.112.sroa.0.12.sroa_idx640", align 4, !tbaa !189
+  store float %1638, ptr %"inv_zipped$2.112.sroa.0.4.sroa_idx634", align 4, !tbaa !173
+  store float %1650, ptr %"inv_zipped$2.112.sroa.0.8.sroa_idx636", align 8, !tbaa !601
+  store float %1657, ptr %"inv_zipped$2.112.sroa.0", align 16, !tbaa !611
+  %1690 = load <4 x float>, ptr %"inv_fft0_S1_R8_n0$2.04", align 16, !tbaa !395
   %1691 = load <4 x float>, ptr %716, align 16, !tbaa !390
-  store <4 x float> %1691, ptr %"inv_zipped$2.121.sroa.0", align 16, !tbaa !613
-  %1692 = load <4 x float>, ptr %"inv_fft0_S1_R8_n0$2.118", align 16, !tbaa !124
+  store <4 x float> %1691, ptr %"inv_zipped$2.112.sroa.0", align 16, !tbaa !613
+  %1692 = load <4 x float>, ptr %"inv_fft0_S1_R8_n0$2.19", align 16, !tbaa !124
   %1693 = load <4 x float>, ptr %426, align 16, !tbaa !135
   %1694 = load <4 x float>, ptr %722, align 16, !tbaa !605
   %1695 = load <4 x float>, ptr %428, align 16, !tbaa !606
@@ -2479,7 +2479,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1697 = load <4 x float>, ptr %427, align 16, !tbaa !606
   %1698 = load <4 x float>, ptr %714, align 16, !tbaa !605
   %1699 = fadd <4 x float> %1697, %1698
-  store <4 x float> %1699, ptr %"inv_zipped$2.121.sroa.0.16.sroa_idx643", align 16, !tbaa !153
+  store <4 x float> %1699, ptr %"inv_zipped$2.112.sroa.0.16.sroa_idx643", align 16, !tbaa !153
   %1700 = load <4 x float>, ptr %699, align 16, !tbaa !605
   %1701 = load <4 x float>, ptr %432, align 16, !tbaa !606
   %1702 = fadd <4 x float> %1700, %1701
@@ -2550,11 +2550,11 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1753 = fsub <4 x float> %1745, %1743
   %1754 = fadd <4 x float> %1752, %1753
   %1755 = fmul <4 x float> %1754, <float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000>
-  store <4 x float> %1755, ptr %"inv_X8$5.017", align 16, !tbaa !32
+  store <4 x float> %1755, ptr %"inv_X8$5.08", align 16, !tbaa !32
   %1756 = fsub <4 x float> %1742, %1744
   %1757 = fadd <4 x float> %1756, %1753
   %1758 = fmul <4 x float> %1757, <float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000, float 0x3FE6A09E60000000>
-  store <4 x float> %1758, ptr %"inv_X8$5.116", align 16, !tbaa !616
+  store <4 x float> %1758, ptr %"inv_X8$5.17", align 16, !tbaa !616
   %1759 = fadd <4 x float> %1722, %1738
   store <4 x float> %1759, ptr %304, align 16, !tbaa !42
   %1760 = fadd <4 x float> %1723, %1739
@@ -2587,19 +2587,19 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   store <4 x float> %1773, ptr %336, align 16, !tbaa !99
   %1774 = fsub <4 x float> %1733, %1758
   store <4 x float> %1774, ptr %394, align 16, !tbaa !122
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.32.vec.expand656" = shufflevector <4 x float> %1764, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.32.vecblend657" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.32.vec.expand656", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.0", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 56, i32 57, i32 58, i32 59, i32 60, i32 61, i32 62, i32 63>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vec.expand660" = shufflevector <4 x float> %1766, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vecblend661" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.32.vecblend657", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vec.expand660", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vec.expand664" = shufflevector <4 x float> %1768, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vecblend665" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.48.vecblend661", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vec.expand664", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vec.expand667" = shufflevector <4 x float> %1770, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vecblend668" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.64.vecblend665", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vec.expand667", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vec.expand670" = shufflevector <4 x float> %1772, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vecblend671" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.80.vecblend668", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vec.expand670", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vec.expand673" = shufflevector <4 x float> %1774, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
-  %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vecblend674" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.96.vecblend671", <32 x float> %"inv_fft1_S1_R8_n1$2.120.sroa.14.112.vec.expand673", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
-  store <4 x float> %1759, ptr %"inv_unzipped$214", align 16, !tbaa !617
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.32.vec.expand656" = shufflevector <4 x float> %1764, <4 x float> poison, <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.32.vecblend657" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.32.vec.expand656", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.0", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 56, i32 57, i32 58, i32 59, i32 60, i32 61, i32 62, i32 63>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vec.expand660" = shufflevector <4 x float> %1766, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vecblend661" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.32.vecblend657", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vec.expand660", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 36, i32 37, i32 38, i32 39, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vec.expand664" = shufflevector <4 x float> %1768, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vecblend665" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.48.vecblend661", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vec.expand664", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 40, i32 41, i32 42, i32 43, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vec.expand667" = shufflevector <4 x float> %1770, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vecblend668" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.64.vecblend665", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vec.expand667", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 44, i32 45, i32 46, i32 47, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vec.expand670" = shufflevector <4 x float> %1772, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vecblend671" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.80.vecblend668", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vec.expand670", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 48, i32 49, i32 50, i32 51, i32 poison, i32 poison, i32 poison, i32 poison, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vec.expand673" = shufflevector <4 x float> %1774, <4 x float> poison, <32 x i32> <i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 0, i32 1, i32 2, i32 3, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison, i32 poison>
+  %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vecblend674" = shufflevector <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.96.vecblend671", <32 x float> %"inv_fft1_S1_R8_n1$2.111.sroa.14.112.vec.expand673", <32 x i32> <i32 0, i32 1, i32 2, i32 3, i32 4, i32 5, i32 6, i32 7, i32 8, i32 9, i32 10, i32 11, i32 12, i32 13, i32 14, i32 15, i32 16, i32 17, i32 18, i32 19, i32 52, i32 53, i32 54, i32 55, i32 24, i32 25, i32 26, i32 27, i32 28, i32 29, i32 30, i32 31>
+  store <4 x float> %1759, ptr %"inv_unzipped$25", align 16, !tbaa !617
   store <4 x float> %1760, ptr %715, align 16, !tbaa !617
   store <4 x float> %1761, ptr %721, align 16, !tbaa !617
   store <4 x float> %1762, ptr %713, align 16, !tbaa !617
@@ -2638,8 +2638,8 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
 "end for result$2.s0.n1":                         ; preds = %"end for result$2.s0.n0.n0107", %"produce inv_zipped$2"
   %indvars.iv.next247 = add nsw i64 %indvars.iv246, 1
   %1779 = trunc i64 %indvars.iv.next247 to i32
-  %.not37 = icmp eq i32 %173, %1779
-  br i1 %.not37, label %destructor_block, label %"for result$2.s0.i"
+  %.not28 = icmp eq i32 %173, %1779
+  br i1 %.not28, label %destructor_block, label %"for result$2.s0.i"
 
 "for result$2.s0.n0.n0":                          ; preds = %"for result$2.s0.n0.n0.preheader", %"for result$2.s0.n0.n0"
   %indvars.iv240 = phi i64 [ %indvars.iv.next241.1, %"for result$2.s0.n0.n0" ], [ 0, %"for result$2.s0.n0.n0.preheader" ]
@@ -2647,7 +2647,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1780 = shl nuw nsw i64 %indvars.iv240, 2
   %1781 = add nsw i64 %1780, %769
   %1782 = add nsw i64 %1781, %1777
-  %1783 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 %1782
+  %1783 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 %1782
   %1784 = load <4 x float>, ptr %1783, align 4, !tbaa !617
   %1785 = fmul <4 x float> %1784, <float 1.562500e-02, float 1.562500e-02, float 1.562500e-02, float 1.562500e-02>
   %1786 = add i64 %1778, %1781
@@ -2657,7 +2657,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1788 = or i64 %indvars.iv.next241, 4
   %1789 = add nsw i64 %1788, %769
   %1790 = add nsw i64 %1789, %1777
-  %1791 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 %1790
+  %1791 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 %1790
   %1792 = load <4 x float>, ptr %1791, align 4, !tbaa !617
   %1793 = fmul <4 x float> %1792, <float 1.562500e-02, float 1.562500e-02, float 1.562500e-02, float 1.562500e-02>
   %1794 = add i64 %1778, %1789
@@ -2676,7 +2676,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
   %1796 = shl nuw nsw i64 %indvars.iv240.unr, 2
   %1797 = add nsw i64 %1796, %769
   %1798 = add nsw i64 %1797, %1777
-  %1799 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 %1798
+  %1799 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 %1798
   %1800 = load <4 x float>, ptr %1799, align 4, !tbaa !617
   %1801 = fmul <4 x float> %1800, <float 1.562500e-02, float 1.562500e-02, float 1.562500e-02, float 1.562500e-02>
   %1802 = add i64 %1778, %1797
@@ -2690,7 +2690,7 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
 "for result$2.s0.n0.n0106.preheader":             ; preds = %"end for result$2.s0.n0.n0"
   %1804 = shl nsw i64 %indvars.iv243, 3
   %1805 = add nsw i64 %773, %1804
-  %1806 = getelementptr inbounds float, ptr %"inv_unzipped$214", i64 %1805
+  %1806 = getelementptr inbounds float, ptr %"inv_unzipped$25", i64 %1805
   %1807 = load <4 x float>, ptr %1806, align 4, !tbaa !617
   %1808 = fmul <4 x float> %1807, <float 1.562500e-02, float 1.562500e-02, float 1.562500e-02, float 1.562500e-02>
   %reass.add64 = sub nsw i64 %indvars.iv243, %770
@@ -2703,8 +2703,8 @@ true_bb11:                                        ; preds = %_halide_buffer_is_b
 "end for result$2.s0.n0.n0107":                   ; preds = %"for result$2.s0.n0.n0106.preheader", %"end for result$2.s0.n0.n0"
   %indvars.iv.next244 = add nsw i64 %indvars.iv243, 1
   %1811 = trunc i64 %indvars.iv.next244 to i32
-  %.not38 = icmp eq i32 %745, %1811
-  br i1 %.not38, label %"end for result$2.s0.n1", label %"for result$2.s0.n1"
+  %.not29 = icmp eq i32 %745, %1811
+  br i1 %.not29, label %"end for result$2.s0.n1", label %"for result$2.s0.n1"
 }
 
 ; Function Attrs: nounwind
@@ -2807,44 +2807,44 @@ destructor_block:                                 ; preds = %false_bb19, %true_b
   %30 = icmp eq ptr %29, null
   %31 = load i64, ptr %2, align 8
   %32 = icmp eq i64 %31, 0
-  %33 = select i1 %30, i1 %32, i1 false
-  br i1 %33, label %true_bb, label %false_bb
+  %or.cond = select i1 %30, i1 %32, i1 false
+  br i1 %or.cond, label %true_bb, label %false_bb
 
 true_bb:                                          ; preds = %"assert succeeded6"
   %t6960 = call i32 @halide_downgrade_buffer_t(ptr null, ptr nonnull @str.3, ptr nonnull %2, ptr %input) #2
-  %34 = icmp eq i32 %t6960, 0
-  br i1 %34, label %after_bb, label %destructor_block, !prof !26
+  %33 = icmp eq i32 %t6960, 0
+  br i1 %33, label %after_bb, label %destructor_block, !prof !26
 
 false_bb:                                         ; preds = %"assert succeeded6"
   %t6961 = call i32 @halide_downgrade_buffer_t_device_fields(ptr null, ptr nonnull @str.3, ptr nonnull %2, ptr %input) #2
-  %35 = icmp eq i32 %t6961, 0
-  br i1 %35, label %after_bb, label %destructor_block, !prof !26
+  %34 = icmp eq i32 %t6961, 0
+  br i1 %34, label %after_bb, label %destructor_block, !prof !26
 
 after_bb:                                         ; preds = %false_bb, %true_bb
-  %36 = load ptr, ptr %10, align 8, !tbaa !6
-  %37 = icmp eq ptr %36, null
-  %38 = load i64, ptr %1, align 8
-  %39 = icmp eq i64 %38, 0
-  %40 = select i1 %37, i1 %39, i1 false
-  br i1 %40, label %true_bb11, label %false_bb12
+  %35 = load ptr, ptr %10, align 8, !tbaa !6
+  %36 = icmp eq ptr %35, null
+  %37 = load i64, ptr %1, align 8
+  %38 = icmp eq i64 %37, 0
+  %or.cond6 = select i1 %36, i1 %38, i1 false
+  br i1 %or.cond6, label %true_bb11, label %false_bb12
 
 true_bb11:                                        ; preds = %after_bb
   %t6964 = call i32 @halide_downgrade_buffer_t(ptr null, ptr nonnull @str.2, ptr nonnull %1, ptr %kernel) #2
-  %41 = icmp eq i32 %t6964, 0
-  br i1 %41, label %after_bb13, label %destructor_block, !prof !26
+  %39 = icmp eq i32 %t6964, 0
+  br i1 %39, label %after_bb13, label %destructor_block, !prof !26
 
 false_bb12:                                       ; preds = %after_bb
   %t6965 = call i32 @halide_downgrade_buffer_t_device_fields(ptr null, ptr nonnull @str.2, ptr nonnull %1, ptr %kernel) #2
-  %42 = icmp eq i32 %t6965, 0
-  br i1 %42, label %after_bb13, label %destructor_block, !prof !26
+  %40 = icmp eq i32 %t6965, 0
+  br i1 %40, label %after_bb13, label %destructor_block, !prof !26
 
 after_bb13:                                       ; preds = %false_bb12, %true_bb11
-  %43 = load ptr, ptr %17, align 8, !tbaa !6
-  %44 = icmp eq ptr %43, null
-  %45 = load i64, ptr %0, align 8
-  %46 = icmp eq i64 %45, 0
-  %47 = select i1 %44, i1 %46, i1 false
-  br i1 %47, label %true_bb18, label %false_bb19
+  %41 = load ptr, ptr %17, align 8, !tbaa !6
+  %42 = icmp eq ptr %41, null
+  %43 = load i64, ptr %0, align 8
+  %44 = icmp eq i64 %43, 0
+  %or.cond8 = select i1 %42, i1 %44, i1 false
+  br i1 %or.cond8, label %true_bb18, label %false_bb19
 
 true_bb18:                                        ; preds = %after_bb13
   %t6968 = call i32 @halide_downgrade_buffer_t(ptr null, ptr nonnull @str, ptr nonnull %0, ptr %"result$2") #2

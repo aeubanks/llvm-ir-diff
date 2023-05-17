@@ -25,33 +25,33 @@ for.cond.outer.split.us.lr.ph.split.us.split.us:  ; preds = %for.cond.outer.spli
   br i1 %cmp.i.us.us.us52, label %if.then.i, label %f1.exit.us.us.us.preheader
 
 f1.exit.us.us.us.preheader:                       ; preds = %for.cond.outer.split.us.lr.ph.split.us.split.us
-  %cmp1.i.us.us.us62 = icmp eq i32 %f1.beenhere.promoted41, 1
-  br i1 %cmp1.i.us.us.us62, label %if.then, label %if.end.us.us.us.preheader
+  %cmp1.i.not.us.us.us62 = icmp eq i32 %f1.beenhere.promoted41, 1
+  br i1 %cmp1.i.not.us.us.us62, label %if.then, label %if.end.us.us.us.preheader
 
 if.end.us.us.us.preheader:                        ; preds = %f1.exit.us.us.us.preheader
   %0 = load i32, ptr %p, align 8, !tbaa !9
   %tobool6.not.us.us = icmp eq i32 %0, 0
   br label %if.end.us.us.us
 
-for.cond.outer.split.us.us.us:                    ; preds = %if.end.us.us.us
-  %sext = shl i32 %d.addr.0.ph44.us.us5364, 16
-  %conv13.us.us = ashr exact i32 %sext, 16
+if.end8.us.us:                                    ; preds = %if.end.us.us.us
+  %sext.us.us = shl i32 %d.addr.0.ph44.us.us5364, 16
+  %conv13.us.us = ashr exact i32 %sext.us.us, 16
   %inc.i.us.us.us = add nsw i32 %inc.i.us.us.us5563, 1
-  %cmp1.i.us.us.us = icmp eq i32 %inc.i.us.us.us5563, 1
-  br i1 %cmp1.i.us.us.us, label %if.then.loopexit, label %if.end.us.us.us
+  %cmp1.i.not.us.us.us = icmp eq i32 %inc.i.us.us.us5563, 1
+  br i1 %cmp1.i.not.us.us.us, label %if.then.loopexit, label %if.end.us.us.us
 
-if.end.us.us.us:                                  ; preds = %if.end.us.us.us.preheader, %for.cond.outer.split.us.us.us
-  %d.addr.0.ph44.us.us5364 = phi i32 [ %conv13.us.us, %for.cond.outer.split.us.us.us ], [ %d, %if.end.us.us.us.preheader ]
-  %inc.i.us.us.us5563 = phi i32 [ %inc.i.us.us.us, %for.cond.outer.split.us.us.us ], [ %inc.i.us.us.us51, %if.end.us.us.us.preheader ]
+if.end.us.us.us:                                  ; preds = %if.end.us.us.us.preheader, %if.end8.us.us
+  %d.addr.0.ph44.us.us5364 = phi i32 [ %conv13.us.us, %if.end8.us.us ], [ %d, %if.end.us.us.us.preheader ]
+  %inc.i.us.us.us5563 = phi i32 [ %inc.i.us.us.us, %if.end8.us.us ], [ %inc.i.us.us.us51, %if.end.us.us.us.preheader ]
   %conv.us.us = trunc i32 %d.addr.0.ph44.us.us5364 to i16
-  br i1 %tobool6.not.us.us, label %for.cond.outer.split.us.us.us, label %if.then7.loopexit
+  br i1 %tobool6.not.us.us, label %if.end8.us.us, label %if.then7.loopexit
 
 for.cond.outer.split.us:                          ; preds = %for.cond.outer.split.us.lr.ph
   br i1 %cmp.i.us.us.us52, label %if.then.i, label %f1.exit.us
 
 f1.exit.us:                                       ; preds = %for.cond.outer.split.us
-  %cmp1.i.us = icmp eq i32 %f1.beenhere.promoted41, 1
-  br i1 %cmp1.i.us, label %if.then, label %if.end.us
+  %cmp1.i.not.us = icmp eq i32 %f1.beenhere.promoted41, 1
+  br i1 %cmp1.i.not.us, label %if.then, label %if.end.us
 
 if.end.us:                                        ; preds = %f1.exit.us
   store i32 %inc.i.us.us.us51, ptr @f1.beenhere, align 4, !tbaa !5
@@ -59,7 +59,7 @@ if.end.us:                                        ; preds = %f1.exit.us
   store i16 %conv, ptr %c4, align 8, !tbaa !13
   %1 = load i32, ptr %p, align 8, !tbaa !9
   %tobool6.not = icmp eq i32 %1, 0
-  br i1 %tobool6.not, label %if.end8, label %if.then7
+  br i1 %tobool6.not, label %if.then10, label %if.then7
 
 for.cond.outer.split:                             ; preds = %entry
   %.pre = add nsw i32 %f1.beenhere.promoted41, 1
@@ -72,7 +72,7 @@ if.then.i:                                        ; preds = %for.cond.outer.spli
   tail call void @abort() #4
   unreachable
 
-if.then.loopexit:                                 ; preds = %for.cond.outer.split.us.us.us
+if.then.loopexit:                                 ; preds = %if.end8.us.us
   store i32 %inc.i.us.us.us5563, ptr @f1.beenhere, align 4, !tbaa !5
   store i16 %conv.us.us, ptr %c4, align 8, !tbaa !13
   br label %if.then
@@ -90,7 +90,7 @@ if.then7:                                         ; preds = %if.then7.loopexit, 
   tail call void @abort() #4
   unreachable
 
-if.end8:                                          ; preds = %if.end.us
+if.then10:                                        ; preds = %if.end.us
   tail call void @abort() #4
   unreachable
 }
@@ -139,8 +139,8 @@ entry:
   br i1 %cmp.i.us.us.us52.i, label %if.then.i.i, label %f1.exit.us.us.us.i.preheader
 
 f1.exit.us.us.us.i.preheader:                     ; preds = %entry
-  %cmp1.i.us.us.us.i12.not = icmp eq i32 %f1.beenhere.promoted41.i, 1
-  br i1 %cmp1.i.us.us.us.i12.not, label %if.then, label %if.end
+  %cmp1.i.not.us.us.us.i12.not = icmp eq i32 %f1.beenhere.promoted41.i, 1
+  br i1 %cmp1.i.not.us.us.us.i12.not, label %if.then, label %if.end
 
 if.then.i.i:                                      ; preds = %entry
   %inc.i.us.us.us51.i = add nuw nsw i32 %f1.beenhere.promoted41.i, 1

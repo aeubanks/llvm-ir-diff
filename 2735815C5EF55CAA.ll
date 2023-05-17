@@ -157,8 +157,8 @@ declare void @_ZdaPv(ptr noundef) local_unnamed_addr #3
 define dso_local noundef i32 @_ZN6Garage6acceptEP7Vehicle(ptr nocapture noundef nonnull readonly align 8 dereferenceable(16) %this, ptr noundef %veh) local_unnamed_addr #4 align 2 {
 entry:
   %0 = load i32, ptr %this, align 8, !tbaa !5
-  %cmp11 = icmp sgt i32 %0, 0
-  br i1 %cmp11, label %for.body.lr.ph, label %cleanup
+  %cmp.not10 = icmp sgt i32 %0, 0
+  br i1 %cmp.not10, label %for.body.lr.ph, label %cleanup
 
 for.body.lr.ph:                                   ; preds = %entry
   %parked = getelementptr inbounds %class.Garage, ptr %this, i64 0, i32 1
@@ -185,8 +185,8 @@ for.inc:                                          ; preds = %for.body
   br i1 %exitcond.not, label %cleanup, label %for.body, !llvm.loop !17
 
 cleanup:                                          ; preds = %for.inc, %entry, %if.then
-  %switch = phi i32 [ %3, %if.then ], [ -1, %entry ], [ -1, %for.inc ]
-  ret i32 %switch
+  %spec.select = phi i32 [ %3, %if.then ], [ -1, %entry ], [ -1, %for.inc ]
+  ret i32 %spec.select
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable
@@ -558,7 +558,7 @@ for.body.lr.ph.i82:                               ; preds = %for.body.lr.ph.i67,
   br i1 %tobool.not.i85, label %for.body.lr.ph.i97, label %for.inc.i91
 
 for.inc.i91:                                      ; preds = %for.inc.i76.13, %for.body.lr.ph.i82
-  %switch.i77246 = phi i32 [ %42, %for.body.lr.ph.i82 ], [ -1, %for.inc.i76.13 ]
+  %spec.select.i77246 = phi i32 [ %42, %for.body.lr.ph.i82 ], [ -1, %for.inc.i76.13 ]
   %arrayidx.i84.1 = getelementptr inbounds ptr, ptr %call.i, i64 1
   %43 = load ptr, ptr %arrayidx.i84.1, align 8, !tbaa !12
   %tobool.not.i85.1 = icmp eq ptr %43, null
@@ -643,7 +643,7 @@ for.inc.i91.13:                                   ; preds = %for.inc.i91.12
   br i1 %tobool.not.i85.14, label %for.body.lr.ph.i97, label %for.inc.i106
 
 for.body.lr.ph.i97:                               ; preds = %for.body.lr.ph.i82, %for.inc.i91, %for.inc.i91.1, %for.inc.i91.2, %for.inc.i91.3, %for.inc.i91.4, %for.inc.i91.5, %for.inc.i91.6, %for.inc.i91.7, %for.inc.i91.8, %for.inc.i91.9, %for.inc.i91.10, %for.inc.i91.11, %for.inc.i91.12, %for.inc.i91.13
-  %switch.i77247 = phi i32 [ %42, %for.body.lr.ph.i82 ], [ %switch.i77246, %for.inc.i91 ], [ %switch.i77246, %for.inc.i91.1 ], [ %switch.i77246, %for.inc.i91.2 ], [ %switch.i77246, %for.inc.i91.3 ], [ %switch.i77246, %for.inc.i91.4 ], [ %switch.i77246, %for.inc.i91.5 ], [ %switch.i77246, %for.inc.i91.6 ], [ %switch.i77246, %for.inc.i91.7 ], [ %switch.i77246, %for.inc.i91.8 ], [ %switch.i77246, %for.inc.i91.9 ], [ %switch.i77246, %for.inc.i91.10 ], [ %switch.i77246, %for.inc.i91.11 ], [ %switch.i77246, %for.inc.i91.12 ], [ %switch.i77246, %for.inc.i91.13 ]
+  %spec.select.i77247 = phi i32 [ %42, %for.body.lr.ph.i82 ], [ %spec.select.i77246, %for.inc.i91 ], [ %spec.select.i77246, %for.inc.i91.1 ], [ %spec.select.i77246, %for.inc.i91.2 ], [ %spec.select.i77246, %for.inc.i91.3 ], [ %spec.select.i77246, %for.inc.i91.4 ], [ %spec.select.i77246, %for.inc.i91.5 ], [ %spec.select.i77246, %for.inc.i91.6 ], [ %spec.select.i77246, %for.inc.i91.7 ], [ %spec.select.i77246, %for.inc.i91.8 ], [ %spec.select.i77246, %for.inc.i91.9 ], [ %spec.select.i77246, %for.inc.i91.10 ], [ %spec.select.i77246, %for.inc.i91.11 ], [ %spec.select.i77246, %for.inc.i91.12 ], [ %spec.select.i77246, %for.inc.i91.13 ]
   %indvars.iv.i83.lcssa = phi i64 [ 0, %for.body.lr.ph.i82 ], [ 1, %for.inc.i91 ], [ 2, %for.inc.i91.1 ], [ 3, %for.inc.i91.2 ], [ 4, %for.inc.i91.3 ], [ 5, %for.inc.i91.4 ], [ 6, %for.inc.i91.5 ], [ 7, %for.inc.i91.6 ], [ 8, %for.inc.i91.7 ], [ 9, %for.inc.i91.8 ], [ 10, %for.inc.i91.9 ], [ 11, %for.inc.i91.10 ], [ 12, %for.inc.i91.11 ], [ 13, %for.inc.i91.12 ], [ 14, %for.inc.i91.13 ]
   %arrayidx.i84.le = getelementptr inbounds ptr, ptr %call.i, i64 %indvars.iv.i83.lcssa
   store ptr @c5, ptr %arrayidx.i84.le, align 8, !tbaa !12
@@ -652,14 +652,14 @@ for.body.lr.ph.i97:                               ; preds = %for.body.lr.ph.i82,
   br i1 %tobool.not.i100, label %if.then.i103, label %for.inc.i106
 
 if.then.i103:                                     ; preds = %for.inc.i106.13, %for.inc.i106.12, %for.inc.i106.11, %for.inc.i106.10, %for.inc.i106.9, %for.inc.i106.8, %for.inc.i106.7, %for.inc.i106.6, %for.inc.i106.5, %for.inc.i106.4, %for.inc.i106.3, %for.inc.i106.2, %for.inc.i106.1, %for.inc.i106, %for.body.lr.ph.i97
-  %switch.i77245252 = phi i32 [ %switch.i77247, %for.body.lr.ph.i97 ], [ %switch.i77245251, %for.inc.i106 ], [ %switch.i77245251, %for.inc.i106.1 ], [ %switch.i77245251, %for.inc.i106.2 ], [ %switch.i77245251, %for.inc.i106.3 ], [ %switch.i77245251, %for.inc.i106.4 ], [ %switch.i77245251, %for.inc.i106.5 ], [ %switch.i77245251, %for.inc.i106.6 ], [ %switch.i77245251, %for.inc.i106.7 ], [ %switch.i77245251, %for.inc.i106.8 ], [ %switch.i77245251, %for.inc.i106.9 ], [ %switch.i77245251, %for.inc.i106.10 ], [ %switch.i77245251, %for.inc.i106.11 ], [ %switch.i77245251, %for.inc.i106.12 ], [ %switch.i77245251, %for.inc.i106.13 ]
+  %spec.select.i77245252 = phi i32 [ %spec.select.i77247, %for.body.lr.ph.i97 ], [ %spec.select.i77245251, %for.inc.i106 ], [ %spec.select.i77245251, %for.inc.i106.1 ], [ %spec.select.i77245251, %for.inc.i106.2 ], [ %spec.select.i77245251, %for.inc.i106.3 ], [ %spec.select.i77245251, %for.inc.i106.4 ], [ %spec.select.i77245251, %for.inc.i106.5 ], [ %spec.select.i77245251, %for.inc.i106.6 ], [ %spec.select.i77245251, %for.inc.i106.7 ], [ %spec.select.i77245251, %for.inc.i106.8 ], [ %spec.select.i77245251, %for.inc.i106.9 ], [ %spec.select.i77245251, %for.inc.i106.10 ], [ %spec.select.i77245251, %for.inc.i106.11 ], [ %spec.select.i77245251, %for.inc.i106.12 ], [ %spec.select.i77245251, %for.inc.i106.13 ]
   %indvars.iv.i98.lcssa = phi i64 [ 0, %for.body.lr.ph.i97 ], [ 1, %for.inc.i106 ], [ 2, %for.inc.i106.1 ], [ 3, %for.inc.i106.2 ], [ 4, %for.inc.i106.3 ], [ 5, %for.inc.i106.4 ], [ 6, %for.inc.i106.5 ], [ 7, %for.inc.i106.6 ], [ 8, %for.inc.i106.7 ], [ 9, %for.inc.i106.8 ], [ 10, %for.inc.i106.9 ], [ 11, %for.inc.i106.10 ], [ 12, %for.inc.i106.11 ], [ 13, %for.inc.i106.12 ], [ 14, %for.inc.i106.13 ]
   %arrayidx.i99.le = getelementptr inbounds ptr, ptr %call.i, i64 %indvars.iv.i98.lcssa
   store ptr @t5, ptr %arrayidx.i99.le, align 8, !tbaa !12
   br label %for.body.lr.ph.i114
 
 for.inc.i106:                                     ; preds = %for.inc.i91.13, %for.body.lr.ph.i97
-  %switch.i77245251 = phi i32 [ %switch.i77247, %for.body.lr.ph.i97 ], [ %switch.i77246, %for.inc.i91.13 ]
+  %spec.select.i77245251 = phi i32 [ %spec.select.i77247, %for.body.lr.ph.i97 ], [ %spec.select.i77246, %for.inc.i91.13 ]
   %arrayidx.i99.1 = getelementptr inbounds ptr, ptr %call.i, i64 1
   %57 = load ptr, ptr %arrayidx.i99.1, align 8, !tbaa !12
   %tobool.not.i100.1 = icmp eq ptr %57, null
@@ -744,7 +744,7 @@ for.inc.i106.13:                                  ; preds = %for.inc.i106.12
   br i1 %tobool.not.i100.14, label %if.then.i103, label %for.body.lr.ph.i114
 
 for.body.lr.ph.i114:                              ; preds = %for.inc.i106.13, %if.then.i103
-  %switch.i77245250 = phi i32 [ %switch.i77245252, %if.then.i103 ], [ %switch.i77245251, %for.inc.i106.13 ]
+  %spec.select.i77245250 = phi i32 [ %spec.select.i77245252, %if.then.i103 ], [ %spec.select.i77245251, %for.inc.i106.13 ]
   %arrayidx.i110 = getelementptr inbounds ptr, ptr %call.i, i64 1
   store ptr null, ptr %arrayidx.i110, align 8, !tbaa !12
   %71 = load ptr, ptr %call.i, align 8, !tbaa !12
@@ -934,11 +934,11 @@ for.inc.i138.13:                                  ; preds = %for.inc.i138.12
   br i1 %tobool.not.i132.14, label %if.then.i135, label %_ZN6Garage6acceptEP7Vehicle.exit140
 
 _ZN6Garage6acceptEP7Vehicle.exit140:              ; preds = %for.inc.i138.13, %if.then.i135
-  %or.cond.i143 = icmp ult i32 %switch.i77245250, 15
+  %or.cond.i143 = icmp ult i32 %spec.select.i77245250, 15
   br i1 %or.cond.i143, label %if.end.i147, label %for.body.lr.ph.i153
 
 if.end.i147:                                      ; preds = %_ZN6Garage6acceptEP7Vehicle.exit140
-  %idxprom.i145 = zext i32 %switch.i77245250 to i64
+  %idxprom.i145 = zext i32 %spec.select.i77245250 to i64
   %arrayidx.i146 = getelementptr inbounds ptr, ptr %call.i, i64 %idxprom.i145
   store ptr null, ptr %arrayidx.i146, align 8, !tbaa !12
   br label %for.body.lr.ph.i153
@@ -1046,7 +1046,7 @@ if.then.i172:                                     ; preds = %for.inc.i162.13, %f
   %vtable.i = load ptr, ptr %115, align 8, !tbaa !18
   %116 = load ptr, ptr %vtable.i, align 8
   invoke void %116(ptr noundef nonnull align 8 dereferenceable(16) %115)
-          to label %for.inc.i175 unwind label %lpad
+          to label %for.inc.i175 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175:                                     ; preds = %if.then.i172, %for.body.lr.ph.i166
   %arrayidx.i168.1 = getelementptr inbounds ptr, ptr %call.i, i64 1
@@ -1060,7 +1060,7 @@ if.then.i172.1:                                   ; preds = %for.inc.i175
   %vtable.i.1 = load ptr, ptr %118, align 8, !tbaa !18
   %119 = load ptr, ptr %vtable.i.1, align 8
   invoke void %119(ptr noundef nonnull align 8 dereferenceable(16) %118)
-          to label %for.inc.i175.1 unwind label %lpad
+          to label %for.inc.i175.1 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.1:                                   ; preds = %if.then.i172.1, %for.inc.i175
   %arrayidx.i168.2 = getelementptr inbounds ptr, ptr %call.i, i64 2
@@ -1074,7 +1074,7 @@ if.then.i172.2:                                   ; preds = %for.inc.i175.1
   %vtable.i.2 = load ptr, ptr %121, align 8, !tbaa !18
   %122 = load ptr, ptr %vtable.i.2, align 8
   invoke void %122(ptr noundef nonnull align 8 dereferenceable(16) %121)
-          to label %for.inc.i175.2 unwind label %lpad
+          to label %for.inc.i175.2 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.2:                                   ; preds = %if.then.i172.2, %for.inc.i175.1
   %arrayidx.i168.3 = getelementptr inbounds ptr, ptr %call.i, i64 3
@@ -1088,7 +1088,7 @@ if.then.i172.3:                                   ; preds = %for.inc.i175.2
   %vtable.i.3 = load ptr, ptr %124, align 8, !tbaa !18
   %125 = load ptr, ptr %vtable.i.3, align 8
   invoke void %125(ptr noundef nonnull align 8 dereferenceable(16) %124)
-          to label %for.inc.i175.3 unwind label %lpad
+          to label %for.inc.i175.3 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.3:                                   ; preds = %if.then.i172.3, %for.inc.i175.2
   %arrayidx.i168.4 = getelementptr inbounds ptr, ptr %call.i, i64 4
@@ -1102,7 +1102,7 @@ if.then.i172.4:                                   ; preds = %for.inc.i175.3
   %vtable.i.4 = load ptr, ptr %127, align 8, !tbaa !18
   %128 = load ptr, ptr %vtable.i.4, align 8
   invoke void %128(ptr noundef nonnull align 8 dereferenceable(16) %127)
-          to label %for.inc.i175.4 unwind label %lpad
+          to label %for.inc.i175.4 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.4:                                   ; preds = %if.then.i172.4, %for.inc.i175.3
   %arrayidx.i168.5 = getelementptr inbounds ptr, ptr %call.i, i64 5
@@ -1116,7 +1116,7 @@ if.then.i172.5:                                   ; preds = %for.inc.i175.4
   %vtable.i.5 = load ptr, ptr %130, align 8, !tbaa !18
   %131 = load ptr, ptr %vtable.i.5, align 8
   invoke void %131(ptr noundef nonnull align 8 dereferenceable(16) %130)
-          to label %for.inc.i175.5 unwind label %lpad
+          to label %for.inc.i175.5 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.5:                                   ; preds = %if.then.i172.5, %for.inc.i175.4
   %arrayidx.i168.6 = getelementptr inbounds ptr, ptr %call.i, i64 6
@@ -1130,7 +1130,7 @@ if.then.i172.6:                                   ; preds = %for.inc.i175.5
   %vtable.i.6 = load ptr, ptr %133, align 8, !tbaa !18
   %134 = load ptr, ptr %vtable.i.6, align 8
   invoke void %134(ptr noundef nonnull align 8 dereferenceable(16) %133)
-          to label %for.inc.i175.6 unwind label %lpad
+          to label %for.inc.i175.6 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.6:                                   ; preds = %if.then.i172.6, %for.inc.i175.5
   %arrayidx.i168.7 = getelementptr inbounds ptr, ptr %call.i, i64 7
@@ -1144,7 +1144,7 @@ if.then.i172.7:                                   ; preds = %for.inc.i175.6
   %vtable.i.7 = load ptr, ptr %136, align 8, !tbaa !18
   %137 = load ptr, ptr %vtable.i.7, align 8
   invoke void %137(ptr noundef nonnull align 8 dereferenceable(16) %136)
-          to label %for.inc.i175.7 unwind label %lpad
+          to label %for.inc.i175.7 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.7:                                   ; preds = %if.then.i172.7, %for.inc.i175.6
   %arrayidx.i168.8 = getelementptr inbounds ptr, ptr %call.i, i64 8
@@ -1158,7 +1158,7 @@ if.then.i172.8:                                   ; preds = %for.inc.i175.7
   %vtable.i.8 = load ptr, ptr %139, align 8, !tbaa !18
   %140 = load ptr, ptr %vtable.i.8, align 8
   invoke void %140(ptr noundef nonnull align 8 dereferenceable(16) %139)
-          to label %for.inc.i175.8 unwind label %lpad
+          to label %for.inc.i175.8 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.8:                                   ; preds = %if.then.i172.8, %for.inc.i175.7
   %arrayidx.i168.9 = getelementptr inbounds ptr, ptr %call.i, i64 9
@@ -1172,7 +1172,7 @@ if.then.i172.9:                                   ; preds = %for.inc.i175.8
   %vtable.i.9 = load ptr, ptr %142, align 8, !tbaa !18
   %143 = load ptr, ptr %vtable.i.9, align 8
   invoke void %143(ptr noundef nonnull align 8 dereferenceable(16) %142)
-          to label %for.inc.i175.9 unwind label %lpad
+          to label %for.inc.i175.9 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.9:                                   ; preds = %if.then.i172.9, %for.inc.i175.8
   %arrayidx.i168.10 = getelementptr inbounds ptr, ptr %call.i, i64 10
@@ -1186,7 +1186,7 @@ if.then.i172.10:                                  ; preds = %for.inc.i175.9
   %vtable.i.10 = load ptr, ptr %145, align 8, !tbaa !18
   %146 = load ptr, ptr %vtable.i.10, align 8
   invoke void %146(ptr noundef nonnull align 8 dereferenceable(16) %145)
-          to label %for.inc.i175.10 unwind label %lpad
+          to label %for.inc.i175.10 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.10:                                  ; preds = %if.then.i172.10, %for.inc.i175.9
   %arrayidx.i168.11 = getelementptr inbounds ptr, ptr %call.i, i64 11
@@ -1200,7 +1200,7 @@ if.then.i172.11:                                  ; preds = %for.inc.i175.10
   %vtable.i.11 = load ptr, ptr %148, align 8, !tbaa !18
   %149 = load ptr, ptr %vtable.i.11, align 8
   invoke void %149(ptr noundef nonnull align 8 dereferenceable(16) %148)
-          to label %for.inc.i175.11 unwind label %lpad
+          to label %for.inc.i175.11 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.11:                                  ; preds = %if.then.i172.11, %for.inc.i175.10
   %arrayidx.i168.12 = getelementptr inbounds ptr, ptr %call.i, i64 12
@@ -1214,7 +1214,7 @@ if.then.i172.12:                                  ; preds = %for.inc.i175.11
   %vtable.i.12 = load ptr, ptr %151, align 8, !tbaa !18
   %152 = load ptr, ptr %vtable.i.12, align 8
   invoke void %152(ptr noundef nonnull align 8 dereferenceable(16) %151)
-          to label %for.inc.i175.12 unwind label %lpad
+          to label %for.inc.i175.12 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.12:                                  ; preds = %if.then.i172.12, %for.inc.i175.11
   %arrayidx.i168.13 = getelementptr inbounds ptr, ptr %call.i, i64 13
@@ -1228,7 +1228,7 @@ if.then.i172.13:                                  ; preds = %for.inc.i175.12
   %vtable.i.13 = load ptr, ptr %154, align 8, !tbaa !18
   %155 = load ptr, ptr %vtable.i.13, align 8
   invoke void %155(ptr noundef nonnull align 8 dereferenceable(16) %154)
-          to label %for.inc.i175.13 unwind label %lpad
+          to label %for.inc.i175.13 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.13:                                  ; preds = %if.then.i172.13, %for.inc.i175.12
   %arrayidx.i168.14 = getelementptr inbounds ptr, ptr %call.i, i64 14
@@ -1242,13 +1242,13 @@ if.then.i172.14:                                  ; preds = %for.inc.i175.13
   %vtable.i.14 = load ptr, ptr %157, align 8, !tbaa !18
   %158 = load ptr, ptr %vtable.i.14, align 8
   invoke void %158(ptr noundef nonnull align 8 dereferenceable(16) %157)
-          to label %for.inc.i175.14 unwind label %lpad
+          to label %for.inc.i175.14 unwind label %_ZN6GarageD2Ev.exit180
 
 for.inc.i175.14:                                  ; preds = %if.then.i172.14, %for.inc.i175.13
   tail call void @_ZdaPv(ptr noundef nonnull %call.i) #12
   ret i32 0
 
-lpad:                                             ; preds = %if.then.i172.14, %if.then.i172.13, %if.then.i172.12, %if.then.i172.11, %if.then.i172.10, %if.then.i172.9, %if.then.i172.8, %if.then.i172.7, %if.then.i172.6, %if.then.i172.5, %if.then.i172.4, %if.then.i172.3, %if.then.i172.2, %if.then.i172.1, %if.then.i172
+_ZN6GarageD2Ev.exit180:                           ; preds = %if.then.i172.14, %if.then.i172.13, %if.then.i172.12, %if.then.i172.11, %if.then.i172.10, %if.then.i172.9, %if.then.i172.8, %if.then.i172.7, %if.then.i172.6, %if.then.i172.5, %if.then.i172.4, %if.then.i172.3, %if.then.i172.2, %if.then.i172.1, %if.then.i172
   %159 = landingpad { ptr, i32 }
           cleanup
   tail call void @_ZdaPv(ptr noundef nonnull %call.i) #12

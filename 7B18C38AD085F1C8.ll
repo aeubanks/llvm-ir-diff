@@ -893,14 +893,14 @@ if.end377:                                        ; preds = %if.end345, %if.else
   %rem378.lhs.trunc = trunc i32 %rem353665 to i8
   %rem378656666 = and i8 %rem378.lhs.trunc, 3
   %div379657667.cmp = icmp ugt i8 %rem378656666, 1
-  %div379.sext = zext i1 %div379657667.cmp to i16
+  %conv380 = zext i1 %div379657667.cmp to i16
   %add.ptr385 = getelementptr inbounds [3 x [11 x %struct.BiContextType]], ptr %3, i64 0, i64 1, i64 10
-  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %div379.sext, ptr noundef nonnull %add.ptr385) #12
+  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %conv380, ptr noundef nonnull %add.ptr385) #12
   %rem386658668.urem = add nsw i8 %rem378656666, -2
   %rem386658668.cmp = icmp ult i8 %rem378656666, 2
   %rem386658668 = select i1 %rem386658668.cmp, i8 %rem378656666, i8 %rem386658668.urem
-  %rem386.sext = sext i8 %rem386658668 to i16
-  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %rem386.sext, ptr noundef nonnull %add.ptr385) #12
+  %conv387 = sext i8 %rem386658668 to i16
+  tail call void @biari_encode_symbol(ptr noundef nonnull %ee_cabac, i16 noundef signext %conv387, ptr noundef nonnull %add.ptr385) #12
   br label %cleanup
 
 cleanup:                                          ; preds = %if.then37, %if.end78, %if.then32, %if.end377, %if.end336, %if.then187, %if.then195, %if.then213, %if.then255, %sw.bb169, %sw.bb149, %sw.bb139, %sw.bb, %if.then129, %if.end336.thread, %if.then342
@@ -1519,19 +1519,19 @@ land.lhs.true19:                                  ; preds = %if.then17
   %17 = load i32, ptr %mb_field24, align 8, !tbaa !29
   %cmp25 = icmp eq i32 %17, 1
   %mul = zext i1 %cmp25 to i32
-  %spec.select169 = shl nuw nsw i32 %cond.i, %mul
+  %spec.select = shl nuw nsw i32 %cond.i, %mul
   br label %if.end40
 
 land.lhs.true29:                                  ; preds = %if.then17
   %mb_field34 = getelementptr inbounds %struct.macroblock, ptr %10, i64 %idxprom5, i32 19
   %18 = load i32, ptr %mb_field34, align 8, !tbaa !29
   %cmp35 = icmp eq i32 %18, 0
-  %div165 = zext i1 %cmp35 to i32
-  %spec.select = lshr i32 %cond.i, %div165
+  %div167172 = zext i1 %cmp35 to i32
+  %spec.select168 = lshr i32 %cond.i, %div167172
   br label %if.end40
 
-if.end40:                                         ; preds = %land.lhs.true19, %if.then17, %land.lhs.true29, %entry, %if.then
-  %b.0 = phi i32 [ %cond.i, %if.then ], [ %spec.select, %land.lhs.true29 ], [ 0, %entry ], [ %spec.select169, %land.lhs.true19 ], [ %cond.i, %if.then17 ]
+if.end40:                                         ; preds = %land.lhs.true29, %land.lhs.true19, %if.then17, %entry, %if.then
+  %b.0 = phi i32 [ %cond.i, %if.then ], [ 0, %entry ], [ %spec.select, %land.lhs.true19 ], [ %cond.i, %if.then17 ], [ %spec.select168, %land.lhs.true29 ]
   %19 = load i32, ptr %block_a, align 4, !tbaa !17
   %tobool42.not = icmp eq i32 %19, 0
   br i1 %tobool42.not, label %if.end92, label %if.then43
@@ -1574,19 +1574,19 @@ land.lhs.true67:                                  ; preds = %if.then64
   %28 = load i32, ptr %mb_field72, align 8, !tbaa !29
   %cmp73 = icmp eq i32 %28, 1
   %mul75 = zext i1 %cmp73 to i32
-  %spec.select170 = shl nuw nsw i32 %cond.i162, %mul75
+  %spec.select169 = shl nuw nsw i32 %cond.i162, %mul75
   br label %if.end92
 
 land.lhs.true79:                                  ; preds = %if.then64
   %mb_field84 = getelementptr inbounds %struct.macroblock, ptr %21, i64 %idxprom46, i32 19
   %29 = load i32, ptr %mb_field84, align 8, !tbaa !29
   %cmp85 = icmp eq i32 %29, 0
-  %div87164 = zext i1 %cmp85 to i32
-  %spec.select166 = lshr i32 %cond.i162, %div87164
+  %div87166171 = zext i1 %cmp85 to i32
+  %spec.select170 = lshr i32 %cond.i162, %div87166171
   br label %if.end92
 
-if.end92:                                         ; preds = %land.lhs.true67, %if.then64, %land.lhs.true79, %if.end40, %if.then43
-  %a.0 = phi i32 [ %cond.i162, %if.then43 ], [ %spec.select166, %land.lhs.true79 ], [ 0, %if.end40 ], [ %spec.select170, %land.lhs.true67 ], [ %cond.i162, %if.then64 ]
+if.end92:                                         ; preds = %land.lhs.true79, %land.lhs.true67, %if.then64, %if.end40, %if.then43
+  %a.0 = phi i32 [ %cond.i162, %if.then43 ], [ 0, %if.end40 ], [ %spec.select169, %land.lhs.true67 ], [ %cond.i162, %if.then64 ], [ %spec.select170, %land.lhs.true79 ]
   %add = add nsw i32 %a.0, %b.0
   %cmp93 = icmp slt i32 %add, 3
   br i1 %cmp93, label %if.then94, label %if.else96
@@ -2929,10 +2929,10 @@ while.end4:                                       ; preds = %while.body3, %if.el
 declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smin.i32(i32, i32) #10
+declare i32 @llvm.abs.i32(i32, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #10
+declare i32 @llvm.smin.i32(i32, i32) #10
 
 ; Function Attrs: nocallback nofree nosync nounwind willreturn memory(argmem: read)
 declare ptr @llvm.load.relative.i64(ptr, i64) #11

@@ -195,7 +195,7 @@ if.then32:                                        ; preds = %if.end30
   br label %cleanup178
 
 if.end34:                                         ; preds = %if.end, %if.end30
-  %f.sroa.18.0673 = phi double [ %mul3.i280, %if.end30 ], [ %f.sroa.18.0.copyload, %if.end ]
+  %f.sroa.18.0671 = phi double [ %mul3.i280, %if.end30 ], [ %f.sroa.18.0.copyload, %if.end ]
   %51 = phi <2 x double> [ %50, %if.end30 ], [ %45, %if.end ]
   %refl = getelementptr inbounds [9 x %struct.Sphere], ptr @spheres, i64 0, i64 %idxprom, i32 4
   %52 = load i32, ptr %refl, align 8, !tbaa !27
@@ -211,14 +211,14 @@ if.then36:                                        ; preds = %if.end34
   %call39 = tail call double @sqrt(double noundef %call38) #13
   %53 = tail call double @llvm.fabs.f64(double %38)
   %cmp43 = fcmp ogt double %53, 1.000000e-01
-  %. = select i1 %cmp43, double 0.000000e+00, double 1.000000e+00
-  %.665 = select i1 %cmp43, double 1.000000e+00, double 0.000000e+00
-  %54 = fneg double %.
-  %55 = fneg double %.665
+  %ref.tmp41.sroa.0.0 = select i1 %cmp43, double 0.000000e+00, double 1.000000e+00
+  %ref.tmp41.sroa.5.0 = select i1 %cmp43, double 1.000000e+00, double 0.000000e+00
+  %54 = fneg double %ref.tmp41.sroa.0.0
+  %55 = fneg double %ref.tmp41.sroa.5.0
   %56 = extractelement <2 x double> %44, i64 0
   %neg15.i = fmul double %56, %55
   %57 = extractelement <2 x double> %44, i64 1
-  %58 = tail call double @llvm.fmuladd.f64(double %., double %57, double %neg15.i)
+  %58 = tail call double @llvm.fmuladd.f64(double %ref.tmp41.sroa.0.0, double %57, double %neg15.i)
   %59 = shufflevector <2 x double> %44, <2 x double> poison, <2 x i32> <i32 poison, i32 0>
   %60 = insertelement <2 x double> %59, double %nl.sroa.11.0, i64 0
   %61 = fneg <2 x double> %60
@@ -238,7 +238,7 @@ if.then36:                                        ; preds = %if.end34
   %63 = shufflevector <2 x double> %44, <2 x double> %60, <2 x i32> <i32 1, i32 2>
   %64 = insertelement <2 x double> <double -0.000000e+00, double poison>, double %54, i64 1
   %65 = fmul <2 x double> %63, %64
-  %66 = insertelement <2 x double> %59, double %.665, i64 0
+  %66 = insertelement <2 x double> %59, double %ref.tmp41.sroa.5.0, i64 0
   %67 = shufflevector <2 x double> %63, <2 x double> <double poison, double 0.000000e+00>, <2 x i32> <i32 1, i32 3>
   %68 = tail call <2 x double> @llvm.fmuladd.v2f64(<2 x double> %66, <2 x double> %67, <2 x double> %65)
   %69 = fmul <2 x double> %68, %68
@@ -299,7 +299,7 @@ if.then36:                                        ; preds = %if.end34
   call void @_Z8radianceRK3RayiPt(ptr nonnull sret(%struct.Vec) align 8 %ref.tmp62, ptr noundef nonnull align 8 dereferenceable(48) %ref.tmp63, i32 noundef %inc, ptr noundef %Xi)
   %z5.i377 = getelementptr inbounds %struct.Vec, ptr %ref.tmp62, i64 0, i32 2
   %106 = load double, ptr %z5.i377, align 16, !tbaa !14, !noalias !28
-  %mul6.i = fmul double %f.sroa.18.0673, %106
+  %mul6.i = fmul double %f.sroa.18.0671, %106
   tail call void @llvm.experimental.noalias.scope.decl(metadata !31)
   %z.i384 = getelementptr inbounds [9 x %struct.Sphere], ptr @spheres, i64 0, i64 %idxprom, i32 2, i32 2
   %107 = load double, ptr %z.i384, align 8, !tbaa !14, !noalias !31
@@ -344,7 +344,7 @@ if.then68:                                        ; preds = %if.end34
   call void @_Z8radianceRK3RayiPt(ptr nonnull sret(%struct.Vec) align 8 %ref.tmp71, ptr noundef nonnull align 8 dereferenceable(48) %ref.tmp72, i32 noundef %inc, ptr noundef %Xi)
   %z5.i425 = getelementptr inbounds %struct.Vec, ptr %ref.tmp71, i64 0, i32 2
   %123 = load double, ptr %z5.i425, align 16, !tbaa !14, !noalias !34
-  %mul6.i426 = fmul double %f.sroa.18.0673, %123
+  %mul6.i426 = fmul double %f.sroa.18.0671, %123
   tail call void @llvm.experimental.noalias.scope.decl(metadata !37)
   %z.i433 = getelementptr inbounds [9 x %struct.Sphere], ptr @spheres, i64 0, i64 %idxprom, i32 2, i32 2
   %124 = load double, ptr %z.i433, align 8, !tbaa !14, !noalias !37
@@ -390,14 +390,14 @@ if.end81:                                         ; preds = %if.end34
   %142 = tail call double @llvm.fmuladd.f64(double %38, double %141, double %mul4.i471)
   %143 = tail call double @llvm.fmuladd.f64(double %mul3.i.i, double %nl.sroa.11.0, double %142)
   %cmp90 = fcmp ogt double %143, 0.000000e+00
-  %.666 = select i1 %cmp90, double 0x3FE5555555555555, double 1.500000e+00
+  %. = select i1 %cmp90, double 0x3FE5555555555555, double 1.500000e+00
   %mul4.i476 = fmul double %140, %130
   %144 = tail call double @llvm.fmuladd.f64(double %131, double %141, double %mul4.i476)
   %145 = tail call double @llvm.fmuladd.f64(double %133, double %nl.sroa.11.0, double %144)
   %neg = fneg double %145
   %146 = tail call double @llvm.fmuladd.f64(double %neg, double %145, double 1.000000e+00)
-  %147 = fneg double %.666
-  %neg102 = fmul double %.666, %147
+  %147 = fneg double %.
+  %neg102 = fmul double %., %147
   %148 = tail call double @llvm.fmuladd.f64(double %neg102, double %146, double 1.000000e+00)
   %cmp103 = fcmp olt double %148, 0.000000e+00
   br i1 %cmp103, label %if.then104, label %if.end108
@@ -408,7 +408,7 @@ if.then104:                                       ; preds = %if.end81
   call void @_Z8radianceRK3RayiPt(ptr nonnull sret(%struct.Vec) align 8 %ref.tmp107, ptr noundef nonnull align 8 dereferenceable(48) %reflRay, i32 noundef %inc, ptr noundef %Xi)
   %z5.i484 = getelementptr inbounds %struct.Vec, ptr %ref.tmp107, i64 0, i32 2
   %149 = load double, ptr %z5.i484, align 16, !tbaa !14, !noalias !40
-  %mul6.i485 = fmul double %f.sroa.18.0673, %149
+  %mul6.i485 = fmul double %f.sroa.18.0671, %149
   tail call void @llvm.experimental.noalias.scope.decl(metadata !43)
   %z.i492 = getelementptr inbounds [9 x %struct.Sphere], ptr @spheres, i64 0, i64 %idxprom, i32 2, i32 2
   %150 = load double, ptr %z.i492, align 8, !tbaa !14, !noalias !43
@@ -424,12 +424,12 @@ if.then104:                                       ; preds = %if.end81
   br label %cleanup
 
 if.end108:                                        ; preds = %if.end81
-  %155 = insertelement <2 x double> poison, double %.666, i64 0
+  %155 = insertelement <2 x double> poison, double %., i64 0
   %156 = shufflevector <2 x double> %155, <2 x double> poison, <2 x i32> zeroinitializer
   %157 = fmul <2 x double> %156, %129
-  %mul3.i501 = fmul double %.666, %133
+  %mul3.i501 = fmul double %., %133
   %call116 = tail call double @sqrt(double noundef %148) #13
-  %158 = tail call double @llvm.fmuladd.f64(double %145, double %.666, double %call116)
+  %158 = tail call double @llvm.fmuladd.f64(double %145, double %., double %call116)
   %159 = fneg double %158
   %mul117 = select i1 %cmp90, double %158, double %159
   %mul3.i508 = fmul double %mul3.i.i, %mul117
@@ -547,7 +547,7 @@ cond.false157:                                    ; preds = %cond.end128
 cond.end165:                                      ; preds = %cond.true149, %cond.false151, %cond.false157
   %ref.tmp144.sroa.10.0 = phi double [ %mul3.i537, %cond.true149 ], [ %mul3.i547, %cond.false151 ], [ %add6.i573, %cond.false157 ]
   %198 = phi <2 x double> [ %180, %cond.true149 ], [ %185, %cond.false151 ], [ %197, %cond.false157 ]
-  %mul6.i582 = fmul double %f.sroa.18.0673, %ref.tmp144.sroa.10.0
+  %mul6.i582 = fmul double %f.sroa.18.0671, %ref.tmp144.sroa.10.0
   tail call void @llvm.experimental.noalias.scope.decl(metadata !58)
   %z.i589 = getelementptr inbounds [9 x %struct.Sphere], ptr @spheres, i64 0, i64 %idxprom, i32 2, i32 2
   %199 = load double, ptr %z.i589, align 8, !tbaa !14, !noalias !58

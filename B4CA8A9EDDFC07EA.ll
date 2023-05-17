@@ -45,22 +45,22 @@ invoke.cont4:                                     ; preds = %entry
   store double %call, ptr %alfa, align 8, !tbaa !17
   %1 = load ptr, ptr %ref.tmp, align 8, !tbaa !18
   %cmp.i.i.i = icmp eq ptr %1, %0
-  br i1 %cmp.i.i.i, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit, label %if.then.i.i21
+  br i1 %cmp.i.i.i, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit, label %if.then.i.i25
 
-if.then.i.i21:                                    ; preds = %invoke.cont4
+if.then.i.i25:                                    ; preds = %invoke.cont4
   call void @_ZdlPv(ptr noundef %1) #8
   br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit
 
-_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit: ; preds = %invoke.cont4, %if.then.i.i21
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit: ; preds = %invoke.cont4, %if.then.i.i25
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp) #7
   call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %ref.tmp7) #7
   %2 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp7, i64 0, i32 2
   store ptr %2, ptr %ref.tmp7, align 8, !tbaa !11
   call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(5) %2, ptr noundef nonnull align 1 dereferenceable(5) @.str.1, i64 5, i1 false)
-  %_M_string_length.i.i.i.i29 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp7, i64 0, i32 1
-  store i64 5, ptr %_M_string_length.i.i.i.i29, align 8, !tbaa !13
-  %arrayidx.i.i.i30 = getelementptr inbounds i8, ptr %ref.tmp7, i64 21
-  store i8 0, ptr %arrayidx.i.i.i30, align 1, !tbaa !16
+  %_M_string_length.i.i.i.i33 = getelementptr inbounds %"class.std::__cxx11::basic_string", ptr %ref.tmp7, i64 0, i32 1
+  store i64 5, ptr %_M_string_length.i.i.i.i33, align 8, !tbaa !13
+  %arrayidx.i.i.i34 = getelementptr inbounds i8, ptr %ref.tmp7, i64 21
+  store i8 0, ptr %arrayidx.i.i.i34, align 1, !tbaa !16
   %call13 = invoke noundef double @_ZNK9InputFile9getDoubleERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEd(ptr noundef nonnull align 8 dereferenceable(48) %inp, ptr noundef nonnull align 8 dereferenceable(32) %ref.tmp7, double noundef 0.000000e+00)
           to label %invoke.cont12 unwind label %lpad11
 
@@ -68,14 +68,14 @@ invoke.cont12:                                    ; preds = %_ZNSt7__cxx1112basi
   %ssmin = getelementptr inbounds %class.TTS, ptr %this, i64 0, i32 2
   store double %call13, ptr %ssmin, align 8, !tbaa !19
   %3 = load ptr, ptr %ref.tmp7, align 8, !tbaa !18
-  %cmp.i.i.i34 = icmp eq ptr %3, %2
-  br i1 %cmp.i.i.i34, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit36, label %if.then.i.i35
+  %cmp.i.i.i38 = icmp eq ptr %3, %2
+  br i1 %cmp.i.i.i38, label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40, label %if.then.i.i39
 
-if.then.i.i35:                                    ; preds = %invoke.cont12
+if.then.i.i39:                                    ; preds = %invoke.cont12
   call void @_ZdlPv(ptr noundef %3) #8
-  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit36
+  br label %_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40
 
-_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit36: ; preds = %invoke.cont12, %if.then.i.i35
+_ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEED2Ev.exit40: ; preds = %invoke.cont12, %if.then.i.i39
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp7) #7
   ret void
 
@@ -83,14 +83,14 @@ lpad3:                                            ; preds = %entry
   %4 = landingpad { ptr, i32 }
           cleanup
   %5 = load ptr, ptr %ref.tmp, align 8, !tbaa !18
-  %cmp.i.i.i37 = icmp eq ptr %5, %0
-  br i1 %cmp.i.i.i37, label %ehcleanup, label %if.then.i.i38
+  %cmp.i.i.i41 = icmp eq ptr %5, %0
+  br i1 %cmp.i.i.i41, label %ehcleanup, label %if.then.i.i42
 
-if.then.i.i38:                                    ; preds = %lpad3
+if.then.i.i42:                                    ; preds = %lpad3
   call void @_ZdlPv(ptr noundef %5) #8
   br label %ehcleanup
 
-ehcleanup:                                        ; preds = %if.then.i.i38, %lpad3
+ehcleanup:                                        ; preds = %if.then.i.i42, %lpad3
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp) #7
   br label %eh.resume
 
@@ -98,20 +98,20 @@ lpad11:                                           ; preds = %_ZNSt7__cxx1112basi
   %6 = landingpad { ptr, i32 }
           cleanup
   %7 = load ptr, ptr %ref.tmp7, align 8, !tbaa !18
-  %cmp.i.i.i40 = icmp eq ptr %7, %2
-  br i1 %cmp.i.i.i40, label %ehcleanup15, label %if.then.i.i41
+  %cmp.i.i.i44 = icmp eq ptr %7, %2
+  br i1 %cmp.i.i.i44, label %ehcleanup15, label %if.then.i.i45
 
-if.then.i.i41:                                    ; preds = %lpad11
+if.then.i.i45:                                    ; preds = %lpad11
   call void @_ZdlPv(ptr noundef %7) #8
   br label %ehcleanup15
 
-ehcleanup15:                                      ; preds = %if.then.i.i41, %lpad11
+ehcleanup15:                                      ; preds = %if.then.i.i45, %lpad11
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %ref.tmp7) #7
   br label %eh.resume
 
 eh.resume:                                        ; preds = %ehcleanup15, %ehcleanup
-  %.pn44.pn = phi { ptr, i32 } [ %6, %ehcleanup15 ], [ %4, %ehcleanup ]
-  resume { ptr, i32 } %.pn44.pn
+  %.pn21.pn = phi { ptr, i32 } [ %6, %ehcleanup15 ], [ %4, %ehcleanup ]
+  resume { ptr, i32 } %.pn21.pn
 }
 
 declare noundef double @_ZNK9InputFile9getDoubleERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEd(ptr noundef nonnull align 8 dereferenceable(48), ptr noundef nonnull align 8 dereferenceable(32), double noundef) local_unnamed_addr #1

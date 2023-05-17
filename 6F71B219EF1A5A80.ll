@@ -26,8 +26,8 @@ target triple = "x86_64-unknown-linux-gnu"
 define dso_local void @test(ptr nocapture noundef readonly %fmt, ptr noundef %ap) local_unnamed_addr #0 {
 entry:
   %0 = load i8, ptr %fmt, align 1, !tbaa !5
-  %tobool.not107 = icmp eq i8 %0, 0
-  br i1 %tobool.not107, label %while.end, label %while.body.lr.ph
+  %tobool.not104 = icmp eq i8 %0, 0
+  br i1 %tobool.not104, label %while.end, label %while.body.lr.ph
 
 while.body.lr.ph:                                 ; preds = %entry
   %overflow_arg_area_p86 = getelementptr inbounds %struct.__va_list_tag, ptr %ap, i64 0, i32 2
@@ -37,8 +37,8 @@ while.body.lr.ph:                                 ; preds = %entry
 
 while.body:                                       ; preds = %while.body.lr.ph, %sw.epilog
   %2 = phi i8 [ %0, %while.body.lr.ph ], [ %35, %sw.epilog ]
-  %fmt.addr.0108 = phi ptr [ %fmt, %while.body.lr.ph ], [ %incdec.ptr, %sw.epilog ]
-  %incdec.ptr = getelementptr inbounds i8, ptr %fmt.addr.0108, i64 1
+  %fmt.addr.0105 = phi ptr [ %fmt, %while.body.lr.ph ], [ %incdec.ptr, %sw.epilog ]
+  %incdec.ptr = getelementptr inbounds i8, ptr %fmt.addr.0105, i64 1
   %conv = sext i8 %2 to i32
   switch i32 %conv, label %sw.epilog [
     i32 115, label %sw.bb
@@ -230,17 +230,17 @@ vaarg.in_reg74:                                   ; preds = %sw.bb67
 
 vaarg.in_mem76:                                   ; preds = %sw.bb67
   %overflow_arg_area78 = load ptr, ptr %overflow_arg_area_p86, align 8
-  %overflow_arg_area78.sroa.gep106 = getelementptr inbounds i8, ptr %overflow_arg_area78, i64 8
+  %overflow_arg_area78.sroa.gep = getelementptr inbounds i8, ptr %overflow_arg_area78, i64 8
   %overflow_arg_area.next79 = getelementptr i8, ptr %overflow_arg_area78, i64 16
   store ptr %overflow_arg_area.next79, ptr %overflow_arg_area_p86, align 8
-  %vaarg.addr81.sroa.phi104.sroa.speculate.load.vaarg.in_mem76 = load double, ptr %overflow_arg_area78.sroa.gep106, align 8, !tbaa.struct !12
+  %vaarg.addr81.sroa.phi.sroa.speculate.load.vaarg.in_mem76 = load double, ptr %overflow_arg_area78.sroa.gep, align 8, !tbaa.struct !12
   %vaarg.addr81.sroa.speculate.load.vaarg.in_mem76 = load i32, ptr %overflow_arg_area78, align 8, !tbaa.struct !15
   br label %vaarg.end80
 
 vaarg.end80:                                      ; preds = %vaarg.in_mem76, %vaarg.in_reg74
   %vaarg.addr81.sroa.speculated = phi i32 [ %31, %vaarg.in_reg74 ], [ %vaarg.addr81.sroa.speculate.load.vaarg.in_mem76, %vaarg.in_mem76 ]
-  %vaarg.addr81.sroa.phi104.sroa.speculated = phi double [ %32, %vaarg.in_reg74 ], [ %vaarg.addr81.sroa.phi104.sroa.speculate.load.vaarg.in_mem76, %vaarg.in_mem76 ]
-  %call84 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %vaarg.addr81.sroa.speculated, double noundef %vaarg.addr81.sroa.phi104.sroa.speculated)
+  %vaarg.addr81.sroa.phi.sroa.speculated = phi double [ %32, %vaarg.in_reg74 ], [ %vaarg.addr81.sroa.phi.sroa.speculate.load.vaarg.in_mem76, %vaarg.in_mem76 ]
+  %call84 = tail call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %vaarg.addr81.sroa.speculated, double noundef %vaarg.addr81.sroa.phi.sroa.speculated)
   br label %sw.epilog
 
 sw.bb85:                                          ; preds = %while.body

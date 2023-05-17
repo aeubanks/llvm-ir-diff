@@ -127,9 +127,9 @@ terminate.lpad.i:                                 ; preds = %if.then.i
 
 _ZN9CMyComPtrI19ISequentialInStreamED2Ev.exit:    ; preds = %lpad9, %if.then.i
   invoke void @_ZN14CByteInBufWrap4FreeEv(ptr noundef nonnull align 8 dereferenceable(64) %_inStream)
-          to label %ehcleanup15 unwind label %terminate.lpad.i21
+          to label %ehcleanup15 unwind label %terminate.lpad.i22
 
-terminate.lpad.i21:                               ; preds = %_ZN9CMyComPtrI19ISequentialInStreamED2Ev.exit
+terminate.lpad.i22:                               ; preds = %_ZN9CMyComPtrI19ISequentialInStreamED2Ev.exit
   %10 = landingpad { ptr, i32 }
           catch ptr null
   %11 = extractvalue { ptr, i32 } %10, 0

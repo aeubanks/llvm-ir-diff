@@ -37,17 +37,17 @@ entry:
 ; Function Attrs: mustprogress norecurse uwtable
 define dso_local noundef i32 @main(i32 noundef %argc, ptr nocapture noundef readonly %argv) local_unnamed_addr #3 {
 entry:
-  %mem.i301 = alloca ptr, align 8
-  %mem.i283 = alloca ptr, align 8
-  %mem.i266 = alloca ptr, align 8
-  %mem.i251 = alloca ptr, align 8
-  %mem.i236 = alloca ptr, align 8
-  %mem.i220 = alloca ptr, align 8
-  %mem.i205 = alloca ptr, align 8
-  %mem.i188 = alloca ptr, align 8
-  %mem.i173 = alloca ptr, align 8
-  %mem.i159 = alloca ptr, align 8
-  %mem.i142 = alloca ptr, align 8
+  %mem.i303 = alloca ptr, align 8
+  %mem.i285 = alloca ptr, align 8
+  %mem.i268 = alloca ptr, align 8
+  %mem.i253 = alloca ptr, align 8
+  %mem.i238 = alloca ptr, align 8
+  %mem.i222 = alloca ptr, align 8
+  %mem.i207 = alloca ptr, align 8
+  %mem.i190 = alloca ptr, align 8
+  %mem.i175 = alloca ptr, align 8
+  %mem.i161 = alloca ptr, align 8
+  %mem.i144 = alloca ptr, align 8
   %mem.i = alloca ptr, align 8
   %bufs = alloca [10 x %struct.buffer_t], align 16
   %out = alloca [2 x %struct.buffer_t], align 16
@@ -113,398 +113,398 @@ _Z11make_bufferIfE8buffer_tii.exit:               ; preds = %for.body.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i) #12, !noalias !9
   %arrayinit.element = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1
   call void @llvm.experimental.noalias.scope.decl(metadata !23)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i142) #12, !noalias !23
-  %call.i.i143 = call i32 @posix_memalign(ptr noundef nonnull %mem.i142, i64 noundef 128, i64 noundef 204800) #12, !noalias !23
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i144) #12, !noalias !23
+  %call.i.i145 = call i32 @posix_memalign(ptr noundef nonnull %mem.i144, i64 noundef 128, i64 noundef 204800) #12, !noalias !23
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %arrayinit.element, i8 0, i64 72, i1 false), !alias.scope !23
-  %5 = load ptr, ptr %mem.i142, align 8, !tbaa !5, !noalias !23
-  %host.i144 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 1
-  store ptr %5, ptr %host.i144, align 16, !tbaa !12, !alias.scope !23
-  %extent.i145 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 2
-  store i32 256, ptr %extent.i145, align 8, !tbaa !17, !alias.scope !23
-  %arrayidx3.i146 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i146, align 4, !tbaa !17, !alias.scope !23
-  %elem_size.i147 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 5
-  store i32 8, ptr %elem_size.i147, align 8, !tbaa !18, !alias.scope !23
-  %stride.i148 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 3
-  store i32 1, ptr %stride.i148, align 8, !tbaa !17, !alias.scope !23
-  %arrayidx6.i149 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i149, align 4, !tbaa !17, !alias.scope !23
-  br label %for.body.i158
+  %5 = load ptr, ptr %mem.i144, align 8, !tbaa !5, !noalias !23
+  %host.i146 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 1
+  store ptr %5, ptr %host.i146, align 16, !tbaa !12, !alias.scope !23
+  %extent.i147 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 2
+  store i32 256, ptr %extent.i147, align 8, !tbaa !17, !alias.scope !23
+  %arrayidx3.i148 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i148, align 4, !tbaa !17, !alias.scope !23
+  %elem_size.i149 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 5
+  store i32 8, ptr %elem_size.i149, align 8, !tbaa !18, !alias.scope !23
+  %stride.i150 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 3
+  store i32 1, ptr %stride.i150, align 8, !tbaa !17, !alias.scope !23
+  %arrayidx6.i151 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 1, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i151, align 4, !tbaa !17, !alias.scope !23
+  br label %for.body.i160
 
-for.body.i158:                                    ; preds = %for.body.i158, %_Z11make_bufferIfE8buffer_tii.exit
-  %indvars.iv.i150 = phi i64 [ 0, %_Z11make_bufferIfE8buffer_tii.exit ], [ %indvars.iv.next.i156, %for.body.i158 ]
-  %call.i17.i151 = call i32 @rand() #12, !noalias !23
-  %conv.i.i152 = sitofp i32 %call.i17.i151 to double
-  %div.i.i153 = fmul double %conv.i.i152, 1.250000e-01
-  %sub.i.i154 = fadd double %div.i.i153, -1.000000e+02
-  %6 = load ptr, ptr %mem.i142, align 8, !tbaa !5, !noalias !23
-  %arrayidx9.i155 = getelementptr inbounds double, ptr %6, i64 %indvars.iv.i150
-  store double %sub.i.i154, ptr %arrayidx9.i155, align 8, !tbaa !26, !noalias !23
-  %indvars.iv.next.i156 = add nuw nsw i64 %indvars.iv.i150, 1
-  %exitcond.not.i157 = icmp eq i64 %indvars.iv.next.i156, 25600
-  br i1 %exitcond.not.i157, label %_Z11make_bufferIdE8buffer_tii.exit, label %for.body.i158, !llvm.loop !28
+for.body.i160:                                    ; preds = %for.body.i160, %_Z11make_bufferIfE8buffer_tii.exit
+  %indvars.iv.i152 = phi i64 [ 0, %_Z11make_bufferIfE8buffer_tii.exit ], [ %indvars.iv.next.i158, %for.body.i160 ]
+  %call.i17.i153 = call i32 @rand() #12, !noalias !23
+  %conv.i.i154 = sitofp i32 %call.i17.i153 to double
+  %div.i.i155 = fmul double %conv.i.i154, 1.250000e-01
+  %sub.i.i156 = fadd double %div.i.i155, -1.000000e+02
+  %6 = load ptr, ptr %mem.i144, align 8, !tbaa !5, !noalias !23
+  %arrayidx9.i157 = getelementptr inbounds double, ptr %6, i64 %indvars.iv.i152
+  store double %sub.i.i156, ptr %arrayidx9.i157, align 8, !tbaa !26, !noalias !23
+  %indvars.iv.next.i158 = add nuw nsw i64 %indvars.iv.i152, 1
+  %exitcond.not.i159 = icmp eq i64 %indvars.iv.next.i158, 25600
+  br i1 %exitcond.not.i159, label %_Z11make_bufferIdE8buffer_tii.exit, label %for.body.i160, !llvm.loop !28
 
-_Z11make_bufferIdE8buffer_tii.exit:               ; preds = %for.body.i158
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i142) #12, !noalias !23
+_Z11make_bufferIdE8buffer_tii.exit:               ; preds = %for.body.i160
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i144) #12, !noalias !23
   %arrayinit.element5 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2
   call void @llvm.experimental.noalias.scope.decl(metadata !29)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i159) #12, !noalias !29
-  %call.i.i160 = call i32 @posix_memalign(ptr noundef nonnull %mem.i159, i64 noundef 128, i64 noundef 25600) #12, !noalias !29
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i161) #12, !noalias !29
+  %call.i.i162 = call i32 @posix_memalign(ptr noundef nonnull %mem.i161, i64 noundef 128, i64 noundef 25600) #12, !noalias !29
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) %arrayinit.element5, i8 0, i64 72, i1 false), !alias.scope !29
-  %7 = load ptr, ptr %mem.i159, align 8, !tbaa !5, !noalias !29
-  %host.i161 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 1
-  store ptr %7, ptr %host.i161, align 8, !tbaa !12, !alias.scope !29
-  %extent.i162 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 2
-  store i32 256, ptr %extent.i162, align 16, !tbaa !17, !alias.scope !29
-  %arrayidx3.i163 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i163, align 4, !tbaa !17, !alias.scope !29
-  %elem_size.i164 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 5
-  store i32 1, ptr %elem_size.i164, align 16, !tbaa !18, !alias.scope !29
-  %stride.i165 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 3
-  store i32 1, ptr %stride.i165, align 16, !tbaa !17, !alias.scope !29
-  %arrayidx6.i166 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i166, align 4, !tbaa !17, !alias.scope !29
-  br label %for.body.i172
+  %7 = load ptr, ptr %mem.i161, align 8, !tbaa !5, !noalias !29
+  %host.i163 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 1
+  store ptr %7, ptr %host.i163, align 8, !tbaa !12, !alias.scope !29
+  %extent.i164 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 2
+  store i32 256, ptr %extent.i164, align 16, !tbaa !17, !alias.scope !29
+  %arrayidx3.i165 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i165, align 4, !tbaa !17, !alias.scope !29
+  %elem_size.i166 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 5
+  store i32 1, ptr %elem_size.i166, align 16, !tbaa !18, !alias.scope !29
+  %stride.i167 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 3
+  store i32 1, ptr %stride.i167, align 16, !tbaa !17, !alias.scope !29
+  %arrayidx6.i168 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 2, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i168, align 4, !tbaa !17, !alias.scope !29
+  br label %for.body.i174
 
-for.body.i172:                                    ; preds = %for.body.i172, %_Z11make_bufferIdE8buffer_tii.exit
-  %indvars.iv.i167 = phi i64 [ 0, %_Z11make_bufferIdE8buffer_tii.exit ], [ %indvars.iv.next.i170, %for.body.i172 ]
-  %call.i17.i168 = call i32 @rand() #12, !noalias !29
-  %div.lhs.trunc.i.i = trunc i32 %call.i17.i168 to i8
+for.body.i174:                                    ; preds = %for.body.i174, %_Z11make_bufferIdE8buffer_tii.exit
+  %indvars.iv.i169 = phi i64 [ 0, %_Z11make_bufferIdE8buffer_tii.exit ], [ %indvars.iv.next.i172, %for.body.i174 ]
+  %call.i17.i170 = call i32 @rand() #12, !noalias !29
+  %div.lhs.trunc.i.i = trunc i32 %call.i17.i170 to i8
   %div5.i.i = sdiv i8 %div.lhs.trunc.i.i, 8
   %conv4.i.i = add nsw i8 %div5.i.i, -100
-  %8 = load ptr, ptr %mem.i159, align 8, !tbaa !5, !noalias !29
-  %arrayidx9.i169 = getelementptr inbounds i8, ptr %8, i64 %indvars.iv.i167
-  store i8 %conv4.i.i, ptr %arrayidx9.i169, align 1, !tbaa !32, !noalias !29
-  %indvars.iv.next.i170 = add nuw nsw i64 %indvars.iv.i167, 1
-  %exitcond.not.i171 = icmp eq i64 %indvars.iv.next.i170, 25600
-  br i1 %exitcond.not.i171, label %_Z11make_bufferIaE8buffer_tii.exit, label %for.body.i172, !llvm.loop !33
+  %8 = load ptr, ptr %mem.i161, align 8, !tbaa !5, !noalias !29
+  %arrayidx9.i171 = getelementptr inbounds i8, ptr %8, i64 %indvars.iv.i169
+  store i8 %conv4.i.i, ptr %arrayidx9.i171, align 1, !tbaa !32, !noalias !29
+  %indvars.iv.next.i172 = add nuw nsw i64 %indvars.iv.i169, 1
+  %exitcond.not.i173 = icmp eq i64 %indvars.iv.next.i172, 25600
+  br i1 %exitcond.not.i173, label %_Z11make_bufferIaE8buffer_tii.exit, label %for.body.i174, !llvm.loop !33
 
-_Z11make_bufferIaE8buffer_tii.exit:               ; preds = %for.body.i172
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i159) #12, !noalias !29
+_Z11make_bufferIaE8buffer_tii.exit:               ; preds = %for.body.i174
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i161) #12, !noalias !29
   %arrayinit.element6 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3
   call void @llvm.experimental.noalias.scope.decl(metadata !34)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i173) #12, !noalias !34
-  %call.i.i174 = call i32 @posix_memalign(ptr noundef nonnull %mem.i173, i64 noundef 128, i64 noundef 25600) #12, !noalias !34
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i175) #12, !noalias !34
+  %call.i.i176 = call i32 @posix_memalign(ptr noundef nonnull %mem.i175, i64 noundef 128, i64 noundef 25600) #12, !noalias !34
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %arrayinit.element6, i8 0, i64 72, i1 false), !alias.scope !34
-  %9 = load ptr, ptr %mem.i173, align 8, !tbaa !5, !noalias !34
-  %host.i175 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 1
-  store ptr %9, ptr %host.i175, align 16, !tbaa !12, !alias.scope !34
-  %extent.i176 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 2
-  store i32 256, ptr %extent.i176, align 8, !tbaa !17, !alias.scope !34
-  %arrayidx3.i177 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i177, align 4, !tbaa !17, !alias.scope !34
-  %elem_size.i178 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 5
-  store i32 1, ptr %elem_size.i178, align 8, !tbaa !18, !alias.scope !34
-  %stride.i179 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 3
-  store i32 1, ptr %stride.i179, align 8, !tbaa !17, !alias.scope !34
-  %arrayidx6.i180 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i180, align 4, !tbaa !17, !alias.scope !34
-  br label %for.body.i187
+  %9 = load ptr, ptr %mem.i175, align 8, !tbaa !5, !noalias !34
+  %host.i177 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 1
+  store ptr %9, ptr %host.i177, align 16, !tbaa !12, !alias.scope !34
+  %extent.i178 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 2
+  store i32 256, ptr %extent.i178, align 8, !tbaa !17, !alias.scope !34
+  %arrayidx3.i179 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i179, align 4, !tbaa !17, !alias.scope !34
+  %elem_size.i180 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 5
+  store i32 1, ptr %elem_size.i180, align 8, !tbaa !18, !alias.scope !34
+  %stride.i181 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 3
+  store i32 1, ptr %stride.i181, align 8, !tbaa !17, !alias.scope !34
+  %arrayidx6.i182 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 3, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i182, align 4, !tbaa !17, !alias.scope !34
+  br label %for.body.i189
 
-for.body.i187:                                    ; preds = %for.body.i187, %_Z11make_bufferIaE8buffer_tii.exit
-  %indvars.iv.i181 = phi i64 [ 0, %_Z11make_bufferIaE8buffer_tii.exit ], [ %indvars.iv.next.i185, %for.body.i187 ]
-  %call.i17.i182 = call i32 @rand() #12, !noalias !34
-  %10 = trunc i32 %call.i17.i182 to i8
+for.body.i189:                                    ; preds = %for.body.i189, %_Z11make_bufferIaE8buffer_tii.exit
+  %indvars.iv.i183 = phi i64 [ 0, %_Z11make_bufferIaE8buffer_tii.exit ], [ %indvars.iv.next.i187, %for.body.i189 ]
+  %call.i17.i184 = call i32 @rand() #12, !noalias !34
+  %10 = trunc i32 %call.i17.i184 to i8
   %11 = lshr i8 %10, 3
-  %conv4.i.i183 = add nuw nsw i8 %11, -100
-  %12 = load ptr, ptr %mem.i173, align 8, !tbaa !5, !noalias !34
-  %arrayidx9.i184 = getelementptr inbounds i8, ptr %12, i64 %indvars.iv.i181
-  store i8 %conv4.i.i183, ptr %arrayidx9.i184, align 1, !tbaa !32, !noalias !34
-  %indvars.iv.next.i185 = add nuw nsw i64 %indvars.iv.i181, 1
-  %exitcond.not.i186 = icmp eq i64 %indvars.iv.next.i185, 25600
-  br i1 %exitcond.not.i186, label %_Z11make_bufferIhE8buffer_tii.exit, label %for.body.i187, !llvm.loop !37
+  %conv4.i.i185 = add nuw nsw i8 %11, -100
+  %12 = load ptr, ptr %mem.i175, align 8, !tbaa !5, !noalias !34
+  %arrayidx9.i186 = getelementptr inbounds i8, ptr %12, i64 %indvars.iv.i183
+  store i8 %conv4.i.i185, ptr %arrayidx9.i186, align 1, !tbaa !32, !noalias !34
+  %indvars.iv.next.i187 = add nuw nsw i64 %indvars.iv.i183, 1
+  %exitcond.not.i188 = icmp eq i64 %indvars.iv.next.i187, 25600
+  br i1 %exitcond.not.i188, label %_Z11make_bufferIhE8buffer_tii.exit, label %for.body.i189, !llvm.loop !37
 
-_Z11make_bufferIhE8buffer_tii.exit:               ; preds = %for.body.i187
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i173) #12, !noalias !34
+_Z11make_bufferIhE8buffer_tii.exit:               ; preds = %for.body.i189
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i175) #12, !noalias !34
   %arrayinit.element7 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4
   call void @llvm.experimental.noalias.scope.decl(metadata !38)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i188) #12, !noalias !38
-  %call.i.i189 = call i32 @posix_memalign(ptr noundef nonnull %mem.i188, i64 noundef 128, i64 noundef 51200) #12, !noalias !38
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i190) #12, !noalias !38
+  %call.i.i191 = call i32 @posix_memalign(ptr noundef nonnull %mem.i190, i64 noundef 128, i64 noundef 51200) #12, !noalias !38
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) %arrayinit.element7, i8 0, i64 72, i1 false), !alias.scope !38
-  %13 = load ptr, ptr %mem.i188, align 8, !tbaa !5, !noalias !38
-  %host.i190 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 1
-  store ptr %13, ptr %host.i190, align 8, !tbaa !12, !alias.scope !38
-  %extent.i191 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 2
-  store i32 256, ptr %extent.i191, align 16, !tbaa !17, !alias.scope !38
-  %arrayidx3.i192 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i192, align 4, !tbaa !17, !alias.scope !38
-  %elem_size.i193 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 5
-  store i32 2, ptr %elem_size.i193, align 16, !tbaa !18, !alias.scope !38
-  %stride.i194 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 3
-  store i32 1, ptr %stride.i194, align 16, !tbaa !17, !alias.scope !38
-  %arrayidx6.i195 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i195, align 4, !tbaa !17, !alias.scope !38
-  br label %for.body.i204
+  %13 = load ptr, ptr %mem.i190, align 8, !tbaa !5, !noalias !38
+  %host.i192 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 1
+  store ptr %13, ptr %host.i192, align 8, !tbaa !12, !alias.scope !38
+  %extent.i193 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 2
+  store i32 256, ptr %extent.i193, align 16, !tbaa !17, !alias.scope !38
+  %arrayidx3.i194 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i194, align 4, !tbaa !17, !alias.scope !38
+  %elem_size.i195 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 5
+  store i32 2, ptr %elem_size.i195, align 16, !tbaa !18, !alias.scope !38
+  %stride.i196 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 3
+  store i32 1, ptr %stride.i196, align 16, !tbaa !17, !alias.scope !38
+  %arrayidx6.i197 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 4, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i197, align 4, !tbaa !17, !alias.scope !38
+  br label %for.body.i206
 
-for.body.i204:                                    ; preds = %for.body.i204, %_Z11make_bufferIhE8buffer_tii.exit
-  %indvars.iv.i196 = phi i64 [ 0, %_Z11make_bufferIhE8buffer_tii.exit ], [ %indvars.iv.next.i202, %for.body.i204 ]
-  %call.i17.i197 = call i32 @rand() #12, !noalias !38
-  %div.lhs.trunc.i.i198 = trunc i32 %call.i17.i197 to i16
-  %div5.i.i199 = sdiv i16 %div.lhs.trunc.i.i198, 8
-  %conv4.i.i200 = add nsw i16 %div5.i.i199, -100
-  %14 = load ptr, ptr %mem.i188, align 8, !tbaa !5, !noalias !38
-  %arrayidx9.i201 = getelementptr inbounds i16, ptr %14, i64 %indvars.iv.i196
-  store i16 %conv4.i.i200, ptr %arrayidx9.i201, align 2, !tbaa !41, !noalias !38
-  %indvars.iv.next.i202 = add nuw nsw i64 %indvars.iv.i196, 1
-  %exitcond.not.i203 = icmp eq i64 %indvars.iv.next.i202, 25600
-  br i1 %exitcond.not.i203, label %_Z11make_bufferIsE8buffer_tii.exit, label %for.body.i204, !llvm.loop !43
+for.body.i206:                                    ; preds = %for.body.i206, %_Z11make_bufferIhE8buffer_tii.exit
+  %indvars.iv.i198 = phi i64 [ 0, %_Z11make_bufferIhE8buffer_tii.exit ], [ %indvars.iv.next.i204, %for.body.i206 ]
+  %call.i17.i199 = call i32 @rand() #12, !noalias !38
+  %div.lhs.trunc.i.i200 = trunc i32 %call.i17.i199 to i16
+  %div5.i.i201 = sdiv i16 %div.lhs.trunc.i.i200, 8
+  %conv4.i.i202 = add nsw i16 %div5.i.i201, -100
+  %14 = load ptr, ptr %mem.i190, align 8, !tbaa !5, !noalias !38
+  %arrayidx9.i203 = getelementptr inbounds i16, ptr %14, i64 %indvars.iv.i198
+  store i16 %conv4.i.i202, ptr %arrayidx9.i203, align 2, !tbaa !41, !noalias !38
+  %indvars.iv.next.i204 = add nuw nsw i64 %indvars.iv.i198, 1
+  %exitcond.not.i205 = icmp eq i64 %indvars.iv.next.i204, 25600
+  br i1 %exitcond.not.i205, label %_Z11make_bufferIsE8buffer_tii.exit, label %for.body.i206, !llvm.loop !43
 
-_Z11make_bufferIsE8buffer_tii.exit:               ; preds = %for.body.i204
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i188) #12, !noalias !38
+_Z11make_bufferIsE8buffer_tii.exit:               ; preds = %for.body.i206
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i190) #12, !noalias !38
   %arrayinit.element8 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5
   call void @llvm.experimental.noalias.scope.decl(metadata !44)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i205) #12, !noalias !44
-  %call.i.i206 = call i32 @posix_memalign(ptr noundef nonnull %mem.i205, i64 noundef 128, i64 noundef 51200) #12, !noalias !44
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i207) #12, !noalias !44
+  %call.i.i208 = call i32 @posix_memalign(ptr noundef nonnull %mem.i207, i64 noundef 128, i64 noundef 51200) #12, !noalias !44
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %arrayinit.element8, i8 0, i64 72, i1 false), !alias.scope !44
-  %15 = load ptr, ptr %mem.i205, align 8, !tbaa !5, !noalias !44
-  %host.i207 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 1
-  store ptr %15, ptr %host.i207, align 16, !tbaa !12, !alias.scope !44
-  %extent.i208 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 2
-  store i32 256, ptr %extent.i208, align 8, !tbaa !17, !alias.scope !44
-  %arrayidx3.i209 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i209, align 4, !tbaa !17, !alias.scope !44
-  %elem_size.i210 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 5
-  store i32 2, ptr %elem_size.i210, align 8, !tbaa !18, !alias.scope !44
-  %stride.i211 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 3
-  store i32 1, ptr %stride.i211, align 8, !tbaa !17, !alias.scope !44
-  %arrayidx6.i212 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i212, align 4, !tbaa !17, !alias.scope !44
-  br label %for.body.i219
+  %15 = load ptr, ptr %mem.i207, align 8, !tbaa !5, !noalias !44
+  %host.i209 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 1
+  store ptr %15, ptr %host.i209, align 16, !tbaa !12, !alias.scope !44
+  %extent.i210 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 2
+  store i32 256, ptr %extent.i210, align 8, !tbaa !17, !alias.scope !44
+  %arrayidx3.i211 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i211, align 4, !tbaa !17, !alias.scope !44
+  %elem_size.i212 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 5
+  store i32 2, ptr %elem_size.i212, align 8, !tbaa !18, !alias.scope !44
+  %stride.i213 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 3
+  store i32 1, ptr %stride.i213, align 8, !tbaa !17, !alias.scope !44
+  %arrayidx6.i214 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 5, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i214, align 4, !tbaa !17, !alias.scope !44
+  br label %for.body.i221
 
-for.body.i219:                                    ; preds = %for.body.i219, %_Z11make_bufferIsE8buffer_tii.exit
-  %indvars.iv.i213 = phi i64 [ 0, %_Z11make_bufferIsE8buffer_tii.exit ], [ %indvars.iv.next.i217, %for.body.i219 ]
-  %call.i17.i214 = call i32 @rand() #12, !noalias !44
-  %16 = trunc i32 %call.i17.i214 to i16
+for.body.i221:                                    ; preds = %for.body.i221, %_Z11make_bufferIsE8buffer_tii.exit
+  %indvars.iv.i215 = phi i64 [ 0, %_Z11make_bufferIsE8buffer_tii.exit ], [ %indvars.iv.next.i219, %for.body.i221 ]
+  %call.i17.i216 = call i32 @rand() #12, !noalias !44
+  %16 = trunc i32 %call.i17.i216 to i16
   %17 = lshr i16 %16, 3
-  %conv4.i.i215 = add nsw i16 %17, -100
-  %18 = load ptr, ptr %mem.i205, align 8, !tbaa !5, !noalias !44
-  %arrayidx9.i216 = getelementptr inbounds i16, ptr %18, i64 %indvars.iv.i213
-  store i16 %conv4.i.i215, ptr %arrayidx9.i216, align 2, !tbaa !41, !noalias !44
-  %indvars.iv.next.i217 = add nuw nsw i64 %indvars.iv.i213, 1
-  %exitcond.not.i218 = icmp eq i64 %indvars.iv.next.i217, 25600
-  br i1 %exitcond.not.i218, label %_Z11make_bufferItE8buffer_tii.exit, label %for.body.i219, !llvm.loop !47
+  %conv4.i.i217 = add nsw i16 %17, -100
+  %18 = load ptr, ptr %mem.i207, align 8, !tbaa !5, !noalias !44
+  %arrayidx9.i218 = getelementptr inbounds i16, ptr %18, i64 %indvars.iv.i215
+  store i16 %conv4.i.i217, ptr %arrayidx9.i218, align 2, !tbaa !41, !noalias !44
+  %indvars.iv.next.i219 = add nuw nsw i64 %indvars.iv.i215, 1
+  %exitcond.not.i220 = icmp eq i64 %indvars.iv.next.i219, 25600
+  br i1 %exitcond.not.i220, label %_Z11make_bufferItE8buffer_tii.exit, label %for.body.i221, !llvm.loop !47
 
-_Z11make_bufferItE8buffer_tii.exit:               ; preds = %for.body.i219
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i205) #12, !noalias !44
+_Z11make_bufferItE8buffer_tii.exit:               ; preds = %for.body.i221
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i207) #12, !noalias !44
   %arrayinit.element9 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6
   call void @llvm.experimental.noalias.scope.decl(metadata !48)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i220) #12, !noalias !48
-  %call.i.i221 = call i32 @posix_memalign(ptr noundef nonnull %mem.i220, i64 noundef 128, i64 noundef 102400) #12, !noalias !48
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i222) #12, !noalias !48
+  %call.i.i223 = call i32 @posix_memalign(ptr noundef nonnull %mem.i222, i64 noundef 128, i64 noundef 102400) #12, !noalias !48
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) %arrayinit.element9, i8 0, i64 72, i1 false), !alias.scope !48
-  %19 = load ptr, ptr %mem.i220, align 8, !tbaa !5, !noalias !48
-  %host.i222 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 1
-  store ptr %19, ptr %host.i222, align 8, !tbaa !12, !alias.scope !48
-  %extent.i223 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 2
-  store i32 256, ptr %extent.i223, align 16, !tbaa !17, !alias.scope !48
-  %arrayidx3.i224 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i224, align 4, !tbaa !17, !alias.scope !48
-  %elem_size.i225 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 5
-  store i32 4, ptr %elem_size.i225, align 16, !tbaa !18, !alias.scope !48
-  %stride.i226 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 3
-  store i32 1, ptr %stride.i226, align 16, !tbaa !17, !alias.scope !48
-  %arrayidx6.i227 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i227, align 4, !tbaa !17, !alias.scope !48
-  br label %for.body.i235
+  %19 = load ptr, ptr %mem.i222, align 8, !tbaa !5, !noalias !48
+  %host.i224 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 1
+  store ptr %19, ptr %host.i224, align 8, !tbaa !12, !alias.scope !48
+  %extent.i225 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 2
+  store i32 256, ptr %extent.i225, align 16, !tbaa !17, !alias.scope !48
+  %arrayidx3.i226 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i226, align 4, !tbaa !17, !alias.scope !48
+  %elem_size.i227 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 5
+  store i32 4, ptr %elem_size.i227, align 16, !tbaa !18, !alias.scope !48
+  %stride.i228 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 3
+  store i32 1, ptr %stride.i228, align 16, !tbaa !17, !alias.scope !48
+  %arrayidx6.i229 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 6, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i229, align 4, !tbaa !17, !alias.scope !48
+  br label %for.body.i237
 
-for.body.i235:                                    ; preds = %for.body.i235, %_Z11make_bufferItE8buffer_tii.exit
-  %indvars.iv.i228 = phi i64 [ 0, %_Z11make_bufferItE8buffer_tii.exit ], [ %indvars.iv.next.i233, %for.body.i235 ]
-  %call.i17.i229 = call i32 @rand() #12, !noalias !48
-  %div.i.i230 = sdiv i32 %call.i17.i229, 8
-  %sub.i.i231 = add nsw i32 %div.i.i230, -100
-  %20 = load ptr, ptr %mem.i220, align 8, !tbaa !5, !noalias !48
-  %arrayidx9.i232 = getelementptr inbounds i32, ptr %20, i64 %indvars.iv.i228
-  store i32 %sub.i.i231, ptr %arrayidx9.i232, align 4, !tbaa !17, !noalias !48
-  %indvars.iv.next.i233 = add nuw nsw i64 %indvars.iv.i228, 1
-  %exitcond.not.i234 = icmp eq i64 %indvars.iv.next.i233, 25600
-  br i1 %exitcond.not.i234, label %_Z11make_bufferIiE8buffer_tii.exit, label %for.body.i235, !llvm.loop !51
+for.body.i237:                                    ; preds = %for.body.i237, %_Z11make_bufferItE8buffer_tii.exit
+  %indvars.iv.i230 = phi i64 [ 0, %_Z11make_bufferItE8buffer_tii.exit ], [ %indvars.iv.next.i235, %for.body.i237 ]
+  %call.i17.i231 = call i32 @rand() #12, !noalias !48
+  %div.i.i232 = sdiv i32 %call.i17.i231, 8
+  %sub.i.i233 = add nsw i32 %div.i.i232, -100
+  %20 = load ptr, ptr %mem.i222, align 8, !tbaa !5, !noalias !48
+  %arrayidx9.i234 = getelementptr inbounds i32, ptr %20, i64 %indvars.iv.i230
+  store i32 %sub.i.i233, ptr %arrayidx9.i234, align 4, !tbaa !17, !noalias !48
+  %indvars.iv.next.i235 = add nuw nsw i64 %indvars.iv.i230, 1
+  %exitcond.not.i236 = icmp eq i64 %indvars.iv.next.i235, 25600
+  br i1 %exitcond.not.i236, label %_Z11make_bufferIiE8buffer_tii.exit, label %for.body.i237, !llvm.loop !51
 
-_Z11make_bufferIiE8buffer_tii.exit:               ; preds = %for.body.i235
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i220) #12, !noalias !48
+_Z11make_bufferIiE8buffer_tii.exit:               ; preds = %for.body.i237
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i222) #12, !noalias !48
   %arrayinit.element10 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7
   call void @llvm.experimental.noalias.scope.decl(metadata !52)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i236) #12, !noalias !52
-  %call.i.i237 = call i32 @posix_memalign(ptr noundef nonnull %mem.i236, i64 noundef 128, i64 noundef 102400) #12, !noalias !52
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i238) #12, !noalias !52
+  %call.i.i239 = call i32 @posix_memalign(ptr noundef nonnull %mem.i238, i64 noundef 128, i64 noundef 102400) #12, !noalias !52
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %arrayinit.element10, i8 0, i64 72, i1 false), !alias.scope !52
-  %21 = load ptr, ptr %mem.i236, align 8, !tbaa !5, !noalias !52
-  %host.i238 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 1
-  store ptr %21, ptr %host.i238, align 16, !tbaa !12, !alias.scope !52
-  %extent.i239 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 2
-  store i32 256, ptr %extent.i239, align 8, !tbaa !17, !alias.scope !52
-  %arrayidx3.i240 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i240, align 4, !tbaa !17, !alias.scope !52
-  %elem_size.i241 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 5
-  store i32 4, ptr %elem_size.i241, align 8, !tbaa !18, !alias.scope !52
-  %stride.i242 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 3
-  store i32 1, ptr %stride.i242, align 8, !tbaa !17, !alias.scope !52
-  %arrayidx6.i243 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i243, align 4, !tbaa !17, !alias.scope !52
-  br label %for.body.i250
+  %21 = load ptr, ptr %mem.i238, align 8, !tbaa !5, !noalias !52
+  %host.i240 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 1
+  store ptr %21, ptr %host.i240, align 16, !tbaa !12, !alias.scope !52
+  %extent.i241 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 2
+  store i32 256, ptr %extent.i241, align 8, !tbaa !17, !alias.scope !52
+  %arrayidx3.i242 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i242, align 4, !tbaa !17, !alias.scope !52
+  %elem_size.i243 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 5
+  store i32 4, ptr %elem_size.i243, align 8, !tbaa !18, !alias.scope !52
+  %stride.i244 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 3
+  store i32 1, ptr %stride.i244, align 8, !tbaa !17, !alias.scope !52
+  %arrayidx6.i245 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 7, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i245, align 4, !tbaa !17, !alias.scope !52
+  br label %for.body.i252
 
-for.body.i250:                                    ; preds = %for.body.i250, %_Z11make_bufferIiE8buffer_tii.exit
-  %indvars.iv.i244 = phi i64 [ 0, %_Z11make_bufferIiE8buffer_tii.exit ], [ %indvars.iv.next.i248, %for.body.i250 ]
-  %call.i17.i245 = call i32 @rand() #12, !noalias !52
-  %div1.i.i = lshr i32 %call.i17.i245, 3
-  %sub.i.i246 = add nsw i32 %div1.i.i, -100
-  %22 = load ptr, ptr %mem.i236, align 8, !tbaa !5, !noalias !52
-  %arrayidx9.i247 = getelementptr inbounds i32, ptr %22, i64 %indvars.iv.i244
-  store i32 %sub.i.i246, ptr %arrayidx9.i247, align 4, !tbaa !17, !noalias !52
-  %indvars.iv.next.i248 = add nuw nsw i64 %indvars.iv.i244, 1
-  %exitcond.not.i249 = icmp eq i64 %indvars.iv.next.i248, 25600
-  br i1 %exitcond.not.i249, label %_Z11make_bufferIjE8buffer_tii.exit, label %for.body.i250, !llvm.loop !55
+for.body.i252:                                    ; preds = %for.body.i252, %_Z11make_bufferIiE8buffer_tii.exit
+  %indvars.iv.i246 = phi i64 [ 0, %_Z11make_bufferIiE8buffer_tii.exit ], [ %indvars.iv.next.i250, %for.body.i252 ]
+  %call.i17.i247 = call i32 @rand() #12, !noalias !52
+  %div1.i.i = lshr i32 %call.i17.i247, 3
+  %sub.i.i248 = add nsw i32 %div1.i.i, -100
+  %22 = load ptr, ptr %mem.i238, align 8, !tbaa !5, !noalias !52
+  %arrayidx9.i249 = getelementptr inbounds i32, ptr %22, i64 %indvars.iv.i246
+  store i32 %sub.i.i248, ptr %arrayidx9.i249, align 4, !tbaa !17, !noalias !52
+  %indvars.iv.next.i250 = add nuw nsw i64 %indvars.iv.i246, 1
+  %exitcond.not.i251 = icmp eq i64 %indvars.iv.next.i250, 25600
+  br i1 %exitcond.not.i251, label %_Z11make_bufferIjE8buffer_tii.exit, label %for.body.i252, !llvm.loop !55
 
-_Z11make_bufferIjE8buffer_tii.exit:               ; preds = %for.body.i250
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i236) #12, !noalias !52
+_Z11make_bufferIjE8buffer_tii.exit:               ; preds = %for.body.i252
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i238) #12, !noalias !52
   %arrayinit.element11 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8
   call void @llvm.experimental.noalias.scope.decl(metadata !56)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i251) #12, !noalias !56
-  %call.i.i252 = call i32 @posix_memalign(ptr noundef nonnull %mem.i251, i64 noundef 128, i64 noundef 204800) #12, !noalias !56
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i253) #12, !noalias !56
+  %call.i.i254 = call i32 @posix_memalign(ptr noundef nonnull %mem.i253, i64 noundef 128, i64 noundef 204800) #12, !noalias !56
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) %arrayinit.element11, i8 0, i64 72, i1 false), !alias.scope !56
-  %23 = load ptr, ptr %mem.i251, align 8, !tbaa !5, !noalias !56
-  %host.i253 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 1
-  store ptr %23, ptr %host.i253, align 8, !tbaa !12, !alias.scope !56
-  %extent.i254 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 2
-  store i32 256, ptr %extent.i254, align 16, !tbaa !17, !alias.scope !56
-  %arrayidx3.i255 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i255, align 4, !tbaa !17, !alias.scope !56
-  %elem_size.i256 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 5
-  store i32 8, ptr %elem_size.i256, align 16, !tbaa !18, !alias.scope !56
-  %stride.i257 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 3
-  store i32 1, ptr %stride.i257, align 16, !tbaa !17, !alias.scope !56
-  %arrayidx6.i258 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i258, align 4, !tbaa !17, !alias.scope !56
-  br label %for.body.i265
+  %23 = load ptr, ptr %mem.i253, align 8, !tbaa !5, !noalias !56
+  %host.i255 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 1
+  store ptr %23, ptr %host.i255, align 8, !tbaa !12, !alias.scope !56
+  %extent.i256 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 2
+  store i32 256, ptr %extent.i256, align 16, !tbaa !17, !alias.scope !56
+  %arrayidx3.i257 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i257, align 4, !tbaa !17, !alias.scope !56
+  %elem_size.i258 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 5
+  store i32 8, ptr %elem_size.i258, align 16, !tbaa !18, !alias.scope !56
+  %stride.i259 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 3
+  store i32 1, ptr %stride.i259, align 16, !tbaa !17, !alias.scope !56
+  %arrayidx6.i260 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 8, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i260, align 4, !tbaa !17, !alias.scope !56
+  br label %for.body.i267
 
-for.body.i265:                                    ; preds = %for.body.i265, %_Z11make_bufferIjE8buffer_tii.exit
-  %indvars.iv.i259 = phi i64 [ 0, %_Z11make_bufferIjE8buffer_tii.exit ], [ %indvars.iv.next.i263, %for.body.i265 ]
-  %call.i17.i260 = call i32 @rand() #12, !noalias !56
-  %24 = sdiv i32 %call.i17.i260, 8
+for.body.i267:                                    ; preds = %for.body.i267, %_Z11make_bufferIjE8buffer_tii.exit
+  %indvars.iv.i261 = phi i64 [ 0, %_Z11make_bufferIjE8buffer_tii.exit ], [ %indvars.iv.next.i265, %for.body.i267 ]
+  %call.i17.i262 = call i32 @rand() #12, !noalias !56
+  %24 = sdiv i32 %call.i17.i262, 8
   %narrow.i.i = add nsw i32 %24, -100
-  %sub.i.i261 = sext i32 %narrow.i.i to i64
-  %25 = load ptr, ptr %mem.i251, align 8, !tbaa !5, !noalias !56
-  %arrayidx9.i262 = getelementptr inbounds i64, ptr %25, i64 %indvars.iv.i259
-  store i64 %sub.i.i261, ptr %arrayidx9.i262, align 8, !tbaa !59, !noalias !56
-  %indvars.iv.next.i263 = add nuw nsw i64 %indvars.iv.i259, 1
-  %exitcond.not.i264 = icmp eq i64 %indvars.iv.next.i263, 25600
-  br i1 %exitcond.not.i264, label %_Z11make_bufferIlE8buffer_tii.exit, label %for.body.i265, !llvm.loop !60
+  %sub.i.i263 = sext i32 %narrow.i.i to i64
+  %25 = load ptr, ptr %mem.i253, align 8, !tbaa !5, !noalias !56
+  %arrayidx9.i264 = getelementptr inbounds i64, ptr %25, i64 %indvars.iv.i261
+  store i64 %sub.i.i263, ptr %arrayidx9.i264, align 8, !tbaa !59, !noalias !56
+  %indvars.iv.next.i265 = add nuw nsw i64 %indvars.iv.i261, 1
+  %exitcond.not.i266 = icmp eq i64 %indvars.iv.next.i265, 25600
+  br i1 %exitcond.not.i266, label %_Z11make_bufferIlE8buffer_tii.exit, label %for.body.i267, !llvm.loop !60
 
-_Z11make_bufferIlE8buffer_tii.exit:               ; preds = %for.body.i265
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i251) #12, !noalias !56
+_Z11make_bufferIlE8buffer_tii.exit:               ; preds = %for.body.i267
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i253) #12, !noalias !56
   %arrayinit.element12 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9
   call void @llvm.experimental.noalias.scope.decl(metadata !61)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i266) #12, !noalias !61
-  %call.i.i267 = call i32 @posix_memalign(ptr noundef nonnull %mem.i266, i64 noundef 128, i64 noundef 204800) #12, !noalias !61
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i268) #12, !noalias !61
+  %call.i.i269 = call i32 @posix_memalign(ptr noundef nonnull %mem.i268, i64 noundef 128, i64 noundef 204800) #12, !noalias !61
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %arrayinit.element12, i8 0, i64 72, i1 false), !alias.scope !61
-  %26 = load ptr, ptr %mem.i266, align 8, !tbaa !5, !noalias !61
-  %host.i268 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 1
-  store ptr %26, ptr %host.i268, align 16, !tbaa !12, !alias.scope !61
-  %extent.i269 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 2
-  store i32 256, ptr %extent.i269, align 8, !tbaa !17, !alias.scope !61
-  %arrayidx3.i270 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i270, align 4, !tbaa !17, !alias.scope !61
-  %elem_size.i271 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 5
-  store i32 8, ptr %elem_size.i271, align 8, !tbaa !18, !alias.scope !61
-  %stride.i272 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 3
-  store i32 1, ptr %stride.i272, align 8, !tbaa !17, !alias.scope !61
-  %arrayidx6.i273 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i273, align 4, !tbaa !17, !alias.scope !61
-  br label %for.body.i282
+  %26 = load ptr, ptr %mem.i268, align 8, !tbaa !5, !noalias !61
+  %host.i270 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 1
+  store ptr %26, ptr %host.i270, align 16, !tbaa !12, !alias.scope !61
+  %extent.i271 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 2
+  store i32 256, ptr %extent.i271, align 8, !tbaa !17, !alias.scope !61
+  %arrayidx3.i272 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i272, align 4, !tbaa !17, !alias.scope !61
+  %elem_size.i273 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 5
+  store i32 8, ptr %elem_size.i273, align 8, !tbaa !18, !alias.scope !61
+  %stride.i274 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 3
+  store i32 1, ptr %stride.i274, align 8, !tbaa !17, !alias.scope !61
+  %arrayidx6.i275 = getelementptr inbounds %struct.buffer_t, ptr %bufs, i64 9, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i275, align 4, !tbaa !17, !alias.scope !61
+  br label %for.body.i284
 
-for.body.i282:                                    ; preds = %for.body.i282, %_Z11make_bufferIlE8buffer_tii.exit
-  %indvars.iv.i274 = phi i64 [ 0, %_Z11make_bufferIlE8buffer_tii.exit ], [ %indvars.iv.next.i280, %for.body.i282 ]
-  %call.i17.i275 = call i32 @rand() #12, !noalias !61
-  %conv.i.i276 = sext i32 %call.i17.i275 to i64
-  %div1.i.i277 = lshr i64 %conv.i.i276, 3
-  %sub.i.i278 = add nsw i64 %div1.i.i277, -100
-  %27 = load ptr, ptr %mem.i266, align 8, !tbaa !5, !noalias !61
-  %arrayidx9.i279 = getelementptr inbounds i64, ptr %27, i64 %indvars.iv.i274
-  store i64 %sub.i.i278, ptr %arrayidx9.i279, align 8, !tbaa !59, !noalias !61
-  %indvars.iv.next.i280 = add nuw nsw i64 %indvars.iv.i274, 1
-  %exitcond.not.i281 = icmp eq i64 %indvars.iv.next.i280, 25600
-  br i1 %exitcond.not.i281, label %_Z11make_bufferImE8buffer_tii.exit, label %for.body.i282, !llvm.loop !64
+for.body.i284:                                    ; preds = %for.body.i284, %_Z11make_bufferIlE8buffer_tii.exit
+  %indvars.iv.i276 = phi i64 [ 0, %_Z11make_bufferIlE8buffer_tii.exit ], [ %indvars.iv.next.i282, %for.body.i284 ]
+  %call.i17.i277 = call i32 @rand() #12, !noalias !61
+  %conv.i.i278 = sext i32 %call.i17.i277 to i64
+  %div1.i.i279 = lshr i64 %conv.i.i278, 3
+  %sub.i.i280 = add nsw i64 %div1.i.i279, -100
+  %27 = load ptr, ptr %mem.i268, align 8, !tbaa !5, !noalias !61
+  %arrayidx9.i281 = getelementptr inbounds i64, ptr %27, i64 %indvars.iv.i276
+  store i64 %sub.i.i280, ptr %arrayidx9.i281, align 8, !tbaa !59, !noalias !61
+  %indvars.iv.next.i282 = add nuw nsw i64 %indvars.iv.i276, 1
+  %exitcond.not.i283 = icmp eq i64 %indvars.iv.next.i282, 25600
+  br i1 %exitcond.not.i283, label %_Z11make_bufferImE8buffer_tii.exit, label %for.body.i284, !llvm.loop !64
 
-_Z11make_bufferImE8buffer_tii.exit:               ; preds = %for.body.i282
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i266) #12, !noalias !61
+_Z11make_bufferImE8buffer_tii.exit:               ; preds = %for.body.i284
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i268) #12, !noalias !61
   call void @llvm.lifetime.start.p0(i64 144, ptr nonnull %out) #12
   call void @llvm.experimental.noalias.scope.decl(metadata !65)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i283) #12, !noalias !65
-  %call.i.i284 = call i32 @posix_memalign(ptr noundef nonnull %mem.i283, i64 noundef 128, i64 noundef 204800) #12, !noalias !65
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i285) #12, !noalias !65
+  %call.i.i286 = call i32 @posix_memalign(ptr noundef nonnull %mem.i285, i64 noundef 128, i64 noundef 204800) #12, !noalias !65
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(72) %out, i8 0, i64 72, i1 false), !alias.scope !65
-  %28 = load ptr, ptr %mem.i283, align 8, !tbaa !5, !noalias !65
-  %host.i285 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 1
-  store ptr %28, ptr %host.i285, align 8, !tbaa !12, !alias.scope !65
-  %extent.i286 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 2
-  store i32 256, ptr %extent.i286, align 16, !tbaa !17, !alias.scope !65
-  %arrayidx3.i287 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i287, align 4, !tbaa !17, !alias.scope !65
-  %elem_size.i288 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 5
-  store i32 8, ptr %elem_size.i288, align 16, !tbaa !18, !alias.scope !65
-  %stride.i289 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 3
-  store i32 1, ptr %stride.i289, align 16, !tbaa !17, !alias.scope !65
-  %arrayidx6.i290 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i290, align 4, !tbaa !17, !alias.scope !65
-  br label %for.body.i299
+  %28 = load ptr, ptr %mem.i285, align 8, !tbaa !5, !noalias !65
+  %host.i287 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 1
+  store ptr %28, ptr %host.i287, align 8, !tbaa !12, !alias.scope !65
+  %extent.i288 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 2
+  store i32 256, ptr %extent.i288, align 16, !tbaa !17, !alias.scope !65
+  %arrayidx3.i289 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i289, align 4, !tbaa !17, !alias.scope !65
+  %elem_size.i290 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 5
+  store i32 8, ptr %elem_size.i290, align 16, !tbaa !18, !alias.scope !65
+  %stride.i291 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 3
+  store i32 1, ptr %stride.i291, align 16, !tbaa !17, !alias.scope !65
+  %arrayidx6.i292 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 0, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i292, align 4, !tbaa !17, !alias.scope !65
+  br label %for.body.i301
 
-for.body.i299:                                    ; preds = %for.body.i299, %_Z11make_bufferImE8buffer_tii.exit
-  %indvars.iv.i291 = phi i64 [ 0, %_Z11make_bufferImE8buffer_tii.exit ], [ %indvars.iv.next.i297, %for.body.i299 ]
-  %call.i17.i292 = call i32 @rand() #12, !noalias !65
-  %conv.i.i293 = sitofp i32 %call.i17.i292 to double
-  %div.i.i294 = fmul double %conv.i.i293, 1.250000e-01
-  %sub.i.i295 = fadd double %div.i.i294, -1.000000e+02
-  %29 = load ptr, ptr %mem.i283, align 8, !tbaa !5, !noalias !65
-  %arrayidx9.i296 = getelementptr inbounds double, ptr %29, i64 %indvars.iv.i291
-  store double %sub.i.i295, ptr %arrayidx9.i296, align 8, !tbaa !26, !noalias !65
-  %indvars.iv.next.i297 = add nuw nsw i64 %indvars.iv.i291, 1
-  %exitcond.not.i298 = icmp eq i64 %indvars.iv.next.i297, 25600
-  br i1 %exitcond.not.i298, label %_Z11make_bufferIdE8buffer_tii.exit300, label %for.body.i299, !llvm.loop !28
+for.body.i301:                                    ; preds = %for.body.i301, %_Z11make_bufferImE8buffer_tii.exit
+  %indvars.iv.i293 = phi i64 [ 0, %_Z11make_bufferImE8buffer_tii.exit ], [ %indvars.iv.next.i299, %for.body.i301 ]
+  %call.i17.i294 = call i32 @rand() #12, !noalias !65
+  %conv.i.i295 = sitofp i32 %call.i17.i294 to double
+  %div.i.i296 = fmul double %conv.i.i295, 1.250000e-01
+  %sub.i.i297 = fadd double %div.i.i296, -1.000000e+02
+  %29 = load ptr, ptr %mem.i285, align 8, !tbaa !5, !noalias !65
+  %arrayidx9.i298 = getelementptr inbounds double, ptr %29, i64 %indvars.iv.i293
+  store double %sub.i.i297, ptr %arrayidx9.i298, align 8, !tbaa !26, !noalias !65
+  %indvars.iv.next.i299 = add nuw nsw i64 %indvars.iv.i293, 1
+  %exitcond.not.i300 = icmp eq i64 %indvars.iv.next.i299, 25600
+  br i1 %exitcond.not.i300, label %_Z11make_bufferIdE8buffer_tii.exit302, label %for.body.i301, !llvm.loop !28
 
-_Z11make_bufferIdE8buffer_tii.exit300:            ; preds = %for.body.i299
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i283) #12, !noalias !65
+_Z11make_bufferIdE8buffer_tii.exit302:            ; preds = %for.body.i301
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i285) #12, !noalias !65
   %arrayinit.element14 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1
   call void @llvm.experimental.noalias.scope.decl(metadata !68)
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i301) #12, !noalias !68
-  %call.i.i302 = call i32 @posix_memalign(ptr noundef nonnull %mem.i301, i64 noundef 128, i64 noundef 204800) #12, !noalias !68
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %mem.i303) #12, !noalias !68
+  %call.i.i304 = call i32 @posix_memalign(ptr noundef nonnull %mem.i303, i64 noundef 128, i64 noundef 204800) #12, !noalias !68
   call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(72) %arrayinit.element14, i8 0, i64 72, i1 false), !alias.scope !68
-  %30 = load ptr, ptr %mem.i301, align 8, !tbaa !5, !noalias !68
-  %host.i303 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 1
-  store ptr %30, ptr %host.i303, align 16, !tbaa !12, !alias.scope !68
-  %extent.i304 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 2
-  store i32 256, ptr %extent.i304, align 8, !tbaa !17, !alias.scope !68
-  %arrayidx3.i305 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 2, i64 1
-  store i32 100, ptr %arrayidx3.i305, align 4, !tbaa !17, !alias.scope !68
-  %elem_size.i306 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 5
-  store i32 8, ptr %elem_size.i306, align 8, !tbaa !18, !alias.scope !68
-  %stride.i307 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 3
-  store i32 1, ptr %stride.i307, align 8, !tbaa !17, !alias.scope !68
-  %arrayidx6.i308 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 3, i64 1
-  store i32 256, ptr %arrayidx6.i308, align 4, !tbaa !17, !alias.scope !68
-  br label %for.body.i317
+  %30 = load ptr, ptr %mem.i303, align 8, !tbaa !5, !noalias !68
+  %host.i305 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 1
+  store ptr %30, ptr %host.i305, align 16, !tbaa !12, !alias.scope !68
+  %extent.i306 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 2
+  store i32 256, ptr %extent.i306, align 8, !tbaa !17, !alias.scope !68
+  %arrayidx3.i307 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 2, i64 1
+  store i32 100, ptr %arrayidx3.i307, align 4, !tbaa !17, !alias.scope !68
+  %elem_size.i308 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 5
+  store i32 8, ptr %elem_size.i308, align 8, !tbaa !18, !alias.scope !68
+  %stride.i309 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 3
+  store i32 1, ptr %stride.i309, align 8, !tbaa !17, !alias.scope !68
+  %arrayidx6.i310 = getelementptr inbounds %struct.buffer_t, ptr %out, i64 1, i32 3, i64 1
+  store i32 256, ptr %arrayidx6.i310, align 4, !tbaa !17, !alias.scope !68
+  br label %for.body.i319
 
-for.body.i317:                                    ; preds = %for.body.i317, %_Z11make_bufferIdE8buffer_tii.exit300
-  %indvars.iv.i309 = phi i64 [ 0, %_Z11make_bufferIdE8buffer_tii.exit300 ], [ %indvars.iv.next.i315, %for.body.i317 ]
-  %call.i17.i310 = call i32 @rand() #12, !noalias !68
-  %conv.i.i311 = sitofp i32 %call.i17.i310 to double
-  %div.i.i312 = fmul double %conv.i.i311, 1.250000e-01
-  %sub.i.i313 = fadd double %div.i.i312, -1.000000e+02
-  %31 = load ptr, ptr %mem.i301, align 8, !tbaa !5, !noalias !68
-  %arrayidx9.i314 = getelementptr inbounds double, ptr %31, i64 %indvars.iv.i309
-  store double %sub.i.i313, ptr %arrayidx9.i314, align 8, !tbaa !26, !noalias !68
-  %indvars.iv.next.i315 = add nuw nsw i64 %indvars.iv.i309, 1
-  %exitcond.not.i316 = icmp eq i64 %indvars.iv.next.i315, 25600
-  br i1 %exitcond.not.i316, label %_Z11make_bufferIdE8buffer_tii.exit318, label %for.body.i317, !llvm.loop !28
+for.body.i319:                                    ; preds = %for.body.i319, %_Z11make_bufferIdE8buffer_tii.exit302
+  %indvars.iv.i311 = phi i64 [ 0, %_Z11make_bufferIdE8buffer_tii.exit302 ], [ %indvars.iv.next.i317, %for.body.i319 ]
+  %call.i17.i312 = call i32 @rand() #12, !noalias !68
+  %conv.i.i313 = sitofp i32 %call.i17.i312 to double
+  %div.i.i314 = fmul double %conv.i.i313, 1.250000e-01
+  %sub.i.i315 = fadd double %div.i.i314, -1.000000e+02
+  %31 = load ptr, ptr %mem.i303, align 8, !tbaa !5, !noalias !68
+  %arrayidx9.i316 = getelementptr inbounds double, ptr %31, i64 %indvars.iv.i311
+  store double %sub.i.i315, ptr %arrayidx9.i316, align 8, !tbaa !26, !noalias !68
+  %indvars.iv.next.i317 = add nuw nsw i64 %indvars.iv.i311, 1
+  %exitcond.not.i318 = icmp eq i64 %indvars.iv.next.i317, 25600
+  br i1 %exitcond.not.i318, label %_Z11make_bufferIdE8buffer_tii.exit320, label %for.body.i319, !llvm.loop !28
 
-_Z11make_bufferIdE8buffer_tii.exit318:            ; preds = %for.body.i317
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i301) #12, !noalias !68
+_Z11make_bufferIdE8buffer_tii.exit320:            ; preds = %for.body.i319
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %mem.i303) #12, !noalias !68
   %32 = call ptr @llvm.stacksave()
   %f.sroa.3.0.copyload = load ptr, ptr getelementptr inbounds ([3 x %struct.filter], ptr @filters, i64 0, i64 0, i32 1), align 8, !tbaa.struct !71
   %call37 = call noundef i32 %f.sroa.3.0.copyload(ptr noundef nonnull %bufs, ptr noundef nonnull %arrayinit.element, ptr noundef nonnull %arrayinit.element5, ptr noundef nonnull %arrayinit.element6, ptr noundef nonnull %arrayinit.element7, ptr noundef nonnull %arrayinit.element8, ptr noundef nonnull %arrayinit.element9, ptr noundef nonnull %arrayinit.element10, ptr noundef nonnull %arrayinit.element11, ptr noundef nonnull %arrayinit.element12, ptr noundef nonnull %out)
-  %33 = load ptr, ptr %host.i285, align 8, !tbaa !12
+  %33 = load ptr, ptr %host.i287, align 8, !tbaa !12
   %f.sroa.3.0.copyload.1 = load ptr, ptr getelementptr inbounds ([3 x %struct.filter], ptr @filters, i64 0, i64 1, i32 1), align 8, !tbaa.struct !71
   %call37.1 = call noundef i32 %f.sroa.3.0.copyload.1(ptr noundef nonnull %bufs, ptr noundef nonnull %arrayinit.element, ptr noundef nonnull %arrayinit.element5, ptr noundef nonnull %arrayinit.element6, ptr noundef nonnull %arrayinit.element7, ptr noundef nonnull %arrayinit.element8, ptr noundef nonnull %arrayinit.element9, ptr noundef nonnull %arrayinit.element10, ptr noundef nonnull %arrayinit.element11, ptr noundef nonnull %arrayinit.element12, ptr noundef nonnull %arrayinit.element14)
-  %34 = load ptr, ptr %host.i303, align 16, !tbaa !12
+  %34 = load ptr, ptr %host.i305, align 16, !tbaa !12
   br label %for.body46
 
-for.body46:                                       ; preds = %for.inc59.1, %_Z11make_bufferIdE8buffer_tii.exit318
-  %indvars.iv = phi i64 [ 0, %_Z11make_bufferIdE8buffer_tii.exit318 ], [ %indvars.iv.next.1, %for.inc59.1 ]
+for.body46:                                       ; preds = %for.inc59.1, %_Z11make_bufferIdE8buffer_tii.exit320
+  %indvars.iv = phi i64 [ 0, %_Z11make_bufferIdE8buffer_tii.exit320 ], [ %indvars.iv.next.1, %for.inc59.1 ]
   %arrayidx49 = getelementptr inbounds double, ptr %33, i64 %indvars.iv
   %35 = load double, ptr %arrayidx49, align 8, !tbaa !26
   %arrayidx52 = getelementptr inbounds double, ptr %34, i64 %indvars.iv
@@ -549,7 +549,7 @@ delete.notnull:                                   ; preds = %cleanup
   br label %for.inc71
 
 for.inc71:                                        ; preds = %cleanup, %delete.notnull
-  %42 = load ptr, ptr %host.i144, align 16, !tbaa !12
+  %42 = load ptr, ptr %host.i146, align 16, !tbaa !12
   %isnull.1 = icmp eq ptr %42, null
   br i1 %isnull.1, label %for.inc71.1, label %delete.notnull.1
 
@@ -558,7 +558,7 @@ delete.notnull.1:                                 ; preds = %for.inc71
   br label %for.inc71.1
 
 for.inc71.1:                                      ; preds = %delete.notnull.1, %for.inc71
-  %43 = load ptr, ptr %host.i161, align 8, !tbaa !12
+  %43 = load ptr, ptr %host.i163, align 8, !tbaa !12
   %isnull.2 = icmp eq ptr %43, null
   br i1 %isnull.2, label %for.inc71.2, label %delete.notnull.2
 
@@ -567,7 +567,7 @@ delete.notnull.2:                                 ; preds = %for.inc71.1
   br label %for.inc71.2
 
 for.inc71.2:                                      ; preds = %delete.notnull.2, %for.inc71.1
-  %44 = load ptr, ptr %host.i175, align 16, !tbaa !12
+  %44 = load ptr, ptr %host.i177, align 16, !tbaa !12
   %isnull.3 = icmp eq ptr %44, null
   br i1 %isnull.3, label %for.inc71.3, label %delete.notnull.3
 
@@ -576,7 +576,7 @@ delete.notnull.3:                                 ; preds = %for.inc71.2
   br label %for.inc71.3
 
 for.inc71.3:                                      ; preds = %delete.notnull.3, %for.inc71.2
-  %45 = load ptr, ptr %host.i190, align 8, !tbaa !12
+  %45 = load ptr, ptr %host.i192, align 8, !tbaa !12
   %isnull.4 = icmp eq ptr %45, null
   br i1 %isnull.4, label %for.inc71.4, label %delete.notnull.4
 
@@ -585,7 +585,7 @@ delete.notnull.4:                                 ; preds = %for.inc71.3
   br label %for.inc71.4
 
 for.inc71.4:                                      ; preds = %delete.notnull.4, %for.inc71.3
-  %46 = load ptr, ptr %host.i207, align 16, !tbaa !12
+  %46 = load ptr, ptr %host.i209, align 16, !tbaa !12
   %isnull.5 = icmp eq ptr %46, null
   br i1 %isnull.5, label %for.inc71.5, label %delete.notnull.5
 
@@ -594,7 +594,7 @@ delete.notnull.5:                                 ; preds = %for.inc71.4
   br label %for.inc71.5
 
 for.inc71.5:                                      ; preds = %delete.notnull.5, %for.inc71.4
-  %47 = load ptr, ptr %host.i222, align 8, !tbaa !12
+  %47 = load ptr, ptr %host.i224, align 8, !tbaa !12
   %isnull.6 = icmp eq ptr %47, null
   br i1 %isnull.6, label %for.inc71.6, label %delete.notnull.6
 
@@ -603,7 +603,7 @@ delete.notnull.6:                                 ; preds = %for.inc71.5
   br label %for.inc71.6
 
 for.inc71.6:                                      ; preds = %delete.notnull.6, %for.inc71.5
-  %48 = load ptr, ptr %host.i238, align 16, !tbaa !12
+  %48 = load ptr, ptr %host.i240, align 16, !tbaa !12
   %isnull.7 = icmp eq ptr %48, null
   br i1 %isnull.7, label %for.inc71.7, label %delete.notnull.7
 
@@ -612,7 +612,7 @@ delete.notnull.7:                                 ; preds = %for.inc71.6
   br label %for.inc71.7
 
 for.inc71.7:                                      ; preds = %delete.notnull.7, %for.inc71.6
-  %49 = load ptr, ptr %host.i253, align 8, !tbaa !12
+  %49 = load ptr, ptr %host.i255, align 8, !tbaa !12
   %isnull.8 = icmp eq ptr %49, null
   br i1 %isnull.8, label %for.inc71.8, label %delete.notnull.8
 
@@ -621,7 +621,7 @@ delete.notnull.8:                                 ; preds = %for.inc71.7
   br label %for.inc71.8
 
 for.inc71.8:                                      ; preds = %delete.notnull.8, %for.inc71.7
-  %50 = load ptr, ptr %host.i268, align 16, !tbaa !12
+  %50 = load ptr, ptr %host.i270, align 16, !tbaa !12
   %isnull.9 = icmp eq ptr %50, null
   br i1 %isnull.9, label %for.inc71.9, label %delete.notnull.9
 
@@ -630,7 +630,7 @@ delete.notnull.9:                                 ; preds = %for.inc71.8
   br label %for.inc71.9
 
 for.inc71.9:                                      ; preds = %delete.notnull.9, %for.inc71.8
-  %51 = load ptr, ptr %host.i285, align 8, !tbaa !12
+  %51 = load ptr, ptr %host.i287, align 8, !tbaa !12
   %isnull83 = icmp eq ptr %51, null
   br i1 %isnull83, label %for.inc86, label %delete.notnull84
 
@@ -639,7 +639,7 @@ delete.notnull84:                                 ; preds = %for.inc71.9
   br label %for.inc86
 
 for.inc86:                                        ; preds = %for.inc71.9, %delete.notnull84
-  %52 = load ptr, ptr %host.i303, align 16, !tbaa !12
+  %52 = load ptr, ptr %host.i305, align 16, !tbaa !12
   %isnull83.1 = icmp eq ptr %52, null
   br i1 %isnull83.1, label %for.inc86.1, label %delete.notnull84.1
 

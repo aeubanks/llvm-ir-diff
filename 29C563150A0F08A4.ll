@@ -134,76 +134,76 @@ for.inc.i:                                        ; preds = %sw.epilog.i, %for.b
 lor.lhs.false:                                    ; preds = %for.inc.i, %if.end
   %8 = load ptr, ptr @esp, align 8, !tbaa !15
   %add.ptr = getelementptr inbounds %struct.ref_s, ptr %8, i64 1
-  %cmp27.i43 = icmp ugt ptr %add.ptr, @estack
-  br i1 %cmp27.i43, label %for.body.i47, label %lor.lhs.false9
+  %cmp27.i44 = icmp ugt ptr %add.ptr, @estack
+  br i1 %cmp27.i44, label %for.body.i48, label %lor.lhs.false9
 
-for.body.i47:                                     ; preds = %lor.lhs.false, %for.inc.i54
-  %stkp.028.i44 = phi ptr [ %incdec.ptr.i52, %for.inc.i54 ], [ @estack, %lor.lhs.false ]
-  %type_attrs.i45 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i44, i64 0, i32 1
-  %9 = load i16, ptr %type_attrs.i45, align 8, !tbaa !18
+for.body.i48:                                     ; preds = %lor.lhs.false, %for.inc.i55
+  %stkp.028.i45 = phi ptr [ %incdec.ptr.i53, %for.inc.i55 ], [ @estack, %lor.lhs.false ]
+  %type_attrs.i46 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i45, i64 0, i32 1
+  %9 = load i16, ptr %type_attrs.i46, align 8, !tbaa !18
   %10 = lshr i16 %9, 2
   %11 = and i16 %10, 63
-  %shr.i46 = zext i16 %11 to i32
-  switch i32 %shr.i46, label %for.inc.i54 [
-    i32 0, label %sw.epilog.i51
-    i32 10, label %sw.epilog.i51
-    i32 2, label %sw.epilog.i51
-    i32 4, label %sw.epilog.i51
-    i32 7, label %sw.epilog.i51
-    i32 12, label %sw.epilog.i51
-    i32 13, label %sw.epilog.i51
-    i32 14, label %sw.epilog.i51
-    i32 15, label %sw.epilog.i51
+  %shr.i47 = zext i16 %11 to i32
+  switch i32 %shr.i47, label %for.inc.i55 [
+    i32 0, label %sw.epilog.i52
+    i32 10, label %sw.epilog.i52
+    i32 2, label %sw.epilog.i52
+    i32 4, label %sw.epilog.i52
+    i32 7, label %sw.epilog.i52
+    i32 12, label %sw.epilog.i52
+    i32 13, label %sw.epilog.i52
+    i32 14, label %sw.epilog.i52
+    i32 15, label %sw.epilog.i52
   ]
 
-sw.epilog.i51:                                    ; preds = %for.body.i47, %for.body.i47, %for.body.i47, %for.body.i47, %for.body.i47, %for.body.i47, %for.body.i47, %for.body.i47, %for.body.i47
-  %ptr.0.i48 = load ptr, ptr %stkp.028.i44, align 8, !tbaa !17
-  %call.i49 = tail call i32 @alloc_is_since_save(ptr noundef %ptr.0.i48, ptr noundef %3) #3
-  %tobool.not.i50 = icmp eq i32 %call.i49, 0
-  br i1 %tobool.not.i50, label %for.inc.i54, label %cleanup29
+sw.epilog.i52:                                    ; preds = %for.body.i48, %for.body.i48, %for.body.i48, %for.body.i48, %for.body.i48, %for.body.i48, %for.body.i48, %for.body.i48, %for.body.i48
+  %ptr.0.i49 = load ptr, ptr %stkp.028.i45, align 8, !tbaa !17
+  %call.i50 = tail call i32 @alloc_is_since_save(ptr noundef %ptr.0.i49, ptr noundef %3) #3
+  %tobool.not.i51 = icmp eq i32 %call.i50, 0
+  br i1 %tobool.not.i51, label %for.inc.i55, label %cleanup29
 
-for.inc.i54:                                      ; preds = %sw.epilog.i51, %for.body.i47
-  %incdec.ptr.i52 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i44, i64 1
-  %cmp.i53 = icmp ult ptr %stkp.028.i44, %8
-  br i1 %cmp.i53, label %for.body.i47, label %lor.lhs.false9, !llvm.loop !19
+for.inc.i55:                                      ; preds = %sw.epilog.i52, %for.body.i48
+  %incdec.ptr.i53 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i45, i64 1
+  %cmp.i54 = icmp ult ptr %stkp.028.i45, %8
+  br i1 %cmp.i54, label %for.body.i48, label %lor.lhs.false9, !llvm.loop !19
 
-lor.lhs.false9:                                   ; preds = %for.inc.i54, %lor.lhs.false
+lor.lhs.false9:                                   ; preds = %for.inc.i55, %lor.lhs.false
   %12 = load ptr, ptr @dsp, align 8, !tbaa !15
   %add.ptr10 = getelementptr inbounds %struct.ref_s, ptr %12, i64 1
-  %cmp27.i57 = icmp ugt ptr %add.ptr10, @dstack
-  br i1 %cmp27.i57, label %for.body.i61, label %cleanup.cont
+  %cmp27.i58 = icmp ugt ptr %add.ptr10, @dstack
+  br i1 %cmp27.i58, label %for.body.i62, label %cleanup.cont
 
-for.body.i61:                                     ; preds = %lor.lhs.false9, %for.inc.i68
-  %stkp.028.i58 = phi ptr [ %incdec.ptr.i66, %for.inc.i68 ], [ @dstack, %lor.lhs.false9 ]
-  %type_attrs.i59 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i58, i64 0, i32 1
-  %13 = load i16, ptr %type_attrs.i59, align 8, !tbaa !18
+for.body.i62:                                     ; preds = %lor.lhs.false9, %for.inc.i69
+  %stkp.028.i59 = phi ptr [ %incdec.ptr.i67, %for.inc.i69 ], [ @dstack, %lor.lhs.false9 ]
+  %type_attrs.i60 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i59, i64 0, i32 1
+  %13 = load i16, ptr %type_attrs.i60, align 8, !tbaa !18
   %14 = lshr i16 %13, 2
   %15 = and i16 %14, 63
-  %shr.i60 = zext i16 %15 to i32
-  switch i32 %shr.i60, label %for.inc.i68 [
-    i32 0, label %sw.epilog.i65
-    i32 10, label %sw.epilog.i65
-    i32 2, label %sw.epilog.i65
-    i32 4, label %sw.epilog.i65
-    i32 7, label %sw.epilog.i65
-    i32 12, label %sw.epilog.i65
-    i32 13, label %sw.epilog.i65
-    i32 14, label %sw.epilog.i65
-    i32 15, label %sw.epilog.i65
+  %shr.i61 = zext i16 %15 to i32
+  switch i32 %shr.i61, label %for.inc.i69 [
+    i32 0, label %sw.epilog.i66
+    i32 10, label %sw.epilog.i66
+    i32 2, label %sw.epilog.i66
+    i32 4, label %sw.epilog.i66
+    i32 7, label %sw.epilog.i66
+    i32 12, label %sw.epilog.i66
+    i32 13, label %sw.epilog.i66
+    i32 14, label %sw.epilog.i66
+    i32 15, label %sw.epilog.i66
   ]
 
-sw.epilog.i65:                                    ; preds = %for.body.i61, %for.body.i61, %for.body.i61, %for.body.i61, %for.body.i61, %for.body.i61, %for.body.i61, %for.body.i61, %for.body.i61
-  %ptr.0.i62 = load ptr, ptr %stkp.028.i58, align 8, !tbaa !17
-  %call.i63 = tail call i32 @alloc_is_since_save(ptr noundef %ptr.0.i62, ptr noundef %3) #3
-  %tobool.not.i64 = icmp eq i32 %call.i63, 0
-  br i1 %tobool.not.i64, label %for.inc.i68, label %cleanup29
+sw.epilog.i66:                                    ; preds = %for.body.i62, %for.body.i62, %for.body.i62, %for.body.i62, %for.body.i62, %for.body.i62, %for.body.i62, %for.body.i62, %for.body.i62
+  %ptr.0.i63 = load ptr, ptr %stkp.028.i59, align 8, !tbaa !17
+  %call.i64 = tail call i32 @alloc_is_since_save(ptr noundef %ptr.0.i63, ptr noundef %3) #3
+  %tobool.not.i65 = icmp eq i32 %call.i64, 0
+  br i1 %tobool.not.i65, label %for.inc.i69, label %cleanup29
 
-for.inc.i68:                                      ; preds = %sw.epilog.i65, %for.body.i61
-  %incdec.ptr.i66 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i58, i64 1
-  %cmp.i67 = icmp ult ptr %stkp.028.i58, %12
-  br i1 %cmp.i67, label %for.body.i61, label %cleanup.cont, !llvm.loop !19
+for.inc.i69:                                      ; preds = %sw.epilog.i66, %for.body.i62
+  %incdec.ptr.i67 = getelementptr inbounds %struct.ref_s, ptr %stkp.028.i59, i64 1
+  %cmp.i68 = icmp ult ptr %stkp.028.i59, %12
+  br i1 %cmp.i68, label %for.body.i62, label %cleanup.cont, !llvm.loop !19
 
-cleanup.cont:                                     ; preds = %for.inc.i68, %lor.lhs.false9
+cleanup.cont:                                     ; preds = %for.inc.i69, %lor.lhs.false9
   %call16 = tail call i32 @alloc_restore_state_check(ptr noundef %3) #3
   %cmp17 = icmp slt i32 %call16, 0
   br i1 %cmp17, label %cleanup29, label %if.end20
@@ -229,8 +229,8 @@ if.end27:                                         ; preds = %if.end20
   store ptr %add.ptr28, ptr @osp, align 8, !tbaa !15
   br label %cleanup29
 
-cleanup29:                                        ; preds = %sw.epilog.i, %sw.epilog.i51, %sw.epilog.i65, %if.end20, %cleanup.cont, %entry, %if.end27
-  %retval.1 = phi i32 [ 0, %if.end27 ], [ -20, %entry ], [ -11, %cleanup.cont ], [ %call23, %if.end20 ], [ -11, %sw.epilog.i65 ], [ -11, %sw.epilog.i51 ], [ -11, %sw.epilog.i ]
+cleanup29:                                        ; preds = %sw.epilog.i, %sw.epilog.i52, %sw.epilog.i66, %if.end20, %cleanup.cont, %entry, %if.end27
+  %retval.1 = phi i32 [ 0, %if.end27 ], [ -20, %entry ], [ -11, %cleanup.cont ], [ %call23, %if.end20 ], [ -11, %sw.epilog.i66 ], [ -11, %sw.epilog.i52 ], [ -11, %sw.epilog.i ]
   ret i32 %retval.1
 }
 

@@ -264,22 +264,22 @@ do.body:                                          ; preds = %init_def_table.exit
 
 do.end:                                           ; preds = %do.body
   %add.ptr = getelementptr inbounds i8, ptr %string, i64 5
-  %call.i567 = call i64 @strtol(ptr nocapture noundef nonnull %add.ptr, ptr noundef null, i32 noundef 10) #16
-  %conv.i568 = trunc i64 %call.i567 to i32
+  %call.i572 = call i64 @strtol(ptr nocapture noundef nonnull %add.ptr, ptr noundef null, i32 noundef 10) #16
+  %conv.i573 = trunc i64 %call.i572 to i32
   %15 = load i32, ptr @epoch_length, align 4, !tbaa !13
-  %cmp25 = icmp sgt i32 %15, %conv.i568
+  %cmp25 = icmp sgt i32 %15, %conv.i573
   br i1 %cmp25, label %if.then27, label %if.end32
 
 if.then27:                                        ; preds = %do.end
   %16 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %call28 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %16, ptr noundef nonnull @.str.14, i32 noundef %conv.i568, i32 noundef %15) #13
+  %call28 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %16, ptr noundef nonnull @.str.14, i32 noundef %conv.i573, i32 noundef %15) #13
   call void @exit(i32 noundef 0) #15
   unreachable
 
 if.end32:                                         ; preds = %do.end
-  %rem = srem i32 %conv.i568, %15
+  %rem = srem i32 %conv.i573, %15
   %tobool33.not = icmp ne i32 %rem, 0
-  %div36 = sdiv i32 %conv.i568, %15
+  %div36 = sdiv i32 %conv.i573, %15
   %add = zext i1 %tobool33.not to i32
   %num_epochs.0 = add nsw i32 %div36, %add
   %cmp38 = icmp eq i32 %num_epochs.0, 0
@@ -367,7 +367,7 @@ for.body.epil:                                    ; preds = %for.end.loopexit.un
   br i1 %epil.iter608.cmp.not, label %for.end, label %for.body.epil, !llvm.loop !22
 
 for.end:                                          ; preds = %for.end.loopexit.unr-lcssa, %for.body.epil, %for.cond.preheader
-  %sext = shl i64 %call.i567, 32
+  %sext = shl i64 %call.i572, 32
   %conv74 = ashr exact i64 %sext, 32
   %add75 = add i64 %call52, %conv74
   %add76 = shl i64 %add75, 3
@@ -624,8 +624,8 @@ if.end297:                                        ; preds = %for.inc276, %if.end
 
 if.else300:                                       ; preds = %while.cond94.loopexit, %while.end.loopexit
   %varv.0.lcssa = phi i32 [ -1, %while.end.loopexit ], [ %inc100, %while.cond94.loopexit ]
-  %bcmp573 = call i32 @bcmp(ptr noundef nonnull dereferenceable(5) %string, ptr noundef nonnull dereferenceable(5) @.str.27, i64 5)
-  %tobool303.not = icmp eq i32 %bcmp573, 0
+  %bcmp570 = call i32 @bcmp(ptr noundef nonnull dereferenceable(5) %string, ptr noundef nonnull dereferenceable(5) @.str.27, i64 5)
+  %tobool303.not = icmp eq i32 %bcmp570, 0
   br i1 %tobool303.not, label %while.cond323.preheader, label %if.end313
 
 while.cond323.preheader:                          ; preds = %if.else300

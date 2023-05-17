@@ -109,17 +109,17 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %st)
   %cmp.not.i.not811 = icmp eq i64 %1, 0
   %cmp.not.i.not8 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not811
-  br i1 %cmp.not.i.not8, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not8, label %for.cond.cleanup, label %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph, !prof !27
 
-for.body.lr.ph:                                   ; preds = %entry
+_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph: ; preds = %entry
   %data = getelementptr inbounds %class.MyFixture, ptr %this, i64 0, i32 1
   %data.promoted = load i32, ptr %data, align 8, !tbaa !28
   %2 = trunc i64 %1 to i32
   %3 = add i32 %data.promoted, %2
   store i32 %3, ptr %data, align 8, !tbaa !28
-  br label %if.end.i
+  br label %for.cond.cleanup
 
-if.end.i:                                         ; preds = %for.body.lr.ph, %entry
+for.cond.cleanup:                                 ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %st)
   ret void
 }
@@ -135,45 +135,45 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %st)
   %cmp.not.i.not811 = icmp eq i64 %1, 0
   %cmp.not.i.not8 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not811
-  br i1 %cmp.not.i.not8, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not8, label %for.cond.cleanup, label %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph, !prof !27
 
-for.body.lr.ph:                                   ; preds = %entry
+_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph: ; preds = %entry
   %data = getelementptr inbounds %class.MyFixture.31, ptr %this, i64 0, i32 1
   %data.promoted = load double, ptr %data, align 8, !tbaa !54
   %2 = add i64 %1, -1
   %xtraiter = and i64 %1, 7
   %lcmp.mod.not = icmp eq i64 %xtraiter, 0
-  br i1 %lcmp.mod.not, label %for.body.prol.loopexit, label %for.body.prol
+  br i1 %lcmp.mod.not, label %_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit, label %_ZN9benchmark5State13StateIteratorppEv.exit.prol
 
-for.body.prol:                                    ; preds = %for.body.lr.ph, %for.body.prol
-  %add10.prol = phi double [ %add.prol, %for.body.prol ], [ %data.promoted, %for.body.lr.ph ]
-  %__begin1.sroa.0.09.prol = phi i64 [ %dec.i.prol, %for.body.prol ], [ %1, %for.body.lr.ph ]
-  %prol.iter = phi i64 [ %prol.iter.next, %for.body.prol ], [ 0, %for.body.lr.ph ]
+_ZN9benchmark5State13StateIteratorppEv.exit.prol: ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph, %_ZN9benchmark5State13StateIteratorppEv.exit.prol
+  %add10.prol = phi double [ %add.prol, %_ZN9benchmark5State13StateIteratorppEv.exit.prol ], [ %data.promoted, %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph ]
+  %__begin1.sroa.0.09.prol = phi i64 [ %dec.i.prol, %_ZN9benchmark5State13StateIteratorppEv.exit.prol ], [ %1, %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph ]
+  %prol.iter = phi i64 [ %prol.iter.next, %_ZN9benchmark5State13StateIteratorppEv.exit.prol ], [ 0, %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph ]
   %add.prol = fadd double %add10.prol, 1.000000e+00
   %dec.i.prol = add i64 %__begin1.sroa.0.09.prol, -1
   %prol.iter.next = add i64 %prol.iter, 1
   %prol.iter.cmp.not = icmp eq i64 %prol.iter.next, %xtraiter
-  br i1 %prol.iter.cmp.not, label %for.body.prol.loopexit, label %for.body.prol, !prof !56, !llvm.loop !57
+  br i1 %prol.iter.cmp.not, label %_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit, label %_ZN9benchmark5State13StateIteratorppEv.exit.prol, !prof !56, !llvm.loop !57
 
-for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.lr.ph
-  %add.lcssa.unr = phi double [ undef, %for.body.lr.ph ], [ %add.prol, %for.body.prol ]
-  %add10.unr = phi double [ %data.promoted, %for.body.lr.ph ], [ %add.prol, %for.body.prol ]
-  %__begin1.sroa.0.09.unr = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i.prol, %for.body.prol ]
+_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit: ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit.prol, %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph
+  %add.lcssa.unr = phi double [ undef, %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph ], [ %add.prol, %_ZN9benchmark5State13StateIteratorppEv.exit.prol ]
+  %add10.unr = phi double [ %data.promoted, %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph ], [ %add.prol, %_ZN9benchmark5State13StateIteratorppEv.exit.prol ]
+  %__begin1.sroa.0.09.unr = phi i64 [ %1, %_ZN9benchmark5State13StateIteratorppEv.exit.lr.ph ], [ %dec.i.prol, %_ZN9benchmark5State13StateIteratorppEv.exit.prol ]
   %3 = icmp ult i64 %2, 7
-  br i1 %3, label %for.cond.if.end.i_crit_edge, label %for.body
+  br i1 %3, label %for.cond.for.cond.cleanup_crit_edge, label %_ZN9benchmark5State13StateIteratorppEv.exit
 
-for.cond.if.end.i_crit_edge:                      ; preds = %for.body, %for.body.prol.loopexit
-  %add.lcssa = phi double [ %add.lcssa.unr, %for.body.prol.loopexit ], [ %add.7, %for.body ]
+for.cond.for.cond.cleanup_crit_edge:              ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit
+  %add.lcssa = phi double [ %add.lcssa.unr, %_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit ], [ %add.7, %_ZN9benchmark5State13StateIteratorppEv.exit ]
   store double %add.lcssa, ptr %data, align 8, !tbaa !54
-  br label %if.end.i
+  br label %for.cond.cleanup
 
-if.end.i:                                         ; preds = %for.cond.if.end.i_crit_edge, %entry
+for.cond.cleanup:                                 ; preds = %for.cond.for.cond.cleanup_crit_edge, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %st)
   ret void
 
-for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
-  %add10 = phi double [ %add.7, %for.body ], [ %add10.unr, %for.body.prol.loopexit ]
-  %__begin1.sroa.0.09 = phi i64 [ %dec.i.7, %for.body ], [ %__begin1.sroa.0.09.unr, %for.body.prol.loopexit ]
+_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit, %_ZN9benchmark5State13StateIteratorppEv.exit
+  %add10 = phi double [ %add.7, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %add10.unr, %_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit ]
+  %__begin1.sroa.0.09 = phi i64 [ %dec.i.7, %_ZN9benchmark5State13StateIteratorppEv.exit ], [ %__begin1.sroa.0.09.unr, %_ZN9benchmark5State13StateIteratorppEv.exit.prol.loopexit ]
   %add = fadd double %add10, 1.000000e+00
   %add.1 = fadd double %add, 1.000000e+00
   %add.2 = fadd double %add.1, 1.000000e+00
@@ -184,7 +184,7 @@ for.body:                                         ; preds = %for.body.prol.loope
   %add.7 = fadd double %add.6, 1.000000e+00
   %dec.i.7 = add i64 %__begin1.sroa.0.09, -8
   %cmp.not.i.not.7 = icmp eq i64 %dec.i.7, 0
-  br i1 %cmp.not.i.not.7, label %for.cond.if.end.i_crit_edge, label %for.body, !prof !59
+  br i1 %cmp.not.i.not.7, label %for.cond.for.cond.cleanup_crit_edge, label %_ZN9benchmark5State13StateIteratorppEv.exit, !prof !59
 }
 
 ; Function Attrs: mustprogress norecurse uwtable

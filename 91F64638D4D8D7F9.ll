@@ -27,7 +27,7 @@ entry:
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+if.end:
   %bf.load.i = load i16, ptr @foo, align 4
   %bf.lshr.i = lshr i16 %bf.load.i, 12
   %bf.cast.i = zext i16 %bf.lshr.i to i32

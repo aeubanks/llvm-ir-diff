@@ -62,7 +62,7 @@ if.then.i:                                        ; preds = %while.end.i, %land.
   store i16 0, ptr %d.addr.04.i, align 2, !tbaa !9
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end, %while.end.i, %if.then.i, %entry
+cleanup:                                          ; preds = %if.then.i, %while.end.i, %if.end, %entry
   %retval.0 = phi i32 [ 0, %entry ], [ 0, %if.end ], [ 1, %while.end.i ], [ 1, %if.then.i ]
   call void @llvm.lifetime.end.p0(i64 5348, ptr nonnull %superblock) #4
   ret i32 %retval.0

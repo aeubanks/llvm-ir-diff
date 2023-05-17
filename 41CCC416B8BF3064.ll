@@ -25,13 +25,13 @@ entry:
 define dso_local i32 @main() local_unnamed_addr #2 {
 entry:
   %.b.i = load i1, ptr @next_buffer, align 4
-  br i1 %.b.i, label %if.then, label %if.end
+  br i1 %.b.i, label %if.then, label %if.end4
 
 if.then:                                          ; preds = %entry
   tail call void @abort() #4
   unreachable
 
-if.end:                                           ; preds = %entry
+if.end4:                                          ; preds = %entry
   store i1 true, ptr @next_buffer, align 4
   tail call void @exit(i32 noundef 0) #4
   unreachable

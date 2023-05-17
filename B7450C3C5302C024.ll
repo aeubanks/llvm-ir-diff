@@ -20,7 +20,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+if.end:
   %0 = load float, ptr @X, align 4, !tbaa !5
   %add.i = fadd float %0, %0
   store float %add.i, ptr @X, align 4, !tbaa !5

@@ -258,8 +258,8 @@ if.then:                                          ; preds = %if.end.i
   %call1 = tail call i32 @gs_setlinecap(ptr noundef %4, i32 noundef %conv10.i) #8
   br label %if.end
 
-if.end:                                           ; preds = %entry, %if.end.i, %if.then
-  %code.0 = phi i32 [ %call1, %if.then ], [ -20, %entry ], [ -15, %if.end.i ]
+if.end:                                           ; preds = %if.end.i, %entry, %if.then
+  %code.0 = phi i32 [ %call1, %if.then ], [ -15, %if.end.i ], [ -20, %entry ]
   ret i32 %code.0
 }
 
@@ -344,8 +344,8 @@ if.then:                                          ; preds = %if.end.i
   %call1 = tail call i32 @gs_setlinejoin(ptr noundef %4, i32 noundef %conv10.i) #8
   br label %if.end
 
-if.end:                                           ; preds = %entry, %if.end.i, %if.then
-  %code.0 = phi i32 [ %call1, %if.then ], [ -20, %entry ], [ -15, %if.end.i ]
+if.end:                                           ; preds = %if.end.i, %entry, %if.then
+  %code.0 = phi i32 [ %call1, %if.then ], [ -15, %if.end.i ], [ -20, %entry ]
   ret i32 %code.0
 }
 

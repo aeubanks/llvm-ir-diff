@@ -35,7 +35,7 @@ declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #2
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #3 {
-entry:
+lor.lhs.false:
   %a = alloca i32, align 4
   %b = alloca i32, align 4
   call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %a) #5
@@ -45,7 +45,7 @@ entry:
   %cmp1.not = icmp eq ptr %0, %a
   br i1 %cmp1.not, label %lor.lhs.false2, label %if.then
 
-lor.lhs.false2:                                   ; preds = %entry
+lor.lhs.false2:                                   ; preds = %lor.lhs.false
   %s2 = getelementptr inbounds %struct.S, ptr %call, i64 0, i32 1
   %1 = load ptr, ptr %s2, align 8, !tbaa !10
   %cmp3.not = icmp eq ptr %1, %b
@@ -63,7 +63,7 @@ lor.lhs.false5:                                   ; preds = %lor.lhs.false4
   %tobool7.not = icmp eq i8 %3, 0
   br i1 %tobool7.not, label %if.end, label %if.then
 
-if.then:                                          ; preds = %lor.lhs.false5, %lor.lhs.false4, %lor.lhs.false2, %entry
+if.then:                                          ; preds = %lor.lhs.false5, %lor.lhs.false4, %lor.lhs.false2, %lor.lhs.false
   call void @abort() #6
   unreachable
 

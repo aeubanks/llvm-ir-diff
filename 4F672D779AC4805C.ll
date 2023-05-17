@@ -316,17 +316,17 @@ cleanup:                                          ; preds = %while.end, %if.end,
 ; Function Attrs: nofree nounwind uwtable
 define dso_local ptr @find_destination(ptr nocapture noundef readonly %packet, i32 noundef %packet_size) local_unnamed_addr #5 {
 entry:
-  %iterator.0147 = load ptr, ptr @tree_head, align 8, !tbaa !15
-  %tobool.not148 = icmp eq ptr %iterator.0147, null
-  br i1 %tobool.not148, label %cleanup29, label %while.body
+  %iterator.0148 = load ptr, ptr @tree_head, align 8, !tbaa !15
+  %tobool.not149 = icmp eq ptr %iterator.0148, null
+  br i1 %tobool.not149, label %cleanup29, label %while.body
 
 while.body:                                       ; preds = %entry, %if.end27
-  %iterator.0149 = phi ptr [ %iterator.0, %if.end27 ], [ %iterator.0147, %entry ]
-  %common_pattern = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0149, i64 0, i32 1
+  %iterator.0150 = phi ptr [ %iterator.0, %if.end27 ], [ %iterator.0148, %entry ]
+  %common_pattern = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0150, i64 0, i32 1
   %0 = load ptr, ptr %common_pattern, align 8, !tbaa !17
-  %common_pattern_length = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0149, i64 0, i32 2
+  %common_pattern_length = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0150, i64 0, i32 2
   %1 = load i32, ptr %common_pattern_length, align 8, !tbaa !19
-  %bm_table = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0149, i64 0, i32 3
+  %bm_table = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0150, i64 0, i32 3
   %2 = load ptr, ptr %bm_table, align 8, !tbaa !20
   %sub.i = add nsw i32 %1, -1
   %cmp.not49.i = icmp sgt i32 %1, %packet_size
@@ -380,27 +380,27 @@ boyer_moore.exit:                                 ; preds = %while.end.i
   br i1 %cmp.not, label %if.end27, label %if.then
 
 if.then:                                          ; preds = %boyer_moore.exit
-  %list1 = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0149, i64 0, i32 5
-  %3 = load ptr, ptr %list1, align 8, !tbaa !21
-  %tobool3.not145 = icmp eq ptr %3, null
-  br i1 %tobool3.not145, label %if.end27, label %while.body4
+  %list1 = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0150, i64 0, i32 5
+  %list.0145 = load ptr, ptr %list1, align 8, !tbaa !15
+  %tobool3.not146 = icmp eq ptr %list.0145, null
+  br i1 %tobool3.not146, label %if.end27, label %while.body4
 
 while.body4:                                      ; preds = %if.then, %cleanup
-  %list.0146 = phi ptr [ %15, %cleanup ], [ %3, %if.then ]
-  %search_depth = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 6
-  %4 = load i32, ptr %search_depth, align 4, !tbaa !22
-  %cmp5 = icmp eq i32 %4, 0
+  %list.0147 = phi ptr [ %list.0, %cleanup ], [ %list.0145, %if.then ]
+  %search_depth = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 6
+  %3 = load i32, ptr %search_depth, align 4, !tbaa !21
+  %cmp5 = icmp eq i32 %3, 0
   br i1 %cmp5, label %if.then6, label %if.else
 
 if.then6:                                         ; preds = %while.body4
-  %pattern = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 4
-  %5 = load ptr, ptr %pattern, align 8, !tbaa !24
-  %pattern_length = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 5
-  %6 = load i32, ptr %pattern_length, align 8, !tbaa !25
-  %bm_table7 = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 7
-  %7 = load ptr, ptr %bm_table7, align 8, !tbaa !26
-  %sub.i58 = add nsw i32 %6, -1
-  %cmp.not49.i59 = icmp sgt i32 %6, %packet_size
+  %pattern = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 4
+  %4 = load ptr, ptr %pattern, align 8, !tbaa !23
+  %pattern_length = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 5
+  %5 = load i32, ptr %pattern_length, align 8, !tbaa !24
+  %bm_table7 = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 7
+  %6 = load ptr, ptr %bm_table7, align 8, !tbaa !25
+  %sub.i58 = add nsw i32 %5, -1
+  %cmp.not49.i59 = icmp sgt i32 %5, %packet_size
   br i1 %cmp.not49.i59, label %cleanup, label %while.cond6.preheader.lr.ph.i61
 
 while.cond6.preheader.lr.ph.i61:                  ; preds = %if.then6
@@ -409,20 +409,20 @@ while.cond6.preheader.lr.ph.i61:                  ; preds = %if.then6
 
 while.cond6.i75:                                  ; preds = %while.cond6.i75.backedge, %while.cond6.preheader.lr.ph.i61
   %j.1.i65 = phi i32 [ 0, %while.cond6.preheader.lr.ph.i61 ], [ %j.1.i65.be, %while.cond6.i75.backedge ]
-  %idxprom.pn.in.in.i66 = phi i32 [ %6, %while.cond6.preheader.lr.ph.i61 ], [ %idxprom.pn.in.in.i66.be, %while.cond6.i75.backedge ]
+  %idxprom.pn.in.in.i66 = phi i32 [ %5, %while.cond6.preheader.lr.ph.i61 ], [ %idxprom.pn.in.in.i66.be, %while.cond6.i75.backedge ]
   %idxprom.pn.in.i67 = add nsw i32 %idxprom.pn.in.in.i66, -1
   %idxprom.pn.i68 = sext i32 %idxprom.pn.in.i67 to i64
   %idxprom4.pn.in.in.i69 = getelementptr inbounds i8, ptr %packet, i64 %idxprom.pn.i68
   %idxprom4.pn.in.i70 = load i8, ptr %idxprom4.pn.in.in.i69, align 1, !tbaa !9
   %idxprom4.pn.i71 = zext i8 %idxprom4.pn.in.i70 to i64
-  %k.0.in.i72 = getelementptr inbounds i32, ptr %7, i64 %idxprom4.pn.i71
+  %k.0.in.i72 = getelementptr inbounds i32, ptr %6, i64 %idxprom4.pn.i71
   %k.0.i73 = load i32, ptr %k.0.in.i72, align 4, !tbaa !5
   %cmp7.not.i74 = icmp eq i32 %k.0.i73, 0
   br i1 %cmp7.not.i74, label %while.end.i86, label %land.rhs.i79
 
 land.rhs.i79:                                     ; preds = %while.cond6.i75
   %add8.i76 = add nsw i32 %k.0.i73, %j.1.i65
-  %add9.i77 = add nsw i32 %add8.i76, %6
+  %add9.i77 = add nsw i32 %add8.i76, %5
   %cmp11.not.i78 = icmp sgt i32 %add9.i77, %packet_size
   br i1 %cmp11.not.i78, label %while.end.i86, label %while.cond6.i75.backedge
 
@@ -434,7 +434,7 @@ while.cond6.i75.backedge:                         ; preds = %land.rhs.i79, %if.e
 while.end.i86:                                    ; preds = %land.rhs.i79, %while.cond6.i75
   %idx.ext.i80 = sext i32 %j.1.i65 to i64
   %add.ptr.i81 = getelementptr inbounds i8, ptr %packet, i64 %idx.ext.i80
-  %bcmp.i82 = tail call i32 @bcmp(ptr %5, ptr %add.ptr.i81, i64 %conv.i60)
+  %bcmp.i82 = tail call i32 @bcmp(ptr %4, ptr %add.ptr.i81, i64 %conv.i60)
   %cmp21.i83 = icmp eq i32 %bcmp.i82, 0
   %cmp23.i84 = icmp slt i32 %j.1.i65, %packet_size
   %or.cond.i85 = and i1 %cmp23.i84, %cmp21.i83
@@ -442,20 +442,20 @@ while.end.i86:                                    ; preds = %land.rhs.i79, %whil
 
 if.end.i90:                                       ; preds = %while.end.i86
   %add25.i87 = add nsw i32 %j.1.i65, %sub.i58
-  %add.i88 = add nsw i32 %add25.i87, %6
+  %add.i88 = add nsw i32 %add25.i87, %5
   %cmp.not.i89 = icmp sgt i32 %add.i88, %packet_size
   br i1 %cmp.not.i89, label %cleanup, label %while.cond6.i75.backedge
 
 if.else:                                          ; preds = %while.body4
-  %.packet_size = tail call i32 @llvm.smin.i32(i32 %4, i32 %packet_size)
-  %pattern12 = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 4
-  %8 = load ptr, ptr %pattern12, align 8, !tbaa !24
-  %pattern_length13 = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 5
-  %9 = load i32, ptr %pattern_length13, align 8, !tbaa !25
-  %bm_table14 = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 7
-  %10 = load ptr, ptr %bm_table14, align 8, !tbaa !26
-  %sub.i93 = add nsw i32 %9, -1
-  %cmp.not49.i94 = icmp sgt i32 %9, %.packet_size
+  %.packet_size = tail call i32 @llvm.smin.i32(i32 %3, i32 %packet_size)
+  %pattern12 = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 4
+  %7 = load ptr, ptr %pattern12, align 8, !tbaa !23
+  %pattern_length13 = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 5
+  %8 = load i32, ptr %pattern_length13, align 8, !tbaa !24
+  %bm_table14 = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 7
+  %9 = load ptr, ptr %bm_table14, align 8, !tbaa !25
+  %sub.i93 = add nsw i32 %8, -1
+  %cmp.not49.i94 = icmp sgt i32 %8, %.packet_size
   br i1 %cmp.not49.i94, label %cleanup, label %while.cond6.preheader.lr.ph.i96
 
 while.cond6.preheader.lr.ph.i96:                  ; preds = %if.else
@@ -464,20 +464,20 @@ while.cond6.preheader.lr.ph.i96:                  ; preds = %if.else
 
 while.cond6.i110:                                 ; preds = %while.cond6.i110.backedge, %while.cond6.preheader.lr.ph.i96
   %j.1.i100 = phi i32 [ 0, %while.cond6.preheader.lr.ph.i96 ], [ %j.1.i100.be, %while.cond6.i110.backedge ]
-  %idxprom.pn.in.in.i101 = phi i32 [ %9, %while.cond6.preheader.lr.ph.i96 ], [ %idxprom.pn.in.in.i101.be, %while.cond6.i110.backedge ]
+  %idxprom.pn.in.in.i101 = phi i32 [ %8, %while.cond6.preheader.lr.ph.i96 ], [ %idxprom.pn.in.in.i101.be, %while.cond6.i110.backedge ]
   %idxprom.pn.in.i102 = add nsw i32 %idxprom.pn.in.in.i101, -1
   %idxprom.pn.i103 = sext i32 %idxprom.pn.in.i102 to i64
   %idxprom4.pn.in.in.i104 = getelementptr inbounds i8, ptr %packet, i64 %idxprom.pn.i103
   %idxprom4.pn.in.i105 = load i8, ptr %idxprom4.pn.in.in.i104, align 1, !tbaa !9
   %idxprom4.pn.i106 = zext i8 %idxprom4.pn.in.i105 to i64
-  %k.0.in.i107 = getelementptr inbounds i32, ptr %10, i64 %idxprom4.pn.i106
+  %k.0.in.i107 = getelementptr inbounds i32, ptr %9, i64 %idxprom4.pn.i106
   %k.0.i108 = load i32, ptr %k.0.in.i107, align 4, !tbaa !5
   %cmp7.not.i109 = icmp eq i32 %k.0.i108, 0
   br i1 %cmp7.not.i109, label %while.end.i121, label %land.rhs.i114
 
 land.rhs.i114:                                    ; preds = %while.cond6.i110
   %add8.i111 = add nsw i32 %k.0.i108, %j.1.i100
-  %add9.i112 = add nsw i32 %add8.i111, %9
+  %add9.i112 = add nsw i32 %add8.i111, %8
   %cmp11.not.i113 = icmp sgt i32 %add9.i112, %.packet_size
   br i1 %cmp11.not.i113, label %while.end.i121, label %while.cond6.i110.backedge
 
@@ -489,7 +489,7 @@ while.cond6.i110.backedge:                        ; preds = %land.rhs.i114, %if.
 while.end.i121:                                   ; preds = %land.rhs.i114, %while.cond6.i110
   %idx.ext.i115 = sext i32 %j.1.i100 to i64
   %add.ptr.i116 = getelementptr inbounds i8, ptr %packet, i64 %idx.ext.i115
-  %bcmp.i117 = tail call i32 @bcmp(ptr %8, ptr %add.ptr.i116, i64 %conv.i95)
+  %bcmp.i117 = tail call i32 @bcmp(ptr %7, ptr %add.ptr.i116, i64 %conv.i95)
   %cmp21.i118 = icmp eq i32 %bcmp.i117, 0
   %cmp23.i119 = icmp slt i32 %j.1.i100, %.packet_size
   %or.cond.i120 = and i1 %cmp23.i119, %cmp21.i118
@@ -497,7 +497,7 @@ while.end.i121:                                   ; preds = %land.rhs.i114, %whi
 
 if.end.i125:                                      ; preds = %while.end.i121
   %add25.i122 = add nsw i32 %j.1.i100, %sub.i93
-  %add.i123 = add nsw i32 %add25.i122, %9
+  %add.i123 = add nsw i32 %add25.i122, %8
   %cmp.not.i124 = icmp sgt i32 %add.i123, %.packet_size
   br i1 %cmp.not.i124, label %cleanup, label %while.cond6.i110.backedge
 
@@ -507,40 +507,40 @@ if.end:                                           ; preds = %while.end.i121, %wh
   br i1 %cmp16.not, label %cleanup, label %if.then17
 
 if.then17:                                        ; preds = %if.end
-  %type = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 1
-  %11 = load i32, ptr %type, align 4, !tbaa !27
-  %cmp18 = icmp eq i32 %11, 0
+  %type = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 1
+  %10 = load i32, ptr %type, align 4, !tbaa !26
+  %cmp18 = icmp eq i32 %10, 0
   br i1 %cmp18, label %if.then19, label %cleanup24
 
 if.then19:                                        ; preds = %if.then17
-  %logto = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 3
-  %12 = load ptr, ptr %logto, align 8, !tbaa !28
+  %logto = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 3
+  %11 = load ptr, ptr %logto, align 8, !tbaa !27
   %arrayidx = getelementptr inbounds i8, ptr %packet, i64 12
-  %13 = load i32, ptr %arrayidx, align 4, !tbaa !5
+  %12 = load i32, ptr %arrayidx, align 4, !tbaa !5
   %arrayidx20 = getelementptr inbounds i8, ptr %packet, i64 16
-  %14 = load i32, ptr %arrayidx20, align 4, !tbaa !5
-  %call21 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %12, ptr noundef nonnull @.str.2, i32 noundef %13, i32 noundef %14)
+  %13 = load i32, ptr %arrayidx20, align 4, !tbaa !5
+  %call21 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str.2, i32 noundef %12, i32 noundef %13)
   br label %cleanup24
 
 cleanup:                                          ; preds = %if.end.i125, %if.end.i90, %if.else, %if.then6, %if.end
-  %below = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 9
-  %15 = load ptr, ptr %below, align 8, !tbaa !29
-  %tobool3.not = icmp eq ptr %15, null
+  %below = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 9
+  %list.0 = load ptr, ptr %below, align 8, !tbaa !15
+  %tobool3.not = icmp eq ptr %list.0, null
   br i1 %tobool3.not, label %if.end27, label %while.body4
 
 cleanup24:                                        ; preds = %if.then17, %if.then19
-  %destination = getelementptr inbounds %struct._PatternNode, ptr %list.0146, i64 0, i32 8
-  %16 = load ptr, ptr %destination, align 8, !tbaa !30
+  %destination = getelementptr inbounds %struct._PatternNode, ptr %list.0147, i64 0, i32 8
+  %14 = load ptr, ptr %destination, align 8, !tbaa !28
   br label %cleanup29
 
 if.end27:                                         ; preds = %if.end.i, %cleanup, %if.then, %while.body, %boyer_moore.exit
-  %next = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0149, i64 0, i32 4
+  %next = getelementptr inbounds %struct._StrTreeNode, ptr %iterator.0150, i64 0, i32 4
   %iterator.0 = load ptr, ptr %next, align 8, !tbaa !15
   %tobool.not = icmp eq ptr %iterator.0, null
-  br i1 %tobool.not, label %cleanup29, label %while.body, !llvm.loop !31
+  br i1 %tobool.not, label %cleanup29, label %while.body, !llvm.loop !29
 
 cleanup29:                                        ; preds = %if.end27, %entry, %cleanup24
-  %retval.5 = phi ptr [ %16, %cleanup24 ], [ null, %entry ], [ null, %if.end27 ]
+  %retval.5 = phi ptr [ %14, %cleanup24 ], [ null, %entry ], [ null, %if.end27 ]
   ret ptr %retval.5
 }
 
@@ -559,13 +559,13 @@ if.then:                                          ; preds = %entry
   unreachable
 
 if.end:                                           ; preds = %entry
-  store i32 %chainno, ptr %call, align 8, !tbaa !32
+  store i32 %chainno, ptr %call, align 8, !tbaa !30
   %type1 = getelementptr inbounds %struct._PatternNode, ptr %call, i64 0, i32 1
-  store i32 %type, ptr %type1, align 4, !tbaa !27
+  store i32 %type, ptr %type1, align 4, !tbaa !26
   %conv = sext i32 %pattern_length to i64
   %call2 = tail call noalias ptr @malloc(i64 noundef %conv) #11
   %pattern3 = getelementptr inbounds %struct._PatternNode, ptr %call, i64 0, i32 4
-  store ptr %call2, ptr %pattern3, align 8, !tbaa !24
+  store ptr %call2, ptr %pattern3, align 8, !tbaa !23
   %cmp4 = icmp eq ptr %call2, null
   br i1 %cmp4, label %if.then6, label %if.end7
 
@@ -576,9 +576,9 @@ if.then6:                                         ; preds = %if.end
 if.end7:                                          ; preds = %if.end
   %call10 = tail call ptr @strncpy(ptr noundef nonnull %call2, ptr noundef %pattern, i64 noundef %conv) #13
   %pattern_length11 = getelementptr inbounds %struct._PatternNode, ptr %call, i64 0, i32 5
-  store i32 %pattern_length, ptr %pattern_length11, align 8, !tbaa !25
+  store i32 %pattern_length, ptr %pattern_length11, align 8, !tbaa !24
   %search_depth12 = getelementptr inbounds %struct._PatternNode, ptr %call, i64 0, i32 6
-  store i32 %search_depth, ptr %search_depth12, align 4, !tbaa !22
+  store i32 %search_depth, ptr %search_depth12, align 4, !tbaa !21
   %call.i = tail call noalias dereferenceable_or_null(1024) ptr @malloc(i64 noundef 1024) #11
   %cmp.i = icmp eq ptr %call.i, null
   br i1 %cmp.i, label %if.then.i, label %vector.body
@@ -794,11 +794,11 @@ for.body4.i.epil:                                 ; preds = %calculate_bm_table.
   %indvars.iv.next29.i.epil = add nuw nsw i64 %indvars.iv28.i.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %calculate_bm_table.exit, label %for.body4.i.epil, !llvm.loop !33
+  br i1 %epil.iter.cmp.not, label %calculate_bm_table.exit, label %for.body4.i.epil, !llvm.loop !31
 
 calculate_bm_table.exit:                          ; preds = %calculate_bm_table.exit.loopexit.unr-lcssa, %for.body4.i.epil, %vector.body
   %bm_table = getelementptr inbounds %struct._PatternNode, ptr %call, i64 0, i32 7
-  store ptr %call.i, ptr %bm_table, align 8, !tbaa !26
+  store ptr %call.i, ptr %bm_table, align 8, !tbaa !25
   ret ptr %call
 }
 
@@ -817,7 +817,7 @@ if.then:                                          ; preds = %entry
   unreachable
 
 if.end:                                           ; preds = %entry
-  store i32 %chainno, ptr %call, align 8, !tbaa !34
+  store i32 %chainno, ptr %call, align 8, !tbaa !32
   %conv = sext i32 %pattern_length to i64
   %call1 = tail call noalias ptr @malloc(i64 noundef %conv) #11
   %common_pattern = getelementptr inbounds %struct._StrTreeNode, ptr %call, i64 0, i32 1
@@ -1048,7 +1048,7 @@ for.body4.i.epil:                                 ; preds = %calculate_bm_table.
   %indvars.iv.next29.i.epil = add nuw nsw i64 %indvars.iv28.i.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %calculate_bm_table.exit, label %for.body4.i.epil, !llvm.loop !35
+  br i1 %epil.iter.cmp.not, label %calculate_bm_table.exit, label %for.body4.i.epil, !llvm.loop !33
 
 calculate_bm_table.exit:                          ; preds = %calculate_bm_table.exit.loopexit.unr-lcssa, %for.body4.i.epil, %vector.body
   %bm_table = getelementptr inbounds %struct._StrTreeNode, ptr %call, i64 0, i32 3
@@ -1279,7 +1279,7 @@ for.body4.i.epil:                                 ; preds = %calculate_bm_table.
   %indvars.iv.next29.i.epil = add nuw nsw i64 %indvars.iv28.i.epil, 1
   %epil.iter.next = add i64 %epil.iter, 1
   %epil.iter.cmp.not = icmp eq i64 %epil.iter.next, %xtraiter
-  br i1 %epil.iter.cmp.not, label %calculate_bm_table.exit, label %for.body4.i.epil, !llvm.loop !36
+  br i1 %epil.iter.cmp.not, label %calculate_bm_table.exit, label %for.body4.i.epil, !llvm.loop !34
 
 calculate_bm_table.exit:                          ; preds = %calculate_bm_table.exit.loopexit.unr-lcssa, %for.body4.i.epil, %vector.ph
   %79 = extractelement <2 x i32> %3, i64 1
@@ -1346,7 +1346,7 @@ while.body27:                                     ; preds = %land.rhs
   %indvars.iv.next152 = add i64 %indvars.iv151, 1
   %lftr.wideiv = trunc i64 %indvars.iv.next152 to i32
   %exitcond.not = icmp eq i32 %67, %lftr.wideiv
-  br i1 %exitcond.not, label %while.end, label %land.rhs, !llvm.loop !37
+  br i1 %exitcond.not, label %while.end, label %land.rhs, !llvm.loop !35
 
 while.end.loopexit.split.loop.exit164:            ; preds = %land.rhs
   %92 = trunc i64 %indvars.iv to i32
@@ -1385,7 +1385,7 @@ while.body45:                                     ; preds = %land.rhs33
   %inc46 = add nuw nsw i32 %temp_sub_size.0137, 1
   %indvars.iv.next157 = add nsw i64 %indvars.iv156, 1
   %exitcond163.not = icmp eq i32 %inc46, %k.1.lcssa
-  br i1 %exitcond163.not, label %while.end49, label %land.rhs33, !llvm.loop !38
+  br i1 %exitcond163.not, label %while.end49, label %land.rhs33, !llvm.loop !36
 
 while.end49.loopexit.split.loop.exit167:          ; preds = %land.rhs33
   %100 = trunc i64 %indvars.iv156 to i32
@@ -1413,7 +1413,7 @@ if.end62:                                         ; preds = %while.end49, %if.th
   %sub_pat_size.3 = phi i32 [ %sub_pat_size.0146, %if.then12 ], [ %sub_pat_size.0146, %while.end49 ], [ %temp_sub_size.0.lcssa, %if.then52 ]
   %k.4 = phi i32 [ %add13, %if.then12 ], [ 1, %while.end49 ], [ 1, %if.then52 ]
   %cmp3 = icmp slt i32 %add4, %79
-  br i1 %cmp3, label %while.body, label %while.end63, !llvm.loop !39
+  br i1 %cmp3, label %while.body, label %while.end63, !llvm.loop !37
 
 while.end63:                                      ; preds = %if.end62, %calculate_bm_table.exit
   %sub_pattern.0.lcssa = phi ptr [ null, %calculate_bm_table.exit ], [ %sub_pattern.3, %if.end62 ]
@@ -1455,10 +1455,10 @@ while.body:                                       ; preds = %entry, %while.body
   %largest_common.1 = tail call i32 @llvm.umax.i32(i32 %3, i32 %largest_common.050)
   %found_largestcommon.1 = select i1 %cmp, ptr %head_iterator.052, ptr %found_largestcommon.051
   %next = getelementptr inbounds %struct._StrTreeNode, ptr %head_iterator.052, i64 0, i32 4
-  %4 = load ptr, ptr %next, align 8, !tbaa !40
+  %4 = load ptr, ptr %next, align 8, !tbaa !38
   call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %temp_common) #13
   %tobool.not = icmp eq ptr %4, null
-  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !41
+  br i1 %tobool.not, label %while.end, label %while.body, !llvm.loop !39
 
 while.end:                                        ; preds = %while.body
   %cmp1 = icmp ult i32 %largest_common.1, 3
@@ -1470,7 +1470,7 @@ if.then2:                                         ; preds = %while.end
   br i1 %cmp3.not, label %if.end7, label %if.then4
 
 if.then4:                                         ; preds = %if.then2
-  %5 = load i32, ptr %.pr, align 8, !tbaa !34
+  %5 = load i32, ptr %.pr, align 8, !tbaa !32
   %add = add nsw i32 %5, 1
   br label %if.end7
 
@@ -1479,12 +1479,12 @@ if.end7:                                          ; preds = %if.then2, %entry, %
   %call6 = tail call ptr @NewStrTreeNode(i32 noundef %.sink, ptr noundef %pattern, i32 noundef %pattern_length)
   %call8 = tail call ptr @NewPatternNode(i32 noundef 0, i32 noundef 1, ptr noundef %pattern, i32 noundef %pattern_length, i32 noundef %depth)
   %below = getelementptr inbounds %struct._PatternNode, ptr %call8, i64 0, i32 9
-  store ptr null, ptr %below, align 8, !tbaa !29
+  store ptr null, ptr %below, align 8, !tbaa !40
   %list = getelementptr inbounds %struct._StrTreeNode, ptr %call6, i64 0, i32 5
-  store ptr %call8, ptr %list, align 8, !tbaa !21
+  store ptr %call8, ptr %list, align 8, !tbaa !41
   %6 = load ptr, ptr @tree_head, align 8, !tbaa !15
   %next9 = getelementptr inbounds %struct._StrTreeNode, ptr %call6, i64 0, i32 4
-  store ptr %6, ptr %next9, align 8, !tbaa !40
+  store ptr %6, ptr %next9, align 8, !tbaa !38
   store ptr %call6, ptr @tree_head, align 8, !tbaa !15
   br label %if.end22
 
@@ -1496,14 +1496,14 @@ if.else10:                                        ; preds = %while.end
   %common_pattern_length14 = getelementptr inbounds %struct._StrTreeNode, ptr %found_largestcommon.1, i64 0, i32 2
   store i32 %largest_common.1, ptr %common_pattern_length14, align 8, !tbaa !19
   %list15 = getelementptr inbounds %struct._StrTreeNode, ptr %found_largestcommon.1, i64 0, i32 5
-  %8 = load ptr, ptr %list15, align 8, !tbaa !21
-  %9 = load i32, ptr %8, align 8, !tbaa !32
+  %8 = load ptr, ptr %list15, align 8, !tbaa !41
+  %9 = load i32, ptr %8, align 8, !tbaa !30
   %add17 = add nsw i32 %9, 1
   %call18 = tail call ptr @NewPatternNode(i32 noundef %add17, i32 noundef 1, ptr noundef %pattern, i32 noundef %pattern_length, i32 noundef %depth)
-  %10 = load ptr, ptr %list15, align 8, !tbaa !21
+  %10 = load ptr, ptr %list15, align 8, !tbaa !41
   %below20 = getelementptr inbounds %struct._PatternNode, ptr %call18, i64 0, i32 9
-  store ptr %10, ptr %below20, align 8, !tbaa !29
-  store ptr %call18, ptr %list15, align 8, !tbaa !21
+  store ptr %10, ptr %below20, align 8, !tbaa !40
+  store ptr %call18, ptr %list15, align 8, !tbaa !41
   br label %if.end22
 
 if.end22:                                         ; preds = %if.else10, %if.end7
@@ -1679,27 +1679,27 @@ attributes #13 = { nounwind }
 !18 = !{!"_StrTreeNode", !6, i64 0, !16, i64 8, !6, i64 16, !16, i64 24, !16, i64 32, !16, i64 40}
 !19 = !{!18, !6, i64 16}
 !20 = !{!18, !16, i64 24}
-!21 = !{!18, !16, i64 40}
-!22 = !{!23, !6, i64 36}
-!23 = !{!"_PatternNode", !6, i64 0, !7, i64 4, !6, i64 8, !16, i64 16, !16, i64 24, !6, i64 32, !6, i64 36, !16, i64 40, !16, i64 48, !16, i64 56}
-!24 = !{!23, !16, i64 24}
-!25 = !{!23, !6, i64 32}
-!26 = !{!23, !16, i64 40}
-!27 = !{!23, !7, i64 4}
-!28 = !{!23, !16, i64 16}
-!29 = !{!23, !16, i64 56}
-!30 = !{!23, !16, i64 48}
-!31 = distinct !{!31, !11}
-!32 = !{!23, !6, i64 0}
+!21 = !{!22, !6, i64 36}
+!22 = !{!"_PatternNode", !6, i64 0, !7, i64 4, !6, i64 8, !16, i64 16, !16, i64 24, !6, i64 32, !6, i64 36, !16, i64 40, !16, i64 48, !16, i64 56}
+!23 = !{!22, !16, i64 24}
+!24 = !{!22, !6, i64 32}
+!25 = !{!22, !16, i64 40}
+!26 = !{!22, !7, i64 4}
+!27 = !{!22, !16, i64 16}
+!28 = !{!22, !16, i64 48}
+!29 = distinct !{!29, !11}
+!30 = !{!22, !6, i64 0}
+!31 = distinct !{!31, !13}
+!32 = !{!18, !6, i64 0}
 !33 = distinct !{!33, !13}
-!34 = !{!18, !6, i64 0}
-!35 = distinct !{!35, !13}
-!36 = distinct !{!36, !13}
+!34 = distinct !{!34, !13}
+!35 = distinct !{!35, !11}
+!36 = distinct !{!36, !11}
 !37 = distinct !{!37, !11}
-!38 = distinct !{!38, !11}
+!38 = !{!18, !16, i64 32}
 !39 = distinct !{!39, !11}
-!40 = !{!18, !16, i64 32}
-!41 = distinct !{!41, !11}
+!40 = !{!22, !16, i64 56}
+!41 = !{!18, !16, i64 40}
 !42 = distinct !{!42, !11}
 !43 = distinct !{!43, !11}
 !44 = distinct !{!44, !11}

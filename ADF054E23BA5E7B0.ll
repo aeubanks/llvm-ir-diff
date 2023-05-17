@@ -41,8 +41,8 @@ if.end:                                           ; preds = %if.then, %do.body
   %b48 = getelementptr inbounds [1 x %struct.B], ptr %x, i64 0, i64 %idxprom6, i32 3
   %6 = load i32, ptr %b48, align 4, !tbaa !15
   %conv11 = sub i32 %4, %6
-  %cond.i42 = tail call i32 @llvm.abs.i32(i32 %conv11, i1 true)
-  %cmp14 = icmp ult i32 %cond.i42, %cond.i
+  %cond.i44 = tail call i32 @llvm.abs.i32(i32 %conv11, i1 true)
+  %cmp14 = icmp ult i32 %cond.i44, %cond.i
   %spec.select = select i1 %cmp14, i32 %dec, i32 %a.0
   %cmp19.not = icmp eq i32 %dec, %0
   br i1 %cmp19.not, label %do.end, label %do.body, !llvm.loop !18

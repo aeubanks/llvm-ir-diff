@@ -177,8 +177,8 @@ while.body.i:                                     ; preds = %while.body.i.prol.l
 
 while.end.i:                                      ; preds = %while.body.i.prol.loopexit, %while.body.i, %if.then21
   %33 = load i32, ptr @cont_STACKPOINTER, align 4
-  %cmp.i.i = icmp eq i32 %33, 0
-  br i1 %cmp.i.i, label %cont_BackTrack.exit, label %if.then.i
+  %cmp.i.not.i = icmp eq i32 %33, 0
+  br i1 %cmp.i.not.i, label %cont_BackTrack.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %while.end.i
   %dec.i.i = add nsw i32 %33, -1
@@ -304,8 +304,8 @@ while.body.i103:                                  ; preds = %while.body.i103.pro
 
 while.end.i105:                                   ; preds = %while.body.i103.prol.loopexit, %while.body.i103, %if.else
   %55 = load i32, ptr @cont_STACKPOINTER, align 4
-  %cmp.i.i104 = icmp eq i32 %55, 0
-  br i1 %cmp.i.i104, label %for.inc50, label %if.then.i109
+  %cmp.i.not.i104 = icmp eq i32 %55, 0
+  br i1 %cmp.i.not.i104, label %for.inc50, label %if.then.i109
 
 if.then.i109:                                     ; preds = %while.end.i105
   %dec.i.i106 = add nsw i32 %55, -1

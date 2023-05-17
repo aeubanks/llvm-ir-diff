@@ -350,54 +350,54 @@ quan.exit:                                        ; preds = %for.inc.i.12, %for.
   %conv7 = and i32 %shr6, 127
   %0 = lshr exact i32 %i.0.lcssa.i, 9
   %1 = lshr i32 %y, 2
-  %sext51 = sub nsw i32 %0, %1
-  %sub = add nsw i32 %sext51, %conv7
-  %sext52 = shl i32 %sub, 16
-  %conv15 = ashr exact i32 %sext52, 16
+  %sext40 = sub nsw i32 %0, %1
+  %sub = add nsw i32 %sext40, %conv7
+  %sext41 = shl i32 %sub, 16
+  %conv15 = ashr exact i32 %sext41, 16
   %cmp5.i = icmp sgt i32 %size, 0
-  br i1 %cmp5.i, label %for.body.i43, label %quan.exit49.thread
+  br i1 %cmp5.i, label %for.body.i46, label %quan.exit52.thread
 
-for.body.i43:                                     ; preds = %quan.exit, %for.inc.i47
-  %i.07.i39 = phi i32 [ %inc.i45, %for.inc.i47 ], [ 0, %quan.exit ]
-  %table.addr.06.i40 = phi ptr [ %incdec.ptr.i44, %for.inc.i47 ], [ %table, %quan.exit ]
-  %2 = load i16, ptr %table.addr.06.i40, align 2, !tbaa !12
-  %conv.i41 = sext i16 %2 to i32
-  %cmp1.i42 = icmp slt i32 %conv15, %conv.i41
-  br i1 %cmp1.i42, label %quan.exit49, label %for.inc.i47
+for.body.i46:                                     ; preds = %quan.exit, %for.inc.i50
+  %i.07.i42 = phi i32 [ %inc.i48, %for.inc.i50 ], [ 0, %quan.exit ]
+  %table.addr.06.i43 = phi ptr [ %incdec.ptr.i47, %for.inc.i50 ], [ %table, %quan.exit ]
+  %2 = load i16, ptr %table.addr.06.i43, align 2, !tbaa !12
+  %conv.i44 = sext i16 %2 to i32
+  %cmp1.i45 = icmp slt i32 %conv15, %conv.i44
+  br i1 %cmp1.i45, label %quan.exit52, label %for.inc.i50
 
-for.inc.i47:                                      ; preds = %for.body.i43
-  %incdec.ptr.i44 = getelementptr inbounds i16, ptr %table.addr.06.i40, i64 1
-  %inc.i45 = add nuw nsw i32 %i.07.i39, 1
-  %exitcond.not.i46 = icmp eq i32 %inc.i45, %size
-  br i1 %exitcond.not.i46, label %quan.exit49, label %for.body.i43, !llvm.loop !16
+for.inc.i50:                                      ; preds = %for.body.i46
+  %incdec.ptr.i47 = getelementptr inbounds i16, ptr %table.addr.06.i43, i64 1
+  %inc.i48 = add nuw nsw i32 %i.07.i42, 1
+  %exitcond.not.i49 = icmp eq i32 %inc.i48, %size
+  br i1 %exitcond.not.i49, label %quan.exit52, label %for.body.i46, !llvm.loop !16
 
-quan.exit49:                                      ; preds = %for.body.i43, %for.inc.i47
-  %i.0.lcssa.i48 = phi i32 [ %i.07.i39, %for.body.i43 ], [ %size, %for.inc.i47 ]
+quan.exit52:                                      ; preds = %for.body.i46, %for.inc.i50
+  %i.0.lcssa.i51 = phi i32 [ %i.07.i42, %for.body.i46 ], [ %size, %for.inc.i50 ]
   %cmp = icmp slt i32 %d, 0
   br i1 %cmp, label %if.then, label %if.else
 
-quan.exit49.thread:                               ; preds = %quan.exit
+quan.exit52.thread:                               ; preds = %quan.exit
   %cmp54 = icmp slt i32 %d, 0
   br i1 %cmp54, label %if.then, label %if.then23
 
-if.then:                                          ; preds = %quan.exit49.thread, %quan.exit49
-  %i.0.lcssa.i4855 = phi i32 [ 0, %quan.exit49.thread ], [ %i.0.lcssa.i48, %quan.exit49 ]
+if.then:                                          ; preds = %quan.exit52.thread, %quan.exit52
+  %i.0.lcssa.i5156 = phi i32 [ 0, %quan.exit52.thread ], [ %i.0.lcssa.i51, %quan.exit52 ]
   %shl18 = shl i32 %size, 1
   %add19 = or i32 %shl18, 1
-  %sub20 = sub i32 %add19, %i.0.lcssa.i4855
+  %sub20 = sub i32 %add19, %i.0.lcssa.i5156
   br label %cleanup
 
-if.else:                                          ; preds = %quan.exit49
-  %cmp21 = icmp eq i32 %i.0.lcssa.i48, 0
+if.else:                                          ; preds = %quan.exit52
+  %cmp21 = icmp eq i32 %i.0.lcssa.i51, 0
   br i1 %cmp21, label %if.then23, label %cleanup
 
-if.then23:                                        ; preds = %quan.exit49.thread, %if.else
+if.then23:                                        ; preds = %quan.exit52.thread, %if.else
   %shl24 = shl i32 %size, 1
   %add25 = or i32 %shl24, 1
   br label %cleanup
 
 cleanup:                                          ; preds = %if.else, %if.then23, %if.then
-  %retval.0 = phi i32 [ %sub20, %if.then ], [ %add25, %if.then23 ], [ %i.0.lcssa.i48, %if.else ]
+  %retval.0 = phi i32 [ %sub20, %if.then ], [ %add25, %if.then23 ], [ %i.0.lcssa.i51, %if.else ]
   ret i32 %retval.0
 }
 
@@ -471,12 +471,12 @@ if.end31:                                         ; preds = %if.else, %entry
   %conv34 = trunc i32 %add33 to i16
   %yu = getelementptr inbounds %struct.g72x_state, ptr %state_ptr, i64 0, i32 1
   store i16 %conv34, ptr %yu, align 8, !tbaa !11
-  %sext642 = shl i32 %add33, 16
-  %cmp37 = icmp slt i32 %sext642, 35651584
+  %sext620 = shl i32 %add33, 16
+  %cmp37 = icmp slt i32 %sext620, 35651584
   br i1 %cmp37, label %if.end49.sink.split, label %if.else41
 
 if.else41:                                        ; preds = %if.end31
-  %cmp44 = icmp ugt i32 %sext642, 335544320
+  %cmp44 = icmp ugt i32 %sext620, 335544320
   br i1 %cmp44, label %if.end49.sink.split, label %if.end49
 
 if.end49.sink.split:                              ; preds = %if.else41, %if.end31
@@ -556,7 +556,7 @@ if.else150:                                       ; preds = %if.end127
 if.else155:                                       ; preds = %if.else150
   %cmp157 = icmp sgt i16 %a2p.0, 12159
   %add162 = add i16 %a2p.0, 128
-  %spec.select648 = select i1 %cmp157, i16 12288, i16 %add162
+  %spec.select626 = select i1 %cmp157, i16 12288, i16 %add162
   br label %if.then181
 
 if.end167:                                        ; preds = %if.else75
@@ -567,7 +567,7 @@ if.end167:                                        ; preds = %if.else75
   br label %if.end198
 
 if.then181:                                       ; preds = %if.else155, %if.else139, %if.else150, %if.then134
-  %a2p.1.ph = phi i16 [ %spec.select648, %if.else155 ], [ %spec.select, %if.else139 ], [ -12288, %if.else150 ], [ -12288, %if.then134 ]
+  %a2p.1.ph = phi i16 [ %spec.select626, %if.else155 ], [ %spec.select, %if.else139 ], [ -12288, %if.else150 ], [ -12288, %if.then134 ]
   store i16 %a2p.1.ph, ptr %arrayidx63, align 2, !tbaa !12
   %shr173650 = ashr i16 %11, 8
   %sub177651 = sub i16 %11, %shr173650
@@ -824,69 +824,69 @@ if.end332:                                        ; preds = %quan.exit, %if.then
 
 if.else342:                                       ; preds = %if.end332
   %cmp343 = icmp sgt i32 %sr, 0
-  br i1 %cmp343, label %for.inc.i627, label %if.else357
+  br i1 %cmp343, label %for.inc.i635, label %if.else357
 
-for.inc.i627:                                     ; preds = %if.else342
-  %cmp1.i622.1 = icmp eq i32 %sr, 1
-  br i1 %cmp1.i622.1, label %quan.exit629, label %for.inc.i627.1
+for.inc.i635:                                     ; preds = %if.else342
+  %cmp1.i630.1 = icmp eq i32 %sr, 1
+  br i1 %cmp1.i630.1, label %quan.exit637, label %for.inc.i635.1
 
-for.inc.i627.1:                                   ; preds = %for.inc.i627
-  %cmp1.i622.2 = icmp slt i32 %sr, 4
-  br i1 %cmp1.i622.2, label %quan.exit629, label %for.inc.i627.2
+for.inc.i635.1:                                   ; preds = %for.inc.i635
+  %cmp1.i630.2 = icmp slt i32 %sr, 4
+  br i1 %cmp1.i630.2, label %quan.exit637, label %for.inc.i635.2
 
-for.inc.i627.2:                                   ; preds = %for.inc.i627.1
-  %cmp1.i622.3 = icmp slt i32 %sr, 8
-  br i1 %cmp1.i622.3, label %quan.exit629, label %for.inc.i627.3
+for.inc.i635.2:                                   ; preds = %for.inc.i635.1
+  %cmp1.i630.3 = icmp slt i32 %sr, 8
+  br i1 %cmp1.i630.3, label %quan.exit637, label %for.inc.i635.3
 
-for.inc.i627.3:                                   ; preds = %for.inc.i627.2
-  %cmp1.i622.4 = icmp slt i32 %sr, 16
-  br i1 %cmp1.i622.4, label %quan.exit629, label %for.inc.i627.4
+for.inc.i635.3:                                   ; preds = %for.inc.i635.2
+  %cmp1.i630.4 = icmp slt i32 %sr, 16
+  br i1 %cmp1.i630.4, label %quan.exit637, label %for.inc.i635.4
 
-for.inc.i627.4:                                   ; preds = %for.inc.i627.3
-  %cmp1.i622.5 = icmp slt i32 %sr, 32
-  br i1 %cmp1.i622.5, label %quan.exit629, label %for.inc.i627.5
+for.inc.i635.4:                                   ; preds = %for.inc.i635.3
+  %cmp1.i630.5 = icmp slt i32 %sr, 32
+  br i1 %cmp1.i630.5, label %quan.exit637, label %for.inc.i635.5
 
-for.inc.i627.5:                                   ; preds = %for.inc.i627.4
-  %cmp1.i622.6 = icmp slt i32 %sr, 64
-  br i1 %cmp1.i622.6, label %quan.exit629, label %for.inc.i627.6
+for.inc.i635.5:                                   ; preds = %for.inc.i635.4
+  %cmp1.i630.6 = icmp slt i32 %sr, 64
+  br i1 %cmp1.i630.6, label %quan.exit637, label %for.inc.i635.6
 
-for.inc.i627.6:                                   ; preds = %for.inc.i627.5
-  %cmp1.i622.7 = icmp slt i32 %sr, 128
-  br i1 %cmp1.i622.7, label %quan.exit629, label %for.inc.i627.7
+for.inc.i635.6:                                   ; preds = %for.inc.i635.5
+  %cmp1.i630.7 = icmp slt i32 %sr, 128
+  br i1 %cmp1.i630.7, label %quan.exit637, label %for.inc.i635.7
 
-for.inc.i627.7:                                   ; preds = %for.inc.i627.6
-  %cmp1.i622.8 = icmp slt i32 %sr, 256
-  br i1 %cmp1.i622.8, label %quan.exit629, label %for.inc.i627.8
+for.inc.i635.7:                                   ; preds = %for.inc.i635.6
+  %cmp1.i630.8 = icmp slt i32 %sr, 256
+  br i1 %cmp1.i630.8, label %quan.exit637, label %for.inc.i635.8
 
-for.inc.i627.8:                                   ; preds = %for.inc.i627.7
-  %cmp1.i622.9 = icmp slt i32 %sr, 512
-  br i1 %cmp1.i622.9, label %quan.exit629, label %for.inc.i627.9
+for.inc.i635.8:                                   ; preds = %for.inc.i635.7
+  %cmp1.i630.9 = icmp slt i32 %sr, 512
+  br i1 %cmp1.i630.9, label %quan.exit637, label %for.inc.i635.9
 
-for.inc.i627.9:                                   ; preds = %for.inc.i627.8
-  %cmp1.i622.10 = icmp slt i32 %sr, 1024
-  br i1 %cmp1.i622.10, label %quan.exit629, label %for.inc.i627.10
+for.inc.i635.9:                                   ; preds = %for.inc.i635.8
+  %cmp1.i630.10 = icmp slt i32 %sr, 1024
+  br i1 %cmp1.i630.10, label %quan.exit637, label %for.inc.i635.10
 
-for.inc.i627.10:                                  ; preds = %for.inc.i627.9
-  %cmp1.i622.11 = icmp slt i32 %sr, 2048
-  br i1 %cmp1.i622.11, label %quan.exit629, label %for.inc.i627.11
+for.inc.i635.10:                                  ; preds = %for.inc.i635.9
+  %cmp1.i630.11 = icmp slt i32 %sr, 2048
+  br i1 %cmp1.i630.11, label %quan.exit637, label %for.inc.i635.11
 
-for.inc.i627.11:                                  ; preds = %for.inc.i627.10
-  %cmp1.i622.12 = icmp slt i32 %sr, 4096
-  br i1 %cmp1.i622.12, label %quan.exit629, label %for.inc.i627.12
+for.inc.i635.11:                                  ; preds = %for.inc.i635.10
+  %cmp1.i630.12 = icmp slt i32 %sr, 4096
+  br i1 %cmp1.i630.12, label %quan.exit637, label %for.inc.i635.12
 
-for.inc.i627.12:                                  ; preds = %for.inc.i627.11
-  %cmp1.i622.13 = icmp slt i32 %sr, 8192
-  br i1 %cmp1.i622.13, label %quan.exit629, label %for.inc.i627.13
+for.inc.i635.12:                                  ; preds = %for.inc.i635.11
+  %cmp1.i630.13 = icmp slt i32 %sr, 8192
+  br i1 %cmp1.i630.13, label %quan.exit637, label %for.inc.i635.13
 
-for.inc.i627.13:                                  ; preds = %for.inc.i627.12
-  %cmp1.i622.14 = icmp slt i32 %sr, 16384
-  %spec.select688 = select i1 %cmp1.i622.14, i32 917504, i32 983040
-  br label %quan.exit629
+for.inc.i635.13:                                  ; preds = %for.inc.i635.12
+  %cmp1.i630.14 = icmp slt i32 %sr, 16384
+  %spec.select688 = select i1 %cmp1.i630.14, i32 917504, i32 983040
+  br label %quan.exit637
 
-quan.exit629:                                     ; preds = %for.inc.i627.13, %for.inc.i627.12, %for.inc.i627.11, %for.inc.i627.10, %for.inc.i627.9, %for.inc.i627.8, %for.inc.i627.7, %for.inc.i627.6, %for.inc.i627.5, %for.inc.i627.4, %for.inc.i627.3, %for.inc.i627.2, %for.inc.i627.1, %for.inc.i627
-  %i.0.lcssa.i628 = phi i32 [ 65536, %for.inc.i627 ], [ 131072, %for.inc.i627.1 ], [ 196608, %for.inc.i627.2 ], [ 262144, %for.inc.i627.3 ], [ 327680, %for.inc.i627.4 ], [ 393216, %for.inc.i627.5 ], [ 458752, %for.inc.i627.6 ], [ 524288, %for.inc.i627.7 ], [ 589824, %for.inc.i627.8 ], [ 655360, %for.inc.i627.9 ], [ 720896, %for.inc.i627.10 ], [ 786432, %for.inc.i627.11 ], [ 851968, %for.inc.i627.12 ], [ %spec.select688, %for.inc.i627.13 ]
-  %conv348 = lshr exact i32 %i.0.lcssa.i628, 16
-  %56 = lshr exact i32 %i.0.lcssa.i628, 10
+quan.exit637:                                     ; preds = %for.inc.i635.13, %for.inc.i635.12, %for.inc.i635.11, %for.inc.i635.10, %for.inc.i635.9, %for.inc.i635.8, %for.inc.i635.7, %for.inc.i635.6, %for.inc.i635.5, %for.inc.i635.4, %for.inc.i635.3, %for.inc.i635.2, %for.inc.i635.1, %for.inc.i635
+  %i.0.lcssa.i636 = phi i32 [ 65536, %for.inc.i635 ], [ 131072, %for.inc.i635.1 ], [ 196608, %for.inc.i635.2 ], [ 262144, %for.inc.i635.3 ], [ 327680, %for.inc.i635.4 ], [ 393216, %for.inc.i635.5 ], [ 458752, %for.inc.i635.6 ], [ 524288, %for.inc.i635.7 ], [ 589824, %for.inc.i635.8 ], [ 655360, %for.inc.i635.9 ], [ 720896, %for.inc.i635.10 ], [ 786432, %for.inc.i635.11 ], [ 851968, %for.inc.i635.12 ], [ %spec.select688, %for.inc.i635.13 ]
+  %conv348 = lshr exact i32 %i.0.lcssa.i636, 16
+  %56 = lshr exact i32 %i.0.lcssa.i636, 10
   %shl350 = shl i32 %sr, 6
   %shr352 = ashr i32 %shl350, %conv348
   %add353 = add i32 %shr352, %56
@@ -895,69 +895,69 @@ quan.exit629:                                     ; preds = %for.inc.i627.13, %f
 
 if.else357:                                       ; preds = %if.else342
   %cmp358 = icmp ugt i32 %sr, -32768
-  br i1 %cmp358, label %for.inc.i638, label %if.end382
+  br i1 %cmp358, label %for.inc.i646, label %if.end382
 
-for.inc.i638:                                     ; preds = %if.else357
-  %cmp1.i633.1 = icmp eq i32 %sr, -1
-  br i1 %cmp1.i633.1, label %quan.exit640, label %for.inc.i638.1
+for.inc.i646:                                     ; preds = %if.else357
+  %cmp1.i641.1 = icmp eq i32 %sr, -1
+  br i1 %cmp1.i641.1, label %quan.exit648, label %for.inc.i646.1
 
-for.inc.i638.1:                                   ; preds = %for.inc.i638
-  %cmp1.i633.2 = icmp sgt i32 %sr, -4
-  br i1 %cmp1.i633.2, label %quan.exit640, label %for.inc.i638.2
+for.inc.i646.1:                                   ; preds = %for.inc.i646
+  %cmp1.i641.2 = icmp sgt i32 %sr, -4
+  br i1 %cmp1.i641.2, label %quan.exit648, label %for.inc.i646.2
 
-for.inc.i638.2:                                   ; preds = %for.inc.i638.1
-  %cmp1.i633.3 = icmp sgt i32 %sr, -8
-  br i1 %cmp1.i633.3, label %quan.exit640, label %for.inc.i638.3
+for.inc.i646.2:                                   ; preds = %for.inc.i646.1
+  %cmp1.i641.3 = icmp sgt i32 %sr, -8
+  br i1 %cmp1.i641.3, label %quan.exit648, label %for.inc.i646.3
 
-for.inc.i638.3:                                   ; preds = %for.inc.i638.2
-  %cmp1.i633.4 = icmp sgt i32 %sr, -16
-  br i1 %cmp1.i633.4, label %quan.exit640, label %for.inc.i638.4
+for.inc.i646.3:                                   ; preds = %for.inc.i646.2
+  %cmp1.i641.4 = icmp sgt i32 %sr, -16
+  br i1 %cmp1.i641.4, label %quan.exit648, label %for.inc.i646.4
 
-for.inc.i638.4:                                   ; preds = %for.inc.i638.3
-  %cmp1.i633.5 = icmp sgt i32 %sr, -32
-  br i1 %cmp1.i633.5, label %quan.exit640, label %for.inc.i638.5
+for.inc.i646.4:                                   ; preds = %for.inc.i646.3
+  %cmp1.i641.5 = icmp sgt i32 %sr, -32
+  br i1 %cmp1.i641.5, label %quan.exit648, label %for.inc.i646.5
 
-for.inc.i638.5:                                   ; preds = %for.inc.i638.4
-  %cmp1.i633.6 = icmp sgt i32 %sr, -64
-  br i1 %cmp1.i633.6, label %quan.exit640, label %for.inc.i638.6
+for.inc.i646.5:                                   ; preds = %for.inc.i646.4
+  %cmp1.i641.6 = icmp sgt i32 %sr, -64
+  br i1 %cmp1.i641.6, label %quan.exit648, label %for.inc.i646.6
 
-for.inc.i638.6:                                   ; preds = %for.inc.i638.5
-  %cmp1.i633.7 = icmp sgt i32 %sr, -128
-  br i1 %cmp1.i633.7, label %quan.exit640, label %for.inc.i638.7
+for.inc.i646.6:                                   ; preds = %for.inc.i646.5
+  %cmp1.i641.7 = icmp sgt i32 %sr, -128
+  br i1 %cmp1.i641.7, label %quan.exit648, label %for.inc.i646.7
 
-for.inc.i638.7:                                   ; preds = %for.inc.i638.6
-  %cmp1.i633.8 = icmp sgt i32 %sr, -256
-  br i1 %cmp1.i633.8, label %quan.exit640, label %for.inc.i638.8
+for.inc.i646.7:                                   ; preds = %for.inc.i646.6
+  %cmp1.i641.8 = icmp sgt i32 %sr, -256
+  br i1 %cmp1.i641.8, label %quan.exit648, label %for.inc.i646.8
 
-for.inc.i638.8:                                   ; preds = %for.inc.i638.7
-  %cmp1.i633.9 = icmp sgt i32 %sr, -512
-  br i1 %cmp1.i633.9, label %quan.exit640, label %for.inc.i638.9
+for.inc.i646.8:                                   ; preds = %for.inc.i646.7
+  %cmp1.i641.9 = icmp sgt i32 %sr, -512
+  br i1 %cmp1.i641.9, label %quan.exit648, label %for.inc.i646.9
 
-for.inc.i638.9:                                   ; preds = %for.inc.i638.8
-  %cmp1.i633.10 = icmp sgt i32 %sr, -1024
-  br i1 %cmp1.i633.10, label %quan.exit640, label %for.inc.i638.10
+for.inc.i646.9:                                   ; preds = %for.inc.i646.8
+  %cmp1.i641.10 = icmp sgt i32 %sr, -1024
+  br i1 %cmp1.i641.10, label %quan.exit648, label %for.inc.i646.10
 
-for.inc.i638.10:                                  ; preds = %for.inc.i638.9
-  %cmp1.i633.11 = icmp sgt i32 %sr, -2048
-  br i1 %cmp1.i633.11, label %quan.exit640, label %for.inc.i638.11
+for.inc.i646.10:                                  ; preds = %for.inc.i646.9
+  %cmp1.i641.11 = icmp sgt i32 %sr, -2048
+  br i1 %cmp1.i641.11, label %quan.exit648, label %for.inc.i646.11
 
-for.inc.i638.11:                                  ; preds = %for.inc.i638.10
-  %cmp1.i633.12 = icmp sgt i32 %sr, -4096
-  br i1 %cmp1.i633.12, label %quan.exit640, label %for.inc.i638.12
+for.inc.i646.11:                                  ; preds = %for.inc.i646.10
+  %cmp1.i641.12 = icmp sgt i32 %sr, -4096
+  br i1 %cmp1.i641.12, label %quan.exit648, label %for.inc.i646.12
 
-for.inc.i638.12:                                  ; preds = %for.inc.i638.11
-  %cmp1.i633.13 = icmp sgt i32 %sr, -8192
-  br i1 %cmp1.i633.13, label %quan.exit640, label %for.inc.i638.13
+for.inc.i646.12:                                  ; preds = %for.inc.i646.11
+  %cmp1.i641.13 = icmp sgt i32 %sr, -8192
+  br i1 %cmp1.i641.13, label %quan.exit648, label %for.inc.i646.13
 
-for.inc.i638.13:                                  ; preds = %for.inc.i638.12
-  %cmp1.i633.14 = icmp sgt i32 %sr, -16384
-  %spec.select689 = select i1 %cmp1.i633.14, i32 917504, i32 983040
-  br label %quan.exit640
+for.inc.i646.13:                                  ; preds = %for.inc.i646.12
+  %cmp1.i641.14 = icmp sgt i32 %sr, -16384
+  %spec.select689 = select i1 %cmp1.i641.14, i32 917504, i32 983040
+  br label %quan.exit648
 
-quan.exit640:                                     ; preds = %for.inc.i638.13, %for.inc.i638.12, %for.inc.i638.11, %for.inc.i638.10, %for.inc.i638.9, %for.inc.i638.8, %for.inc.i638.7, %for.inc.i638.6, %for.inc.i638.5, %for.inc.i638.4, %for.inc.i638.3, %for.inc.i638.2, %for.inc.i638.1, %for.inc.i638
-  %i.0.lcssa.i639 = phi i32 [ 65536, %for.inc.i638 ], [ 131072, %for.inc.i638.1 ], [ 196608, %for.inc.i638.2 ], [ 262144, %for.inc.i638.3 ], [ 327680, %for.inc.i638.4 ], [ 393216, %for.inc.i638.5 ], [ 458752, %for.inc.i638.6 ], [ 524288, %for.inc.i638.7 ], [ 589824, %for.inc.i638.8 ], [ 655360, %for.inc.i638.9 ], [ 720896, %for.inc.i638.10 ], [ 786432, %for.inc.i638.11 ], [ 851968, %for.inc.i638.12 ], [ %spec.select689, %for.inc.i638.13 ]
-  %conv366 = lshr exact i32 %i.0.lcssa.i639, 16
-  %57 = lshr exact i32 %i.0.lcssa.i639, 10
+quan.exit648:                                     ; preds = %for.inc.i646.13, %for.inc.i646.12, %for.inc.i646.11, %for.inc.i646.10, %for.inc.i646.9, %for.inc.i646.8, %for.inc.i646.7, %for.inc.i646.6, %for.inc.i646.5, %for.inc.i646.4, %for.inc.i646.3, %for.inc.i646.2, %for.inc.i646.1, %for.inc.i646
+  %i.0.lcssa.i647 = phi i32 [ 65536, %for.inc.i646 ], [ 131072, %for.inc.i646.1 ], [ 196608, %for.inc.i646.2 ], [ 262144, %for.inc.i646.3 ], [ 327680, %for.inc.i646.4 ], [ 393216, %for.inc.i646.5 ], [ 458752, %for.inc.i646.6 ], [ 524288, %for.inc.i646.7 ], [ 589824, %for.inc.i646.8 ], [ 655360, %for.inc.i646.9 ], [ 720896, %for.inc.i646.10 ], [ 786432, %for.inc.i646.11 ], [ 851968, %for.inc.i646.12 ], [ %spec.select689, %for.inc.i646.13 ]
+  %conv366 = lshr exact i32 %i.0.lcssa.i647, 16
+  %57 = lshr exact i32 %i.0.lcssa.i647, 10
   %.neg = mul i32 %sr, -64
   %shr371 = lshr i32 %.neg, %conv366
   %add372 = add nuw nsw i32 %shr371, %57
@@ -965,8 +965,8 @@ quan.exit640:                                     ; preds = %for.inc.i638.13, %f
   %conv374 = add i16 %58, -1024
   br label %if.end382
 
-if.end382:                                        ; preds = %if.else357, %if.end332, %quan.exit629, %quan.exit640
-  %conv354.sink = phi i16 [ %conv354, %quan.exit629 ], [ %conv374, %quan.exit640 ], [ 32, %if.end332 ], [ -992, %if.else357 ]
+if.end382:                                        ; preds = %if.else357, %if.end332, %quan.exit637, %quan.exit648
+  %conv354.sink = phi i16 [ %conv354, %quan.exit637 ], [ %conv374, %quan.exit648 ], [ 32, %if.end332 ], [ -992, %if.else357 ]
   store i16 %conv354.sink, ptr %sr333, align 8, !tbaa !12
   %pk383 = getelementptr inbounds %struct.g72x_state, ptr %state_ptr, i64 0, i32 7
   %59 = load i16, ptr %pk383, align 8, !tbaa !12
@@ -1204,17 +1204,17 @@ declare i32 @linear2ulaw(...) local_unnamed_addr #8
 
 declare i32 @ulaw2linear(...) local_unnamed_addr #8
 
-; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.abs.i32(i32, i1 immarg) #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.abs.i32(i32, i1 immarg) #10
+declare i32 @llvm.usub.sat.i32(i32, i32) #9
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #10
 
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #11
-
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.usub.sat.i32(i32, i32) #10
 
 attributes #0 = { mustprogress nofree nosync nounwind willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
@@ -1225,8 +1225,8 @@ attributes #5 = { mustprogress nofree norecurse nosync nounwind willreturn memor
 attributes #6 = { mustprogress nofree nosync nounwind willreturn memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #7 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #9 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #10 = { nocallback nofree nounwind willreturn memory(argmem: write) }
 attributes #11 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
 attributes #12 = { nounwind }
 

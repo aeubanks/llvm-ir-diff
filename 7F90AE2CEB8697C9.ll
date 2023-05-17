@@ -35,17 +35,17 @@ entry:
   %1 = load i32, ptr %arrayidx.i.i, align 4, !tbaa !10
   %spec.select.i = tail call i32 @llvm.umax.i32(i32 %1, i32 1)
   %sub = add nsw i32 %spec.select.i, -8
-  %cmp2.not.i.i = icmp eq i32 %1, 0
-  br i1 %cmp2.not.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit, label %for.inc.i.i
+  %cmp2.i.i = icmp eq i32 %1, 0
+  br i1 %cmp2.i.i, label %invoke.cont, label %for.inc.i.i
 
 for.inc.i.i:                                      ; preds = %entry
   %arrayidx.1.i.i = getelementptr inbounds %struct.buffer_t, ptr %0, i64 0, i32 2, i64 1
   %2 = load i32, ptr %arrayidx.1.i.i, align 4, !tbaa !10
-  %spec.select.i14 = tail call i32 @llvm.umax.i32(i32 %2, i32 1)
-  br label %_ZNK6Halide5Tools5ImageItE6heightEv.exit
+  %spec.select.i15 = tail call i32 @llvm.umax.i32(i32 %2, i32 1)
+  br label %invoke.cont
 
-_ZNK6Halide5Tools5ImageItE6heightEv.exit:         ; preds = %entry, %for.inc.i.i
-  %cond.i = phi i32 [ 1, %entry ], [ %spec.select.i14, %for.inc.i.i ]
+invoke.cont:                                      ; preds = %for.inc.i.i, %entry
+  %cond.i = phi i32 [ 1, %entry ], [ %spec.select.i15, %for.inc.i.i ]
   %mul21.i.i = mul nsw i32 %cond.i, %sub
   %narrow.i.i = tail call i32 @llvm.umax.i32(i32 %sub, i32 1)
   %spec.select.i.i = sext i32 %narrow.i.i to i64
@@ -93,88 +93,88 @@ _ZNK6Halide5Tools5ImageItE6heightEv.exit:         ; preds = %entry, %for.inc.i.i
   store ptr %call.i.i, ptr %alloc.i.i.i, align 8, !tbaa !34
   store ptr %call51.i.i, ptr %tmp, align 8, !tbaa !5
   %5 = load i32, ptr %arrayidx.i.i, align 4, !tbaa !10
-  %spec.select.i16 = tail call i32 @llvm.umax.i32(i32 %5, i32 1)
-  %sub3 = add nsw i32 %spec.select.i16, -8
-  %cmp2.not.i.i18 = icmp eq i32 %5, 0
-  br i1 %cmp2.not.i.i18, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit23, label %for.inc.i.i21
+  %spec.select.i17 = tail call i32 @llvm.umax.i32(i32 %5, i32 1)
+  %sub3 = add nsw i32 %spec.select.i17, -8
+  %cmp2.i.i19 = icmp eq i32 %5, 0
+  br i1 %cmp2.i.i19, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit24, label %for.inc.i.i22
 
-for.inc.i.i21:                                    ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit
-  %arrayidx.1.i.i19 = getelementptr inbounds %struct.buffer_t, ptr %0, i64 0, i32 2, i64 1
-  %6 = load i32, ptr %arrayidx.1.i.i19, align 4, !tbaa !10
-  %spec.select.i20 = tail call i32 @llvm.umax.i32(i32 %6, i32 1)
-  %7 = add nsw i32 %spec.select.i20, -2
-  br label %_ZNK6Halide5Tools5ImageItE6heightEv.exit23
+for.inc.i.i22:                                    ; preds = %invoke.cont
+  %arrayidx.1.i.i20 = getelementptr inbounds %struct.buffer_t, ptr %0, i64 0, i32 2, i64 1
+  %6 = load i32, ptr %arrayidx.1.i.i20, align 4, !tbaa !10
+  %spec.select.i21 = tail call i32 @llvm.umax.i32(i32 %6, i32 1)
+  %7 = add nsw i32 %spec.select.i21, -2
+  br label %_ZNK6Halide5Tools5ImageItE6heightEv.exit24
 
-_ZNK6Halide5Tools5ImageItE6heightEv.exit23:       ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit, %for.inc.i.i21
-  %cond.i22 = phi i32 [ -1, %_ZNK6Halide5Tools5ImageItE6heightEv.exit ], [ %7, %for.inc.i.i21 ]
-  %mul21.i.i24 = mul nsw i32 %cond.i22, %sub3
-  %narrow.i.i25 = tail call i32 @llvm.umax.i32(i32 %sub3, i32 1)
-  %spec.select.i.i26 = sext i32 %narrow.i.i25 to i64
-  %narrow79.i.i = tail call i32 @llvm.umax.i32(i32 %cond.i22, i32 1)
-  %mul35.i.i27 = sext i32 %narrow79.i.i to i64
-  %size.1.i.i28 = shl nsw i64 %spec.select.i.i26, 1
-  %size.2.i.i29 = mul i64 %size.1.i.i28, %mul35.i.i27
-  %add.i.i30 = add i64 %size.2.i.i29, 40
-  %call.i.i3151 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i30) #15
-          to label %call.i.i31.noexc unwind label %lpad
+_ZNK6Halide5Tools5ImageItE6heightEv.exit24:       ; preds = %invoke.cont, %for.inc.i.i22
+  %cond.i23 = phi i32 [ -1, %invoke.cont ], [ %7, %for.inc.i.i22 ]
+  %mul21.i.i25 = mul nsw i32 %cond.i23, %sub3
+  %narrow.i.i26 = tail call i32 @llvm.umax.i32(i32 %sub3, i32 1)
+  %spec.select.i.i27 = sext i32 %narrow.i.i26 to i64
+  %narrow79.i.i = tail call i32 @llvm.umax.i32(i32 %cond.i23, i32 1)
+  %mul35.i.i28 = sext i32 %narrow79.i.i to i64
+  %size.1.i.i29 = shl nsw i64 %spec.select.i.i27, 1
+  %size.2.i.i30 = mul i64 %size.1.i.i29, %mul35.i.i28
+  %add.i.i31 = add i64 %size.2.i.i30, 40
+  %call.i.i3252 = invoke noalias noundef nonnull ptr @_Znam(i64 noundef %add.i.i31) #15
+          to label %call.i.i32.noexc unwind label %lpad
 
-call.i.i31.noexc:                                 ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit23
-  %call51.i.i3452 = invoke noalias noundef nonnull dereferenceable(88) ptr @_Znwm(i64 noundef 88) #15
-          to label %_ZN6Halide5Tools5ImageItEC2Eiiiib.exit unwind label %lpad
+call.i.i32.noexc:                                 ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit24
+  %call51.i.i3553 = invoke noalias noundef nonnull dereferenceable(88) ptr @_Znwm(i64 noundef 88) #15
+          to label %invoke.cont7 unwind label %lpad
 
-_ZN6Halide5Tools5ImageItEC2Eiiiib.exit:           ; preds = %call.i.i31.noexc
-  %call82.i.i32 = ptrtoint ptr %call.i.i3151 to i64
-  %8 = sub i64 0, %call82.i.i32
+invoke.cont7:                                     ; preds = %call.i.i32.noexc
+  %call82.i.i33 = ptrtoint ptr %call.i.i3252 to i64
+  %8 = sub i64 0, %call82.i.i33
   %9 = and i64 %8, 31
-  %scevgep.i.i33 = getelementptr i8, ptr %call.i.i3151, i64 %9
-  store i64 0, ptr %call51.i.i3452, align 8, !tbaa.struct !12
-  %buf.sroa.5.0.call51.sroa_idx.i.i35 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 8
-  store ptr %scevgep.i.i33, ptr %buf.sroa.5.0.call51.sroa_idx.i.i35, align 8, !tbaa.struct !19
-  %buf.sroa.8.0.call51.sroa_idx.i.i36 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 16
-  store i32 %sub3, ptr %buf.sroa.8.0.call51.sroa_idx.i.i36, align 8, !tbaa.struct !20
-  %buf.sroa.9.0.call51.sroa_idx.i.i37 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 20
-  store i32 %cond.i22, ptr %buf.sroa.9.0.call51.sroa_idx.i.i37, align 4, !tbaa.struct !21
-  %buf.sroa.10.0.call51.sroa_idx.i.i38 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 24
-  store i32 0, ptr %buf.sroa.10.0.call51.sroa_idx.i.i38, align 8, !tbaa.struct !22
-  %buf.sroa.11.0.call51.sroa_idx.i.i39 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 28
-  store i32 0, ptr %buf.sroa.11.0.call51.sroa_idx.i.i39, align 4, !tbaa.struct !23
-  %buf.sroa.12.0.call51.sroa_idx.i.i40 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 32
-  store i32 1, ptr %buf.sroa.12.0.call51.sroa_idx.i.i40, align 8, !tbaa.struct !24
-  %buf.sroa.14.0.call51.sroa_idx.i.i41 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 36
-  store i32 %sub3, ptr %buf.sroa.14.0.call51.sroa_idx.i.i41, align 4, !tbaa.struct !25
-  %buf.sroa.16.0.call51.sroa_idx.i.i42 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 40
-  store i32 %mul21.i.i24, ptr %buf.sroa.16.0.call51.sroa_idx.i.i42, align 8, !tbaa.struct !26
-  %buf.sroa.18.0.call51.sroa_idx.i.i43 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 44
-  %buf.sroa.20.0.call51.sroa_idx.i.i44 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 48
-  %buf.sroa.2078.0.call51.sroa_idx.i.i45 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 64
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %buf.sroa.18.0.call51.sroa_idx.i.i43, i8 0, i64 20, i1 false)
-  store i32 2, ptr %buf.sroa.2078.0.call51.sroa_idx.i.i45, align 8, !tbaa.struct !27
-  %buf.sroa.21.0.call51.sroa_idx.i.i46 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 68
-  store i8 0, ptr %buf.sroa.21.0.call51.sroa_idx.i.i46, align 4, !tbaa.struct !28
-  %buf.sroa.22.0.call51.sroa_idx.i.i47 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 69
-  store i8 0, ptr %buf.sroa.22.0.call51.sroa_idx.i.i47, align 1, !tbaa.struct !29
-  %buf.sroa.23.0.call51.sroa_idx.i.i48 = getelementptr inbounds i8, ptr %call51.i.i3452, i64 70
-  store i16 0, ptr %buf.sroa.23.0.call51.sroa_idx.i.i48, align 2, !tbaa.struct !30
-  %ref_count.i.i.i49 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %call51.i.i3452, i64 0, i32 1
-  store i32 1, ptr %ref_count.i.i.i49, align 8, !tbaa !31
-  %alloc.i.i.i50 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %call51.i.i3452, i64 0, i32 2
-  store ptr %call.i.i3151, ptr %alloc.i.i.i50, align 8, !tbaa !34
-  store ptr %call51.i.i3452, ptr %agg.result, align 8, !tbaa !5
+  %scevgep.i.i34 = getelementptr i8, ptr %call.i.i3252, i64 %9
+  store i64 0, ptr %call51.i.i3553, align 8, !tbaa.struct !12
+  %buf.sroa.5.0.call51.sroa_idx.i.i36 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 8
+  store ptr %scevgep.i.i34, ptr %buf.sroa.5.0.call51.sroa_idx.i.i36, align 8, !tbaa.struct !19
+  %buf.sroa.8.0.call51.sroa_idx.i.i37 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 16
+  store i32 %sub3, ptr %buf.sroa.8.0.call51.sroa_idx.i.i37, align 8, !tbaa.struct !20
+  %buf.sroa.9.0.call51.sroa_idx.i.i38 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 20
+  store i32 %cond.i23, ptr %buf.sroa.9.0.call51.sroa_idx.i.i38, align 4, !tbaa.struct !21
+  %buf.sroa.10.0.call51.sroa_idx.i.i39 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 24
+  store i32 0, ptr %buf.sroa.10.0.call51.sroa_idx.i.i39, align 8, !tbaa.struct !22
+  %buf.sroa.11.0.call51.sroa_idx.i.i40 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 28
+  store i32 0, ptr %buf.sroa.11.0.call51.sroa_idx.i.i40, align 4, !tbaa.struct !23
+  %buf.sroa.12.0.call51.sroa_idx.i.i41 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 32
+  store i32 1, ptr %buf.sroa.12.0.call51.sroa_idx.i.i41, align 8, !tbaa.struct !24
+  %buf.sroa.14.0.call51.sroa_idx.i.i42 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 36
+  store i32 %sub3, ptr %buf.sroa.14.0.call51.sroa_idx.i.i42, align 4, !tbaa.struct !25
+  %buf.sroa.16.0.call51.sroa_idx.i.i43 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 40
+  store i32 %mul21.i.i25, ptr %buf.sroa.16.0.call51.sroa_idx.i.i43, align 8, !tbaa.struct !26
+  %buf.sroa.18.0.call51.sroa_idx.i.i44 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 44
+  %buf.sroa.20.0.call51.sroa_idx.i.i45 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 48
+  %buf.sroa.2078.0.call51.sroa_idx.i.i46 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 64
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 4 dereferenceable(20) %buf.sroa.18.0.call51.sroa_idx.i.i44, i8 0, i64 20, i1 false)
+  store i32 2, ptr %buf.sroa.2078.0.call51.sroa_idx.i.i46, align 8, !tbaa.struct !27
+  %buf.sroa.21.0.call51.sroa_idx.i.i47 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 68
+  store i8 0, ptr %buf.sroa.21.0.call51.sroa_idx.i.i47, align 4, !tbaa.struct !28
+  %buf.sroa.22.0.call51.sroa_idx.i.i48 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 69
+  store i8 0, ptr %buf.sroa.22.0.call51.sroa_idx.i.i48, align 1, !tbaa.struct !29
+  %buf.sroa.23.0.call51.sroa_idx.i.i49 = getelementptr inbounds i8, ptr %call51.i.i3553, i64 70
+  store i16 0, ptr %buf.sroa.23.0.call51.sroa_idx.i.i49, align 2, !tbaa.struct !30
+  %ref_count.i.i.i50 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %call51.i.i3553, i64 0, i32 1
+  store i32 1, ptr %ref_count.i.i.i50, align 8, !tbaa !31
+  %alloc.i.i.i51 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %call51.i.i3553, i64 0, i32 2
+  store ptr %call.i.i3252, ptr %alloc.i.i.i51, align 8, !tbaa !34
+  store ptr %call51.i.i3553, ptr %agg.result, align 8, !tbaa !5
   %arrayidx7.i134.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i, i64 0, i32 4, i64 1
   %arrayidx12.i136.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i, i64 0, i32 4, i64 2
   %arrayidx17.i138.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i, i64 0, i32 4, i64 3
-  %arrayidx7.i259.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i3452, i64 0, i32 4, i64 1
-  %arrayidx12.i261.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i3452, i64 0, i32 4, i64 2
-  %arrayidx17.i263.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i3452, i64 0, i32 4, i64 3
+  %arrayidx7.i259.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i3553, i64 0, i32 4, i64 1
+  %arrayidx12.i261.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i3553, i64 0, i32 4, i64 2
+  %arrayidx17.i263.i.i = getelementptr inbounds %struct.buffer_t, ptr %call51.i.i3553, i64 0, i32 4, i64 3
   br label %for.body.i
 
-for.body.i:                                       ; preds = %"_ZZ4blurN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i", %_ZN6Halide5Tools5ImageItEC2Eiiiib.exit
-  %best.029.i = phi double [ 0x7FF0000000000000, %_ZN6Halide5Tools5ImageItEC2Eiiiib.exit ], [ %best.1.i, %"_ZZ4blurN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i" ]
-  %i.028.i = phi i32 [ 0, %_ZN6Halide5Tools5ImageItEC2Eiiiib.exit ], [ %inc18.i, %"_ZZ4blurN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i" ]
+for.body.i:                                       ; preds = %"_ZZ4blurN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i", %invoke.cont7
+  %best.029.i = phi double [ 0x7FF0000000000000, %invoke.cont7 ], [ %best.1.i, %"_ZZ4blurN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i" ]
+  %i.028.i = phi i32 [ 0, %invoke.cont7 ], [ %inc18.i, %"_ZZ4blurN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i" ]
   %call1.i = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #14
   %10 = load i32, ptr %buf.sroa.8.0.call51.sroa_idx.i.i, align 4, !tbaa !10
   %.fr.i.i = freeze i32 %10
-  %cmp2.not.i.i.i.i = icmp eq i32 %.fr.i.i, 0
+  %cmp2.i.i.i.i = icmp eq i32 %.fr.i.i, 0
   %spec.select.i72.i.i = tail call i32 @llvm.umax.i32(i32 %.fr.i.i, i32 1)
   %cmp4286.i.i = icmp sgt i32 %spec.select.i72.i.i, 0
   br i1 %cmp4286.i.i, label %for.cond.us.preheader.i.i, label %for.cond21.preheader.i.i
@@ -183,16 +183,16 @@ for.cond.us.preheader.i.i:                        ; preds = %for.body.i
   %wide.trip.count.i.i = zext i32 %spec.select.i72.i.i to i64
   %11 = add nsw i64 %wide.trip.count.i.i, -1
   %12 = shl nuw nsw i64 %wide.trip.count.i.i, 1
-  %min.iters.check80 = icmp ult i32 %spec.select.i72.i.i, 24
+  %min.iters.check81 = icmp ult i32 %spec.select.i72.i.i, 24
   %13 = trunc i64 %11 to i32
   %14 = icmp ugt i64 %11, 4294967295
-  %n.vec83 = and i64 %wide.trip.count.i.i, 4294967288
-  %cmp.n85 = icmp eq i64 %n.vec83, %wide.trip.count.i.i
+  %n.vec84 = and i64 %wide.trip.count.i.i, 4294967288
+  %cmp.n86 = icmp eq i64 %n.vec84, %wide.trip.count.i.i
   br label %for.cond.us.i.i
 
 for.cond.us.i.i:                                  ; preds = %for.cond2.for.cond.cleanup5_crit_edge.us.i.i, %for.cond.us.preheader.i.i
   %y.0.us.i.i = phi i32 [ %inc18.us.i.i, %for.cond2.for.cond.cleanup5_crit_edge.us.i.i ], [ 0, %for.cond.us.preheader.i.i ]
-  br i1 %cmp2.not.i.i.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit.us.i.i, label %for.inc.i.i.us.i.i
+  br i1 %cmp2.i.i.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit.us.i.i, label %for.inc.i.i.us.i.i
 
 for.inc.i.i.us.i.i:                               ; preds = %for.cond.us.i.i
   %15 = load i32, ptr %buf.sroa.9.0.call51.sroa_idx.i.i, align 4, !tbaa !10
@@ -301,20 +301,20 @@ for.cond2.preheader.us.i.i:                       ; preds = %_ZNK6Halide5Tools5I
   %add42.i.us.i.i = add i64 %add.i.us.i.i, %mul44.i.us.i.i
   %add.i152.us.i.i = add nsw i64 %mul41.i154.us.i.i, %mul39.i151.us.i.i
   %add42.i155.us.i.i = add i64 %add.i152.us.i.i, %mul44.i157.us.i.i
-  br i1 %min.iters.check80, label %for.body6.us.i.i.preheader, label %vector.scevcheck61
+  br i1 %min.iters.check81, label %for.body6.us.i.i.preheader, label %vector.scevcheck62
 
-vector.scevcheck61:                               ; preds = %for.cond2.preheader.us.i.i
-  %ident.check62 = icmp ne i32 %38, 1
-  %ident.check63 = icmp ne i32 %29, 1
+vector.scevcheck62:                               ; preds = %for.cond2.preheader.us.i.i
+  %ident.check63 = icmp ne i32 %38, 1
+  %ident.check64 = icmp ne i32 %29, 1
   %44 = sub i32 2, %25
   %45 = add i32 %44, %13
   %46 = icmp slt i32 %45, %44
   %47 = or i1 %46, %14
-  %48 = or i1 %ident.check62, %ident.check63
+  %48 = or i1 %ident.check63, %ident.check64
   %49 = or i1 %48, %47
-  br i1 %49, label %for.body6.us.i.i.preheader, label %vector.memcheck64
+  br i1 %49, label %for.body6.us.i.i.preheader, label %vector.memcheck65
 
-vector.memcheck64:                                ; preds = %vector.scevcheck61
+vector.memcheck65:                                ; preds = %vector.scevcheck62
   %50 = sext i32 %36 to i64
   %51 = mul nsw i64 %50, %conv31.i145.us.i.i
   %52 = sext i32 %37 to i64
@@ -324,8 +324,8 @@ vector.memcheck64:                                ; preds = %vector.scevcheck61
   %56 = sub i64 %mul39.i151.us.i.i, %55
   %57 = shl i64 %56, 1
   %scevgep = getelementptr i8, ptr %33, i64 %57
-  %scevgep65 = getelementptr i8, ptr %33, i64 %12
-  %scevgep66 = getelementptr i8, ptr %scevgep65, i64 %57
+  %scevgep66 = getelementptr i8, ptr %33, i64 %12
+  %scevgep67 = getelementptr i8, ptr %scevgep66, i64 %57
   %58 = sub i32 2, %25
   %59 = sext i32 %58 to i64
   %60 = add i64 %mul39.i.us.i.i, %59
@@ -336,48 +336,48 @@ vector.memcheck64:                                ; preds = %vector.scevcheck61
   %65 = add i64 %62, %64
   %66 = sub i64 %60, %65
   %67 = shl i64 %66, 1
-  %scevgep67 = getelementptr i8, ptr %24, i64 %67
-  %scevgep68 = getelementptr i8, ptr %24, i64 %12
-  %scevgep69 = getelementptr i8, ptr %scevgep68, i64 %67
+  %scevgep68 = getelementptr i8, ptr %24, i64 %67
+  %scevgep69 = getelementptr i8, ptr %24, i64 %12
+  %scevgep70 = getelementptr i8, ptr %scevgep69, i64 %67
   %68 = add i64 %62, %64
   %69 = add i64 %68, %42
   %70 = sub i64 %mul39.i.us.i.i, %69
   %71 = shl i64 %70, 1
-  %scevgep70 = getelementptr i8, ptr %24, i64 %71
-  %scevgep71 = getelementptr i8, ptr %24, i64 2
-  %scevgep72 = getelementptr i8, ptr %scevgep71, i64 %12
+  %scevgep71 = getelementptr i8, ptr %24, i64 %71
+  %scevgep72 = getelementptr i8, ptr %24, i64 2
+  %scevgep73 = getelementptr i8, ptr %scevgep72, i64 %12
   %72 = shl nsw i64 %conv38.i.us.i.i, 1
   %73 = mul i64 %72, %conv26.i.us.i.i
   %74 = add i64 %62, %64
   %75 = add i64 %74, %42
   %76 = shl i64 %75, 1
   %77 = sub i64 %73, %76
-  %scevgep73 = getelementptr i8, ptr %scevgep72, i64 %77
-  %bound0 = icmp ult ptr %scevgep, %scevgep69
-  %bound1 = icmp ult ptr %scevgep67, %scevgep66
+  %scevgep74 = getelementptr i8, ptr %scevgep73, i64 %77
+  %bound0 = icmp ult ptr %scevgep, %scevgep70
+  %bound1 = icmp ult ptr %scevgep68, %scevgep67
   %found.conflict = and i1 %bound0, %bound1
-  %bound074 = icmp ult ptr %scevgep, %scevgep73
-  %bound175 = icmp ult ptr %scevgep70, %scevgep66
-  %found.conflict76 = and i1 %bound074, %bound175
-  %conflict.rdx77 = or i1 %found.conflict, %found.conflict76
-  br i1 %conflict.rdx77, label %for.body6.us.i.i.preheader, label %vector.body86
+  %bound075 = icmp ult ptr %scevgep, %scevgep74
+  %bound176 = icmp ult ptr %scevgep71, %scevgep67
+  %found.conflict77 = and i1 %bound075, %bound176
+  %conflict.rdx78 = or i1 %found.conflict, %found.conflict77
+  br i1 %conflict.rdx78, label %for.body6.us.i.i.preheader, label %vector.body87
 
-vector.body86:                                    ; preds = %vector.memcheck64, %vector.body86
-  %offset.idx = phi i64 [ %index.next91, %vector.body86 ], [ 0, %vector.memcheck64 ]
+vector.body87:                                    ; preds = %vector.memcheck65, %vector.body87
+  %offset.idx = phi i64 [ %index.next92, %vector.body87 ], [ 0, %vector.memcheck65 ]
   %78 = trunc i64 %offset.idx to i32
   %79 = sub nsw i64 %offset.idx, %42
   %80 = mul nsw i64 %79, %conv.i.us.i.i
   %81 = add i64 %80, %add42.i.us.i.i
   %82 = getelementptr inbounds i16, ptr %24, i64 %81
-  %wide.load88 = load <8 x i16>, ptr %82, align 2, !tbaa !35, !alias.scope !41
-  %83 = zext <8 x i16> %wide.load88 to <8 x i32>
+  %wide.load89 = load <8 x i16>, ptr %82, align 2, !tbaa !35, !alias.scope !41
+  %83 = zext <8 x i16> %wide.load89 to <8 x i32>
   %84 = or i64 %offset.idx, 1
   %85 = sub nsw i64 %84, %42
   %86 = mul nsw i64 %85, %conv.i.us.i.i
   %87 = add i64 %86, %add42.i.us.i.i
   %88 = getelementptr inbounds i16, ptr %24, i64 %87
-  %wide.load89 = load <8 x i16>, ptr %88, align 2, !tbaa !35, !alias.scope !41
-  %89 = zext <8 x i16> %wide.load89 to <8 x i32>
+  %wide.load90 = load <8 x i16>, ptr %88, align 2, !tbaa !35, !alias.scope !41
+  %89 = zext <8 x i16> %wide.load90 to <8 x i32>
   %90 = add nuw nsw <8 x i32> %89, %83
   %91 = sub i32 %78, %25
   %92 = add i32 %91, 2
@@ -385,8 +385,8 @@ vector.body86:                                    ; preds = %vector.memcheck64, 
   %94 = mul nsw i64 %93, %conv.i.us.i.i
   %95 = add i64 %94, %add42.i.us.i.i
   %96 = getelementptr inbounds i16, ptr %24, i64 %95
-  %wide.load90 = load <8 x i16>, ptr %96, align 2, !tbaa !35, !alias.scope !44
-  %97 = zext <8 x i16> %wide.load90 to <8 x i32>
+  %wide.load91 = load <8 x i16>, ptr %96, align 2, !tbaa !35, !alias.scope !44
+  %97 = zext <8 x i16> %wide.load91 to <8 x i32>
   %98 = add nuw nsw <8 x i32> %90, %97
   %99 = udiv <8 x i32> %98, <i32 3, i32 3, i32 3, i32 3, i32 3, i32 3, i32 3, i32 3>
   %100 = trunc <8 x i32> %99 to <8 x i16>
@@ -395,25 +395,25 @@ vector.body86:                                    ; preds = %vector.memcheck64, 
   %103 = add i64 %add42.i155.us.i.i, %102
   %104 = getelementptr inbounds i16, ptr %33, i64 %103
   store <8 x i16> %100, ptr %104, align 2, !tbaa !35, !alias.scope !46, !noalias !48
-  %index.next91 = add nuw i64 %offset.idx, 8
-  %105 = icmp eq i64 %index.next91, %n.vec83
-  br i1 %105, label %middle.block78, label %vector.body86, !llvm.loop !49
+  %index.next92 = add nuw i64 %offset.idx, 8
+  %105 = icmp eq i64 %index.next92, %n.vec84
+  br i1 %105, label %middle.block79, label %vector.body87, !llvm.loop !49
 
-middle.block78:                                   ; preds = %vector.body86
-  br i1 %cmp.n85, label %for.cond2.for.cond.cleanup5_crit_edge.us.i.i, label %for.body6.us.i.i.preheader
+middle.block79:                                   ; preds = %vector.body87
+  br i1 %cmp.n86, label %for.cond2.for.cond.cleanup5_crit_edge.us.i.i, label %for.body6.us.i.i.preheader
 
-for.body6.us.i.i.preheader:                       ; preds = %vector.memcheck64, %vector.scevcheck61, %for.cond2.preheader.us.i.i, %middle.block78
-  %indvars.iv.i.i.ph = phi i64 [ 0, %vector.memcheck64 ], [ 0, %vector.scevcheck61 ], [ 0, %for.cond2.preheader.us.i.i ], [ %n.vec83, %middle.block78 ]
+for.body6.us.i.i.preheader:                       ; preds = %vector.memcheck65, %vector.scevcheck62, %for.cond2.preheader.us.i.i, %middle.block79
+  %indvars.iv.i.i.ph = phi i64 [ 0, %vector.memcheck65 ], [ 0, %vector.scevcheck62 ], [ 0, %for.cond2.preheader.us.i.i ], [ %n.vec84, %middle.block79 ]
   br label %for.body6.us.i.i
 
-for.cond2.for.cond.cleanup5_crit_edge.us.i.i:     ; preds = %for.body6.us.i.i, %middle.block78
+for.cond2.for.cond.cleanup5_crit_edge.us.i.i:     ; preds = %for.body6.us.i.i, %middle.block79
   %inc18.us.i.i = add nuw nsw i32 %y.0.us.i.i, 1
   br label %for.cond.us.i.i, !llvm.loop !51
 
 for.cond21.preheader.i.i:                         ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit.us.i.i, %for.body.i
-  %106 = load i32, ptr %buf.sroa.8.0.call51.sroa_idx.i.i36, align 4, !tbaa !10
+  %106 = load i32, ptr %buf.sroa.8.0.call51.sroa_idx.i.i37, align 4, !tbaa !10
   %.fr305.i.i = freeze i32 %106
-  %cmp2.not.i.i161.i.i = icmp eq i32 %.fr305.i.i, 0
+  %cmp2.i.i161.i.i = icmp eq i32 %.fr305.i.i, 0
   %spec.select.i168.i.i = tail call i32 @llvm.umax.i32(i32 %.fr305.i.i, i32 1)
   %cmp29296.i.i = icmp sgt i32 %spec.select.i168.i.i, 0
   br i1 %cmp29296.i.i, label %for.cond21.us.preheader.i.i, label %"_ZZ4blurN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i"
@@ -427,10 +427,10 @@ for.cond21.us.preheader.i.i:                      ; preds = %for.cond21.preheade
 
 for.cond21.us.i.i:                                ; preds = %for.cond27.for.cond.cleanup30_crit_edge.us.i.i, %for.cond21.us.preheader.i.i
   %y20.0.us.i.i = phi i32 [ %add34.us.i.i, %for.cond27.for.cond.cleanup30_crit_edge.us.i.i ], [ 0, %for.cond21.us.preheader.i.i ]
-  br i1 %cmp2.not.i.i161.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit166.us.i.i, label %for.inc.i.i164.us.i.i
+  br i1 %cmp2.i.i161.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit166.us.i.i, label %for.inc.i.i164.us.i.i
 
 for.inc.i.i164.us.i.i:                            ; preds = %for.cond21.us.i.i
-  %107 = load i32, ptr %buf.sroa.9.0.call51.sroa_idx.i.i37, align 4, !tbaa !10
+  %107 = load i32, ptr %buf.sroa.9.0.call51.sroa_idx.i.i38, align 4, !tbaa !10
   %spec.select.i163.us.i.i = tail call i32 @llvm.umax.i32(i32 %107, i32 1)
   br label %_ZNK6Halide5Tools5ImageItE6heightEv.exit166.us.i.i
 
@@ -501,22 +501,22 @@ for.cond27.preheader.us.i.i:                      ; preds = %_ZNK6Halide5Tools5I
   %sub8.i231.us.i.i = sub i32 %add38.us.i.i, %116
   %conv38.i246.us.i.i = sext i32 %sub8.i231.us.i.i to i64
   %mul39.i247.us.i.i = mul nsw i64 %conv26.i181.us.i.i, %conv38.i246.us.i.i
-  %123 = load ptr, ptr %buf.sroa.5.0.call51.sroa_idx.i.i35, align 8, !tbaa !40
+  %123 = load ptr, ptr %buf.sroa.5.0.call51.sroa_idx.i.i36, align 8, !tbaa !40
   %124 = ptrtoint ptr %123 to i64
-  %125 = load i32, ptr %buf.sroa.20.0.call51.sroa_idx.i.i44, align 8, !tbaa !10
+  %125 = load i32, ptr %buf.sroa.20.0.call51.sroa_idx.i.i45, align 8, !tbaa !10
   %126 = load i32, ptr %arrayidx7.i259.i.i, align 4, !tbaa !10
   %sub8.i260.us.i.i = sub nsw i32 %y20.0.us.i.i, %126
   %127 = load i32, ptr %arrayidx12.i261.i.i, align 8, !tbaa !10
   %sub13.i262.us.i.i = sub nsw i32 0, %127
   %128 = load i32, ptr %arrayidx17.i263.i.i, align 4, !tbaa !10
   %sub18.i264.us.i.i = sub nsw i32 0, %128
-  %129 = load i32, ptr %buf.sroa.12.0.call51.sroa_idx.i.i40, align 8, !tbaa !10
+  %129 = load i32, ptr %buf.sroa.12.0.call51.sroa_idx.i.i41, align 8, !tbaa !10
   %conv.i266.us.i.i = sext i32 %129 to i64
-  %130 = load i32, ptr %buf.sroa.14.0.call51.sroa_idx.i.i41, align 4, !tbaa !10
+  %130 = load i32, ptr %buf.sroa.14.0.call51.sroa_idx.i.i42, align 4, !tbaa !10
   %conv26.i268.us.i.i = sext i32 %130 to i64
-  %131 = load i32, ptr %buf.sroa.16.0.call51.sroa_idx.i.i42, align 8, !tbaa !10
+  %131 = load i32, ptr %buf.sroa.16.0.call51.sroa_idx.i.i43, align 8, !tbaa !10
   %conv31.i270.us.i.i = sext i32 %131 to i64
-  %132 = load i32, ptr %buf.sroa.18.0.call51.sroa_idx.i.i43, align 4, !tbaa !10
+  %132 = load i32, ptr %buf.sroa.18.0.call51.sroa_idx.i.i44, align 4, !tbaa !10
   %conv36.i272.us.i.i = sext i32 %132 to i64
   %conv38.i275.us.i.i = sext i32 %sub8.i260.us.i.i to i64
   %mul39.i276.us.i.i = mul nsw i64 %conv26.i268.us.i.i, %conv38.i275.us.i.i
@@ -533,8 +533,8 @@ for.cond27.preheader.us.i.i:                      ; preds = %_ZNK6Halide5Tools5I
 
 vector.scevcheck:                                 ; preds = %for.cond27.preheader.us.i.i
   %ident.check = icmp ne i32 %129, 1
-  %ident.check55 = icmp ne i32 %119, 1
-  %135 = or i1 %ident.check, %ident.check55
+  %ident.check56 = icmp ne i32 %119, 1
+  %135 = or i1 %ident.check, %ident.check56
   br i1 %135, label %for.body31.us.i.i.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %vector.scevcheck
@@ -564,17 +564,17 @@ vector.memcheck:                                  ; preds = %vector.scevcheck
   %158 = shl i64 %157, 1
   %159 = add i64 %158, %114
   %160 = sub i64 %144, %159
-  %diff.check56 = icmp ult i64 %160, 16
-  %conflict.rdx = or i1 %diff.check, %diff.check56
+  %diff.check57 = icmp ult i64 %160, 16
+  %conflict.rdx = or i1 %diff.check, %diff.check57
   %161 = add i64 %146, %148
   %162 = add i64 %161, %133
   %163 = sub i64 %mul39.i189.us.i.i, %162
   %164 = shl i64 %163, 1
   %165 = add i64 %164, %114
   %166 = sub i64 %144, %165
-  %diff.check57 = icmp ult i64 %166, 16
-  %conflict.rdx58 = or i1 %conflict.rdx, %diff.check57
-  br i1 %conflict.rdx58, label %for.body31.us.i.i.preheader, label %vector.body
+  %diff.check58 = icmp ult i64 %166, 16
+  %conflict.rdx59 = or i1 %conflict.rdx, %diff.check58
+  br i1 %conflict.rdx59, label %for.body31.us.i.i.preheader, label %vector.body
 
 vector.body:                                      ; preds = %vector.memcheck, %vector.body
   %index = phi i64 [ %index.next, %vector.body ], [ 0, %vector.memcheck ]
@@ -587,13 +587,13 @@ vector.body:                                      ; preds = %vector.memcheck, %v
   %172 = zext <8 x i16> %wide.load to <8 x i32>
   %173 = add i64 %169, %mul39.i218.us.i.i
   %174 = getelementptr inbounds i16, ptr %113, i64 %173
-  %wide.load59 = load <8 x i16>, ptr %174, align 2, !tbaa !35
-  %175 = zext <8 x i16> %wide.load59 to <8 x i32>
+  %wide.load60 = load <8 x i16>, ptr %174, align 2, !tbaa !35
+  %175 = zext <8 x i16> %wide.load60 to <8 x i32>
   %176 = add nuw nsw <8 x i32> %175, %172
   %177 = add i64 %169, %mul39.i247.us.i.i
   %178 = getelementptr inbounds i16, ptr %113, i64 %177
-  %wide.load60 = load <8 x i16>, ptr %178, align 2, !tbaa !35
-  %179 = zext <8 x i16> %wide.load60 to <8 x i32>
+  %wide.load61 = load <8 x i16>, ptr %178, align 2, !tbaa !35
+  %179 = zext <8 x i16> %wide.load61 to <8 x i32>
   %180 = add nuw nsw <8 x i32> %176, %179
   %181 = udiv <8 x i32> %180, <i32 3, i32 3, i32 3, i32 3, i32 3, i32 3, i32 3, i32 3>
   %182 = trunc <8 x i32> %181 to <8 x i16>
@@ -634,29 +634,22 @@ invoke.cont9:                                     ; preds = %"_ZZ4blurN6Halide5T
   %tobool.not.i = icmp eq ptr %188, null
   br i1 %tobool.not.i, label %_ZN6Halide5Tools5ImageItED2Ev.exit, label %if.then.i
 
-lpad:                                             ; preds = %call.i.i31.noexc, %_ZNK6Halide5Tools5ImageItE6heightEv.exit23
-  %189 = landingpad { ptr, i32 }
-          cleanup
-  call void @_ZN6Halide5Tools5ImageItED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %tmp) #14
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tmp) #14
-  resume { ptr, i32 } %189
-
 if.then.i:                                        ; preds = %invoke.cont9
   %ref_count.i = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %188, i64 0, i32 1
-  %190 = load i32, ptr %ref_count.i, align 8, !tbaa !31
-  %dec.i = add nsw i32 %190, -1
+  %189 = load i32, ptr %ref_count.i, align 8, !tbaa !31
+  %dec.i = add nsw i32 %189, -1
   store i32 %dec.i, ptr %ref_count.i, align 8, !tbaa !31
   %cmp.i = icmp eq i32 %dec.i, 0
   br i1 %cmp.i, label %delete.notnull.i, label %_ZN6Halide5Tools5ImageItED2Ev.exit
 
 delete.notnull.i:                                 ; preds = %if.then.i
   %alloc.i.i = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %188, i64 0, i32 2
-  %191 = load ptr, ptr %alloc.i.i, align 8, !tbaa !34
-  %isnull.i.i = icmp eq ptr %191, null
+  %190 = load ptr, ptr %alloc.i.i, align 8, !tbaa !34
+  %isnull.i.i = icmp eq ptr %190, null
   br i1 %isnull.i.i, label %delete.end.i, label %delete.notnull.i.i
 
 delete.notnull.i.i:                               ; preds = %delete.notnull.i
-  tail call void @_ZdaPv(ptr noundef nonnull %191) #16
+  tail call void @_ZdaPv(ptr noundef nonnull %190) #16
   br label %delete.end.i
 
 delete.end.i:                                     ; preds = %delete.notnull.i.i, %delete.notnull.i
@@ -666,6 +659,13 @@ delete.end.i:                                     ; preds = %delete.notnull.i.i,
 _ZN6Halide5Tools5ImageItED2Ev.exit:               ; preds = %invoke.cont9, %if.then.i, %delete.end.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tmp) #14
   ret void
+
+lpad:                                             ; preds = %call.i.i32.noexc, %_ZNK6Halide5Tools5ImageItE6heightEv.exit24
+  %191 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN6Halide5Tools5ImageItED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %tmp) #14
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %tmp) #14
+  resume { ptr, i32 } %191
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
@@ -719,8 +719,8 @@ entry:
   %1 = load i32, ptr %arrayidx.i.i, align 4, !tbaa !10
   %spec.select.i = tail call i32 @llvm.umax.i32(i32 %1, i32 1)
   %sub = add nsw i32 %spec.select.i, -8
-  %cmp2.not.i.i = icmp eq i32 %1, 0
-  br i1 %cmp2.not.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit, label %for.inc.i.i
+  %cmp2.i.i = icmp eq i32 %1, 0
+  br i1 %cmp2.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit, label %for.inc.i.i
 
 for.inc.i.i:                                      ; preds = %entry
   %arrayidx.1.i.i = getelementptr inbounds %struct.buffer_t, ptr %0, i64 0, i32 2, i64 1
@@ -793,8 +793,8 @@ for.body.i:                                       ; preds = %"_ZZ9blur_fastN6Hal
 for.cond.i.i:                                     ; preds = %for.cond.cleanup6.i.i, %for.body.i
   %6 = phi i32 [ %.pre, %for.body.i ], [ %9, %for.cond.cleanup6.i.i ]
   %yTile.0.i.i = phi i32 [ 0, %for.body.i ], [ %add61.i.i, %for.cond.cleanup6.i.i ]
-  %cmp2.not.i.i.i.i = icmp eq i32 %6, 0
-  br i1 %cmp2.not.i.i.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit.i.i, label %for.inc.i.i.i.i
+  %cmp2.i.i.i.i = icmp eq i32 %6, 0
+  br i1 %cmp2.i.i.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit.i.i, label %for.inc.i.i.i.i
 
 for.inc.i.i.i.i:                                  ; preds = %for.cond.i.i
   %7 = load i32, ptr %buf.sroa.9.0.call51.sroa_idx.i.i, align 4, !tbaa !10
@@ -838,7 +838,7 @@ for.body11.i.i:                                   ; preds = %for.body11.i.i, %fo
   %add.i.i7 = add nuw nsw i32 %y.0133.i.i, %yTile.0.i.i
   %10 = load ptr, ptr %host.i.i.i, align 8, !tbaa !40
   %11 = load i32, ptr %min.i.i.i, align 8, !tbaa !10
-  %sub.i.i27.i = sub nsw i32 %xTile.0142.i.i, %11
+  %sub.i.i.i = sub nsw i32 %xTile.0142.i.i, %11
   %12 = load i32, ptr %arrayidx7.i.i.i, align 4, !tbaa !10
   %sub8.i.i.i = sub i32 %add.i.i7, %12
   %13 = load i32, ptr %arrayidx12.i.i.i, align 8, !tbaa !10
@@ -853,7 +853,7 @@ for.body11.i.i:                                   ; preds = %for.body11.i.i, %fo
   %conv31.i.i.i = sext i32 %17 to i64
   %18 = load i32, ptr %arrayidx35.i.i.i, align 4, !tbaa !10
   %conv36.i.i.i = sext i32 %18 to i64
-  %conv37.i.i.i = sext i32 %sub.i.i27.i to i64
+  %conv37.i.i.i = sext i32 %sub.i.i.i to i64
   %mul.i.i.i = mul nsw i64 %conv.i.i.i, %conv37.i.i.i
   %conv38.i.i.i = sext i32 %sub8.i.i.i to i64
   %mul39.i.i.i = mul nsw i64 %conv26.i.i.i, %conv38.i.i.i
@@ -1264,8 +1264,8 @@ for.body33.i.i:                                   ; preds = %for.body11.i.i, %fo
 
 "_ZZ9blur_fastN6Halide5Tools5ImageItEEENK3$_0clEv.exit.i": ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit.i.i
   %call7.i = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #14
-  %sub.i.i.i = sub nsw i64 %call7.i, %call1.i
-  %div.i.i.i = sdiv i64 %sub.i.i.i, 1000
+  %sub.i.i27.i = sub nsw i64 %call7.i, %call1.i
+  %div.i.i.i = sdiv i64 %sub.i.i27.i, 1000
   %conv.i = sitofp i64 %div.i.i.i to double
   %div.i = fdiv double %conv.i, 1.000000e+06
   %cmp16.i = fcmp olt double %div.i, %best.031.i
@@ -1287,8 +1287,8 @@ entry:
   %1 = load i32, ptr %arrayidx.i.i, align 4, !tbaa !10
   %spec.select.i = tail call i32 @llvm.umax.i32(i32 %1, i32 1)
   %sub = add nsw i32 %spec.select.i, -8
-  %cmp2.not.i.i = icmp eq i32 %1, 0
-  br i1 %cmp2.not.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit, label %for.inc.i.i
+  %cmp2.i.i = icmp eq i32 %1, 0
+  br i1 %cmp2.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit, label %for.inc.i.i
 
 for.inc.i.i:                                      ; preds = %entry
   %arrayidx.1.i.i = getelementptr inbounds %struct.buffer_t, ptr %0, i64 0, i32 2, i64 1
@@ -1415,14 +1415,9 @@ call3.i.8.i.noexc:                                ; preds = %call3.i.7.i.noexc
   %call1.9.i = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #14
   %op.val.val.9.i = load ptr, ptr %in, align 8, !tbaa !5
   %call3.i.9.i22 = invoke i32 @halide_blur(ptr noundef %op.val.val.9.i, ptr noundef nonnull %call51.i.i)
-          to label %"_Z9benchmarkIZ11blur_halideN6Halide5Tools5ImageItEEE3$_0EdiiT_.exit" unwind label %lpad
+          to label %invoke.cont8 unwind label %lpad
 
-"_Z9benchmarkIZ11blur_halideN6Halide5Tools5ImageItEEE3$_0EdiiT_.exit": ; preds = %call3.i.8.i.noexc
-  %call7.9.i = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #14
-  %sub.i.i.9.i = sub nsw i64 %call7.9.i, %call1.9.i
-  %div.i.i.9.i = sdiv i64 %sub.i.i.9.i, 1000
-  %conv.9.i = sitofp i64 %div.i.i.9.i to double
-  %div.9.i = fdiv double %conv.9.i, 1.000000e+06
+invoke.cont8:                                     ; preds = %call3.i.8.i.noexc
   %sub.i.i.8.i = sub nsw i64 %call7.8.i, %call1.8.i
   %div.i.i.8.i = sdiv i64 %sub.i.i.8.i, 1000
   %conv.8.i = sitofp i64 %div.i.i.8.i to double
@@ -1477,6 +1472,11 @@ call3.i.8.i.noexc:                                ; preds = %call3.i.7.i.noexc
   %best.1.7.i = select i1 %cmp16.7.i, double %div.7.i, double %best.1.6.i
   %cmp16.8.i = fcmp olt double %div.8.i, %best.1.7.i
   %best.1.8.i = select i1 %cmp16.8.i, double %div.8.i, double %best.1.7.i
+  %call7.9.i = tail call i64 @_ZNSt6chrono3_V212system_clock3nowEv() #14
+  %sub.i.i.9.i = sub nsw i64 %call7.9.i, %call1.9.i
+  %div.i.i.9.i = sdiv i64 %sub.i.i.9.i, 1000
+  %conv.9.i = sitofp i64 %div.i.i.9.i to double
+  %div.9.i = fdiv double %conv.9.i, 1.000000e+06
   %cmp16.9.i = fcmp olt double %div.9.i, %best.1.8.i
   %best.1.9.i = select i1 %cmp16.9.i, double %div.9.i, double %best.1.8.i
   store double %best.1.9.i, ptr @t, align 8, !tbaa !56
@@ -1541,8 +1541,8 @@ for.cond:                                         ; preds = %for.cond.cleanup6, 
   %2 = phi i32 [ 6408, %entry ], [ %7, %for.cond.cleanup6 ]
   %3 = phi ptr [ %call51.i.i, %entry ], [ %8, %for.cond.cleanup6 ]
   %y.0 = phi i32 [ 0, %entry ], [ %inc12, %for.cond.cleanup6 ]
-  %cmp2.not.i.i = icmp eq i32 %2, 0
-  br i1 %cmp2.not.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit, label %for.inc.i.i
+  %cmp2.i.i = icmp eq i32 %2, 0
+  br i1 %cmp2.i.i, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit, label %for.inc.i.i
 
 for.inc.i.i:                                      ; preds = %for.cond
   %4 = load i32, ptr %buf.sroa.9.0.call51.sroa_idx.i.i, align 4, !tbaa !10
@@ -1552,14 +1552,14 @@ for.inc.i.i:                                      ; preds = %for.cond
 _ZNK6Halide5Tools5ImageItE6heightEv.exit:         ; preds = %for.cond, %for.inc.i.i
   %cond.i = phi i32 [ 1, %for.cond ], [ %spec.select.i, %for.inc.i.i ]
   %cmp = icmp slt i32 %y.0, %cond.i
-  br i1 %cmp, label %for.cond1.preheader, label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit
+  br i1 %cmp, label %invoke.cont3.preheader, label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit
 
-for.cond1.preheader:                              ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit
-  %spec.select.i119413 = tail call i32 @llvm.umax.i32(i32 %2, i32 1)
-  %cmp5414 = icmp sgt i32 %spec.select.i119413, 0
-  br i1 %cmp5414, label %for.body7.lr.ph, label %for.cond.cleanup6
+invoke.cont3.preheader:                           ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit
+  %spec.select.i124416 = tail call i32 @llvm.umax.i32(i32 %2, i32 1)
+  %cmp5417 = icmp sgt i32 %spec.select.i124416, 0
+  br i1 %cmp5417, label %for.body7.lr.ph, label %for.cond.cleanup6
 
-for.body7.lr.ph:                                  ; preds = %for.cond1.preheader
+for.body7.lr.ph:                                  ; preds = %invoke.cont3.preheader
   %5 = load ptr, ptr %input, align 8
   %host.i = getelementptr inbounds %struct.buffer_t, ptr %5, i64 0, i32 1
   %min.i = getelementptr inbounds %struct.buffer_t, ptr %5, i64 0, i32 4
@@ -1579,22 +1579,22 @@ _ZN6Halide5Tools5ImageItEC2ERKS2_.exit:           ; preds = %_ZNK6Halide5Tools5I
   %inc.i = add nsw i32 %6, 1
   store i32 %inc.i, ptr %ref_count.i.i.i, align 8, !tbaa !31
   invoke void @_Z4blurN6Halide5Tools5ImageItEE(ptr nonnull sret(%"class.Halide::Tools::Image") align 8 %blurry, ptr noundef nonnull %agg.tmp)
-          to label %if.then.i122 unwind label %lpad16
+          to label %if.then.i127 unwind label %lpad16
 
-for.cond.cleanup6:                                ; preds = %for.body7, %for.cond1.preheader
-  %7 = phi i32 [ %2, %for.cond1.preheader ], [ %19, %for.body7 ]
-  %8 = phi ptr [ %3, %for.cond1.preheader ], [ %5, %for.body7 ]
+for.cond.cleanup6:                                ; preds = %for.body7, %invoke.cont3.preheader
+  %7 = phi i32 [ %2, %invoke.cont3.preheader ], [ %19, %for.body7 ]
+  %8 = phi ptr [ %3, %invoke.cont3.preheader ], [ %5, %for.body7 ]
   %inc12 = add nuw nsw i32 %y.0, 1
   br label %for.cond, !llvm.loop !63
 
 for.body7:                                        ; preds = %for.body7.lr.ph, %for.body7
-  %x.0415 = phi i32 [ 0, %for.body7.lr.ph ], [ %inc, %for.body7 ]
+  %x.0418 = phi i32 [ 0, %for.body7.lr.ph ], [ %inc, %for.body7 ]
   %call8 = tail call i32 @rand() #14
   %9 = trunc i32 %call8 to i16
   %conv = and i16 %9, 4095
   %10 = load ptr, ptr %host.i, align 8, !tbaa !40
   %11 = load i32, ptr %min.i, align 8, !tbaa !10
-  %sub.i = sub nsw i32 %x.0415, %11
+  %sub.i = sub nsw i32 %x.0418, %11
   %12 = load i32, ptr %arrayidx7.i, align 4, !tbaa !10
   %sub8.i = sub nsw i32 %y.0, %12
   %13 = load i32, ptr %arrayidx12.i, align 8, !tbaa !10
@@ -1622,20 +1622,20 @@ for.body7:                                        ; preds = %for.body7.lr.ph, %f
   %add45.i = add i64 %add42.i, %mul44.i
   %arrayidx46.i = getelementptr inbounds i16, ptr %10, i64 %add45.i
   store i16 %conv, ptr %arrayidx46.i, align 2, !tbaa !35
-  %inc = add nuw nsw i32 %x.0415, 1
+  %inc = add nuw nsw i32 %x.0418, 1
   %19 = load i32, ptr %buf.sroa.8.0.call51.sroa_idx.i.i, align 4, !tbaa !10
-  %spec.select.i119 = tail call i32 @llvm.umax.i32(i32 %19, i32 1)
-  %cmp5 = icmp slt i32 %inc, %spec.select.i119
+  %spec.select.i124 = tail call i32 @llvm.umax.i32(i32 %19, i32 1)
+  %cmp5 = icmp slt i32 %inc, %spec.select.i124
   br i1 %cmp5, label %for.body7, label %for.cond.cleanup6, !llvm.loop !64
 
-if.then.i122:                                     ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit
+if.then.i127:                                     ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit
   %20 = load i32, ptr %ref_count.i.i.i, align 8, !tbaa !31
   %dec.i = add nsw i32 %20, -1
   store i32 %dec.i, ptr %ref_count.i.i.i, align 8, !tbaa !31
   %cmp.i = icmp eq i32 %dec.i, 0
   br i1 %cmp.i, label %delete.notnull.i, label %_ZN6Halide5Tools5ImageItED2Ev.exit
 
-delete.notnull.i:                                 ; preds = %if.then.i122
+delete.notnull.i:                                 ; preds = %if.then.i127
   %21 = load ptr, ptr %alloc.i.i.i, align 8, !tbaa !34
   %isnull.i.i = icmp eq ptr %21, null
   br i1 %isnull.i.i, label %delete.end.i, label %delete.notnull.i.i
@@ -1649,257 +1649,257 @@ delete.end.i:                                     ; preds = %delete.notnull.i.i,
   store ptr null, ptr %agg.tmp, align 8, !tbaa !5
   br label %_ZN6Halide5Tools5ImageItED2Ev.exit
 
-_ZN6Halide5Tools5ImageItED2Ev.exit:               ; preds = %if.then.i122, %delete.end.i
+_ZN6Halide5Tools5ImageItED2Ev.exit:               ; preds = %if.then.i127, %delete.end.i
   %22 = load double, ptr @t, align 8, !tbaa !56
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %speedy) #14
   store ptr %3, ptr %agg.tmp19, align 8, !tbaa !5
-  %tobool.not.i123 = icmp eq ptr %3, null
-  br i1 %tobool.not.i123, label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit127, label %if.then.i126
+  %tobool.not.i128 = icmp eq ptr %3, null
+  br i1 %tobool.not.i128, label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit132, label %if.then.i131
 
-if.then.i126:                                     ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit
-  %ref_count.i124 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
-  %23 = load i32, ptr %ref_count.i124, align 8, !tbaa !31
-  %inc.i125 = add nsw i32 %23, 1
-  store i32 %inc.i125, ptr %ref_count.i124, align 8, !tbaa !31
-  br label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit127
+if.then.i131:                                     ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit
+  %ref_count.i129 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
+  %23 = load i32, ptr %ref_count.i129, align 8, !tbaa !31
+  %inc.i130 = add nsw i32 %23, 1
+  store i32 %inc.i130, ptr %ref_count.i129, align 8, !tbaa !31
+  br label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit132
 
-_ZN6Halide5Tools5ImageItEC2ERKS2_.exit127:        ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit, %if.then.i126
+_ZN6Halide5Tools5ImageItEC2ERKS2_.exit132:        ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit, %if.then.i131
   invoke void @_Z9blur_fastN6Halide5Tools5ImageItEE(ptr nonnull sret(%"class.Halide::Tools::Image") align 8 %speedy, ptr noundef nonnull %agg.tmp19)
           to label %invoke.cont23 unwind label %lpad22
 
-invoke.cont23:                                    ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit127
-  br i1 %tobool.not.i123, label %_ZN6Halide5Tools5ImageItED2Ev.exit138, label %if.then.i132
+invoke.cont23:                                    ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit132
+  br i1 %tobool.not.i128, label %_ZN6Halide5Tools5ImageItED2Ev.exit143, label %if.then.i137
 
-if.then.i132:                                     ; preds = %invoke.cont23
-  %ref_count.i129 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
-  %24 = load i32, ptr %ref_count.i129, align 8, !tbaa !31
-  %dec.i130 = add nsw i32 %24, -1
-  store i32 %dec.i130, ptr %ref_count.i129, align 8, !tbaa !31
-  %cmp.i131 = icmp eq i32 %dec.i130, 0
-  br i1 %cmp.i131, label %delete.notnull.i135, label %if.then.i142
+if.then.i137:                                     ; preds = %invoke.cont23
+  %ref_count.i134 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
+  %24 = load i32, ptr %ref_count.i134, align 8, !tbaa !31
+  %dec.i135 = add nsw i32 %24, -1
+  store i32 %dec.i135, ptr %ref_count.i134, align 8, !tbaa !31
+  %cmp.i136 = icmp eq i32 %dec.i135, 0
+  br i1 %cmp.i136, label %delete.notnull.i140, label %if.then.i147
 
-delete.notnull.i135:                              ; preds = %if.then.i132
-  %alloc.i.i133 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 2
-  %25 = load ptr, ptr %alloc.i.i133, align 8, !tbaa !34
-  %isnull.i.i134 = icmp eq ptr %25, null
-  br i1 %isnull.i.i134, label %delete.end.i137, label %delete.notnull.i.i136
+delete.notnull.i140:                              ; preds = %if.then.i137
+  %alloc.i.i138 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 2
+  %25 = load ptr, ptr %alloc.i.i138, align 8, !tbaa !34
+  %isnull.i.i139 = icmp eq ptr %25, null
+  br i1 %isnull.i.i139, label %delete.end.i142, label %delete.notnull.i.i141
 
-delete.notnull.i.i136:                            ; preds = %delete.notnull.i135
+delete.notnull.i.i141:                            ; preds = %delete.notnull.i140
   tail call void @_ZdaPv(ptr noundef nonnull %25) #16
-  br label %delete.end.i137
+  br label %delete.end.i142
 
-delete.end.i137:                                  ; preds = %delete.notnull.i.i136, %delete.notnull.i135
+delete.end.i142:                                  ; preds = %delete.notnull.i.i141, %delete.notnull.i140
   tail call void @_ZdlPv(ptr noundef nonnull %3) #16
   store ptr null, ptr %agg.tmp19, align 8, !tbaa !5
-  br label %if.then.i142
+  br label %if.then.i147
 
-_ZN6Halide5Tools5ImageItED2Ev.exit138:            ; preds = %invoke.cont23
+_ZN6Halide5Tools5ImageItED2Ev.exit143:            ; preds = %invoke.cont23
   %26 = load double, ptr @t, align 8, !tbaa !56
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %halide) #14
   store ptr %3, ptr %agg.tmp25, align 8, !tbaa !5
-  br label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit143
+  br label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit148
 
-if.then.i142:                                     ; preds = %if.then.i132, %delete.end.i137
+if.then.i147:                                     ; preds = %if.then.i137, %delete.end.i142
   %27 = load double, ptr @t, align 8, !tbaa !56
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %halide) #14
   store ptr %3, ptr %agg.tmp25, align 8, !tbaa !5
-  %ref_count.i140 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
-  %28 = load i32, ptr %ref_count.i140, align 8, !tbaa !31
-  %inc.i141 = add nsw i32 %28, 1
-  store i32 %inc.i141, ptr %ref_count.i140, align 8, !tbaa !31
-  br label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit143
+  %ref_count.i145 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
+  %28 = load i32, ptr %ref_count.i145, align 8, !tbaa !31
+  %inc.i146 = add nsw i32 %28, 1
+  store i32 %inc.i146, ptr %ref_count.i145, align 8, !tbaa !31
+  br label %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit148
 
-_ZN6Halide5Tools5ImageItEC2ERKS2_.exit143:        ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit138, %if.then.i142
-  %29 = phi double [ %26, %_ZN6Halide5Tools5ImageItED2Ev.exit138 ], [ %27, %if.then.i142 ]
+_ZN6Halide5Tools5ImageItEC2ERKS2_.exit148:        ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit143, %if.then.i147
+  %29 = phi double [ %26, %_ZN6Halide5Tools5ImageItED2Ev.exit143 ], [ %27, %if.then.i147 ]
   invoke void @_Z11blur_halideN6Halide5Tools5ImageItEE(ptr nonnull sret(%"class.Halide::Tools::Image") align 8 %halide, ptr noundef nonnull %agg.tmp25)
           to label %invoke.cont29 unwind label %lpad28
 
-invoke.cont29:                                    ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit143
-  br i1 %tobool.not.i123, label %_ZN6Halide5Tools5ImageItED2Ev.exit154, label %if.then.i148
+invoke.cont29:                                    ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit148
+  br i1 %tobool.not.i128, label %_ZN6Halide5Tools5ImageItED2Ev.exit159, label %if.then.i153
 
-if.then.i148:                                     ; preds = %invoke.cont29
-  %ref_count.i145 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
-  %30 = load i32, ptr %ref_count.i145, align 8, !tbaa !31
-  %dec.i146 = add nsw i32 %30, -1
-  store i32 %dec.i146, ptr %ref_count.i145, align 8, !tbaa !31
-  %cmp.i147 = icmp eq i32 %dec.i146, 0
-  br i1 %cmp.i147, label %delete.notnull.i151, label %_ZN6Halide5Tools5ImageItED2Ev.exit154
+if.then.i153:                                     ; preds = %invoke.cont29
+  %ref_count.i150 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 1
+  %30 = load i32, ptr %ref_count.i150, align 8, !tbaa !31
+  %dec.i151 = add nsw i32 %30, -1
+  store i32 %dec.i151, ptr %ref_count.i150, align 8, !tbaa !31
+  %cmp.i152 = icmp eq i32 %dec.i151, 0
+  br i1 %cmp.i152, label %delete.notnull.i156, label %_ZN6Halide5Tools5ImageItED2Ev.exit159
 
-delete.notnull.i151:                              ; preds = %if.then.i148
-  %alloc.i.i149 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 2
-  %31 = load ptr, ptr %alloc.i.i149, align 8, !tbaa !34
-  %isnull.i.i150 = icmp eq ptr %31, null
-  br i1 %isnull.i.i150, label %delete.end.i153, label %delete.notnull.i.i152
+delete.notnull.i156:                              ; preds = %if.then.i153
+  %alloc.i.i154 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %3, i64 0, i32 2
+  %31 = load ptr, ptr %alloc.i.i154, align 8, !tbaa !34
+  %isnull.i.i155 = icmp eq ptr %31, null
+  br i1 %isnull.i.i155, label %delete.end.i158, label %delete.notnull.i.i157
 
-delete.notnull.i.i152:                            ; preds = %delete.notnull.i151
+delete.notnull.i.i157:                            ; preds = %delete.notnull.i156
   call void @_ZdaPv(ptr noundef nonnull %31) #16
-  br label %delete.end.i153
+  br label %delete.end.i158
 
-delete.end.i153:                                  ; preds = %delete.notnull.i.i152, %delete.notnull.i151
+delete.end.i158:                                  ; preds = %delete.notnull.i.i157, %delete.notnull.i156
   call void @_ZdlPv(ptr noundef nonnull %3) #16
-  br label %_ZN6Halide5Tools5ImageItED2Ev.exit154
+  br label %_ZN6Halide5Tools5ImageItED2Ev.exit159
 
-_ZN6Halide5Tools5ImageItED2Ev.exit154:            ; preds = %invoke.cont29, %if.then.i148, %delete.end.i153
+_ZN6Halide5Tools5ImageItED2Ev.exit159:            ; preds = %invoke.cont29, %if.then.i153, %delete.end.i158
   %32 = load double, ptr @t, align 8, !tbaa !56
   %call33 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str, double noundef %22, double noundef %29, double noundef %32)
-  %arrayidx.i.i206 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 2, i64 0
+  %arrayidx.i.i211 = getelementptr inbounds %struct.buffer_t, ptr %3, i64 0, i32 2, i64 0
   br label %for.cond35
 
-for.cond35:                                       ; preds = %for.cond.cleanup49, %_ZN6Halide5Tools5ImageItED2Ev.exit154
-  %33 = phi ptr [ %3, %_ZN6Halide5Tools5ImageItED2Ev.exit154 ], [ %50, %for.cond.cleanup49 ]
-  %y34.0 = phi i32 [ 64, %_ZN6Halide5Tools5ImageItED2Ev.exit154 ], [ %inc81, %for.cond.cleanup49 ]
-  %arrayidx.i.i155 = getelementptr inbounds %struct.buffer_t, ptr %33, i64 0, i32 2, i64 0
-  %34 = load i32, ptr %arrayidx.i.i155, align 4, !tbaa !10
-  %cmp2.not.i.i156 = icmp eq i32 %34, 0
-  br i1 %cmp2.not.i.i156, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit161, label %for.inc.i.i159
+for.cond35:                                       ; preds = %for.cond.cleanup49, %_ZN6Halide5Tools5ImageItED2Ev.exit159
+  %33 = phi ptr [ %3, %_ZN6Halide5Tools5ImageItED2Ev.exit159 ], [ %50, %for.cond.cleanup49 ]
+  %y34.0 = phi i32 [ 64, %_ZN6Halide5Tools5ImageItED2Ev.exit159 ], [ %inc81, %for.cond.cleanup49 ]
+  %arrayidx.i.i160 = getelementptr inbounds %struct.buffer_t, ptr %33, i64 0, i32 2, i64 0
+  %34 = load i32, ptr %arrayidx.i.i160, align 4, !tbaa !10
+  %cmp2.i.i161 = icmp eq i32 %34, 0
+  br i1 %cmp2.i.i161, label %_ZNK6Halide5Tools5ImageItE6heightEv.exit166, label %for.inc.i.i164
 
-for.inc.i.i159:                                   ; preds = %for.cond35
-  %arrayidx.1.i.i157 = getelementptr inbounds %struct.buffer_t, ptr %33, i64 0, i32 2, i64 1
-  %35 = load i32, ptr %arrayidx.1.i.i157, align 4, !tbaa !10
-  %spec.select.i158 = call i32 @llvm.umax.i32(i32 %35, i32 1)
-  br label %_ZNK6Halide5Tools5ImageItE6heightEv.exit161
+for.inc.i.i164:                                   ; preds = %for.cond35
+  %arrayidx.1.i.i162 = getelementptr inbounds %struct.buffer_t, ptr %33, i64 0, i32 2, i64 1
+  %35 = load i32, ptr %arrayidx.1.i.i162, align 4, !tbaa !10
+  %spec.select.i163 = call i32 @llvm.umax.i32(i32 %35, i32 1)
+  br label %_ZNK6Halide5Tools5ImageItE6heightEv.exit166
 
-_ZNK6Halide5Tools5ImageItE6heightEv.exit161:      ; preds = %for.cond35, %for.inc.i.i159
-  %cond.i160 = phi i32 [ 1, %for.cond35 ], [ %spec.select.i158, %for.inc.i.i159 ]
-  %sub = add nsw i32 %cond.i160, -64
+_ZNK6Halide5Tools5ImageItE6heightEv.exit166:      ; preds = %for.cond35, %for.inc.i.i164
+  %cond.i165 = phi i32 [ 1, %for.cond35 ], [ %spec.select.i163, %for.inc.i.i164 ]
+  %sub = add nsw i32 %cond.i165, -64
   %cmp39 = icmp slt i32 %y34.0, %sub
-  br i1 %cmp39, label %for.cond43.preheader, label %for.cond.cleanup40
+  br i1 %cmp39, label %invoke.cont45.preheader, label %for.cond.cleanup40
 
-for.cond43.preheader:                             ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit161
-  %spec.select.i207417 = call i32 @llvm.umax.i32(i32 %34, i32 1)
-  %cmp48419 = icmp sgt i32 %spec.select.i207417, 128
-  br i1 %cmp48419, label %for.body50.preheader, label %for.cond.cleanup49
+invoke.cont45.preheader:                          ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit166
+  %spec.select.i212420 = call i32 @llvm.umax.i32(i32 %34, i32 1)
+  %cmp48422 = icmp sgt i32 %spec.select.i212420, 128
+  br i1 %cmp48422, label %for.body50.preheader, label %for.cond.cleanup49
 
-for.body50.preheader:                             ; preds = %for.cond43.preheader
+for.body50.preheader:                             ; preds = %invoke.cont45.preheader
   %.pre = load ptr, ptr %blurry, align 8, !tbaa !5
-  %.pre421 = load ptr, ptr %speedy, align 8, !tbaa !5
-  %host.i208 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 1
-  %min.i209 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4
-  %arrayidx7.i211 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4, i64 1
-  %arrayidx12.i213 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4, i64 2
-  %arrayidx17.i215 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4, i64 3
-  %stride.i217 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3
-  %arrayidx25.i219 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3, i64 1
-  %arrayidx30.i221 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3, i64 2
-  %arrayidx35.i223 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3, i64 3
-  %host.i237 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 1
-  %min.i238 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 4
-  %arrayidx7.i240 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 4, i64 1
-  %arrayidx12.i242 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 4, i64 2
-  %arrayidx17.i244 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 4, i64 3
-  %stride.i246 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 3
-  %arrayidx25.i248 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 3, i64 1
-  %arrayidx30.i250 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 3, i64 2
-  %arrayidx35.i252 = getelementptr inbounds %struct.buffer_t, ptr %.pre421, i64 0, i32 3, i64 3
+  %.pre424 = load ptr, ptr %speedy, align 8, !tbaa !5
+  %host.i213 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 1
+  %min.i214 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4
+  %arrayidx7.i216 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4, i64 1
+  %arrayidx12.i218 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4, i64 2
+  %arrayidx17.i220 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 4, i64 3
+  %stride.i222 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3
+  %arrayidx25.i224 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3, i64 1
+  %arrayidx30.i226 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3, i64 2
+  %arrayidx35.i228 = getelementptr inbounds %struct.buffer_t, ptr %.pre, i64 0, i32 3, i64 3
+  %host.i242 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 1
+  %min.i243 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 4
+  %arrayidx7.i245 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 4, i64 1
+  %arrayidx12.i247 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 4, i64 2
+  %arrayidx17.i249 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 4, i64 3
+  %stride.i251 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 3
+  %arrayidx25.i253 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 3, i64 1
+  %arrayidx30.i255 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 3, i64 2
+  %arrayidx35.i257 = getelementptr inbounds %struct.buffer_t, ptr %.pre424, i64 0, i32 3, i64 3
   br label %for.body50
 
-for.cond.cleanup40:                               ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit161
+for.cond.cleanup40:                               ; preds = %_ZNK6Halide5Tools5ImageItE6heightEv.exit166
   %36 = load ptr, ptr %halide, align 8, !tbaa !5
-  %tobool.not.i162 = icmp eq ptr %36, null
-  br i1 %tobool.not.i162, label %_ZN6Halide5Tools5ImageItED2Ev.exit172, label %if.then.i166
+  %tobool.not.i167 = icmp eq ptr %36, null
+  br i1 %tobool.not.i167, label %_ZN6Halide5Tools5ImageItED2Ev.exit177, label %if.then.i171
 
-if.then.i166:                                     ; preds = %for.cond.cleanup40
-  %ref_count.i163 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %36, i64 0, i32 1
-  %37 = load i32, ptr %ref_count.i163, align 8, !tbaa !31
-  %dec.i164 = add nsw i32 %37, -1
-  store i32 %dec.i164, ptr %ref_count.i163, align 8, !tbaa !31
-  %cmp.i165 = icmp eq i32 %dec.i164, 0
-  br i1 %cmp.i165, label %delete.notnull.i169, label %_ZN6Halide5Tools5ImageItED2Ev.exit172
+if.then.i171:                                     ; preds = %for.cond.cleanup40
+  %ref_count.i168 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %36, i64 0, i32 1
+  %37 = load i32, ptr %ref_count.i168, align 8, !tbaa !31
+  %dec.i169 = add nsw i32 %37, -1
+  store i32 %dec.i169, ptr %ref_count.i168, align 8, !tbaa !31
+  %cmp.i170 = icmp eq i32 %dec.i169, 0
+  br i1 %cmp.i170, label %delete.notnull.i174, label %_ZN6Halide5Tools5ImageItED2Ev.exit177
 
-delete.notnull.i169:                              ; preds = %if.then.i166
-  %alloc.i.i167 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %36, i64 0, i32 2
-  %38 = load ptr, ptr %alloc.i.i167, align 8, !tbaa !34
-  %isnull.i.i168 = icmp eq ptr %38, null
-  br i1 %isnull.i.i168, label %delete.end.i171, label %delete.notnull.i.i170
+delete.notnull.i174:                              ; preds = %if.then.i171
+  %alloc.i.i172 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %36, i64 0, i32 2
+  %38 = load ptr, ptr %alloc.i.i172, align 8, !tbaa !34
+  %isnull.i.i173 = icmp eq ptr %38, null
+  br i1 %isnull.i.i173, label %delete.end.i176, label %delete.notnull.i.i175
 
-delete.notnull.i.i170:                            ; preds = %delete.notnull.i169
+delete.notnull.i.i175:                            ; preds = %delete.notnull.i174
   call void @_ZdaPv(ptr noundef nonnull %38) #16
-  br label %delete.end.i171
+  br label %delete.end.i176
 
-delete.end.i171:                                  ; preds = %delete.notnull.i.i170, %delete.notnull.i169
+delete.end.i176:                                  ; preds = %delete.notnull.i.i175, %delete.notnull.i174
   call void @_ZdlPv(ptr noundef nonnull %36) #16
-  br label %_ZN6Halide5Tools5ImageItED2Ev.exit172
+  br label %_ZN6Halide5Tools5ImageItED2Ev.exit177
 
-_ZN6Halide5Tools5ImageItED2Ev.exit172:            ; preds = %for.cond.cleanup40, %if.then.i166, %delete.end.i171
+_ZN6Halide5Tools5ImageItED2Ev.exit177:            ; preds = %for.cond.cleanup40, %if.then.i171, %delete.end.i176
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %halide) #14
   %39 = load ptr, ptr %speedy, align 8, !tbaa !5
-  %tobool.not.i173 = icmp eq ptr %39, null
-  br i1 %tobool.not.i173, label %_ZN6Halide5Tools5ImageItED2Ev.exit183, label %if.then.i177
+  %tobool.not.i178 = icmp eq ptr %39, null
+  br i1 %tobool.not.i178, label %_ZN6Halide5Tools5ImageItED2Ev.exit188, label %if.then.i182
 
-if.then.i177:                                     ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit172
-  %ref_count.i174 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %39, i64 0, i32 1
-  %40 = load i32, ptr %ref_count.i174, align 8, !tbaa !31
-  %dec.i175 = add nsw i32 %40, -1
-  store i32 %dec.i175, ptr %ref_count.i174, align 8, !tbaa !31
-  %cmp.i176 = icmp eq i32 %dec.i175, 0
-  br i1 %cmp.i176, label %delete.notnull.i180, label %_ZN6Halide5Tools5ImageItED2Ev.exit183
+if.then.i182:                                     ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit177
+  %ref_count.i179 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %39, i64 0, i32 1
+  %40 = load i32, ptr %ref_count.i179, align 8, !tbaa !31
+  %dec.i180 = add nsw i32 %40, -1
+  store i32 %dec.i180, ptr %ref_count.i179, align 8, !tbaa !31
+  %cmp.i181 = icmp eq i32 %dec.i180, 0
+  br i1 %cmp.i181, label %delete.notnull.i185, label %_ZN6Halide5Tools5ImageItED2Ev.exit188
 
-delete.notnull.i180:                              ; preds = %if.then.i177
-  %alloc.i.i178 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %39, i64 0, i32 2
-  %41 = load ptr, ptr %alloc.i.i178, align 8, !tbaa !34
-  %isnull.i.i179 = icmp eq ptr %41, null
-  br i1 %isnull.i.i179, label %delete.end.i182, label %delete.notnull.i.i181
+delete.notnull.i185:                              ; preds = %if.then.i182
+  %alloc.i.i183 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %39, i64 0, i32 2
+  %41 = load ptr, ptr %alloc.i.i183, align 8, !tbaa !34
+  %isnull.i.i184 = icmp eq ptr %41, null
+  br i1 %isnull.i.i184, label %delete.end.i187, label %delete.notnull.i.i186
 
-delete.notnull.i.i181:                            ; preds = %delete.notnull.i180
+delete.notnull.i.i186:                            ; preds = %delete.notnull.i185
   call void @_ZdaPv(ptr noundef nonnull %41) #16
-  br label %delete.end.i182
+  br label %delete.end.i187
 
-delete.end.i182:                                  ; preds = %delete.notnull.i.i181, %delete.notnull.i180
+delete.end.i187:                                  ; preds = %delete.notnull.i.i186, %delete.notnull.i185
   call void @_ZdlPv(ptr noundef nonnull %39) #16
-  br label %_ZN6Halide5Tools5ImageItED2Ev.exit183
+  br label %_ZN6Halide5Tools5ImageItED2Ev.exit188
 
-_ZN6Halide5Tools5ImageItED2Ev.exit183:            ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit172, %if.then.i177, %delete.end.i182
+_ZN6Halide5Tools5ImageItED2Ev.exit188:            ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit177, %if.then.i182, %delete.end.i187
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speedy) #14
   %42 = load ptr, ptr %blurry, align 8, !tbaa !5
-  %tobool.not.i184 = icmp eq ptr %42, null
-  br i1 %tobool.not.i184, label %if.then.i199, label %if.then.i188
+  %tobool.not.i189 = icmp eq ptr %42, null
+  br i1 %tobool.not.i189, label %if.then.i204, label %if.then.i193
 
-if.then.i188:                                     ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit183
-  %ref_count.i185 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %42, i64 0, i32 1
-  %43 = load i32, ptr %ref_count.i185, align 8, !tbaa !31
-  %dec.i186 = add nsw i32 %43, -1
-  store i32 %dec.i186, ptr %ref_count.i185, align 8, !tbaa !31
-  %cmp.i187 = icmp eq i32 %dec.i186, 0
-  br i1 %cmp.i187, label %delete.notnull.i191, label %if.then.i199
+if.then.i193:                                     ; preds = %_ZN6Halide5Tools5ImageItED2Ev.exit188
+  %ref_count.i190 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %42, i64 0, i32 1
+  %43 = load i32, ptr %ref_count.i190, align 8, !tbaa !31
+  %dec.i191 = add nsw i32 %43, -1
+  store i32 %dec.i191, ptr %ref_count.i190, align 8, !tbaa !31
+  %cmp.i192 = icmp eq i32 %dec.i191, 0
+  br i1 %cmp.i192, label %delete.notnull.i196, label %if.then.i204
 
-delete.notnull.i191:                              ; preds = %if.then.i188
-  %alloc.i.i189 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %42, i64 0, i32 2
-  %44 = load ptr, ptr %alloc.i.i189, align 8, !tbaa !34
-  %isnull.i.i190 = icmp eq ptr %44, null
-  br i1 %isnull.i.i190, label %delete.end.i193, label %delete.notnull.i.i192
+delete.notnull.i196:                              ; preds = %if.then.i193
+  %alloc.i.i194 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %42, i64 0, i32 2
+  %44 = load ptr, ptr %alloc.i.i194, align 8, !tbaa !34
+  %isnull.i.i195 = icmp eq ptr %44, null
+  br i1 %isnull.i.i195, label %delete.end.i198, label %delete.notnull.i.i197
 
-delete.notnull.i.i192:                            ; preds = %delete.notnull.i191
+delete.notnull.i.i197:                            ; preds = %delete.notnull.i196
   call void @_ZdaPv(ptr noundef nonnull %44) #16
-  br label %delete.end.i193
+  br label %delete.end.i198
 
-delete.end.i193:                                  ; preds = %delete.notnull.i.i192, %delete.notnull.i191
+delete.end.i198:                                  ; preds = %delete.notnull.i.i197, %delete.notnull.i196
   call void @_ZdlPv(ptr noundef nonnull %42) #16
-  br label %if.then.i199
+  br label %if.then.i204
 
-if.then.i199:                                     ; preds = %delete.end.i193, %if.then.i188, %_ZN6Halide5Tools5ImageItED2Ev.exit183
+if.then.i204:                                     ; preds = %delete.end.i198, %if.then.i193, %_ZN6Halide5Tools5ImageItED2Ev.exit188
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %blurry) #14
-  %ref_count.i196 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %33, i64 0, i32 1
-  %45 = load i32, ptr %ref_count.i196, align 8, !tbaa !31
-  %dec.i197 = add nsw i32 %45, -1
-  store i32 %dec.i197, ptr %ref_count.i196, align 8, !tbaa !31
-  %cmp.i198 = icmp eq i32 %dec.i197, 0
-  br i1 %cmp.i198, label %delete.notnull.i202, label %_ZN6Halide5Tools5ImageItED2Ev.exit205
+  %ref_count.i201 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %33, i64 0, i32 1
+  %45 = load i32, ptr %ref_count.i201, align 8, !tbaa !31
+  %dec.i202 = add nsw i32 %45, -1
+  store i32 %dec.i202, ptr %ref_count.i201, align 8, !tbaa !31
+  %cmp.i203 = icmp eq i32 %dec.i202, 0
+  br i1 %cmp.i203, label %delete.notnull.i207, label %_ZN6Halide5Tools5ImageItED2Ev.exit210
 
-delete.notnull.i202:                              ; preds = %if.then.i199
-  %alloc.i.i200 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %33, i64 0, i32 2
-  %46 = load ptr, ptr %alloc.i.i200, align 8, !tbaa !34
-  %isnull.i.i201 = icmp eq ptr %46, null
-  br i1 %isnull.i.i201, label %delete.end.i204, label %delete.notnull.i.i203
+delete.notnull.i207:                              ; preds = %if.then.i204
+  %alloc.i.i205 = getelementptr inbounds %"struct.Halide::Tools::Image<unsigned short>::Contents", ptr %33, i64 0, i32 2
+  %46 = load ptr, ptr %alloc.i.i205, align 8, !tbaa !34
+  %isnull.i.i206 = icmp eq ptr %46, null
+  br i1 %isnull.i.i206, label %delete.end.i209, label %delete.notnull.i.i208
 
-delete.notnull.i.i203:                            ; preds = %delete.notnull.i202
+delete.notnull.i.i208:                            ; preds = %delete.notnull.i207
   call void @_ZdaPv(ptr noundef nonnull %46) #16
-  br label %delete.end.i204
+  br label %delete.end.i209
 
-delete.end.i204:                                  ; preds = %delete.notnull.i.i203, %delete.notnull.i202
+delete.end.i209:                                  ; preds = %delete.notnull.i.i208, %delete.notnull.i207
   call void @_ZdlPv(ptr noundef nonnull %33) #16
-  br label %_ZN6Halide5Tools5ImageItED2Ev.exit205
+  br label %_ZN6Halide5Tools5ImageItED2Ev.exit210
 
-_ZN6Halide5Tools5ImageItED2Ev.exit205:            ; preds = %if.then.i199, %delete.end.i204
+_ZN6Halide5Tools5ImageItED2Ev.exit210:            ; preds = %if.then.i204, %delete.end.i209
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %input) #14
   ret i32 0
 
@@ -1908,201 +1908,201 @@ lpad16:                                           ; preds = %_ZN6Halide5Tools5Im
           cleanup
   br label %ehcleanup92
 
-lpad22:                                           ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit127
+lpad22:                                           ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit132
   %48 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup89
 
-lpad28:                                           ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit143
+lpad28:                                           ; preds = %_ZN6Halide5Tools5ImageItEC2ERKS2_.exit148
   %49 = landingpad { ptr, i32 }
           cleanup
   call void @_ZN6Halide5Tools5ImageItED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %agg.tmp25) #14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %halide) #14
   br label %ehcleanup89
 
-for.cond.cleanup49:                               ; preds = %for.inc76, %for.cond43.preheader
-  %50 = phi ptr [ %33, %for.cond43.preheader ], [ %3, %for.inc76 ]
+for.cond.cleanup49:                               ; preds = %for.inc76, %invoke.cont45.preheader
+  %50 = phi ptr [ %33, %invoke.cont45.preheader ], [ %3, %for.inc76 ]
   %inc81 = add nuw nsw i32 %y34.0, 1
   br label %for.cond35, !llvm.loop !65
 
 for.body50:                                       ; preds = %for.body50.preheader, %for.inc76
-  %x42.0420 = phi i32 [ %inc77, %for.inc76 ], [ 64, %for.body50.preheader ]
-  %51 = load ptr, ptr %host.i208, align 8, !tbaa !40
-  %52 = load i32, ptr %min.i209, align 8, !tbaa !10
-  %sub.i210 = sub nsw i32 %x42.0420, %52
-  %53 = load i32, ptr %arrayidx7.i211, align 4, !tbaa !10
-  %sub8.i212 = sub nsw i32 %y34.0, %53
-  %54 = load i32, ptr %arrayidx12.i213, align 8, !tbaa !10
-  %sub13.i214 = sub nsw i32 0, %54
-  %55 = load i32, ptr %arrayidx17.i215, align 4, !tbaa !10
-  %sub18.i216 = sub nsw i32 0, %55
-  %56 = load i32, ptr %stride.i217, align 8, !tbaa !10
-  %conv.i218 = sext i32 %56 to i64
-  %57 = load i32, ptr %arrayidx25.i219, align 4, !tbaa !10
-  %conv26.i220 = sext i32 %57 to i64
-  %58 = load i32, ptr %arrayidx30.i221, align 8, !tbaa !10
-  %conv31.i222 = sext i32 %58 to i64
-  %59 = load i32, ptr %arrayidx35.i223, align 4, !tbaa !10
-  %conv36.i224 = sext i32 %59 to i64
-  %conv37.i225 = sext i32 %sub.i210 to i64
-  %mul.i226 = mul nsw i64 %conv.i218, %conv37.i225
-  %conv38.i227 = sext i32 %sub8.i212 to i64
-  %mul39.i228 = mul nsw i64 %conv26.i220, %conv38.i227
-  %add.i229 = add i64 %mul39.i228, %mul.i226
-  %conv40.i230 = sext i32 %sub13.i214 to i64
-  %mul41.i231 = mul nsw i64 %conv31.i222, %conv40.i230
-  %add42.i232 = add i64 %add.i229, %mul41.i231
-  %conv43.i233 = sext i32 %sub18.i216 to i64
-  %mul44.i234 = mul nsw i64 %conv36.i224, %conv43.i233
-  %add45.i235 = add i64 %add42.i232, %mul44.i234
-  %arrayidx46.i236 = getelementptr inbounds i16, ptr %51, i64 %add45.i235
-  %60 = load i16, ptr %arrayidx46.i236, align 2, !tbaa !35
-  %61 = load ptr, ptr %host.i237, align 8, !tbaa !40
-  %62 = load i32, ptr %min.i238, align 8, !tbaa !10
-  %sub.i239 = sub nsw i32 %x42.0420, %62
-  %63 = load i32, ptr %arrayidx7.i240, align 4, !tbaa !10
-  %sub8.i241 = sub nsw i32 %y34.0, %63
-  %64 = load i32, ptr %arrayidx12.i242, align 8, !tbaa !10
-  %sub13.i243 = sub nsw i32 0, %64
-  %65 = load i32, ptr %arrayidx17.i244, align 4, !tbaa !10
-  %sub18.i245 = sub nsw i32 0, %65
-  %66 = load i32, ptr %stride.i246, align 8, !tbaa !10
-  %conv.i247 = sext i32 %66 to i64
-  %67 = load i32, ptr %arrayidx25.i248, align 4, !tbaa !10
-  %conv26.i249 = sext i32 %67 to i64
-  %68 = load i32, ptr %arrayidx30.i250, align 8, !tbaa !10
-  %conv31.i251 = sext i32 %68 to i64
-  %69 = load i32, ptr %arrayidx35.i252, align 4, !tbaa !10
-  %conv36.i253 = sext i32 %69 to i64
-  %conv37.i254 = sext i32 %sub.i239 to i64
-  %mul.i255 = mul nsw i64 %conv.i247, %conv37.i254
-  %conv38.i256 = sext i32 %sub8.i241 to i64
-  %mul39.i257 = mul nsw i64 %conv26.i249, %conv38.i256
-  %add.i258 = add i64 %mul39.i257, %mul.i255
-  %conv40.i259 = sext i32 %sub13.i243 to i64
-  %mul41.i260 = mul nsw i64 %conv31.i251, %conv40.i259
-  %add42.i261 = add i64 %add.i258, %mul41.i260
-  %conv43.i262 = sext i32 %sub18.i245 to i64
-  %mul44.i263 = mul nsw i64 %conv36.i253, %conv43.i262
-  %add45.i264 = add i64 %add42.i261, %mul44.i263
-  %arrayidx46.i265 = getelementptr inbounds i16, ptr %61, i64 %add45.i264
-  %70 = load i16, ptr %arrayidx46.i265, align 2, !tbaa !35
+  %x42.0423 = phi i32 [ %inc77, %for.inc76 ], [ 64, %for.body50.preheader ]
+  %51 = load ptr, ptr %host.i213, align 8, !tbaa !40
+  %52 = load i32, ptr %min.i214, align 8, !tbaa !10
+  %sub.i215 = sub nsw i32 %x42.0423, %52
+  %53 = load i32, ptr %arrayidx7.i216, align 4, !tbaa !10
+  %sub8.i217 = sub nsw i32 %y34.0, %53
+  %54 = load i32, ptr %arrayidx12.i218, align 8, !tbaa !10
+  %sub13.i219 = sub nsw i32 0, %54
+  %55 = load i32, ptr %arrayidx17.i220, align 4, !tbaa !10
+  %sub18.i221 = sub nsw i32 0, %55
+  %56 = load i32, ptr %stride.i222, align 8, !tbaa !10
+  %conv.i223 = sext i32 %56 to i64
+  %57 = load i32, ptr %arrayidx25.i224, align 4, !tbaa !10
+  %conv26.i225 = sext i32 %57 to i64
+  %58 = load i32, ptr %arrayidx30.i226, align 8, !tbaa !10
+  %conv31.i227 = sext i32 %58 to i64
+  %59 = load i32, ptr %arrayidx35.i228, align 4, !tbaa !10
+  %conv36.i229 = sext i32 %59 to i64
+  %conv37.i230 = sext i32 %sub.i215 to i64
+  %mul.i231 = mul nsw i64 %conv.i223, %conv37.i230
+  %conv38.i232 = sext i32 %sub8.i217 to i64
+  %mul39.i233 = mul nsw i64 %conv26.i225, %conv38.i232
+  %add.i234 = add i64 %mul39.i233, %mul.i231
+  %conv40.i235 = sext i32 %sub13.i219 to i64
+  %mul41.i236 = mul nsw i64 %conv31.i227, %conv40.i235
+  %add42.i237 = add i64 %add.i234, %mul41.i236
+  %conv43.i238 = sext i32 %sub18.i221 to i64
+  %mul44.i239 = mul nsw i64 %conv36.i229, %conv43.i238
+  %add45.i240 = add i64 %add42.i237, %mul44.i239
+  %arrayidx46.i241 = getelementptr inbounds i16, ptr %51, i64 %add45.i240
+  %60 = load i16, ptr %arrayidx46.i241, align 2, !tbaa !35
+  %61 = load ptr, ptr %host.i242, align 8, !tbaa !40
+  %62 = load i32, ptr %min.i243, align 8, !tbaa !10
+  %sub.i244 = sub nsw i32 %x42.0423, %62
+  %63 = load i32, ptr %arrayidx7.i245, align 4, !tbaa !10
+  %sub8.i246 = sub nsw i32 %y34.0, %63
+  %64 = load i32, ptr %arrayidx12.i247, align 8, !tbaa !10
+  %sub13.i248 = sub nsw i32 0, %64
+  %65 = load i32, ptr %arrayidx17.i249, align 4, !tbaa !10
+  %sub18.i250 = sub nsw i32 0, %65
+  %66 = load i32, ptr %stride.i251, align 8, !tbaa !10
+  %conv.i252 = sext i32 %66 to i64
+  %67 = load i32, ptr %arrayidx25.i253, align 4, !tbaa !10
+  %conv26.i254 = sext i32 %67 to i64
+  %68 = load i32, ptr %arrayidx30.i255, align 8, !tbaa !10
+  %conv31.i256 = sext i32 %68 to i64
+  %69 = load i32, ptr %arrayidx35.i257, align 4, !tbaa !10
+  %conv36.i258 = sext i32 %69 to i64
+  %conv37.i259 = sext i32 %sub.i244 to i64
+  %mul.i260 = mul nsw i64 %conv.i252, %conv37.i259
+  %conv38.i261 = sext i32 %sub8.i246 to i64
+  %mul39.i262 = mul nsw i64 %conv26.i254, %conv38.i261
+  %add.i263 = add i64 %mul39.i262, %mul.i260
+  %conv40.i264 = sext i32 %sub13.i248 to i64
+  %mul41.i265 = mul nsw i64 %conv31.i256, %conv40.i264
+  %add42.i266 = add i64 %add.i263, %mul41.i265
+  %conv43.i267 = sext i32 %sub18.i250 to i64
+  %mul44.i268 = mul nsw i64 %conv36.i258, %conv43.i267
+  %add45.i269 = add i64 %add42.i266, %mul44.i268
+  %arrayidx46.i270 = getelementptr inbounds i16, ptr %61, i64 %add45.i269
+  %70 = load i16, ptr %arrayidx46.i270, align 2, !tbaa !35
   %cmp57.not = icmp eq i16 %60, %70
   %71 = load ptr, ptr %halide, align 8, !tbaa !5
-  %host.i295 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 1
-  %72 = load ptr, ptr %host.i295, align 8, !tbaa !40
-  %min.i296 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4
-  %73 = load i32, ptr %min.i296, align 8, !tbaa !10
+  %host.i300 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 1
+  %72 = load ptr, ptr %host.i300, align 8, !tbaa !40
+  %min.i301 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4
+  %73 = load i32, ptr %min.i301, align 8, !tbaa !10
   br i1 %cmp57.not, label %lor.lhs.false, label %for.body50.if.then_crit_edge
 
 for.body50.if.then_crit_edge:                     ; preds = %for.body50
-  %arrayidx7.i385.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 1
-  %.pre425 = load i32, ptr %arrayidx7.i385.phi.trans.insert, align 4, !tbaa !10
-  %arrayidx12.i387.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 2
-  %.pre426 = load i32, ptr %arrayidx12.i387.phi.trans.insert, align 8, !tbaa !10
-  %arrayidx17.i389.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 3
-  %.pre427 = load i32, ptr %arrayidx17.i389.phi.trans.insert, align 4, !tbaa !10
-  %stride.i391.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3
-  %.pre428 = load i32, ptr %stride.i391.phi.trans.insert, align 8, !tbaa !10
-  %arrayidx25.i393.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 1
-  %.pre429 = load i32, ptr %arrayidx25.i393.phi.trans.insert, align 4, !tbaa !10
-  %arrayidx30.i395.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 2
-  %.pre430 = load i32, ptr %arrayidx30.i395.phi.trans.insert, align 8, !tbaa !10
-  %arrayidx35.i397.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 3
-  %.pre431 = load i32, ptr %arrayidx35.i397.phi.trans.insert, align 4, !tbaa !10
-  %.pre432 = sub nsw i32 %x42.0420, %73
-  %.pre433 = sub nsw i32 %y34.0, %.pre425
-  %.pre434 = sub nsw i32 0, %.pre426
-  %.pre435 = sub nsw i32 0, %.pre427
-  %.pre436 = sext i32 %.pre428 to i64
-  %.pre437 = sext i32 %.pre429 to i64
-  %.pre438 = sext i32 %.pre430 to i64
+  %arrayidx7.i390.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 1
+  %.pre428 = load i32, ptr %arrayidx7.i390.phi.trans.insert, align 4, !tbaa !10
+  %arrayidx12.i392.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 2
+  %.pre429 = load i32, ptr %arrayidx12.i392.phi.trans.insert, align 8, !tbaa !10
+  %arrayidx17.i394.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 3
+  %.pre430 = load i32, ptr %arrayidx17.i394.phi.trans.insert, align 4, !tbaa !10
+  %stride.i396.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3
+  %.pre431 = load i32, ptr %stride.i396.phi.trans.insert, align 8, !tbaa !10
+  %arrayidx25.i398.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 1
+  %.pre432 = load i32, ptr %arrayidx25.i398.phi.trans.insert, align 4, !tbaa !10
+  %arrayidx30.i400.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 2
+  %.pre433 = load i32, ptr %arrayidx30.i400.phi.trans.insert, align 8, !tbaa !10
+  %arrayidx35.i402.phi.trans.insert = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 3
+  %.pre434 = load i32, ptr %arrayidx35.i402.phi.trans.insert, align 4, !tbaa !10
+  %.pre435 = sub nsw i32 %x42.0423, %73
+  %.pre436 = sub nsw i32 %y34.0, %.pre428
+  %.pre437 = sub nsw i32 0, %.pre429
+  %.pre438 = sub nsw i32 0, %.pre430
   %.pre439 = sext i32 %.pre431 to i64
   %.pre440 = sext i32 %.pre432 to i64
-  %.pre441 = mul nsw i64 %.pre436, %.pre440
-  %.pre442 = sext i32 %.pre433 to i64
-  %.pre443 = mul nsw i64 %.pre437, %.pre442
-  %.pre444 = add i64 %.pre443, %.pre441
-  %.pre445 = sext i32 %.pre434 to i64
-  %.pre446 = mul nsw i64 %.pre438, %.pre445
-  %.pre447 = add i64 %.pre444, %.pre446
-  %.pre448 = sext i32 %.pre435 to i64
-  %.pre449 = mul nsw i64 %.pre439, %.pre448
+  %.pre441 = sext i32 %.pre433 to i64
+  %.pre442 = sext i32 %.pre434 to i64
+  %.pre443 = sext i32 %.pre435 to i64
+  %.pre444 = mul nsw i64 %.pre439, %.pre443
+  %.pre445 = sext i32 %.pre436 to i64
+  %.pre446 = mul nsw i64 %.pre440, %.pre445
+  %.pre447 = add i64 %.pre446, %.pre444
+  %.pre448 = sext i32 %.pre437 to i64
+  %.pre449 = mul nsw i64 %.pre441, %.pre448
   %.pre450 = add i64 %.pre447, %.pre449
+  %.pre451 = sext i32 %.pre438 to i64
+  %.pre452 = mul nsw i64 %.pre442, %.pre451
+  %.pre453 = add i64 %.pre450, %.pre452
   br label %if.then
 
 lor.lhs.false:                                    ; preds = %for.body50
-  %sub.i297 = sub nsw i32 %x42.0420, %73
-  %arrayidx7.i298 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 1
-  %74 = load i32, ptr %arrayidx7.i298, align 4, !tbaa !10
-  %sub8.i299 = sub nsw i32 %y34.0, %74
-  %arrayidx12.i300 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 2
-  %75 = load i32, ptr %arrayidx12.i300, align 8, !tbaa !10
-  %sub13.i301 = sub nsw i32 0, %75
-  %arrayidx17.i302 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 3
-  %76 = load i32, ptr %arrayidx17.i302, align 4, !tbaa !10
-  %sub18.i303 = sub nsw i32 0, %76
-  %stride.i304 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3
-  %77 = load i32, ptr %stride.i304, align 8, !tbaa !10
-  %conv.i305 = sext i32 %77 to i64
-  %arrayidx25.i306 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 1
-  %78 = load i32, ptr %arrayidx25.i306, align 4, !tbaa !10
-  %conv26.i307 = sext i32 %78 to i64
-  %arrayidx30.i308 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 2
-  %79 = load i32, ptr %arrayidx30.i308, align 8, !tbaa !10
-  %conv31.i309 = sext i32 %79 to i64
-  %arrayidx35.i310 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 3
-  %80 = load i32, ptr %arrayidx35.i310, align 4, !tbaa !10
-  %conv36.i311 = sext i32 %80 to i64
-  %conv37.i312 = sext i32 %sub.i297 to i64
-  %mul.i313 = mul nsw i64 %conv.i305, %conv37.i312
-  %conv38.i314 = sext i32 %sub8.i299 to i64
-  %mul39.i315 = mul nsw i64 %conv26.i307, %conv38.i314
-  %add.i316 = add i64 %mul39.i315, %mul.i313
-  %conv40.i317 = sext i32 %sub13.i301 to i64
-  %mul41.i318 = mul nsw i64 %conv31.i309, %conv40.i317
-  %add42.i319 = add i64 %add.i316, %mul41.i318
-  %conv43.i320 = sext i32 %sub18.i303 to i64
-  %mul44.i321 = mul nsw i64 %conv36.i311, %conv43.i320
-  %add45.i322 = add i64 %add42.i319, %mul44.i321
-  %arrayidx46.i323 = getelementptr inbounds i16, ptr %72, i64 %add45.i322
-  %81 = load i16, ptr %arrayidx46.i323, align 2, !tbaa !35
+  %sub.i302 = sub nsw i32 %x42.0423, %73
+  %arrayidx7.i303 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 1
+  %74 = load i32, ptr %arrayidx7.i303, align 4, !tbaa !10
+  %sub8.i304 = sub nsw i32 %y34.0, %74
+  %arrayidx12.i305 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 2
+  %75 = load i32, ptr %arrayidx12.i305, align 8, !tbaa !10
+  %sub13.i306 = sub nsw i32 0, %75
+  %arrayidx17.i307 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 4, i64 3
+  %76 = load i32, ptr %arrayidx17.i307, align 4, !tbaa !10
+  %sub18.i308 = sub nsw i32 0, %76
+  %stride.i309 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3
+  %77 = load i32, ptr %stride.i309, align 8, !tbaa !10
+  %conv.i310 = sext i32 %77 to i64
+  %arrayidx25.i311 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 1
+  %78 = load i32, ptr %arrayidx25.i311, align 4, !tbaa !10
+  %conv26.i312 = sext i32 %78 to i64
+  %arrayidx30.i313 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 2
+  %79 = load i32, ptr %arrayidx30.i313, align 8, !tbaa !10
+  %conv31.i314 = sext i32 %79 to i64
+  %arrayidx35.i315 = getelementptr inbounds %struct.buffer_t, ptr %71, i64 0, i32 3, i64 3
+  %80 = load i32, ptr %arrayidx35.i315, align 4, !tbaa !10
+  %conv36.i316 = sext i32 %80 to i64
+  %conv37.i317 = sext i32 %sub.i302 to i64
+  %mul.i318 = mul nsw i64 %conv.i310, %conv37.i317
+  %conv38.i319 = sext i32 %sub8.i304 to i64
+  %mul39.i320 = mul nsw i64 %conv26.i312, %conv38.i319
+  %add.i321 = add i64 %mul39.i320, %mul.i318
+  %conv40.i322 = sext i32 %sub13.i306 to i64
+  %mul41.i323 = mul nsw i64 %conv31.i314, %conv40.i322
+  %add42.i324 = add i64 %add.i321, %mul41.i323
+  %conv43.i325 = sext i32 %sub18.i308 to i64
+  %mul44.i326 = mul nsw i64 %conv36.i316, %conv43.i325
+  %add45.i327 = add i64 %add42.i324, %mul44.i326
+  %arrayidx46.i328 = getelementptr inbounds i16, ptr %72, i64 %add45.i327
+  %81 = load i16, ptr %arrayidx46.i328, align 2, !tbaa !35
   %cmp64.not = icmp eq i16 %60, %81
   br i1 %cmp64.not, label %for.inc76, label %if.then
 
 if.then:                                          ; preds = %for.body50.if.then_crit_edge, %lor.lhs.false
-  %add45.i409.pre-phi = phi i64 [ %.pre450, %for.body50.if.then_crit_edge ], [ %add45.i322, %lor.lhs.false ]
+  %add45.i414.pre-phi = phi i64 [ %.pre453, %for.body50.if.then_crit_edge ], [ %add45.i327, %lor.lhs.false ]
   %conv67 = zext i16 %60 to i32
   %conv70 = zext i16 %70 to i32
-  %arrayidx46.i410 = getelementptr inbounds i16, ptr %72, i64 %add45.i409.pre-phi
-  %82 = load i16, ptr %arrayidx46.i410, align 2, !tbaa !35
+  %arrayidx46.i415 = getelementptr inbounds i16, ptr %72, i64 %add45.i414.pre-phi
+  %82 = load i16, ptr %arrayidx46.i415, align 2, !tbaa !35
   %conv73 = zext i16 %82 to i32
-  %call75 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %x42.0420, i32 noundef %y34.0, i32 noundef %conv67, i32 noundef %conv70, i32 noundef %conv73)
+  %call75 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.1, i32 noundef %x42.0423, i32 noundef %y34.0, i32 noundef %conv67, i32 noundef %conv70, i32 noundef %conv73)
   br label %for.inc76
 
 for.inc76:                                        ; preds = %lor.lhs.false, %if.then
-  %inc77 = add nuw nsw i32 %x42.0420, 1
-  %83 = load i32, ptr %arrayidx.i.i206, align 4, !tbaa !10
-  %spec.select.i207 = call i32 @llvm.umax.i32(i32 %83, i32 1)
-  %sub47 = add nsw i32 %spec.select.i207, -64
+  %inc77 = add nuw nsw i32 %x42.0423, 1
+  %83 = load i32, ptr %arrayidx.i.i211, align 4, !tbaa !10
+  %spec.select.i212 = call i32 @llvm.umax.i32(i32 %83, i32 1)
+  %sub47 = add nsw i32 %spec.select.i212, -64
   %cmp48 = icmp slt i32 %inc77, %sub47
   br i1 %cmp48, label %for.body50, label %for.cond.cleanup49, !llvm.loop !66
 
 ehcleanup89:                                      ; preds = %lpad28, %lpad22
   %speedy.sink = phi ptr [ %speedy, %lpad28 ], [ %agg.tmp19, %lpad22 ]
-  %.pn = phi { ptr, i32 } [ %49, %lpad28 ], [ %48, %lpad22 ]
+  %.pn.pn = phi { ptr, i32 } [ %49, %lpad28 ], [ %48, %lpad22 ]
   call void @_ZN6Halide5Tools5ImageItED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %speedy.sink) #14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %speedy) #14
   br label %ehcleanup92
 
 ehcleanup92:                                      ; preds = %ehcleanup89, %lpad16
   %blurry.sink = phi ptr [ %blurry, %ehcleanup89 ], [ %agg.tmp, %lpad16 ]
-  %.pn.pn = phi { ptr, i32 } [ %.pn, %ehcleanup89 ], [ %47, %lpad16 ]
+  %.pn.pn.pn = phi { ptr, i32 } [ %.pn.pn, %ehcleanup89 ], [ %47, %lpad16 ]
   call void @_ZN6Halide5Tools5ImageItED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %blurry.sink) #14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %blurry) #14
   call void @_ZN6Halide5Tools5ImageItED2Ev(ptr noundef nonnull align 8 dereferenceable(8) %input) #14
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %input) #14
-  resume { ptr, i32 } %.pn.pn
+  resume { ptr, i32 } %.pn.pn.pn
 }
 
 ; Function Attrs: nounwind

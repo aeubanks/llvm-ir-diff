@@ -70,13 +70,13 @@ if.then:                                          ; preds = %entry
 if.end:                                           ; preds = %if.then, %entry
   %call.i = tail call noalias dereferenceable_or_null(72) ptr @malloc(i64 noundef 72) #12
   %cmp.i = icmp eq ptr %call.i, null
-  br i1 %cmp.i, label %if.then.i, label %ercOpen.exit
+  br i1 %cmp.i, label %if.then.i, label %ercSetErrorConcealment.exit
 
 if.then.i:                                        ; preds = %if.end
   tail call void @no_mem_exit(ptr noundef nonnull @.str.1) #11
-  br label %ercOpen.exit
+  br label %ercSetErrorConcealment.exit
 
-ercOpen.exit:                                     ; preds = %if.end, %if.then.i
+ercSetErrorConcealment.exit:                      ; preds = %if.end, %if.then.i
   store i32 0, ptr %call.i, align 8, !tbaa !9
   %yCondition.i = getelementptr inbounds %struct.ercVariables_s, ptr %call.i, i64 0, i32 2
   %prevFrameYCondition.i = getelementptr inbounds %struct.ercVariables_s, ptr %call.i, i64 0, i32 7

@@ -152,7 +152,7 @@ if.end10:                                         ; preds = %if.end10.critedge, 
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #4 {
-entry:
+_ZN6Circle4HideEv.exit:
   ret i32 0
 }
 

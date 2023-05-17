@@ -117,10 +117,10 @@ entry:
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @_Z9put_pointii(i32 noundef %a, i32 noundef %b) local_unnamed_addr #6 {
 entry:
-  %or.cond.i = icmp ult i32 %a, 40
-  %0 = icmp ult i32 %b, 24
-  %narrow.i = and i1 %or.cond.i, %0
-  br i1 %narrow.i, label %if.then, label %if.end
+  %or.cond.i = icmp ugt i32 %a, 39
+  %0 = icmp ugt i32 %b, 23
+  %narrow.i.not = or i1 %or.cond.i, %0
+  br i1 %narrow.i.not, label %if.end, label %if.then
 
 if.then:                                          ; preds = %entry
   %idxprom = zext i32 %a to i64
@@ -154,10 +154,10 @@ for.cond:                                         ; preds = %if.end12, %entry
   %y0.addr.0 = phi i32 [ %y0, %entry ], [ %y0.addr.1, %if.end12 ]
   %x0.addr.0 = phi i32 [ %x0, %entry ], [ %x0.addr.1, %if.end12 ]
   %eps.0 = phi i32 [ 0, %entry ], [ %eps.2, %if.end12 ]
-  %or.cond.i.i = icmp ult i32 %x0.addr.0, 40
-  %0 = icmp ult i32 %y0.addr.0, 24
-  %narrow.i.i = and i1 %0, %or.cond.i.i
-  br i1 %narrow.i.i, label %if.then.i, label %_Z9put_pointii.exit
+  %or.cond.i.i = icmp ugt i32 %x0.addr.0, 39
+  %0 = icmp ugt i32 %y0.addr.0, 23
+  %narrow.i.not.i = or i1 %0, %or.cond.i.i
+  br i1 %narrow.i.not.i, label %_Z9put_pointii.exit, label %if.then.i
 
 if.then.i:                                        ; preds = %for.cond
   %idxprom.i = zext i32 %x0.addr.0 to i64
@@ -175,13 +175,13 @@ _Z9put_pointii.exit:                              ; preds = %for.cond, %if.then.
 if.end12:                                         ; preds = %_Z9put_pointii.exit
   %cmp13.not = icmp sgt i32 %eps.0, %add
   %add15 = select i1 %cmp13.not, i32 0, i32 %spec.select45
-  %x0.addr.1 = add nsw i32 %x0.addr.0, %add15
+  %x0.addr.1 = add nsw i32 %add15, %x0.addr.0
   %add16 = select i1 %cmp13.not, i32 0, i32 %mul7
-  %eps.1 = add nsw i32 %eps.0, %add16
+  %eps.1 = add nsw i32 %add16, %eps.0
   %cmp18.not = icmp slt i32 %eps.1, %spec.select
   %or.cond46 = select i1 %cmp18.not, i1 true, i1 %cmp20.not
   %add22 = select i1 %or.cond46, i32 0, i32 %dy.0
-  %y0.addr.1 = add nsw i32 %y0.addr.0, %add22
+  %y0.addr.1 = add nsw i32 %add22, %y0.addr.0
   %sub23 = select i1 %or.cond46, i32 0, i32 %mul
   %eps.2 = sub nsw i32 %eps.1, %sub23
   br label %for.cond, !llvm.loop !8
@@ -365,10 +365,10 @@ for.cond.i.i:                                     ; preds = %if.end12.i.i, %entr
   %y0.addr.0.i.i = phi i32 [ %3, %entry ], [ %y0.addr.1.i.i, %if.end12.i.i ]
   %x0.addr.0.i.i = phi i32 [ %1, %entry ], [ %x0.addr.1.i.i, %if.end12.i.i ]
   %eps.0.i.i = phi i32 [ 0, %entry ], [ %eps.2.i.i, %if.end12.i.i ]
-  %or.cond.i.i.i.i = icmp ult i32 %x0.addr.0.i.i, 40
-  %6 = icmp ult i32 %y0.addr.0.i.i, 24
-  %narrow.i.i.i.i = and i1 %6, %or.cond.i.i.i.i
-  br i1 %narrow.i.i.i.i, label %if.then.i.i.i, label %_Z9put_pointii.exit.i.i
+  %or.cond.i.i.i.i = icmp ugt i32 %x0.addr.0.i.i, 39
+  %6 = icmp ugt i32 %y0.addr.0.i.i, 23
+  %narrow.i.not.i.i.i = or i1 %6, %or.cond.i.i.i.i
+  br i1 %narrow.i.not.i.i.i, label %_Z9put_pointii.exit.i.i, label %if.then.i.i.i
 
 if.then.i.i.i:                                    ; preds = %for.cond.i.i
   %idxprom.i.i.i = zext i32 %x0.addr.0.i.i to i64
@@ -418,10 +418,10 @@ for.cond.i.i31:                                   ; preds = %if.end12.i.i51, %_Z
   %y0.addr.0.i.i26 = phi i32 [ %9, %_Z8put_lineP5pointS0_.exit ], [ %y0.addr.1.i.i48, %if.end12.i.i51 ]
   %x0.addr.0.i.i27 = phi i32 [ %8, %_Z8put_lineP5pointS0_.exit ], [ %x0.addr.1.i.i42, %if.end12.i.i51 ]
   %eps.0.i.i28 = phi i32 [ 0, %_Z8put_lineP5pointS0_.exit ], [ %eps.2.i.i50, %if.end12.i.i51 ]
-  %or.cond.i.i.i.i29 = icmp ult i32 %x0.addr.0.i.i27, 40
-  %10 = icmp ult i32 %y0.addr.0.i.i26, 24
-  %narrow.i.i.i.i30 = and i1 %10, %or.cond.i.i.i.i29
-  br i1 %narrow.i.i.i.i30, label %if.then.i.i.i35, label %_Z9put_pointii.exit.i.i39
+  %or.cond.i.i.i.i29 = icmp ugt i32 %x0.addr.0.i.i27, 39
+  %10 = icmp ugt i32 %y0.addr.0.i.i26, 23
+  %narrow.i.not.i.i.i30 = or i1 %10, %or.cond.i.i.i.i29
+  br i1 %narrow.i.not.i.i.i30, label %_Z9put_pointii.exit.i.i39, label %if.then.i.i.i35
 
 if.then.i.i.i35:                                  ; preds = %for.cond.i.i31
   %idxprom.i.i.i32 = zext i32 %x0.addr.0.i.i27 to i64
@@ -473,10 +473,10 @@ for.cond.i.i72:                                   ; preds = %if.end12.i.i92, %_Z
   %y0.addr.0.i.i67 = phi i32 [ %5, %_Z8put_lineP5pointS0_.exit52 ], [ %y0.addr.1.i.i89, %if.end12.i.i92 ]
   %x0.addr.0.i.i68 = phi i32 [ %4, %_Z8put_lineP5pointS0_.exit52 ], [ %x0.addr.1.i.i83, %if.end12.i.i92 ]
   %eps.0.i.i69 = phi i32 [ 0, %_Z8put_lineP5pointS0_.exit52 ], [ %eps.2.i.i91, %if.end12.i.i92 ]
-  %or.cond.i.i.i.i70 = icmp ult i32 %x0.addr.0.i.i68, 40
-  %14 = icmp ult i32 %y0.addr.0.i.i67, 24
-  %narrow.i.i.i.i71 = and i1 %14, %or.cond.i.i.i.i70
-  br i1 %narrow.i.i.i.i71, label %if.then.i.i.i76, label %_Z9put_pointii.exit.i.i80
+  %or.cond.i.i.i.i70 = icmp ugt i32 %x0.addr.0.i.i68, 39
+  %14 = icmp ugt i32 %y0.addr.0.i.i67, 23
+  %narrow.i.not.i.i.i71 = or i1 %14, %or.cond.i.i.i.i70
+  br i1 %narrow.i.not.i.i.i71, label %_Z9put_pointii.exit.i.i80, label %if.then.i.i.i76
 
 if.then.i.i.i76:                                  ; preds = %for.cond.i.i72
   %idxprom.i.i.i73 = zext i32 %x0.addr.0.i.i68 to i64
@@ -528,10 +528,10 @@ for.cond.i.i113:                                  ; preds = %if.end12.i.i133, %_
   %y0.addr.0.i.i108 = phi i32 [ %17, %_Z8put_lineP5pointS0_.exit93 ], [ %y0.addr.1.i.i130, %if.end12.i.i133 ]
   %x0.addr.0.i.i109 = phi i32 [ %16, %_Z8put_lineP5pointS0_.exit93 ], [ %x0.addr.1.i.i124, %if.end12.i.i133 ]
   %eps.0.i.i110 = phi i32 [ 0, %_Z8put_lineP5pointS0_.exit93 ], [ %eps.2.i.i132, %if.end12.i.i133 ]
-  %or.cond.i.i.i.i111 = icmp ult i32 %x0.addr.0.i.i109, 40
-  %18 = icmp ult i32 %y0.addr.0.i.i108, 24
-  %narrow.i.i.i.i112 = and i1 %18, %or.cond.i.i.i.i111
-  br i1 %narrow.i.i.i.i112, label %if.then.i.i.i117, label %_Z9put_pointii.exit.i.i121
+  %or.cond.i.i.i.i111 = icmp ugt i32 %x0.addr.0.i.i109, 39
+  %18 = icmp ugt i32 %y0.addr.0.i.i108, 23
+  %narrow.i.not.i.i.i112 = or i1 %18, %or.cond.i.i.i.i111
+  br i1 %narrow.i.not.i.i.i112, label %_Z9put_pointii.exit.i.i121, label %if.then.i.i.i117
 
 if.then.i.i.i117:                                 ; preds = %for.cond.i.i113
   %idxprom.i.i.i114 = zext i32 %x0.addr.0.i.i109 to i64
@@ -644,10 +644,10 @@ entry:
   %7 = load i32, ptr %y12, align 4, !tbaa !28
   %add13 = add nsw i32 %7, %5
   %div14 = sdiv i32 %add13, 2
-  %or.cond.i.i.i = icmp ult i32 %div, 40
-  %8 = icmp ult i32 %div14, 24
-  %narrow.i.i.i = and i1 %or.cond.i.i.i, %8
-  br i1 %narrow.i.i.i, label %if.then.i.i, label %_Z9put_pointP5point.exit
+  %or.cond.i.i.i = icmp ugt i32 %div, 39
+  %8 = icmp ugt i32 %div14, 23
+  %narrow.i.not.i.i = or i1 %or.cond.i.i.i, %8
+  br i1 %narrow.i.not.i.i, label %_Z9put_pointP5point.exit, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %entry
   %idxprom.i.i = zext i32 %div to i64
@@ -728,7 +728,7 @@ entry:
 
 ; Function Attrs: norecurse uwtable
 define dso_local noundef i32 @main() local_unnamed_addr #14 personality ptr @__gxx_personality_v0 {
-_ZN9rectangleC2EP5pointS1_.exit:
+invoke.cont15:
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(960) @screen, i8 32, i64 960, i1 false)
   %call = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
   store i32 0, ptr %call, align 4, !tbaa !26
@@ -736,20 +736,20 @@ _ZN9rectangleC2EP5pointS1_.exit:
   store i32 0, ptr %y.i, align 4, !tbaa !28
   %call1 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
   store i32 10, ptr %call1, align 4, !tbaa !26
-  %y.i31 = getelementptr inbounds %struct.point, ptr %call1, i64 0, i32 1
-  store i32 10, ptr %y.i31, align 4, !tbaa !28
+  %y.i33 = getelementptr inbounds %struct.point, ptr %call1, i64 0, i32 1
+  store i32 10, ptr %y.i33, align 4, !tbaa !28
   %call4 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
   store i32 0, ptr %call4, align 4, !tbaa !26
-  %y.i32 = getelementptr inbounds %struct.point, ptr %call4, i64 0, i32 1
-  store i32 15, ptr %y.i32, align 4, !tbaa !28
+  %y.i34 = getelementptr inbounds %struct.point, ptr %call4, i64 0, i32 1
+  store i32 15, ptr %y.i34, align 4, !tbaa !28
   %call7 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
   store i32 15, ptr %call7, align 4, !tbaa !26
-  %y.i33 = getelementptr inbounds %struct.point, ptr %call7, i64 0, i32 1
-  store i32 10, ptr %y.i33, align 4, !tbaa !28
+  %y.i35 = getelementptr inbounds %struct.point, ptr %call7, i64 0, i32 1
+  store i32 10, ptr %y.i35, align 4, !tbaa !28
   %call10 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
   store i32 27, ptr %call10, align 4, !tbaa !26
-  %y.i34 = getelementptr inbounds %struct.point, ptr %call10, i64 0, i32 1
-  store i32 18, ptr %y.i34, align 4, !tbaa !28
+  %y.i36 = getelementptr inbounds %struct.point, ptr %call10, i64 0, i32 1
+  store i32 18, ptr %y.i36, align 4, !tbaa !28
   %call13 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #17
   %0 = load ptr, ptr @_ZN5shape4listE, align 8, !tbaa !23
   %next.i.i = getelementptr inbounds %struct.shape, ptr %call13, i64 0, i32 1
@@ -761,26 +761,26 @@ _ZN9rectangleC2EP5pointS1_.exit:
   %ne31.i = getelementptr inbounds %class.rectangle, ptr %call13, i64 0, i32 2
   store ptr %call1, ptr %ne31.i, align 8, !tbaa !31
   %call16 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #17
-  %next.i.i39 = getelementptr inbounds %struct.shape, ptr %call16, i64 0, i32 1
-  store ptr %call13, ptr %next.i.i39, align 8, !tbaa !24
+  %next.i.i41 = getelementptr inbounds %struct.shape, ptr %call16, i64 0, i32 1
+  store ptr %call13, ptr %next.i.i41, align 8, !tbaa !24
   store ptr %call16, ptr @_ZN5shape4listE, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [12 x ptr] }, ptr @_ZTV4line, i64 0, inrange i32 0, i64 2), ptr %call16, align 8, !tbaa !10
-  %call.i43 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
-          to label %_ZN4lineC2EP5pointi.exit unwind label %lpad17
+  %call.i45 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
+          to label %invoke.cont18 unwind label %lpad17
 
-_ZN4lineC2EP5pointi.exit:                         ; preds = %_ZN9rectangleC2EP5pointS1_.exit
-  store i32 16, ptr %call.i43, align 4, !tbaa !26
-  %y.i.i41 = getelementptr inbounds %struct.point, ptr %call.i43, i64 0, i32 1
-  store i32 15, ptr %y.i.i41, align 4, !tbaa !28
+invoke.cont18:                                    ; preds = %invoke.cont15
+  store i32 16, ptr %call.i45, align 4, !tbaa !26
+  %y.i.i43 = getelementptr inbounds %struct.point, ptr %call.i45, i64 0, i32 1
+  store i32 15, ptr %y.i.i43, align 4, !tbaa !28
   %w.i = getelementptr inbounds %class.line, ptr %call16, i64 0, i32 1
-  store ptr %call.i43, ptr %w.i, align 8, !tbaa !37
+  store ptr %call.i45, ptr %w.i, align 8, !tbaa !37
   %e.i = getelementptr inbounds %class.line, ptr %call16, i64 0, i32 2
   store ptr %call4, ptr %e.i, align 8, !tbaa !39
   %call19 = tail call noalias noundef nonnull dereferenceable(56) ptr @_Znwm(i64 noundef 56) #17
   invoke void @_ZN7myshapeC2EP5pointS1_(ptr noundef nonnull align 8 dereferenceable(56) %call19, ptr noundef nonnull %call7, ptr noundef nonnull %call10)
           to label %invoke.cont21 unwind label %lpad20
 
-invoke.cont21:                                    ; preds = %_ZN4lineC2EP5pointi.exit
+invoke.cont21:                                    ; preds = %invoke.cont18
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(960) @screen, i8 32, i64 960, i1 false)
   %p.03.i = load ptr, ptr @_ZN5shape4listE, align 8, !tbaa !23
   %tobool.not4.i = icmp eq ptr %p.03.i, null
@@ -803,8 +803,8 @@ _Z13shape_refreshv.exit:                          ; preds = %for.body.i, %invoke
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 9
   %2 = load ptr, ptr %vfn, align 8
   tail call void %2(ptr noundef nonnull align 8 dereferenceable(16) %call19, i32 noundef -10, i32 noundef -10)
-  %vtable.i44 = load ptr, ptr %call19, align 8, !tbaa !10
-  %3 = load ptr, ptr %vtable.i44, align 8
+  %vtable.i46 = load ptr, ptr %call19, align 8, !tbaa !10
+  %3 = load ptr, ptr %vtable.i46, align 8
   %call.i = tail call noundef ptr %3(ptr noundef nonnull align 8 dereferenceable(16) %call19)
   %vtable1.i = load ptr, ptr %call16, align 8, !tbaa !10
   %vfn2.i = getelementptr inbounds ptr, ptr %vtable1.i, i64 1
@@ -812,9 +812,9 @@ _Z13shape_refreshv.exit:                          ; preds = %for.body.i, %invoke
   %call3.i = tail call noundef ptr %4(ptr noundef nonnull align 8 dereferenceable(16) %call16)
   %5 = load i32, ptr %call.i, align 4, !tbaa !26
   %6 = load i32, ptr %call3.i, align 4, !tbaa !26
-  %sub.i45 = sub nsw i32 %5, %6
-  %y.i46 = getelementptr inbounds %struct.point, ptr %call.i, i64 0, i32 1
-  %7 = load i32, ptr %y.i46, align 4, !tbaa !28
+  %sub.i47 = sub nsw i32 %5, %6
+  %y.i48 = getelementptr inbounds %struct.point, ptr %call.i, i64 0, i32 1
+  %7 = load i32, ptr %y.i48, align 4, !tbaa !28
   %y5.i = getelementptr inbounds %struct.point, ptr %call3.i, i64 0, i32 1
   %8 = load i32, ptr %y5.i, align 4, !tbaa !28
   %sub6.i = add i32 %7, 1
@@ -822,53 +822,53 @@ _Z13shape_refreshv.exit:                          ; preds = %for.body.i, %invoke
   %vtable7.i = load ptr, ptr %call16, align 8, !tbaa !10
   %vfn8.i = getelementptr inbounds ptr, ptr %vtable7.i, i64 9
   %9 = load ptr, ptr %vfn8.i, align 8
-  tail call void %9(ptr noundef nonnull align 8 dereferenceable(16) %call16, i32 noundef %sub.i45, i32 noundef %add.i)
-  %vtable.i47 = load ptr, ptr %call16, align 8, !tbaa !10
-  %10 = load ptr, ptr %vtable.i47, align 8
-  %call.i48 = tail call noundef ptr %10(ptr noundef nonnull align 8 dereferenceable(16) %call16)
-  %vtable1.i49 = load ptr, ptr %call13, align 8, !tbaa !10
-  %vfn2.i50 = getelementptr inbounds ptr, ptr %vtable1.i49, i64 1
-  %11 = load ptr, ptr %vfn2.i50, align 8
-  %call3.i51 = tail call noundef ptr %11(ptr noundef nonnull align 8 dereferenceable(16) %call13)
-  %12 = load i32, ptr %call.i48, align 4, !tbaa !26
-  %13 = load i32, ptr %call3.i51, align 4, !tbaa !26
-  %sub.i52 = sub nsw i32 %12, %13
-  %y.i53 = getelementptr inbounds %struct.point, ptr %call.i48, i64 0, i32 1
-  %14 = load i32, ptr %y.i53, align 4, !tbaa !28
-  %y5.i54 = getelementptr inbounds %struct.point, ptr %call3.i51, i64 0, i32 1
-  %15 = load i32, ptr %y5.i54, align 4, !tbaa !28
-  %sub6.i55 = add i32 %14, 1
-  %add.i56 = sub i32 %sub6.i55, %15
-  %vtable7.i57 = load ptr, ptr %call13, align 8, !tbaa !10
-  %vfn8.i58 = getelementptr inbounds ptr, ptr %vtable7.i57, i64 9
-  %16 = load ptr, ptr %vfn8.i58, align 8
-  tail call void %16(ptr noundef nonnull align 8 dereferenceable(16) %call13, i32 noundef %sub.i52, i32 noundef %add.i56)
+  tail call void %9(ptr noundef nonnull align 8 dereferenceable(16) %call16, i32 noundef %sub.i47, i32 noundef %add.i)
+  %vtable.i49 = load ptr, ptr %call16, align 8, !tbaa !10
+  %10 = load ptr, ptr %vtable.i49, align 8
+  %call.i50 = tail call noundef ptr %10(ptr noundef nonnull align 8 dereferenceable(16) %call16)
+  %vtable1.i51 = load ptr, ptr %call13, align 8, !tbaa !10
+  %vfn2.i52 = getelementptr inbounds ptr, ptr %vtable1.i51, i64 1
+  %11 = load ptr, ptr %vfn2.i52, align 8
+  %call3.i53 = tail call noundef ptr %11(ptr noundef nonnull align 8 dereferenceable(16) %call13)
+  %12 = load i32, ptr %call.i50, align 4, !tbaa !26
+  %13 = load i32, ptr %call3.i53, align 4, !tbaa !26
+  %sub.i54 = sub nsw i32 %12, %13
+  %y.i55 = getelementptr inbounds %struct.point, ptr %call.i50, i64 0, i32 1
+  %14 = load i32, ptr %y.i55, align 4, !tbaa !28
+  %y5.i56 = getelementptr inbounds %struct.point, ptr %call3.i53, i64 0, i32 1
+  %15 = load i32, ptr %y5.i56, align 4, !tbaa !28
+  %sub6.i57 = add i32 %14, 1
+  %add.i58 = sub i32 %sub6.i57, %15
+  %vtable7.i59 = load ptr, ptr %call13, align 8, !tbaa !10
+  %vfn8.i60 = getelementptr inbounds ptr, ptr %vtable7.i59, i64 9
+  %16 = load ptr, ptr %vfn8.i60, align 8
+  tail call void %16(ptr noundef nonnull align 8 dereferenceable(16) %call13, i32 noundef %sub.i54, i32 noundef %add.i58)
   tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 16 dereferenceable(960) @screen, i8 32, i64 960, i1 false)
-  %p.03.i59 = load ptr, ptr @_ZN5shape4listE, align 8, !tbaa !23
-  %tobool.not4.i60 = icmp eq ptr %p.03.i59, null
-  br i1 %tobool.not4.i60, label %_Z13shape_refreshv.exit68, label %for.body.i67
+  %p.03.i61 = load ptr, ptr @_ZN5shape4listE, align 8, !tbaa !23
+  %tobool.not4.i62 = icmp eq ptr %p.03.i61, null
+  br i1 %tobool.not4.i62, label %_Z13shape_refreshv.exit70, label %for.body.i69
 
-for.body.i67:                                     ; preds = %_Z13shape_refreshv.exit, %for.body.i67
-  %p.05.i61 = phi ptr [ %p.0.i65, %for.body.i67 ], [ %p.03.i59, %_Z13shape_refreshv.exit ]
-  %vtable.i62 = load ptr, ptr %p.05.i61, align 8, !tbaa !10
-  %vfn.i63 = getelementptr inbounds ptr, ptr %vtable.i62, i64 8
-  %17 = load ptr, ptr %vfn.i63, align 8
-  tail call void %17(ptr noundef nonnull align 8 dereferenceable(16) %p.05.i61)
-  %next.i64 = getelementptr inbounds %struct.shape, ptr %p.05.i61, i64 0, i32 1
-  %p.0.i65 = load ptr, ptr %next.i64, align 8, !tbaa !23
-  %tobool.not.i66 = icmp eq ptr %p.0.i65, null
-  br i1 %tobool.not.i66, label %_Z13shape_refreshv.exit68, label %for.body.i67, !llvm.loop !32
+for.body.i69:                                     ; preds = %_Z13shape_refreshv.exit, %for.body.i69
+  %p.05.i63 = phi ptr [ %p.0.i67, %for.body.i69 ], [ %p.03.i61, %_Z13shape_refreshv.exit ]
+  %vtable.i64 = load ptr, ptr %p.05.i63, align 8, !tbaa !10
+  %vfn.i65 = getelementptr inbounds ptr, ptr %vtable.i64, i64 8
+  %17 = load ptr, ptr %vfn.i65, align 8
+  tail call void %17(ptr noundef nonnull align 8 dereferenceable(16) %p.05.i63)
+  %next.i66 = getelementptr inbounds %struct.shape, ptr %p.05.i63, i64 0, i32 1
+  %p.0.i67 = load ptr, ptr %next.i66, align 8, !tbaa !23
+  %tobool.not.i68 = icmp eq ptr %p.0.i67, null
+  br i1 %tobool.not.i68, label %_Z13shape_refreshv.exit70, label %for.body.i69, !llvm.loop !32
 
-_Z13shape_refreshv.exit68:                        ; preds = %for.body.i67, %_Z13shape_refreshv.exit
+_Z13shape_refreshv.exit70:                        ; preds = %for.body.i69, %_Z13shape_refreshv.exit
   tail call void @_Z14screen_refreshv()
   ret i32 0
 
-lpad17:                                           ; preds = %_ZN9rectangleC2EP5pointS1_.exit
+lpad17:                                           ; preds = %invoke.cont15
   %18 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup22
 
-lpad20:                                           ; preds = %_ZN4lineC2EP5pointi.exit
+lpad20:                                           ; preds = %invoke.cont18
   %19 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup22
@@ -987,8 +987,8 @@ invoke.cont39:                                    ; preds = %invoke.cont32
   %15 = load i32, ptr %y41, align 4, !tbaa !28
   %add44 = add nsw i32 %15, %div
   store i32 %sub36, ptr %call28, align 4, !tbaa !26
-  %y.i80 = getelementptr inbounds %struct.point, ptr %call28, i64 0, i32 1
-  store i32 %add44, ptr %y.i80, align 4, !tbaa !28
+  %y.i83 = getelementptr inbounds %struct.point, ptr %call28, i64 0, i32 1
+  store i32 %add44, ptr %y.i83, align 4, !tbaa !28
   %call46 = tail call noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
   %vtable47 = load ptr, ptr %this, align 8, !tbaa !10
   %vfn48 = getelementptr inbounds ptr, ptr %vtable47, i64 7
@@ -1011,65 +1011,65 @@ invoke.cont56:                                    ; preds = %invoke.cont50
   %div59 = sdiv i32 %add14, 4
   %add60 = add nsw i32 %19, %div59
   store i32 %add53, ptr %call46, align 4, !tbaa !26
-  %y.i81 = getelementptr inbounds %struct.point, ptr %call46, i64 0, i32 1
-  store i32 %add60, ptr %y.i81, align 4, !tbaa !28
+  %y.i84 = getelementptr inbounds %struct.point, ptr %call46, i64 0, i32 1
+  store i32 %add60, ptr %y.i84, align 4, !tbaa !28
   %call62 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #17
   %20 = load ptr, ptr @_ZN5shape4listE, align 8, !tbaa !23
-  %next.i.i82 = getelementptr inbounds %struct.shape, ptr %call62, i64 0, i32 1
-  store ptr %20, ptr %next.i.i82, align 8, !tbaa !24
+  %next.i.i85 = getelementptr inbounds %struct.shape, ptr %call62, i64 0, i32 1
+  store ptr %20, ptr %next.i.i85, align 8, !tbaa !24
   store ptr %call62, ptr @_ZN5shape4listE, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [12 x ptr] }, ptr @_ZTV4line, i64 0, inrange i32 0, i64 2), ptr %call62, align 8, !tbaa !10
-  %call.i8386 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
-          to label %_ZN4lineC2EP5pointi.exit unwind label %lpad63
+  %call.i8689 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
+          to label %invoke.cont64 unwind label %lpad63
 
-_ZN4lineC2EP5pointi.exit:                         ; preds = %invoke.cont56
+invoke.cont64:                                    ; preds = %invoke.cont56
   %sub.i = add i32 %10, 3
-  store i32 %sub.i, ptr %call.i8386, align 4, !tbaa !26
-  %y.i.i85 = getelementptr inbounds %struct.point, ptr %call.i8386, i64 0, i32 1
-  store i32 %add26, ptr %y.i.i85, align 4, !tbaa !28
+  store i32 %sub.i, ptr %call.i8689, align 4, !tbaa !26
+  %y.i.i88 = getelementptr inbounds %struct.point, ptr %call.i8689, i64 0, i32 1
+  store i32 %add26, ptr %y.i.i88, align 4, !tbaa !28
   %w.i = getelementptr inbounds %class.line, ptr %call62, i64 0, i32 1
-  store ptr %call.i8386, ptr %w.i, align 8, !tbaa !37
+  store ptr %call.i8689, ptr %w.i, align 8, !tbaa !37
   %e.i = getelementptr inbounds %class.line, ptr %call62, i64 0, i32 2
   store ptr %call15, ptr %e.i, align 8, !tbaa !39
   %l_eye = getelementptr inbounds %class.myshape, ptr %this, i64 0, i32 1
   store ptr %call62, ptr %l_eye, align 8, !tbaa !33
   %call65 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #17
-  %next.i.i87 = getelementptr inbounds %struct.shape, ptr %call65, i64 0, i32 1
-  store ptr %call62, ptr %next.i.i87, align 8, !tbaa !24
+  %next.i.i90 = getelementptr inbounds %struct.shape, ptr %call65, i64 0, i32 1
+  store ptr %call62, ptr %next.i.i90, align 8, !tbaa !24
   store ptr %call65, ptr @_ZN5shape4listE, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [12 x ptr] }, ptr @_ZTV4line, i64 0, inrange i32 0, i64 2), ptr %call65, align 8, !tbaa !10
-  %call.i8894 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
-          to label %_ZN4lineC2EP5pointi.exit95 unwind label %lpad66
+  %call.i9197 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
+          to label %invoke.cont67 unwind label %lpad66
 
-_ZN4lineC2EP5pointi.exit95:                       ; preds = %_ZN4lineC2EP5pointi.exit
-  %sub.i89 = add i32 %sub36, 1
-  store i32 %sub.i89, ptr %call.i8894, align 4, !tbaa !26
-  %y.i.i91 = getelementptr inbounds %struct.point, ptr %call.i8894, i64 0, i32 1
-  store i32 %add44, ptr %y.i.i91, align 4, !tbaa !28
-  %w.i92 = getelementptr inbounds %class.line, ptr %call65, i64 0, i32 1
-  store ptr %call.i8894, ptr %w.i92, align 8, !tbaa !37
-  %e.i93 = getelementptr inbounds %class.line, ptr %call65, i64 0, i32 2
-  store ptr %call28, ptr %e.i93, align 8, !tbaa !39
+invoke.cont67:                                    ; preds = %invoke.cont64
+  %sub.i92 = add i32 %sub36, 1
+  store i32 %sub.i92, ptr %call.i9197, align 4, !tbaa !26
+  %y.i.i94 = getelementptr inbounds %struct.point, ptr %call.i9197, i64 0, i32 1
+  store i32 %add44, ptr %y.i.i94, align 4, !tbaa !28
+  %w.i95 = getelementptr inbounds %class.line, ptr %call65, i64 0, i32 1
+  store ptr %call.i9197, ptr %w.i95, align 8, !tbaa !37
+  %e.i96 = getelementptr inbounds %class.line, ptr %call65, i64 0, i32 2
+  store ptr %call28, ptr %e.i96, align 8, !tbaa !39
   %r_eye = getelementptr inbounds %class.myshape, ptr %this, i64 0, i32 2
   store ptr %call65, ptr %r_eye, align 8, !tbaa !35
   %call68 = tail call noalias noundef nonnull dereferenceable(32) ptr @_Znwm(i64 noundef 32) #17
-  %next.i.i96 = getelementptr inbounds %struct.shape, ptr %call68, i64 0, i32 1
-  store ptr %call65, ptr %next.i.i96, align 8, !tbaa !24
+  %next.i.i99 = getelementptr inbounds %struct.shape, ptr %call68, i64 0, i32 1
+  store ptr %call65, ptr %next.i.i99, align 8, !tbaa !24
   store ptr %call68, ptr @_ZN5shape4listE, align 8, !tbaa !23
   store ptr getelementptr inbounds ({ [12 x ptr] }, ptr @_ZTV4line, i64 0, inrange i32 0, i64 2), ptr %call68, align 8, !tbaa !10
-  %call.i97103 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
-          to label %_ZN4lineC2EP5pointi.exit104 unwind label %lpad70
+  %call.i100106 = invoke noalias noundef nonnull dereferenceable(8) ptr @_Znwm(i64 noundef 8) #17
+          to label %invoke.cont71 unwind label %lpad70
 
-_ZN4lineC2EP5pointi.exit104:                      ; preds = %_ZN4lineC2EP5pointi.exit95
+invoke.cont71:                                    ; preds = %invoke.cont67
   %add.i = add i32 %sub, -4
-  %sub.i98 = add i32 %add.i, %add53
-  store i32 %sub.i98, ptr %call.i97103, align 4, !tbaa !26
-  %y.i.i100 = getelementptr inbounds %struct.point, ptr %call.i97103, i64 0, i32 1
-  store i32 %add60, ptr %y.i.i100, align 4, !tbaa !28
-  %w.i101 = getelementptr inbounds %class.line, ptr %call68, i64 0, i32 1
-  store ptr %call.i97103, ptr %w.i101, align 8, !tbaa !37
-  %e.i102 = getelementptr inbounds %class.line, ptr %call68, i64 0, i32 2
-  store ptr %call46, ptr %e.i102, align 8, !tbaa !39
+  %sub.i101 = add i32 %add.i, %add53
+  store i32 %sub.i101, ptr %call.i100106, align 4, !tbaa !26
+  %y.i.i103 = getelementptr inbounds %struct.point, ptr %call.i100106, i64 0, i32 1
+  store i32 %add60, ptr %y.i.i103, align 4, !tbaa !28
+  %w.i104 = getelementptr inbounds %class.line, ptr %call68, i64 0, i32 1
+  store ptr %call.i100106, ptr %w.i104, align 8, !tbaa !37
+  %e.i105 = getelementptr inbounds %class.line, ptr %call68, i64 0, i32 2
+  store ptr %call46, ptr %e.i105, align 8, !tbaa !39
   %mouth = getelementptr inbounds %class.myshape, ptr %this, i64 0, i32 3
   store ptr %call68, ptr %mouth, align 8, !tbaa !36
   ret void
@@ -1089,12 +1089,12 @@ lpad63:                                           ; preds = %invoke.cont56
           cleanup
   br label %ehcleanup73
 
-lpad66:                                           ; preds = %_ZN4lineC2EP5pointi.exit
+lpad66:                                           ; preds = %invoke.cont64
   %24 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup73
 
-lpad70:                                           ; preds = %_ZN4lineC2EP5pointi.exit95
+lpad70:                                           ; preds = %invoke.cont67
   %25 = landingpad { ptr, i32 }
           cleanup
   br label %ehcleanup73
@@ -1299,10 +1299,10 @@ for.cond.i.i:                                     ; preds = %if.end12.i.i, %entr
   %y0.addr.0.i.i = phi i32 [ %3, %entry ], [ %y0.addr.1.i.i, %if.end12.i.i ]
   %x0.addr.0.i.i = phi i32 [ %2, %entry ], [ %x0.addr.1.i.i, %if.end12.i.i ]
   %eps.0.i.i = phi i32 [ 0, %entry ], [ %eps.2.i.i, %if.end12.i.i ]
-  %or.cond.i.i.i.i = icmp ult i32 %x0.addr.0.i.i, 40
-  %6 = icmp ult i32 %y0.addr.0.i.i, 24
-  %narrow.i.i.i.i = and i1 %6, %or.cond.i.i.i.i
-  br i1 %narrow.i.i.i.i, label %if.then.i.i.i, label %_Z9put_pointii.exit.i.i
+  %or.cond.i.i.i.i = icmp ugt i32 %x0.addr.0.i.i, 39
+  %6 = icmp ugt i32 %y0.addr.0.i.i, 23
+  %narrow.i.not.i.i.i = or i1 %6, %or.cond.i.i.i.i
+  br i1 %narrow.i.not.i.i.i, label %_Z9put_pointii.exit.i.i, label %if.then.i.i.i
 
 if.then.i.i.i:                                    ; preds = %for.cond.i.i
   %idxprom.i.i.i = zext i32 %x0.addr.0.i.i to i64

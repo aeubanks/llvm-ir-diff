@@ -143,14 +143,14 @@ if.end.i66:                                       ; preds = %if.then18
   store i32 %inc.i, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 8), align 8, !tbaa !31
   %19 = load ptr, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 1), align 8, !tbaa !32
   %cmp1.not.i = icmp eq ptr %19, null
-  br i1 %cmp1.not.i, label %if.end4.i, label %if.then2.i
+  br i1 %cmp1.not.i, label %alloc_add_chunk.exit, label %if.then2.i
 
 if.then2.i:                                       ; preds = %if.end.i66
   tail call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %19, ptr noundef nonnull align 8 dereferenceable(48) @as_current, i64 48, i1 false), !tbaa.struct !33
   %.pre.i = load ptr, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 1), align 8, !tbaa !32
-  br label %if.end4.i
+  br label %alloc_add_chunk.exit
 
-if.end4.i:                                        ; preds = %if.then2.i, %if.end.i66
+alloc_add_chunk.exit:                             ; preds = %if.end.i66, %if.then2.i
   %20 = phi ptr [ %.pre.i, %if.then2.i ], [ null, %if.end.i66 ]
   %add.ptr.i67 = getelementptr inbounds i8, ptr %call.i64, i64 48
   store ptr %add.ptr.i67, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 0, i32 1), align 8, !tbaa !16
@@ -166,9 +166,9 @@ if.end4.i:                                        ; preds = %if.then2.i, %if.end
   store ptr %call.i64, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 1), align 8, !tbaa !32
   br label %if.end22
 
-if.end22:                                         ; preds = %if.end4.i, %if.end14
-  %23 = phi ptr [ %add.ptr8.i, %if.end4.i ], [ %6, %if.end14 ]
-  %24 = phi ptr [ %add.ptr.i67, %if.end4.i ], [ %7, %if.end14 ]
+if.end22:                                         ; preds = %alloc_add_chunk.exit, %if.end14
+  %23 = phi ptr [ %add.ptr8.i, %alloc_add_chunk.exit ], [ %6, %if.end14 ]
+  %24 = phi ptr [ %add.ptr.i67, %alloc_add_chunk.exit ], [ %7, %if.end14 ]
   %cmp23 = icmp eq i32 %elt_size, 1
   br i1 %cmp23, label %if.then25, label %if.else
 
@@ -185,7 +185,7 @@ if.else:                                          ; preds = %if.end22
   store ptr %add.ptr36, ptr getelementptr inbounds (%struct.alloc_state_s, ptr @as_current, i64 0, i32 0, i32 1), align 8, !tbaa !16
   br label %cleanup38
 
-cleanup38:                                        ; preds = %cleanup10, %alloc_large.exit, %if.then18, %if.else, %if.then25
+cleanup38:                                        ; preds = %if.then18, %cleanup10, %alloc_large.exit, %if.else, %if.then25
   %retval.3 = phi ptr [ %add.ptr, %if.then25 ], [ %24, %if.else ], [ %4, %cleanup10 ], [ %add.ptr.i, %alloc_large.exit ], [ null, %if.then18 ]
   ret ptr %retval.3
 }
@@ -462,7 +462,7 @@ if.then85:                                        ; preds = %if.end80
   store ptr %cobj, ptr %arrayidx, align 8, !tbaa !30
   br label %cleanup87
 
-cleanup87:                                        ; preds = %for.cond.i, %for.inc, %if.then47, %if.then43, %if.end80, %if.then85, %if.else71, %if.then54, %sw.bb60, %lor.lhs.false28, %if.then34, %lor.lhs.false8, %if.then12, %if.then5.i, %if.then
+cleanup87:                                        ; preds = %for.cond.i, %for.inc, %if.then47, %if.then43, %if.then5.i, %if.then, %if.end80, %if.then85, %if.else71, %if.then54, %sw.bb60, %lor.lhs.false28, %if.then34, %lor.lhs.false8, %if.then12
   ret void
 }
 
@@ -819,8 +819,8 @@ if.end:                                           ; preds = %land.lhs.true, %ent
   br i1 %cmp13.not68, label %while.body, label %for.cond.preheader
 
 for.cond.preheader:                               ; preds = %if.end20, %if.end
-  %cmp22.not70 = icmp eq ptr %0, %save
-  br i1 %cmp22.not70, label %cleanup39, label %for.body
+  %cmp22.not70.not = icmp eq ptr %0, %save
+  br i1 %cmp22.not70.not, label %cleanup39, label %for.body
 
 while.body:                                       ; preds = %if.end, %if.end20
   %chunk.069 = phi ptr [ %10, %if.end20 ], [ %0, %if.end ]
@@ -861,8 +861,8 @@ for.body25:                                       ; preds = %for.cond23
 for.inc33:                                        ; preds = %for.cond23
   %saved = getelementptr inbounds %struct.alloc_state_s, ptr %asp.071, i64 0, i32 11
   %12 = load ptr, ptr %saved, align 8, !tbaa !39
-  %cmp22.not = icmp eq ptr %12, %save
-  br i1 %cmp22.not, label %cleanup39, label %for.body, !llvm.loop !65
+  %cmp22.not.not = icmp eq ptr %12, %save
+  br i1 %cmp22.not.not, label %cleanup39, label %for.body, !llvm.loop !65
 
 cleanup39:                                        ; preds = %land.lhs.true16, %for.inc33, %for.body25, %for.cond.preheader, %if.then, %land.rhs
   %retval.4.shrunk = phi i32 [ 0, %if.then ], [ %5, %land.rhs ], [ 0, %for.cond.preheader ], [ 1, %for.body25 ], [ 0, %for.inc33 ], [ 1, %land.lhs.true16 ]

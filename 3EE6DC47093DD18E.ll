@@ -128,7 +128,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testA() local_unnamed_addr #4 {
-entry:
+if.end:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -143,58 +143,58 @@ entry:
   %bf.load = load i16, ptr @sA, align 2
   %bf.clear9 = and i16 %bf.load, 31
   %0 = mul i32 %add.i.1, -2139243339
-  %add.i199 = add i32 %0, -1492899873
-  %div1.i200 = lshr i32 %add.i199, 16
-  %mul.i202 = mul i32 %add.i199, 1103515245
-  %add.i203 = add i32 %mul.i202, 12345
-  store i32 %add.i203, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i204 = lshr i32 %add.i203, 16
-  %conv55 = trunc i32 %div1.i200 to i16
-  %bf.value57 = shl i16 %conv55, 5
-  %bf.set60 = or i16 %bf.value57, %bf.clear9
+  %add.i205 = add i32 %0, -1492899873
+  %div1.i206 = lshr i32 %add.i205, 16
+  %mul.i208 = mul i32 %add.i205, 1103515245
+  %add.i209 = add i32 %mul.i208, 12345
+  store i32 %add.i209, ptr @myrnd.s, align 4, !tbaa !5
+  %1 = trunc i32 %div1.i206 to i16
+  %conv55 = shl i16 %1, 5
+  %bf.set60 = or i16 %conv55, %bf.clear9
   store i16 %bf.set60, ptr @sA, align 2
-  %1 = trunc i32 %div1.i204 to i16
-  %2 = add i16 %1, %conv55
-  %bf.lshr4.i = and i16 %2, 2047
-  %3 = urem i16 %bf.lshr4.i, 15
-  %add102 = add nuw nsw i32 %div1.i204, %div1.i200
-  %4 = trunc i32 %add102 to i16
-  %rem.lhs.trunc = and i16 %4, 2047
-  %rem216 = urem i16 %rem.lhs.trunc, 15
-  %cmp105.not = icmp eq i16 %rem216, %3
-  br i1 %cmp105.not, label %lor.lhs.false154, label %if.then107
+  %div1.i210 = lshr i32 %add.i209, 16
+  %2 = trunc i32 %div1.i210 to i16
+  %3 = add i16 %2, %1
+  %bf.lshr4.i = and i16 %3, 2047
+  %4 = urem i16 %bf.lshr4.i, 15
+  %add102 = add nuw nsw i32 %div1.i210, %div1.i206
+  %5 = trunc i32 %add102 to i16
+  %rem.lhs.trunc = and i16 %5, 2047
+  %rem222 = urem i16 %rem.lhs.trunc, 15
+  %cmp105.not = icmp eq i16 %rem222, %4
+  br i1 %cmp105.not, label %if.end108, label %if.then107
 
-if.then107:                                       ; preds = %entry
+if.then107:                                       ; preds = %if.end
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false154:                                 ; preds = %entry
-  %mul.i207 = mul i32 %add.i203, 1103515245
-  %add.i208 = add i32 %mul.i207, 12345
-  %div1.i209 = lshr i32 %add.i208, 16
-  %mul.i211 = mul i32 %add.i208, 1103515245
-  %add.i212 = add i32 %mul.i211, 12345
-  store i32 %add.i212, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i213 = lshr i32 %add.i212, 16
-  %conv111 = trunc i32 %div1.i209 to i16
-  %bf.value113 = shl i16 %conv111, 5
-  %bf.set116 = or i16 %bf.value113, %bf.clear9
-  %5 = trunc i32 %div1.i213 to i16
-  %conv13.i = shl i16 %5, 5
-  %bf.lshr4.i215 = add i16 %bf.set116, %conv13.i
-  store i16 %bf.lshr4.i215, ptr @sA, align 2
-  %bf.lshr.i.i = lshr i16 %bf.lshr4.i215, 5
+if.end108:                                        ; preds = %if.end
+  %mul.i213 = mul i32 %add.i209, 1103515245
+  %add.i214 = add i32 %mul.i213, 12345
+  %div1.i215 = lshr i32 %add.i214, 16
+  %mul.i217 = mul i32 %add.i214, 1103515245
+  %add.i218 = add i32 %mul.i217, 12345
+  store i32 %add.i218, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i219 = lshr i32 %add.i218, 16
+  %6 = trunc i32 %div1.i215 to i16
+  %conv111 = shl i16 %6, 5
+  %bf.set116 = or i16 %conv111, %bf.clear9
+  %7 = trunc i32 %div1.i219 to i16
+  %8 = shl i16 %7, 5
+  %bf.lshr4.i221 = add i16 %bf.set116, %8
+  store i16 %bf.lshr4.i221, ptr @sA, align 2
+  %bf.lshr.i.i = lshr i16 %bf.lshr4.i221, 5
   %conv.i.i = zext i16 %bf.lshr.i.i to i32
-  %add155 = add nuw nsw i32 %div1.i213, %div1.i209
+  %add155 = add nuw nsw i32 %div1.i219, %div1.i215
   %and156 = and i32 %add155, 2047
   %cmp157.not = icmp eq i32 %and156, %conv.i.i
   br i1 %cmp157.not, label %if.end160, label %if.then159
 
-if.then159:                                       ; preds = %lor.lhs.false154
+if.then159:                                       ; preds = %if.end108
   tail call void @abort() #8
   unreachable
 
-if.end160:                                        ; preds = %lor.lhs.false154
+if.end160:                                        ; preds = %if.end108
   ret void
 }
 
@@ -257,7 +257,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testB() local_unnamed_addr #4 {
-lor.lhs.false86:
+if.end:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -292,58 +292,58 @@ lor.lhs.false86:
   %bf.load = load i16, ptr @sB, align 2
   %bf.clear9 = and i16 %bf.load, 31
   %0 = mul i32 %add.i.5, -2139243339
-  %add.i171 = add i32 %0, -1492899873
-  %div1.i172 = lshr i32 %add.i171, 16
-  %mul.i174 = mul i32 %add.i171, 1103515245
-  %add.i175 = add i32 %mul.i174, 12345
-  store i32 %add.i175, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i176 = lshr i32 %add.i175, 16
-  %conv47 = trunc i32 %div1.i172 to i16
-  %bf.value49 = shl i16 %conv47, 5
-  %bf.set52 = or i16 %bf.value49, %bf.clear9
+  %add.i176 = add i32 %0, -1492899873
+  %div1.i177 = lshr i32 %add.i176, 16
+  %mul.i179 = mul i32 %add.i176, 1103515245
+  %add.i180 = add i32 %mul.i179, 12345
+  store i32 %add.i180, ptr @myrnd.s, align 4, !tbaa !5
+  %1 = trunc i32 %div1.i177 to i16
+  %conv47 = shl i16 %1, 5
+  %bf.set52 = or i16 %conv47, %bf.clear9
   store i16 %bf.set52, ptr @sB, align 2
-  %1 = trunc i32 %div1.i176 to i16
-  %2 = add i16 %1, %conv47
-  %bf.lshr4.i179 = and i16 %2, 2047
-  %3 = urem i16 %bf.lshr4.i179, 15
-  %add87 = add nuw nsw i32 %div1.i176, %div1.i172
-  %4 = trunc i32 %add87 to i16
-  %rem.lhs.trunc = and i16 %4, 2047
-  %rem191 = urem i16 %rem.lhs.trunc, 15
-  %cmp90.not = icmp eq i16 %rem191, %3
-  br i1 %cmp90.not, label %lor.lhs.false132, label %if.then92
+  %div1.i181 = lshr i32 %add.i180, 16
+  %2 = trunc i32 %div1.i181 to i16
+  %3 = add i16 %2, %1
+  %bf.lshr4.i184 = and i16 %3, 2047
+  %4 = urem i16 %bf.lshr4.i184, 15
+  %add87 = add nuw nsw i32 %div1.i181, %div1.i177
+  %5 = trunc i32 %add87 to i16
+  %rem.lhs.trunc = and i16 %5, 2047
+  %rem194 = urem i16 %rem.lhs.trunc, 15
+  %cmp90.not = icmp eq i16 %rem194, %4
+  br i1 %cmp90.not, label %if.end93, label %if.then92
 
-if.then92:                                        ; preds = %lor.lhs.false86
+if.then92:                                        ; preds = %if.end
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false132:                                 ; preds = %lor.lhs.false86
-  %mul.i180 = mul i32 %add.i175, 1103515245
-  %add.i181 = add i32 %mul.i180, 12345
-  %div1.i182 = lshr i32 %add.i181, 16
-  %mul.i184 = mul i32 %add.i181, 1103515245
-  %add.i185 = add i32 %mul.i184, 12345
-  store i32 %add.i185, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i186 = lshr i32 %add.i185, 16
-  %conv96 = trunc i32 %div1.i182 to i16
-  %bf.value98 = shl i16 %conv96, 5
-  %bf.set101 = or i16 %bf.value98, %bf.clear9
-  %5 = trunc i32 %div1.i186 to i16
-  %conv13.i = shl i16 %5, 5
-  %bf.lshr4.i188 = add i16 %bf.set101, %conv13.i
-  store i16 %bf.lshr4.i188, ptr @sB, align 2
-  %bf.lshr.i.i = lshr i16 %bf.lshr4.i188, 5
+if.end93:                                         ; preds = %if.end
+  %mul.i185 = mul i32 %add.i180, 1103515245
+  %add.i186 = add i32 %mul.i185, 12345
+  %div1.i187 = lshr i32 %add.i186, 16
+  %mul.i189 = mul i32 %add.i186, 1103515245
+  %add.i190 = add i32 %mul.i189, 12345
+  store i32 %add.i190, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i191 = lshr i32 %add.i190, 16
+  %6 = trunc i32 %div1.i187 to i16
+  %conv96 = shl i16 %6, 5
+  %bf.set101 = or i16 %conv96, %bf.clear9
+  %7 = trunc i32 %div1.i191 to i16
+  %8 = shl i16 %7, 5
+  %bf.lshr4.i193 = add i16 %bf.set101, %8
+  store i16 %bf.lshr4.i193, ptr @sB, align 2
+  %bf.lshr.i.i = lshr i16 %bf.lshr4.i193, 5
   %conv.i.i = zext i16 %bf.lshr.i.i to i32
-  %add133 = add nuw nsw i32 %div1.i186, %div1.i182
+  %add133 = add nuw nsw i32 %div1.i191, %div1.i187
   %and134 = and i32 %add133, 2047
   %cmp135.not = icmp eq i32 %and134, %conv.i.i
   br i1 %cmp135.not, label %if.end138, label %if.then137
 
-if.then137:                                       ; preds = %lor.lhs.false132
+if.then137:                                       ; preds = %if.end93
   tail call void @abort() #8
   unreachable
 
-if.end138:                                        ; preds = %lor.lhs.false132
+if.end138:                                        ; preds = %if.end93
   ret void
 }
 
@@ -360,9 +360,9 @@ entry:
   %0 = trunc i32 %x to i16
   %1 = lshr i16 %y.sroa.5.0.copyload, 5
   %2 = add i16 %1, %0
-  %bf.lshr5 = and i16 %2, 2047
-  %conv6 = zext i16 %bf.lshr5 to i32
-  ret i32 %conv6
+  %3 = and i16 %2, 2047
+  %bf.lshr59 = zext i16 %3 to i32
+  ret i32 %bf.lshr59
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
@@ -402,7 +402,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testC() local_unnamed_addr #4 {
-lor.lhs.false90:
+if.end:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -437,58 +437,58 @@ lor.lhs.false90:
   %bf.load = load i16, ptr getelementptr inbounds (%struct.C, ptr @sC, i64 0, i32 1), align 4
   %bf.clear9 = and i16 %bf.load, 31
   %0 = mul i32 %add.i.5, -2139243339
-  %add.i184 = add i32 %0, -1492899873
-  %div1.i185 = lshr i32 %add.i184, 16
-  %mul.i187 = mul i32 %add.i184, 1103515245
-  %add.i188 = add i32 %mul.i187, 12345
-  store i32 %add.i188, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i189 = lshr i32 %add.i188, 16
-  %conv48 = trunc i32 %div1.i185 to i16
-  %bf.value50 = shl i16 %conv48, 5
-  %bf.set53 = or i16 %bf.value50, %bf.clear9
+  %add.i189 = add i32 %0, -1492899873
+  %div1.i190 = lshr i32 %add.i189, 16
+  %mul.i192 = mul i32 %add.i189, 1103515245
+  %add.i193 = add i32 %mul.i192, 12345
+  store i32 %add.i193, ptr @myrnd.s, align 4, !tbaa !5
+  %1 = trunc i32 %div1.i190 to i16
+  %conv48 = shl i16 %1, 5
+  %bf.set53 = or i16 %conv48, %bf.clear9
   store i16 %bf.set53, ptr getelementptr inbounds (%struct.C, ptr @sC, i64 0, i32 1), align 4
-  %1 = trunc i32 %div1.i189 to i16
-  %2 = add i16 %1, %conv48
-  %bf.lshr5.i191 = and i16 %2, 2047
-  %3 = urem i16 %bf.lshr5.i191, 15
-  %add91 = add nuw nsw i32 %div1.i189, %div1.i185
-  %4 = trunc i32 %add91 to i16
-  %rem.lhs.trunc = and i16 %4, 2047
-  %rem202 = urem i16 %rem.lhs.trunc, 15
-  %cmp94.not = icmp eq i16 %rem202, %3
-  br i1 %cmp94.not, label %lor.lhs.false138, label %if.then96
+  %div1.i194 = lshr i32 %add.i193, 16
+  %2 = trunc i32 %div1.i194 to i16
+  %3 = add i16 %2, %1
+  %bf.lshr5.i = and i16 %3, 2047
+  %4 = urem i16 %bf.lshr5.i, 15
+  %add91 = add nuw nsw i32 %div1.i194, %div1.i190
+  %5 = trunc i32 %add91 to i16
+  %rem.lhs.trunc = and i16 %5, 2047
+  %rem204 = urem i16 %rem.lhs.trunc, 15
+  %cmp94.not = icmp eq i16 %rem204, %4
+  br i1 %cmp94.not, label %if.end97, label %if.then96
 
-if.then96:                                        ; preds = %lor.lhs.false90
+if.then96:                                        ; preds = %if.end
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false138:                                 ; preds = %lor.lhs.false90
-  %mul.i192 = mul i32 %add.i188, 1103515245
-  %add.i193 = add i32 %mul.i192, 12345
-  %div1.i194 = lshr i32 %add.i193, 16
+if.end97:                                         ; preds = %if.end
   %mul.i196 = mul i32 %add.i193, 1103515245
   %add.i197 = add i32 %mul.i196, 12345
-  store i32 %add.i197, ptr @myrnd.s, align 4, !tbaa !5
   %div1.i198 = lshr i32 %add.i197, 16
-  %conv100 = trunc i32 %div1.i194 to i16
-  %bf.value102 = shl i16 %conv100, 5
-  %bf.set105 = or i16 %bf.value102, %bf.clear9
-  %5 = trunc i32 %div1.i198 to i16
-  %conv13.i = shl i16 %5, 5
-  %bf.lshr4.i = add i16 %bf.set105, %conv13.i
+  %mul.i200 = mul i32 %add.i197, 1103515245
+  %add.i201 = add i32 %mul.i200, 12345
+  store i32 %add.i201, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i202 = lshr i32 %add.i201, 16
+  %6 = trunc i32 %div1.i198 to i16
+  %conv100 = shl i16 %6, 5
+  %bf.set105 = or i16 %conv100, %bf.clear9
+  %7 = trunc i32 %div1.i202 to i16
+  %8 = shl i16 %7, 5
+  %bf.lshr4.i = add i16 %bf.set105, %8
   store i16 %bf.lshr4.i, ptr getelementptr inbounds (%struct.C, ptr @sC, i64 0, i32 1), align 4
   %bf.lshr.i.i = lshr i16 %bf.lshr4.i, 5
   %conv.i.i = zext i16 %bf.lshr.i.i to i32
-  %add139 = add nuw nsw i32 %div1.i198, %div1.i194
+  %add139 = add nuw nsw i32 %div1.i202, %div1.i198
   %and140 = and i32 %add139, 2047
   %cmp141.not = icmp eq i32 %and140, %conv.i.i
   br i1 %cmp141.not, label %if.end144, label %if.then143
 
-if.then143:                                       ; preds = %lor.lhs.false138
+if.then143:                                       ; preds = %if.end97
   tail call void @abort() #8
   unreachable
 
-if.end144:                                        ; preds = %lor.lhs.false138
+if.end144:                                        ; preds = %if.end97
   ret void
 }
 
@@ -548,7 +548,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
 define dso_local void @testD() local_unnamed_addr #0 {
-if.end108:
+if.end160:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -593,16 +593,16 @@ if.end108:
   %bf.load = load i64, ptr @sD, align 8
   %bf.clear9 = and i64 %bf.load, 34359738367
   %0 = mul i32 %add.i.7, -341751747
-  %add.i213 = add i32 %0, 229283573
-  %div1.i214 = lshr i32 %add.i213, 16
-  %rem.i215 = and i32 %div1.i214, 2047
-  %mul.i216 = mul i32 %add.i213, 1103515245
-  %add.i217 = add i32 %mul.i216, 12345
-  store i32 %add.i217, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i218 = lshr i32 %add.i217, 16
-  %rem.i219 = and i32 %div1.i218, 2047
-  %add.i222 = add nuw nsw i32 %rem.i219, %rem.i215
-  %bf.value.i = zext i32 %add.i222 to i64
+  %add.i220 = add i32 %0, 229283573
+  %div1.i221 = lshr i32 %add.i220, 16
+  %rem.i222 = and i32 %div1.i221, 2047
+  %mul.i223 = mul i32 %add.i220, 1103515245
+  %add.i224 = add i32 %mul.i223, 12345
+  store i32 %add.i224, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i225 = lshr i32 %add.i224, 16
+  %rem.i226 = and i32 %div1.i225, 2047
+  %add.i229 = add nuw nsw i32 %rem.i226, %rem.i222
+  %bf.value.i = zext i32 %add.i229 to i64
   %bf.shl.i = shl nuw nsw i64 %bf.value.i, 35
   %bf.set.i = or i64 %bf.shl.i, %bf.clear9
   store i64 %bf.set.i, ptr @sD, align 8
@@ -752,16 +752,16 @@ if.end144:
   %bf.load = load i64, ptr getelementptr inbounds (%struct.E, ptr @sE, i64 0, i32 1), align 8
   %bf.clear9 = and i64 %bf.load, 34359738367
   %0 = mul i32 %add.i.15, -341751747
-  %add.i197 = add i32 %0, 229283573
-  %div1.i198 = lshr i32 %add.i197, 16
-  %rem.i199 = and i32 %div1.i198, 2047
-  %mul.i200 = mul i32 %add.i197, 1103515245
-  %add.i201 = add i32 %mul.i200, 12345
-  store i32 %add.i201, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i202 = lshr i32 %add.i201, 16
-  %rem.i203 = and i32 %div1.i202, 2047
-  %add.i206 = add nuw nsw i32 %rem.i203, %rem.i199
-  %bf.value.i = zext i32 %add.i206 to i64
+  %add.i207 = add i32 %0, 229283573
+  %div1.i208 = lshr i32 %add.i207, 16
+  %rem.i209 = and i32 %div1.i208, 2047
+  %mul.i210 = mul i32 %add.i207, 1103515245
+  %add.i211 = add i32 %mul.i210, 12345
+  store i32 %add.i211, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i212 = lshr i32 %add.i211, 16
+  %rem.i213 = and i32 %div1.i212, 2047
+  %add.i216 = add nuw nsw i32 %rem.i213, %rem.i209
+  %bf.value.i = zext i32 %add.i216 to i64
   %bf.shl.i = shl nuw nsw i64 %bf.value.i, 35
   %bf.set.i = or i64 %bf.shl.i, %bf.clear9
   store i64 %bf.set.i, ptr getelementptr inbounds (%struct.E, ptr @sE, i64 0, i32 1), align 8
@@ -911,16 +911,16 @@ if.end138:
   %bf.load = load i64, ptr @sF, align 8
   %bf.clear9 = and i64 %bf.load, 34359738367
   %0 = mul i32 %add.i.15, -341751747
-  %add.i185 = add i32 %0, 229283573
-  %div1.i186 = lshr i32 %add.i185, 16
-  %rem.i187 = and i32 %div1.i186, 2047
-  %mul.i188 = mul i32 %add.i185, 1103515245
-  %add.i189 = add i32 %mul.i188, 12345
-  store i32 %add.i189, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i190 = lshr i32 %add.i189, 16
-  %rem.i191 = and i32 %div1.i190, 2047
-  %add.i194 = add nuw nsw i32 %rem.i191, %rem.i187
-  %bf.value.i = zext i32 %add.i194 to i64
+  %add.i195 = add i32 %0, 229283573
+  %div1.i196 = lshr i32 %add.i195, 16
+  %rem.i197 = and i32 %div1.i196, 2047
+  %mul.i198 = mul i32 %add.i195, 1103515245
+  %add.i199 = add i32 %mul.i198, 12345
+  store i32 %add.i199, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i200 = lshr i32 %add.i199, 16
+  %rem.i201 = and i32 %div1.i200, 2047
+  %add.i204 = add nuw nsw i32 %rem.i201, %rem.i197
+  %bf.value.i = zext i32 %add.i204 to i64
   %bf.shl.i = shl nuw nsw i64 %bf.value.i, 35
   %bf.set.i = or i64 %bf.shl.i, %bf.clear9
   store i64 %bf.set.i, ptr @sF, align 8
@@ -983,7 +983,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testG() local_unnamed_addr #4 {
-lor.lhs.false99:
+if.end:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -1031,58 +1031,58 @@ lor.lhs.false99:
   store i8 %conv2.8, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.G, ptr @sG, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %bf.clear9 = and i8 %conv2, 3
   %0 = mul i32 %add.i.8, -2139243339
-  %add.i190 = add i32 %0, -1492899873
-  %div1.i191 = lshr i32 %add.i190, 16
-  %mul.i193 = mul i32 %add.i190, 1103515245
-  %add.i194 = add i32 %mul.i193, 12345
-  store i32 %add.i194, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i195 = lshr i32 %add.i194, 16
-  %1 = trunc i32 %div1.i191 to i8
+  %add.i195 = add i32 %0, -1492899873
+  %div1.i196 = lshr i32 %add.i195, 16
+  %mul.i198 = mul i32 %add.i195, 1103515245
+  %add.i199 = add i32 %mul.i198, 12345
+  store i32 %add.i199, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i200 = lshr i32 %add.i199, 16
+  %1 = trunc i32 %div1.i196 to i8
   %bf.value55 = shl i8 %1, 2
   %bf.set58 = or i8 %bf.value55, %bf.clear9
   store i8 %bf.set58, ptr @sG, align 1
-  %2 = trunc i32 %div1.i195 to i8
+  %2 = trunc i32 %div1.i200 to i8
   %3 = add i8 %2, %1
-  %bf.lshr4.i198 = and i8 %3, 63
-  %4 = urem i8 %bf.lshr4.i198, 15
-  %add100 = add nuw nsw i32 %div1.i195, %div1.i191
+  %bf.lshr4.i203 = and i8 %3, 63
+  %4 = urem i8 %bf.lshr4.i203, 15
+  %add100 = add nuw nsw i32 %div1.i200, %div1.i196
   %5 = trunc i32 %add100 to i8
   %rem.lhs.trunc = and i8 %5, 63
-  %rem209 = urem i8 %rem.lhs.trunc, 15
-  %cmp103.not = icmp eq i8 %rem209, %4
-  br i1 %cmp103.not, label %lor.lhs.false151, label %if.then105
+  %rem212 = urem i8 %rem.lhs.trunc, 15
+  %cmp103.not = icmp eq i8 %rem212, %4
+  br i1 %cmp103.not, label %if.end106, label %if.then105
 
-if.then105:                                       ; preds = %lor.lhs.false99
+if.then105:                                       ; preds = %if.end
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false151:                                 ; preds = %lor.lhs.false99
-  %mul.i199 = mul i32 %add.i194, 1103515245
-  %add.i200 = add i32 %mul.i199, 12345
-  %div1.i201 = lshr i32 %add.i200, 16
-  %mul.i203 = mul i32 %add.i200, 1103515245
-  %add.i204 = add i32 %mul.i203, 12345
-  store i32 %add.i204, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i205 = lshr i32 %add.i204, 16
-  %6 = trunc i32 %div1.i201 to i8
+if.end106:                                        ; preds = %if.end
+  %mul.i204 = mul i32 %add.i199, 1103515245
+  %add.i205 = add i32 %mul.i204, 12345
+  %div1.i206 = lshr i32 %add.i205, 16
+  %mul.i208 = mul i32 %add.i205, 1103515245
+  %add.i209 = add i32 %mul.i208, 12345
+  store i32 %add.i209, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i210 = lshr i32 %add.i209, 16
+  %6 = trunc i32 %div1.i206 to i8
   %bf.value111 = shl i8 %6, 2
   %bf.set114 = or i8 %bf.value111, %bf.clear9
-  %7 = trunc i32 %div1.i205 to i8
+  %7 = trunc i32 %div1.i210 to i8
   %8 = shl i8 %7, 2
   %bf.lshr3.i = add i8 %bf.set114, %8
   store i8 %bf.lshr3.i, ptr @sG, align 1
   %bf.lshr.i.i = lshr i8 %bf.lshr3.i, 2
   %conv.i.i = zext i8 %bf.lshr.i.i to i32
-  %add152 = add nuw nsw i32 %div1.i205, %div1.i201
+  %add152 = add nuw nsw i32 %div1.i210, %div1.i206
   %and153 = and i32 %add152, 63
   %cmp154.not = icmp eq i32 %and153, %conv.i.i
   br i1 %cmp154.not, label %if.end157, label %if.then156
 
-if.then156:                                       ; preds = %lor.lhs.false151
+if.then156:                                       ; preds = %if.end106
   tail call void @abort() #8
   unreachable
 
-if.end157:                                        ; preds = %lor.lhs.false151
+if.end157:                                        ; preds = %if.end106
   ret void
 }
 
@@ -1142,7 +1142,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testH() local_unnamed_addr #4 {
-lor.lhs.false86:
+if.end:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -1197,57 +1197,57 @@ lor.lhs.false86:
   %bf.load = load i16, ptr @sH, align 2
   %bf.clear9 = and i16 %bf.load, 255
   %0 = mul i32 %add.i.9, -2139243339
-  %add.i171 = add i32 %0, -1492899873
-  %div1.i172 = lshr i32 %add.i171, 16
-  %mul.i174 = mul i32 %add.i171, 1103515245
-  %add.i175 = add i32 %mul.i174, 12345
-  store i32 %add.i175, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i176 = lshr i32 %add.i175, 16
-  %conv47 = trunc i32 %div1.i172 to i16
+  %add.i176 = add i32 %0, -1492899873
+  %div1.i177 = lshr i32 %add.i176, 16
+  %mul.i179 = mul i32 %add.i176, 1103515245
+  %add.i180 = add i32 %mul.i179, 12345
+  store i32 %add.i180, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i181 = lshr i32 %add.i180, 16
+  %conv47 = trunc i32 %div1.i177 to i16
   %bf.value49 = shl i16 %conv47, 8
   %bf.set52 = or i16 %bf.value49, %bf.clear9
   store i16 %bf.set52, ptr @sH, align 2
-  %1 = trunc i32 %div1.i176 to i16
+  %1 = trunc i32 %div1.i181 to i16
   %2 = add i16 %1, %conv47
   %.lhs.trunc.i = trunc i16 %2 to i8
   %3 = urem i8 %.lhs.trunc.i, 15
-  %add87 = add nuw nsw i32 %div1.i176, %div1.i172
+  %add87 = add nuw nsw i32 %div1.i181, %div1.i177
   %rem.lhs.trunc = trunc i32 %add87 to i8
-  %rem190 = urem i8 %rem.lhs.trunc, 15
-  %cmp90.not = icmp eq i8 %rem190, %3
-  br i1 %cmp90.not, label %lor.lhs.false132, label %if.then92
+  %rem193 = urem i8 %rem.lhs.trunc, 15
+  %cmp90.not = icmp eq i8 %rem193, %3
+  br i1 %cmp90.not, label %if.end93, label %if.then92
 
-if.then92:                                        ; preds = %lor.lhs.false86
+if.then92:                                        ; preds = %if.end
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false132:                                 ; preds = %lor.lhs.false86
-  %mul.i179 = mul i32 %add.i175, 1103515245
-  %add.i180 = add i32 %mul.i179, 12345
-  %div1.i181 = lshr i32 %add.i180, 16
-  %mul.i183 = mul i32 %add.i180, 1103515245
-  %add.i184 = add i32 %mul.i183, 12345
-  store i32 %add.i184, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i185 = lshr i32 %add.i184, 16
-  %conv96 = trunc i32 %div1.i181 to i16
+if.end93:                                         ; preds = %if.end
+  %mul.i184 = mul i32 %add.i180, 1103515245
+  %add.i185 = add i32 %mul.i184, 12345
+  %div1.i186 = lshr i32 %add.i185, 16
+  %mul.i188 = mul i32 %add.i185, 1103515245
+  %add.i189 = add i32 %mul.i188, 12345
+  store i32 %add.i189, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i190 = lshr i32 %add.i189, 16
+  %conv96 = trunc i32 %div1.i186 to i16
   %bf.value98 = shl i16 %conv96, 8
   %bf.set101 = or i16 %bf.value98, %bf.clear9
-  %4 = trunc i32 %div1.i185 to i16
+  %4 = trunc i32 %div1.i190 to i16
   %conv13.i = shl i16 %4, 8
-  %bf.lshr4.i187 = add i16 %bf.set101, %conv13.i
-  store i16 %bf.lshr4.i187, ptr @sH, align 2
-  %bf.lshr.i.i = lshr i16 %bf.lshr4.i187, 8
+  %bf.lshr4.i192 = add i16 %bf.set101, %conv13.i
+  store i16 %bf.lshr4.i192, ptr @sH, align 2
+  %bf.lshr.i.i = lshr i16 %bf.lshr4.i192, 8
   %conv.i.i = zext i16 %bf.lshr.i.i to i32
-  %add133 = add nuw nsw i32 %div1.i185, %div1.i181
+  %add133 = add nuw nsw i32 %div1.i190, %div1.i186
   %and134 = and i32 %add133, 255
   %cmp135.not = icmp eq i32 %and134, %conv.i.i
   br i1 %cmp135.not, label %if.end138, label %if.then137
 
-if.then137:                                       ; preds = %lor.lhs.false132
+if.then137:                                       ; preds = %if.end93
   tail call void @abort() #8
   unreachable
 
-if.end138:                                        ; preds = %lor.lhs.false132
+if.end138:                                        ; preds = %if.end93
   ret void
 }
 
@@ -1306,7 +1306,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testI() local_unnamed_addr #4 {
-entry:
+if.end106:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -1354,31 +1354,31 @@ entry:
   store i8 %conv2.8, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.I, ptr @sI, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %bf.clear9 = and i8 %conv2, 127
   %0 = mul i32 %add.i.8, -341751747
-  %add.i199 = add i32 %0, 229283573
-  %div1.i200 = lshr i32 %add.i199, 16
-  %mul.i202 = mul i32 %add.i199, 1103515245
-  %add.i203 = add i32 %mul.i202, 12345
-  store i32 %add.i203, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i204 = lshr i32 %add.i203, 16
-  %1 = trunc i32 %div1.i200 to i8
+  %add.i204 = add i32 %0, 229283573
+  %div1.i205 = lshr i32 %add.i204, 16
+  %mul.i207 = mul i32 %add.i204, 1103515245
+  %add.i208 = add i32 %mul.i207, 12345
+  store i32 %add.i208, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i209 = lshr i32 %add.i208, 16
+  %1 = trunc i32 %div1.i205 to i8
   %bf.value111 = shl i8 %1, 7
   %bf.set114 = or i8 %bf.value111, %bf.clear9
-  %2 = trunc i32 %div1.i204 to i8
+  %2 = trunc i32 %div1.i209 to i8
   %3 = shl i8 %2, 7
   %bf.lshr3.i = add i8 %bf.set114, %3
   store i8 %bf.lshr3.i, ptr @sI, align 1
   %bf.lshr.i.i = lshr i8 %bf.lshr3.i, 7
   %conv.i.i = zext i8 %bf.lshr.i.i to i32
-  %add152 = add nuw nsw i32 %div1.i204, %div1.i200
+  %add152 = add nuw nsw i32 %div1.i209, %div1.i205
   %and153 = and i32 %add152, 1
   %cmp154.not = icmp eq i32 %and153, %conv.i.i
   br i1 %cmp154.not, label %if.end157, label %if.then156
 
-if.then156:                                       ; preds = %entry
+if.then156:                                       ; preds = %if.end106
   tail call void @abort() #8
   unreachable
 
-if.end157:                                        ; preds = %entry
+if.end157:                                        ; preds = %if.end106
   ret void
 }
 
@@ -1395,8 +1395,8 @@ entry:
   %0 = trunc i32 %x to i16
   %1 = lshr i16 %y.sroa.0.0.copyload, 9
   %2 = add i16 %1, %0
-  %bf.lshr4 = and i16 %2, 127
-  %conv5 = zext i16 %bf.lshr4 to i32
+  %3 = and i16 %2, 127
+  %conv5 = zext i16 %3 to i32
   ret i32 %conv5
 }
 
@@ -1438,7 +1438,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testJ() local_unnamed_addr #4 {
-lor.lhs.false90:
+if.end:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -1463,59 +1463,59 @@ lor.lhs.false90:
   %bf.load = load i16, ptr @sJ, align 2
   %bf.clear9 = and i16 %bf.load, 511
   %0 = mul i32 %add.i.3, -2139243339
-  %add.i177 = add i32 %0, -1492899873
-  %div1.i178 = lshr i32 %add.i177, 16
-  %mul.i180 = mul i32 %add.i177, 1103515245
-  %add.i181 = add i32 %mul.i180, 12345
-  store i32 %add.i181, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i182 = lshr i32 %add.i181, 16
-  %conv49 = trunc i32 %div1.i178 to i16
+  %add.i182 = add i32 %0, -1492899873
+  %div1.i183 = lshr i32 %add.i182, 16
+  %mul.i185 = mul i32 %add.i182, 1103515245
+  %add.i186 = add i32 %mul.i185, 12345
+  store i32 %add.i186, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i187 = lshr i32 %add.i186, 16
+  %conv49 = trunc i32 %div1.i183 to i16
   %bf.value51 = shl i16 %conv49, 9
   %bf.set54 = or i16 %bf.value51, %bf.clear9
   store i16 %bf.set54, ptr @sJ, align 2
-  %1 = trunc i32 %div1.i182 to i16
+  %1 = trunc i32 %div1.i187 to i16
   %2 = add i16 %1, %conv49
   %3 = trunc i16 %2 to i8
   %.lhs.trunc.i = and i8 %3, 127
   %4 = urem i8 %.lhs.trunc.i, 15
-  %add91 = add nuw nsw i32 %div1.i182, %div1.i178
+  %add91 = add nuw nsw i32 %div1.i187, %div1.i183
   %5 = trunc i32 %add91 to i8
   %rem.lhs.trunc = and i8 %5, 127
-  %rem196 = urem i8 %rem.lhs.trunc, 15
-  %cmp94.not = icmp eq i8 %rem196, %4
-  br i1 %cmp94.not, label %lor.lhs.false138, label %if.then96
+  %rem198 = urem i8 %rem.lhs.trunc, 15
+  %cmp94.not = icmp eq i8 %rem198, %4
+  br i1 %cmp94.not, label %if.end97, label %if.then96
 
-if.then96:                                        ; preds = %lor.lhs.false90
+if.then96:                                        ; preds = %if.end
   tail call void @abort() #8
   unreachable
 
-lor.lhs.false138:                                 ; preds = %lor.lhs.false90
-  %mul.i185 = mul i32 %add.i181, 1103515245
-  %add.i186 = add i32 %mul.i185, 12345
-  %div1.i187 = lshr i32 %add.i186, 16
-  %mul.i189 = mul i32 %add.i186, 1103515245
-  %add.i190 = add i32 %mul.i189, 12345
-  store i32 %add.i190, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i191 = lshr i32 %add.i190, 16
-  %conv100 = trunc i32 %div1.i187 to i16
+if.end97:                                         ; preds = %if.end
+  %mul.i190 = mul i32 %add.i186, 1103515245
+  %add.i191 = add i32 %mul.i190, 12345
+  %div1.i192 = lshr i32 %add.i191, 16
+  %mul.i194 = mul i32 %add.i191, 1103515245
+  %add.i195 = add i32 %mul.i194, 12345
+  store i32 %add.i195, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i196 = lshr i32 %add.i195, 16
+  %conv100 = trunc i32 %div1.i192 to i16
   %bf.value102 = shl i16 %conv100, 9
   %bf.set105 = or i16 %bf.value102, %bf.clear9
-  %6 = trunc i32 %div1.i191 to i16
+  %6 = trunc i32 %div1.i196 to i16
   %conv13.i = shl i16 %6, 9
-  %bf.lshr4.i193 = add i16 %bf.set105, %conv13.i
-  store i16 %bf.lshr4.i193, ptr @sJ, align 2
-  %bf.lshr.i.i = lshr i16 %bf.lshr4.i193, 9
+  %bf.lshr4.i = add i16 %bf.set105, %conv13.i
+  store i16 %bf.lshr4.i, ptr @sJ, align 2
+  %bf.lshr.i.i = lshr i16 %bf.lshr4.i, 9
   %conv.i.i = zext i16 %bf.lshr.i.i to i32
-  %add139 = add nuw nsw i32 %div1.i191, %div1.i187
+  %add139 = add nuw nsw i32 %div1.i196, %div1.i192
   %and140 = and i32 %add139, 127
   %cmp141.not = icmp eq i32 %and140, %conv.i.i
   br i1 %cmp141.not, label %if.end144, label %if.then143
 
-if.then143:                                       ; preds = %lor.lhs.false138
+if.then143:                                       ; preds = %if.end97
   tail call void @abort() #8
   unreachable
 
-if.end144:                                        ; preds = %lor.lhs.false138
+if.end144:                                        ; preds = %if.end97
   ret void
 }
 
@@ -1593,15 +1593,15 @@ if.end131:
   %bf.load = load i32, ptr @sK, align 4
   %bf.clear8 = and i32 %bf.load, -64
   %0 = mul i32 %add.i.3, -341751747
-  %add.i181 = add i32 %0, 229283573
-  %div1.i182 = lshr i32 %add.i181, 16
-  %mul.i184 = mul i32 %add.i181, 1103515245
-  %add.i185 = add i32 %mul.i184, 12345
-  store i32 %add.i185, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i186 = lshr i32 %add.i185, 16
-  %add.i188 = add nuw nsw i32 %div1.i186, %div1.i182
-  %bf.value.i189 = and i32 %add.i188, 63
-  %bf.set.i = or i32 %bf.value.i189, %bf.clear8
+  %add.i189 = add i32 %0, 229283573
+  %div1.i190 = lshr i32 %add.i189, 16
+  %mul.i192 = mul i32 %add.i189, 1103515245
+  %add.i193 = add i32 %mul.i192, 12345
+  store i32 %add.i193, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i194 = lshr i32 %add.i193, 16
+  %add.i196 = add nuw nsw i32 %div1.i194, %div1.i190
+  %bf.value.i197 = and i32 %add.i196, 63
+  %bf.set.i = or i32 %bf.value.i197, %bf.clear8
   store i32 %bf.set.i, ptr @sK, align 4
   ret void
 }
@@ -1700,15 +1700,15 @@ if.end115:
   %bf.load = load i32, ptr @sL, align 4
   %bf.clear8 = and i32 %bf.load, -64
   %0 = mul i32 %add.i.7, -341751747
-  %add.i159 = add i32 %0, 229283573
-  %div1.i160 = lshr i32 %add.i159, 16
-  %mul.i162 = mul i32 %add.i159, 1103515245
-  %add.i163 = add i32 %mul.i162, 12345
-  store i32 %add.i163, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i164 = lshr i32 %add.i163, 16
-  %add.i166 = add nuw nsw i32 %div1.i164, %div1.i160
-  %bf.value.i167 = and i32 %add.i166, 63
-  %bf.set.i = or i32 %bf.value.i167, %bf.clear8
+  %add.i167 = add i32 %0, 229283573
+  %div1.i168 = lshr i32 %add.i167, 16
+  %mul.i170 = mul i32 %add.i167, 1103515245
+  %add.i171 = add i32 %mul.i170, 12345
+  store i32 %add.i171, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i172 = lshr i32 %add.i171, 16
+  %add.i174 = add nuw nsw i32 %div1.i172, %div1.i168
+  %bf.value.i175 = and i32 %add.i174, 63
+  %bf.set.i = or i32 %bf.value.i175, %bf.clear8
   store i32 %bf.set.i, ptr @sL, align 4
   ret void
 }
@@ -1724,8 +1724,8 @@ define dso_local i32 @fn1M(i32 noundef %x) local_unnamed_addr #3 {
 entry:
   %y.sroa.5.0.copyload = load i32, ptr getelementptr inbounds (%struct.M, ptr @sM, i64 0, i32 1), align 4, !tbaa.struct !25
   %add = add i32 %y.sroa.5.0.copyload, %x
-  %bf.cast7 = and i32 %add, 63
-  ret i32 %bf.cast7
+  %bf.value = and i32 %add, 63
+  ret i32 %bf.value
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
@@ -1807,15 +1807,15 @@ if.end161:
   %bf.load = load i32, ptr getelementptr inbounds (%struct.M, ptr @sM, i64 0, i32 1), align 4
   %bf.clear10 = and i32 %bf.load, -64
   %0 = mul i32 %add.i.7, -341751747
-  %add.i211 = add i32 %0, 229283573
-  %div1.i212 = lshr i32 %add.i211, 16
-  %mul.i214 = mul i32 %add.i211, 1103515245
-  %add.i215 = add i32 %mul.i214, 12345
-  store i32 %add.i215, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i216 = lshr i32 %add.i215, 16
-  %add.i218 = add nuw nsw i32 %div1.i216, %div1.i212
-  %bf.value.i = and i32 %add.i218, 63
-  %bf.set.i = or i32 %bf.value.i, %bf.clear10
+  %add.i219 = add i32 %0, 229283573
+  %div1.i220 = lshr i32 %add.i219, 16
+  %mul.i222 = mul i32 %add.i219, 1103515245
+  %add.i223 = add i32 %mul.i222, 12345
+  store i32 %add.i223, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i224 = lshr i32 %add.i223, 16
+  %add.i226 = add nuw nsw i32 %div1.i224, %div1.i220
+  %bf.value.i227 = and i32 %add.i226, 63
+  %bf.set.i = or i32 %bf.value.i227, %bf.clear10
   store i32 %bf.set.i, ptr getelementptr inbounds (%struct.M, ptr @sM, i64 0, i32 1), align 4
   ret void
 }
@@ -1879,7 +1879,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testN() local_unnamed_addr #4 {
-lor.lhs.false71:
+lor.lhs.false:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -1922,51 +1922,87 @@ lor.lhs.false71:
   %conv2.7 = trunc i32 %div1.i.7 to i8
   store i8 %conv2.7, ptr getelementptr inbounds (i8, ptr @sN, i64 7), align 1, !tbaa !12
   %bf.load = load i64, ptr @sN, align 8
-  %mul.i190 = mul i32 %add.i.7, 1103515245
-  %add.i191 = add i32 %mul.i190, 12345
-  %0 = lshr i32 %add.i191, 10
+  %bf.set = or i64 %bf.load, 4032
+  %mul.i193 = mul i32 %add.i.7, 1103515245
+  %add.i194 = add i32 %mul.i193, 12345
+  %div1.i195 = lshr i32 %add.i194, 16
+  %mul.i197 = mul i32 %add.i194, 1103515245
+  %add.i198 = add i32 %mul.i197, 12345
+  store i32 %add.i198, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i199 = lshr i32 %add.i198, 16
+  %0 = shl nuw nsw i32 %div1.i195, 6
   %1 = and i32 %0, 4032
   %bf.shl = zext i32 %1 to i64
   %bf.clear10 = and i64 %bf.load, -4033
   %bf.set11 = or i64 %bf.clear10, %bf.shl
-  %2 = mul i32 %add.i191, -1029531031
-  %add.i199 = add i32 %2, -740551042
-  %div1.i200 = lshr i32 %add.i199, 16
-  %mul.i202 = mul i32 %add.i199, 1103515245
-  %add.i203 = add i32 %mul.i202, 12345
-  store i32 %add.i203, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i204 = lshr i32 %add.i203, 16
-  %3 = shl nuw nsw i32 %div1.i200, 6
-  %4 = and i32 %3, 4032
-  %bf.shl59 = zext i32 %4 to i64
+  store i64 %bf.set11, ptr @sN, align 8
+  %2 = trunc i64 %bf.set11 to i32
+  %3 = lshr i32 %2, 6
+  %4 = add nuw nsw i32 %3, %div1.i199
+  %bf.lshr22190 = xor i64 %bf.set11, %bf.set
+  %5 = and i64 %bf.lshr22190, 34359734272
+  %cmp29.not = icmp eq i64 %5, 0
+  br i1 %cmp29.not, label %lor.lhs.false31, label %if.then
+
+lor.lhs.false31:                                  ; preds = %lor.lhs.false
+  %bf.lshr33 = lshr exact i32 %1, 6
+  %conv39 = and i32 %3, 63
+  %cmp40.not = icmp eq i32 %bf.lshr33, %conv39
+  %6 = and i64 %bf.lshr22190, 63
+  %cmp49.not = icmp eq i64 %6, 0
+  %or.cond = and i1 %cmp49.not, %cmp40.not
+  br i1 %or.cond, label %lor.lhs.false51, label %if.then
+
+lor.lhs.false51:                                  ; preds = %lor.lhs.false31
+  %add = add nuw nsw i32 %div1.i199, %div1.i195
+  %7 = xor i32 %4, %add
+  %8 = and i32 %7, 63
+  %cmp52.not = icmp eq i32 %8, 0
+  br i1 %cmp52.not, label %lor.lhs.false71, label %if.then
+
+if.then:                                          ; preds = %lor.lhs.false51, %lor.lhs.false31, %lor.lhs.false
+  tail call void @abort() #8
+  unreachable
+
+lor.lhs.false71:                                  ; preds = %lor.lhs.false51
+  %mul.i201 = mul i32 %add.i198, 1103515245
+  %add.i202 = add i32 %mul.i201, 12345
+  %div1.i203 = lshr i32 %add.i202, 16
+  %mul.i205 = mul i32 %add.i202, 1103515245
+  %add.i206 = add i32 %mul.i205, 12345
+  store i32 %add.i206, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i207 = lshr i32 %add.i206, 16
+  %9 = shl nuw nsw i32 %div1.i203, 6
+  %10 = and i32 %9, 4032
+  %bf.shl59 = zext i32 %10 to i64
   %bf.set61 = or i64 %bf.clear10, %bf.shl59
   store i64 %bf.set61, ptr @sN, align 8
-  %5 = trunc i64 %bf.set61 to i32
-  %6 = lshr i32 %5, 6
-  %7 = add nuw nsw i32 %6, %div1.i204
-  %8 = trunc i32 %7 to i8
-  %rem.lhs.trunc.i = and i8 %8, 63
+  %11 = trunc i64 %bf.set61 to i32
+  %12 = lshr i32 %11, 6
+  %13 = add nuw nsw i32 %12, %div1.i207
+  %14 = trunc i32 %13 to i8
+  %rem.lhs.trunc.i = and i8 %14, 63
   %rem23.i = urem i8 %rem.lhs.trunc.i, 15
-  %bf.lshr73215 = xor i64 %bf.set61, %bf.set11
-  %9 = and i64 %bf.lshr73215, 34359734272
-  %cmp80.not = icmp eq i64 %9, 0
+  %bf.lshr73191 = xor i64 %bf.set61, %bf.set11
+  %15 = and i64 %bf.lshr73191, 34359734272
+  %cmp80.not = icmp eq i64 %15, 0
   br i1 %cmp80.not, label %lor.lhs.false82, label %if.then108
 
 lor.lhs.false82:                                  ; preds = %lor.lhs.false71
-  %bf.lshr84 = lshr exact i32 %4, 6
-  %conv90 = and i32 %6, 63
+  %bf.lshr84 = lshr exact i32 %10, 6
+  %conv90 = and i32 %12, 63
   %cmp91.not = icmp eq i32 %bf.lshr84, %conv90
-  %10 = and i64 %bf.lshr73215, 63
-  %cmp100.not = icmp eq i64 %10, 0
-  %or.cond = and i1 %cmp100.not, %cmp91.not
-  br i1 %or.cond, label %lor.lhs.false102, label %if.then108
+  %16 = and i64 %bf.lshr73191, 63
+  %cmp100.not = icmp eq i64 %16, 0
+  %or.cond219 = and i1 %cmp100.not, %cmp91.not
+  br i1 %or.cond219, label %lor.lhs.false102, label %if.then108
 
 lor.lhs.false102:                                 ; preds = %lor.lhs.false82
-  %add103 = add nuw nsw i32 %div1.i204, %div1.i200
-  %11 = trunc i32 %add103 to i8
-  %rem.lhs.trunc = and i8 %11, 63
-  %rem216 = urem i8 %rem.lhs.trunc, 15
-  %cmp106.not = icmp eq i8 %rem216, %rem23.i
+  %add103 = add nuw nsw i32 %div1.i207, %div1.i203
+  %17 = trunc i32 %add103 to i8
+  %rem.lhs.trunc = and i8 %17, 63
+  %rem218 = urem i8 %rem.lhs.trunc, 15
+  %cmp106.not = icmp eq i8 %rem218, %rem23.i
   br i1 %cmp106.not, label %lor.lhs.false154, label %if.then108
 
 if.then108:                                       ; preds = %lor.lhs.false102, %lor.lhs.false82, %lor.lhs.false71
@@ -1974,22 +2010,26 @@ if.then108:                                       ; preds = %lor.lhs.false102, %
   unreachable
 
 lor.lhs.false154:                                 ; preds = %lor.lhs.false102
-  %mul.i207 = mul i32 %add.i203, 1103515245
-  %add.i208 = add i32 %mul.i207, 12345
-  %div1.i209 = lshr i32 %add.i208, 16
-  %mul.i211 = mul i32 %add.i208, 1103515245
-  %add.i212 = add i32 %mul.i211, 12345
-  store i32 %add.i212, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i213 = lshr i32 %add.i212, 16
-  %12 = add nuw nsw i32 %div1.i209, %div1.i213
-  %13 = shl nuw nsw i32 %12, 6
-  %14 = and i32 %13, 4032
-  %bf.shl.i = zext i32 %14 to i64
+  %mul.i210 = mul i32 %add.i206, 1103515245
+  %add.i211 = add i32 %mul.i210, 12345
+  %div1.i212 = lshr i32 %add.i211, 16
+  %mul.i214 = mul i32 %add.i211, 1103515245
+  %add.i215 = add i32 %mul.i214, 12345
+  store i32 %add.i215, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i216 = lshr i32 %add.i215, 16
+  %18 = shl nuw nsw i32 %div1.i212, 6
+  %19 = trunc i64 %bf.clear10 to i32
+  %20 = or i32 %18, %19
+  %add4.i = shl nuw nsw i32 %div1.i216, 6
+  %21 = add i32 %add4.i, %20
+  %22 = and i32 %21, 4032
+  %bf.shl.i = zext i32 %22 to i64
   %bf.set.i = or i64 %bf.clear10, %bf.shl.i
   store i64 %bf.set.i, ptr @sN, align 8
-  %15 = lshr exact i32 %14, 6
-  %and156 = and i32 %12, 63
-  %cmp157.not = icmp eq i32 %and156, %15
+  %23 = lshr exact i32 %22, 6
+  %add155 = add nuw nsw i32 %div1.i216, %div1.i212
+  %and156 = and i32 %add155, 63
+  %cmp157.not = icmp eq i32 %and156, %23
   br i1 %cmp157.not, label %if.end160, label %if.then159
 
 if.then159:                                       ; preds = %lor.lhs.false154
@@ -2054,9 +2094,9 @@ entry:
   ret i32 %1
 }
 
-; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
-define dso_local void @testO() local_unnamed_addr #0 {
-if.end142:
+; Function Attrs: nounwind uwtable
+define dso_local void @testO() local_unnamed_addr #4 {
+lor.lhs.false:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -2139,18 +2179,78 @@ if.end142:
   %conv2.15 = trunc i32 %div1.i.15 to i8
   store i8 %conv2.15, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %bf.load = load i64, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
+  %mul.i183 = mul i32 %add.i.15, 1103515245
+  %add.i184 = add i32 %mul.i183, 12345
+  %div1.i185 = lshr i32 %add.i184, 16
+  %rem.i186 = and i32 %div1.i185, 2047
+  %mul.i187 = mul i32 %add.i184, 1103515245
+  %add.i188 = add i32 %mul.i187, 12345
+  store i32 %add.i188, ptr @myrnd.s, align 4, !tbaa !5
+  %conv8 = zext i32 %rem.i186 to i64
   %bf.clear10 = and i64 %bf.load, -4096
-  %0 = mul i32 %add.i.15, -341751747
-  %add.i192 = add i32 %0, 229283573
-  %div1.i193 = lshr i32 %add.i192, 16
-  %rem.i194 = and i32 %div1.i193, 2047
-  %mul.i195 = mul i32 %add.i192, 1103515245
-  %add.i196 = add i32 %mul.i195, 12345
-  store i32 %add.i196, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i197 = lshr i32 %add.i196, 16
-  %rem.i198 = and i32 %div1.i197, 2047
-  %add.i199 = add nuw nsw i32 %rem.i198, %rem.i194
-  %bf.value.i = zext i32 %add.i199 to i64
+  %bf.set11 = or i64 %bf.clear10, %conv8
+  store i64 %bf.set11, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
+  %div1.i189 = lshr i32 %add.i188, 16
+  %rem.i190 = and i32 %div1.i189, 2047
+  %0 = trunc i64 %bf.set11 to i32
+  %add.i191 = add nuw nsw i32 %rem.i190, %0
+  %1 = and i32 %add.i191, 4095
+  %conv37 = and i32 %0, 2047
+  %cmp38.not = icmp eq i32 %rem.i186, %conv37
+  %add = add nuw nsw i32 %rem.i190, %rem.i186
+  %cmp44.not = icmp eq i32 %add, %1
+  %or.cond177 = select i1 %cmp38.not, i1 %cmp44.not, i1 false
+  br i1 %or.cond177, label %if.end, label %if.then
+
+if.then:                                          ; preds = %lor.lhs.false
+  tail call void @abort() #8
+  unreachable
+
+if.end:                                           ; preds = %lor.lhs.false
+  %mul.i192 = mul i32 %add.i188, 1103515245
+  %add.i193 = add i32 %mul.i192, 12345
+  %div1.i194 = lshr i32 %add.i193, 16
+  %rem.i195 = and i32 %div1.i194, 2047
+  %mul.i196 = mul i32 %add.i193, 1103515245
+  %add.i197 = add i32 %mul.i196, 12345
+  store i32 %add.i197, ptr @myrnd.s, align 4, !tbaa !5
+  %conv48 = zext i32 %rem.i195 to i64
+  %bf.set52 = or i64 %bf.clear10, %conv48
+  store i64 %bf.set52, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
+  %2 = trunc i64 %bf.set52 to i32
+  %conv82 = and i32 %2, 2047
+  %cmp83.not = icmp eq i32 %rem.i195, %conv82
+  br i1 %cmp83.not, label %lor.lhs.false89, label %if.then95
+
+lor.lhs.false89:                                  ; preds = %if.end
+  %div1.i198 = lshr i32 %add.i197, 16
+  %rem.i199 = and i32 %div1.i198, 2047
+  %add.i200 = add nuw nsw i32 %rem.i199, %2
+  %3 = trunc i32 %add.i200 to i16
+  %rem.lhs.trunc.i = and i16 %3, 4095
+  %rem21.i = urem i16 %rem.lhs.trunc.i, 15
+  %add90 = add nuw nsw i32 %rem.i199, %rem.i195
+  %rem.lhs.trunc = trunc i32 %add90 to i16
+  %rem210 = urem i16 %rem.lhs.trunc, 15
+  %cmp93.not = icmp eq i16 %rem210, %rem21.i
+  br i1 %cmp93.not, label %if.end142, label %if.then95
+
+if.then95:                                        ; preds = %lor.lhs.false89, %if.end
+  tail call void @abort() #8
+  unreachable
+
+if.end142:                                        ; preds = %lor.lhs.false89
+  %mul.i201 = mul i32 %add.i197, 1103515245
+  %add.i202 = add i32 %mul.i201, 12345
+  %div1.i203 = lshr i32 %add.i202, 16
+  %rem.i204 = and i32 %div1.i203, 2047
+  %mul.i205 = mul i32 %add.i202, 1103515245
+  %add.i206 = add i32 %mul.i205, 12345
+  store i32 %add.i206, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i207 = lshr i32 %add.i206, 16
+  %rem.i208 = and i32 %div1.i207, 2047
+  %add.i209 = add nuw nsw i32 %rem.i208, %rem.i204
+  %bf.value.i = zext i32 %add.i209 to i64
   %bf.set.i = or i64 %bf.clear10, %bf.value.i
   store i64 %bf.set.i, ptr getelementptr inbounds (%struct.O, ptr @sO, i64 0, i32 1), align 8
   ret void
@@ -2210,9 +2310,9 @@ entry:
   ret i32 %1
 }
 
-; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(readwrite, argmem: none, inaccessiblemem: none) uwtable
-define dso_local void @testP() local_unnamed_addr #0 {
-if.end136:
+; Function Attrs: nounwind uwtable
+define dso_local void @testP() local_unnamed_addr #4 {
+lor.lhs.false:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -2295,18 +2395,78 @@ if.end136:
   %conv2.15 = trunc i32 %div1.i.15 to i8
   store i8 %conv2.15, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.P, ptr @sP, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %bf.load = load i64, ptr @sP, align 8
+  %mul.i170 = mul i32 %add.i.15, 1103515245
+  %add.i171 = add i32 %mul.i170, 12345
+  %div1.i172 = lshr i32 %add.i171, 16
+  %rem.i173 = and i32 %div1.i172, 2047
+  %mul.i174 = mul i32 %add.i171, 1103515245
+  %add.i175 = add i32 %mul.i174, 12345
+  store i32 %add.i175, ptr @myrnd.s, align 4, !tbaa !5
+  %conv8 = zext i32 %rem.i173 to i64
   %bf.clear10 = and i64 %bf.load, -4096
-  %0 = mul i32 %add.i.15, -341751747
-  %add.i180 = add i32 %0, 229283573
+  %bf.set11 = or i64 %bf.clear10, %conv8
+  store i64 %bf.set11, ptr @sP, align 8
+  %div1.i176 = lshr i32 %add.i175, 16
+  %rem.i177 = and i32 %div1.i176, 2047
+  %0 = trunc i64 %bf.set11 to i32
+  %add.i178 = add nuw nsw i32 %rem.i177, %0
+  %1 = and i32 %add.i178, 4095
+  %conv36 = and i32 %0, 2047
+  %cmp37.not = icmp eq i32 %rem.i173, %conv36
+  %add = add nuw nsw i32 %rem.i177, %rem.i173
+  %cmp43.not = icmp eq i32 %add, %1
+  %or.cond164 = select i1 %cmp37.not, i1 %cmp43.not, i1 false
+  br i1 %or.cond164, label %if.end, label %if.then
+
+if.then:                                          ; preds = %lor.lhs.false
+  tail call void @abort() #8
+  unreachable
+
+if.end:                                           ; preds = %lor.lhs.false
+  %mul.i179 = mul i32 %add.i175, 1103515245
+  %add.i180 = add i32 %mul.i179, 12345
   %div1.i181 = lshr i32 %add.i180, 16
   %rem.i182 = and i32 %div1.i181, 2047
   %mul.i183 = mul i32 %add.i180, 1103515245
   %add.i184 = add i32 %mul.i183, 12345
   store i32 %add.i184, ptr @myrnd.s, align 4, !tbaa !5
+  %conv47 = zext i32 %rem.i182 to i64
+  %bf.set51 = or i64 %bf.clear10, %conv47
+  store i64 %bf.set51, ptr @sP, align 8
+  %2 = trunc i64 %bf.set51 to i32
+  %conv78 = and i32 %2, 2047
+  %cmp79.not = icmp eq i32 %rem.i182, %conv78
+  br i1 %cmp79.not, label %lor.lhs.false85, label %if.then91
+
+lor.lhs.false85:                                  ; preds = %if.end
   %div1.i185 = lshr i32 %add.i184, 16
   %rem.i186 = and i32 %div1.i185, 2047
-  %add.i187 = add nuw nsw i32 %rem.i186, %rem.i182
-  %bf.value.i = zext i32 %add.i187 to i64
+  %add.i188 = add nuw nsw i32 %rem.i186, %2
+  %3 = trunc i32 %add.i188 to i16
+  %rem.lhs.trunc.i = and i16 %3, 4095
+  %rem15.i = urem i16 %rem.lhs.trunc.i, 15
+  %add86 = add nuw nsw i32 %rem.i186, %rem.i182
+  %rem.lhs.trunc = trunc i32 %add86 to i16
+  %rem198 = urem i16 %rem.lhs.trunc, 15
+  %cmp89.not = icmp eq i16 %rem198, %rem15.i
+  br i1 %cmp89.not, label %if.end136, label %if.then91
+
+if.then91:                                        ; preds = %lor.lhs.false85, %if.end
+  tail call void @abort() #8
+  unreachable
+
+if.end136:                                        ; preds = %lor.lhs.false85
+  %mul.i189 = mul i32 %add.i184, 1103515245
+  %add.i190 = add i32 %mul.i189, 12345
+  %div1.i191 = lshr i32 %add.i190, 16
+  %rem.i192 = and i32 %div1.i191, 2047
+  %mul.i193 = mul i32 %add.i190, 1103515245
+  %add.i194 = add i32 %mul.i193, 12345
+  store i32 %add.i194, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i195 = lshr i32 %add.i194, 16
+  %rem.i196 = and i32 %div1.i195, 2047
+  %add.i197 = add nuw nsw i32 %rem.i196, %rem.i192
+  %bf.value.i = zext i32 %add.i197 to i64
   %bf.set.i = or i64 %bf.clear10, %bf.value.i
   store i64 %bf.set.i, ptr @sP, align 8
   ret void
@@ -2422,24 +2582,24 @@ entry:
   %bf.load = load i16, ptr @sQ, align 2
   %bf.clear10 = and i16 %bf.load, -4096
   %0 = mul i32 %add.i.9, -2139243339
-  %add.i169 = add i32 %0, -1492899873
-  %div1.i170 = lshr i32 %add.i169, 16
-  %rem.i171 = and i32 %div1.i170, 2047
-  %mul.i172 = mul i32 %add.i169, 1103515245
-  %add.i173 = add i32 %mul.i172, 12345
-  store i32 %add.i173, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i174 = lshr i32 %add.i173, 16
-  %rem.i175 = and i32 %div1.i174, 2047
-  %conv47 = trunc i32 %rem.i171 to i16
+  %add.i176 = add i32 %0, -1492899873
+  %div1.i177 = lshr i32 %add.i176, 16
+  %rem.i178 = and i32 %div1.i177, 2047
+  %mul.i179 = mul i32 %add.i176, 1103515245
+  %add.i180 = add i32 %mul.i179, 12345
+  store i32 %add.i180, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i181 = lshr i32 %add.i180, 16
+  %rem.i182 = and i32 %div1.i181, 2047
+  %conv47 = trunc i32 %rem.i178 to i16
   %bf.set51 = or i16 %bf.clear10, %conv47
   store i16 %bf.set51, ptr @sQ, align 2
-  %1 = trunc i32 %rem.i175 to i16
-  %conv1.i177 = add nuw nsw i16 %1, %conv47
-  %2 = urem i16 %conv1.i177, 15
-  %add86 = add nuw nsw i32 %rem.i175, %rem.i171
+  %1 = trunc i32 %rem.i182 to i16
+  %conv1.i184 = add nuw nsw i16 %1, %conv47
+  %2 = urem i16 %conv1.i184, 15
+  %add86 = add nuw nsw i32 %rem.i182, %rem.i178
   %rem.lhs.trunc = trunc i32 %add86 to i16
-  %rem189 = urem i16 %rem.lhs.trunc, 15
-  %cmp89.not = icmp eq i16 %rem189, %2
+  %rem196 = urem i16 %rem.lhs.trunc, 15
+  %cmp89.not = icmp eq i16 %rem196, %2
   br i1 %cmp89.not, label %if.end92, label %if.then91
 
 if.then91:                                        ; preds = %entry
@@ -2447,22 +2607,22 @@ if.then91:                                        ; preds = %entry
   unreachable
 
 if.end92:                                         ; preds = %entry
-  %mul.i179 = mul i32 %add.i173, 1103515245
-  %add.i180 = add i32 %mul.i179, 12345
-  %div1.i181 = lshr i32 %add.i180, 16
-  %rem.i182 = and i32 %div1.i181, 2047
-  %mul.i183 = mul i32 %add.i180, 1103515245
-  %add.i184 = add i32 %mul.i183, 12345
-  store i32 %add.i184, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i185 = lshr i32 %add.i184, 16
-  %rem.i186 = and i32 %div1.i185, 2047
-  %conv95 = trunc i32 %rem.i182 to i16
-  %3 = trunc i32 %rem.i186 to i16
-  %conv1.i187 = add nuw nsw i16 %3, %conv95
-  %bf.set.i = or i16 %conv1.i187, %bf.clear10
+  %mul.i186 = mul i32 %add.i180, 1103515245
+  %add.i187 = add i32 %mul.i186, 12345
+  %div1.i188 = lshr i32 %add.i187, 16
+  %rem.i189 = and i32 %div1.i188, 2047
+  %mul.i190 = mul i32 %add.i187, 1103515245
+  %add.i191 = add i32 %mul.i190, 12345
+  store i32 %add.i191, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i192 = lshr i32 %add.i191, 16
+  %rem.i193 = and i32 %div1.i192, 2047
+  %conv95 = trunc i32 %rem.i189 to i16
+  %3 = trunc i32 %rem.i193 to i16
+  %conv1.i194 = add nuw nsw i16 %3, %conv95
+  %bf.set.i = or i16 %conv1.i194, %bf.clear10
   store i16 %bf.set.i, ptr @sQ, align 2
-  %conv.i.i = zext i16 %conv1.i187 to i32
-  %add131 = add nuw nsw i32 %rem.i186, %rem.i182
+  %conv.i.i = zext i16 %conv1.i194 to i32
+  %add131 = add nuw nsw i32 %rem.i193, %rem.i189
   %cmp133.not = icmp eq i32 %add131, %conv.i.i
   br i1 %cmp133.not, label %if.end136, label %if.then135
 
@@ -2528,7 +2688,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testR() local_unnamed_addr #4 {
-entry:
+if.end92:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -2583,29 +2743,29 @@ entry:
   %bf.load = load i16, ptr @sR, align 2
   %bf.clear10 = and i16 %bf.load, -4
   %0 = mul i32 %add.i.9, -341751747
-  %add.i181 = add i32 %0, 229283573
-  %div1.i182 = lshr i32 %add.i181, 16
-  %mul.i184 = mul i32 %add.i181, 1103515245
-  %add.i185 = add i32 %mul.i184, 12345
-  store i32 %add.i185, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i186 = lshr i32 %add.i185, 16
-  %conv95 = trunc i32 %div1.i182 to i16
-  %1 = trunc i32 %div1.i186 to i16
-  %conv1.i188 = add i16 %1, %conv95
-  %bf.value.i189 = and i16 %conv1.i188, 3
-  %bf.set.i = or i16 %bf.value.i189, %bf.clear10
+  %add.i186 = add i32 %0, 229283573
+  %div1.i187 = lshr i32 %add.i186, 16
+  %mul.i189 = mul i32 %add.i186, 1103515245
+  %add.i190 = add i32 %mul.i189, 12345
+  store i32 %add.i190, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i191 = lshr i32 %add.i190, 16
+  %conv95 = trunc i32 %div1.i187 to i16
+  %1 = trunc i32 %div1.i191 to i16
+  %conv1.i193 = add i16 %1, %conv95
+  %bf.value.i194 = and i16 %conv1.i193, 3
+  %bf.set.i = or i16 %bf.value.i194, %bf.clear10
   store i16 %bf.set.i, ptr @sR, align 2
-  %conv.i.i = zext i16 %bf.value.i189 to i32
-  %add131 = add nuw nsw i32 %div1.i186, %div1.i182
+  %conv.i.i = zext i16 %bf.value.i194 to i32
+  %add131 = add nuw nsw i32 %div1.i191, %div1.i187
   %and132 = and i32 %add131, 3
   %cmp133.not = icmp eq i32 %and132, %conv.i.i
   br i1 %cmp133.not, label %if.end136, label %if.then135
 
-if.then135:                                       ; preds = %entry
+if.then135:                                       ; preds = %if.end92
   tail call void @abort() #8
   unreachable
 
-if.end136:                                        ; preds = %entry
+if.end136:                                        ; preds = %if.end92
   ret void
 }
 
@@ -2663,7 +2823,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testS() local_unnamed_addr #4 {
-entry:
+if.end92:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -2718,29 +2878,29 @@ entry:
   %bf.load = load i16, ptr @sS, align 2
   %bf.clear10 = and i16 %bf.load, -2
   %0 = mul i32 %add.i.9, -341751747
-  %add.i181 = add i32 %0, 229283573
-  %div1.i182 = lshr i32 %add.i181, 16
-  %mul.i184 = mul i32 %add.i181, 1103515245
-  %add.i185 = add i32 %mul.i184, 12345
-  store i32 %add.i185, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i186 = lshr i32 %add.i185, 16
-  %conv95 = trunc i32 %div1.i182 to i16
-  %1 = trunc i32 %div1.i186 to i16
-  %conv1.i188 = add i16 %1, %conv95
-  %bf.value.i189 = and i16 %conv1.i188, 1
-  %bf.set.i = or i16 %bf.value.i189, %bf.clear10
+  %add.i186 = add i32 %0, 229283573
+  %div1.i187 = lshr i32 %add.i186, 16
+  %mul.i189 = mul i32 %add.i186, 1103515245
+  %add.i190 = add i32 %mul.i189, 12345
+  store i32 %add.i190, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i191 = lshr i32 %add.i190, 16
+  %conv95 = trunc i32 %div1.i187 to i16
+  %1 = trunc i32 %div1.i191 to i16
+  %conv1.i193 = add i16 %1, %conv95
+  %bf.value.i194 = and i16 %conv1.i193, 1
+  %bf.set.i = or i16 %bf.value.i194, %bf.clear10
   store i16 %bf.set.i, ptr @sS, align 2
-  %conv.i.i = zext i16 %bf.value.i189 to i32
-  %add131 = add nuw nsw i32 %div1.i186, %div1.i182
+  %conv.i.i = zext i16 %bf.value.i194 to i32
+  %add131 = add nuw nsw i32 %div1.i191, %div1.i187
   %and132 = and i32 %add131, 1
   %cmp133.not = icmp eq i32 %and132, %conv.i.i
   br i1 %cmp133.not, label %if.end136, label %if.then135
 
-if.then135:                                       ; preds = %entry
+if.then135:                                       ; preds = %if.end92
   tail call void @abort() #8
   unreachable
 
-if.end136:                                        ; preds = %entry
+if.end136:                                        ; preds = %if.end92
   ret void
 }
 
@@ -2756,9 +2916,9 @@ entry:
   %y.sroa.0.0.copyload = load i16, ptr @sT, align 2, !tbaa.struct !22
   %0 = trunc i32 %x to i16
   %conv1 = add i16 %y.sroa.0.0.copyload, %0
-  %bf.value = and i16 %conv1, 1
-  %conv6 = zext i16 %bf.value to i32
-  ret i32 %conv6
+  %1 = and i16 %conv1, 1
+  %bf.clear5 = zext i16 %1 to i32
+  ret i32 %bf.clear5
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
@@ -2797,7 +2957,7 @@ entry:
 
 ; Function Attrs: nounwind uwtable
 define dso_local void @testT() local_unnamed_addr #4 {
-entry:
+if.end96:
   %myrnd.s.promoted = load i32, ptr @myrnd.s, align 4, !tbaa !5
   %mul.i = mul i32 %myrnd.s.promoted, 1103515245
   %add.i = add i32 %mul.i, 12345
@@ -2822,29 +2982,29 @@ entry:
   %bf.load = load i16, ptr @sT, align 2
   %bf.clear10 = and i16 %bf.load, -2
   %0 = mul i32 %add.i.3, -341751747
-  %add.i187 = add i32 %0, 229283573
-  %div1.i188 = lshr i32 %add.i187, 16
-  %mul.i190 = mul i32 %add.i187, 1103515245
-  %add.i191 = add i32 %mul.i190, 12345
-  store i32 %add.i191, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i192 = lshr i32 %add.i191, 16
-  %conv99 = trunc i32 %div1.i188 to i16
-  %1 = trunc i32 %div1.i192 to i16
-  %conv1.i194 = add i16 %1, %conv99
-  %bf.value.i195 = and i16 %conv1.i194, 1
-  %bf.set.i = or i16 %bf.value.i195, %bf.clear10
+  %add.i190 = add i32 %0, 229283573
+  %div1.i191 = lshr i32 %add.i190, 16
+  %mul.i193 = mul i32 %add.i190, 1103515245
+  %add.i194 = add i32 %mul.i193, 12345
+  store i32 %add.i194, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i195 = lshr i32 %add.i194, 16
+  %conv99 = trunc i32 %div1.i191 to i16
+  %1 = trunc i32 %div1.i195 to i16
+  %conv1.i197 = add i16 %1, %conv99
+  %bf.value.i198 = and i16 %conv1.i197, 1
+  %bf.set.i = or i16 %bf.value.i198, %bf.clear10
   store i16 %bf.set.i, ptr @sT, align 2
-  %conv.i.i = zext i16 %bf.value.i195 to i32
-  %add137 = add nuw nsw i32 %div1.i192, %div1.i188
+  %conv.i.i = zext i16 %bf.value.i198 to i32
+  %add137 = add nuw nsw i32 %div1.i195, %div1.i191
   %and138 = and i32 %add137, 1
   %cmp139.not = icmp eq i32 %and138, %conv.i.i
   br i1 %cmp139.not, label %if.end142, label %if.then141
 
-if.then141:                                       ; preds = %entry
+if.then141:                                       ; preds = %if.end96
   tail call void @abort() #8
   unreachable
 
-if.end142:                                        ; preds = %entry
+if.end142:                                        ; preds = %if.end96
   ret void
 }
 
@@ -2960,34 +3120,102 @@ entry:
   %conv2.9 = trunc i32 %div1.i.9 to i8
   store i8 %conv2.9, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.U, ptr @sU, i64 0, i32 1), i64 7), align 1, !tbaa !12
   %bf.load = load i16, ptr @sU, align 2
+  %mul.i164 = mul i32 %add.i.9, 1103515245
+  %add.i165 = add i32 %mul.i164, 12345
+  %div1.i166 = lshr i32 %add.i165, 16
+  %mul.i168 = mul i32 %add.i165, 1103515245
+  %add.i169 = add i32 %mul.i168, 12345
+  store i32 %add.i169, ptr @myrnd.s, align 4, !tbaa !5
+  %conv8 = trunc i32 %div1.i166 to i16
+  %bf.value = shl i16 %conv8, 6
+  %bf.shl = and i16 %bf.value, 64
   %bf.clear10 = and i16 %bf.load, -65
-  %0 = mul i32 %add.i.9, -341751747
-  %add.i180 = add i32 %0, 229283573
-  %div1.i181 = lshr i32 %add.i180, 16
-  %mul.i183 = mul i32 %add.i180, 1103515245
-  %add.i184 = add i32 %mul.i183, 12345
-  store i32 %add.i184, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i185 = lshr i32 %add.i184, 16
-  %conv97 = trunc i32 %div1.i181 to i16
-  %1 = trunc i32 %div1.i185 to i16
-  %bf.value99188 = add i16 %1, %conv97
-  %bf.lshr5.i187 = shl i16 %bf.value99188, 6
-  %bf.shl.i = and i16 %bf.lshr5.i187, 64
+  %bf.set11 = or i16 %bf.shl, %bf.clear10
+  store i16 %bf.set11, ptr @sU, align 2
+  %0 = lshr i16 %bf.set11, 6
+  %bf.clear32 = and i32 %div1.i166, 1
+  %bf.clear36 = and i16 %0, 1
+  %conv37 = zext i16 %bf.clear36 to i32
+  %cmp38.not = icmp eq i32 %bf.clear32, %conv37
+  br i1 %cmp38.not, label %lor.lhs.false43, label %if.then
+
+lor.lhs.false43:                                  ; preds = %entry
+  %div1.i170 = lshr i32 %add.i169, 16
+  %1 = trunc i32 %div1.i170 to i16
+  %2 = add i16 %0, %1
+  %bf.lshr5.i = and i16 %2, 1
+  %conv7.i = zext i16 %bf.lshr5.i to i32
+  %add = add nuw nsw i32 %div1.i170, %div1.i166
+  %and = and i32 %add, 1
+  %cmp44.not = icmp eq i32 %and, %conv7.i
+  br i1 %cmp44.not, label %if.end, label %if.then
+
+if.then:                                          ; preds = %lor.lhs.false43, %entry
+  tail call void @abort() #8
+  unreachable
+
+if.end:                                           ; preds = %lor.lhs.false43
+  %mul.i172 = mul i32 %add.i169, 1103515245
+  %add.i173 = add i32 %mul.i172, 12345
+  %div1.i174 = lshr i32 %add.i173, 16
+  %mul.i176 = mul i32 %add.i173, 1103515245
+  %add.i177 = add i32 %mul.i176, 12345
+  store i32 %add.i177, ptr @myrnd.s, align 4, !tbaa !5
+  %conv48 = trunc i32 %div1.i174 to i16
+  %bf.value50 = shl i16 %conv48, 6
+  %bf.shl51 = and i16 %bf.value50, 64
+  %bf.set53 = or i16 %bf.shl51, %bf.clear10
+  store i16 %bf.set53, ptr @sU, align 2
+  %3 = lshr i16 %bf.set53, 6
+  %bf.clear75 = and i32 %div1.i174, 1
+  %bf.clear79 = and i16 %3, 1
+  %conv80 = zext i16 %bf.clear79 to i32
+  %cmp81.not = icmp eq i32 %bf.clear75, %conv80
+  br i1 %cmp81.not, label %lor.lhs.false87, label %if.then93
+
+lor.lhs.false87:                                  ; preds = %if.end
+  %div1.i178 = lshr i32 %add.i177, 16
+  %4 = trunc i32 %div1.i178 to i16
+  %5 = add i16 %3, %4
+  %bf.lshr15.i = and i16 %5, 1
+  %conv17.i = zext i16 %bf.lshr15.i to i32
+  %add88 = add nuw nsw i32 %div1.i178, %div1.i174
+  %and89 = and i32 %add88, 1
+  %cmp91.not = icmp eq i32 %and89, %conv17.i
+  br i1 %cmp91.not, label %if.end94, label %if.then93
+
+if.then93:                                        ; preds = %lor.lhs.false87, %if.end
+  tail call void @abort() #8
+  unreachable
+
+if.end94:                                         ; preds = %lor.lhs.false87
+  %mul.i181 = mul i32 %add.i177, 1103515245
+  %add.i182 = add i32 %mul.i181, 12345
+  %div1.i183 = lshr i32 %add.i182, 16
+  %mul.i185 = mul i32 %add.i182, 1103515245
+  %add.i186 = add i32 %mul.i185, 12345
+  store i32 %add.i186, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i187 = lshr i32 %add.i186, 16
+  %conv97 = trunc i32 %div1.i183 to i16
+  %6 = trunc i32 %div1.i187 to i16
+  %bf.value99192 = add i16 %6, %conv97
+  %bf.lshr5.i189 = shl i16 %bf.value99192, 6
+  %bf.shl.i = and i16 %bf.lshr5.i189, 64
   %bf.set.i = or i16 %bf.shl.i, %bf.clear10
   store i16 %bf.set.i, ptr @sU, align 2
   %bf.lshr.i.i = lshr exact i16 %bf.shl.i, 6
-  %bf.clear124 = and i16 %bf.value99188, 1
-  %cmp126.not = icmp eq i16 %bf.clear124, %bf.lshr.i.i
+  %bf.clear124 = and i16 %bf.value99192, 1
+  %cmp126.not = icmp eq i16 %bf.lshr.i.i, %bf.clear124
   br i1 %cmp126.not, label %lor.lhs.false132, label %if.then137
 
-lor.lhs.false132:                                 ; preds = %entry
+lor.lhs.false132:                                 ; preds = %if.end94
   %conv.i.i = zext i16 %bf.lshr.i.i to i32
-  %add133 = add nuw nsw i32 %div1.i185, %div1.i181
+  %add133 = add nuw nsw i32 %div1.i187, %div1.i183
   %and134 = and i32 %add133, 1
   %cmp135.not = icmp eq i32 %and134, %conv.i.i
   br i1 %cmp135.not, label %if.end138, label %if.then137
 
-if.then137:                                       ; preds = %lor.lhs.false132, %entry
+if.then137:                                       ; preds = %lor.lhs.false132, %if.end94
   tail call void @abort() #8
   unreachable
 
@@ -3008,9 +3236,9 @@ entry:
   %0 = trunc i32 %x to i16
   %1 = lshr i16 %y.sroa.0.0.copyload, 8
   %2 = add i16 %1, %0
-  %bf.lshr5 = and i16 %2, 1
-  %conv7 = zext i16 %bf.lshr5 to i32
-  ret i32 %conv7
+  %3 = and i16 %2, 1
+  %bf.clear6 = zext i16 %3 to i32
+  ret i32 %bf.clear6
 }
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
@@ -3076,34 +3304,102 @@ entry:
   %conv2.3 = trunc i32 %div1.i.3 to i8
   store i8 %conv2.3, ptr getelementptr inbounds (i8, ptr getelementptr inbounds (%struct.V, ptr @sV, i64 0, i32 1), i64 1), align 1, !tbaa !12
   %bf.load = load i16, ptr @sV, align 2
+  %mul.i170 = mul i32 %add.i.3, 1103515245
+  %add.i171 = add i32 %mul.i170, 12345
+  %div1.i172 = lshr i32 %add.i171, 16
+  %mul.i174 = mul i32 %add.i171, 1103515245
+  %add.i175 = add i32 %mul.i174, 12345
+  store i32 %add.i175, ptr @myrnd.s, align 4, !tbaa !5
+  %conv8 = trunc i32 %div1.i172 to i16
+  %bf.value = shl i16 %conv8, 8
+  %bf.shl = and i16 %bf.value, 256
   %bf.clear10 = and i16 %bf.load, -257
-  %0 = mul i32 %add.i.3, -341751747
-  %add.i186 = add i32 %0, 229283573
-  %div1.i187 = lshr i32 %add.i186, 16
-  %mul.i189 = mul i32 %add.i186, 1103515245
-  %add.i190 = add i32 %mul.i189, 12345
-  store i32 %add.i190, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i191 = lshr i32 %add.i190, 16
-  %conv101 = trunc i32 %div1.i187 to i16
-  %1 = trunc i32 %div1.i191 to i16
-  %bf.value103194 = add i16 %1, %conv101
-  %bf.lshr5.i193 = shl i16 %bf.value103194, 8
-  %bf.shl.i = and i16 %bf.lshr5.i193, 256
+  %bf.set11 = or i16 %bf.shl, %bf.clear10
+  store i16 %bf.set11, ptr @sV, align 2
+  %0 = lshr i16 %bf.set11, 8
+  %bf.clear32 = and i32 %div1.i172, 1
+  %bf.clear36 = and i16 %0, 1
+  %conv37 = zext i16 %bf.clear36 to i32
+  %cmp38.not = icmp eq i32 %bf.clear32, %conv37
+  br i1 %cmp38.not, label %lor.lhs.false45, label %if.then
+
+lor.lhs.false45:                                  ; preds = %entry
+  %div1.i176 = lshr i32 %add.i175, 16
+  %1 = trunc i32 %div1.i176 to i16
+  %2 = add i16 %0, %1
+  %3 = and i16 %2, 1
+  %bf.clear6.i = zext i16 %3 to i32
+  %add = add nuw nsw i32 %div1.i176, %div1.i172
+  %and = and i32 %add, 1
+  %cmp46.not = icmp eq i32 %and, %bf.clear6.i
+  br i1 %cmp46.not, label %if.end, label %if.then
+
+if.then:                                          ; preds = %lor.lhs.false45, %entry
+  tail call void @abort() #8
+  unreachable
+
+if.end:                                           ; preds = %lor.lhs.false45
+  %mul.i178 = mul i32 %add.i175, 1103515245
+  %add.i179 = add i32 %mul.i178, 12345
+  %div1.i180 = lshr i32 %add.i179, 16
+  %mul.i182 = mul i32 %add.i179, 1103515245
+  %add.i183 = add i32 %mul.i182, 12345
+  store i32 %add.i183, ptr @myrnd.s, align 4, !tbaa !5
+  %conv50 = trunc i32 %div1.i180 to i16
+  %bf.value52 = shl i16 %conv50, 8
+  %bf.shl53 = and i16 %bf.value52, 256
+  %bf.set55 = or i16 %bf.shl53, %bf.clear10
+  store i16 %bf.set55, ptr @sV, align 2
+  %4 = lshr i16 %bf.set55, 8
+  %bf.clear77 = and i32 %div1.i180, 1
+  %bf.clear81 = and i16 %4, 1
+  %conv82 = zext i16 %bf.clear81 to i32
+  %cmp83.not = icmp eq i32 %bf.clear77, %conv82
+  br i1 %cmp83.not, label %lor.lhs.false91, label %if.then97
+
+lor.lhs.false91:                                  ; preds = %if.end
+  %div1.i184 = lshr i32 %add.i183, 16
+  %5 = trunc i32 %div1.i184 to i16
+  %6 = add i16 %4, %5
+  %bf.lshr15.i = and i16 %6, 1
+  %conv17.i = zext i16 %bf.lshr15.i to i32
+  %add92 = add nuw nsw i32 %div1.i184, %div1.i180
+  %and93 = and i32 %add92, 1
+  %cmp95.not = icmp eq i32 %and93, %conv17.i
+  br i1 %cmp95.not, label %if.end98, label %if.then97
+
+if.then97:                                        ; preds = %lor.lhs.false91, %if.end
+  tail call void @abort() #8
+  unreachable
+
+if.end98:                                         ; preds = %lor.lhs.false91
+  %mul.i187 = mul i32 %add.i183, 1103515245
+  %add.i188 = add i32 %mul.i187, 12345
+  %div1.i189 = lshr i32 %add.i188, 16
+  %mul.i191 = mul i32 %add.i188, 1103515245
+  %add.i192 = add i32 %mul.i191, 12345
+  store i32 %add.i192, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i193 = lshr i32 %add.i192, 16
+  %conv101 = trunc i32 %div1.i189 to i16
+  %7 = trunc i32 %div1.i193 to i16
+  %bf.value103197 = add i16 %7, %conv101
+  %bf.lshr5.i = shl i16 %bf.value103197, 8
+  %bf.shl.i = and i16 %bf.lshr5.i, 256
   %bf.set.i = or i16 %bf.shl.i, %bf.clear10
   store i16 %bf.set.i, ptr @sV, align 2
   %bf.lshr.i.i = lshr exact i16 %bf.shl.i, 8
-  %bf.clear128 = and i16 %bf.value103194, 1
-  %cmp130.not = icmp eq i16 %bf.clear128, %bf.lshr.i.i
+  %bf.clear128 = and i16 %bf.value103197, 1
+  %cmp130.not = icmp eq i16 %bf.lshr.i.i, %bf.clear128
   br i1 %cmp130.not, label %lor.lhs.false138, label %if.then143
 
-lor.lhs.false138:                                 ; preds = %entry
+lor.lhs.false138:                                 ; preds = %if.end98
   %conv.i.i = zext i16 %bf.lshr.i.i to i32
-  %add139 = add nuw nsw i32 %div1.i191, %div1.i187
+  %add139 = add nuw nsw i32 %div1.i193, %div1.i189
   %and140 = and i32 %add139, 1
   %cmp141.not = icmp eq i32 %and140, %conv.i.i
   br i1 %cmp141.not, label %if.end144, label %if.then143
 
-if.then143:                                       ; preds = %lor.lhs.false138, %entry
+if.then143:                                       ; preds = %lor.lhs.false138, %if.end98
   tail call void @abort() #8
   unreachable
 
@@ -3217,16 +3513,16 @@ if.end121:
   %bf.load = load i32, ptr getelementptr inbounds (%struct.W, ptr @sW, i64 0, i32 1), align 16
   %bf.clear8 = and i32 %bf.load, -4096
   %1 = mul i32 %add.i.19, -341751747
-  %add.i172 = add i32 %1, 229283573
-  %div1.i173 = lshr i32 %add.i172, 16
-  %rem.i174 = and i32 %div1.i173, 2047
-  %mul.i175 = mul i32 %add.i172, 1103515245
-  %add.i176 = add i32 %mul.i175, 12345
-  store i32 %add.i176, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i177 = lshr i32 %add.i176, 16
-  %rem.i178 = and i32 %div1.i177, 2047
-  %add.i179 = add nuw nsw i32 %rem.i178, %rem.i174
-  %bf.set.i = or i32 %add.i179, %bf.clear8
+  %add.i182 = add i32 %1, 229283573
+  %div1.i183 = lshr i32 %add.i182, 16
+  %rem.i184 = and i32 %div1.i183, 2047
+  %mul.i185 = mul i32 %add.i182, 1103515245
+  %add.i186 = add i32 %mul.i185, 12345
+  store i32 %add.i186, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i187 = lshr i32 %add.i186, 16
+  %rem.i188 = and i32 %div1.i187, 2047
+  %add.i189 = add nuw nsw i32 %rem.i188, %rem.i184
+  %bf.set.i = or i32 %add.i189, %bf.clear8
   store i32 %bf.set.i, ptr getelementptr inbounds (%struct.W, ptr @sW, i64 0, i32 1), align 16
   ret void
 }
@@ -3337,16 +3633,16 @@ if.end115:
   %bf.load = load i32, ptr @sX, align 4
   %bf.clear8 = and i32 %bf.load, -4096
   %1 = mul i32 %add.i.19, -341751747
-  %add.i159 = add i32 %1, 229283573
-  %div1.i160 = lshr i32 %add.i159, 16
-  %rem.i161 = and i32 %div1.i160, 2047
-  %mul.i162 = mul i32 %add.i159, 1103515245
-  %add.i163 = add i32 %mul.i162, 12345
-  store i32 %add.i163, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i164 = lshr i32 %add.i163, 16
-  %rem.i165 = and i32 %div1.i164, 2047
-  %add.i166 = add nuw nsw i32 %rem.i165, %rem.i161
-  %bf.set.i = or i32 %add.i166, %bf.clear8
+  %add.i169 = add i32 %1, 229283573
+  %div1.i170 = lshr i32 %add.i169, 16
+  %rem.i171 = and i32 %div1.i170, 2047
+  %mul.i172 = mul i32 %add.i169, 1103515245
+  %add.i173 = add i32 %mul.i172, 12345
+  store i32 %add.i173, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i174 = lshr i32 %add.i173, 16
+  %rem.i175 = and i32 %div1.i174, 2047
+  %add.i176 = add nuw nsw i32 %rem.i175, %rem.i171
+  %bf.set.i = or i32 %add.i176, %bf.clear8
   store i32 %bf.set.i, ptr @sX, align 4
   ret void
 }
@@ -3457,16 +3753,16 @@ if.end115:
   %bf.load = load i32, ptr @sY, align 4
   %bf.clear8 = and i32 %bf.load, -4096
   %1 = mul i32 %add.i.19, -341751747
-  %add.i159 = add i32 %1, 229283573
-  %div1.i160 = lshr i32 %add.i159, 16
-  %rem.i161 = and i32 %div1.i160, 2047
-  %mul.i162 = mul i32 %add.i159, 1103515245
-  %add.i163 = add i32 %mul.i162, 12345
-  store i32 %add.i163, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i164 = lshr i32 %add.i163, 16
-  %rem.i165 = and i32 %div1.i164, 2047
-  %add.i166 = add nuw nsw i32 %rem.i165, %rem.i161
-  %bf.set.i = or i32 %add.i166, %bf.clear8
+  %add.i169 = add i32 %1, 229283573
+  %div1.i170 = lshr i32 %add.i169, 16
+  %rem.i171 = and i32 %div1.i170, 2047
+  %mul.i172 = mul i32 %add.i169, 1103515245
+  %add.i173 = add i32 %mul.i172, 12345
+  store i32 %add.i173, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i174 = lshr i32 %add.i173, 16
+  %rem.i175 = and i32 %div1.i174, 2047
+  %add.i176 = add nuw nsw i32 %rem.i175, %rem.i171
+  %bf.set.i = or i32 %add.i176, %bf.clear8
   store i32 %bf.set.i, ptr @sY, align 4
   ret void
 }
@@ -3577,30 +3873,44 @@ if.end82:
   store x86_fp80 0xK4001A800000000000000, ptr @sZ, align 16, !tbaa !43
   %bf.load = load i32, ptr getelementptr inbounds (%struct.Z, ptr @sZ, i64 0, i32 1), align 16
   %bf.clear7 = and i32 %bf.load, 1048575
-  %1 = mul i32 %add.i.19, -341751747
-  %add.i172 = add i32 %1, 229283573
-  %div1.i173 = lshr i32 %add.i172, 16
-  %rem.i174 = and i32 %div1.i173, 2047
-  %mul.i175 = mul i32 %add.i172, 1103515245
-  %add.i176 = add i32 %mul.i175, 12345
-  store i32 %add.i176, ptr @myrnd.s, align 4, !tbaa !5
-  %div1.i177 = lshr i32 %add.i176, 16
-  %rem.i178 = and i32 %div1.i177, 2047
-  %bf.shl87 = shl nuw nsw i32 %rem.i174, 20
+  %1 = mul i32 %add.i.19, -2139243339
+  %add.i174 = add i32 %1, -1492899873
+  %2 = shl i32 %add.i174, 4
+  %bf.shl42 = and i32 %2, 2146435072
+  %bf.set44 = or i32 %bf.shl42, %bf.clear7
+  %3 = mul i32 %add.i174, -1029531031
+  %add.i182 = add i32 %3, -740551042
+  %div1.i183 = lshr i32 %add.i182, 16
+  %rem.i184 = and i32 %div1.i183, 2047
+  %mul.i185 = mul i32 %add.i182, 1103515245
+  %add.i186 = add i32 %mul.i185, 12345
+  store i32 %add.i186, ptr @myrnd.s, align 4, !tbaa !5
+  %div1.i187 = lshr i32 %add.i186, 16
+  %rem.i188 = and i32 %div1.i187, 2047
+  %bf.shl87 = shl nuw nsw i32 %rem.i184, 20
   %bf.set89 = or i32 %bf.shl87, %bf.clear7
-  %add2.i = shl nuw nsw i32 %rem.i178, 20
+  %add2.i = shl nuw nsw i32 %rem.i188, 20
   %bf.lshr3.i = add nuw i32 %bf.set89, %add2.i
   store i32 %bf.lshr3.i, ptr getelementptr inbounds (%struct.Z, ptr @sZ, i64 0, i32 1), align 16
-  %bf.lshr.i.i = lshr i32 %bf.lshr3.i, 20
-  %add118 = add nuw nsw i32 %rem.i178, %rem.i174
-  %cmp120.not = icmp eq i32 %add118, %bf.lshr.i.i
-  br i1 %cmp120.not, label %if.end123, label %if.then122
+  %bf.lshr93157 = xor i32 %bf.lshr3.i, %bf.set44
+  %4 = and i32 %bf.lshr93157, 1040384
+  %cmp98.not = icmp eq i32 %4, 0
+  br i1 %cmp98.not, label %lor.lhs.false100, label %if.then122
 
-if.then122:                                       ; preds = %if.end82
+lor.lhs.false100:                                 ; preds = %if.end82
+  %bf.lshr.i.i = lshr i32 %bf.lshr3.i, 20
+  %5 = and i32 %bf.lshr93157, 8191
+  %cmp106.not = icmp eq i32 %5, 0
+  %add118 = add nuw nsw i32 %rem.i188, %rem.i184
+  %cmp120.not = icmp eq i32 %add118, %bf.lshr.i.i
+  %or.cond164 = select i1 %cmp106.not, i1 %cmp120.not, i1 false
+  br i1 %or.cond164, label %if.end123, label %if.then122
+
+if.then122:                                       ; preds = %lor.lhs.false100, %if.end82
   tail call void @abort() #8
   unreachable
 
-if.end123:                                        ; preds = %if.end82
+if.end123:                                        ; preds = %lor.lhs.false100
   ret void
 }
 

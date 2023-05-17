@@ -174,9 +174,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not911 = icmp eq i64 %1, 0
   %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not911
-  br i1 %cmp.not.i.not9, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not9, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %A) #12
@@ -190,7 +190,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.010, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 declare i32 @__gxx_personality_v0(...)
@@ -212,13 +212,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not810 = icmp eq i64 %1, 0
   %cmp.not.i.not8 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not810
-  br i1 %cmp.not.i.not8, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not8, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx4 = getelementptr inbounds [8 x i32], ptr %A, i64 0, i64 3
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %A) #12
   ret void
@@ -230,7 +230,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.09, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -250,7 +250,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1922 = icmp eq i64 %1, 0
   %cmp.not.i.not19 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1922
-  br i1 %cmp.not.i.not19, label %if.end.i, label %for.cond4.preheader, !prof !27
+  br i1 %cmp.not.i.not19, label %for.cond.cleanup, label %for.cond4.preheader, !prof !27
 
 for.cond4.preheader:                              ; preds = %entry, %for.cond4.preheader
   %__begin1.sroa.0.020 = phi i64 [ %dec.i, %for.cond4.preheader ], [ %1, %entry ]
@@ -263,9 +263,9 @@ for.cond4.preheader:                              ; preds = %entry, %for.cond4.p
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.020, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond4.preheader, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond4.preheader, !prof !27
 
-if.end.i:                                         ; preds = %for.cond4.preheader, %entry
+for.cond.cleanup:                                 ; preds = %for.cond4.preheader, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %A) #12
@@ -289,9 +289,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not911 = icmp eq i64 %1, 0
   %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not911
-  br i1 %cmp.not.i.not9, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not9, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %A) #12
@@ -305,7 +305,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.010, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -322,13 +322,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not810 = icmp eq i64 %1, 0
   %cmp.not.i.not8 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not810
-  br i1 %cmp.not.i.not8, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not8, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx4 = getelementptr inbounds [32 x i32], ptr %A, i64 0, i64 3
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %A) #12
   ret void
@@ -340,7 +340,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.09, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -360,7 +360,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1922 = icmp eq i64 %1, 0
   %cmp.not.i.not19 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1922
-  br i1 %cmp.not.i.not19, label %if.end.i, label %for.cond4.preheader.preheader, !prof !27
+  br i1 %cmp.not.i.not19, label %for.cond.cleanup, label %for.cond4.preheader.preheader, !prof !27
 
 for.cond4.preheader.preheader:                    ; preds = %entry
   %arrayidx7.4 = getelementptr inbounds [16 x i32], ptr %B, i64 0, i64 4
@@ -394,9 +394,9 @@ for.cond4.preheader:                              ; preds = %for.cond4.preheader
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.020, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond4.preheader, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond4.preheader, !prof !27
 
-if.end.i:                                         ; preds = %for.cond4.preheader, %entry
+for.cond.cleanup:                                 ; preds = %for.cond4.preheader, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %A) #12
@@ -423,9 +423,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1113 = icmp eq i64 %1, 0
   %cmp.not.i.not11 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1113
-  br i1 %cmp.not.i.not11, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not11, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %C) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %B) #12
@@ -441,7 +441,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.012, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -461,13 +461,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1012 = icmp eq i64 %1, 0
   %cmp.not.i.not10 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1012
-  br i1 %cmp.not.i.not10, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not10, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx5 = getelementptr inbounds [8 x i32], ptr %A, i64 0, i64 3
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %A) #12
@@ -481,7 +481,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.011, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -504,7 +504,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2326 = icmp eq i64 %1, 0
   %cmp.not.i.not23 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2326
-  br i1 %cmp.not.i.not23, label %if.end.i, label %for.cond5.preheader, !prof !27
+  br i1 %cmp.not.i.not23, label %for.cond.cleanup, label %for.cond5.preheader, !prof !27
 
 for.cond5.preheader:                              ; preds = %entry, %for.cond5.preheader
   %__begin1.sroa.0.024 = phi i64 [ %dec.i, %for.cond5.preheader ], [ %1, %entry ]
@@ -520,9 +520,9 @@ for.cond5.preheader:                              ; preds = %entry, %for.cond5.p
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.024, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond5.preheader, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond5.preheader, !prof !27
 
-if.end.i:                                         ; preds = %for.cond5.preheader, %entry
+for.cond.cleanup:                                 ; preds = %for.cond5.preheader, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %C) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %B) #12
@@ -550,9 +550,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1113 = icmp eq i64 %1, 0
   %cmp.not.i.not11 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1113
-  br i1 %cmp.not.i.not11, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not11, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %C) #12
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %B) #12
@@ -568,7 +568,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.012, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -588,13 +588,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1012 = icmp eq i64 %1, 0
   %cmp.not.i.not10 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1012
-  br i1 %cmp.not.i.not10, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not10, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx5 = getelementptr inbounds [32 x i32], ptr %A, i64 0, i64 3
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 128, ptr nonnull %A) #12
@@ -608,7 +608,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.011, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -631,7 +631,7 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2326 = icmp eq i64 %1, 0
   %cmp.not.i.not23 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2326
-  br i1 %cmp.not.i.not23, label %if.end.i, label %for.cond5.preheader.preheader, !prof !27
+  br i1 %cmp.not.i.not23, label %for.cond.cleanup, label %for.cond5.preheader.preheader, !prof !27
 
 for.cond5.preheader.preheader:                    ; preds = %entry
   %arrayidx8.4 = getelementptr inbounds [16 x i32], ptr %B, i64 0, i64 4
@@ -677,9 +677,9 @@ for.cond5.preheader:                              ; preds = %for.cond5.preheader
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.024, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.cond5.preheader, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.cond5.preheader, !prof !27
 
-if.end.i:                                         ; preds = %for.cond5.preheader, %entry
+for.cond.cleanup:                                 ; preds = %for.cond5.preheader, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %C) #12
   call void @llvm.lifetime.end.p0(i64 64, ptr nonnull %B) #12
@@ -704,9 +704,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1012 = icmp eq i64 %1, 0
   %cmp.not.i.not10 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1012
-  br i1 %cmp.not.i.not10, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not10, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %A) #12
@@ -721,7 +721,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.011, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -738,13 +738,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not911 = icmp eq i64 %1, 0
   %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not911
-  br i1 %cmp.not.i.not9, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not9, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx4 = getelementptr inbounds [2 x double], ptr %A, i64 0, i64 1
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %A) #12
   ret void
@@ -757,7 +757,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.010, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -777,9 +777,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2023 = icmp eq i64 %1, 0
   %cmp.not.i.not20 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2023
-  br i1 %cmp.not.i.not20, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not20, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %A) #12
@@ -797,7 +797,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.021, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -817,9 +817,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1012 = icmp eq i64 %1, 0
   %cmp.not.i.not10 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1012
-  br i1 %cmp.not.i.not10, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not10, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %A) #12
@@ -834,7 +834,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.011, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -851,13 +851,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not911 = icmp eq i64 %1, 0
   %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not911
-  br i1 %cmp.not.i.not9, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not9, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx4 = getelementptr inbounds [3 x double], ptr %A, i64 0, i64 1
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %A) #12
   ret void
@@ -870,7 +870,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.010, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -890,14 +890,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2023 = icmp eq i64 %1, 0
   %cmp.not.i.not20 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2023
-  br i1 %cmp.not.i.not20, label %if.end.i, label %for.body.preheader, !prof !27
+  br i1 %cmp.not.i.not20, label %for.cond.cleanup, label %for.body.preheader, !prof !27
 
 for.body.preheader:                               ; preds = %entry
   %arrayidx8.2 = getelementptr inbounds [3 x double], ptr %B, i64 0, i64 2
   %arrayidx10.2 = getelementptr inbounds [3 x double], ptr %A, i64 0, i64 2
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %A) #12
@@ -920,7 +920,7 @@ for.body:                                         ; preds = %for.body.preheader,
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.021, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -940,9 +940,9 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1012 = icmp eq i64 %1, 0
   %cmp.not.i.not10 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1012
-  br i1 %cmp.not.i.not10, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not10, label %for.cond.cleanup, label %for.body, !prof !27
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %A) #12
@@ -957,7 +957,7 @@ for.body:                                         ; preds = %entry, %for.body
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.011, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -974,13 +974,13 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not911 = icmp eq i64 %1, 0
   %cmp.not.i.not9 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not911
-  br i1 %cmp.not.i.not9, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not9, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %arrayidx4 = getelementptr inbounds [4 x double], ptr %A, i64 0, i64 1
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %A) #12
   ret void
@@ -993,7 +993,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %fo
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.010, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 ; Function Attrs: uwtable
@@ -1013,14 +1013,14 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not2023 = icmp eq i64 %1, 0
   %cmp.not.i.not20 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not2023
-  br i1 %cmp.not.i.not20, label %if.end.i, label %for.body.preheader, !prof !27
+  br i1 %cmp.not.i.not20, label %for.cond.cleanup, label %for.body.preheader, !prof !27
 
 for.body.preheader:                               ; preds = %entry
   %arrayidx8.2 = getelementptr inbounds [4 x double], ptr %B, i64 0, i64 2
   %arrayidx10.2 = getelementptr inbounds [4 x double], ptr %A, i64 0, i64 2
   br label %for.body
 
-if.end.i:                                         ; preds = %for.body, %entry
+for.cond.cleanup:                                 ; preds = %for.body, %entry
   call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %B) #12
   call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %A) #12
@@ -1042,7 +1042,7 @@ for.body:                                         ; preds = %for.body.preheader,
   fence syncscope("singlethread") acq_rel
   %dec.i = add i64 %__begin1.sroa.0.021, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 declare void @_ZN9benchmark8internal9BenchmarkC2EPKc(ptr noundef nonnull align 8 dereferenceable(216), ptr noundef) unnamed_addr #0
@@ -1113,7 +1113,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %_Z
   %conv7.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i to i64
   %sub11.i.i.i.i = add i64 %conv7.i.i.i.i, 52
   %div12.i.i.i.i = udiv i64 %sub11.i.i.i.i, %conv7.i.i.i.i
-  %.sroa.speculated.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div12.i.i.i.i, i64 1)
+  %spec.select.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div12.i.i.i.i, i64 1)
   br label %for.body.i.i.i.i
 
 for.cond.cleanup.i.i.i.i:                         ; preds = %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit
@@ -1124,7 +1124,7 @@ for.cond.cleanup.i.i.i.i:                         ; preds = %_ZNSt23mersenne_twi
 for.body.i.i.i.i:                                 ; preds = %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit, %for.body
   %.pre.i.i = phi i64 [ %.pre.i.i13, %for.body ], [ %.pre.i.i14, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %2 = phi i64 [ %1, %for.body ], [ %inc.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
-  %__k.044.i.i.i.i = phi i64 [ %.sroa.speculated.i.i.i.i, %for.body ], [ %dec.i.i.i.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
+  %__k.044.i.i.i.i = phi i64 [ %spec.select.i.i.i.i, %for.body ], [ %dec.i.i.i.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %__tmp.043.i.i.i.i = phi double [ 1.000000e+00, %for.body ], [ %conv19.i.i.i.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %__sum.042.i.i.i.i = phi double [ 0.000000e+00, %for.body ], [ %41, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %cmp.i = icmp ugt i64 %2, 623
@@ -1653,7 +1653,7 @@ for.body:                                         ; preds = %for.body.lr.ph, %_Z
   %conv7.i.i.i.i = fptoui x86_fp80 %div.i.i.i.i to i64
   %sub11.i.i.i.i = add i64 %conv7.i.i.i.i, 52
   %div12.i.i.i.i = udiv i64 %sub11.i.i.i.i, %conv7.i.i.i.i
-  %.sroa.speculated.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div12.i.i.i.i, i64 1)
+  %spec.select.i.i.i.i = tail call i64 @llvm.umax.i64(i64 %div12.i.i.i.i, i64 1)
   br label %for.body.i.i.i.i
 
 for.cond.cleanup.i.i.i.i:                         ; preds = %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit
@@ -1664,7 +1664,7 @@ for.cond.cleanup.i.i.i.i:                         ; preds = %_ZNSt23mersenne_twi
 for.body.i.i.i.i:                                 ; preds = %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit, %for.body
   %.pre.i.i = phi i64 [ %.pre.i.i13, %for.body ], [ %.pre.i.i14, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %2 = phi i64 [ %1, %for.body ], [ %inc.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
-  %__k.044.i.i.i.i = phi i64 [ %.sroa.speculated.i.i.i.i, %for.body ], [ %dec.i.i.i.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
+  %__k.044.i.i.i.i = phi i64 [ %spec.select.i.i.i.i, %for.body ], [ %dec.i.i.i.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %__tmp.043.i.i.i.i = phi double [ 1.000000e+00, %for.body ], [ %conv19.i.i.i.i, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %__sum.042.i.i.i.i = phi double [ 0.000000e+00, %for.body ], [ %41, %_ZNSt23mersenne_twister_engineImLm32ELm624ELm397ELm31ELm2567483615ELm11ELm4294967295ELm7ELm2636928640ELm15ELm4022730752ELm18ELm1812433253EEclEv.exit ]
   %cmp.i = icmp ugt i64 %2, 623

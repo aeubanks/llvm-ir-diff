@@ -122,8 +122,8 @@ for.body.us:                                      ; preds = %entry, %for.inc.us
   %sf_ok.0137.us = phi double [ %sf_ok.2.us, %for.inc.us ], [ 1.000000e+04, %entry ]
   %sf.0136.us = phi double [ %sf.1.us, %for.inc.us ], [ -2.050000e+01, %entry ]
   %div.us = fmul double %delsf.0138.us, 5.000000e-01
-  %exp2128.us = tail call double @exp2(double %sf.0136.us) #11
-  %call.i.us = tail call double @pow(double noundef %exp2128.us, double noundef 7.500000e-01) #11
+  %exp294.us = tail call double @exp2(double %sf.0136.us) #11
+  %call.i.us = tail call double @pow(double noundef %exp294.us, double noundef 7.500000e-01) #11
   br label %for.body.i.us
 
 for.body.i.us:                                    ; preds = %for.inc.i.us, %for.body.us
@@ -145,7 +145,7 @@ if.end.i.us:                                      ; preds = %for.body.i.us
   %arrayidx6.i.us = getelementptr inbounds [8208 x double], ptr @pow43, i64 0, i64 %idxprom5.i.us
   %6 = load double, ptr %arrayidx6.i.us, align 8, !tbaa !5
   %neg.i.us = fneg double %6
-  %7 = tail call double @llvm.fmuladd.f64(double %neg.i.us, double %exp2128.us, double %5)
+  %7 = tail call double @llvm.fmuladd.f64(double %neg.i.us, double %exp294.us, double %5)
   %cmp8.not.i.us = icmp eq i32 %conv.i.us, 8206
   br i1 %cmp8.not.i.us, label %for.inc.i.us, label %if.then10.i.us
 
@@ -155,7 +155,7 @@ if.then10.i.us:                                   ; preds = %if.end.i.us
   %arrayidx14.i.us = getelementptr inbounds [8208 x double], ptr @pow43, i64 0, i64 %idxprom13.i.us
   %8 = load double, ptr %arrayidx14.i.us, align 8, !tbaa !5
   %neg16.i.us = fneg double %8
-  %9 = tail call double @llvm.fmuladd.f64(double %neg16.i.us, double %exp2128.us, double %5)
+  %9 = tail call double @llvm.fmuladd.f64(double %neg16.i.us, double %exp294.us, double %5)
   %10 = tail call double @llvm.fabs.f64(double %9)
   %11 = tail call double @llvm.fabs.f64(double %7)
   %cmp17.i.us = fcmp olt double %10, %11
@@ -207,12 +207,12 @@ entry.split:                                      ; preds = %entry
   br i1 %cmp3, label %for.body.us146.preheader, label %entry.split.split
 
 for.body.us146.preheader:                         ; preds = %entry.split
-  %exp2128.us156 = tail call double @exp2(double -2.050000e+01) #11
+  %exp294.us156 = tail call double @exp2(double -2.050000e+01) #11
   br label %for.end.sink.split
 
 entry.split.split:                                ; preds = %entry.split
   %cmp10 = fcmp ogt double %div27.i, %l3_xmin
-  %exp2128.us186 = tail call double @exp2(double -2.050000e+01) #11
+  %exp294.us186 = tail call double @exp2(double -2.050000e+01) #11
   %. = select i1 %cmp10, double -3.650000e+01, double -4.500000e+00
   %.246 = select i1 %cmp10, double -4.450000e+01, double 3.500000e+00
   %.247 = select i1 %cmp10, double -4.850000e+01, double 7.500000e+00
@@ -230,12 +230,12 @@ for.end.sink.split:                               ; preds = %entry.split.split, 
   %.sink241 = phi double [ 1.050000e+01, %for.body.us146.preheader ], [ %.249, %entry.split.split ]
   %.sink = phi double [ 1.100000e+01, %for.body.us146.preheader ], [ %.250, %entry.split.split ]
   %.us-phi.ph = phi double [ 1.000000e+04, %for.body.us146.preheader ], [ %.251, %entry.split.split ]
-  %exp2128.1 = tail call double @exp2(double %.sink245) #11
-  %exp2128.2 = tail call double @exp2(double %.sink244) #11
-  %exp2128.3 = tail call double @exp2(double %.sink243) #11
-  %exp2128.4 = tail call double @exp2(double %.sink242) #11
-  %exp2128.5 = tail call double @exp2(double %.sink241) #11
-  %exp2128.6 = tail call double @exp2(double %.sink) #11
+  %exp294.1 = tail call double @exp2(double %.sink245) #11
+  %exp294.2 = tail call double @exp2(double %.sink244) #11
+  %exp294.3 = tail call double @exp2(double %.sink243) #11
+  %exp294.4 = tail call double @exp2(double %.sink242) #11
+  %exp294.5 = tail call double @exp2(double %.sink241) #11
+  %exp294.6 = tail call double @exp2(double %.sink) #11
   br label %for.end
 
 for.end:                                          ; preds = %for.inc.us, %for.end.sink.split
@@ -258,84 +258,84 @@ while.body.us:                                    ; preds = %while.body.lr.ph, %
   %sub25.us = fadd double %sf.2211.us, -2.500000e-01
   %sf.3.us = select i1 %cmp23.us, double %sub25.us, double %sf.2211.us
   %exp2.us = tail call double @exp2(double %sf.3.us) #11
-  %call.i92.us = tail call double @pow(double noundef %exp2.us, double noundef 7.500000e-01) #11
-  br label %for.body.i102.us
+  %call.i95.us = tail call double @pow(double noundef %exp2.us, double noundef 7.500000e-01) #11
+  br label %for.body.i105.us
 
-for.body.i102.us:                                 ; preds = %for.inc.i119.us, %while.body.us
-  %indvars.iv.i96.us = phi i64 [ 0, %while.body.us ], [ %indvars.iv.next.i117.us, %for.inc.i119.us ]
-  %xfsf.051.i97.us = phi double [ 0.000000e+00, %while.body.us ], [ %25, %for.inc.i119.us ]
-  %arrayidx.i98.us = getelementptr inbounds double, ptr %xr34, i64 %indvars.iv.i96.us
-  %15 = load double, ptr %arrayidx.i98.us, align 8, !tbaa !5
-  %div.i99.us = fdiv double %15, %call.i92.us
-  %16 = tail call double @llvm.floor.f64(double %div.i99.us)
-  %conv.i100.us = fptosi double %16 to i32
-  %cmp1.i101.us = icmp slt i32 %conv.i100.us, 8207
-  br i1 %cmp1.i101.us, label %if.end.i108.us, label %if.end39.us
+for.body.i105.us:                                 ; preds = %for.inc.i122.us, %while.body.us
+  %indvars.iv.i99.us = phi i64 [ 0, %while.body.us ], [ %indvars.iv.next.i120.us, %for.inc.i122.us ]
+  %xfsf.051.i100.us = phi double [ 0.000000e+00, %while.body.us ], [ %25, %for.inc.i122.us ]
+  %arrayidx.i101.us = getelementptr inbounds double, ptr %xr34, i64 %indvars.iv.i99.us
+  %15 = load double, ptr %arrayidx.i101.us, align 8, !tbaa !5
+  %div.i102.us = fdiv double %15, %call.i95.us
+  %16 = tail call double @llvm.floor.f64(double %div.i102.us)
+  %conv.i103.us = fptosi double %16 to i32
+  %cmp1.i104.us = icmp slt i32 %conv.i103.us, 8207
+  br i1 %cmp1.i104.us, label %if.end.i111.us, label %if.end39.us
 
-if.end.i108.us:                                   ; preds = %for.body.i102.us
-  %arrayidx4.i103.us = getelementptr inbounds double, ptr %xr, i64 %indvars.iv.i96.us
-  %17 = load double, ptr %arrayidx4.i103.us, align 8, !tbaa !5
+if.end.i111.us:                                   ; preds = %for.body.i105.us
+  %arrayidx4.i106.us = getelementptr inbounds double, ptr %xr, i64 %indvars.iv.i99.us
+  %17 = load double, ptr %arrayidx4.i106.us, align 8, !tbaa !5
   %18 = tail call double @llvm.fabs.f64(double %17)
-  %idxprom5.i104.us = sext i32 %conv.i100.us to i64
-  %arrayidx6.i105.us = getelementptr inbounds [8208 x double], ptr @pow43, i64 0, i64 %idxprom5.i104.us
-  %19 = load double, ptr %arrayidx6.i105.us, align 8, !tbaa !5
-  %neg.i106.us = fneg double %19
-  %20 = tail call double @llvm.fmuladd.f64(double %neg.i106.us, double %exp2.us, double %18)
-  %cmp8.not.i107.us = icmp eq i32 %conv.i100.us, 8206
-  br i1 %cmp8.not.i107.us, label %for.inc.i119.us, label %if.then10.i114.us
+  %idxprom5.i107.us = sext i32 %conv.i103.us to i64
+  %arrayidx6.i108.us = getelementptr inbounds [8208 x double], ptr @pow43, i64 0, i64 %idxprom5.i107.us
+  %19 = load double, ptr %arrayidx6.i108.us, align 8, !tbaa !5
+  %neg.i109.us = fneg double %19
+  %20 = tail call double @llvm.fmuladd.f64(double %neg.i109.us, double %exp2.us, double %18)
+  %cmp8.not.i110.us = icmp eq i32 %conv.i103.us, 8206
+  br i1 %cmp8.not.i110.us, label %for.inc.i122.us, label %if.then10.i117.us
 
-if.then10.i114.us:                                ; preds = %if.end.i108.us
-  %add.i109.us = add nsw i32 %conv.i100.us, 1
-  %idxprom13.i110.us = sext i32 %add.i109.us to i64
-  %arrayidx14.i111.us = getelementptr inbounds [8208 x double], ptr @pow43, i64 0, i64 %idxprom13.i110.us
-  %21 = load double, ptr %arrayidx14.i111.us, align 8, !tbaa !5
-  %neg16.i112.us = fneg double %21
-  %22 = tail call double @llvm.fmuladd.f64(double %neg16.i112.us, double %exp2.us, double %18)
+if.then10.i117.us:                                ; preds = %if.end.i111.us
+  %add.i112.us = add nsw i32 %conv.i103.us, 1
+  %idxprom13.i113.us = sext i32 %add.i112.us to i64
+  %arrayidx14.i114.us = getelementptr inbounds [8208 x double], ptr @pow43, i64 0, i64 %idxprom13.i113.us
+  %21 = load double, ptr %arrayidx14.i114.us, align 8, !tbaa !5
+  %neg16.i115.us = fneg double %21
+  %22 = tail call double @llvm.fmuladd.f64(double %neg16.i115.us, double %exp2.us, double %18)
   %23 = tail call double @llvm.fabs.f64(double %22)
   %24 = tail call double @llvm.fabs.f64(double %20)
-  %cmp17.i113.us = fcmp olt double %23, %24
-  br i1 %cmp17.i113.us, label %if.then19.i115.us, label %for.inc.i119.us
+  %cmp17.i116.us = fcmp olt double %23, %24
+  br i1 %cmp17.i116.us, label %if.then19.i118.us, label %for.inc.i122.us
 
-if.then19.i115.us:                                ; preds = %if.then10.i114.us
-  br label %for.inc.i119.us
+if.then19.i118.us:                                ; preds = %if.then10.i117.us
+  br label %for.inc.i122.us
 
-for.inc.i119.us:                                  ; preds = %if.then19.i115.us, %if.then10.i114.us, %if.end.i108.us
-  %temp.0.i116.us = phi double [ %22, %if.then19.i115.us ], [ %20, %if.then10.i114.us ], [ %20, %if.end.i108.us ]
-  %25 = tail call double @llvm.fmuladd.f64(double %temp.0.i116.us, double %temp.0.i116.us, double %xfsf.051.i97.us)
-  %indvars.iv.next.i117.us = add i64 %indvars.iv.i96.us, %0
-  %cmp.i118.us = icmp slt i64 %indvars.iv.next.i117.us, %1
-  br i1 %cmp.i118.us, label %for.body.i102.us, label %calc_sfb_ave_noise.exit125.loopexit.us, !llvm.loop !9
+for.inc.i122.us:                                  ; preds = %if.then19.i118.us, %if.then10.i117.us, %if.end.i111.us
+  %temp.0.i119.us = phi double [ %22, %if.then19.i118.us ], [ %20, %if.then10.i117.us ], [ %20, %if.end.i111.us ]
+  %25 = tail call double @llvm.fmuladd.f64(double %temp.0.i119.us, double %temp.0.i119.us, double %xfsf.051.i100.us)
+  %indvars.iv.next.i120.us = add i64 %indvars.iv.i99.us, %0
+  %cmp.i121.us = icmp slt i64 %indvars.iv.next.i120.us, %1
+  br i1 %cmp.i121.us, label %for.body.i105.us, label %calc_sfb_ave_noise.exit128.loopexit.us, !llvm.loop !9
 
-if.end39.us:                                      ; preds = %for.body.i102.us, %calc_sfb_ave_noise.exit125.loopexit.us
+if.end39.us:                                      ; preds = %for.body.i105.us, %calc_sfb_ave_noise.exit128.loopexit.us
   %sub40.us = fadd double %sf.3.us, -2.500000e-01
   %cmp21.us = fcmp ogt double %sub40.us, %add20
   br i1 %cmp21.us, label %while.body.us, label %cleanup, !llvm.loop !12
 
-calc_sfb_ave_noise.exit125.loopexit.us:           ; preds = %for.inc.i119.us
-  %div27.i122.us = fdiv double %25, %conv26.i
-  %cmp34.us = fcmp ule double %div27.i122.us, 0.000000e+00
-  %cmp36.us = fcmp ugt double %div27.i122.us, %l3_xmin
+calc_sfb_ave_noise.exit128.loopexit.us:           ; preds = %for.inc.i122.us
+  %div27.i125.us = fdiv double %25, %conv26.i
+  %cmp34.us = fcmp ule double %div27.i125.us, 0.000000e+00
+  %cmp36.us = fcmp ugt double %div27.i125.us, %l3_xmin
   %or.cond.us = or i1 %cmp34.us, %cmp36.us
   br i1 %or.cond.us, label %if.end39.us, label %cleanup
 
 while.body.lr.ph.split:                           ; preds = %while.body.lr.ph
-  %div27.i122 = fdiv double 0.000000e+00, %conv26.i
-  %cmp34 = fcmp ule double %div27.i122, 0.000000e+00
-  %cmp36 = fcmp ugt double %div27.i122, %l3_xmin
+  %div27.i125 = fdiv double 0.000000e+00, %conv26.i
+  %cmp34 = fcmp ule double %div27.i125, 0.000000e+00
+  %cmp36 = fcmp ugt double %div27.i125, %l3_xmin
   %or.cond = or i1 %cmp34, %cmp36
   br i1 %or.cond, label %while.body.us216, label %while.body
 
 while.body.us216:                                 ; preds = %while.body.lr.ph.split, %while.body.us216
-  %sf.2211.us218 = phi double [ %sub40.us229, %while.body.us216 ], [ %add18, %while.body.lr.ph.split ]
+  %sf.2211.us218 = phi double [ %sub40.us228, %while.body.us216 ], [ %add18, %while.body.lr.ph.split ]
   %sub22.us219 = fsub double %sf.2211.us218, %13
   %26 = tail call double @llvm.fabs.f64(double %sub22.us219)
   %cmp23.us220 = fcmp olt double %26, 1.000000e-02
   %sub25.us221 = fadd double %sf.2211.us218, -2.500000e-01
   %sf.3.us222 = select i1 %cmp23.us220, double %sub25.us221, double %sf.2211.us218
-  %exp2.us226 = tail call double @exp2(double %sf.3.us222) #11
-  %call.i92.us227 = tail call double @pow(double noundef %exp2.us226, double noundef 7.500000e-01) #11
-  %sub40.us229 = fadd double %sf.3.us222, -2.500000e-01
-  %cmp21.us231 = fcmp ogt double %sub40.us229, %add20
+  %exp2.us225 = tail call double @exp2(double %sf.3.us222) #11
+  %call.i95.us226 = tail call double @pow(double noundef %exp2.us225, double noundef 7.500000e-01) #11
+  %sub40.us228 = fadd double %sf.3.us222, -2.500000e-01
+  %cmp21.us231 = fcmp ogt double %sub40.us228, %add20
   br i1 %cmp21.us231, label %while.body.us216, label %cleanup, !llvm.loop !12
 
 while.body:                                       ; preds = %while.body.lr.ph.split
@@ -345,11 +345,11 @@ while.body:                                       ; preds = %while.body.lr.ph.sp
   %sub25 = fadd double %add18, -2.500000e-01
   %sf.3 = select i1 %cmp23, double %sub25, double %add18
   %exp2 = tail call double @exp2(double %sf.3) #11
-  %call.i92 = tail call double @pow(double noundef %exp2, double noundef 7.500000e-01) #11
+  %call.i95 = tail call double @pow(double noundef %exp2, double noundef 7.500000e-01) #11
   br label %cleanup
 
-cleanup:                                          ; preds = %while.body.us216, %calc_sfb_ave_noise.exit125.loopexit.us, %if.end39.us, %while.body, %for.end
-  %retval.0 = phi double [ %.us-phi, %for.end ], [ %sf.3, %while.body ], [ %.us-phi, %if.end39.us ], [ %sf.3.us, %calc_sfb_ave_noise.exit125.loopexit.us ], [ %.us-phi, %while.body.us216 ]
+cleanup:                                          ; preds = %while.body.us216, %calc_sfb_ave_noise.exit128.loopexit.us, %if.end39.us, %while.body, %for.end
+  %retval.0 = phi double [ %.us-phi, %for.end ], [ %sf.3, %while.body ], [ %.us-phi, %if.end39.us ], [ %sf.3.us, %calc_sfb_ave_noise.exit128.loopexit.us ], [ %.us-phi, %while.body.us216 ]
   ret double %retval.0
 }
 

@@ -465,13 +465,13 @@ entry:
   br label %while.cond.outer
 
 while.cond.outer:                                 ; preds = %sw.bb4, %entry
-  %maxCount.0.ph = phi i32 [ %conv.i114, %sw.bb4 ], [ 1073741824, %entry ]
+  %maxCount.0.ph = phi i32 [ %conv.i115, %sw.bb4 ], [ 1073741824, %entry ]
   %maxk.0.ph = phi i32 [ %maxk.0.ph138, %sw.bb4 ], [ 0, %entry ]
   %aborts.0.ph = phi i32 [ %aborts.0.ph141, %sw.bb4 ], [ 3, %entry ]
   br label %while.cond.outer137
 
 while.cond.outer137:                              ; preds = %while.cond.outer, %sw.bb2
-  %maxk.0.ph138 = phi i32 [ %maxk.0.ph, %while.cond.outer ], [ %conv.i112, %sw.bb2 ]
+  %maxk.0.ph138 = phi i32 [ %maxk.0.ph, %while.cond.outer ], [ %conv.i113, %sw.bb2 ]
   %aborts.0.ph139 = phi i32 [ %aborts.0.ph, %while.cond.outer ], [ %aborts.0.ph141, %sw.bb2 ]
   br label %while.cond.outer140
 
@@ -498,14 +498,14 @@ sw.bb:                                            ; preds = %while.cond
 
 sw.bb2:                                           ; preds = %while.cond
   %2 = load ptr, ptr @optarg, align 8, !tbaa !5
-  %call.i111 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #10
-  %conv.i112 = trunc i64 %call.i111 to i32
+  %call.i112 = tail call i64 @strtol(ptr nocapture noundef nonnull %2, ptr noundef null, i32 noundef 10) #10
+  %conv.i113 = trunc i64 %call.i112 to i32
   br label %while.cond.outer137, !llvm.loop !16
 
 sw.bb4:                                           ; preds = %while.cond
   %3 = load ptr, ptr @optarg, align 8, !tbaa !5
-  %call.i113 = tail call i64 @strtol(ptr nocapture noundef nonnull %3, ptr noundef null, i32 noundef 10) #10
-  %conv.i114 = trunc i64 %call.i113 to i32
+  %call.i114 = tail call i64 @strtol(ptr nocapture noundef nonnull %3, ptr noundef null, i32 noundef 10) #10
+  %conv.i115 = trunc i64 %call.i114 to i32
   br label %while.cond.outer, !llvm.loop !16
 
 sw.bb6:                                           ; preds = %while.cond
@@ -549,28 +549,28 @@ if.end:                                           ; preds = %while.end
 if.end18:                                         ; preds = %if.end
   %incdec.ptr = getelementptr inbounds ptr, ptr %add.ptr, i64 1
   %11 = load ptr, ptr %incdec.ptr, align 8, !tbaa !5
-  %call.i115 = call i64 @strtol(ptr nocapture noundef nonnull %11, ptr noundef null, i32 noundef 10) #10
-  %conv.i116 = trunc i64 %call.i115 to i32
-  store i32 %conv.i116, ptr %m, align 4, !tbaa !11
+  %call.i116 = call i64 @strtol(ptr nocapture noundef nonnull %11, ptr noundef null, i32 noundef 10) #10
+  %conv.i117 = trunc i64 %call.i116 to i32
+  store i32 %conv.i117, ptr %m, align 4, !tbaa !11
   %12 = icmp eq i32 %dec, 1
   br i1 %12, label %if.then26, label %if.end24
 
 if.end24:                                         ; preds = %if.end18
   %incdec.ptr15 = getelementptr inbounds ptr, ptr %add.ptr, i64 2
   %13 = load ptr, ptr %incdec.ptr15, align 8, !tbaa !5
-  %call.i117 = call i64 @strtol(ptr nocapture noundef nonnull %13, ptr noundef null, i32 noundef 10) #10
-  %conv.i118 = trunc i64 %call.i117 to i32
-  %cmp25 = icmp eq i32 %conv.i118, 0
+  %call.i118 = call i64 @strtol(ptr nocapture noundef nonnull %13, ptr noundef null, i32 noundef 10) #10
+  %conv.i119 = trunc i64 %call.i118 to i32
+  %cmp25 = icmp eq i32 %conv.i119, 0
   br i1 %cmp25, label %if.then26, label %if.end39
 
 if.then26:                                        ; preds = %if.end, %if.end18, %if.end24
-  %14 = phi i32 [ 0, %if.end ], [ %conv.i116, %if.end18 ], [ %conv.i116, %if.end24 ]
+  %14 = phi i32 [ 0, %if.end ], [ %conv.i117, %if.end18 ], [ %conv.i117, %if.end24 ]
   %cmp27 = icmp eq i32 %maxk.0.ph138, 0
   br i1 %cmp27, label %if.then28, label %if.end33
 
 if.then28:                                        ; preds = %if.then26
-  %div119 = lshr i32 %14, 1
-  %add = add nuw i32 %div119, 5
+  %div111 = lshr i32 %14, 1
+  %add = add nuw i32 %div111, 5
   %15 = load i32, ptr @verbose, align 4, !tbaa !11
   %tobool29.not = icmp eq i32 %15, 0
   br i1 %tobool29.not, label %if.end33, label %if.then30
@@ -594,7 +594,7 @@ if.then36:                                        ; preds = %if.end33
   br label %if.end39
 
 if.end39:                                         ; preds = %if.end33, %if.then36, %if.end24
-  %k.1 = phi i32 [ %call34, %if.then36 ], [ %call34, %if.end33 ], [ %conv.i118, %if.end24 ]
+  %k.1 = phi i32 [ %call34, %if.then36 ], [ %call34, %if.end33 ], [ %conv.i119, %if.end24 ]
   store i32 %maxCount.0.ph, ptr %count, align 4, !tbaa !11
   %20 = load i32, ptr %m, align 4, !tbaa !11
   %call40 = call i32 @pcfracInit(i32 noundef %20, i32 noundef %k.1, i32 noundef %aborts.0.ph141) #10

@@ -404,10 +404,10 @@ entry:
   br i1 %tobool.not.i.i, label %_ZNSt5dequeIPN2kc20impl_withexpressionsESaIS2_EED2Ev.exit, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %entry
-  %_M_node.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
-  %1 = load ptr, ptr %_M_node.i.i, align 8, !tbaa !12
-  %_M_node4.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  %2 = load ptr, ptr %_M_node4.i.i, align 8, !tbaa !13
+  %_M_node5.i.i8.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  %_M_node5.i.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
+  %1 = load ptr, ptr %_M_node5.i.i.i, align 8, !tbaa !12
+  %2 = load ptr, ptr %_M_node5.i.i8.i, align 8, !tbaa !13
   %add.ptr.i.i = getelementptr inbounds ptr, ptr %2, i64 1
   %cmp4.i.i.i = icmp ult ptr %1, %add.ptr.i.i
   br i1 %cmp4.i.i.i, label %for.body.i.i.i, label %_ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE16_M_destroy_nodesEPPS2_S6_.exit.i.i
@@ -444,10 +444,10 @@ entry:
   br i1 %tobool.not.i.i, label %_ZNSt5dequeIPN2kc19impl_idCexpressionsESaIS2_EED2Ev.exit, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %entry
-  %_M_node.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
-  %1 = load ptr, ptr %_M_node.i.i, align 8, !tbaa !20
-  %_M_node4.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  %2 = load ptr, ptr %_M_node4.i.i, align 8, !tbaa !21
+  %_M_node5.i.i8.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  %_M_node5.i.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
+  %1 = load ptr, ptr %_M_node5.i.i.i, align 8, !tbaa !20
+  %2 = load ptr, ptr %_M_node5.i.i8.i, align 8, !tbaa !21
   %add.ptr.i.i = getelementptr inbounds ptr, ptr %2, i64 1
   %cmp4.i.i.i = icmp ult ptr %1, %add.ptr.i.i
   br i1 %cmp4.i.i.i, label %for.body.i.i.i, label %_ZNSt11_Deque_baseIPN2kc19impl_idCexpressionsESaIS2_EE16_M_destroy_nodesEPPS2_S6_.exit.i.i
@@ -481,10 +481,10 @@ entry:
   br i1 %tobool.not.i.i, label %_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EED2Ev.exit, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %entry
-  %_M_node.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
-  %1 = load ptr, ptr %_M_node.i.i, align 8, !tbaa !26
-  %_M_node4.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  %2 = load ptr, ptr %_M_node4.i.i, align 8, !tbaa !27
+  %_M_node5.i.i8.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  %_M_node5.i.i.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
+  %1 = load ptr, ptr %_M_node5.i.i.i, align 8, !tbaa !26
+  %2 = load ptr, ptr %_M_node5.i.i8.i, align 8, !tbaa !27
   %add.ptr.i.i = getelementptr inbounds ptr, ptr %2, i64 1
   %cmp4.i.i.i = icmp ult ptr %1, %add.ptr.i.i
   br i1 %cmp4.i.i.i, label %for.body.i.i.i, label %_ZNSt11_Deque_baseIPN2kc13impl_filelineESaIS2_EE16_M_destroy_nodesEPPS2_S6_.exit.i.i
@@ -518,10 +518,10 @@ entry:
   br i1 %tobool.not.i.i, label %_ZNSt5dequeIiSaIiEED2Ev.exit, label %if.then.i.i
 
 if.then.i.i:                                      ; preds = %entry
-  %_M_node.i.i = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
-  %1 = load ptr, ptr %_M_node.i.i, align 8, !tbaa !32
-  %_M_node4.i.i = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  %2 = load ptr, ptr %_M_node4.i.i, align 8, !tbaa !33
+  %_M_node5.i.i8.i = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  %_M_node5.i.i.i = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 3
+  %1 = load ptr, ptr %_M_node5.i.i.i, align 8, !tbaa !32
+  %2 = load ptr, ptr %_M_node5.i.i8.i, align 8, !tbaa !33
   %add.ptr.i.i = getelementptr inbounds ptr, ptr %2, i64 1
   %cmp4.i.i.i = icmp ult ptr %1, %add.ptr.i.i
   br i1 %cmp4.i.i.i, label %for.body.i.i.i, label %_ZNSt11_Deque_baseIiSaIiEE16_M_destroy_nodesEPPiS3_.exit.i.i
@@ -582,7 +582,7 @@ do.end:                                           ; preds = %if.then, %entry
 
 yynewstate:                                       ; preds = %if.then1884, %if.else1888, %do.end1989, %if.end84
   %yyvsp.0 = phi ptr [ %incdec.ptr1990, %do.end1989 ], [ %incdec.ptr1866, %if.then1884 ], [ %incdec.ptr1866, %if.else1888 ], [ %incdec.ptr85, %if.end84 ]
-  %yyssp.0.idx = phi i64 [ %yyssp.3.idx, %do.end1989 ], [ %yyssp.1.add, %if.then1884 ], [ %yyssp.1.add, %if.else1888 ], [ %yyssp.1.idx3090, %if.end84 ]
+  %yyssp.0.idx = phi i64 [ %yyssp.3.idx, %do.end1989 ], [ %yyssp.1.add, %if.then1884 ], [ %yyssp.1.add, %if.else1888 ], [ %yyssp.1.idx3082, %if.end84 ]
   %yytoken.0 = phi i32 [ %yytoken.5, %do.end1989 ], [ %yytoken.4, %if.then1884 ], [ %yytoken.4, %if.else1888 ], [ %yytoken.2, %if.end84 ]
   %yyerrstatus.0 = phi i32 [ 3, %do.end1989 ], [ %yyerrstatus.3, %if.then1884 ], [ %yyerrstatus.3, %if.else1888 ], [ %spec.select, %if.end84 ]
   %yystate.0 = phi i32 [ %conv1948.le, %do.end1989 ], [ %conv1887, %if.then1884 ], [ %conv1892, %if.else1888 ], [ %conv61, %if.end84 ]
@@ -594,22 +594,22 @@ yynewstate:                                       ; preds = %if.then1884, %if.el
   br i1 %cmp.not, label %do.body5, label %yyoverflowlab
 
 do.body5:                                         ; preds = %do.end, %yynewstate
-  %yystate.13093 = phi i32 [ 0, %do.end ], [ %yystate.0, %yynewstate ]
-  %yyerrstatus.13092 = phi i32 [ 0, %do.end ], [ %yyerrstatus.0, %yynewstate ]
-  %yytoken.13091 = phi i32 [ 0, %do.end ], [ %yytoken.0, %yynewstate ]
-  %yyssp.1.idx3090 = phi i64 [ 0, %do.end ], [ %yyssp.0.add, %yynewstate ]
-  %yyvsp.13088 = phi ptr [ %yyvsa, %do.end ], [ %yyvsp.0, %yynewstate ]
+  %yystate.13086 = phi i32 [ 0, %do.end ], [ %yystate.0, %yynewstate ]
+  %yyerrstatus.13084 = phi i32 [ 0, %do.end ], [ %yyerrstatus.0, %yynewstate ]
+  %yytoken.13083 = phi i32 [ 0, %do.end ], [ %yytoken.0, %yynewstate ]
+  %yyssp.1.idx3082 = phi i64 [ 0, %do.end ], [ %yyssp.0.add, %yynewstate ]
+  %yyvsp.13080 = phi ptr [ %yyvsa, %do.end ], [ %yyvsp.0, %yynewstate ]
   %3 = load i32, ptr @yydebug, align 4, !tbaa !35
   %tobool6.not = icmp eq i32 %3, 0
   br i1 %tobool6.not, label %yybackup, label %if.then7
 
 if.then7:                                         ; preds = %do.body5
   %4 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %call8 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.4, i32 noundef %yystate.13093) #18
+  %call8 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %4, ptr noundef nonnull @.str.4, i32 noundef %yystate.13086) #18
   br label %yybackup
 
 yybackup:                                         ; preds = %do.body5, %if.then7
-  %idxprom = sext i32 %yystate.13093 to i64
+  %idxprom = sext i32 %yystate.13086 to i64
   %arrayidx = getelementptr inbounds [611 x i16], ptr @_ZL6yypact, i64 0, i64 %idxprom
   %5 = load i16, ptr %arrayidx, align 2, !tbaa !37
   %conv12 = sext i16 %5 to i32
@@ -681,7 +681,7 @@ if.then42:                                        ; preds = %cond.end
   %call3.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %17, ptr noundef nonnull %.str.29..str.30.i, ptr noundef %18) #18
   %fputc.i = call i32 @fputc(i32 41, ptr %17)
   %19 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %fputc3002 = call i32 @fputc(i32 10, ptr %19)
+  %fputc2683 = call i32 @fputc(i32 10, ptr %19)
   br label %if.end48
 
 if.end48:                                         ; preds = %cond.end, %if.then42, %if.then28, %if.then31
@@ -741,14 +741,14 @@ if.then83:                                        ; preds = %do.end81
   br label %if.end84
 
 if.end84:                                         ; preds = %if.then83, %do.end81
-  %incdec.ptr85 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 1
+  %incdec.ptr85 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 1
   %27 = load i64, ptr @yylval, align 8
   store i64 %27, ptr %incdec.ptr85, align 8
-  %spec.select = call i32 @llvm.usub.sat.i32(i32 %yyerrstatus.13092, i32 1)
+  %spec.select = call i32 @llvm.usub.sat.i32(i32 %yyerrstatus.13084, i32 1)
   br label %yynewstate
 
 yydefault:                                        ; preds = %if.end48, %lor.lhs.false52, %yybackup
-  %yytoken.3 = phi i32 [ %yytoken.13091, %yybackup ], [ %yytoken.2, %if.end48 ], [ %yytoken.2, %lor.lhs.false52 ]
+  %yytoken.3 = phi i32 [ %yytoken.13083, %yybackup ], [ %yytoken.2, %if.end48 ], [ %yytoken.2, %lor.lhs.false52 ]
   %arrayidx90 = getelementptr inbounds [611 x i16], ptr @_ZL8yydefact, i64 0, i64 %idxprom
   %28 = load i16, ptr %arrayidx90, align 2, !tbaa !37
   %conv91 = zext i16 %28 to i32
@@ -763,15 +763,15 @@ yyreduce:                                         ; preds = %yydefault, %if.end6
   %29 = load i8, ptr %arrayidx96, align 1, !tbaa !39
   %conv97 = zext i8 %29 to i64
   %sub98 = sub nsw i64 1, %conv97
-  %arrayidx100 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 %sub98
+  %arrayidx100 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 %sub98
   %yyval.sroa.0.0.copyload = load ptr, ptr %arrayidx100, align 8, !tbaa.struct !40
   %30 = load i32, ptr @yydebug, align 4, !tbaa !35
   %tobool102.not = icmp eq i32 %30, 0
   br i1 %tobool102.not, label %do.end106, label %if.then103
 
 if.then103:                                       ; preds = %yyreduce
-  %arrayidx.i2682 = getelementptr inbounds [378 x i16], ptr @_ZL7yyrline, i64 0, i64 %idxprom95
-  %31 = load i16, ptr %arrayidx.i2682, align 2, !tbaa !37
+  %arrayidx.i2687 = getelementptr inbounds [378 x i16], ptr @_ZL7yyrline, i64 0, i64 %idxprom95
+  %31 = load i16, ptr %arrayidx.i2687, align 2, !tbaa !37
   %conv.i = zext i16 %31 to i32
   %32 = load ptr, ptr @stderr, align 8, !tbaa !14
   %sub.i = add nsw i32 %yyn.0, -1
@@ -795,8 +795,8 @@ for.body.i:                                       ; preds = %if.then103, %for.bo
   %indvars.iv.next.i = add nuw i64 %indvars.iv.i, 1
   %arrayidx5.i = getelementptr inbounds [1137 x i16], ptr @_ZL5yyrhs, i64 0, i64 %indvars.iv.next.i
   %38 = load i16, ptr %arrayidx5.i, align 2, !tbaa !37
-  %cmp.i2683 = icmp sgt i16 %38, -1
-  br i1 %cmp.i2683, label %for.body.i, label %_ZL15yy_reduce_printi.exit, !llvm.loop !41
+  %cmp.i2688 = icmp sgt i16 %38, -1
+  br i1 %cmp.i2688, label %for.body.i, label %_ZL15yy_reduce_printi.exit, !llvm.loop !41
 
 _ZL15yy_reduce_printi.exit:                       ; preds = %for.body.i, %if.then103
   %39 = load ptr, ptr @stderr, align 8, !tbaa !14
@@ -1178,7 +1178,7 @@ do.end106:                                        ; preds = %_ZL15yy_reduce_prin
   ]
 
 sw.bb:                                            ; preds = %do.end106
-  %42 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %42 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call108 = call noundef ptr @_ZN2kc3IntEPNS_17impl_integer__IntE(ptr noundef %42)
   %43 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file = getelementptr inbounds %"class.kc::impl_INT", ptr %call108, i64 0, i32 2
@@ -1189,7 +1189,7 @@ sw.bb:                                            ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb112:                                         ; preds = %do.end106
-  %45 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %45 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call114 = call noundef ptr @_ZN2kc3StrEPNS_20impl_casestring__StrE(ptr noundef %45)
   %call115 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call114)
   %46 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -1201,7 +1201,7 @@ sw.bb112:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb121:                                         ; preds = %do.end106
-  %48 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %48 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call123 = call noundef ptr @_ZN2kc3IntEPNS_17impl_integer__IntE(ptr noundef %48)
   %49 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file125 = getelementptr inbounds %"class.kc::impl_INT", ptr %call123, i64 0, i32 2
@@ -1219,82 +1219,82 @@ sw.bb129:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb131:                                         ; preds = %do.end106
-  %51 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %51 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %52 = load ptr, ptr @Thephylumdeclarations, align 8, !tbaa !14
   %call133 = call noundef ptr @_ZN2kc23mergephylumdeclarationsEPNS_22impl_phylumdeclarationEPNS_23impl_phylumdeclarationsE(ptr noundef %51, ptr noundef %52)
   store ptr %call133, ptr @Thephylumdeclarations, align 8, !tbaa !14
   br label %sw.epilog
 
 sw.bb134:                                         ; preds = %do.end106
-  %53 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %53 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %54 = load ptr, ptr @Therwdeclarations, align 8, !tbaa !14
   %call136 = call noundef ptr @_ZN2kc18ConsrwdeclarationsEPNS_18impl_rwdeclarationEPNS_19impl_rwdeclarationsE(ptr noundef %53, ptr noundef %54)
   store ptr %call136, ptr @Therwdeclarations, align 8, !tbaa !14
   br label %sw.epilog
 
 sw.bb137:                                         ; preds = %do.end106
-  %55 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %55 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %56 = load ptr, ptr @Thefndeclarations, align 8, !tbaa !14
   %call139 = call noundef ptr @_ZN2kc18ConsfndeclarationsEPNS_18impl_fndeclarationEPNS_19impl_fndeclarationsE(ptr noundef %55, ptr noundef %56)
   store ptr %call139, ptr @Thefndeclarations, align 8, !tbaa !14
   br label %sw.epilog
 
 sw.bb141:                                         ; preds = %do.end106
-  %57 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %57 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %58 = load ptr, ptr @Theunparsedeclarations, align 8, !tbaa !14
   %call143 = call noundef ptr @_ZN2kc23ConsunparsedeclarationsEPNS_23impl_unparsedeclarationEPNS_24impl_unparsedeclarationsE(ptr noundef %57, ptr noundef %58)
   store ptr %call143, ptr @Theunparsedeclarations, align 8, !tbaa !14
   br label %sw.epilog
 
 sw.bb147:                                         ; preds = %do.end106
-  %59 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %59 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %60 = load ptr, ptr @Thelanguages, align 8, !tbaa !14
   %call149 = call noundef ptr @_ZN2kc19merge_languagenamesEPNS_18impl_languagenamesES1_(ptr noundef %59, ptr noundef %60)
   store ptr %call149, ptr @Thelanguages, align 8, !tbaa !14
   br label %sw.epilog
 
 sw.bb150:                                         ; preds = %do.end106
-  %61 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %61 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %62 = load ptr, ptr @Thebaseclasses, align 8, !tbaa !14
   %call152 = call noundef ptr @_ZN2kc26Consbaseclass_declarationsEPNS_19impl_baseclass_declEPNS_27impl_baseclass_declarationsE(ptr noundef %61, ptr noundef %62)
   store ptr %call152, ptr @Thebaseclasses, align 8, !tbaa !14
   br label %sw.epilog
 
 sw.bb153:                                         ; preds = %do.end106
-  %arrayidx154 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx154 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %63 = load ptr, ptr %arrayidx154, align 8, !tbaa !39
-  %arrayidx155 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx155 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %64 = load ptr, ptr %arrayidx155, align 8, !tbaa !39
   %call156 = call noundef ptr @_ZN2kc13BaseClassDeclEPNS_7impl_IDEPNS_19impl_baseclass_listE(ptr noundef %63, ptr noundef %64)
   br label %sw.epilog
 
 sw.bb157:                                         ; preds = %do.end106
-  %65 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %65 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call159 = call noundef ptr @_ZN2kc17Nilbaseclass_listEv()
   %call160 = call noundef ptr @_ZN2kc18Consbaseclass_listEPNS_7impl_IDEPNS_19impl_baseclass_listE(ptr noundef %65, ptr noundef %call159)
   br label %sw.epilog
 
 sw.bb161:                                         ; preds = %do.end106
-  %66 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx163 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %66 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx163 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %67 = load ptr, ptr %arrayidx163, align 8, !tbaa !39
   %call164 = call noundef ptr @_ZN2kc18Consbaseclass_listEPNS_7impl_IDEPNS_19impl_baseclass_listE(ptr noundef %66, ptr noundef %67)
   br label %sw.epilog
 
 sw.bb165:                                         ; preds = %do.end106
-  %arrayidx166 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx166 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %68 = load ptr, ptr %arrayidx166, align 8, !tbaa !39
   store ptr %68, ptr @_ZN12_GLOBAL__N_19pl_phylumE, align 8, !tbaa !14
   br label %sw.epilog
 
 sw.bb167:                                         ; preds = %do.end106
-  %arrayidx168 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -6
+  %arrayidx168 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -6
   %69 = load ptr, ptr %arrayidx168, align 8, !tbaa !39
-  %arrayidx169 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -5
+  %arrayidx169 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -5
   %70 = load ptr, ptr %arrayidx169, align 8, !tbaa !39
-  %arrayidx170 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx170 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %71 = load ptr, ptr %arrayidx170, align 8, !tbaa !39
-  %arrayidx171 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx171 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %72 = load ptr, ptr %arrayidx171, align 8, !tbaa !39
   %call172 = call noundef ptr @_ZN2kc17PhylumDeclarationEPNS_7impl_IDEPNS_18impl_storageoptionEPNS_20impl_productionblockEPNS_17impl_Ccode_optionE(ptr noundef %69, ptr noundef %70, ptr noundef %71, ptr noundef %72)
   %73 = load ptr, ptr @_ZN12_GLOBAL__N_19pl_phylumE, align 8, !tbaa !14
@@ -1307,7 +1307,7 @@ sw.bb174:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb176:                                         ; preds = %do.end106
-  %arrayidx177 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx177 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %74 = load ptr, ptr %arrayidx177, align 8, !tbaa !39
   %call178 = call noundef ptr @_ZN2kc21PositiveStorageOptionEPNS_7impl_IDE(ptr noundef %74)
   %75 = load ptr, ptr %arrayidx177, align 8, !tbaa !39
@@ -1316,7 +1316,7 @@ sw.bb176:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb181:                                         ; preds = %do.end106
-  %arrayidx182 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx182 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %76 = load ptr, ptr %arrayidx182, align 8, !tbaa !39
   %call183 = call noundef ptr @_ZN2kc21NegativeStorageOptionEPNS_7impl_IDE(ptr noundef %76)
   %77 = load ptr, ptr %arrayidx182, align 8, !tbaa !39
@@ -1338,9 +1338,9 @@ sw.bb190:                                         ; preds = %do.end106
 
 sw.bb192:                                         ; preds = %do.end106
   %78 = load ptr, ptr @_ZN12_GLOBAL__N_19pl_phylumE, align 8, !tbaa !14
-  %79 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %79 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call194 = call noundef ptr @_ZN2kc20makeListAlternativesEPNS_7impl_IDES1_(ptr noundef %78, ptr noundef %79)
-  %80 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %80 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call196 = call noundef ptr @_ZN2kc16ListAlternativesEPNS_17impl_alternativesEPNS_7impl_IDE(ptr noundef %call194, ptr noundef %80)
   %81 = load ptr, ptr @Theargsnumbers, align 8, !tbaa !14
   %call197 = call noundef ptr @_ZN2kc21insert_in_argsnumbersEiPNS_16impl_argsnumbersE(i32 noundef 0, ptr noundef %81)
@@ -1350,19 +1350,19 @@ sw.bb192:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb199:                                         ; preds = %do.end106
-  %82 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %82 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call201 = call noundef ptr @_ZN2kc19NonlistAlternativesEPNS_17impl_alternativesE(ptr noundef %82)
   br label %sw.epilog
 
 sw.bb202:                                         ; preds = %do.end106
-  %83 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %83 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call204 = call noundef ptr @_ZN2kc15NilalternativesEv()
   %call205 = call noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_alternativesE(ptr noundef %83, ptr noundef %call204)
   br label %sw.epilog
 
 sw.bb206:                                         ; preds = %do.end106
-  %84 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx208 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %84 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx208 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %85 = load ptr, ptr %arrayidx208, align 8, !tbaa !39
   %call209 = call noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_alternativesE(ptr noundef %84, ptr noundef %85)
   br label %sw.epilog
@@ -1372,13 +1372,13 @@ sw.bb210:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb212:                                         ; preds = %do.end106
-  %arrayidx213 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx213 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %86 = load ptr, ptr %arrayidx213, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb214:                                         ; preds = %do.end106
-  %87 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx216 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %87 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx216 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %88 = load ptr, ptr %arrayidx216, align 8, !tbaa !39
   %call217 = call noundef ptr @_ZN2kc16ConsalternativesEPNS_16impl_alternativeEPNS_17impl_alternativesE(ptr noundef %87, ptr noundef %88)
   br label %sw.epilog
@@ -1395,9 +1395,9 @@ sw.bb219:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb221:                                         ; preds = %do.end106
-  %arrayidx222 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -5
+  %arrayidx222 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -5
   %91 = load ptr, ptr %arrayidx222, align 8, !tbaa !39
-  %arrayidx223 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx223 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %92 = load ptr, ptr %arrayidx223, align 8, !tbaa !39
   %call224 = call noundef ptr @_ZN2kc11AlternativeEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %91, ptr noundef %92)
   %93 = load ptr, ptr %arrayidx222, align 8, !tbaa !39
@@ -1407,7 +1407,7 @@ sw.bb221:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb227:                                         ; preds = %do.end106
-  %arrayidx228 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx228 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %95 = load ptr, ptr %arrayidx228, align 8, !tbaa !39
   %call229 = call noundef ptr @_ZN2kc12NilargumentsEv()
   %call230 = call noundef ptr @_ZN2kc11AlternativeEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %95, ptr noundef %call229)
@@ -1418,8 +1418,8 @@ sw.bb231:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb233:                                         ; preds = %do.end106
-  %96 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx235 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %96 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx235 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %97 = load ptr, ptr %arrayidx235, align 8, !tbaa !39
   %call236 = call noundef ptr @_ZN2kc13ConsargumentsEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %96, ptr noundef %97)
   %98 = load i32, ptr @pg_no_of_arguments, align 4, !tbaa !35
@@ -1428,13 +1428,13 @@ sw.bb233:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb237:                                         ; preds = %do.end106
-  %arrayidx238 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx238 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %99 = load ptr, ptr %arrayidx238, align 8, !tbaa !39
-  %100 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %100 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %named_subphylum = getelementptr inbounds %"class.kc::impl_ID", ptr %100, i64 0, i32 2
   store ptr %99, ptr %named_subphylum, align 8, !tbaa !49
-  %101 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx241 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %101 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx241 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %102 = load ptr, ptr %arrayidx241, align 8, !tbaa !39
   %call242 = call noundef ptr @_ZN2kc13ConsargumentsEPNS_7impl_IDEPNS_14impl_argumentsE(ptr noundef %101, ptr noundef %102)
   %103 = load i32, ptr @pg_no_of_arguments, align 4, !tbaa !35
@@ -1449,9 +1449,9 @@ sw.bb244:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb248:                                         ; preds = %do.end106
-  %arrayidx249 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx249 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %104 = load ptr, ptr %arrayidx249, align 8, !tbaa !39
-  %arrayidx250 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx250 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %105 = load ptr, ptr %arrayidx250, align 8, !tbaa !39
   %call251 = call noundef ptr @_ZN2kc11CcodeOptionEPNS_15impl_attributesEPNS_11impl_CtextsE(ptr noundef %104, ptr noundef %105)
   br label %sw.epilog
@@ -1467,18 +1467,18 @@ sw.bb256:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb258:                                         ; preds = %do.end106
-  %106 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx260 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %106 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx260 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %107 = load ptr, ptr %arrayidx260, align 8, !tbaa !39
   %call261 = call noundef ptr @_ZN2kc14ConsattributesEPNS_14impl_attributeEPNS_15impl_attributesE(ptr noundef %106, ptr noundef %107)
   br label %sw.epilog
 
 sw.bb262:                                         ; preds = %do.end106
-  %arrayidx263 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx263 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %108 = load ptr, ptr %arrayidx263, align 8, !tbaa !39
-  %arrayidx264 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx264 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %109 = load ptr, ptr %arrayidx264, align 8, !tbaa !39
-  %arrayidx265 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx265 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %110 = load ptr, ptr %arrayidx265, align 8, !tbaa !39
   %call266 = call noundef ptr @_ZN2kc9AttributeEPNS_7impl_IDES1_PNS_36impl_attribute_initialisation_optionE(ptr noundef %108, ptr noundef %109, ptr noundef %110)
   br label %sw.epilog
@@ -1493,7 +1493,7 @@ sw.bb269:                                         ; preds = %do.end106
 
 sw.bb270:                                         ; preds = %do.end106
   call void @_Z9do_NORMALv()
-  %111 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %111 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call272 = call noundef ptr @_ZN2kc27Yesattribute_initialisationEPNS_16impl_CexpressionE(ptr noundef %111)
   br label %sw.epilog
 
@@ -1508,8 +1508,8 @@ sw.bb273:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb280:                                         ; preds = %do.end106
-  %114 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx282 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %114 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx282 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %115 = load ptr, ptr %arrayidx282, align 8, !tbaa !39
   %call283 = call noundef ptr @_ZN2kc15ConsCexpressionEPNS_21impl_Cexpression_elemEPNS_16impl_CexpressionE(ptr noundef %114, ptr noundef %115)
   %116 = load ptr, ptr %arrayidx282, align 8, !tbaa !39
@@ -1525,12 +1525,12 @@ sw.bb280:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb290:                                         ; preds = %do.end106
-  %120 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %120 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call292 = call noundef ptr @_ZN2kc15CExpressionPartEPNS_20impl_casestring__StrE(ptr noundef %120)
   br label %sw.epilog
 
 sw.bb293:                                         ; preds = %do.end106
-  %121 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %121 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call295 = call noundef ptr @_ZN2kc20CExpressionDollarvarEPNS_8impl_INTE(ptr noundef %121)
   br label %sw.epilog
 
@@ -1539,25 +1539,25 @@ sw.bb296:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb298:                                         ; preds = %do.end106
-  %arrayidx299 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx299 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %122 = load ptr, ptr %arrayidx299, align 8, !tbaa !39
   %call300 = call noundef ptr @_ZN2kc13CExpressionDQEPNS_18impl_CexpressionDQE(ptr noundef %122)
   br label %sw.epilog
 
 sw.bb301:                                         ; preds = %do.end106
-  %arrayidx302 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx302 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %123 = load ptr, ptr %arrayidx302, align 8, !tbaa !39
   %call303 = call noundef ptr @_ZN2kc13CExpressionSQEPNS_18impl_CexpressionSQE(ptr noundef %123)
   br label %sw.epilog
 
 sw.bb304:                                         ; preds = %do.end106
-  %arrayidx305 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx305 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %124 = load ptr, ptr %arrayidx305, align 8, !tbaa !39
   %call306 = call noundef ptr @_ZN2kc15CExpressionPackEPNS_16impl_CexpressionE(ptr noundef %124)
   br label %sw.epilog
 
 sw.bb307:                                         ; preds = %do.end106
-  %arrayidx308 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx308 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %125 = load ptr, ptr %arrayidx308, align 8, !tbaa !39
   %call309 = call noundef ptr @_ZN2kc16CExpressionArrayEPNS_16impl_CexpressionE(ptr noundef %125)
   br label %sw.epilog
@@ -1596,8 +1596,8 @@ sw.bb325:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb332:                                         ; preds = %do.end106
-  %128 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx334 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %128 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx334 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %129 = load ptr, ptr %arrayidx334, align 8, !tbaa !39
   %call335 = call noundef ptr @_ZN2kc15ConsCexpressionEPNS_21impl_Cexpression_elemEPNS_16impl_CexpressionE(ptr noundef %128, ptr noundef %129)
   %130 = load ptr, ptr %arrayidx334, align 8, !tbaa !39
@@ -1613,7 +1613,7 @@ sw.bb332:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb342:                                         ; preds = %do.end106
-  %134 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %134 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb344:                                         ; preds = %do.end106
@@ -1626,14 +1626,14 @@ sw.bb347:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb349:                                         ; preds = %do.end106
-  %135 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx351 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %135 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx351 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %136 = load ptr, ptr %arrayidx351, align 8, !tbaa !39
   %call352 = call noundef ptr @_ZN2kc17ConsCexpressionDQEPNS_23impl_CexpressionDQ_elemEPNS_18impl_CexpressionDQE(ptr noundef %135, ptr noundef %136)
   br label %sw.epilog
 
 sw.bb353:                                         ; preds = %do.end106
-  %137 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %137 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call355 = call noundef ptr @_ZN2kc17CExpressionDQPartEPNS_20impl_casestring__StrE(ptr noundef %137)
   br label %sw.epilog
 
@@ -1646,14 +1646,14 @@ sw.bb358:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb360:                                         ; preds = %do.end106
-  %138 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx362 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %138 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx362 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %139 = load ptr, ptr %arrayidx362, align 8, !tbaa !39
   %call363 = call noundef ptr @_ZN2kc17ConsCexpressionSQEPNS_23impl_CexpressionSQ_elemEPNS_18impl_CexpressionSQE(ptr noundef %138, ptr noundef %139)
   br label %sw.epilog
 
 sw.bb364:                                         ; preds = %do.end106
-  %140 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %140 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call366 = call noundef ptr @_ZN2kc17CExpressionSQPartEPNS_20impl_casestring__StrE(ptr noundef %140)
   br label %sw.epilog
 
@@ -1662,14 +1662,14 @@ sw.bb367:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb369:                                         ; preds = %do.end106
-  %141 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %141 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call371 = call noundef ptr @_ZN2kc17NilidCexpressionsEv()
   %call372 = call noundef ptr @_ZN2kc18ConsidCexpressionsEPNS_18impl_idCexpressionEPNS_19impl_idCexpressionsE(ptr noundef %141, ptr noundef %call371)
   br label %sw.epilog
 
 sw.bb373:                                         ; preds = %do.end106
-  %142 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx375 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %142 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx375 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %143 = load ptr, ptr %arrayidx375, align 8, !tbaa !39
   %call376 = call noundef ptr @_ZN2kc18ConsidCexpressionsEPNS_18impl_idCexpressionEPNS_19impl_idCexpressionsE(ptr noundef %142, ptr noundef %143)
   br label %sw.epilog
@@ -1683,20 +1683,20 @@ sw.bb378:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb379:                                         ; preds = %do.end106
-  %arrayidx380 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx380 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %144 = load ptr, ptr %arrayidx380, align 8, !tbaa !39
-  %arrayidx381 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx381 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %145 = load ptr, ptr %arrayidx381, align 8, !tbaa !39
   %call382 = call noundef ptr @_ZN2kc13IdCexpressionEPNS_7impl_IDEPNS_16impl_CexpressionE(ptr noundef %144, ptr noundef %145)
   br label %sw.epilog
 
 sw.bb383:                                         ; preds = %do.end106
-  %146 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %146 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call385 = call noundef ptr @_ZN2kc13WECexpressionEPNS_16impl_CexpressionE(ptr noundef %146)
   %147 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %148 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
   %cmp.i.i.i = icmp eq ptr %147, %148
-  br i1 %cmp.i.i.i, label %if.then.i.i.i2687, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit
+  br i1 %cmp.i.i.i, label %if.then.i.i.i2692, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit
 
 _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit: ; preds = %sw.bb383
   %incdec.ptr.i.i.i = getelementptr inbounds ptr, ptr %147, i64 -1
@@ -1705,9 +1705,9 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit: ; preds = %sw
   %150 = load ptr, ptr %file388, align 8, !tbaa !57
   %file389 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %call385, i64 0, i32 3
   store ptr %150, ptr %file389, align 8, !tbaa !59
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2689
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2694
 
-if.then.i.i.i2687:                                ; preds = %sw.bb383
+if.then.i.i.i2692:                                ; preds = %sw.bb383
   %151 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
   %add.ptr.i.i.i = getelementptr inbounds ptr, ptr %151, i64 -1
   %152 = load ptr, ptr %add.ptr.i.i.i, align 8, !tbaa !14
@@ -1718,13 +1718,13 @@ if.then.i.i.i2687:                                ; preds = %sw.bb383
   %file3893007 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %call385, i64 0, i32 3
   store ptr %154, ptr %file3893007, align 8, !tbaa !59
   %155 = load ptr, ptr %add.ptr.i.i.i, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2686 = getelementptr inbounds ptr, ptr %155, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2689
+  %add.ptr.i.i.i.i2691 = getelementptr inbounds ptr, ptr %155, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2694
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2689: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit, %if.then.i.i.i2687
-  %156 = phi ptr [ %add.ptr.i.i.i.i2686, %if.then.i.i.i2687 ], [ %147, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit ]
-  %incdec.ptr.i.i.i2688 = getelementptr inbounds ptr, ptr %156, i64 -1
-  %157 = load ptr, ptr %incdec.ptr.i.i.i2688, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2694: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit, %if.then.i.i.i2692
+  %156 = phi ptr [ %add.ptr.i.i.i.i2691, %if.then.i.i.i2692 ], [ %147, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit ]
+  %incdec.ptr.i.i.i2693 = getelementptr inbounds ptr, ptr %156, i64 -1
+  %157 = load ptr, ptr %incdec.ptr.i.i.i2693, align 8, !tbaa !14
   %line391 = getelementptr inbounds %"class.kc::impl_fileline", ptr %157, i64 0, i32 2
   %158 = load i32, ptr %line391, align 8, !tbaa !62
   %line392 = getelementptr inbounds %"class.kc::impl_withexpression", ptr %call385, i64 0, i32 2
@@ -1732,7 +1732,7 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2689: ; preds =
   br label %sw.epilog
 
 sw.bb395:                                         ; preds = %do.end106
-  %159 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %159 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call397 = call noundef ptr @_ZN2kc18NilwithexpressionsEv()
   %call398 = call noundef ptr @_ZN2kc19ConswithexpressionsEPNS_19impl_withexpressionEPNS_20impl_withexpressionsE(ptr noundef %159, ptr noundef %call397)
   br label %sw.epilog
@@ -1745,28 +1745,28 @@ sw.bb399:                                         ; preds = %do.end106
   store ptr %call400, ptr %ref.tmp, align 8, !tbaa !14
   %162 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %163 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2690 = getelementptr inbounds ptr, ptr %163, i64 -1
-  %cmp.not.i.i.i = icmp eq ptr %162, %add.ptr.i.i.i2690
-  br i1 %cmp.not.i.i.i, label %if.else.i.i.i, label %if.then.i.i.i2692
+  %add.ptr.i.i.i2695 = getelementptr inbounds ptr, ptr %163, i64 -1
+  %cmp.not.i.i.i = icmp eq ptr %162, %add.ptr.i.i.i2695
+  br i1 %cmp.not.i.i.i, label %if.else.i.i.i, label %if.then.i.i.i2697
 
-if.then.i.i.i2692:                                ; preds = %sw.bb399
+if.then.i.i.i2697:                                ; preds = %sw.bb399
   store ptr %call400, ptr %162, align 8, !tbaa !14
   %164 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2691 = getelementptr inbounds ptr, ptr %164, i64 1
-  store ptr %incdec.ptr.i.i.i2691, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  %incdec.ptr.i.i.i2696 = getelementptr inbounds ptr, ptr %164, i64 1
+  store ptr %incdec.ptr.i.i.i2696, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit
 
 if.else.i.i.i:                                    ; preds = %sw.bb399
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp)
   br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit: ; preds = %if.then.i.i.i2692, %if.else.i.i.i
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit: ; preds = %if.then.i.i.i2697, %if.else.i.i.i
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp) #17
   br label %sw.epilog
 
 sw.bb401:                                         ; preds = %do.end106
-  %165 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx403 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %165 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx403 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %166 = load ptr, ptr %arrayidx403, align 8, !tbaa !39
   %call404 = call noundef ptr @_ZN2kc19ConswithexpressionsEPNS_19impl_withexpressionEPNS_20impl_withexpressionsE(ptr noundef %165, ptr noundef %166)
   call void @_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3popEv(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE)
@@ -1794,22 +1794,22 @@ do.end413:                                        ; preds = %if.else410, %if.the
   store ptr %call415, ptr %ref.tmp414, align 8, !tbaa !14
   %170 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %171 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2693 = getelementptr inbounds ptr, ptr %171, i64 -1
-  %cmp.not.i.i.i2694 = icmp eq ptr %170, %add.ptr.i.i.i2693
-  br i1 %cmp.not.i.i.i2694, label %if.else.i.i.i2697, label %if.then.i.i.i2696
+  %add.ptr.i.i.i2698 = getelementptr inbounds ptr, ptr %171, i64 -1
+  %cmp.not.i.i.i2699 = icmp eq ptr %170, %add.ptr.i.i.i2698
+  br i1 %cmp.not.i.i.i2699, label %if.else.i.i.i2702, label %if.then.i.i.i2701
 
-if.then.i.i.i2696:                                ; preds = %do.end413
+if.then.i.i.i2701:                                ; preds = %do.end413
   store ptr %call415, ptr %170, align 8, !tbaa !14
   %172 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2695 = getelementptr inbounds ptr, ptr %172, i64 1
-  store ptr %incdec.ptr.i.i.i2695, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2698
+  %incdec.ptr.i.i.i2700 = getelementptr inbounds ptr, ptr %172, i64 1
+  store ptr %incdec.ptr.i.i.i2700, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2703
 
-if.else.i.i.i2697:                                ; preds = %do.end413
+if.else.i.i.i2702:                                ; preds = %do.end413
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp414)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2698
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2703
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2698: ; preds = %if.then.i.i.i2696, %if.else.i.i.i2697
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2703: ; preds = %if.then.i.i.i2701, %if.else.i.i.i2702
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp414) #17
   %173 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !66
   %174 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !67
@@ -1817,7 +1817,7 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2698: ; pre
   %cmp.not.i.i = icmp eq ptr %173, %add.ptr.i.i
   br i1 %cmp.not.i.i, label %if.else.i.i, label %if.then.i.i
 
-if.then.i.i:                                      ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2698
+if.then.i.i:                                      ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2703
   %175 = load ptr, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
   store ptr %175, ptr %173, align 8, !tbaa !14
   %176 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !66
@@ -1825,7 +1825,7 @@ if.then.i.i:                                      ; preds = %_ZNSt5stackIPN2kc13
   store ptr %incdec.ptr.i.i, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !66
   br label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit
 
-if.else.i.i:                                      ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2698
+if.else.i.i:                                      ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2703
   call void @_ZNSt5dequeIPN2kc20impl_withexpressionsESaIS2_EE16_M_push_back_auxIJRKS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_121pl_withvariablesstackE, ptr noundef nonnull align 8 dereferenceable(8) @_ZN12_GLOBAL__N_116pl_withvariablesE)
   br label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit
 
@@ -1839,40 +1839,40 @@ sw.bb417:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb418:                                         ; preds = %do.end106
-  %arrayidx419 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx419 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %177 = load ptr, ptr %arrayidx419, align 8, !tbaa !39
   %178 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %179 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2699 = icmp eq ptr %178, %179
-  br i1 %cmp.i.i.i2699, label %if.then.i.i.i2708, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2704
+  %cmp.i.i.i2704 = icmp eq ptr %178, %179
+  br i1 %cmp.i.i.i2704, label %if.then.i.i.i2713, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2709
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2704: ; preds = %sw.bb418
-  %incdec.ptr.i.i.i2703 = getelementptr inbounds ptr, ptr %178, i64 -1
-  %180 = load ptr, ptr %incdec.ptr.i.i.i2703, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2709: ; preds = %sw.bb418
+  %incdec.ptr.i.i.i2708 = getelementptr inbounds ptr, ptr %178, i64 -1
+  %180 = load ptr, ptr %incdec.ptr.i.i.i2708, align 8, !tbaa !14
   %file422 = getelementptr inbounds %"class.kc::impl_fileline", ptr %180, i64 0, i32 1
   %181 = load ptr, ptr %file422, align 8, !tbaa !57
   %file423 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %177, i64 0, i32 2
   store ptr %181, ptr %file423, align 8, !tbaa !68
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2710
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2715
 
-if.then.i.i.i2708:                                ; preds = %sw.bb418
+if.then.i.i.i2713:                                ; preds = %sw.bb418
   %182 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2700 = getelementptr inbounds ptr, ptr %182, i64 -1
-  %183 = load ptr, ptr %add.ptr.i.i.i2700, align 8, !tbaa !14
-  %incdec.ptr.i.i.i27033008 = getelementptr inbounds ptr, ptr %183, i64 63
-  %184 = load ptr, ptr %incdec.ptr.i.i.i27033008, align 8, !tbaa !14
+  %add.ptr.i.i.i2705 = getelementptr inbounds ptr, ptr %182, i64 -1
+  %183 = load ptr, ptr %add.ptr.i.i.i2705, align 8, !tbaa !14
+  %incdec.ptr.i.i.i27083008 = getelementptr inbounds ptr, ptr %183, i64 63
+  %184 = load ptr, ptr %incdec.ptr.i.i.i27083008, align 8, !tbaa !14
   %file4223009 = getelementptr inbounds %"class.kc::impl_fileline", ptr %184, i64 0, i32 1
   %185 = load ptr, ptr %file4223009, align 8, !tbaa !57
   %file4233010 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %177, i64 0, i32 2
   store ptr %185, ptr %file4233010, align 8, !tbaa !68
-  %186 = load ptr, ptr %add.ptr.i.i.i2700, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2707 = getelementptr inbounds ptr, ptr %186, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2710
+  %186 = load ptr, ptr %add.ptr.i.i.i2705, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2712 = getelementptr inbounds ptr, ptr %186, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2715
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2710: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2704, %if.then.i.i.i2708
-  %187 = phi ptr [ %add.ptr.i.i.i.i2707, %if.then.i.i.i2708 ], [ %178, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2704 ]
-  %incdec.ptr.i.i.i2709 = getelementptr inbounds ptr, ptr %187, i64 -1
-  %188 = load ptr, ptr %incdec.ptr.i.i.i2709, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2715: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2709, %if.then.i.i.i2713
+  %187 = phi ptr [ %add.ptr.i.i.i.i2712, %if.then.i.i.i2713 ], [ %178, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2709 ]
+  %incdec.ptr.i.i.i2714 = getelementptr inbounds ptr, ptr %187, i64 -1
+  %188 = load ptr, ptr %incdec.ptr.i.i.i2714, align 8, !tbaa !14
   %line425 = getelementptr inbounds %"class.kc::impl_fileline", ptr %188, i64 0, i32 2
   %189 = load i32, ptr %line425, align 8, !tbaa !62
   %line426 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %177, i64 0, i32 1
@@ -1903,42 +1903,42 @@ do.end437:                                        ; preds = %if.else434, %if.the
   store ptr %call439, ptr %ref.tmp438, align 8, !tbaa !14
   %193 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %194 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2711 = getelementptr inbounds ptr, ptr %194, i64 -1
-  %cmp.not.i.i.i2712 = icmp eq ptr %193, %add.ptr.i.i.i2711
-  br i1 %cmp.not.i.i.i2712, label %if.else.i.i.i2715, label %if.then.i.i.i2714
+  %add.ptr.i.i.i2716 = getelementptr inbounds ptr, ptr %194, i64 -1
+  %cmp.not.i.i.i2717 = icmp eq ptr %193, %add.ptr.i.i.i2716
+  br i1 %cmp.not.i.i.i2717, label %if.else.i.i.i2720, label %if.then.i.i.i2719
 
-if.then.i.i.i2714:                                ; preds = %do.end437
+if.then.i.i.i2719:                                ; preds = %do.end437
   store ptr %call439, ptr %193, align 8, !tbaa !14
   %195 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2713 = getelementptr inbounds ptr, ptr %195, i64 1
-  store ptr %incdec.ptr.i.i.i2713, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2716
+  %incdec.ptr.i.i.i2718 = getelementptr inbounds ptr, ptr %195, i64 1
+  store ptr %incdec.ptr.i.i.i2718, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2721
 
-if.else.i.i.i2715:                                ; preds = %do.end437
+if.else.i.i.i2720:                                ; preds = %do.end437
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp438)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2716
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2721
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2716: ; preds = %if.then.i.i.i2714, %if.else.i.i.i2715
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2721: ; preds = %if.then.i.i.i2719, %if.else.i.i.i2720
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp438) #17
   %196 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !66
   %197 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !67
-  %add.ptr.i.i2717 = getelementptr inbounds ptr, ptr %197, i64 -1
-  %cmp.not.i.i2718 = icmp eq ptr %196, %add.ptr.i.i2717
-  br i1 %cmp.not.i.i2718, label %if.else.i.i2721, label %if.then.i.i2720
+  %add.ptr.i.i2722 = getelementptr inbounds ptr, ptr %197, i64 -1
+  %cmp.not.i.i2723 = icmp eq ptr %196, %add.ptr.i.i2722
+  br i1 %cmp.not.i.i2723, label %if.else.i.i2726, label %if.then.i.i2725
 
-if.then.i.i2720:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2716
+if.then.i.i2725:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2721
   %198 = load ptr, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
   store ptr %198, ptr %196, align 8, !tbaa !14
   %199 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !66
-  %incdec.ptr.i.i2719 = getelementptr inbounds ptr, ptr %199, i64 1
-  store ptr %incdec.ptr.i.i2719, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !66
-  br label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2722
+  %incdec.ptr.i.i2724 = getelementptr inbounds ptr, ptr %199, i64 1
+  store ptr %incdec.ptr.i.i2724, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !66
+  br label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2727
 
-if.else.i.i2721:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2716
+if.else.i.i2726:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2721
   call void @_ZNSt5dequeIPN2kc20impl_withexpressionsESaIS2_EE16_M_push_back_auxIJRKS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_121pl_withvariablesstackE, ptr noundef nonnull align 8 dereferenceable(8) @_ZN12_GLOBAL__N_116pl_withvariablesE)
-  br label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2722
+  br label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2727
 
-_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2722: ; preds = %if.then.i.i2720, %if.else.i.i2721
+_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2727: ; preds = %if.then.i.i2725, %if.else.i.i2726
   %call440 = call noundef ptr @_ZN2kc18NilwithexpressionsEv()
   store ptr %call440, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
   br label %sw.epilog
@@ -1948,40 +1948,40 @@ sw.bb441:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb442:                                         ; preds = %do.end106
-  %arrayidx443 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx443 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %200 = load ptr, ptr %arrayidx443, align 8, !tbaa !39
   %201 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %202 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2723 = icmp eq ptr %201, %202
-  br i1 %cmp.i.i.i2723, label %if.then.i.i.i2732, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2728
+  %cmp.i.i.i2728 = icmp eq ptr %201, %202
+  br i1 %cmp.i.i.i2728, label %if.then.i.i.i2737, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2733
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2728: ; preds = %sw.bb442
-  %incdec.ptr.i.i.i2727 = getelementptr inbounds ptr, ptr %201, i64 -1
-  %203 = load ptr, ptr %incdec.ptr.i.i.i2727, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2733: ; preds = %sw.bb442
+  %incdec.ptr.i.i.i2732 = getelementptr inbounds ptr, ptr %201, i64 -1
+  %203 = load ptr, ptr %incdec.ptr.i.i.i2732, align 8, !tbaa !14
   %file446 = getelementptr inbounds %"class.kc::impl_fileline", ptr %203, i64 0, i32 1
   %204 = load ptr, ptr %file446, align 8, !tbaa !57
   %file447 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %200, i64 0, i32 2
   store ptr %204, ptr %file447, align 8, !tbaa !68
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2734
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2739
 
-if.then.i.i.i2732:                                ; preds = %sw.bb442
+if.then.i.i.i2737:                                ; preds = %sw.bb442
   %205 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2724 = getelementptr inbounds ptr, ptr %205, i64 -1
-  %206 = load ptr, ptr %add.ptr.i.i.i2724, align 8, !tbaa !14
-  %incdec.ptr.i.i.i27273011 = getelementptr inbounds ptr, ptr %206, i64 63
-  %207 = load ptr, ptr %incdec.ptr.i.i.i27273011, align 8, !tbaa !14
+  %add.ptr.i.i.i2729 = getelementptr inbounds ptr, ptr %205, i64 -1
+  %206 = load ptr, ptr %add.ptr.i.i.i2729, align 8, !tbaa !14
+  %incdec.ptr.i.i.i27323011 = getelementptr inbounds ptr, ptr %206, i64 63
+  %207 = load ptr, ptr %incdec.ptr.i.i.i27323011, align 8, !tbaa !14
   %file4463012 = getelementptr inbounds %"class.kc::impl_fileline", ptr %207, i64 0, i32 1
   %208 = load ptr, ptr %file4463012, align 8, !tbaa !57
   %file4473013 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %200, i64 0, i32 2
   store ptr %208, ptr %file4473013, align 8, !tbaa !68
-  %209 = load ptr, ptr %add.ptr.i.i.i2724, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2731 = getelementptr inbounds ptr, ptr %209, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2734
+  %209 = load ptr, ptr %add.ptr.i.i.i2729, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2736 = getelementptr inbounds ptr, ptr %209, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2739
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2734: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2728, %if.then.i.i.i2732
-  %210 = phi ptr [ %add.ptr.i.i.i.i2731, %if.then.i.i.i2732 ], [ %201, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2728 ]
-  %incdec.ptr.i.i.i2733 = getelementptr inbounds ptr, ptr %210, i64 -1
-  %211 = load ptr, ptr %incdec.ptr.i.i.i2733, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2739: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2733, %if.then.i.i.i2737
+  %210 = phi ptr [ %add.ptr.i.i.i.i2736, %if.then.i.i.i2737 ], [ %201, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2733 ]
+  %incdec.ptr.i.i.i2738 = getelementptr inbounds ptr, ptr %210, i64 -1
+  %211 = load ptr, ptr %incdec.ptr.i.i.i2738, align 8, !tbaa !14
   %line449 = getelementptr inbounds %"class.kc::impl_fileline", ptr %211, i64 0, i32 2
   %212 = load i32, ptr %line449, align 8, !tbaa !62
   %line450 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %200, i64 0, i32 1
@@ -1991,39 +1991,39 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2734: ; preds =
   br label %sw.epilog
 
 sw.bb453:                                         ; preds = %do.end106
-  %213 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %213 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %214 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %215 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2735 = icmp eq ptr %214, %215
-  br i1 %cmp.i.i.i2735, label %if.then.i.i.i2744, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2740
+  %cmp.i.i.i2740 = icmp eq ptr %214, %215
+  br i1 %cmp.i.i.i2740, label %if.then.i.i.i2749, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2745
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2740: ; preds = %sw.bb453
-  %incdec.ptr.i.i.i2739 = getelementptr inbounds ptr, ptr %214, i64 -1
-  %216 = load ptr, ptr %incdec.ptr.i.i.i2739, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2745: ; preds = %sw.bb453
+  %incdec.ptr.i.i.i2744 = getelementptr inbounds ptr, ptr %214, i64 -1
+  %216 = load ptr, ptr %incdec.ptr.i.i.i2744, align 8, !tbaa !14
   %file457 = getelementptr inbounds %"class.kc::impl_fileline", ptr %216, i64 0, i32 1
   %217 = load ptr, ptr %file457, align 8, !tbaa !57
   %file458 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %213, i64 0, i32 2
   store ptr %217, ptr %file458, align 8, !tbaa !68
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2746
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2751
 
-if.then.i.i.i2744:                                ; preds = %sw.bb453
+if.then.i.i.i2749:                                ; preds = %sw.bb453
   %218 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2736 = getelementptr inbounds ptr, ptr %218, i64 -1
-  %219 = load ptr, ptr %add.ptr.i.i.i2736, align 8, !tbaa !14
-  %incdec.ptr.i.i.i27393014 = getelementptr inbounds ptr, ptr %219, i64 63
-  %220 = load ptr, ptr %incdec.ptr.i.i.i27393014, align 8, !tbaa !14
+  %add.ptr.i.i.i2741 = getelementptr inbounds ptr, ptr %218, i64 -1
+  %219 = load ptr, ptr %add.ptr.i.i.i2741, align 8, !tbaa !14
+  %incdec.ptr.i.i.i27443014 = getelementptr inbounds ptr, ptr %219, i64 63
+  %220 = load ptr, ptr %incdec.ptr.i.i.i27443014, align 8, !tbaa !14
   %file4573015 = getelementptr inbounds %"class.kc::impl_fileline", ptr %220, i64 0, i32 1
   %221 = load ptr, ptr %file4573015, align 8, !tbaa !57
   %file4583016 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %213, i64 0, i32 2
   store ptr %221, ptr %file4583016, align 8, !tbaa !68
-  %222 = load ptr, ptr %add.ptr.i.i.i2736, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2743 = getelementptr inbounds ptr, ptr %222, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2746
+  %222 = load ptr, ptr %add.ptr.i.i.i2741, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2748 = getelementptr inbounds ptr, ptr %222, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2751
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2746: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2740, %if.then.i.i.i2744
-  %223 = phi ptr [ %add.ptr.i.i.i.i2743, %if.then.i.i.i2744 ], [ %214, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2740 ]
-  %incdec.ptr.i.i.i2745 = getelementptr inbounds ptr, ptr %223, i64 -1
-  %224 = load ptr, ptr %incdec.ptr.i.i.i2745, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2751: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2745, %if.then.i.i.i2749
+  %223 = phi ptr [ %add.ptr.i.i.i.i2748, %if.then.i.i.i2749 ], [ %214, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2745 ]
+  %incdec.ptr.i.i.i2750 = getelementptr inbounds ptr, ptr %223, i64 -1
+  %224 = load ptr, ptr %incdec.ptr.i.i.i2750, align 8, !tbaa !14
   %line460 = getelementptr inbounds %"class.kc::impl_fileline", ptr %224, i64 0, i32 2
   %225 = load i32, ptr %line460, align 8, !tbaa !62
   %line461 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %213, i64 0, i32 1
@@ -2033,55 +2033,55 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2746: ; preds =
 sw.bb464:                                         ; preds = %do.end106
   %226 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !71, !noalias !72
   %227 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !75, !noalias !72
-  %cmp.i.i.i2747 = icmp eq ptr %226, %227
-  br i1 %cmp.i.i.i2747, label %if.then.i.i.i2750, label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
+  %cmp.i.i.i2752 = icmp eq ptr %226, %227
+  br i1 %cmp.i.i.i2752, label %if.then.i.i.i2755, label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
 
-if.then.i.i.i2750:                                ; preds = %sw.bb464
+if.then.i.i.i2755:                                ; preds = %sw.bb464
   %228 = load ptr, ptr getelementptr inbounds (%"class.std::stack", ptr @_ZN12_GLOBAL__N_121pl_withvariablesstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !76, !noalias !72
-  %add.ptr.i.i.i2748 = getelementptr inbounds ptr, ptr %228, i64 -1
-  %229 = load ptr, ptr %add.ptr.i.i.i2748, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2749 = getelementptr inbounds ptr, ptr %229, i64 64
+  %add.ptr.i.i.i2753 = getelementptr inbounds ptr, ptr %228, i64 -1
+  %229 = load ptr, ptr %add.ptr.i.i.i2753, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2754 = getelementptr inbounds ptr, ptr %229, i64 64
   br label %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
 
-_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit: ; preds = %sw.bb464, %if.then.i.i.i2750
-  %230 = phi ptr [ %add.ptr.i.i.i.i2749, %if.then.i.i.i2750 ], [ %226, %sw.bb464 ]
-  %incdec.ptr.i.i.i2751 = getelementptr inbounds ptr, ptr %230, i64 -1
-  %231 = load ptr, ptr %incdec.ptr.i.i.i2751, align 8, !tbaa !14
-  %232 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit: ; preds = %sw.bb464, %if.then.i.i.i2755
+  %230 = phi ptr [ %add.ptr.i.i.i.i2754, %if.then.i.i.i2755 ], [ %226, %sw.bb464 ]
+  %incdec.ptr.i.i.i2756 = getelementptr inbounds ptr, ptr %230, i64 -1
+  %231 = load ptr, ptr %incdec.ptr.i.i.i2756, align 8, !tbaa !14
+  %232 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call467 = call noundef ptr @_ZN2kc19NotInForeachContextEv()
   %call468 = call noundef ptr @_ZN2kc19CTextWithexpressionEPNS_20impl_withexpressionsEPNS_14impl_withcasesEPNS_16impl_contextinfoE(ptr noundef %231, ptr noundef %232, ptr noundef %call467)
   %233 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %234 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2752 = icmp eq ptr %233, %234
-  br i1 %cmp.i.i.i2752, label %if.then.i.i.i2761, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2757
+  %cmp.i.i.i2757 = icmp eq ptr %233, %234
+  br i1 %cmp.i.i.i2757, label %if.then.i.i.i2766, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2762
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2757: ; preds = %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
-  %incdec.ptr.i.i.i2756 = getelementptr inbounds ptr, ptr %233, i64 -1
-  %235 = load ptr, ptr %incdec.ptr.i.i.i2756, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2762: ; preds = %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
+  %incdec.ptr.i.i.i2761 = getelementptr inbounds ptr, ptr %233, i64 -1
+  %235 = load ptr, ptr %incdec.ptr.i.i.i2761, align 8, !tbaa !14
   %file471 = getelementptr inbounds %"class.kc::impl_fileline", ptr %235, i64 0, i32 1
   %236 = load ptr, ptr %file471, align 8, !tbaa !57
   %file472 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call468, i64 0, i32 2
   store ptr %236, ptr %file472, align 8, !tbaa !77
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2763
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2768
 
-if.then.i.i.i2761:                                ; preds = %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
+if.then.i.i.i2766:                                ; preds = %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
   %237 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2753 = getelementptr inbounds ptr, ptr %237, i64 -1
-  %238 = load ptr, ptr %add.ptr.i.i.i2753, align 8, !tbaa !14
-  %incdec.ptr.i.i.i27563017 = getelementptr inbounds ptr, ptr %238, i64 63
-  %239 = load ptr, ptr %incdec.ptr.i.i.i27563017, align 8, !tbaa !14
+  %add.ptr.i.i.i2758 = getelementptr inbounds ptr, ptr %237, i64 -1
+  %238 = load ptr, ptr %add.ptr.i.i.i2758, align 8, !tbaa !14
+  %incdec.ptr.i.i.i27613017 = getelementptr inbounds ptr, ptr %238, i64 63
+  %239 = load ptr, ptr %incdec.ptr.i.i.i27613017, align 8, !tbaa !14
   %file4713018 = getelementptr inbounds %"class.kc::impl_fileline", ptr %239, i64 0, i32 1
   %240 = load ptr, ptr %file4713018, align 8, !tbaa !57
   %file4723019 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call468, i64 0, i32 2
   store ptr %240, ptr %file4723019, align 8, !tbaa !77
-  %241 = load ptr, ptr %add.ptr.i.i.i2753, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2760 = getelementptr inbounds ptr, ptr %241, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2763
+  %241 = load ptr, ptr %add.ptr.i.i.i2758, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2765 = getelementptr inbounds ptr, ptr %241, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2768
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2763: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2757, %if.then.i.i.i2761
-  %242 = phi ptr [ %add.ptr.i.i.i.i2760, %if.then.i.i.i2761 ], [ %233, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2757 ]
-  %incdec.ptr.i.i.i2762 = getelementptr inbounds ptr, ptr %242, i64 -1
-  %243 = load ptr, ptr %incdec.ptr.i.i.i2762, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2768: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2762, %if.then.i.i.i2766
+  %242 = phi ptr [ %add.ptr.i.i.i.i2765, %if.then.i.i.i2766 ], [ %233, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2762 ]
+  %incdec.ptr.i.i.i2767 = getelementptr inbounds ptr, ptr %242, i64 -1
+  %243 = load ptr, ptr %incdec.ptr.i.i.i2767, align 8, !tbaa !14
   %line474 = getelementptr inbounds %"class.kc::impl_fileline", ptr %243, i64 0, i32 2
   %244 = load i32, ptr %line474, align 8, !tbaa !62
   %line475 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call468, i64 0, i32 1
@@ -2090,36 +2090,36 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2763: ; preds =
   %call479 = call noundef ptr @_ZN2kc9ConsCtextEPNS_15impl_Ctext_elemEPNS_10impl_CtextE(ptr noundef nonnull %call468, ptr noundef %call478)
   %245 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %246 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2764 = icmp eq ptr %245, %246
-  br i1 %cmp.i.i.i2764, label %if.then.i.i.i2773, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2769
+  %cmp.i.i.i2769 = icmp eq ptr %245, %246
+  br i1 %cmp.i.i.i2769, label %if.then.i.i.i2778, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2774
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2769: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2763
-  %incdec.ptr.i.i.i2768 = getelementptr inbounds ptr, ptr %245, i64 -1
-  %247 = load ptr, ptr %incdec.ptr.i.i.i2768, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2774: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2768
+  %incdec.ptr.i.i.i2773 = getelementptr inbounds ptr, ptr %245, i64 -1
+  %247 = load ptr, ptr %incdec.ptr.i.i.i2773, align 8, !tbaa !14
   %file482 = getelementptr inbounds %"class.kc::impl_fileline", ptr %247, i64 0, i32 1
   %248 = load ptr, ptr %file482, align 8, !tbaa !57
   %file483 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call479, i64 0, i32 2
   store ptr %248, ptr %file483, align 8, !tbaa !68
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2775
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2780
 
-if.then.i.i.i2773:                                ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2763
+if.then.i.i.i2778:                                ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2768
   %249 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2765 = getelementptr inbounds ptr, ptr %249, i64 -1
-  %250 = load ptr, ptr %add.ptr.i.i.i2765, align 8, !tbaa !14
-  %incdec.ptr.i.i.i27683020 = getelementptr inbounds ptr, ptr %250, i64 63
-  %251 = load ptr, ptr %incdec.ptr.i.i.i27683020, align 8, !tbaa !14
+  %add.ptr.i.i.i2770 = getelementptr inbounds ptr, ptr %249, i64 -1
+  %250 = load ptr, ptr %add.ptr.i.i.i2770, align 8, !tbaa !14
+  %incdec.ptr.i.i.i27733020 = getelementptr inbounds ptr, ptr %250, i64 63
+  %251 = load ptr, ptr %incdec.ptr.i.i.i27733020, align 8, !tbaa !14
   %file4823021 = getelementptr inbounds %"class.kc::impl_fileline", ptr %251, i64 0, i32 1
   %252 = load ptr, ptr %file4823021, align 8, !tbaa !57
   %file4833022 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call479, i64 0, i32 2
   store ptr %252, ptr %file4833022, align 8, !tbaa !68
-  %253 = load ptr, ptr %add.ptr.i.i.i2765, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2772 = getelementptr inbounds ptr, ptr %253, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2775
+  %253 = load ptr, ptr %add.ptr.i.i.i2770, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2777 = getelementptr inbounds ptr, ptr %253, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2780
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2775: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2769, %if.then.i.i.i2773
-  %254 = phi ptr [ %add.ptr.i.i.i.i2772, %if.then.i.i.i2773 ], [ %245, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2769 ]
-  %incdec.ptr.i.i.i2774 = getelementptr inbounds ptr, ptr %254, i64 -1
-  %255 = load ptr, ptr %incdec.ptr.i.i.i2774, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2780: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2774, %if.then.i.i.i2778
+  %254 = phi ptr [ %add.ptr.i.i.i.i2777, %if.then.i.i.i2778 ], [ %245, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2774 ]
+  %incdec.ptr.i.i.i2779 = getelementptr inbounds ptr, ptr %254, i64 -1
+  %255 = load ptr, ptr %incdec.ptr.i.i.i2779, align 8, !tbaa !14
   %line485 = getelementptr inbounds %"class.kc::impl_fileline", ptr %255, i64 0, i32 2
   %256 = load i32, ptr %line485, align 8, !tbaa !62
   %line486 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call479, i64 0, i32 1
@@ -2128,14 +2128,14 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2775: ; preds =
   %tobool489.not = icmp eq i32 %257, 0
   br i1 %tobool489.not, label %if.then490, label %if.end494
 
-if.then490:                                       ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2775
+if.then490:                                       ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2780
   %call491 = call noundef ptr @_ZN2kc10NoFileLineEv()
   %call492 = call noundef ptr @_ZN2kc9Problem1SEPKc(ptr noundef nonnull @.str.13)
   %call493 = call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call491, ptr noundef %call492)
   call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call493)
   br label %if.end494
 
-if.end494:                                        ; preds = %if.then490, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2775
+if.end494:                                        ; preds = %if.then490, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2780
   store i32 0, ptr @_ZN12_GLOBAL__N_126non_default_outmostpatternE, align 4, !tbaa !35
   br label %sw.epilog
 
@@ -2152,37 +2152,37 @@ sw.bb497:                                         ; preds = %do.end106
   store ptr %call499, ptr %ref.tmp498, align 8, !tbaa !14
   %260 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %261 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2776 = getelementptr inbounds ptr, ptr %261, i64 -1
-  %cmp.not.i.i.i2777 = icmp eq ptr %260, %add.ptr.i.i.i2776
-  br i1 %cmp.not.i.i.i2777, label %if.else.i.i.i2780, label %if.then.i.i.i2779
+  %add.ptr.i.i.i2781 = getelementptr inbounds ptr, ptr %261, i64 -1
+  %cmp.not.i.i.i2782 = icmp eq ptr %260, %add.ptr.i.i.i2781
+  br i1 %cmp.not.i.i.i2782, label %if.else.i.i.i2785, label %if.then.i.i.i2784
 
-if.then.i.i.i2779:                                ; preds = %sw.bb497
+if.then.i.i.i2784:                                ; preds = %sw.bb497
   store ptr %call499, ptr %260, align 8, !tbaa !14
   %262 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2778 = getelementptr inbounds ptr, ptr %262, i64 1
-  store ptr %incdec.ptr.i.i.i2778, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2781
+  %incdec.ptr.i.i.i2783 = getelementptr inbounds ptr, ptr %262, i64 1
+  store ptr %incdec.ptr.i.i.i2783, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2786
 
-if.else.i.i.i2780:                                ; preds = %sw.bb497
+if.else.i.i.i2785:                                ; preds = %sw.bb497
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp498)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2781
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2786
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2781: ; preds = %if.then.i.i.i2779, %if.else.i.i.i2780
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2786: ; preds = %if.then.i.i.i2784, %if.else.i.i.i2785
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp498) #17
   %263 = load ptr, ptr getelementptr inbounds (%"class.std::stack.14", ptr @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !80
   %264 = load ptr, ptr getelementptr inbounds (%"class.std::stack.14", ptr @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !81
-  %add.ptr.i.i2782 = getelementptr inbounds i32, ptr %264, i64 -1
-  %cmp.not.i.i2783 = icmp eq ptr %263, %add.ptr.i.i2782
-  br i1 %cmp.not.i.i2783, label %if.else.i.i2786, label %if.then.i.i2785
+  %add.ptr.i.i2787 = getelementptr inbounds i32, ptr %264, i64 -1
+  %cmp.not.i.i2788 = icmp eq ptr %263, %add.ptr.i.i2787
+  br i1 %cmp.not.i.i2788, label %if.else.i.i2791, label %if.then.i.i2790
 
-if.then.i.i2785:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2781
+if.then.i.i2790:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2786
   %265 = load i32, ptr @_ZN12_GLOBAL__N_126non_default_outmostpatternE, align 4, !tbaa !35
   store i32 %265, ptr %263, align 4, !tbaa !35
-  %incdec.ptr.i.i2784 = getelementptr inbounds i32, ptr %263, i64 1
-  store ptr %incdec.ptr.i.i2784, ptr getelementptr inbounds (%"class.std::stack.14", ptr @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !80
+  %incdec.ptr.i.i2789 = getelementptr inbounds i32, ptr %263, i64 1
+  store ptr %incdec.ptr.i.i2789, ptr getelementptr inbounds (%"class.std::stack.14", ptr @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !80
   br label %sw.epilog
 
-if.else.i.i2786:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2781
+if.else.i.i2791:                                  ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2786
   call void @_ZNSt5dequeIiSaIiEE16_M_push_back_auxIJRKiEEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, ptr noundef nonnull align 4 dereferenceable(4) @_ZN12_GLOBAL__N_126non_default_outmostpatternE)
   br label %sw.epilog
 
@@ -2191,40 +2191,40 @@ sw.bb500:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb501:                                         ; preds = %do.end106
-  %arrayidx502 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx502 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %266 = load ptr, ptr %arrayidx502, align 8, !tbaa !39
   %267 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %268 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2787 = icmp eq ptr %267, %268
-  br i1 %cmp.i.i.i2787, label %if.then.i.i.i2796, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2792
+  %cmp.i.i.i2792 = icmp eq ptr %267, %268
+  br i1 %cmp.i.i.i2792, label %if.then.i.i.i2801, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2797
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2792: ; preds = %sw.bb501
-  %incdec.ptr.i.i.i2791 = getelementptr inbounds ptr, ptr %267, i64 -1
-  %269 = load ptr, ptr %incdec.ptr.i.i.i2791, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2797: ; preds = %sw.bb501
+  %incdec.ptr.i.i.i2796 = getelementptr inbounds ptr, ptr %267, i64 -1
+  %269 = load ptr, ptr %incdec.ptr.i.i.i2796, align 8, !tbaa !14
   %file505 = getelementptr inbounds %"class.kc::impl_fileline", ptr %269, i64 0, i32 1
   %270 = load ptr, ptr %file505, align 8, !tbaa !57
   %file506 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %266, i64 0, i32 2
   store ptr %270, ptr %file506, align 8, !tbaa !68
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2798
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2803
 
-if.then.i.i.i2796:                                ; preds = %sw.bb501
+if.then.i.i.i2801:                                ; preds = %sw.bb501
   %271 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2788 = getelementptr inbounds ptr, ptr %271, i64 -1
-  %272 = load ptr, ptr %add.ptr.i.i.i2788, align 8, !tbaa !14
-  %incdec.ptr.i.i.i27913023 = getelementptr inbounds ptr, ptr %272, i64 63
-  %273 = load ptr, ptr %incdec.ptr.i.i.i27913023, align 8, !tbaa !14
+  %add.ptr.i.i.i2793 = getelementptr inbounds ptr, ptr %271, i64 -1
+  %272 = load ptr, ptr %add.ptr.i.i.i2793, align 8, !tbaa !14
+  %incdec.ptr.i.i.i27963023 = getelementptr inbounds ptr, ptr %272, i64 63
+  %273 = load ptr, ptr %incdec.ptr.i.i.i27963023, align 8, !tbaa !14
   %file5053024 = getelementptr inbounds %"class.kc::impl_fileline", ptr %273, i64 0, i32 1
   %274 = load ptr, ptr %file5053024, align 8, !tbaa !57
   %file5063025 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %266, i64 0, i32 2
   store ptr %274, ptr %file5063025, align 8, !tbaa !68
-  %275 = load ptr, ptr %add.ptr.i.i.i2788, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2795 = getelementptr inbounds ptr, ptr %275, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2798
+  %275 = load ptr, ptr %add.ptr.i.i.i2793, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2800 = getelementptr inbounds ptr, ptr %275, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2803
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2798: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2792, %if.then.i.i.i2796
-  %276 = phi ptr [ %add.ptr.i.i.i.i2795, %if.then.i.i.i2796 ], [ %267, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2792 ]
-  %incdec.ptr.i.i.i2797 = getelementptr inbounds ptr, ptr %276, i64 -1
-  %277 = load ptr, ptr %incdec.ptr.i.i.i2797, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2803: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2797, %if.then.i.i.i2801
+  %276 = phi ptr [ %add.ptr.i.i.i.i2800, %if.then.i.i.i2801 ], [ %267, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2797 ]
+  %incdec.ptr.i.i.i2802 = getelementptr inbounds ptr, ptr %276, i64 -1
+  %277 = load ptr, ptr %incdec.ptr.i.i.i2802, align 8, !tbaa !14
   %line508 = getelementptr inbounds %"class.kc::impl_fileline", ptr %277, i64 0, i32 2
   %278 = load i32, ptr %line508, align 8, !tbaa !62
   %line509 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %266, i64 0, i32 1
@@ -2232,20 +2232,20 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2798: ; preds =
   call void @_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3popEv(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE)
   %279 = load ptr, ptr getelementptr inbounds (%"class.std::stack.14", ptr @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !82, !noalias !83
   %280 = load ptr, ptr getelementptr inbounds (%"class.std::stack.14", ptr @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !86, !noalias !83
-  %cmp.i.i.i2799 = icmp eq ptr %279, %280
-  br i1 %cmp.i.i.i2799, label %if.then.i.i.i2802, label %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit
+  %cmp.i.i.i2804 = icmp eq ptr %279, %280
+  br i1 %cmp.i.i.i2804, label %if.then.i.i.i2807, label %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit
 
-if.then.i.i.i2802:                                ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2798
+if.then.i.i.i2807:                                ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2803
   %281 = load ptr, ptr getelementptr inbounds (%"class.std::stack.14", ptr @_ZN12_GLOBAL__N_119pl_nooperatorsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !87, !noalias !83
-  %add.ptr.i.i.i2800 = getelementptr inbounds ptr, ptr %281, i64 -1
-  %282 = load ptr, ptr %add.ptr.i.i.i2800, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2801 = getelementptr inbounds i32, ptr %282, i64 128
+  %add.ptr.i.i.i2805 = getelementptr inbounds ptr, ptr %281, i64 -1
+  %282 = load ptr, ptr %add.ptr.i.i.i2805, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2806 = getelementptr inbounds i32, ptr %282, i64 128
   br label %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit
 
-_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit:        ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2798, %if.then.i.i.i2802
-  %283 = phi ptr [ %add.ptr.i.i.i.i2801, %if.then.i.i.i2802 ], [ %279, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2798 ]
-  %incdec.ptr.i.i.i2803 = getelementptr inbounds i32, ptr %283, i64 -1
-  %284 = load i32, ptr %incdec.ptr.i.i.i2803, align 4, !tbaa !35
+_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit:        ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2803, %if.then.i.i.i2807
+  %283 = phi ptr [ %add.ptr.i.i.i.i2806, %if.then.i.i.i2807 ], [ %279, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2803 ]
+  %incdec.ptr.i.i.i2808 = getelementptr inbounds i32, ptr %283, i64 -1
+  %284 = load i32, ptr %incdec.ptr.i.i.i2808, align 4, !tbaa !35
   store i32 %284, ptr @_ZN12_GLOBAL__N_126non_default_outmostpatternE, align 4, !tbaa !35
   call void @_ZNSt5stackIiSt5dequeIiSaIiEEE3popEv(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_119pl_nooperatorsstackE)
   br label %sw.epilog
@@ -2268,67 +2268,67 @@ sw.bb523:                                         ; preds = %do.end106
   store ptr %call525, ptr %ref.tmp524, align 8, !tbaa !14
   %289 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %290 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2804 = getelementptr inbounds ptr, ptr %290, i64 -1
-  %cmp.not.i.i.i2805 = icmp eq ptr %289, %add.ptr.i.i.i2804
-  br i1 %cmp.not.i.i.i2805, label %if.else.i.i.i2808, label %if.then.i.i.i2807
+  %add.ptr.i.i.i2809 = getelementptr inbounds ptr, ptr %290, i64 -1
+  %cmp.not.i.i.i2810 = icmp eq ptr %289, %add.ptr.i.i.i2809
+  br i1 %cmp.not.i.i.i2810, label %if.else.i.i.i2813, label %if.then.i.i.i2812
 
-if.then.i.i.i2807:                                ; preds = %sw.bb523
+if.then.i.i.i2812:                                ; preds = %sw.bb523
   store ptr %call525, ptr %289, align 8, !tbaa !14
   %291 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2806 = getelementptr inbounds ptr, ptr %291, i64 1
-  store ptr %incdec.ptr.i.i.i2806, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2809
+  %incdec.ptr.i.i.i2811 = getelementptr inbounds ptr, ptr %291, i64 1
+  store ptr %incdec.ptr.i.i.i2811, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2814
 
-if.else.i.i.i2808:                                ; preds = %sw.bb523
+if.else.i.i.i2813:                                ; preds = %sw.bb523
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp524)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2809
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2814
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2809: ; preds = %if.then.i.i.i2807, %if.else.i.i.i2808
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2814: ; preds = %if.then.i.i.i2812, %if.else.i.i.i2813
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp524) #17
   br label %sw.epilog
 
 sw.bb526:                                         ; preds = %do.end106
-  %292 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx528 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %292 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx528 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %293 = load ptr, ptr %arrayidx528, align 8, !tbaa !39
   %call529 = call noundef ptr @_ZN2kc9ConsCtextEPNS_15impl_Ctext_elemEPNS_10impl_CtextE(ptr noundef %292, ptr noundef %293)
   %294 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %295 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2810 = icmp eq ptr %294, %295
-  br i1 %cmp.i.i.i2810, label %if.then.i.i.i2819, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2815
+  %cmp.i.i.i2815 = icmp eq ptr %294, %295
+  br i1 %cmp.i.i.i2815, label %if.then.i.i.i2824, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2820
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2815: ; preds = %sw.bb526
-  %incdec.ptr.i.i.i2814 = getelementptr inbounds ptr, ptr %294, i64 -1
-  %296 = load ptr, ptr %incdec.ptr.i.i.i2814, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2820: ; preds = %sw.bb526
+  %incdec.ptr.i.i.i2819 = getelementptr inbounds ptr, ptr %294, i64 -1
+  %296 = load ptr, ptr %incdec.ptr.i.i.i2819, align 8, !tbaa !14
   %file532 = getelementptr inbounds %"class.kc::impl_fileline", ptr %296, i64 0, i32 1
   %297 = load ptr, ptr %file532, align 8, !tbaa !57
-  %298 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %298 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %file534 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %298, i64 0, i32 2
   store ptr %297, ptr %file534, align 8, !tbaa !77
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2821
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2826
 
-if.then.i.i.i2819:                                ; preds = %sw.bb526
+if.then.i.i.i2824:                                ; preds = %sw.bb526
   %299 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2811 = getelementptr inbounds ptr, ptr %299, i64 -1
-  %300 = load ptr, ptr %add.ptr.i.i.i2811, align 8, !tbaa !14
-  %incdec.ptr.i.i.i28143026 = getelementptr inbounds ptr, ptr %300, i64 63
-  %301 = load ptr, ptr %incdec.ptr.i.i.i28143026, align 8, !tbaa !14
+  %add.ptr.i.i.i2816 = getelementptr inbounds ptr, ptr %299, i64 -1
+  %300 = load ptr, ptr %add.ptr.i.i.i2816, align 8, !tbaa !14
+  %incdec.ptr.i.i.i28193026 = getelementptr inbounds ptr, ptr %300, i64 63
+  %301 = load ptr, ptr %incdec.ptr.i.i.i28193026, align 8, !tbaa !14
   %file5323027 = getelementptr inbounds %"class.kc::impl_fileline", ptr %301, i64 0, i32 1
   %302 = load ptr, ptr %file5323027, align 8, !tbaa !57
-  %303 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %303 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %file5343028 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %303, i64 0, i32 2
   store ptr %302, ptr %file5343028, align 8, !tbaa !77
-  %304 = load ptr, ptr %add.ptr.i.i.i2811, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2818 = getelementptr inbounds ptr, ptr %304, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2821
+  %304 = load ptr, ptr %add.ptr.i.i.i2816, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2823 = getelementptr inbounds ptr, ptr %304, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2826
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2821: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2815, %if.then.i.i.i2819
-  %305 = phi ptr [ %add.ptr.i.i.i.i2818, %if.then.i.i.i2819 ], [ %294, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2815 ]
-  %incdec.ptr.i.i.i2820 = getelementptr inbounds ptr, ptr %305, i64 -1
-  %306 = load ptr, ptr %incdec.ptr.i.i.i2820, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2826: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2820, %if.then.i.i.i2824
+  %305 = phi ptr [ %add.ptr.i.i.i.i2823, %if.then.i.i.i2824 ], [ %294, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2820 ]
+  %incdec.ptr.i.i.i2825 = getelementptr inbounds ptr, ptr %305, i64 -1
+  %306 = load ptr, ptr %incdec.ptr.i.i.i2825, align 8, !tbaa !14
   %line536 = getelementptr inbounds %"class.kc::impl_fileline", ptr %306, i64 0, i32 2
   %307 = load i32, ptr %line536, align 8, !tbaa !62
-  %308 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %308 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %line538 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %308, i64 0, i32 1
   store i32 %307, ptr %line538, align 8, !tbaa !79
   call void @_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3popEv(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE)
@@ -2345,12 +2345,12 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2821: ; preds =
   br label %sw.epilog
 
 sw.bb547:                                         ; preds = %do.end106
-  %313 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %313 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call549 = call noundef ptr @_ZN2kc9CTextLineEPNS_20impl_casestring__StrE(ptr noundef %313)
   br label %sw.epilog
 
 sw.bb550:                                         ; preds = %do.end106
-  %314 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %314 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call552 = call noundef ptr @_ZN2kc14CTextDollarVarEPNS_8impl_INTE(ptr noundef %314)
   br label %sw.epilog
 
@@ -2360,7 +2360,7 @@ sw.bb553:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb556:                                         ; preds = %do.end106
-  %315 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %315 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call558 = call noundef ptr @_ZN2kc7CTextNlEPNS_17impl_integer__IntE(ptr noundef %315)
   br label %sw.epilog
 
@@ -2370,7 +2370,7 @@ sw.bb559:                                         ; preds = %do.end106
 
 sw.bb560:                                         ; preds = %do.end106
   call void @_Z4do_Cv()
-  %arrayidx561 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx561 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %316 = load ptr, ptr %arrayidx561, align 8, !tbaa !39
   %call562 = call noundef ptr @_ZN2kc18CTextCexpressionDQEPNS_18impl_CexpressionDQE(ptr noundef %316)
   br label %sw.epilog
@@ -2381,14 +2381,14 @@ sw.bb563:                                         ; preds = %do.end106
 
 sw.bb564:                                         ; preds = %do.end106
   call void @_Z4do_Cv()
-  %arrayidx565 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx565 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %317 = load ptr, ptr %arrayidx565, align 8, !tbaa !39
   %call566 = call noundef ptr @_ZN2kc18CTextCexpressionSQEPNS_18impl_CexpressionSQE(ptr noundef %317)
   br label %sw.epilog
 
 sw.bb567:                                         ; preds = %do.end106
   call void @_Z4do_Cv()
-  %318 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %318 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call569 = call noundef ptr @_ZN2kc10CTextCbodyEPNS_10impl_CtextE(ptr noundef %318)
   br label %sw.epilog
 
@@ -2398,7 +2398,7 @@ sw.bb570:                                         ; preds = %do.end106
 
 sw.bb571:                                         ; preds = %do.end106
   call void @_Z4do_Cv()
-  %319 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %319 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb573:                                         ; preds = %do.end106
@@ -2414,22 +2414,22 @@ sw.bb574:                                         ; preds = %do.end106
   store ptr %call576, ptr %ref.tmp575, align 8, !tbaa !14
   %322 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %323 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2822 = getelementptr inbounds ptr, ptr %323, i64 -1
-  %cmp.not.i.i.i2823 = icmp eq ptr %322, %add.ptr.i.i.i2822
-  br i1 %cmp.not.i.i.i2823, label %if.else.i.i.i2826, label %if.then.i.i.i2825
+  %add.ptr.i.i.i2827 = getelementptr inbounds ptr, ptr %323, i64 -1
+  %cmp.not.i.i.i2828 = icmp eq ptr %322, %add.ptr.i.i.i2827
+  br i1 %cmp.not.i.i.i2828, label %if.else.i.i.i2831, label %if.then.i.i.i2830
 
-if.then.i.i.i2825:                                ; preds = %sw.bb574
+if.then.i.i.i2830:                                ; preds = %sw.bb574
   store ptr %call576, ptr %322, align 8, !tbaa !14
   %324 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2824 = getelementptr inbounds ptr, ptr %324, i64 1
-  store ptr %incdec.ptr.i.i.i2824, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2827
+  %incdec.ptr.i.i.i2829 = getelementptr inbounds ptr, ptr %324, i64 1
+  store ptr %incdec.ptr.i.i.i2829, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2832
 
-if.else.i.i.i2826:                                ; preds = %sw.bb574
+if.else.i.i.i2831:                                ; preds = %sw.bb574
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp575)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2827
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2832
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2827: ; preds = %if.then.i.i.i2825, %if.else.i.i.i2826
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2832: ; preds = %if.then.i.i.i2830, %if.else.i.i.i2831
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp575) #17
   br label %sw.epilog
 
@@ -2440,9 +2440,9 @@ sw.bb577:                                         ; preds = %do.end106
 
 sw.bb578:                                         ; preds = %do.end106
   call void @_Z4do_Cv()
-  %arrayidx579 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -5
+  %arrayidx579 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -5
   %325 = load ptr, ptr %arrayidx579, align 8, !tbaa !39
-  %arrayidx580 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx580 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %326 = load ptr, ptr %arrayidx580, align 8, !tbaa !39
   %call581 = call noundef ptr @_ZN2kc19NotInForeachContextEv()
   %call582 = call noundef ptr @_ZN2kc19CTextWithexpressionEPNS_20impl_withexpressionsEPNS_14impl_withcasesEPNS_16impl_contextinfoE(ptr noundef %325, ptr noundef %326, ptr noundef %call581)
@@ -2466,27 +2466,27 @@ sw.bb589:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb590:                                         ; preds = %do.end106
-  %arrayidx591 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx591 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %328 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !88
   %329 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !89
-  %add.ptr.i.i2828 = getelementptr inbounds ptr, ptr %329, i64 -1
-  %cmp.not.i.i2829 = icmp eq ptr %328, %add.ptr.i.i2828
-  br i1 %cmp.not.i.i2829, label %if.else.i.i2832, label %if.then.i.i2831
+  %add.ptr.i.i2833 = getelementptr inbounds ptr, ptr %329, i64 -1
+  %cmp.not.i.i2834 = icmp eq ptr %328, %add.ptr.i.i2833
+  br i1 %cmp.not.i.i2834, label %if.else.i.i2837, label %if.then.i.i2836
 
-if.then.i.i2831:                                  ; preds = %sw.bb590
+if.then.i.i2836:                                  ; preds = %sw.bb590
   %330 = load ptr, ptr %arrayidx591, align 8, !tbaa !14
   store ptr %330, ptr %328, align 8, !tbaa !14
   %331 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !88
-  %incdec.ptr.i.i2830 = getelementptr inbounds ptr, ptr %331, i64 1
-  store ptr %incdec.ptr.i.i2830, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !88
+  %incdec.ptr.i.i2835 = getelementptr inbounds ptr, ptr %331, i64 1
+  store ptr %incdec.ptr.i.i2835, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !88
   br label %sw.epilog
 
-if.else.i.i2832:                                  ; preds = %sw.bb590
+if.else.i.i2837:                                  ; preds = %sw.bb590
   call void @_ZNSt5dequeIPN2kc19impl_idCexpressionsESaIS2_EE16_M_push_back_auxIJRKS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, ptr noundef nonnull align 8 dereferenceable(8) %arrayidx591)
   br label %sw.epilog
 
 sw.bb592:                                         ; preds = %do.end106
-  %arrayidx593 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -7
+  %arrayidx593 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -7
   %332 = load ptr, ptr %arrayidx593, align 8, !tbaa !39
   %call594 = call noundef ptr @_ZN2kc16NilpatternchainsEv()
   %call595 = call noundef ptr @_ZN2kc17ConspatternchainsEPNS_17impl_patternchainEPNS_18impl_patternchainsE(ptr noundef %332, ptr noundef %call594)
@@ -2494,13 +2494,13 @@ sw.bb592:                                         ; preds = %do.end106
   %vfn = getelementptr inbounds ptr, ptr %vtable, i64 3
   %333 = load ptr, ptr %vfn, align 8
   %call596 = call noundef ptr %333(ptr noundef nonnull align 8 dereferenceable(40) %call595, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_rviewE)
-  %arrayidx597 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx597 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %334 = load ptr, ptr %arrayidx597, align 8, !tbaa !39
   %call598 = call noundef ptr @_ZN2kc23pf_gen_foreachwith_varsEPNS_19impl_idCexpressionsE(ptr noundef %334)
   %335 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %336 = load i32, ptr @pg_lineno, align 4, !tbaa !35
   %call599 = call noundef ptr @_ZN2kc26syn_patternchains_filelineEPNS_18impl_patternchainsEPNS_20impl_casestring__StrEi(ptr noundef %call596, ptr noundef %335, i32 noundef %336)
-  %arrayidx600 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx600 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %337 = load ptr, ptr %arrayidx600, align 8, !tbaa !39
   %call601 = call noundef ptr @_ZN2kc8WithcaseEPNS_18impl_patternchainsEPNS_10impl_CtextE(ptr noundef %call599, ptr noundef %337)
   %call602 = call noundef ptr @_ZN2kc12NilwithcasesEv()
@@ -2512,74 +2512,74 @@ sw.bb592:                                         ; preds = %do.end106
   %call608 = call noundef ptr @_ZN2kc9ConsCtextEPNS_15impl_Ctext_elemEPNS_10impl_CtextE(ptr noundef %call606, ptr noundef %call607)
   %339 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %340 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2833 = icmp eq ptr %339, %340
-  br i1 %cmp.i.i.i2833, label %if.then.i.i.i2866, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2862
+  %cmp.i.i.i2838 = icmp eq ptr %339, %340
+  br i1 %cmp.i.i.i2838, label %if.then.i.i.i2871, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2867
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2862: ; preds = %sw.bb592
-  %incdec.ptr.i.i.i2837 = getelementptr inbounds ptr, ptr %339, i64 -1
-  %341 = load ptr, ptr %incdec.ptr.i.i.i2837, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2867: ; preds = %sw.bb592
+  %incdec.ptr.i.i.i2842 = getelementptr inbounds ptr, ptr %339, i64 -1
+  %341 = load ptr, ptr %incdec.ptr.i.i.i2842, align 8, !tbaa !14
   %file611 = getelementptr inbounds %"class.kc::impl_fileline", ptr %341, i64 0, i32 1
   %342 = load ptr, ptr %file611, align 8, !tbaa !57
   %file612 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call606, i64 0, i32 2
   store ptr %342, ptr %file612, align 8, !tbaa !77
-  %343 = load ptr, ptr %incdec.ptr.i.i.i2837, align 8, !tbaa !14
+  %343 = load ptr, ptr %incdec.ptr.i.i.i2842, align 8, !tbaa !14
   %line614 = getelementptr inbounds %"class.kc::impl_fileline", ptr %343, i64 0, i32 2
   %344 = load i32, ptr %line614, align 8, !tbaa !62
   %file620 = getelementptr inbounds %"class.kc::impl_fileline", ptr %343, i64 0, i32 1
   %345 = load ptr, ptr %file620, align 8, !tbaa !57
   %file621 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call607, i64 0, i32 2
   store ptr %345, ptr %file621, align 8, !tbaa !68
-  %346 = load ptr, ptr %incdec.ptr.i.i.i2837, align 8, !tbaa !14
+  %346 = load ptr, ptr %incdec.ptr.i.i.i2842, align 8, !tbaa !14
   %line623 = getelementptr inbounds %"class.kc::impl_fileline", ptr %346, i64 0, i32 2
   %347 = load i32, ptr %line623, align 8, !tbaa !62
   %file629 = getelementptr inbounds %"class.kc::impl_fileline", ptr %346, i64 0, i32 1
   %348 = load ptr, ptr %file629, align 8, !tbaa !57
   %file630 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call608, i64 0, i32 2
   store ptr %348, ptr %file630, align 8, !tbaa !68
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2868
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2873
 
-if.then.i.i.i2866:                                ; preds = %sw.bb592
+if.then.i.i.i2871:                                ; preds = %sw.bb592
   %349 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2834 = getelementptr inbounds ptr, ptr %349, i64 -1
-  %350 = load ptr, ptr %add.ptr.i.i.i2834, align 8, !tbaa !14
-  %incdec.ptr.i.i.i28373029 = getelementptr inbounds ptr, ptr %350, i64 63
-  %351 = load ptr, ptr %incdec.ptr.i.i.i28373029, align 8, !tbaa !14
+  %add.ptr.i.i.i2839 = getelementptr inbounds ptr, ptr %349, i64 -1
+  %350 = load ptr, ptr %add.ptr.i.i.i2839, align 8, !tbaa !14
+  %incdec.ptr.i.i.i28423029 = getelementptr inbounds ptr, ptr %350, i64 63
+  %351 = load ptr, ptr %incdec.ptr.i.i.i28423029, align 8, !tbaa !14
   %file6113030 = getelementptr inbounds %"class.kc::impl_fileline", ptr %351, i64 0, i32 1
   %352 = load ptr, ptr %file6113030, align 8, !tbaa !57
   %file6123031 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call606, i64 0, i32 2
   store ptr %352, ptr %file6123031, align 8, !tbaa !77
-  %353 = load ptr, ptr %add.ptr.i.i.i2834, align 8, !tbaa !14
-  %incdec.ptr.i.i.i28433032 = getelementptr inbounds ptr, ptr %353, i64 63
-  %354 = load ptr, ptr %incdec.ptr.i.i.i28433032, align 8, !tbaa !14
+  %353 = load ptr, ptr %add.ptr.i.i.i2839, align 8, !tbaa !14
+  %incdec.ptr.i.i.i28483032 = getelementptr inbounds ptr, ptr %353, i64 63
+  %354 = load ptr, ptr %incdec.ptr.i.i.i28483032, align 8, !tbaa !14
   %line6143033 = getelementptr inbounds %"class.kc::impl_fileline", ptr %354, i64 0, i32 2
   %355 = load i32, ptr %line6143033, align 8, !tbaa !62
   %file6203036 = getelementptr inbounds %"class.kc::impl_fileline", ptr %354, i64 0, i32 1
   %356 = load ptr, ptr %file6203036, align 8, !tbaa !57
   %file6213037 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call607, i64 0, i32 2
   store ptr %356, ptr %file6213037, align 8, !tbaa !68
-  %357 = load ptr, ptr %add.ptr.i.i.i2834, align 8, !tbaa !14
-  %incdec.ptr.i.i.i28553038 = getelementptr inbounds ptr, ptr %357, i64 63
-  %358 = load ptr, ptr %incdec.ptr.i.i.i28553038, align 8, !tbaa !14
+  %357 = load ptr, ptr %add.ptr.i.i.i2839, align 8, !tbaa !14
+  %incdec.ptr.i.i.i28603038 = getelementptr inbounds ptr, ptr %357, i64 63
+  %358 = load ptr, ptr %incdec.ptr.i.i.i28603038, align 8, !tbaa !14
   %line6233039 = getelementptr inbounds %"class.kc::impl_fileline", ptr %358, i64 0, i32 2
   %359 = load i32, ptr %line6233039, align 8, !tbaa !62
   %file6293042 = getelementptr inbounds %"class.kc::impl_fileline", ptr %358, i64 0, i32 1
   %360 = load ptr, ptr %file6293042, align 8, !tbaa !57
   %file6303043 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call608, i64 0, i32 2
   store ptr %360, ptr %file6303043, align 8, !tbaa !68
-  %361 = load ptr, ptr %add.ptr.i.i.i2834, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2865 = getelementptr inbounds ptr, ptr %361, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2868
+  %361 = load ptr, ptr %add.ptr.i.i.i2839, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2870 = getelementptr inbounds ptr, ptr %361, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2873
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2868: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2862, %if.then.i.i.i2866
-  %.sink3110 = phi i32 [ %355, %if.then.i.i.i2866 ], [ %344, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2862 ]
-  %.sink = phi i32 [ %359, %if.then.i.i.i2866 ], [ %347, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2862 ]
-  %362 = phi ptr [ %add.ptr.i.i.i.i2865, %if.then.i.i.i2866 ], [ %339, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2862 ]
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2873: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2867, %if.then.i.i.i2871
+  %.sink3103 = phi i32 [ %355, %if.then.i.i.i2871 ], [ %344, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2867 ]
+  %.sink = phi i32 [ %359, %if.then.i.i.i2871 ], [ %347, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2867 ]
+  %362 = phi ptr [ %add.ptr.i.i.i.i2870, %if.then.i.i.i2871 ], [ %339, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2867 ]
   %363 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call606, i64 0, i32 1
-  store i32 %.sink3110, ptr %363, align 8
+  store i32 %.sink3103, ptr %363, align 8
   %364 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call607, i64 0, i32 1
   store i32 %.sink, ptr %364, align 8
-  %incdec.ptr.i.i.i2867 = getelementptr inbounds ptr, ptr %362, i64 -1
-  %365 = load ptr, ptr %incdec.ptr.i.i.i2867, align 8, !tbaa !14
+  %incdec.ptr.i.i.i2872 = getelementptr inbounds ptr, ptr %362, i64 -1
+  %365 = load ptr, ptr %incdec.ptr.i.i.i2872, align 8, !tbaa !14
   %line632 = getelementptr inbounds %"class.kc::impl_fileline", ptr %365, i64 0, i32 2
   %366 = load i32, ptr %line632, align 8, !tbaa !62
   %line633 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call608, i64 0, i32 1
@@ -2592,7 +2592,7 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2868: ; preds =
   call void @_ZN2kc42check_no_patternchaingroup_in_patternchainEPNS_20impl_casestring__StrEiPNS_17impl_patternchainEPKc(ptr noundef %368, i32 noundef %369, ptr noundef %367, ptr noundef nonnull @.str.14)
   %370 = load ptr, ptr %arrayidx593, align 8, !tbaa !39
   %371 = load ptr, ptr %arrayidx597, align 8, !tbaa !39
-  %372 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %372 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call644 = call noundef ptr @_ZN2kc22CTextForeachexpressionEPNS_17impl_patternchainEPNS_19impl_idCexpressionsEPNS_20impl_withexpressionsEPNS_10impl_CtextEPNS_18impl_foreach_afterE(ptr noundef %370, ptr noundef %371, ptr noundef %call598, ptr noundef nonnull %call608, ptr noundef %372)
   call void @_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3popEv(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE)
   br label %sw.epilog
@@ -2610,22 +2610,22 @@ sw.bb647:                                         ; preds = %do.end106
   store ptr %call649, ptr %ref.tmp648, align 8, !tbaa !14
   %375 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %376 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2869 = getelementptr inbounds ptr, ptr %376, i64 -1
-  %cmp.not.i.i.i2870 = icmp eq ptr %375, %add.ptr.i.i.i2869
-  br i1 %cmp.not.i.i.i2870, label %if.else.i.i.i2873, label %if.then.i.i.i2872
+  %add.ptr.i.i.i2874 = getelementptr inbounds ptr, ptr %376, i64 -1
+  %cmp.not.i.i.i2875 = icmp eq ptr %375, %add.ptr.i.i.i2874
+  br i1 %cmp.not.i.i.i2875, label %if.else.i.i.i2878, label %if.then.i.i.i2877
 
-if.then.i.i.i2872:                                ; preds = %sw.bb647
+if.then.i.i.i2877:                                ; preds = %sw.bb647
   store ptr %call649, ptr %375, align 8, !tbaa !14
   %377 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2871 = getelementptr inbounds ptr, ptr %377, i64 1
-  store ptr %incdec.ptr.i.i.i2871, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2874
+  %incdec.ptr.i.i.i2876 = getelementptr inbounds ptr, ptr %377, i64 1
+  store ptr %incdec.ptr.i.i.i2876, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2879
 
-if.else.i.i.i2873:                                ; preds = %sw.bb647
+if.else.i.i.i2878:                                ; preds = %sw.bb647
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp648)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2874
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2879
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2874: ; preds = %if.then.i.i.i2872, %if.else.i.i.i2873
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2879: ; preds = %if.then.i.i.i2877, %if.else.i.i.i2878
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp648) #17
   br label %sw.epilog
 
@@ -2634,7 +2634,7 @@ sw.bb650:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb651:                                         ; preds = %do.end106
-  %arrayidx653 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx653 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %378 = load ptr, ptr %arrayidx653, align 8, !tbaa !39
   %call654 = call noundef ptr @_ZN2kc16NilpatternchainsEv()
   %call655 = call noundef ptr @_ZN2kc17ConspatternchainsEPNS_17impl_patternchainEPNS_18impl_patternchainsE(ptr noundef %378, ptr noundef %call654)
@@ -2644,25 +2644,25 @@ sw.bb651:                                         ; preds = %do.end106
   %call659 = call noundef ptr %379(ptr noundef nonnull align 8 dereferenceable(40) %call655, ptr noundef nonnull align 4 dereferenceable(4) @_ZN2kc10base_rviewE)
   %380 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !95, !noalias !96
   %381 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !99, !noalias !96
-  %cmp.i.i.i2875 = icmp eq ptr %380, %381
-  br i1 %cmp.i.i.i2875, label %if.then.i.i.i2878, label %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
+  %cmp.i.i.i2880 = icmp eq ptr %380, %381
+  br i1 %cmp.i.i.i2880, label %if.then.i.i.i2883, label %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
 
-if.then.i.i.i2878:                                ; preds = %sw.bb651
+if.then.i.i.i2883:                                ; preds = %sw.bb651
   %382 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !100, !noalias !96
-  %add.ptr.i.i.i2876 = getelementptr inbounds ptr, ptr %382, i64 -1
-  %383 = load ptr, ptr %add.ptr.i.i.i2876, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2877 = getelementptr inbounds ptr, ptr %383, i64 64
+  %add.ptr.i.i.i2881 = getelementptr inbounds ptr, ptr %382, i64 -1
+  %383 = load ptr, ptr %add.ptr.i.i.i2881, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2882 = getelementptr inbounds ptr, ptr %383, i64 64
   br label %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
 
-_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit: ; preds = %sw.bb651, %if.then.i.i.i2878
-  %384 = phi ptr [ %add.ptr.i.i.i.i2877, %if.then.i.i.i2878 ], [ %380, %sw.bb651 ]
-  %incdec.ptr.i.i.i2879 = getelementptr inbounds ptr, ptr %384, i64 -1
-  %385 = load ptr, ptr %incdec.ptr.i.i.i2879, align 8, !tbaa !14
+_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit: ; preds = %sw.bb651, %if.then.i.i.i2883
+  %384 = phi ptr [ %add.ptr.i.i.i.i2882, %if.then.i.i.i2883 ], [ %380, %sw.bb651 ]
+  %incdec.ptr.i.i.i2884 = getelementptr inbounds ptr, ptr %384, i64 -1
+  %385 = load ptr, ptr %incdec.ptr.i.i.i2884, align 8, !tbaa !14
   %call662 = call noundef ptr @_ZN2kc27pf_gen_foreachwith_listvarsEPNS_19impl_idCexpressionsE(ptr noundef %385)
   %386 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %387 = load i32, ptr @pg_lineno, align 4, !tbaa !35
   %call664 = call noundef ptr @_ZN2kc26syn_patternchains_filelineEPNS_18impl_patternchainsEPNS_20impl_casestring__StrEi(ptr noundef %call659, ptr noundef %386, i32 noundef %387)
-  %388 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %388 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call666 = call noundef ptr @_ZN2kc8WithcaseEPNS_18impl_patternchainsEPNS_10impl_CtextE(ptr noundef %call664, ptr noundef %388)
   %call667 = call noundef ptr @_ZN2kc12NilwithcasesEv()
   %call668 = call noundef ptr @_ZN2kc13ConswithcasesEPNS_13impl_withcaseEPNS_14impl_withcasesE(ptr noundef %call666, ptr noundef %call667)
@@ -2673,74 +2673,74 @@ _ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit: ; preds
   %call675 = call noundef ptr @_ZN2kc9ConsCtextEPNS_15impl_Ctext_elemEPNS_10impl_CtextE(ptr noundef %call671, ptr noundef %call673)
   %390 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %391 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2880 = icmp eq ptr %390, %391
-  br i1 %cmp.i.i.i2880, label %if.then.i.i.i2913, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2909
+  %cmp.i.i.i2885 = icmp eq ptr %390, %391
+  br i1 %cmp.i.i.i2885, label %if.then.i.i.i2918, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2914
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2909: ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
-  %incdec.ptr.i.i.i2884 = getelementptr inbounds ptr, ptr %390, i64 -1
-  %392 = load ptr, ptr %incdec.ptr.i.i.i2884, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2914: ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
+  %incdec.ptr.i.i.i2889 = getelementptr inbounds ptr, ptr %390, i64 -1
+  %392 = load ptr, ptr %incdec.ptr.i.i.i2889, align 8, !tbaa !14
   %file678 = getelementptr inbounds %"class.kc::impl_fileline", ptr %392, i64 0, i32 1
   %393 = load ptr, ptr %file678, align 8, !tbaa !57
   %file679 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call671, i64 0, i32 2
   store ptr %393, ptr %file679, align 8, !tbaa !77
-  %394 = load ptr, ptr %incdec.ptr.i.i.i2884, align 8, !tbaa !14
+  %394 = load ptr, ptr %incdec.ptr.i.i.i2889, align 8, !tbaa !14
   %line681 = getelementptr inbounds %"class.kc::impl_fileline", ptr %394, i64 0, i32 2
   %395 = load i32, ptr %line681, align 8, !tbaa !62
   %file687 = getelementptr inbounds %"class.kc::impl_fileline", ptr %394, i64 0, i32 1
   %396 = load ptr, ptr %file687, align 8, !tbaa !57
   %file688 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call673, i64 0, i32 2
   store ptr %396, ptr %file688, align 8, !tbaa !68
-  %397 = load ptr, ptr %incdec.ptr.i.i.i2884, align 8, !tbaa !14
+  %397 = load ptr, ptr %incdec.ptr.i.i.i2889, align 8, !tbaa !14
   %line690 = getelementptr inbounds %"class.kc::impl_fileline", ptr %397, i64 0, i32 2
   %398 = load i32, ptr %line690, align 8, !tbaa !62
   %file696 = getelementptr inbounds %"class.kc::impl_fileline", ptr %397, i64 0, i32 1
   %399 = load ptr, ptr %file696, align 8, !tbaa !57
   %file697 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call675, i64 0, i32 2
   store ptr %399, ptr %file697, align 8, !tbaa !68
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2915
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2920
 
-if.then.i.i.i2913:                                ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
+if.then.i.i.i2918:                                ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit
   %400 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2881 = getelementptr inbounds ptr, ptr %400, i64 -1
-  %401 = load ptr, ptr %add.ptr.i.i.i2881, align 8, !tbaa !14
-  %incdec.ptr.i.i.i28843044 = getelementptr inbounds ptr, ptr %401, i64 63
-  %402 = load ptr, ptr %incdec.ptr.i.i.i28843044, align 8, !tbaa !14
+  %add.ptr.i.i.i2886 = getelementptr inbounds ptr, ptr %400, i64 -1
+  %401 = load ptr, ptr %add.ptr.i.i.i2886, align 8, !tbaa !14
+  %incdec.ptr.i.i.i28893044 = getelementptr inbounds ptr, ptr %401, i64 63
+  %402 = load ptr, ptr %incdec.ptr.i.i.i28893044, align 8, !tbaa !14
   %file6783045 = getelementptr inbounds %"class.kc::impl_fileline", ptr %402, i64 0, i32 1
   %403 = load ptr, ptr %file6783045, align 8, !tbaa !57
   %file6793046 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call671, i64 0, i32 2
   store ptr %403, ptr %file6793046, align 8, !tbaa !77
-  %404 = load ptr, ptr %add.ptr.i.i.i2881, align 8, !tbaa !14
-  %incdec.ptr.i.i.i28903047 = getelementptr inbounds ptr, ptr %404, i64 63
-  %405 = load ptr, ptr %incdec.ptr.i.i.i28903047, align 8, !tbaa !14
+  %404 = load ptr, ptr %add.ptr.i.i.i2886, align 8, !tbaa !14
+  %incdec.ptr.i.i.i28953047 = getelementptr inbounds ptr, ptr %404, i64 63
+  %405 = load ptr, ptr %incdec.ptr.i.i.i28953047, align 8, !tbaa !14
   %line6813048 = getelementptr inbounds %"class.kc::impl_fileline", ptr %405, i64 0, i32 2
   %406 = load i32, ptr %line6813048, align 8, !tbaa !62
   %file6873051 = getelementptr inbounds %"class.kc::impl_fileline", ptr %405, i64 0, i32 1
   %407 = load ptr, ptr %file6873051, align 8, !tbaa !57
   %file6883052 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call673, i64 0, i32 2
   store ptr %407, ptr %file6883052, align 8, !tbaa !68
-  %408 = load ptr, ptr %add.ptr.i.i.i2881, align 8, !tbaa !14
-  %incdec.ptr.i.i.i29023053 = getelementptr inbounds ptr, ptr %408, i64 63
-  %409 = load ptr, ptr %incdec.ptr.i.i.i29023053, align 8, !tbaa !14
+  %408 = load ptr, ptr %add.ptr.i.i.i2886, align 8, !tbaa !14
+  %incdec.ptr.i.i.i29073053 = getelementptr inbounds ptr, ptr %408, i64 63
+  %409 = load ptr, ptr %incdec.ptr.i.i.i29073053, align 8, !tbaa !14
   %line6903054 = getelementptr inbounds %"class.kc::impl_fileline", ptr %409, i64 0, i32 2
   %410 = load i32, ptr %line6903054, align 8, !tbaa !62
   %file6963057 = getelementptr inbounds %"class.kc::impl_fileline", ptr %409, i64 0, i32 1
   %411 = load ptr, ptr %file6963057, align 8, !tbaa !57
   %file6973058 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call675, i64 0, i32 2
   store ptr %411, ptr %file6973058, align 8, !tbaa !68
-  %412 = load ptr, ptr %add.ptr.i.i.i2881, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2912 = getelementptr inbounds ptr, ptr %412, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2915
+  %412 = load ptr, ptr %add.ptr.i.i.i2886, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2917 = getelementptr inbounds ptr, ptr %412, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2920
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2915: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2909, %if.then.i.i.i2913
-  %.sink3112 = phi i32 [ %406, %if.then.i.i.i2913 ], [ %395, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2909 ]
-  %.sink3111 = phi i32 [ %410, %if.then.i.i.i2913 ], [ %398, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2909 ]
-  %413 = phi ptr [ %add.ptr.i.i.i.i2912, %if.then.i.i.i2913 ], [ %390, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2909 ]
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2920: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2914, %if.then.i.i.i2918
+  %.sink3105 = phi i32 [ %406, %if.then.i.i.i2918 ], [ %395, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2914 ]
+  %.sink3104 = phi i32 [ %410, %if.then.i.i.i2918 ], [ %398, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2914 ]
+  %413 = phi ptr [ %add.ptr.i.i.i.i2917, %if.then.i.i.i2918 ], [ %390, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2914 ]
   %414 = getelementptr inbounds %"class.kc::impl_Ctext_elem", ptr %call671, i64 0, i32 1
-  store i32 %.sink3112, ptr %414, align 8
+  store i32 %.sink3105, ptr %414, align 8
   %415 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call673, i64 0, i32 1
-  store i32 %.sink3111, ptr %415, align 8
-  %incdec.ptr.i.i.i2914 = getelementptr inbounds ptr, ptr %413, i64 -1
-  %416 = load ptr, ptr %incdec.ptr.i.i.i2914, align 8, !tbaa !14
+  store i32 %.sink3104, ptr %415, align 8
+  %incdec.ptr.i.i.i2919 = getelementptr inbounds ptr, ptr %413, i64 -1
+  %416 = load ptr, ptr %incdec.ptr.i.i.i2919, align 8, !tbaa !14
   %line699 = getelementptr inbounds %"class.kc::impl_fileline", ptr %416, i64 0, i32 2
   %417 = load i32, ptr %line699, align 8, !tbaa !62
   %line700 = getelementptr inbounds %"class.kc::impl_Ctext", ptr %call675, i64 0, i32 1
@@ -2754,53 +2754,53 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2915: ; preds =
   %421 = load ptr, ptr %arrayidx653, align 8, !tbaa !39
   %422 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !95, !noalias !101
   %423 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !99, !noalias !101
-  %cmp.i.i.i2916 = icmp eq ptr %422, %423
-  br i1 %cmp.i.i.i2916, label %if.then.i.i.i2919, label %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2921
+  %cmp.i.i.i2921 = icmp eq ptr %422, %423
+  br i1 %cmp.i.i.i2921, label %if.then.i.i.i2924, label %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2926
 
-if.then.i.i.i2919:                                ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2915
+if.then.i.i.i2924:                                ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2920
   %424 = load ptr, ptr getelementptr inbounds (%"class.std::stack.0", ptr @_ZN12_GLOBAL__N_122pl_idCexpressionsstackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !100, !noalias !101
-  %add.ptr.i.i.i2917 = getelementptr inbounds ptr, ptr %424, i64 -1
-  %425 = load ptr, ptr %add.ptr.i.i.i2917, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2918 = getelementptr inbounds ptr, ptr %425, i64 64
-  br label %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2921
+  %add.ptr.i.i.i2922 = getelementptr inbounds ptr, ptr %424, i64 -1
+  %425 = load ptr, ptr %add.ptr.i.i.i2922, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2923 = getelementptr inbounds ptr, ptr %425, i64 64
+  br label %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2926
 
-_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2921: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2915, %if.then.i.i.i2919
-  %426 = phi ptr [ %add.ptr.i.i.i.i2918, %if.then.i.i.i2919 ], [ %422, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2915 ]
-  %incdec.ptr.i.i.i2920 = getelementptr inbounds ptr, ptr %426, i64 -1
-  %427 = load ptr, ptr %incdec.ptr.i.i.i2920, align 8, !tbaa !14
+_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2926: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2920, %if.then.i.i.i2924
+  %426 = phi ptr [ %add.ptr.i.i.i.i2923, %if.then.i.i.i2924 ], [ %422, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2920 ]
+  %incdec.ptr.i.i.i2925 = getelementptr inbounds ptr, ptr %426, i64 -1
+  %427 = load ptr, ptr %incdec.ptr.i.i.i2925, align 8, !tbaa !14
   %call710 = call noundef ptr @_ZN2kc12ForeachAfterEPNS_17impl_patternchainEPNS_19impl_idCexpressionsEPNS_20impl_withexpressionsEPNS_10impl_CtextE(ptr noundef %421, ptr noundef %427, ptr noundef %call662, ptr noundef nonnull %call675)
   %428 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %429 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2922 = icmp eq ptr %428, %429
-  br i1 %cmp.i.i.i2922, label %if.then.i.i.i2931, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2927
+  %cmp.i.i.i2927 = icmp eq ptr %428, %429
+  br i1 %cmp.i.i.i2927, label %if.then.i.i.i2936, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2932
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2927: ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2921
-  %incdec.ptr.i.i.i2926 = getelementptr inbounds ptr, ptr %428, i64 -1
-  %430 = load ptr, ptr %incdec.ptr.i.i.i2926, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2932: ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2926
+  %incdec.ptr.i.i.i2931 = getelementptr inbounds ptr, ptr %428, i64 -1
+  %430 = load ptr, ptr %incdec.ptr.i.i.i2931, align 8, !tbaa !14
   %file713 = getelementptr inbounds %"class.kc::impl_fileline", ptr %430, i64 0, i32 1
   %431 = load ptr, ptr %file713, align 8, !tbaa !57
   %file714 = getelementptr inbounds %"class.kc::impl_foreach_after", ptr %call710, i64 0, i32 2
   store ptr %431, ptr %file714, align 8, !tbaa !104
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2933
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2938
 
-if.then.i.i.i2931:                                ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2921
+if.then.i.i.i2936:                                ; preds = %_ZNSt5stackIPN2kc19impl_idCexpressionsESt5dequeIS2_SaIS2_EEE3topEv.exit2926
   %432 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2923 = getelementptr inbounds ptr, ptr %432, i64 -1
-  %433 = load ptr, ptr %add.ptr.i.i.i2923, align 8, !tbaa !14
-  %incdec.ptr.i.i.i29263059 = getelementptr inbounds ptr, ptr %433, i64 63
-  %434 = load ptr, ptr %incdec.ptr.i.i.i29263059, align 8, !tbaa !14
+  %add.ptr.i.i.i2928 = getelementptr inbounds ptr, ptr %432, i64 -1
+  %433 = load ptr, ptr %add.ptr.i.i.i2928, align 8, !tbaa !14
+  %incdec.ptr.i.i.i29313059 = getelementptr inbounds ptr, ptr %433, i64 63
+  %434 = load ptr, ptr %incdec.ptr.i.i.i29313059, align 8, !tbaa !14
   %file7133060 = getelementptr inbounds %"class.kc::impl_fileline", ptr %434, i64 0, i32 1
   %435 = load ptr, ptr %file7133060, align 8, !tbaa !57
   %file7143061 = getelementptr inbounds %"class.kc::impl_foreach_after", ptr %call710, i64 0, i32 2
   store ptr %435, ptr %file7143061, align 8, !tbaa !104
-  %436 = load ptr, ptr %add.ptr.i.i.i2923, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2930 = getelementptr inbounds ptr, ptr %436, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2933
+  %436 = load ptr, ptr %add.ptr.i.i.i2928, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2935 = getelementptr inbounds ptr, ptr %436, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2938
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2933: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2927, %if.then.i.i.i2931
-  %437 = phi ptr [ %add.ptr.i.i.i.i2930, %if.then.i.i.i2931 ], [ %428, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2927 ]
-  %incdec.ptr.i.i.i2932 = getelementptr inbounds ptr, ptr %437, i64 -1
-  %438 = load ptr, ptr %incdec.ptr.i.i.i2932, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2938: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2932, %if.then.i.i.i2936
+  %437 = phi ptr [ %add.ptr.i.i.i.i2935, %if.then.i.i.i2936 ], [ %428, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2932 ]
+  %incdec.ptr.i.i.i2937 = getelementptr inbounds ptr, ptr %437, i64 -1
+  %438 = load ptr, ptr %incdec.ptr.i.i.i2937, align 8, !tbaa !14
   %line716 = getelementptr inbounds %"class.kc::impl_fileline", ptr %438, i64 0, i32 2
   %439 = load i32, ptr %line716, align 8, !tbaa !62
   %line717 = getelementptr inbounds %"class.kc::impl_foreach_after", ptr %call710, i64 0, i32 1
@@ -2813,7 +2813,7 @@ sw.bb720:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb722:                                         ; preds = %do.end106
-  %440 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %440 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call724 = call noundef ptr @_ZN2kc9NilCtextsEv()
   %call725 = call noundef ptr @_ZN2kc10ConsCtextsEPNS_10impl_CtextEPNS_11impl_CtextsE(ptr noundef %440, ptr noundef %call724)
   br label %sw.epilog
@@ -2826,63 +2826,63 @@ sw.bb726:                                         ; preds = %do.end106
   store ptr %call728, ptr %ref.tmp727, align 8, !tbaa !14
   %443 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %444 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2934 = getelementptr inbounds ptr, ptr %444, i64 -1
-  %cmp.not.i.i.i2935 = icmp eq ptr %443, %add.ptr.i.i.i2934
-  br i1 %cmp.not.i.i.i2935, label %if.else.i.i.i2938, label %if.then.i.i.i2937
+  %add.ptr.i.i.i2939 = getelementptr inbounds ptr, ptr %444, i64 -1
+  %cmp.not.i.i.i2940 = icmp eq ptr %443, %add.ptr.i.i.i2939
+  br i1 %cmp.not.i.i.i2940, label %if.else.i.i.i2943, label %if.then.i.i.i2942
 
-if.then.i.i.i2937:                                ; preds = %sw.bb726
+if.then.i.i.i2942:                                ; preds = %sw.bb726
   store ptr %call728, ptr %443, align 8, !tbaa !14
   %445 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2936 = getelementptr inbounds ptr, ptr %445, i64 1
-  store ptr %incdec.ptr.i.i.i2936, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2939
+  %incdec.ptr.i.i.i2941 = getelementptr inbounds ptr, ptr %445, i64 1
+  store ptr %incdec.ptr.i.i.i2941, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2944
 
-if.else.i.i.i2938:                                ; preds = %sw.bb726
+if.else.i.i.i2943:                                ; preds = %sw.bb726
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp727)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2939
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2944
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2939: ; preds = %if.then.i.i.i2937, %if.else.i.i.i2938
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2944: ; preds = %if.then.i.i.i2942, %if.else.i.i.i2943
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp727) #17
   br label %sw.epilog
 
 sw.bb729:                                         ; preds = %do.end106
-  %446 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %446 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call731 = call noundef ptr @_ZN2kc18IncludeDeclarationEPNS_20impl_casestring__StrE(ptr noundef %446)
-  %arrayidx732 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx732 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %447 = load ptr, ptr %arrayidx732, align 8, !tbaa !39
   call void @_ZN2kc16set_includefilesEPNS_17impl_includefilesEPNS_23impl_includedeclarationE(ptr noundef %447, ptr noundef %call731)
   %448 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %449 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2940 = icmp eq ptr %448, %449
-  br i1 %cmp.i.i.i2940, label %if.then.i.i.i2949, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2945
+  %cmp.i.i.i2945 = icmp eq ptr %448, %449
+  br i1 %cmp.i.i.i2945, label %if.then.i.i.i2954, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2950
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2945: ; preds = %sw.bb729
-  %incdec.ptr.i.i.i2944 = getelementptr inbounds ptr, ptr %448, i64 -1
-  %450 = load ptr, ptr %incdec.ptr.i.i.i2944, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2950: ; preds = %sw.bb729
+  %incdec.ptr.i.i.i2949 = getelementptr inbounds ptr, ptr %448, i64 -1
+  %450 = load ptr, ptr %incdec.ptr.i.i.i2949, align 8, !tbaa !14
   %file735 = getelementptr inbounds %"class.kc::impl_fileline", ptr %450, i64 0, i32 1
   %451 = load ptr, ptr %file735, align 8, !tbaa !57
   %file736 = getelementptr inbounds %"class.kc::impl_includedeclaration", ptr %call731, i64 0, i32 2
   store ptr %451, ptr %file736, align 8, !tbaa !107
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2951
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2956
 
-if.then.i.i.i2949:                                ; preds = %sw.bb729
+if.then.i.i.i2954:                                ; preds = %sw.bb729
   %452 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2941 = getelementptr inbounds ptr, ptr %452, i64 -1
-  %453 = load ptr, ptr %add.ptr.i.i.i2941, align 8, !tbaa !14
-  %incdec.ptr.i.i.i29443062 = getelementptr inbounds ptr, ptr %453, i64 63
-  %454 = load ptr, ptr %incdec.ptr.i.i.i29443062, align 8, !tbaa !14
+  %add.ptr.i.i.i2946 = getelementptr inbounds ptr, ptr %452, i64 -1
+  %453 = load ptr, ptr %add.ptr.i.i.i2946, align 8, !tbaa !14
+  %incdec.ptr.i.i.i29493062 = getelementptr inbounds ptr, ptr %453, i64 63
+  %454 = load ptr, ptr %incdec.ptr.i.i.i29493062, align 8, !tbaa !14
   %file7353063 = getelementptr inbounds %"class.kc::impl_fileline", ptr %454, i64 0, i32 1
   %455 = load ptr, ptr %file7353063, align 8, !tbaa !57
   %file7363064 = getelementptr inbounds %"class.kc::impl_includedeclaration", ptr %call731, i64 0, i32 2
   store ptr %455, ptr %file7363064, align 8, !tbaa !107
-  %456 = load ptr, ptr %add.ptr.i.i.i2941, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2948 = getelementptr inbounds ptr, ptr %456, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2951
+  %456 = load ptr, ptr %add.ptr.i.i.i2946, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2953 = getelementptr inbounds ptr, ptr %456, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2956
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2951: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2945, %if.then.i.i.i2949
-  %457 = phi ptr [ %add.ptr.i.i.i.i2948, %if.then.i.i.i2949 ], [ %448, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2945 ]
-  %incdec.ptr.i.i.i2950 = getelementptr inbounds ptr, ptr %457, i64 -1
-  %458 = load ptr, ptr %incdec.ptr.i.i.i2950, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2956: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2950, %if.then.i.i.i2954
+  %457 = phi ptr [ %add.ptr.i.i.i.i2953, %if.then.i.i.i2954 ], [ %448, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2950 ]
+  %incdec.ptr.i.i.i2955 = getelementptr inbounds ptr, ptr %457, i64 -1
+  %458 = load ptr, ptr %incdec.ptr.i.i.i2955, align 8, !tbaa !14
   %line738 = getelementptr inbounds %"class.kc::impl_fileline", ptr %458, i64 0, i32 2
   %459 = load i32, ptr %line738, align 8, !tbaa !62
   %line739 = getelementptr inbounds %"class.kc::impl_includedeclaration", ptr %call731, i64 0, i32 1
@@ -2903,11 +2903,11 @@ sw.bb745:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb750:                                         ; preds = %do.end106
-  %460 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %460 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb752:                                         ; preds = %do.end106
-  %461 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %461 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call755 = call noundef ptr @_ZN2kc11IncludeFileEPNS_20impl_casestring__StrE(ptr noundef %461)
   %inc_type = getelementptr inbounds %"class.kc::impl_includefile", ptr %call755, i64 0, i32 1
   %462 = load i32, ptr %inc_type, align 8, !tbaa !110
@@ -2921,7 +2921,7 @@ if.then760:                                       ; preds = %sw.bb752
 
 if.else763:                                       ; preds = %sw.bb752
   %call764 = call noundef ptr @_ZN2kc10NoFileLineEv()
-  %463 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %463 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call766 = call noundef ptr @_ZN2kc9ProblemSCEPKcPNS_20impl_casestring__StrE(ptr noundef nonnull @.str.16, ptr noundef %463)
   %call767 = call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call764, ptr noundef %call766)
   call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call767)
@@ -2929,26 +2929,26 @@ if.else763:                                       ; preds = %sw.bb752
   br label %sw.epilog
 
 sw.bb770:                                         ; preds = %do.end106
-  %464 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %464 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call773 = call noundef ptr @_ZN2kc11IncludeFileEPNS_20impl_casestring__StrE(ptr noundef %464)
   %inc_type774 = getelementptr inbounds %"class.kc::impl_includefile", ptr %call773, i64 0, i32 1
   %465 = load i32, ptr %inc_type774, align 8, !tbaa !110
-  %switch3004 = icmp ult i32 %465, 2
-  br i1 %switch3004, label %if.then779, label %if.else782
+  %switch2685 = icmp ult i32 %465, 2
+  br i1 %switch2685, label %if.then779, label %if.else782
 
 if.then779:                                       ; preds = %sw.bb770
-  %arrayidx780 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx780 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %466 = load ptr, ptr %arrayidx780, align 8, !tbaa !39
   %call781 = call noundef ptr @_ZN2kc16ConsincludefilesEPNS_16impl_includefileEPNS_17impl_includefilesE(ptr noundef nonnull %call773, ptr noundef %466)
   br label %sw.epilog
 
 if.else782:                                       ; preds = %sw.bb770
   %call783 = call noundef ptr @_ZN2kc10NoFileLineEv()
-  %467 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %467 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call785 = call noundef ptr @_ZN2kc9ProblemSCEPKcPNS_20impl_casestring__StrE(ptr noundef nonnull @.str.16, ptr noundef %467)
   %call786 = call noundef ptr @_ZN2kc8NonFatalEPNS_13impl_filelineEPNS_12impl_problemE(ptr noundef %call783, ptr noundef %call785)
   call void @_ZN2kc8v_reportEPNS_10impl_errorE(ptr noundef %call786)
-  %arrayidx787 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx787 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %468 = load ptr, ptr %arrayidx787, align 8, !tbaa !39
   br label %sw.epilog
 
@@ -2969,28 +2969,28 @@ if.end795:                                        ; preds = %if.then791, %sw.bb7
   br label %sw.epilog
 
 sw.bb796:                                         ; preds = %do.end106
-  %arrayidx797 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx797 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %470 = load ptr, ptr %arrayidx797, align 8, !tbaa !39
-  %arrayidx798 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx798 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %471 = load ptr, ptr %arrayidx798, align 8, !tbaa !39
   %call799 = call noundef ptr @_ZN2kc13RwDeclarationEPNS_20impl_outmostpatternsEPNS_19impl_rewriteclausesE(ptr noundef %470, ptr noundef %471)
   br label %sw.epilog
 
 sw.bb800:                                         ; preds = %do.end106
-  %472 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %472 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call802 = call noundef ptr @_ZN2kc17NilrewriteclausesEv()
   %call803 = call noundef ptr @_ZN2kc18ConsrewriteclausesEPNS_18impl_rewriteclauseEPNS_19impl_rewriteclausesE(ptr noundef %472, ptr noundef %call802)
   br label %sw.epilog
 
 sw.bb804:                                         ; preds = %do.end106
-  %473 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx806 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %473 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx806 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %474 = load ptr, ptr %arrayidx806, align 8, !tbaa !39
   %call807 = call noundef ptr @_ZN2kc18ConsrewriteclausesEPNS_18impl_rewriteclauseEPNS_19impl_rewriteclausesE(ptr noundef %473, ptr noundef %474)
   br label %sw.epilog
 
 sw.bb808:                                         ; preds = %do.end106
-  %arrayidx809 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx809 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %475 = load ptr, ptr %arrayidx809, align 8, !tbaa !39
   %call810 = call noundef ptr @_ZN2kc12NilviewnamesEv()
   %call811 = call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %475, ptr noundef %call810)
@@ -3002,40 +3002,40 @@ if.then812:                                       ; preds = %sw.bb808
   %call815 = call noundef ptr @_ZN2kc2IdEPNS_11impl_uniqIDE(ptr noundef %call814)
   %476 = load ptr, ptr %arrayidx809, align 8, !tbaa !39
   %call817 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %call815, ptr noundef %476)
-  %arrayidx818 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx818 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %477 = load ptr, ptr %arrayidx818, align 8, !tbaa !39
   %call819 = call noundef ptr @_ZN2kc13RewriteClauseEPNS_14impl_viewnamesEPNS_9impl_termE(ptr noundef %call817, ptr noundef %477)
   br label %sw.epilog
 
 if.else820:                                       ; preds = %sw.bb808
   %478 = load ptr, ptr %arrayidx809, align 8, !tbaa !39
-  %arrayidx822 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx822 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %479 = load ptr, ptr %arrayidx822, align 8, !tbaa !39
   %call823 = call noundef ptr @_ZN2kc13RewriteClauseEPNS_14impl_viewnamesEPNS_9impl_termE(ptr noundef %478, ptr noundef %479)
   br label %sw.epilog
 
 sw.bb825:                                         ; preds = %do.end106
-  %480 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %480 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call827 = call noundef ptr @_ZN2kc16NilpatternchainsEv()
   %call828 = call noundef ptr @_ZN2kc17ConspatternchainsEPNS_17impl_patternchainEPNS_18impl_patternchainsE(ptr noundef %480, ptr noundef %call827)
   br label %sw.epilog
 
 sw.bb829:                                         ; preds = %do.end106
-  %481 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx831 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %481 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx831 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %482 = load ptr, ptr %arrayidx831, align 8, !tbaa !39
   %call832 = call noundef ptr @_ZN2kc17ConspatternchainsEPNS_17impl_patternchainEPNS_18impl_patternchainsE(ptr noundef %481, ptr noundef %482)
   br label %sw.epilog
 
 sw.bb833:                                         ; preds = %do.end106
-  %483 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %483 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call835 = call noundef ptr @_ZN2kc15NilpatternchainEv()
   %call836 = call noundef ptr @_ZN2kc16ConspatternchainEPNS_21impl_patternchainitemEPNS_17impl_patternchainE(ptr noundef %483, ptr noundef %call835)
   br label %sw.epilog
 
 sw.bb837:                                         ; preds = %do.end106
-  %484 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx839 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %484 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx839 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %485 = load ptr, ptr %arrayidx839, align 8, !tbaa !39
   %call840 = call noundef ptr @_ZN2kc16ConspatternchainEPNS_21impl_patternchainitemEPNS_17impl_patternchainE(ptr noundef %484, ptr noundef %485)
   br label %sw.epilog
@@ -3048,59 +3048,59 @@ sw.bb841:                                         ; preds = %do.end106
   store ptr %call843, ptr %ref.tmp842, align 8, !tbaa !14
   %488 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
   %489 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 2), align 8, !tbaa !65
-  %add.ptr.i.i.i2952 = getelementptr inbounds ptr, ptr %489, i64 -1
-  %cmp.not.i.i.i2953 = icmp eq ptr %488, %add.ptr.i.i.i2952
-  br i1 %cmp.not.i.i.i2953, label %if.else.i.i.i2956, label %if.then.i.i.i2955
+  %add.ptr.i.i.i2957 = getelementptr inbounds ptr, ptr %489, i64 -1
+  %cmp.not.i.i.i2958 = icmp eq ptr %488, %add.ptr.i.i.i2957
+  br i1 %cmp.not.i.i.i2958, label %if.else.i.i.i2961, label %if.then.i.i.i2960
 
-if.then.i.i.i2955:                                ; preds = %sw.bb841
+if.then.i.i.i2960:                                ; preds = %sw.bb841
   store ptr %call843, ptr %488, align 8, !tbaa !14
   %490 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  %incdec.ptr.i.i.i2954 = getelementptr inbounds ptr, ptr %490, i64 1
-  store ptr %incdec.ptr.i.i.i2954, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2957
+  %incdec.ptr.i.i.i2959 = getelementptr inbounds ptr, ptr %490, i64 1
+  store ptr %incdec.ptr.i.i.i2959, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2962
 
-if.else.i.i.i2956:                                ; preds = %sw.bb841
+if.else.i.i.i2961:                                ; preds = %sw.bb841
   call void @_ZNSt5dequeIPN2kc13impl_filelineESaIS2_EE16_M_push_back_auxIJS2_EEEvDpOT_(ptr noundef nonnull align 8 dereferenceable(80) @_ZN12_GLOBAL__N_116pl_filelinestackE, ptr noundef nonnull align 8 dereferenceable(8) %ref.tmp842)
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2957
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2962
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2957: ; preds = %if.then.i.i.i2955, %if.else.i.i.i2956
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2962: ; preds = %if.then.i.i.i2960, %if.else.i.i.i2961
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %ref.tmp842) #17
   br label %sw.epilog
 
 sw.bb844:                                         ; preds = %do.end106
-  %491 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %491 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %492 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3), align 8, !tbaa !54, !noalias !55
   %493 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 1), align 8, !tbaa !56, !noalias !55
-  %cmp.i.i.i2958 = icmp eq ptr %492, %493
-  br i1 %cmp.i.i.i2958, label %if.then.i.i.i2967, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2963
+  %cmp.i.i.i2963 = icmp eq ptr %492, %493
+  br i1 %cmp.i.i.i2963, label %if.then.i.i.i2972, label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2968
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2963: ; preds = %sw.bb844
-  %incdec.ptr.i.i.i2962 = getelementptr inbounds ptr, ptr %492, i64 -1
-  %494 = load ptr, ptr %incdec.ptr.i.i.i2962, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2968: ; preds = %sw.bb844
+  %incdec.ptr.i.i.i2967 = getelementptr inbounds ptr, ptr %492, i64 -1
+  %494 = load ptr, ptr %incdec.ptr.i.i.i2967, align 8, !tbaa !14
   %file848 = getelementptr inbounds %"class.kc::impl_fileline", ptr %494, i64 0, i32 1
   %495 = load ptr, ptr %file848, align 8, !tbaa !57
   %file849 = getelementptr inbounds %"class.kc::impl_patternchainitem", ptr %491, i64 0, i32 2
   store ptr %495, ptr %file849, align 8, !tbaa !114
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2969
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2974
 
-if.then.i.i.i2967:                                ; preds = %sw.bb844
+if.then.i.i.i2972:                                ; preds = %sw.bb844
   %496 = load ptr, ptr getelementptr inbounds (%"class.std::stack.7", ptr @_ZN12_GLOBAL__N_116pl_filelinestackE, i64 0, i32 0, i32 0, i32 0, i32 0, i32 3, i32 3), align 8, !tbaa !61, !noalias !55
-  %add.ptr.i.i.i2959 = getelementptr inbounds ptr, ptr %496, i64 -1
-  %497 = load ptr, ptr %add.ptr.i.i.i2959, align 8, !tbaa !14
-  %incdec.ptr.i.i.i29623065 = getelementptr inbounds ptr, ptr %497, i64 63
-  %498 = load ptr, ptr %incdec.ptr.i.i.i29623065, align 8, !tbaa !14
+  %add.ptr.i.i.i2964 = getelementptr inbounds ptr, ptr %496, i64 -1
+  %497 = load ptr, ptr %add.ptr.i.i.i2964, align 8, !tbaa !14
+  %incdec.ptr.i.i.i29673065 = getelementptr inbounds ptr, ptr %497, i64 63
+  %498 = load ptr, ptr %incdec.ptr.i.i.i29673065, align 8, !tbaa !14
   %file8483066 = getelementptr inbounds %"class.kc::impl_fileline", ptr %498, i64 0, i32 1
   %499 = load ptr, ptr %file8483066, align 8, !tbaa !57
   %file8493067 = getelementptr inbounds %"class.kc::impl_patternchainitem", ptr %491, i64 0, i32 2
   store ptr %499, ptr %file8493067, align 8, !tbaa !114
-  %500 = load ptr, ptr %add.ptr.i.i.i2959, align 8, !tbaa !14
-  %add.ptr.i.i.i.i2966 = getelementptr inbounds ptr, ptr %500, i64 64
-  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2969
+  %500 = load ptr, ptr %add.ptr.i.i.i2964, align 8, !tbaa !14
+  %add.ptr.i.i.i.i2971 = getelementptr inbounds ptr, ptr %500, i64 64
+  br label %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2974
 
-_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2969: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2963, %if.then.i.i.i2967
-  %501 = phi ptr [ %add.ptr.i.i.i.i2966, %if.then.i.i.i2967 ], [ %492, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2963 ]
-  %incdec.ptr.i.i.i2968 = getelementptr inbounds ptr, ptr %501, i64 -1
-  %502 = load ptr, ptr %incdec.ptr.i.i.i2968, align 8, !tbaa !14
+_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2974: ; preds = %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2968, %if.then.i.i.i2972
+  %501 = phi ptr [ %add.ptr.i.i.i.i2971, %if.then.i.i.i2972 ], [ %492, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2968 ]
+  %incdec.ptr.i.i.i2973 = getelementptr inbounds ptr, ptr %501, i64 -1
+  %502 = load ptr, ptr %incdec.ptr.i.i.i2973, align 8, !tbaa !14
   %line851 = getelementptr inbounds %"class.kc::impl_fileline", ptr %502, i64 0, i32 2
   %503 = load i32, ptr %line851, align 8, !tbaa !62
   %line852 = getelementptr inbounds %"class.kc::impl_patternchainitem", ptr %491, i64 0, i32 1
@@ -3109,20 +3109,20 @@ _ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2969: ; preds =
   br label %sw.epilog
 
 sw.bb855:                                         ; preds = %do.end106
-  %504 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %504 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call857 = call noundef ptr @_ZN2kc23PatternchainitemOutmostEPNS_19impl_outmostpatternE(ptr noundef %504)
   br label %sw.epilog
 
 sw.bb858:                                         ; preds = %do.end106
-  %arrayidx859 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx859 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %505 = load ptr, ptr %arrayidx859, align 8, !tbaa !39
   %call860 = call noundef ptr @_ZN2kc21PatternchainitemGroupEPNS_18impl_patternchainsE(ptr noundef %505)
   br label %sw.epilog
 
 sw.bb861:                                         ; preds = %do.end106
-  %506 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %506 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call863 = call noundef ptr @_ZN2kc24PatternchainitemDollaridEPNS_7impl_IDE(ptr noundef %506)
-  %507 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %507 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call865 = call noundef ptr @_ZN2kc10WEVariableEPNS_7impl_IDE(ptr noundef %507)
   %508 = load ptr, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
   %call866 = call noundef ptr @_ZN2kc19ConswithexpressionsEPNS_19impl_withexpressionEPNS_20impl_withexpressionsE(ptr noundef %call865, ptr noundef %508)
@@ -3130,14 +3130,14 @@ sw.bb861:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb867:                                         ; preds = %do.end106
-  %509 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %509 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call869 = call noundef ptr @_ZN2kc18NiloutmostpatternsEv()
   %call870 = call noundef ptr @_ZN2kc19ConsoutmostpatternsEPNS_19impl_outmostpatternEPNS_20impl_outmostpatternsE(ptr noundef %509, ptr noundef %call869)
   br label %sw.epilog
 
 sw.bb871:                                         ; preds = %do.end106
-  %510 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx873 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %510 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx873 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %511 = load ptr, ptr %arrayidx873, align 8, !tbaa !39
   %call874 = call noundef ptr @_ZN2kc19ConsoutmostpatternsEPNS_19impl_outmostpatternEPNS_20impl_outmostpatternsE(ptr noundef %510, ptr noundef %511)
   br label %sw.epilog
@@ -3147,26 +3147,26 @@ sw.bb875:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb877:                                         ; preds = %do.end106
-  %arrayidx878 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx878 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %512 = load ptr, ptr %arrayidx878, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb879:                                         ; preds = %do.end106
-  %arrayidx880 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx880 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %513 = load ptr, ptr %arrayidx880, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb881:                                         ; preds = %do.end106
-  %514 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx883 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %514 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx883 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %515 = load ptr, ptr %arrayidx883, align 8, !tbaa !39
   %call884 = call noundef ptr @_ZN2kc19ConsoutmostpatternsEPNS_19impl_outmostpatternEPNS_20impl_outmostpatternsE(ptr noundef %514, ptr noundef %515)
   br label %sw.epilog
 
 sw.bb885:                                         ; preds = %do.end106
-  %arrayidx886 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx886 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %516 = load ptr, ptr %arrayidx886, align 8, !tbaa !39
-  %517 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %517 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call888 = call noundef ptr @_ZN2kc18OPOperatorWildcardEPNS_7impl_IDEPNS_16impl_CexpressionE(ptr noundef %516, ptr noundef %517)
   store i32 1, ptr @_ZN12_GLOBAL__N_126non_default_outmostpatternE, align 4, !tbaa !35
   %518 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3178,11 +3178,11 @@ sw.bb885:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb891:                                         ; preds = %do.end106
-  %arrayidx892 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx892 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %520 = load ptr, ptr %arrayidx892, align 8, !tbaa !39
-  %arrayidx893 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx893 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %521 = load ptr, ptr %arrayidx893, align 8, !tbaa !39
-  %522 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %522 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call895 = call noundef ptr @_ZN2kc10OPOperatorEPNS_7impl_IDEPNS_13impl_patternsEPNS_16impl_CexpressionE(ptr noundef %520, ptr noundef %521, ptr noundef %522)
   store i32 1, ptr @_ZN12_GLOBAL__N_126non_default_outmostpatternE, align 4, !tbaa !35
   %523 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3194,9 +3194,9 @@ sw.bb891:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb898:                                         ; preds = %do.end106
-  %arrayidx899 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx899 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %525 = load ptr, ptr %arrayidx899, align 8, !tbaa !39
-  %526 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %526 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call901 = call noundef ptr @_ZN2kc17OPNonLeafVariableEPNS_7impl_IDEPNS_19impl_outmostpatternE(ptr noundef %525, ptr noundef %526)
   store i32 1, ptr @_ZN12_GLOBAL__N_126non_default_outmostpatternE, align 4, !tbaa !35
   %527 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3208,7 +3208,7 @@ sw.bb898:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb904:                                         ; preds = %do.end106
-  %529 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %529 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call906 = call noundef ptr @_ZN2kc10OPWildcardEPNS_16impl_CexpressionE(ptr noundef %529)
   %530 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file907 = getelementptr inbounds %"class.kc::impl_outmostpattern", ptr %call906, i64 0, i32 2
@@ -3219,7 +3219,7 @@ sw.bb904:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb909:                                         ; preds = %do.end106
-  %532 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %532 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call911 = call noundef ptr @_ZN2kc9OPDefaultEPNS_16impl_CexpressionE(ptr noundef %532)
   %533 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file912 = getelementptr inbounds %"class.kc::impl_outmostpattern", ptr %call911, i64 0, i32 2
@@ -3242,19 +3242,19 @@ sw.bb917:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb918:                                         ; preds = %do.end106
-  %arrayidx919 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx919 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %535 = load ptr, ptr %arrayidx919, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb920:                                         ; preds = %do.end106
-  %536 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %536 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call922 = call noundef ptr @_ZN2kc9PVariableEPNS_7impl_IDE(ptr noundef %536)
   br label %sw.epilog
 
 sw.bb923:                                         ; preds = %do.end106
-  %arrayidx924 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx924 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %537 = load ptr, ptr %arrayidx924, align 8, !tbaa !39
-  %arrayidx925 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx925 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %538 = load ptr, ptr %arrayidx925, align 8, !tbaa !39
   %call926 = call noundef ptr @_ZN2kc9POperatorEPNS_7impl_IDEPNS_13impl_patternsE(ptr noundef %537, ptr noundef %538)
   br label %sw.epilog
@@ -3268,9 +3268,9 @@ sw.bb929:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb931:                                         ; preds = %do.end106
-  %arrayidx932 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx932 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %539 = load ptr, ptr %arrayidx932, align 8, !tbaa !39
-  %540 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %540 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call934 = call noundef ptr @_ZN2kc16PNonLeafVariableEPNS_7impl_IDEPNS_12impl_patternE(ptr noundef %539, ptr noundef %540)
   br label %sw.epilog
 
@@ -3280,13 +3280,13 @@ sw.bb935:                                         ; preds = %do.end106
 
 sw.bb936:                                         ; preds = %do.end106
   call void @_Z9do_NORMALv()
-  %arrayidx937 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx937 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %541 = load ptr, ptr %arrayidx937, align 8, !tbaa !39
   %call938 = call noundef ptr @_ZN2kc14PStringLiteralEPNS_18impl_CexpressionDQE(ptr noundef %541)
   br label %sw.epilog
 
 sw.bb939:                                         ; preds = %do.end106
-  %542 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %542 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call941 = call noundef ptr @_ZN2kc11PIntLiteralEPNS_8impl_INTE(ptr noundef %542)
   br label %sw.epilog
 
@@ -3295,18 +3295,18 @@ sw.bb942:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb944:                                         ; preds = %do.end106
-  %543 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %543 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb946:                                         ; preds = %do.end106
-  %544 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %544 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call948 = call noundef ptr @_ZN2kc11NilpatternsEv()
   %call949 = call noundef ptr @_ZN2kc12ConspatternsEPNS_12impl_patternEPNS_13impl_patternsE(ptr noundef %544, ptr noundef %call948)
   br label %sw.epilog
 
 sw.bb950:                                         ; preds = %do.end106
-  %545 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx952 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %545 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx952 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %546 = load ptr, ptr %arrayidx952, align 8, !tbaa !39
   %call953 = call noundef ptr @_ZN2kc12ConspatternsEPNS_12impl_patternEPNS_13impl_patternsE(ptr noundef %545, ptr noundef %546)
   br label %sw.epilog
@@ -3316,24 +3316,24 @@ sw.bb954:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb956:                                         ; preds = %do.end106
-  %arrayidx957 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx957 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %547 = load ptr, ptr %arrayidx957, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb958:                                         ; preds = %do.end106
-  %arrayidx959 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx959 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %548 = load ptr, ptr %arrayidx959, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb960:                                         ; preds = %do.end106
-  %549 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx962 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %549 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx962 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %550 = load ptr, ptr %arrayidx962, align 8, !tbaa !39
   %call963 = call noundef ptr @_ZN2kc12ConspatternsEPNS_12impl_patternEPNS_13impl_patternsE(ptr noundef %549, ptr noundef %550)
   br label %sw.epilog
 
 sw.bb964:                                         ; preds = %do.end106
-  %551 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %551 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call966 = call noundef ptr @_ZN2kc9TVariableEPNS_7impl_IDE(ptr noundef %551)
   %552 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file967 = getelementptr inbounds %"class.kc::impl_term", ptr %call966, i64 0, i32 2
@@ -3344,9 +3344,9 @@ sw.bb964:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb969:                                         ; preds = %do.end106
-  %arrayidx970 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx970 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %554 = load ptr, ptr %arrayidx970, align 8, !tbaa !39
-  %arrayidx971 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx971 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %555 = load ptr, ptr %arrayidx971, align 8, !tbaa !39
   %call972 = call noundef ptr @_ZN2kc9TOperatorEPNS_7impl_IDEPNS_10impl_termsE(ptr noundef %554, ptr noundef %555)
   %556 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3358,11 +3358,11 @@ sw.bb969:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb975:                                         ; preds = %do.end106
-  %arrayidx976 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -5
+  %arrayidx976 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -5
   %558 = load ptr, ptr %arrayidx976, align 8, !tbaa !39
-  %arrayidx977 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx977 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %559 = load ptr, ptr %arrayidx977, align 8, !tbaa !39
-  %arrayidx978 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx978 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %560 = load ptr, ptr %arrayidx978, align 8, !tbaa !39
   %call979 = call noundef ptr @_ZN2kc7TMethodEPNS_9impl_termEPNS_7impl_IDEPNS_10impl_termsE(ptr noundef %558, ptr noundef %559, ptr noundef %560)
   %561 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3374,11 +3374,11 @@ sw.bb975:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb982:                                         ; preds = %do.end106
-  %arrayidx983 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -5
+  %arrayidx983 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -5
   %563 = load ptr, ptr %arrayidx983, align 8, !tbaa !39
-  %arrayidx984 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx984 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %564 = load ptr, ptr %arrayidx984, align 8, !tbaa !39
-  %arrayidx985 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx985 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %565 = load ptr, ptr %arrayidx985, align 8, !tbaa !39
   %call986 = call noundef ptr @_ZN2kc10TMethodDotEPNS_9impl_termEPNS_7impl_IDEPNS_10impl_termsE(ptr noundef %563, ptr noundef %564, ptr noundef %565)
   %566 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3390,9 +3390,9 @@ sw.bb982:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb989:                                         ; preds = %do.end106
-  %arrayidx990 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx990 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %568 = load ptr, ptr %arrayidx990, align 8, !tbaa !39
-  %569 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %569 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call992 = call noundef ptr @_ZN2kc10TMemberVarEPNS_9impl_termEPNS_7impl_IDE(ptr noundef %568, ptr noundef %569)
   %570 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file993 = getelementptr inbounds %"class.kc::impl_term", ptr %call992, i64 0, i32 2
@@ -3403,9 +3403,9 @@ sw.bb989:                                         ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb995:                                         ; preds = %do.end106
-  %arrayidx996 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx996 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %572 = load ptr, ptr %arrayidx996, align 8, !tbaa !39
-  %573 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %573 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call998 = call noundef ptr @_ZN2kc13TMemberVarDotEPNS_9impl_termEPNS_7impl_IDE(ptr noundef %572, ptr noundef %573)
   %574 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file999 = getelementptr inbounds %"class.kc::impl_term", ptr %call998, i64 0, i32 2
@@ -3421,7 +3421,7 @@ sw.bb1001:                                        ; preds = %do.end106
 
 sw.bb1002:                                        ; preds = %do.end106
   call void @_Z9do_NORMALv()
-  %arrayidx1003 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1003 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %576 = load ptr, ptr %arrayidx1003, align 8, !tbaa !39
   %call1004 = call noundef ptr @_ZN2kc6TCTermEPNS_18impl_CexpressionSQE(ptr noundef %576)
   %577 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3438,7 +3438,7 @@ sw.bb1007:                                        ; preds = %do.end106
 
 sw.bb1008:                                        ; preds = %do.end106
   call void @_Z9do_NORMALv()
-  %arrayidx1009 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1009 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %579 = load ptr, ptr %arrayidx1009, align 8, !tbaa !39
   %call1010 = call noundef ptr @_ZN2kc14TStringLiteralEPNS_18impl_CexpressionDQE(ptr noundef %579)
   %580 = load ptr, ptr @pg_filename, align 8, !tbaa !14
@@ -3450,7 +3450,7 @@ sw.bb1008:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1013:                                        ; preds = %do.end106
-  %582 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %582 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1015 = call noundef ptr @_ZN2kc11TIntLiteralEPNS_8impl_INTE(ptr noundef %582)
   %583 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file1016 = getelementptr inbounds %"class.kc::impl_term", ptr %call1015, i64 0, i32 2
@@ -3465,18 +3465,18 @@ sw.bb1018:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1020:                                        ; preds = %do.end106
-  %585 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %585 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1022:                                        ; preds = %do.end106
-  %586 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %586 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1024 = call noundef ptr @_ZN2kc8NiltermsEv()
   %call1025 = call noundef ptr @_ZN2kc9ConstermsEPNS_9impl_termEPNS_10impl_termsE(ptr noundef %586, ptr noundef %call1024)
   br label %sw.epilog
 
 sw.bb1026:                                        ; preds = %do.end106
-  %587 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1028 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %587 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1028 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %588 = load ptr, ptr %arrayidx1028, align 8, !tbaa !39
   %call1029 = call noundef ptr @_ZN2kc9ConstermsEPNS_9impl_termEPNS_10impl_termsE(ptr noundef %587, ptr noundef %588)
   br label %sw.epilog
@@ -3486,37 +3486,37 @@ sw.bb1030:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1032:                                        ; preds = %do.end106
-  %arrayidx1033 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1033 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %589 = load ptr, ptr %arrayidx1033, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1034:                                        ; preds = %do.end106
-  %arrayidx1035 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1035 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %590 = load ptr, ptr %arrayidx1035, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1036:                                        ; preds = %do.end106
-  %591 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1038 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %591 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1038 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %592 = load ptr, ptr %arrayidx1038, align 8, !tbaa !39
   %call1039 = call noundef ptr @_ZN2kc9ConstermsEPNS_9impl_termEPNS_10impl_termsE(ptr noundef %591, ptr noundef %592)
   br label %sw.epilog
 
 sw.bb1040:                                        ; preds = %do.end106
-  %593 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %593 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1042 = call noundef ptr @_ZN2kc12NilwithcasesEv()
   %call1043 = call noundef ptr @_ZN2kc13ConswithcasesEPNS_13impl_withcaseEPNS_14impl_withcasesE(ptr noundef %593, ptr noundef %call1042)
   br label %sw.epilog
 
 sw.bb1044:                                        ; preds = %do.end106
-  %594 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1046 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %594 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1046 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %595 = load ptr, ptr %arrayidx1046, align 8, !tbaa !39
   %call1047 = call noundef ptr @_ZN2kc13ConswithcasesEPNS_13impl_withcaseEPNS_14impl_withcasesE(ptr noundef %594, ptr noundef %595)
   br label %sw.epilog
 
 sw.bb1048:                                        ; preds = %do.end106
-  %arrayidx1049 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1049 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %596 = load ptr, ptr %arrayidx1049, align 8, !tbaa !39
   %vtable1050 = load ptr, ptr %596, align 8, !tbaa !90
   %vfn1051 = getelementptr inbounds ptr, ptr %vtable1050, i64 3
@@ -3525,7 +3525,7 @@ sw.bb1048:                                        ; preds = %do.end106
   %598 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %599 = load i32, ptr @pg_lineno, align 4, !tbaa !35
   %call1053 = call noundef ptr @_ZN2kc26syn_patternchains_filelineEPNS_18impl_patternchainsEPNS_20impl_casestring__StrEi(ptr noundef %call1052, ptr noundef %598, i32 noundef %599)
-  %600 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %600 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1055 = call noundef ptr @_ZN2kc8WithcaseEPNS_18impl_patternchainsEPNS_10impl_CtextE(ptr noundef %call1053, ptr noundef %600)
   br label %sw.epilog
 
@@ -3546,35 +3546,35 @@ if.end1062:                                       ; preds = %if.then1058, %sw.bb
   br label %sw.epilog
 
 sw.bb1063:                                        ; preds = %do.end106
-  %arrayidx1064 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1064 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %602 = load ptr, ptr %arrayidx1064, align 8, !tbaa !39
-  %arrayidx1065 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1065 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %603 = load ptr, ptr %arrayidx1065, align 8, !tbaa !39
   %call1066 = call noundef ptr @_ZN2kc18UnparseDeclarationEPNS_20impl_outmostpatternsEPNS_19impl_unparseclausesE(ptr noundef %602, ptr noundef %603)
   br label %sw.epilog
 
 sw.bb1067:                                        ; preds = %do.end106
-  %arrayidx1068 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1068 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %604 = load ptr, ptr %arrayidx1068, align 8, !tbaa !39
   %call1069 = call noundef ptr @_ZN2kc17NilunparseclausesEv()
   %call1070 = call noundef ptr @_ZN2kc18UnparseDeclarationEPNS_20impl_outmostpatternsEPNS_19impl_unparseclausesE(ptr noundef %604, ptr noundef %call1069)
   br label %sw.epilog
 
 sw.bb1071:                                        ; preds = %do.end106
-  %605 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %605 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1073 = call noundef ptr @_ZN2kc17NilunparseclausesEv()
   %call1074 = call noundef ptr @_ZN2kc18ConsunparseclausesEPNS_18impl_unparseclauseEPNS_19impl_unparseclausesE(ptr noundef %605, ptr noundef %call1073)
   br label %sw.epilog
 
 sw.bb1075:                                        ; preds = %do.end106
-  %606 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1077 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %606 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1077 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %607 = load ptr, ptr %arrayidx1077, align 8, !tbaa !39
   %call1078 = call noundef ptr @_ZN2kc18ConsunparseclausesEPNS_18impl_unparseclauseEPNS_19impl_unparseclausesE(ptr noundef %606, ptr noundef %607)
   br label %sw.epilog
 
 sw.bb1079:                                        ; preds = %do.end106
-  %arrayidx1080 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1080 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %608 = load ptr, ptr %arrayidx1080, align 8, !tbaa !39
   %call1081 = call noundef ptr @_ZN2kc12NilviewnamesEv()
   %call1082 = call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %608, ptr noundef %call1081)
@@ -3594,14 +3594,14 @@ if.else1091:                                      ; preds = %sw.bb1079
 
 if.end1095:                                       ; preds = %if.else1091, %if.then1083
   %.sink3127 = phi ptr [ %610, %if.else1091 ], [ %call1088, %if.then1083 ]
-  %arrayidx1093 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1093 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %611 = load ptr, ptr %arrayidx1093, align 8, !tbaa !39
   %call1094 = call noundef ptr @_ZN2kc13UnparseClauseEPNS_14impl_viewnamesEPNS_17impl_unparseitemsE(ptr noundef %.sink3127, ptr noundef %611)
   call void @_ZN2kc11inc_text_nrEv()
   br label %sw.epilog
 
 sw.bb1096:                                        ; preds = %do.end106
-  %arrayidx1097 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1097 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %612 = load ptr, ptr %arrayidx1097, align 8, !tbaa !39
   %call1098 = call noundef ptr @_ZN2kc15NilunparseitemsEv()
   %call1099 = call noundef ptr @_ZN2kc13UnparseClauseEPNS_14impl_viewnamesEPNS_17impl_unparseitemsE(ptr noundef %612, ptr noundef %call1098)
@@ -3609,7 +3609,7 @@ sw.bb1096:                                        ; preds = %do.end106
 
 sw.bb1100:                                        ; preds = %do.end106
   %call1101 = call noundef ptr @_ZN2kc12NilviewnamesEv()
-  %arrayidx1102 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1102 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %613 = load ptr, ptr %arrayidx1102, align 8, !tbaa !39
   %call1103 = call noundef ptr @_ZN2kc13UnparseClauseEPNS_14impl_viewnamesEPNS_17impl_unparseitemsE(ptr noundef %call1101, ptr noundef %613)
   br label %sw.epilog
@@ -3631,8 +3631,8 @@ sw.bb1112:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1114:                                        ; preds = %do.end106
-  %614 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1116 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %614 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1116 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %615 = load ptr, ptr %arrayidx1116, align 8, !tbaa !39
   %call1117 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %614, ptr noundef %615)
   br label %sw.epilog
@@ -3642,8 +3642,8 @@ sw.bb1118:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1120:                                        ; preds = %do.end106
-  %616 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1122 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %616 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1122 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %617 = load ptr, ptr %arrayidx1122, align 8, !tbaa !39
   %call1123 = call noundef ptr @_ZN2kc16ConsunparseitemsEPNS_16impl_unparseitemEPNS_17impl_unparseitemsE(ptr noundef %616, ptr noundef %617)
   br label %sw.epilog
@@ -3657,17 +3657,17 @@ sw.bb1125:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1126:                                        ; preds = %do.end106
-  %arrayidx1127 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -6
+  %arrayidx1127 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -6
   %618 = load ptr, ptr %arrayidx1127, align 8, !tbaa !39
-  %arrayidx1128 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1128 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %619 = load ptr, ptr %arrayidx1128, align 8, !tbaa !39
-  %620 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %620 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1130 = call noundef ptr @_ZN2kc6UnpStrEPNS_19impl_languageoptionEPNS_18impl_CexpressionDQEPNS_19impl_viewnameoptionE(ptr noundef %618, ptr noundef %619, ptr noundef %620)
   %call1131 = call noundef i64 @_ZN2kc11get_text_nrEv()
   %conv1132 = trunc i64 %call1131 to i32
   %text_nr = getelementptr inbounds %"class.kc::impl_unparseitem", ptr %call1130, i64 0, i32 1
   store i32 %conv1132, ptr %text_nr, align 8, !tbaa !123
-  %621 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %621 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1134 = call noundef ptr @_ZN2kc10NoViewnameEv()
   %call1135 = call noundef zeroext i1 @_ZNK2kc20impl_abstract_phylum2eqEPKS0_(ptr noundef nonnull align 8 dereferenceable(8) %621, ptr noundef %call1134)
   br i1 %call1135, label %sw.epilog, label %if.then1136
@@ -3677,27 +3677,27 @@ if.then1136:                                      ; preds = %sw.bb1126
   br label %sw.epilog
 
 sw.bb1138:                                        ; preds = %do.end106
-  %arrayidx1139 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1139 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %622 = load ptr, ptr %arrayidx1139, align 8, !tbaa !39
-  %arrayidx1140 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1140 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %623 = load ptr, ptr %arrayidx1140, align 8, !tbaa !39
-  %624 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %624 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1142 = call noundef ptr @_ZN2kc10UnpSubexprEPNS_19impl_languageoptionEPNS_15impl_unpsubtermEPNS_19impl_viewnameoptionE(ptr noundef %622, ptr noundef %623, ptr noundef %624)
   call void @_ZN2kc11inc_text_nrEv()
   br label %sw.epilog
 
 sw.bb1143:                                        ; preds = %do.end106
-  %arrayidx1144 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1144 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %625 = load ptr, ptr %arrayidx1144, align 8, !tbaa !39
-  %626 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %626 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1146 = call noundef ptr @_ZN2kc8UnpCtextEPNS_19impl_languageoptionEPNS_10impl_CtextE(ptr noundef %625, ptr noundef %626)
   call void @_ZN2kc11inc_text_nrEv()
   br label %sw.epilog
 
 sw.bb1147:                                        ; preds = %do.end106
-  %arrayidx1148 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1148 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %627 = load ptr, ptr %arrayidx1148, align 8, !tbaa !39
-  %arrayidx1149 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1149 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %628 = load ptr, ptr %arrayidx1149, align 8, !tbaa !39
   %call1150 = call noundef ptr @_ZN2kc7UnpBodyEPNS_19impl_languageoptionEPNS_17impl_unparseitemsE(ptr noundef %627, ptr noundef %628)
   call void @_ZN2kc11inc_text_nrEv()
@@ -3712,61 +3712,61 @@ sw.bb1152:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1153:                                        ; preds = %do.end106
-  %arrayidx1154 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -5
+  %arrayidx1154 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -5
   %629 = load ptr, ptr %arrayidx1154, align 8, !tbaa !39
-  %arrayidx1155 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1155 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %630 = load ptr, ptr %arrayidx1155, align 8, !tbaa !39
-  %arrayidx1156 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1156 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %631 = load ptr, ptr %arrayidx1156, align 8, !tbaa !39
   %call1157 = call noundef ptr @_ZN2kc12UViewVarDeclEPNS_7impl_IDES1_PNS_16impl_CexpressionE(ptr noundef %629, ptr noundef %630, ptr noundef %631)
   br label %sw.epilog
 
 sw.bb1158:                                        ; preds = %do.end106
-  %632 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %632 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1160 = call noundef ptr @_ZN2kc10UnpSubTermEPNS_7impl_IDE(ptr noundef %632)
   br label %sw.epilog
 
 sw.bb1161:                                        ; preds = %do.end106
-  %633 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %633 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1163 = call noundef ptr @_ZN2kc16UnpDollarvarTermEPNS_8impl_INTE(ptr noundef %633)
   br label %sw.epilog
 
 sw.bb1164:                                        ; preds = %do.end106
-  %arrayidx1165 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1165 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %634 = load ptr, ptr %arrayidx1165, align 8, !tbaa !39
-  %635 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %635 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1167 = call noundef ptr @_ZN2kc10UnpSubAttrEPNS_7impl_IDEPNS_18impl_unpattributesE(ptr noundef %634, ptr noundef %635)
   br label %sw.epilog
 
 sw.bb1168:                                        ; preds = %do.end106
-  %arrayidx1169 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1169 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %636 = load ptr, ptr %arrayidx1169, align 8, !tbaa !39
-  %637 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %637 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1171 = call noundef ptr @_ZN2kc16UnpDollarvarAttrEPNS_8impl_INTEPNS_18impl_unpattributesE(ptr noundef %636, ptr noundef %637)
   br label %sw.epilog
 
 sw.bb1172:                                        ; preds = %do.end106
-  %arrayidx1173 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1173 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %638 = load ptr, ptr %arrayidx1173, align 8, !tbaa !39
-  %639 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %639 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1175 = call noundef ptr @_ZN2kc17UnpCastedVariableEPNS_7impl_IDES1_(ptr noundef %638, ptr noundef %639)
   br label %sw.epilog
 
 sw.bb1176:                                        ; preds = %do.end106
-  %640 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %640 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1178 = call noundef ptr @_ZN2kc16NilunpattributesEv()
   %call1179 = call noundef ptr @_ZN2kc17ConsunpattributesEPNS_7impl_IDEPNS_18impl_unpattributesE(ptr noundef %640, ptr noundef %call1178)
   br label %sw.epilog
 
 sw.bb1180:                                        ; preds = %do.end106
-  %641 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1182 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %641 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1182 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %642 = load ptr, ptr %arrayidx1182, align 8, !tbaa !39
   %call1183 = call noundef ptr @_ZN2kc17ConsunpattributesEPNS_7impl_IDEPNS_18impl_unpattributesE(ptr noundef %641, ptr noundef %642)
   br label %sw.epilog
 
 sw.bb1184:                                        ; preds = %do.end106
-  %643 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %643 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1186:                                        ; preds = %do.end106
@@ -3780,7 +3780,7 @@ sw.bb1190:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1192:                                        ; preds = %do.end106
-  %644 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %644 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1194 = call noundef ptr @_ZN2kc11YesViewnameEPNS_7impl_IDE(ptr noundef %644)
   br label %sw.epilog
 
@@ -3789,7 +3789,7 @@ sw.bb1195:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1197:                                        ; preds = %do.end106
-  %arrayidx1198 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1198 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %645 = load ptr, ptr %arrayidx1198, align 8, !tbaa !39
   store i8 1, ptr @pg_uviewshavebeendefined, align 1, !tbaa !125
   br label %sw.epilog
@@ -3799,18 +3799,18 @@ sw.bb1199:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1201:                                        ; preds = %do.end106
-  %646 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %646 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1203 = call noundef ptr @_ZN2kc12NilviewnamesEv()
   %call1204 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %646, ptr noundef %call1203)
-  %647 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %647 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   call void @_ZN2kc19v_add_to_uviewnamesEPNS_7impl_IDE(ptr noundef %647)
-  %648 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %648 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1207 = call noundef ptr @_ZN2kc11ITUserUViewEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %648, ptr noundef %call1207)
   br label %sw.epilog
 
 sw.bb1208:                                        ; preds = %do.end106
-  %arrayidx1209 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1209 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %649 = load ptr, ptr %arrayidx1209, align 8, !tbaa !39
   %call1210 = call noundef ptr @_ZN2kc12NilviewnamesEv()
   %call1211 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %649, ptr noundef %call1210)
@@ -3822,21 +3822,21 @@ sw.bb1208:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1215:                                        ; preds = %do.end106
-  %652 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1217 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %652 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1217 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %653 = load ptr, ptr %arrayidx1217, align 8, !tbaa !39
   %call1218 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %652, ptr noundef %653)
-  %654 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %654 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   call void @_ZN2kc19v_add_to_uviewnamesEPNS_7impl_IDE(ptr noundef %654)
-  %655 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %655 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1221 = call noundef ptr @_ZN2kc11ITUserUViewEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %655, ptr noundef %call1221)
   br label %sw.epilog
 
 sw.bb1222:                                        ; preds = %do.end106
-  %arrayidx1223 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1223 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %656 = load ptr, ptr %arrayidx1223, align 8, !tbaa !39
-  %arrayidx1224 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1224 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %657 = load ptr, ptr %arrayidx1224, align 8, !tbaa !39
   %call1225 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %656, ptr noundef %657)
   %658 = load ptr, ptr %arrayidx1223, align 8, !tbaa !39
@@ -3847,21 +3847,21 @@ sw.bb1222:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1229:                                        ; preds = %do.end106
-  %660 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1231 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %660 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1231 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %661 = load ptr, ptr %arrayidx1231, align 8, !tbaa !39
   %call1232 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %660, ptr noundef %661)
-  %662 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %662 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   call void @_ZN2kc19v_add_to_uviewnamesEPNS_7impl_IDE(ptr noundef %662)
-  %663 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %663 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1235 = call noundef ptr @_ZN2kc11ITUserUViewEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %663, ptr noundef %call1235)
   br label %sw.epilog
 
 sw.bb1236:                                        ; preds = %do.end106
-  %arrayidx1237 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1237 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %664 = load ptr, ptr %arrayidx1237, align 8, !tbaa !39
-  %arrayidx1238 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1238 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %665 = load ptr, ptr %arrayidx1238, align 8, !tbaa !39
   %call1239 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %664, ptr noundef %665)
   %666 = load ptr, ptr %arrayidx1237, align 8, !tbaa !39
@@ -3872,17 +3872,17 @@ sw.bb1236:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1243:                                        ; preds = %do.end106
-  %arrayidx1244 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1244 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %668 = load ptr, ptr %arrayidx1244, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1245:                                        ; preds = %do.end106
-  %arrayidx1246 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1246 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %669 = load ptr, ptr %arrayidx1246, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1247:                                        ; preds = %do.end106
-  %arrayidx1248 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1248 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %670 = load ptr, ptr %arrayidx1248, align 8, !tbaa !39
   store i8 1, ptr @pg_rviewshavebeendefined, align 1, !tbaa !125
   br label %sw.epilog
@@ -3892,18 +3892,18 @@ sw.bb1249:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1251:                                        ; preds = %do.end106
-  %671 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %671 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1253 = call noundef ptr @_ZN2kc12NilviewnamesEv()
   %call1254 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %671, ptr noundef %call1253)
-  %672 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %672 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   call void @_ZN2kc19v_add_to_rviewnamesEPNS_7impl_IDE(ptr noundef %672)
-  %673 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %673 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1257 = call noundef ptr @_ZN2kc11ITUserRViewEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %673, ptr noundef %call1257)
   br label %sw.epilog
 
 sw.bb1258:                                        ; preds = %do.end106
-  %arrayidx1259 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1259 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %674 = load ptr, ptr %arrayidx1259, align 8, !tbaa !39
   %call1260 = call noundef ptr @_ZN2kc12NilviewnamesEv()
   %call1261 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %674, ptr noundef %call1260)
@@ -3915,21 +3915,21 @@ sw.bb1258:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1265:                                        ; preds = %do.end106
-  %677 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1267 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %677 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1267 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %678 = load ptr, ptr %arrayidx1267, align 8, !tbaa !39
   %call1268 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %677, ptr noundef %678)
-  %679 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %679 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   call void @_ZN2kc19v_add_to_rviewnamesEPNS_7impl_IDE(ptr noundef %679)
-  %680 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %680 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1271 = call noundef ptr @_ZN2kc11ITUserRViewEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %680, ptr noundef %call1271)
   br label %sw.epilog
 
 sw.bb1272:                                        ; preds = %do.end106
-  %arrayidx1273 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1273 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %681 = load ptr, ptr %arrayidx1273, align 8, !tbaa !39
-  %arrayidx1274 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1274 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %682 = load ptr, ptr %arrayidx1274, align 8, !tbaa !39
   %call1275 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %681, ptr noundef %682)
   %683 = load ptr, ptr %arrayidx1273, align 8, !tbaa !39
@@ -3940,21 +3940,21 @@ sw.bb1272:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1279:                                        ; preds = %do.end106
-  %685 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1281 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %685 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1281 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %686 = load ptr, ptr %arrayidx1281, align 8, !tbaa !39
   %call1282 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %685, ptr noundef %686)
-  %687 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %687 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   call void @_ZN2kc19v_add_to_rviewnamesEPNS_7impl_IDE(ptr noundef %687)
-  %688 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %688 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1285 = call noundef ptr @_ZN2kc11ITUserRViewEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %688, ptr noundef %call1285)
   br label %sw.epilog
 
 sw.bb1286:                                        ; preds = %do.end106
-  %arrayidx1287 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1287 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %689 = load ptr, ptr %arrayidx1287, align 8, !tbaa !39
-  %arrayidx1288 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1288 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %690 = load ptr, ptr %arrayidx1288, align 8, !tbaa !39
   %call1289 = call noundef ptr @_ZN2kc13ConsviewnamesEPNS_7impl_IDEPNS_14impl_viewnamesE(ptr noundef %689, ptr noundef %690)
   %691 = load ptr, ptr %arrayidx1287, align 8, !tbaa !39
@@ -3965,17 +3965,17 @@ sw.bb1286:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1293:                                        ; preds = %do.end106
-  %arrayidx1294 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1294 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %693 = load ptr, ptr %arrayidx1294, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1295:                                        ; preds = %do.end106
-  %arrayidx1296 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1296 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %694 = load ptr, ptr %arrayidx1296, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1297:                                        ; preds = %do.end106
-  %arrayidx1298 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1298 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %695 = load ptr, ptr %arrayidx1298, align 8, !tbaa !39
   store i8 1, ptr @pg_storageclasseshavebeendefined, align 1, !tbaa !125
   br label %sw.epilog
@@ -3985,58 +3985,58 @@ sw.bb1299:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1301:                                        ; preds = %do.end106
-  %696 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %696 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1303 = call noundef ptr @_ZN2kc17NilstorageclassesEv()
   %call1304 = call noundef ptr @_ZN2kc18ConsstorageclassesEPNS_7impl_IDEPNS_19impl_storageclassesE(ptr noundef %696, ptr noundef %call1303)
-  %697 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %697 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1306 = call noundef ptr @_ZN2kc9f_emptyIdEv()
   call void @_ZN2kc23v_add_to_storageclassesEPNS_7impl_IDES1_(ptr noundef %697, ptr noundef %call1306)
-  %698 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %698 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1308 = call noundef ptr @_ZN2kc14ITStorageClassEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %698, ptr noundef %call1308)
   br label %sw.epilog
 
 sw.bb1309:                                        ; preds = %do.end106
-  %699 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1311 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %699 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1311 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %700 = load ptr, ptr %arrayidx1311, align 8, !tbaa !39
   %call1312 = call noundef ptr @_ZN2kc18ConsstorageclassesEPNS_7impl_IDEPNS_19impl_storageclassesE(ptr noundef %699, ptr noundef %700)
-  %701 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %701 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1314 = call noundef ptr @_ZN2kc9f_emptyIdEv()
   call void @_ZN2kc23v_add_to_storageclassesEPNS_7impl_IDES1_(ptr noundef %701, ptr noundef %call1314)
-  %702 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %702 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1316 = call noundef ptr @_ZN2kc14ITStorageClassEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %702, ptr noundef %call1316)
   br label %sw.epilog
 
 sw.bb1317:                                        ; preds = %do.end106
-  %703 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1319 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %703 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1319 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %704 = load ptr, ptr %arrayidx1319, align 8, !tbaa !39
   %call1320 = call noundef ptr @_ZN2kc18ConsstorageclassesEPNS_7impl_IDEPNS_19impl_storageclassesE(ptr noundef %703, ptr noundef %704)
-  %705 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %705 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1322 = call noundef ptr @_ZN2kc9f_emptyIdEv()
   call void @_ZN2kc23v_add_to_storageclassesEPNS_7impl_IDES1_(ptr noundef %705, ptr noundef %call1322)
-  %706 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %706 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1324 = call noundef ptr @_ZN2kc14ITStorageClassEv()
   call void @_ZN2kc13v_extendoccurEPNS_7impl_IDEPNS_11impl_IDtypeE(ptr noundef %706, ptr noundef %call1324)
   br label %sw.epilog
 
 sw.bb1325:                                        ; preds = %do.end106
-  %arrayidx1326 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1326 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %707 = load ptr, ptr %arrayidx1326, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1327:                                        ; preds = %do.end106
-  %arrayidx1328 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1328 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %708 = load ptr, ptr %arrayidx1328, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1329:                                        ; preds = %do.end106
-  %arrayidx1330 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1330 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %709 = load ptr, ptr %arrayidx1330, align 8, !tbaa !39
   %710 = load ptr, ptr @pg_filename, align 8, !tbaa !14
-  %arrayidx1331 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1331 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %711 = load ptr, ptr %arrayidx1331, align 8, !tbaa !39
   %call1332 = call noundef ptr @_ZN2kc14f_fnclass_infoEPNS_30impl_ac_declaration_specifiersEPNS_20impl_casestring__StrEPNS_18impl_ac_declaratorE(ptr noundef %709, ptr noundef %710, ptr noundef %711)
   %712 = load ptr, ptr %arrayidx1331, align 8, !tbaa !39
@@ -4045,7 +4045,7 @@ sw.bb1329:                                        ; preds = %do.end106
   %714 = load ptr, ptr %arrayidx1331, align 8, !tbaa !39
   %call1337 = call noundef ptr @_ZN2kc22Nilac_declaration_listEv()
   %call1338 = call noundef ptr @_ZN2kc12AcNoBaseInitEv()
-  %715 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %715 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1340 = call noundef ptr @_ZN2kc15FnAcDeclarationEPNS_30impl_ac_declaration_specifiersEPNS_18impl_ac_declaratorEPNS_24impl_ac_declaration_listEPNS_26impl_ac_opt_base_init_listEPNS_10impl_CtextEPNS_7impl_IDEPNS_12impl_fnclassE(ptr noundef %713, ptr noundef %714, ptr noundef %call1337, ptr noundef %call1338, ptr noundef %715, ptr noundef %call1334, ptr noundef %call1332)
   %call1341 = call noundef ptr @_ZN2kc18NilwithexpressionsEv()
   store ptr %call1341, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
@@ -4064,14 +4064,14 @@ sw.bb1344:                                        ; preds = %do.end106
   %call1347 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1348 = call noundef ptr @_ZN2kc7AcNoRefEv()
   %call1349 = call noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv()
-  %arrayidx1350 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -7
+  %arrayidx1350 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -7
   %718 = load ptr, ptr %arrayidx1350, align 8, !tbaa !39
-  %arrayidx1351 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1351 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %719 = load ptr, ptr %arrayidx1351, align 8, !tbaa !39
   %call1352 = call noundef ptr @_ZN2kc18AcConvOperatorDeclEPNS_7impl_IDES1_(ptr noundef %718, ptr noundef %719)
   %call1353 = call noundef ptr @_ZN2kc20Nilac_parameter_listEv()
   %call1354 = call noundef ptr @_ZN2kc9AcParListEPNS_22impl_ac_parameter_listE(ptr noundef %call1353)
-  %arrayidx1355 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1355 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %720 = load ptr, ptr %arrayidx1355, align 8, !tbaa !39
   %call1356 = call noundef ptr @_ZN2kc20AcQualifiedDeclProtoEPNS_28impl_ac_class_qualifier_listEPNS_25impl_ac_direct_declaratorEPNS_27impl_ac_parameter_type_listEPNS_22impl_ac_type_qualifierE(ptr noundef %call1349, ptr noundef %call1352, ptr noundef %call1354, ptr noundef %720)
   %call1357 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1347, ptr noundef %call1348, ptr noundef %call1356)
@@ -4079,7 +4079,7 @@ sw.bb1344:                                        ; preds = %do.end106
   %call1360 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
   %call1361 = call noundef ptr @_ZN2kc22Nilac_declaration_listEv()
   %call1362 = call noundef ptr @_ZN2kc12AcNoBaseInitEv()
-  %722 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %722 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1364 = call noundef ptr @_ZN2kc15FnAcDeclarationEPNS_30impl_ac_declaration_specifiersEPNS_18impl_ac_declaratorEPNS_24impl_ac_declaration_listEPNS_26impl_ac_opt_base_init_listEPNS_10impl_CtextEPNS_7impl_IDEPNS_12impl_fnclassE(ptr noundef %call1360, ptr noundef %call1357, ptr noundef %call1361, ptr noundef %call1362, ptr noundef %722, ptr noundef %721, ptr noundef %call1346)
   %call1365 = call noundef ptr @_ZN2kc18NilwithexpressionsEv()
   store ptr %call1365, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
@@ -4098,10 +4098,10 @@ sw.bb1369:                                        ; preds = %do.end106
   %call1373 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1374 = call noundef ptr @_ZN2kc7AcNoRefEv()
   %call1375 = call noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv()
-  %arrayidx1376 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -5
+  %arrayidx1376 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -5
   %725 = load ptr, ptr %arrayidx1376, align 8, !tbaa !39
   %call1377 = call noundef ptr @_ZN2kc14AcDirectDeclIdEPNS_7impl_IDE(ptr noundef %725)
-  %arrayidx1378 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1378 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %726 = load ptr, ptr %arrayidx1378, align 8, !tbaa !39
   %call1379 = call noundef ptr @_ZN2kc13AcNoQualifierEv()
   %call1380 = call noundef ptr @_ZN2kc20AcQualifiedDeclProtoEPNS_28impl_ac_class_qualifier_listEPNS_25impl_ac_direct_declaratorEPNS_27impl_ac_parameter_type_listEPNS_22impl_ac_type_qualifierE(ptr noundef %call1375, ptr noundef %call1377, ptr noundef %726, ptr noundef %call1379)
@@ -4109,9 +4109,9 @@ sw.bb1369:                                        ; preds = %do.end106
   %call1383 = call noundef ptr @_ZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassE(ptr noundef %call1381, ptr noundef %call1371)
   %call1384 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
   %call1385 = call noundef ptr @_ZN2kc22Nilac_declaration_listEv()
-  %arrayidx1386 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1386 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %727 = load ptr, ptr %arrayidx1386, align 8, !tbaa !39
-  %728 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %728 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1388 = call noundef ptr @_ZN2kc15FnAcDeclarationEPNS_30impl_ac_declaration_specifiersEPNS_18impl_ac_declaratorEPNS_24impl_ac_declaration_listEPNS_26impl_ac_opt_base_init_listEPNS_10impl_CtextEPNS_7impl_IDEPNS_12impl_fnclassE(ptr noundef %call1384, ptr noundef %call1381, ptr noundef %call1385, ptr noundef %727, ptr noundef %728, ptr noundef %call1383, ptr noundef %call1371)
   %call1389 = call noundef ptr @_ZN2kc18NilwithexpressionsEv()
   store ptr %call1389, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
@@ -4130,7 +4130,7 @@ sw.bb1393:                                        ; preds = %do.end106
   %call1397 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1398 = call noundef ptr @_ZN2kc7AcNoRefEv()
   %call1399 = call noundef ptr @_ZN2kc26Nilac_class_qualifier_listEv()
-  %arrayidx1400 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1400 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %731 = load ptr, ptr %arrayidx1400, align 8, !tbaa !39
   %call1401 = call noundef ptr @_ZN2kc14AcDirectDeclIdEPNS_7impl_IDE(ptr noundef %731)
   %call1402 = call noundef ptr @_ZN2kc20Nilac_parameter_listEv()
@@ -4139,11 +4139,11 @@ sw.bb1393:                                        ; preds = %do.end106
   %call1405 = call noundef ptr @_ZN2kc20AcQualifiedDeclProtoEPNS_28impl_ac_class_qualifier_listEPNS_25impl_ac_direct_declaratorEPNS_27impl_ac_parameter_type_listEPNS_22impl_ac_type_qualifierE(ptr noundef %call1399, ptr noundef %call1401, ptr noundef %call1403, ptr noundef %call1404)
   %call1406 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1397, ptr noundef %call1398, ptr noundef %call1405)
   %call1408 = call noundef ptr @_ZN2kc21f_ID_of_fn_declaratorEPNS_18impl_ac_declaratorEPNS_12impl_fnclassE(ptr noundef %call1406, ptr noundef %call1395)
-  %arrayidx1409 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1409 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %732 = load ptr, ptr %arrayidx1409, align 8, !tbaa !39
   %call1410 = call noundef ptr @_ZN2kc22Nilac_declaration_listEv()
   %call1411 = call noundef ptr @_ZN2kc12AcNoBaseInitEv()
-  %733 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %733 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1413 = call noundef ptr @_ZN2kc15FnAcDeclarationEPNS_30impl_ac_declaration_specifiersEPNS_18impl_ac_declaratorEPNS_24impl_ac_declaration_listEPNS_26impl_ac_opt_base_init_listEPNS_10impl_CtextEPNS_7impl_IDEPNS_12impl_fnclassE(ptr noundef %732, ptr noundef %call1406, ptr noundef %call1410, ptr noundef %call1411, ptr noundef %733, ptr noundef %call1408, ptr noundef %call1395)
   %call1414 = call noundef ptr @_ZN2kc18NilwithexpressionsEv()
   store ptr %call1414, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
@@ -4158,14 +4158,14 @@ sw.bb1393:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1418:                                        ; preds = %do.end106
-  %arrayidx1420 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1420 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %736 = load ptr, ptr %arrayidx1420, align 8, !tbaa !39
   %737 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %call1421 = call noundef ptr @_ZN2kc19f_member_class_infoEPNS_30impl_ac_declaration_specifiersEPNS_20impl_casestring__StrE(ptr noundef %736, ptr noundef %737)
   %738 = load ptr, ptr %arrayidx1420, align 8, !tbaa !39
-  %arrayidx1423 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1423 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %739 = load ptr, ptr %arrayidx1423, align 8, !tbaa !39
-  %arrayidx1424 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1424 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %740 = load ptr, ptr %arrayidx1424, align 8, !tbaa !39
   %call1425 = call noundef ptr @_ZN2kc19AcMemberDeclarationEPNS_30impl_ac_declaration_specifiersEPNS_18impl_ac_declaratorEPNS_34impl_ac_constant_expression_optionEPNS_12impl_fnclassE(ptr noundef %738, ptr noundef %739, ptr noundef %740, ptr noundef %call1421)
   %is_attr = getelementptr inbounds %"class.kc::impl_fndeclaration", ptr %call1425, i64 0, i32 5
@@ -4179,14 +4179,14 @@ sw.bb1418:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1428:                                        ; preds = %do.end106
-  %arrayidx1430 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1430 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %743 = load ptr, ptr %arrayidx1430, align 8, !tbaa !39
   %744 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %call1431 = call noundef ptr @_ZN2kc19f_member_class_infoEPNS_30impl_ac_declaration_specifiersEPNS_20impl_casestring__StrE(ptr noundef %743, ptr noundef %744)
   %745 = load ptr, ptr %arrayidx1430, align 8, !tbaa !39
-  %arrayidx1433 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1433 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %746 = load ptr, ptr %arrayidx1433, align 8, !tbaa !39
-  %arrayidx1434 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1434 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %747 = load ptr, ptr %arrayidx1434, align 8, !tbaa !39
   %call1435 = call noundef ptr @_ZN2kc19AcMemberDeclarationEPNS_30impl_ac_declaration_specifiersEPNS_18impl_ac_declaratorEPNS_34impl_ac_constant_expression_optionEPNS_12impl_fnclassE(ptr noundef %745, ptr noundef %746, ptr noundef %747, ptr noundef %call1431)
   %is_attr1436 = getelementptr inbounds %"class.kc::impl_fndeclaration", ptr %call1435, i64 0, i32 5
@@ -4204,27 +4204,27 @@ sw.bb1439:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1441:                                        ; preds = %do.end106
-  %750 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %750 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1443 = call noundef ptr @_ZN2kc13AcYesBaseInitEPNS_22impl_ac_base_init_listE(ptr noundef %750)
   br label %sw.epilog
 
 sw.bb1444:                                        ; preds = %do.end106
-  %751 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %751 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1446 = call noundef ptr @_ZN2kc20Nilac_base_init_listEv()
   %call1447 = call noundef ptr @_ZN2kc21Consac_base_init_listEPNS_17impl_ac_base_initEPNS_22impl_ac_base_init_listE(ptr noundef %751, ptr noundef %call1446)
   br label %sw.epilog
 
 sw.bb1448:                                        ; preds = %do.end106
-  %752 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1450 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %752 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1450 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %753 = load ptr, ptr %arrayidx1450, align 8, !tbaa !39
   %call1451 = call noundef ptr @_ZN2kc21Consac_base_init_listEPNS_17impl_ac_base_initEPNS_22impl_ac_base_init_listE(ptr noundef %752, ptr noundef %753)
   br label %sw.epilog
 
 sw.bb1452:                                        ; preds = %do.end106
-  %arrayidx1453 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1453 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %754 = load ptr, ptr %arrayidx1453, align 8, !tbaa !39
-  %arrayidx1454 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1454 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %755 = load ptr, ptr %arrayidx1454, align 8, !tbaa !39
   %call1455 = call noundef ptr @_ZN2kc10AcBaseInitEPNS_7impl_IDEPNS_27impl_ac_constant_expressionE(ptr noundef %754, ptr noundef %755)
   br label %sw.epilog
@@ -4234,7 +4234,7 @@ sw.bb1456:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1458:                                        ; preds = %do.end106
-  %756 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %756 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1460 = call noundef ptr @_ZN2kc25Yesac_constant_expressionEPNS_27impl_ac_constant_expressionE(ptr noundef %756)
   br label %sw.epilog
 
@@ -4243,27 +4243,27 @@ sw.bb1461:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1463:                                        ; preds = %do.end106
-  %757 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %757 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1465 = call noundef ptr @_ZN2kc25Yesac_constant_expressionEPNS_27impl_ac_constant_expressionE(ptr noundef %757)
   br label %sw.epilog
 
 sw.bb1466:                                        ; preds = %do.end106
-  %arrayidx1467 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1467 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %758 = load ptr, ptr %arrayidx1467, align 8, !tbaa !39
   %call1468 = call noundef ptr @_ZN2kc25Yesac_constant_expressionEPNS_27impl_ac_constant_expressionE(ptr noundef %758)
   br label %sw.epilog
 
 sw.bb1469:                                        ; preds = %do.end106
-  %759 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %759 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1471 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %759)
   %call1472 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
   %call1473 = call noundef ptr @_ZN2kc29Consac_declaration_specifiersEPNS_29impl_ac_declaration_specifierEPNS_30impl_ac_declaration_specifiersE(ptr noundef %call1471, ptr noundef %call1472)
   br label %sw.epilog
 
 sw.bb1474:                                        ; preds = %do.end106
-  %760 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %760 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1476 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %760)
-  %arrayidx1477 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1477 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %761 = load ptr, ptr %arrayidx1477, align 8, !tbaa !39
   %call1478 = call noundef ptr @_ZN2kc21AcDeclSpecStorageSpecEPNS_31impl_ac_storage_class_specifierE(ptr noundef %761)
   %call1479 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
@@ -4272,9 +4272,9 @@ sw.bb1474:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1482:                                        ; preds = %do.end106
-  %762 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %762 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1484 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %762)
-  %arrayidx1485 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1485 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %763 = load ptr, ptr %arrayidx1485, align 8, !tbaa !39
   %call1486 = call noundef ptr @_ZN2kc18AcDeclSpecTypeQualEPNS_22impl_ac_type_qualifierE(ptr noundef %763)
   %call1487 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
@@ -4283,12 +4283,12 @@ sw.bb1482:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1490:                                        ; preds = %do.end106
-  %764 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %764 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1492 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %764)
-  %arrayidx1493 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1493 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %765 = load ptr, ptr %arrayidx1493, align 8, !tbaa !39
   %call1494 = call noundef ptr @_ZN2kc18AcDeclSpecTypeQualEPNS_22impl_ac_type_qualifierE(ptr noundef %765)
-  %arrayidx1495 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1495 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %766 = load ptr, ptr %arrayidx1495, align 8, !tbaa !39
   %call1496 = call noundef ptr @_ZN2kc21AcDeclSpecStorageSpecEPNS_31impl_ac_storage_class_specifierE(ptr noundef %766)
   %call1497 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
@@ -4298,16 +4298,16 @@ sw.bb1490:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1501:                                        ; preds = %do.end106
-  %767 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %767 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1503 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %767)
   %call1504 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
   %call1505 = call noundef ptr @_ZN2kc29Consac_declaration_specifiersEPNS_29impl_ac_declaration_specifierEPNS_30impl_ac_declaration_specifiersE(ptr noundef %call1503, ptr noundef %call1504)
   br label %sw.epilog
 
 sw.bb1506:                                        ; preds = %do.end106
-  %768 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %768 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1508 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %768)
-  %arrayidx1509 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1509 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %769 = load ptr, ptr %arrayidx1509, align 8, !tbaa !39
   %call1510 = call noundef ptr @_ZN2kc21AcDeclSpecStorageSpecEPNS_31impl_ac_storage_class_specifierE(ptr noundef %769)
   %call1511 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
@@ -4316,9 +4316,9 @@ sw.bb1506:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1514:                                        ; preds = %do.end106
-  %770 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %770 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1516 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %770)
-  %arrayidx1517 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1517 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %771 = load ptr, ptr %arrayidx1517, align 8, !tbaa !39
   %call1518 = call noundef ptr @_ZN2kc18AcDeclSpecTypeQualEPNS_22impl_ac_type_qualifierE(ptr noundef %771)
   %call1519 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
@@ -4327,12 +4327,12 @@ sw.bb1514:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1522:                                        ; preds = %do.end106
-  %772 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %772 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1524 = call noundef ptr @_ZN2kc18AcDeclSpecTypeSpecEPNS_22impl_ac_type_specifierE(ptr noundef %772)
-  %arrayidx1525 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1525 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %773 = load ptr, ptr %arrayidx1525, align 8, !tbaa !39
   %call1526 = call noundef ptr @_ZN2kc18AcDeclSpecTypeQualEPNS_22impl_ac_type_qualifierE(ptr noundef %773)
-  %arrayidx1527 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1527 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %774 = load ptr, ptr %arrayidx1527, align 8, !tbaa !39
   %call1528 = call noundef ptr @_ZN2kc21AcDeclSpecStorageSpecEPNS_31impl_ac_storage_class_specifierE(ptr noundef %774)
   %call1529 = call noundef ptr @_ZN2kc28Nilac_declaration_specifiersEv()
@@ -4381,7 +4381,7 @@ sw.bb1549:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1554:                                        ; preds = %do.end106
-  %775 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %775 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1556 = call noundef ptr @_ZN2kc10AcTypeSpecEPNS_7impl_IDE(ptr noundef %775)
   br label %sw.epilog
 
@@ -4400,150 +4400,150 @@ sw.bb1561:                                        ; preds = %do.end106
 sw.bb1563:                                        ; preds = %do.end106
   %call1564 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1565 = call noundef ptr @_ZN2kc7AcNoRefEv()
-  %776 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %776 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1567 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1564, ptr noundef %call1565, ptr noundef %776)
   br label %sw.epilog
 
 sw.bb1568:                                        ; preds = %do.end106
-  %arrayidx1569 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1569 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %777 = load ptr, ptr %arrayidx1569, align 8, !tbaa !39
   %call1570 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %777)
   %call1571 = call noundef ptr @_ZN2kc7AcNoRefEv()
-  %778 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %778 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1573 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1570, ptr noundef %call1571, ptr noundef %778)
   br label %sw.epilog
 
 sw.bb1574:                                        ; preds = %do.end106
   %call1575 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1576 = call noundef ptr @_ZN2kc5AcRefEv()
-  %779 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %779 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1578 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1575, ptr noundef %call1576, ptr noundef %779)
   br label %sw.epilog
 
 sw.bb1579:                                        ; preds = %do.end106
-  %arrayidx1580 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1580 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %780 = load ptr, ptr %arrayidx1580, align 8, !tbaa !39
   %call1581 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %780)
   %call1582 = call noundef ptr @_ZN2kc5AcRefEv()
-  %781 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %781 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1584 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1581, ptr noundef %call1582, ptr noundef %781)
   br label %sw.epilog
 
 sw.bb1585:                                        ; preds = %do.end106
   %call1586 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1587 = call noundef ptr @_ZN2kc7AcNoRefEv()
-  %782 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %782 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1589 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1586, ptr noundef %call1587, ptr noundef %782)
   br label %sw.epilog
 
 sw.bb1590:                                        ; preds = %do.end106
-  %arrayidx1591 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1591 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %783 = load ptr, ptr %arrayidx1591, align 8, !tbaa !39
   %call1592 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %783)
   %call1593 = call noundef ptr @_ZN2kc7AcNoRefEv()
-  %784 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %784 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1595 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1592, ptr noundef %call1593, ptr noundef %784)
   br label %sw.epilog
 
 sw.bb1596:                                        ; preds = %do.end106
   %call1597 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1598 = call noundef ptr @_ZN2kc5AcRefEv()
-  %785 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %785 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1600 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1597, ptr noundef %call1598, ptr noundef %785)
   br label %sw.epilog
 
 sw.bb1601:                                        ; preds = %do.end106
-  %arrayidx1602 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1602 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %786 = load ptr, ptr %arrayidx1602, align 8, !tbaa !39
   %call1603 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %786)
   %call1604 = call noundef ptr @_ZN2kc5AcRefEv()
-  %787 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %787 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1606 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1603, ptr noundef %call1604, ptr noundef %787)
   br label %sw.epilog
 
 sw.bb1607:                                        ; preds = %do.end106
   %call1608 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1609 = call noundef ptr @_ZN2kc7AcNoRefEv()
-  %788 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %788 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1611 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1608, ptr noundef %call1609, ptr noundef %788)
   br label %sw.epilog
 
 sw.bb1612:                                        ; preds = %do.end106
-  %arrayidx1613 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1613 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %789 = load ptr, ptr %arrayidx1613, align 8, !tbaa !39
   %call1614 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %789)
   %call1615 = call noundef ptr @_ZN2kc7AcNoRefEv()
-  %790 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %790 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1617 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1614, ptr noundef %call1615, ptr noundef %790)
   br label %sw.epilog
 
 sw.bb1618:                                        ; preds = %do.end106
   %call1619 = call noundef ptr @_ZN2kc9NopointerEv()
   %call1620 = call noundef ptr @_ZN2kc5AcRefEv()
-  %791 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %791 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1622 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1619, ptr noundef %call1620, ptr noundef %791)
   br label %sw.epilog
 
 sw.bb1623:                                        ; preds = %do.end106
-  %arrayidx1624 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1624 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %792 = load ptr, ptr %arrayidx1624, align 8, !tbaa !39
   %call1625 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %792)
   %call1626 = call noundef ptr @_ZN2kc5AcRefEv()
-  %793 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %793 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1628 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1625, ptr noundef %call1626, ptr noundef %793)
   br label %sw.epilog
 
 sw.bb1629:                                        ; preds = %do.end106
-  %arrayidx1630 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1630 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %794 = load ptr, ptr %arrayidx1630, align 8, !tbaa !39
   %call1631 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %794)
   %call1632 = call noundef ptr @_ZN2kc7AcNoRefEv()
-  %795 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %795 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1634 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1631, ptr noundef %call1632, ptr noundef %795)
   br label %sw.epilog
 
 sw.bb1635:                                        ; preds = %do.end106
-  %arrayidx1636 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1636 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %796 = load ptr, ptr %arrayidx1636, align 8, !tbaa !39
   %call1637 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %796)
   %call1638 = call noundef ptr @_ZN2kc5AcRefEv()
-  %797 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %797 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1640 = call noundef ptr @_ZN2kc12AcDeclaratorEPNS_22impl_ac_pointer_optionEPNS_18impl_ac_ref_optionEPNS_25impl_ac_direct_declaratorE(ptr noundef %call1637, ptr noundef %call1638, ptr noundef %797)
   br label %sw.epilog
 
 sw.bb1641:                                        ; preds = %do.end106
-  %798 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %798 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1643 = call noundef ptr @_ZN2kc14AcDirectDeclIdEPNS_7impl_IDE(ptr noundef %798)
   br label %sw.epilog
 
 sw.bb1644:                                        ; preds = %do.end106
-  %arrayidx1645 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1645 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %799 = load ptr, ptr %arrayidx1645, align 8, !tbaa !39
   %call1646 = call noundef ptr @_ZN2kc16AcDirectDeclPackEPNS_18impl_ac_declaratorE(ptr noundef %799)
   br label %sw.epilog
 
 sw.bb1647:                                        ; preds = %do.end106
-  %arrayidx1648 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1648 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %800 = load ptr, ptr %arrayidx1648, align 8, !tbaa !39
-  %arrayidx1649 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1649 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %801 = load ptr, ptr %arrayidx1649, align 8, !tbaa !39
   %call1650 = call noundef ptr @_ZN2kc17AcDirectDeclArrayEPNS_25impl_ac_direct_declaratorEPNS_34impl_ac_constant_expression_optionE(ptr noundef %800, ptr noundef %801)
   br label %sw.epilog
 
 sw.bb1651:                                        ; preds = %do.end106
-  %arrayidx1652 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1652 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %802 = load ptr, ptr %arrayidx1652, align 8, !tbaa !39
-  %arrayidx1653 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1653 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %803 = load ptr, ptr %arrayidx1653, align 8, !tbaa !39
   %call1654 = call noundef ptr @_ZN2kc17AcDirectDeclProtoEPNS_25impl_ac_direct_declaratorEPNS_27impl_ac_parameter_type_listE(ptr noundef %802, ptr noundef %803)
   br label %sw.epilog
 
 sw.bb1655:                                        ; preds = %do.end106
-  %arrayidx1656 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1656 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %804 = load ptr, ptr %arrayidx1656, align 8, !tbaa !39
-  %arrayidx1657 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1657 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %805 = load ptr, ptr %arrayidx1657, align 8, !tbaa !39
-  %806 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %806 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1659 = call noundef ptr @_ZN2kc12AcMemberDeclEPNS_7impl_IDES1_PNS_32impl_ac_constant_expression_listE(ptr noundef %804, ptr noundef %805, ptr noundef %806)
   br label %sw.epilog
 
@@ -4552,9 +4552,9 @@ sw.bb1660:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1662:                                        ; preds = %do.end106
-  %arrayidx1663 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1663 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %807 = load ptr, ptr %arrayidx1663, align 8, !tbaa !39
-  %arrayidx1664 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1664 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %808 = load ptr, ptr %arrayidx1664, align 8, !tbaa !39
   %call1665 = call noundef ptr @_ZN2kc31Consac_constant_expression_listEPNS_27impl_ac_constant_expressionEPNS_32impl_ac_constant_expression_listE(ptr noundef %807, ptr noundef %808)
   br label %sw.epilog
@@ -4562,13 +4562,13 @@ sw.bb1662:                                        ; preds = %do.end106
 sw.bb1666:                                        ; preds = %do.end106
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %decl1667) #17
   store ptr null, ptr %decl1667, align 8, !tbaa !14
-  %arrayidx1668 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1668 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %809 = load ptr, ptr %arrayidx1668, align 8, !tbaa !39
   %call1669 = call noundef ptr @_ZN2kc23f_check_build_qualifierEPNS_33impl_ac_class_qualifier_help_listERPNS_25impl_ac_direct_declaratorE(ptr noundef %809, ptr noundef nonnull align 8 dereferenceable(8) %decl1667)
   %810 = load ptr, ptr %decl1667, align 8, !tbaa !14
-  %arrayidx1670 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1670 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %811 = load ptr, ptr %arrayidx1670, align 8, !tbaa !39
-  %812 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %812 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1672 = call noundef ptr @_ZN2kc20AcQualifiedDeclProtoEPNS_28impl_ac_class_qualifier_listEPNS_25impl_ac_direct_declaratorEPNS_27impl_ac_parameter_type_listEPNS_22impl_ac_type_qualifierE(ptr noundef %call1669, ptr noundef %810, ptr noundef %811, ptr noundef %812)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %decl1667) #17
   br label %sw.epilog
@@ -4576,37 +4576,37 @@ sw.bb1666:                                        ; preds = %do.end106
 sw.bb1673:                                        ; preds = %do.end106
   call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %decl1674) #17
   store ptr null, ptr %decl1674, align 8, !tbaa !14
-  %arrayidx1676 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -4
+  %arrayidx1676 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -4
   %813 = load ptr, ptr %arrayidx1676, align 8, !tbaa !39
   %call1677 = call noundef ptr @_ZN2kc23f_check_build_qualifierEPNS_33impl_ac_class_qualifier_help_listERPNS_25impl_ac_direct_declaratorE(ptr noundef %813, ptr noundef nonnull align 8 dereferenceable(8) %decl1674)
   %814 = load ptr, ptr %decl1674, align 8, !tbaa !14
   %call1678 = call noundef ptr @_ZN2kc20Nilac_parameter_listEv()
   %call1679 = call noundef ptr @_ZN2kc9AcParListEPNS_22impl_ac_parameter_listE(ptr noundef %call1678)
-  %815 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %815 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1681 = call noundef ptr @_ZN2kc20AcQualifiedDeclProtoEPNS_28impl_ac_class_qualifier_listEPNS_25impl_ac_direct_declaratorEPNS_27impl_ac_parameter_type_listEPNS_22impl_ac_type_qualifierE(ptr noundef %call1677, ptr noundef %814, ptr noundef %call1679, ptr noundef %815)
   call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %decl1674) #17
   br label %sw.epilog
 
 sw.bb1682:                                        ; preds = %do.end106
-  %816 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %816 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1684 = call noundef ptr @_ZN2kc31Nilac_class_qualifier_help_listEv()
   %call1685 = call noundef ptr @_ZN2kc32Consac_class_qualifier_help_listEPNS_25impl_ac_direct_declaratorEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %816, ptr noundef %call1684)
   br label %sw.epilog
 
 sw.bb1686:                                        ; preds = %do.end106
-  %817 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1688 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %817 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1688 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %818 = load ptr, ptr %arrayidx1688, align 8, !tbaa !39
   %call1689 = call noundef ptr @_ZN2kc32Consac_class_qualifier_help_listEPNS_25impl_ac_direct_declaratorEPNS_33impl_ac_class_qualifier_help_listE(ptr noundef %817, ptr noundef %818)
   br label %sw.epilog
 
 sw.bb1690:                                        ; preds = %do.end106
-  %819 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %819 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1692 = call noundef ptr @_ZN2kc14AcDirectDeclIdEPNS_7impl_IDE(ptr noundef %819)
   br label %sw.epilog
 
 sw.bb1693:                                        ; preds = %do.end106
-  %820 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %820 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1695 = call noundef ptr @_ZN2kc14AcOperatorNameEPNS_20impl_casestring__StrE(ptr noundef %820)
   %821 = load ptr, ptr @pg_filename, align 8, !tbaa !14
   %file1697 = getelementptr inbounds %"class.kc::impl_ac_operator_name", ptr %call1695, i64 0, i32 2
@@ -4631,32 +4631,32 @@ sw.bb1706:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1709:                                        ; preds = %do.end106
-  %823 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %823 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1711 = call noundef ptr @_ZN2kc12AcPointerNilEPNS_27impl_ac_type_qualifier_listE(ptr noundef %823)
   br label %sw.epilog
 
 sw.bb1712:                                        ; preds = %do.end106
   %call1713 = call noundef ptr @_ZN2kc25Nilac_type_qualifier_listEv()
-  %824 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %824 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1715 = call noundef ptr @_ZN2kc13AcPointerConsEPNS_27impl_ac_type_qualifier_listEPNS_15impl_ac_pointerE(ptr noundef %call1713, ptr noundef %824)
   br label %sw.epilog
 
 sw.bb1716:                                        ; preds = %do.end106
-  %arrayidx1717 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1717 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %825 = load ptr, ptr %arrayidx1717, align 8, !tbaa !39
-  %826 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %826 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1719 = call noundef ptr @_ZN2kc13AcPointerConsEPNS_27impl_ac_type_qualifier_listEPNS_15impl_ac_pointerE(ptr noundef %825, ptr noundef %826)
   br label %sw.epilog
 
 sw.bb1720:                                        ; preds = %do.end106
-  %827 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %827 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1722 = call noundef ptr @_ZN2kc25Nilac_type_qualifier_listEv()
   %call1723 = call noundef ptr @_ZN2kc26Consac_type_qualifier_listEPNS_22impl_ac_type_qualifierEPNS_27impl_ac_type_qualifier_listE(ptr noundef %827, ptr noundef %call1722)
   br label %sw.epilog
 
 sw.bb1724:                                        ; preds = %do.end106
-  %828 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1726 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %828 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1726 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %829 = load ptr, ptr %arrayidx1726, align 8, !tbaa !39
   %call1727 = call noundef ptr @_ZN2kc26Consac_type_qualifier_listEPNS_22impl_ac_type_qualifierEPNS_27impl_ac_type_qualifier_listE(ptr noundef %828, ptr noundef %829)
   br label %sw.epilog
@@ -4672,112 +4672,112 @@ sw.bb1731:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1734:                                        ; preds = %do.end106
-  %830 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %830 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1736 = call noundef ptr @_ZN2kc9AcParListEPNS_22impl_ac_parameter_listE(ptr noundef %830)
   br label %sw.epilog
 
 sw.bb1737:                                        ; preds = %do.end106
-  %arrayidx1738 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1738 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %831 = load ptr, ptr %arrayidx1738, align 8, !tbaa !39
   %call1739 = call noundef ptr @_ZN2kc13AcParList3DotEPNS_22impl_ac_parameter_listE(ptr noundef %831)
   br label %sw.epilog
 
 sw.bb1740:                                        ; preds = %do.end106
-  %arrayidx1741 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1741 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %832 = load ptr, ptr %arrayidx1741, align 8, !tbaa !39
   %call1742 = call noundef ptr @_ZN2kc13AcParList3DotEPNS_22impl_ac_parameter_listE(ptr noundef %832)
   br label %sw.epilog
 
 sw.bb1743:                                        ; preds = %do.end106
-  %833 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %833 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1745 = call noundef ptr @_ZN2kc20Nilac_parameter_listEv()
   %call1746 = call noundef ptr @_ZN2kc21Consac_parameter_listEPNS_29impl_ac_parameter_declarationEPNS_22impl_ac_parameter_listE(ptr noundef %833, ptr noundef %call1745)
   br label %sw.epilog
 
 sw.bb1747:                                        ; preds = %do.end106
-  %834 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1749 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %834 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1749 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %835 = load ptr, ptr %arrayidx1749, align 8, !tbaa !39
   %call1750 = call noundef ptr @_ZN2kc21Consac_parameter_listEPNS_29impl_ac_parameter_declarationEPNS_22impl_ac_parameter_listE(ptr noundef %834, ptr noundef %835)
   br label %sw.epilog
 
 sw.bb1751:                                        ; preds = %do.end106
-  %arrayidx1752 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1752 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %836 = load ptr, ptr %arrayidx1752, align 8, !tbaa !39
-  %arrayidx1753 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1753 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %837 = load ptr, ptr %arrayidx1753, align 8, !tbaa !39
-  %838 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %838 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1755 = call noundef ptr @_ZN2kc13AcParDeclDeclEPNS_30impl_ac_declaration_specifiersEPNS_18impl_ac_declaratorEPNS_34impl_ac_constant_expression_optionE(ptr noundef %836, ptr noundef %837, ptr noundef %838)
   br label %sw.epilog
 
 sw.bb1756:                                        ; preds = %do.end106
-  %arrayidx1757 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1757 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %839 = load ptr, ptr %arrayidx1757, align 8, !tbaa !39
-  %arrayidx1758 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1758 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %840 = load ptr, ptr %arrayidx1758, align 8, !tbaa !39
-  %841 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %841 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1760 = call noundef ptr @_ZN2kc16AcParDeclAbsdeclEPNS_30impl_ac_declaration_specifiersEPNS_27impl_ac_abstract_declaratorEPNS_34impl_ac_constant_expression_optionE(ptr noundef %839, ptr noundef %840, ptr noundef %841)
   br label %sw.epilog
 
 sw.bb1761:                                        ; preds = %do.end106
-  %842 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %842 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1763 = call noundef ptr @_ZN2kc16AcAbsdeclPointerEPNS_15impl_ac_pointerE(ptr noundef %842)
   br label %sw.epilog
 
 sw.bb1764:                                        ; preds = %do.end106
   %call1765 = call noundef ptr @_ZN2kc9NopointerEv()
-  %843 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %843 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1767 = call noundef ptr @_ZN2kc16AcAbsdeclDirdeclEPNS_22impl_ac_pointer_optionEPNS_34impl_ac_direct_abstract_declaratorE(ptr noundef %call1765, ptr noundef %843)
   br label %sw.epilog
 
 sw.bb1768:                                        ; preds = %do.end106
-  %arrayidx1769 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1769 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %844 = load ptr, ptr %arrayidx1769, align 8, !tbaa !39
   %call1770 = call noundef ptr @_ZN2kc10YespointerEPNS_15impl_ac_pointerE(ptr noundef %844)
-  %845 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %845 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1772 = call noundef ptr @_ZN2kc16AcAbsdeclDirdeclEPNS_22impl_ac_pointer_optionEPNS_34impl_ac_direct_abstract_declaratorE(ptr noundef %call1770, ptr noundef %845)
   br label %sw.epilog
 
 sw.bb1773:                                        ; preds = %do.end106
-  %arrayidx1774 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1774 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %846 = load ptr, ptr %arrayidx1774, align 8, !tbaa !39
   %call1775 = call noundef ptr @_ZN2kc16AcDirAbsdeclPackEPNS_27impl_ac_abstract_declaratorE(ptr noundef %846)
   br label %sw.epilog
 
 sw.bb1776:                                        ; preds = %do.end106
-  %arrayidx1777 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1777 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %847 = load ptr, ptr %arrayidx1777, align 8, !tbaa !39
   %call1778 = call noundef ptr @_ZN2kc32Yesac_direct_abstract_declaratorEPNS_34impl_ac_direct_abstract_declaratorE(ptr noundef %847)
-  %arrayidx1779 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1779 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %848 = load ptr, ptr %arrayidx1779, align 8, !tbaa !39
   %call1780 = call noundef ptr @_ZN2kc17AcDirAbsdeclArrayEPNS_41impl_ac_direct_abstract_declarator_optionEPNS_34impl_ac_constant_expression_optionE(ptr noundef %call1778, ptr noundef %848)
   br label %sw.epilog
 
 sw.bb1781:                                        ; preds = %do.end106
   %call1782 = call noundef ptr @_ZN2kc31Noac_direct_abstract_declaratorEv()
-  %arrayidx1783 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1783 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %849 = load ptr, ptr %arrayidx1783, align 8, !tbaa !39
   %call1784 = call noundef ptr @_ZN2kc17AcDirAbsdeclArrayEPNS_41impl_ac_direct_abstract_declarator_optionEPNS_34impl_ac_constant_expression_optionE(ptr noundef %call1782, ptr noundef %849)
   br label %sw.epilog
 
 sw.bb1785:                                        ; preds = %do.end106
-  %arrayidx1786 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -3
+  %arrayidx1786 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -3
   %850 = load ptr, ptr %arrayidx1786, align 8, !tbaa !39
   %call1787 = call noundef ptr @_ZN2kc32Yesac_direct_abstract_declaratorEPNS_34impl_ac_direct_abstract_declaratorE(ptr noundef %850)
-  %arrayidx1788 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1788 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %851 = load ptr, ptr %arrayidx1788, align 8, !tbaa !39
   %call1789 = call noundef ptr @_ZN2kc14AcDirAbsdeclFnEPNS_41impl_ac_direct_abstract_declarator_optionEPNS_27impl_ac_parameter_type_listE(ptr noundef %call1787, ptr noundef %851)
   br label %sw.epilog
 
 sw.bb1790:                                        ; preds = %do.end106
   %call1791 = call noundef ptr @_ZN2kc31Noac_direct_abstract_declaratorEv()
-  %arrayidx1792 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1792 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %852 = load ptr, ptr %arrayidx1792, align 8, !tbaa !39
   %call1793 = call noundef ptr @_ZN2kc14AcDirAbsdeclFnEPNS_41impl_ac_direct_abstract_declarator_optionEPNS_27impl_ac_parameter_type_listE(ptr noundef %call1791, ptr noundef %852)
   br label %sw.epilog
 
 sw.bb1794:                                        ; preds = %do.end106
-  %853 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %853 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1796 = call noundef ptr @_ZN2kc25Yesac_constant_expressionEPNS_27impl_ac_constant_expressionE(ptr noundef %853)
   br label %sw.epilog
 
@@ -4787,16 +4787,16 @@ sw.bb1797:                                        ; preds = %do.end106
 
 sw.bb1798:                                        ; preds = %do.end106
   call void @_Z9do_NORMALv()
-  %854 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %854 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1800 = call noundef ptr @_ZN2kc11AcConstExprEPNS_16impl_CexpressionE(ptr noundef %854)
   br label %sw.epilog
 
 sw.bb1801:                                        ; preds = %do.end106
-  %855 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %855 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1803:                                        ; preds = %do.end106
-  %856 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %856 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1806 = call noundef ptr @_ZN2kc10WEVariableEPNS_7impl_IDE(ptr noundef %856)
   %857 = load ptr, ptr @_ZN12_GLOBAL__N_116pl_withvariablesE, align 8, !tbaa !14
   %call1807 = call noundef ptr @_ZN2kc19ConswithexpressionsEPNS_19impl_withexpressionEPNS_20impl_withexpressionsE(ptr noundef %call1806, ptr noundef %857)
@@ -4804,18 +4804,18 @@ sw.bb1803:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1808:                                        ; preds = %do.end106
-  %858 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %858 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1810:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1811:                                        ; preds = %do.end106
-  %859 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %859 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1813:                                        ; preds = %do.end106
-  %arrayidx1814 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1814 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %860 = load ptr, ptr %arrayidx1814, align 8, !tbaa !39
   %call1815 = call noundef ptr @_ZN2kc12LanguageListEPNS_18impl_languagenamesE(ptr noundef %860)
   br label %sw.epilog
@@ -4825,14 +4825,14 @@ sw.bb1816:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1818:                                        ; preds = %do.end106
-  %861 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %861 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1820 = call noundef ptr @_ZN2kc16NillanguagenamesEv()
   %call1821 = call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef %861, ptr noundef %call1820)
   br label %sw.epilog
 
 sw.bb1822:                                        ; preds = %do.end106
-  %862 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1824 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %862 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1824 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %863 = load ptr, ptr %arrayidx1824, align 8, !tbaa !39
   %call1825 = call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef %862, ptr noundef %863)
   br label %sw.epilog
@@ -4842,24 +4842,24 @@ sw.bb1826:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1828:                                        ; preds = %do.end106
-  %arrayidx1829 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1829 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %864 = load ptr, ptr %arrayidx1829, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1830:                                        ; preds = %do.end106
-  %arrayidx1831 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1831 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %865 = load ptr, ptr %arrayidx1831, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1832:                                        ; preds = %do.end106
-  %866 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1834 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %866 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1834 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %867 = load ptr, ptr %arrayidx1834, align 8, !tbaa !39
   %call1835 = call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef %866, ptr noundef %867)
   br label %sw.epilog
 
 sw.bb1836:                                        ; preds = %do.end106
-  %arrayidx1837 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1837 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %868 = load ptr, ptr %arrayidx1837, align 8, !tbaa !39
   store i8 1, ptr @pg_languageshavebeendefined, align 1, !tbaa !125
   br label %sw.epilog
@@ -4869,41 +4869,41 @@ sw.bb1838:                                        ; preds = %do.end106
   br label %sw.epilog
 
 sw.bb1840:                                        ; preds = %do.end106
-  %869 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
+  %869 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
   %call1842 = call noundef ptr @_ZN2kc16NillanguagenamesEv()
   %call1843 = call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef %869, ptr noundef %call1842)
   br label %sw.epilog
 
 sw.bb1844:                                        ; preds = %do.end106
-  %870 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1846 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %870 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1846 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %871 = load ptr, ptr %arrayidx1846, align 8, !tbaa !39
   %call1847 = call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef %870, ptr noundef %871)
   br label %sw.epilog
 
 sw.bb1848:                                        ; preds = %do.end106
-  %872 = load ptr, ptr %yyvsp.13088, align 8, !tbaa !39
-  %arrayidx1850 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %872 = load ptr, ptr %yyvsp.13080, align 8, !tbaa !39
+  %arrayidx1850 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %873 = load ptr, ptr %arrayidx1850, align 8, !tbaa !39
   %call1851 = call noundef ptr @_ZN2kc17ConslanguagenamesEPNS_7impl_IDEPNS_18impl_languagenamesE(ptr noundef %872, ptr noundef %873)
   br label %sw.epilog
 
 sw.bb1852:                                        ; preds = %do.end106
-  %arrayidx1853 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -1
+  %arrayidx1853 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -1
   %874 = load ptr, ptr %arrayidx1853, align 8, !tbaa !39
   br label %sw.epilog
 
 sw.bb1854:                                        ; preds = %do.end106
-  %arrayidx1855 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 -2
+  %arrayidx1855 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 -2
   %875 = load ptr, ptr %arrayidx1855, align 8, !tbaa !39
   br label %sw.epilog
 
-sw.epilog:                                        ; preds = %if.then779, %if.else782, %if.then760, %if.else763, %if.else.i.i2832, %if.then.i.i2831, %if.else.i.i2786, %if.then.i.i2785, %sw.bb1126, %if.then1136, %if.then812, %if.else820, %do.end106, %sw.bb1854, %sw.bb1852, %sw.bb1848, %sw.bb1844, %sw.bb1840, %sw.bb1838, %sw.bb1836, %sw.bb1832, %sw.bb1830, %sw.bb1828, %sw.bb1826, %sw.bb1822, %sw.bb1818, %sw.bb1816, %sw.bb1813, %sw.bb1811, %sw.bb1810, %sw.bb1808, %sw.bb1803, %sw.bb1801, %sw.bb1798, %sw.bb1797, %sw.bb1794, %sw.bb1790, %sw.bb1785, %sw.bb1781, %sw.bb1776, %sw.bb1773, %sw.bb1768, %sw.bb1764, %sw.bb1761, %sw.bb1756, %sw.bb1751, %sw.bb1747, %sw.bb1743, %sw.bb1740, %sw.bb1737, %sw.bb1734, %sw.bb1731, %sw.bb1728, %sw.bb1724, %sw.bb1720, %sw.bb1716, %sw.bb1712, %sw.bb1709, %sw.bb1706, %sw.bb1704, %sw.bb1702, %sw.bb1693, %sw.bb1690, %sw.bb1686, %sw.bb1682, %sw.bb1673, %sw.bb1666, %sw.bb1662, %sw.bb1660, %sw.bb1655, %sw.bb1651, %sw.bb1647, %sw.bb1644, %sw.bb1641, %sw.bb1635, %sw.bb1629, %sw.bb1623, %sw.bb1618, %sw.bb1612, %sw.bb1607, %sw.bb1601, %sw.bb1596, %sw.bb1590, %sw.bb1585, %sw.bb1579, %sw.bb1574, %sw.bb1568, %sw.bb1563, %sw.bb1561, %sw.bb1559, %sw.bb1557, %sw.bb1554, %sw.bb1549, %sw.bb1547, %sw.bb1545, %sw.bb1543, %sw.bb1541, %sw.bb1539, %sw.bb1537, %sw.bb1535, %sw.bb1533, %sw.bb1522, %sw.bb1514, %sw.bb1506, %sw.bb1501, %sw.bb1490, %sw.bb1482, %sw.bb1474, %sw.bb1469, %sw.bb1466, %sw.bb1463, %sw.bb1461, %sw.bb1458, %sw.bb1456, %sw.bb1452, %sw.bb1448, %sw.bb1444, %sw.bb1441, %sw.bb1439, %sw.bb1428, %sw.bb1418, %sw.bb1393, %sw.bb1369, %sw.bb1344, %sw.bb1329, %sw.bb1327, %sw.bb1325, %sw.bb1317, %sw.bb1309, %sw.bb1301, %sw.bb1299, %sw.bb1297, %sw.bb1295, %sw.bb1293, %sw.bb1286, %sw.bb1279, %sw.bb1272, %sw.bb1265, %sw.bb1258, %sw.bb1251, %sw.bb1249, %sw.bb1247, %sw.bb1245, %sw.bb1243, %sw.bb1236, %sw.bb1229, %sw.bb1222, %sw.bb1215, %sw.bb1208, %sw.bb1201, %sw.bb1199, %sw.bb1197, %sw.bb1195, %sw.bb1192, %sw.bb1190, %sw.bb1186, %sw.bb1184, %sw.bb1180, %sw.bb1176, %sw.bb1172, %sw.bb1168, %sw.bb1164, %sw.bb1161, %sw.bb1158, %sw.bb1153, %sw.bb1152, %sw.bb1151, %sw.bb1147, %sw.bb1143, %sw.bb1138, %sw.bb1125, %sw.bb1124, %sw.bb1120, %sw.bb1118, %sw.bb1114, %sw.bb1112, %sw.bb1108, %sw.bb1104, %sw.bb1100, %sw.bb1096, %if.end1095, %sw.bb1075, %sw.bb1071, %sw.bb1067, %sw.bb1063, %if.end1062, %sw.bb1048, %sw.bb1044, %sw.bb1040, %sw.bb1036, %sw.bb1034, %sw.bb1032, %sw.bb1030, %sw.bb1026, %sw.bb1022, %sw.bb1020, %sw.bb1018, %sw.bb1013, %sw.bb1008, %sw.bb1007, %sw.bb1002, %sw.bb1001, %sw.bb995, %sw.bb989, %sw.bb982, %sw.bb975, %sw.bb969, %sw.bb964, %sw.bb960, %sw.bb958, %sw.bb956, %sw.bb954, %sw.bb950, %sw.bb946, %sw.bb944, %sw.bb942, %sw.bb939, %sw.bb936, %sw.bb935, %sw.bb931, %sw.bb929, %sw.bb927, %sw.bb923, %sw.bb920, %sw.bb918, %sw.bb917, %sw.bb916, %sw.bb914, %sw.bb909, %sw.bb904, %sw.bb898, %sw.bb891, %sw.bb885, %sw.bb881, %sw.bb879, %sw.bb877, %sw.bb875, %sw.bb871, %sw.bb867, %sw.bb861, %sw.bb858, %sw.bb855, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2969, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2957, %sw.bb837, %sw.bb833, %sw.bb829, %sw.bb825, %sw.bb804, %sw.bb800, %sw.bb796, %if.end795, %sw.bb750, %sw.bb745, %sw.bb742, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2951, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2939, %sw.bb722, %sw.bb720, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2933, %sw.bb650, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2874, %sw.bb645, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2868, %sw.bb589, %if.end588, %sw.bb577, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2827, %sw.bb573, %sw.bb571, %sw.bb570, %sw.bb567, %sw.bb564, %sw.bb563, %sw.bb560, %sw.bb559, %sw.bb556, %sw.bb553, %sw.bb550, %sw.bb547, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2821, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2809, %sw.bb516, %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit, %sw.bb500, %sw.bb495, %if.end494, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2746, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2734, %sw.bb441, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2722, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2710, %sw.bb417, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit, %sw.bb401, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit, %sw.bb395, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2689, %sw.bb379, %sw.bb378, %sw.bb377, %sw.bb373, %sw.bb369, %sw.bb367, %sw.bb364, %sw.bb360, %sw.bb358, %sw.bb356, %sw.bb353, %sw.bb349, %sw.bb347, %sw.bb344, %sw.bb342, %sw.bb332, %sw.bb325, %sw.bb319, %sw.bb316, %sw.bb313, %sw.bb310, %sw.bb307, %sw.bb304, %sw.bb301, %sw.bb298, %sw.bb296, %sw.bb293, %sw.bb290, %sw.bb280, %sw.bb273, %sw.bb270, %sw.bb269, %sw.bb267, %sw.bb262, %sw.bb258, %sw.bb256, %sw.bb252, %sw.bb248, %sw.bb244, %sw.bb237, %sw.bb233, %sw.bb231, %sw.bb227, %sw.bb221, %sw.bb219, %sw.bb218, %sw.bb214, %sw.bb212, %sw.bb210, %sw.bb206, %sw.bb202, %sw.bb199, %sw.bb192, %sw.bb190, %sw.bb188, %sw.bb186, %sw.bb181, %sw.bb176, %sw.bb174, %sw.bb167, %sw.bb165, %sw.bb161, %sw.bb157, %sw.bb153, %sw.bb150, %sw.bb147, %sw.bb141, %sw.bb137, %sw.bb134, %sw.bb131, %sw.bb129, %sw.bb121, %sw.bb112, %sw.bb
-  %yyval.sroa.0.3 = phi ptr [ %yyval.sroa.0.0.copyload, %do.end106 ], [ %call1843, %sw.bb1840 ], [ %call1839, %sw.bb1838 ], [ %868, %sw.bb1836 ], [ %call1835, %sw.bb1832 ], [ %865, %sw.bb1830 ], [ %864, %sw.bb1828 ], [ %call1827, %sw.bb1826 ], [ %call1825, %sw.bb1822 ], [ %call1821, %sw.bb1818 ], [ %call1817, %sw.bb1816 ], [ %call1815, %sw.bb1813 ], [ %859, %sw.bb1811 ], [ %yyval.sroa.0.0.copyload, %sw.bb1810 ], [ %858, %sw.bb1808 ], [ %856, %sw.bb1803 ], [ %855, %sw.bb1801 ], [ %call1800, %sw.bb1798 ], [ %yyval.sroa.0.0.copyload, %sw.bb1797 ], [ %call1796, %sw.bb1794 ], [ %call1793, %sw.bb1790 ], [ %call1789, %sw.bb1785 ], [ %call1784, %sw.bb1781 ], [ %call1780, %sw.bb1776 ], [ %call1775, %sw.bb1773 ], [ %call1772, %sw.bb1768 ], [ %call1767, %sw.bb1764 ], [ %call1763, %sw.bb1761 ], [ %call1760, %sw.bb1756 ], [ %call1755, %sw.bb1751 ], [ %call1750, %sw.bb1747 ], [ %call1746, %sw.bb1743 ], [ %call1742, %sw.bb1740 ], [ %call1739, %sw.bb1737 ], [ %call1736, %sw.bb1734 ], [ %call1733, %sw.bb1731 ], [ %call1730, %sw.bb1728 ], [ %call1727, %sw.bb1724 ], [ %call1723, %sw.bb1720 ], [ %call1719, %sw.bb1716 ], [ %call1715, %sw.bb1712 ], [ %call1711, %sw.bb1709 ], [ %call1708, %sw.bb1706 ], [ %call1705, %sw.bb1704 ], [ %call1703, %sw.bb1702 ], [ %call1701, %sw.bb1693 ], [ %call1692, %sw.bb1690 ], [ %call1689, %sw.bb1686 ], [ %call1685, %sw.bb1682 ], [ %call1681, %sw.bb1673 ], [ %call1672, %sw.bb1666 ], [ %call1665, %sw.bb1662 ], [ %call1661, %sw.bb1660 ], [ %call1659, %sw.bb1655 ], [ %call1654, %sw.bb1651 ], [ %call1650, %sw.bb1647 ], [ %call1646, %sw.bb1644 ], [ %call1643, %sw.bb1641 ], [ %call1640, %sw.bb1635 ], [ %call1634, %sw.bb1629 ], [ %call1628, %sw.bb1623 ], [ %call1622, %sw.bb1618 ], [ %call1617, %sw.bb1612 ], [ %call1611, %sw.bb1607 ], [ %call1606, %sw.bb1601 ], [ %call1600, %sw.bb1596 ], [ %call1595, %sw.bb1590 ], [ %call1589, %sw.bb1585 ], [ %call1584, %sw.bb1579 ], [ %call1578, %sw.bb1574 ], [ %call1573, %sw.bb1568 ], [ %call1567, %sw.bb1563 ], [ %call1562, %sw.bb1561 ], [ %call1560, %sw.bb1559 ], [ %call1558, %sw.bb1557 ], [ %call1556, %sw.bb1554 ], [ %call1553, %sw.bb1549 ], [ %call1548, %sw.bb1547 ], [ %call1546, %sw.bb1545 ], [ %call1544, %sw.bb1543 ], [ %call1542, %sw.bb1541 ], [ %call1540, %sw.bb1539 ], [ %call1538, %sw.bb1537 ], [ %call1536, %sw.bb1535 ], [ %call1534, %sw.bb1533 ], [ %call1532, %sw.bb1522 ], [ %call1521, %sw.bb1514 ], [ %call1513, %sw.bb1506 ], [ %call1505, %sw.bb1501 ], [ %call1500, %sw.bb1490 ], [ %call1489, %sw.bb1482 ], [ %call1481, %sw.bb1474 ], [ %call1473, %sw.bb1469 ], [ %call1468, %sw.bb1466 ], [ %call1465, %sw.bb1463 ], [ %call1462, %sw.bb1461 ], [ %call1460, %sw.bb1458 ], [ %call1457, %sw.bb1456 ], [ %call1455, %sw.bb1452 ], [ %call1451, %sw.bb1448 ], [ %call1447, %sw.bb1444 ], [ %call1443, %sw.bb1441 ], [ %call1440, %sw.bb1439 ], [ %call1435, %sw.bb1428 ], [ %call1425, %sw.bb1418 ], [ %call1413, %sw.bb1393 ], [ %call1388, %sw.bb1369 ], [ %call1364, %sw.bb1344 ], [ %call1340, %sw.bb1329 ], [ %708, %sw.bb1327 ], [ %707, %sw.bb1325 ], [ %call1320, %sw.bb1317 ], [ %call1312, %sw.bb1309 ], [ %call1304, %sw.bb1301 ], [ %call1300, %sw.bb1299 ], [ %695, %sw.bb1297 ], [ %694, %sw.bb1295 ], [ %693, %sw.bb1293 ], [ %call1289, %sw.bb1286 ], [ %call1282, %sw.bb1279 ], [ %call1275, %sw.bb1272 ], [ %call1268, %sw.bb1265 ], [ %call1261, %sw.bb1258 ], [ %call1254, %sw.bb1251 ], [ %call1250, %sw.bb1249 ], [ %670, %sw.bb1247 ], [ %669, %sw.bb1245 ], [ %668, %sw.bb1243 ], [ %call1239, %sw.bb1236 ], [ %call1232, %sw.bb1229 ], [ %call1225, %sw.bb1222 ], [ %call1218, %sw.bb1215 ], [ %call1211, %sw.bb1208 ], [ %call1204, %sw.bb1201 ], [ %call1200, %sw.bb1199 ], [ %645, %sw.bb1197 ], [ %call1196, %sw.bb1195 ], [ %call1194, %sw.bb1192 ], [ %call1191, %sw.bb1190 ], [ %call1189, %sw.bb1186 ], [ %643, %sw.bb1184 ], [ %call1183, %sw.bb1180 ], [ %call1179, %sw.bb1176 ], [ %call1175, %sw.bb1172 ], [ %call1171, %sw.bb1168 ], [ %call1167, %sw.bb1164 ], [ %call1163, %sw.bb1161 ], [ %call1160, %sw.bb1158 ], [ %call1157, %sw.bb1153 ], [ %yyval.sroa.0.0.copyload, %sw.bb1152 ], [ %yyval.sroa.0.0.copyload, %sw.bb1151 ], [ %call1150, %sw.bb1147 ], [ %call1146, %sw.bb1143 ], [ %call1142, %sw.bb1138 ], [ %call1130, %sw.bb1126 ], [ %call1130, %if.then1136 ], [ %yyval.sroa.0.0.copyload, %sw.bb1125 ], [ %yyval.sroa.0.0.copyload, %sw.bb1124 ], [ %call1123, %sw.bb1120 ], [ %call1119, %sw.bb1118 ], [ %call1117, %sw.bb1114 ], [ %call1113, %sw.bb1112 ], [ %call1111, %sw.bb1108 ], [ %call1107, %sw.bb1104 ], [ %call1103, %sw.bb1100 ], [ %call1099, %sw.bb1096 ], [ %call1094, %if.end1095 ], [ %call1078, %sw.bb1075 ], [ %call1074, %sw.bb1071 ], [ %call1070, %sw.bb1067 ], [ %call1066, %sw.bb1063 ], [ %yyval.sroa.0.0.copyload, %if.end1062 ], [ %call1055, %sw.bb1048 ], [ %call1047, %sw.bb1044 ], [ %call1043, %sw.bb1040 ], [ %call1039, %sw.bb1036 ], [ %590, %sw.bb1034 ], [ %589, %sw.bb1032 ], [ %call1031, %sw.bb1030 ], [ %call1029, %sw.bb1026 ], [ %call1025, %sw.bb1022 ], [ %585, %sw.bb1020 ], [ %call1019, %sw.bb1018 ], [ %call1015, %sw.bb1013 ], [ %call1010, %sw.bb1008 ], [ %yyval.sroa.0.0.copyload, %sw.bb1007 ], [ %call1004, %sw.bb1002 ], [ %yyval.sroa.0.0.copyload, %sw.bb1001 ], [ %call998, %sw.bb995 ], [ %call992, %sw.bb989 ], [ %call986, %sw.bb982 ], [ %call979, %sw.bb975 ], [ %call972, %sw.bb969 ], [ %call966, %sw.bb964 ], [ %call963, %sw.bb960 ], [ %548, %sw.bb958 ], [ %547, %sw.bb956 ], [ %call955, %sw.bb954 ], [ %call953, %sw.bb950 ], [ %call949, %sw.bb946 ], [ %543, %sw.bb944 ], [ %call943, %sw.bb942 ], [ %call941, %sw.bb939 ], [ %call938, %sw.bb936 ], [ %yyval.sroa.0.0.copyload, %sw.bb935 ], [ %call934, %sw.bb931 ], [ %call930, %sw.bb929 ], [ %call928, %sw.bb927 ], [ %call926, %sw.bb923 ], [ %call922, %sw.bb920 ], [ %535, %sw.bb918 ], [ %yyval.sroa.0.0.copyload, %sw.bb917 ], [ %yyval.sroa.0.0.copyload, %sw.bb916 ], [ %call915, %sw.bb914 ], [ %call911, %sw.bb909 ], [ %call906, %sw.bb904 ], [ %call901, %sw.bb898 ], [ %call895, %sw.bb891 ], [ %call888, %sw.bb885 ], [ %call884, %sw.bb881 ], [ %513, %sw.bb879 ], [ %512, %sw.bb877 ], [ %call876, %sw.bb875 ], [ %call874, %sw.bb871 ], [ %call870, %sw.bb867 ], [ %call863, %sw.bb861 ], [ %call860, %sw.bb858 ], [ %call857, %sw.bb855 ], [ %491, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2969 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2957 ], [ %call840, %sw.bb837 ], [ %call836, %sw.bb833 ], [ %call832, %sw.bb829 ], [ %call828, %sw.bb825 ], [ %call819, %if.then812 ], [ %call823, %if.else820 ], [ %call807, %sw.bb804 ], [ %call803, %sw.bb800 ], [ %call799, %sw.bb796 ], [ %yyval.sroa.0.0.copyload, %if.end795 ], [ %460, %sw.bb750 ], [ %call749, %sw.bb745 ], [ %call744, %sw.bb742 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2951 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2939 ], [ %call725, %sw.bb722 ], [ %call721, %sw.bb720 ], [ %call710, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2933 ], [ %yyval.sroa.0.0.copyload, %sw.bb650 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2874 ], [ %call646, %sw.bb645 ], [ %call644, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2868 ], [ %yyval.sroa.0.0.copyload, %sw.bb589 ], [ %call582, %if.end588 ], [ %yyval.sroa.0.0.copyload, %sw.bb577 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2827 ], [ %yyval.sroa.0.0.copyload, %sw.bb573 ], [ %319, %sw.bb571 ], [ %yyval.sroa.0.0.copyload, %sw.bb570 ], [ %call569, %sw.bb567 ], [ %call566, %sw.bb564 ], [ %yyval.sroa.0.0.copyload, %sw.bb563 ], [ %call562, %sw.bb560 ], [ %yyval.sroa.0.0.copyload, %sw.bb559 ], [ %call558, %sw.bb556 ], [ %call555, %sw.bb553 ], [ %call552, %sw.bb550 ], [ %call549, %sw.bb547 ], [ %call529, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2821 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2809 ], [ %call517, %sw.bb516 ], [ %266, %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit ], [ %yyval.sroa.0.0.copyload, %sw.bb500 ], [ %call496, %sw.bb495 ], [ %call479, %if.end494 ], [ %213, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2746 ], [ %200, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2734 ], [ %yyval.sroa.0.0.copyload, %sw.bb441 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2722 ], [ %177, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2710 ], [ %yyval.sroa.0.0.copyload, %sw.bb417 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit ], [ %call404, %sw.bb401 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit ], [ %call398, %sw.bb395 ], [ %call385, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2689 ], [ %call382, %sw.bb379 ], [ %yyval.sroa.0.0.copyload, %sw.bb378 ], [ %yyval.sroa.0.0.copyload, %sw.bb377 ], [ %call376, %sw.bb373 ], [ %call372, %sw.bb369 ], [ %call368, %sw.bb367 ], [ %call366, %sw.bb364 ], [ %call363, %sw.bb360 ], [ %call359, %sw.bb358 ], [ %call357, %sw.bb356 ], [ %call355, %sw.bb353 ], [ %call352, %sw.bb349 ], [ %call348, %sw.bb347 ], [ %call346, %sw.bb344 ], [ %134, %sw.bb342 ], [ %call335, %sw.bb332 ], [ %call326, %sw.bb325 ], [ %call324, %sw.bb319 ], [ %call318, %sw.bb316 ], [ %call315, %sw.bb313 ], [ %call312, %sw.bb310 ], [ %call309, %sw.bb307 ], [ %call306, %sw.bb304 ], [ %call303, %sw.bb301 ], [ %call300, %sw.bb298 ], [ %call297, %sw.bb296 ], [ %call295, %sw.bb293 ], [ %call292, %sw.bb290 ], [ %call283, %sw.bb280 ], [ %call274, %sw.bb273 ], [ %call272, %sw.bb270 ], [ %yyval.sroa.0.0.copyload, %sw.bb269 ], [ %call268, %sw.bb267 ], [ %call266, %sw.bb262 ], [ %call261, %sw.bb258 ], [ %call257, %sw.bb256 ], [ %call255, %sw.bb252 ], [ %call251, %sw.bb248 ], [ %call247, %sw.bb244 ], [ %call242, %sw.bb237 ], [ %call236, %sw.bb233 ], [ %call232, %sw.bb231 ], [ %call230, %sw.bb227 ], [ %call224, %sw.bb221 ], [ %yyval.sroa.0.0.copyload, %sw.bb219 ], [ %yyval.sroa.0.0.copyload, %sw.bb218 ], [ %call217, %sw.bb214 ], [ %86, %sw.bb212 ], [ %call211, %sw.bb210 ], [ %call209, %sw.bb206 ], [ %call205, %sw.bb202 ], [ %call201, %sw.bb199 ], [ %call196, %sw.bb192 ], [ %call191, %sw.bb190 ], [ %call189, %sw.bb188 ], [ %call187, %sw.bb186 ], [ %call183, %sw.bb181 ], [ %call178, %sw.bb176 ], [ %call175, %sw.bb174 ], [ %call172, %sw.bb167 ], [ %yyval.sroa.0.0.copyload, %sw.bb165 ], [ %call164, %sw.bb161 ], [ %call160, %sw.bb157 ], [ %call156, %sw.bb153 ], [ %yyval.sroa.0.0.copyload, %sw.bb150 ], [ %yyval.sroa.0.0.copyload, %sw.bb147 ], [ %call1847, %sw.bb1844 ], [ %call1851, %sw.bb1848 ], [ %874, %sw.bb1852 ], [ %yyval.sroa.0.0.copyload, %sw.bb141 ], [ %875, %sw.bb1854 ], [ %yyval.sroa.0.0.copyload, %sw.bb137 ], [ %yyval.sroa.0.0.copyload, %sw.bb134 ], [ %yyval.sroa.0.0.copyload, %sw.bb131 ], [ %yyval.sroa.0.0.copyload, %sw.bb129 ], [ %call123, %sw.bb121 ], [ %call115, %sw.bb112 ], [ %call108, %sw.bb ], [ %yyval.sroa.0.0.copyload, %if.then.i.i2785 ], [ %yyval.sroa.0.0.copyload, %if.else.i.i2786 ], [ %yyval.sroa.0.0.copyload, %if.then.i.i2831 ], [ %yyval.sroa.0.0.copyload, %if.else.i.i2832 ], [ %call762, %if.then760 ], [ %call768, %if.else763 ], [ %call781, %if.then779 ], [ %468, %if.else782 ]
-  %yyerrstatus.3 = phi i32 [ %yyerrstatus.13092, %do.end106 ], [ %yyerrstatus.13092, %sw.bb1840 ], [ 0, %sw.bb1838 ], [ 0, %sw.bb1836 ], [ 0, %sw.bb1832 ], [ %yyerrstatus.13092, %sw.bb1830 ], [ %yyerrstatus.13092, %sw.bb1828 ], [ %yyerrstatus.13092, %sw.bb1826 ], [ 0, %sw.bb1822 ], [ %yyerrstatus.13092, %sw.bb1818 ], [ 0, %sw.bb1816 ], [ 0, %sw.bb1813 ], [ %yyerrstatus.13092, %sw.bb1811 ], [ 0, %sw.bb1810 ], [ %yyerrstatus.13092, %sw.bb1808 ], [ %yyerrstatus.13092, %sw.bb1803 ], [ %yyerrstatus.13092, %sw.bb1801 ], [ %yyerrstatus.13092, %sw.bb1798 ], [ %yyerrstatus.13092, %sw.bb1797 ], [ %yyerrstatus.13092, %sw.bb1794 ], [ %yyerrstatus.13092, %sw.bb1790 ], [ %yyerrstatus.13092, %sw.bb1785 ], [ %yyerrstatus.13092, %sw.bb1781 ], [ %yyerrstatus.13092, %sw.bb1776 ], [ %yyerrstatus.13092, %sw.bb1773 ], [ %yyerrstatus.13092, %sw.bb1768 ], [ %yyerrstatus.13092, %sw.bb1764 ], [ %yyerrstatus.13092, %sw.bb1761 ], [ %yyerrstatus.13092, %sw.bb1756 ], [ %yyerrstatus.13092, %sw.bb1751 ], [ %yyerrstatus.13092, %sw.bb1747 ], [ %yyerrstatus.13092, %sw.bb1743 ], [ %yyerrstatus.13092, %sw.bb1740 ], [ %yyerrstatus.13092, %sw.bb1737 ], [ %yyerrstatus.13092, %sw.bb1734 ], [ %yyerrstatus.13092, %sw.bb1731 ], [ %yyerrstatus.13092, %sw.bb1728 ], [ %yyerrstatus.13092, %sw.bb1724 ], [ %yyerrstatus.13092, %sw.bb1720 ], [ %yyerrstatus.13092, %sw.bb1716 ], [ %yyerrstatus.13092, %sw.bb1712 ], [ %yyerrstatus.13092, %sw.bb1709 ], [ %yyerrstatus.13092, %sw.bb1706 ], [ %yyerrstatus.13092, %sw.bb1704 ], [ %yyerrstatus.13092, %sw.bb1702 ], [ %yyerrstatus.13092, %sw.bb1693 ], [ %yyerrstatus.13092, %sw.bb1690 ], [ %yyerrstatus.13092, %sw.bb1686 ], [ %yyerrstatus.13092, %sw.bb1682 ], [ 0, %sw.bb1673 ], [ %yyerrstatus.13092, %sw.bb1666 ], [ %yyerrstatus.13092, %sw.bb1662 ], [ %yyerrstatus.13092, %sw.bb1660 ], [ %yyerrstatus.13092, %sw.bb1655 ], [ %yyerrstatus.13092, %sw.bb1651 ], [ %yyerrstatus.13092, %sw.bb1647 ], [ %yyerrstatus.13092, %sw.bb1644 ], [ %yyerrstatus.13092, %sw.bb1641 ], [ %yyerrstatus.13092, %sw.bb1635 ], [ %yyerrstatus.13092, %sw.bb1629 ], [ %yyerrstatus.13092, %sw.bb1623 ], [ %yyerrstatus.13092, %sw.bb1618 ], [ %yyerrstatus.13092, %sw.bb1612 ], [ %yyerrstatus.13092, %sw.bb1607 ], [ %yyerrstatus.13092, %sw.bb1601 ], [ %yyerrstatus.13092, %sw.bb1596 ], [ %yyerrstatus.13092, %sw.bb1590 ], [ %yyerrstatus.13092, %sw.bb1585 ], [ %yyerrstatus.13092, %sw.bb1579 ], [ %yyerrstatus.13092, %sw.bb1574 ], [ %yyerrstatus.13092, %sw.bb1568 ], [ %yyerrstatus.13092, %sw.bb1563 ], [ %yyerrstatus.13092, %sw.bb1561 ], [ %yyerrstatus.13092, %sw.bb1559 ], [ %yyerrstatus.13092, %sw.bb1557 ], [ %yyerrstatus.13092, %sw.bb1554 ], [ %yyerrstatus.13092, %sw.bb1549 ], [ %yyerrstatus.13092, %sw.bb1547 ], [ %yyerrstatus.13092, %sw.bb1545 ], [ %yyerrstatus.13092, %sw.bb1543 ], [ %yyerrstatus.13092, %sw.bb1541 ], [ %yyerrstatus.13092, %sw.bb1539 ], [ %yyerrstatus.13092, %sw.bb1537 ], [ %yyerrstatus.13092, %sw.bb1535 ], [ %yyerrstatus.13092, %sw.bb1533 ], [ %yyerrstatus.13092, %sw.bb1522 ], [ %yyerrstatus.13092, %sw.bb1514 ], [ %yyerrstatus.13092, %sw.bb1506 ], [ %yyerrstatus.13092, %sw.bb1501 ], [ %yyerrstatus.13092, %sw.bb1490 ], [ %yyerrstatus.13092, %sw.bb1482 ], [ %yyerrstatus.13092, %sw.bb1474 ], [ %yyerrstatus.13092, %sw.bb1469 ], [ %yyerrstatus.13092, %sw.bb1466 ], [ %yyerrstatus.13092, %sw.bb1463 ], [ %yyerrstatus.13092, %sw.bb1461 ], [ %yyerrstatus.13092, %sw.bb1458 ], [ %yyerrstatus.13092, %sw.bb1456 ], [ %yyerrstatus.13092, %sw.bb1452 ], [ %yyerrstatus.13092, %sw.bb1448 ], [ %yyerrstatus.13092, %sw.bb1444 ], [ %yyerrstatus.13092, %sw.bb1441 ], [ %yyerrstatus.13092, %sw.bb1439 ], [ %yyerrstatus.13092, %sw.bb1428 ], [ %yyerrstatus.13092, %sw.bb1418 ], [ %yyerrstatus.13092, %sw.bb1393 ], [ %yyerrstatus.13092, %sw.bb1369 ], [ %yyerrstatus.13092, %sw.bb1344 ], [ %yyerrstatus.13092, %sw.bb1329 ], [ %yyerrstatus.13092, %sw.bb1327 ], [ %yyerrstatus.13092, %sw.bb1325 ], [ %yyerrstatus.13092, %sw.bb1317 ], [ %yyerrstatus.13092, %sw.bb1309 ], [ %yyerrstatus.13092, %sw.bb1301 ], [ 0, %sw.bb1299 ], [ 0, %sw.bb1297 ], [ %yyerrstatus.13092, %sw.bb1295 ], [ %yyerrstatus.13092, %sw.bb1293 ], [ %yyerrstatus.13092, %sw.bb1286 ], [ %yyerrstatus.13092, %sw.bb1279 ], [ %yyerrstatus.13092, %sw.bb1272 ], [ %yyerrstatus.13092, %sw.bb1265 ], [ %yyerrstatus.13092, %sw.bb1258 ], [ %yyerrstatus.13092, %sw.bb1251 ], [ 0, %sw.bb1249 ], [ 0, %sw.bb1247 ], [ %yyerrstatus.13092, %sw.bb1245 ], [ %yyerrstatus.13092, %sw.bb1243 ], [ %yyerrstatus.13092, %sw.bb1236 ], [ %yyerrstatus.13092, %sw.bb1229 ], [ %yyerrstatus.13092, %sw.bb1222 ], [ %yyerrstatus.13092, %sw.bb1215 ], [ %yyerrstatus.13092, %sw.bb1208 ], [ %yyerrstatus.13092, %sw.bb1201 ], [ 0, %sw.bb1199 ], [ 0, %sw.bb1197 ], [ %yyerrstatus.13092, %sw.bb1195 ], [ %yyerrstatus.13092, %sw.bb1192 ], [ %yyerrstatus.13092, %sw.bb1190 ], [ %yyerrstatus.13092, %sw.bb1186 ], [ %yyerrstatus.13092, %sw.bb1184 ], [ %yyerrstatus.13092, %sw.bb1180 ], [ %yyerrstatus.13092, %sw.bb1176 ], [ %yyerrstatus.13092, %sw.bb1172 ], [ %yyerrstatus.13092, %sw.bb1168 ], [ %yyerrstatus.13092, %sw.bb1164 ], [ %yyerrstatus.13092, %sw.bb1161 ], [ %yyerrstatus.13092, %sw.bb1158 ], [ %yyerrstatus.13092, %sw.bb1153 ], [ %yyerrstatus.13092, %sw.bb1152 ], [ %yyerrstatus.13092, %sw.bb1151 ], [ %yyerrstatus.13092, %sw.bb1147 ], [ %yyerrstatus.13092, %sw.bb1143 ], [ %yyerrstatus.13092, %sw.bb1138 ], [ %yyerrstatus.13092, %sw.bb1126 ], [ %yyerrstatus.13092, %if.then1136 ], [ %yyerrstatus.13092, %sw.bb1125 ], [ %yyerrstatus.13092, %sw.bb1124 ], [ %yyerrstatus.13092, %sw.bb1120 ], [ %yyerrstatus.13092, %sw.bb1118 ], [ %yyerrstatus.13092, %sw.bb1114 ], [ %yyerrstatus.13092, %sw.bb1112 ], [ %yyerrstatus.13092, %sw.bb1108 ], [ %yyerrstatus.13092, %sw.bb1104 ], [ 0, %sw.bb1100 ], [ %yyerrstatus.13092, %sw.bb1096 ], [ 0, %if.end1095 ], [ %yyerrstatus.13092, %sw.bb1075 ], [ %yyerrstatus.13092, %sw.bb1071 ], [ %yyerrstatus.13092, %sw.bb1067 ], [ %yyerrstatus.13092, %sw.bb1063 ], [ %yyerrstatus.13092, %if.end1062 ], [ %yyerrstatus.13092, %sw.bb1048 ], [ %yyerrstatus.13092, %sw.bb1044 ], [ %yyerrstatus.13092, %sw.bb1040 ], [ 0, %sw.bb1036 ], [ %yyerrstatus.13092, %sw.bb1034 ], [ %yyerrstatus.13092, %sw.bb1032 ], [ %yyerrstatus.13092, %sw.bb1030 ], [ 0, %sw.bb1026 ], [ %yyerrstatus.13092, %sw.bb1022 ], [ %yyerrstatus.13092, %sw.bb1020 ], [ %yyerrstatus.13092, %sw.bb1018 ], [ %yyerrstatus.13092, %sw.bb1013 ], [ %yyerrstatus.13092, %sw.bb1008 ], [ %yyerrstatus.13092, %sw.bb1007 ], [ %yyerrstatus.13092, %sw.bb1002 ], [ %yyerrstatus.13092, %sw.bb1001 ], [ %yyerrstatus.13092, %sw.bb995 ], [ %yyerrstatus.13092, %sw.bb989 ], [ %yyerrstatus.13092, %sw.bb982 ], [ %yyerrstatus.13092, %sw.bb975 ], [ %yyerrstatus.13092, %sw.bb969 ], [ %yyerrstatus.13092, %sw.bb964 ], [ 0, %sw.bb960 ], [ %yyerrstatus.13092, %sw.bb958 ], [ %yyerrstatus.13092, %sw.bb956 ], [ %yyerrstatus.13092, %sw.bb954 ], [ 0, %sw.bb950 ], [ %yyerrstatus.13092, %sw.bb946 ], [ %yyerrstatus.13092, %sw.bb944 ], [ %yyerrstatus.13092, %sw.bb942 ], [ %yyerrstatus.13092, %sw.bb939 ], [ %yyerrstatus.13092, %sw.bb936 ], [ %yyerrstatus.13092, %sw.bb935 ], [ %yyerrstatus.13092, %sw.bb931 ], [ %yyerrstatus.13092, %sw.bb929 ], [ %yyerrstatus.13092, %sw.bb927 ], [ %yyerrstatus.13092, %sw.bb923 ], [ %yyerrstatus.13092, %sw.bb920 ], [ %yyerrstatus.13092, %sw.bb918 ], [ %yyerrstatus.13092, %sw.bb917 ], [ %yyerrstatus.13092, %sw.bb916 ], [ %yyerrstatus.13092, %sw.bb914 ], [ %yyerrstatus.13092, %sw.bb909 ], [ %yyerrstatus.13092, %sw.bb904 ], [ %yyerrstatus.13092, %sw.bb898 ], [ %yyerrstatus.13092, %sw.bb891 ], [ %yyerrstatus.13092, %sw.bb885 ], [ 0, %sw.bb881 ], [ %yyerrstatus.13092, %sw.bb879 ], [ %yyerrstatus.13092, %sw.bb877 ], [ %yyerrstatus.13092, %sw.bb875 ], [ 0, %sw.bb871 ], [ %yyerrstatus.13092, %sw.bb867 ], [ %yyerrstatus.13092, %sw.bb861 ], [ %yyerrstatus.13092, %sw.bb858 ], [ %yyerrstatus.13092, %sw.bb855 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2969 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2957 ], [ %yyerrstatus.13092, %sw.bb837 ], [ %yyerrstatus.13092, %sw.bb833 ], [ %yyerrstatus.13092, %sw.bb829 ], [ %yyerrstatus.13092, %sw.bb825 ], [ %yyerrstatus.13092, %if.then812 ], [ %yyerrstatus.13092, %if.else820 ], [ %yyerrstatus.13092, %sw.bb804 ], [ %yyerrstatus.13092, %sw.bb800 ], [ 0, %sw.bb796 ], [ %yyerrstatus.13092, %if.end795 ], [ %yyerrstatus.13092, %sw.bb750 ], [ %yyerrstatus.13092, %sw.bb745 ], [ %yyerrstatus.13092, %sw.bb742 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2951 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2939 ], [ %yyerrstatus.13092, %sw.bb722 ], [ %yyerrstatus.13092, %sw.bb720 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2933 ], [ %yyerrstatus.13092, %sw.bb650 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2874 ], [ %yyerrstatus.13092, %sw.bb645 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2868 ], [ %yyerrstatus.13092, %sw.bb589 ], [ %yyerrstatus.13092, %if.end588 ], [ %yyerrstatus.13092, %sw.bb577 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2827 ], [ %yyerrstatus.13092, %sw.bb573 ], [ %yyerrstatus.13092, %sw.bb571 ], [ %yyerrstatus.13092, %sw.bb570 ], [ %yyerrstatus.13092, %sw.bb567 ], [ %yyerrstatus.13092, %sw.bb564 ], [ %yyerrstatus.13092, %sw.bb563 ], [ %yyerrstatus.13092, %sw.bb560 ], [ %yyerrstatus.13092, %sw.bb559 ], [ %yyerrstatus.13092, %sw.bb556 ], [ %yyerrstatus.13092, %sw.bb553 ], [ %yyerrstatus.13092, %sw.bb550 ], [ %yyerrstatus.13092, %sw.bb547 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2821 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2809 ], [ %yyerrstatus.13092, %sw.bb516 ], [ %yyerrstatus.13092, %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit ], [ %yyerrstatus.13092, %sw.bb500 ], [ %yyerrstatus.13092, %sw.bb495 ], [ %yyerrstatus.13092, %if.end494 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2746 ], [ 0, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2734 ], [ %yyerrstatus.13092, %sw.bb441 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2722 ], [ 0, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2710 ], [ %yyerrstatus.13092, %sw.bb417 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit ], [ %yyerrstatus.13092, %sw.bb401 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit ], [ %yyerrstatus.13092, %sw.bb395 ], [ %yyerrstatus.13092, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2689 ], [ %yyerrstatus.13092, %sw.bb379 ], [ %yyerrstatus.13092, %sw.bb378 ], [ %yyerrstatus.13092, %sw.bb377 ], [ %yyerrstatus.13092, %sw.bb373 ], [ %yyerrstatus.13092, %sw.bb369 ], [ %yyerrstatus.13092, %sw.bb367 ], [ %yyerrstatus.13092, %sw.bb364 ], [ %yyerrstatus.13092, %sw.bb360 ], [ %yyerrstatus.13092, %sw.bb358 ], [ %yyerrstatus.13092, %sw.bb356 ], [ %yyerrstatus.13092, %sw.bb353 ], [ %yyerrstatus.13092, %sw.bb349 ], [ %yyerrstatus.13092, %sw.bb347 ], [ %yyerrstatus.13092, %sw.bb344 ], [ %yyerrstatus.13092, %sw.bb342 ], [ %yyerrstatus.13092, %sw.bb332 ], [ %yyerrstatus.13092, %sw.bb325 ], [ %yyerrstatus.13092, %sw.bb319 ], [ %yyerrstatus.13092, %sw.bb316 ], [ %yyerrstatus.13092, %sw.bb313 ], [ %yyerrstatus.13092, %sw.bb310 ], [ %yyerrstatus.13092, %sw.bb307 ], [ %yyerrstatus.13092, %sw.bb304 ], [ %yyerrstatus.13092, %sw.bb301 ], [ %yyerrstatus.13092, %sw.bb298 ], [ %yyerrstatus.13092, %sw.bb296 ], [ %yyerrstatus.13092, %sw.bb293 ], [ %yyerrstatus.13092, %sw.bb290 ], [ %yyerrstatus.13092, %sw.bb280 ], [ %yyerrstatus.13092, %sw.bb273 ], [ %yyerrstatus.13092, %sw.bb270 ], [ %yyerrstatus.13092, %sw.bb269 ], [ %yyerrstatus.13092, %sw.bb267 ], [ %yyerrstatus.13092, %sw.bb262 ], [ %yyerrstatus.13092, %sw.bb258 ], [ %yyerrstatus.13092, %sw.bb256 ], [ %yyerrstatus.13092, %sw.bb252 ], [ %yyerrstatus.13092, %sw.bb248 ], [ %yyerrstatus.13092, %sw.bb244 ], [ %yyerrstatus.13092, %sw.bb237 ], [ %yyerrstatus.13092, %sw.bb233 ], [ %yyerrstatus.13092, %sw.bb231 ], [ %yyerrstatus.13092, %sw.bb227 ], [ %yyerrstatus.13092, %sw.bb221 ], [ %yyerrstatus.13092, %sw.bb219 ], [ %yyerrstatus.13092, %sw.bb218 ], [ 0, %sw.bb214 ], [ %yyerrstatus.13092, %sw.bb212 ], [ %yyerrstatus.13092, %sw.bb210 ], [ 0, %sw.bb206 ], [ %yyerrstatus.13092, %sw.bb202 ], [ %yyerrstatus.13092, %sw.bb199 ], [ %yyerrstatus.13092, %sw.bb192 ], [ %yyerrstatus.13092, %sw.bb190 ], [ %yyerrstatus.13092, %sw.bb188 ], [ %yyerrstatus.13092, %sw.bb186 ], [ %yyerrstatus.13092, %sw.bb181 ], [ %yyerrstatus.13092, %sw.bb176 ], [ %yyerrstatus.13092, %sw.bb174 ], [ %yyerrstatus.13092, %sw.bb167 ], [ %yyerrstatus.13092, %sw.bb165 ], [ %yyerrstatus.13092, %sw.bb161 ], [ %yyerrstatus.13092, %sw.bb157 ], [ %yyerrstatus.13092, %sw.bb153 ], [ %yyerrstatus.13092, %sw.bb150 ], [ %yyerrstatus.13092, %sw.bb147 ], [ %yyerrstatus.13092, %sw.bb1844 ], [ %yyerrstatus.13092, %sw.bb1848 ], [ %yyerrstatus.13092, %sw.bb1852 ], [ %yyerrstatus.13092, %sw.bb141 ], [ %yyerrstatus.13092, %sw.bb1854 ], [ %yyerrstatus.13092, %sw.bb137 ], [ %yyerrstatus.13092, %sw.bb134 ], [ %yyerrstatus.13092, %sw.bb131 ], [ %yyerrstatus.13092, %sw.bb129 ], [ %yyerrstatus.13092, %sw.bb121 ], [ %yyerrstatus.13092, %sw.bb112 ], [ %yyerrstatus.13092, %sw.bb ], [ %yyerrstatus.13092, %if.then.i.i2785 ], [ %yyerrstatus.13092, %if.else.i.i2786 ], [ %yyerrstatus.13092, %if.then.i.i2831 ], [ %yyerrstatus.13092, %if.else.i.i2832 ], [ %yyerrstatus.13092, %if.then760 ], [ %yyerrstatus.13092, %if.else763 ], [ %yyerrstatus.13092, %if.then779 ], [ %yyerrstatus.13092, %if.else782 ]
+sw.epilog:                                        ; preds = %if.else.i.i2837, %if.then.i.i2836, %if.else.i.i2791, %if.then.i.i2790, %if.then779, %if.else782, %if.then760, %if.else763, %sw.bb1126, %if.then1136, %if.then812, %if.else820, %do.end106, %sw.bb1854, %sw.bb1852, %sw.bb1848, %sw.bb1844, %sw.bb1840, %sw.bb1838, %sw.bb1836, %sw.bb1832, %sw.bb1830, %sw.bb1828, %sw.bb1826, %sw.bb1822, %sw.bb1818, %sw.bb1816, %sw.bb1813, %sw.bb1811, %sw.bb1810, %sw.bb1808, %sw.bb1803, %sw.bb1801, %sw.bb1798, %sw.bb1797, %sw.bb1794, %sw.bb1790, %sw.bb1785, %sw.bb1781, %sw.bb1776, %sw.bb1773, %sw.bb1768, %sw.bb1764, %sw.bb1761, %sw.bb1756, %sw.bb1751, %sw.bb1747, %sw.bb1743, %sw.bb1740, %sw.bb1737, %sw.bb1734, %sw.bb1731, %sw.bb1728, %sw.bb1724, %sw.bb1720, %sw.bb1716, %sw.bb1712, %sw.bb1709, %sw.bb1706, %sw.bb1704, %sw.bb1702, %sw.bb1693, %sw.bb1690, %sw.bb1686, %sw.bb1682, %sw.bb1673, %sw.bb1666, %sw.bb1662, %sw.bb1660, %sw.bb1655, %sw.bb1651, %sw.bb1647, %sw.bb1644, %sw.bb1641, %sw.bb1635, %sw.bb1629, %sw.bb1623, %sw.bb1618, %sw.bb1612, %sw.bb1607, %sw.bb1601, %sw.bb1596, %sw.bb1590, %sw.bb1585, %sw.bb1579, %sw.bb1574, %sw.bb1568, %sw.bb1563, %sw.bb1561, %sw.bb1559, %sw.bb1557, %sw.bb1554, %sw.bb1549, %sw.bb1547, %sw.bb1545, %sw.bb1543, %sw.bb1541, %sw.bb1539, %sw.bb1537, %sw.bb1535, %sw.bb1533, %sw.bb1522, %sw.bb1514, %sw.bb1506, %sw.bb1501, %sw.bb1490, %sw.bb1482, %sw.bb1474, %sw.bb1469, %sw.bb1466, %sw.bb1463, %sw.bb1461, %sw.bb1458, %sw.bb1456, %sw.bb1452, %sw.bb1448, %sw.bb1444, %sw.bb1441, %sw.bb1439, %sw.bb1428, %sw.bb1418, %sw.bb1393, %sw.bb1369, %sw.bb1344, %sw.bb1329, %sw.bb1327, %sw.bb1325, %sw.bb1317, %sw.bb1309, %sw.bb1301, %sw.bb1299, %sw.bb1297, %sw.bb1295, %sw.bb1293, %sw.bb1286, %sw.bb1279, %sw.bb1272, %sw.bb1265, %sw.bb1258, %sw.bb1251, %sw.bb1249, %sw.bb1247, %sw.bb1245, %sw.bb1243, %sw.bb1236, %sw.bb1229, %sw.bb1222, %sw.bb1215, %sw.bb1208, %sw.bb1201, %sw.bb1199, %sw.bb1197, %sw.bb1195, %sw.bb1192, %sw.bb1190, %sw.bb1186, %sw.bb1184, %sw.bb1180, %sw.bb1176, %sw.bb1172, %sw.bb1168, %sw.bb1164, %sw.bb1161, %sw.bb1158, %sw.bb1153, %sw.bb1152, %sw.bb1151, %sw.bb1147, %sw.bb1143, %sw.bb1138, %sw.bb1125, %sw.bb1124, %sw.bb1120, %sw.bb1118, %sw.bb1114, %sw.bb1112, %sw.bb1108, %sw.bb1104, %sw.bb1100, %sw.bb1096, %if.end1095, %sw.bb1075, %sw.bb1071, %sw.bb1067, %sw.bb1063, %if.end1062, %sw.bb1048, %sw.bb1044, %sw.bb1040, %sw.bb1036, %sw.bb1034, %sw.bb1032, %sw.bb1030, %sw.bb1026, %sw.bb1022, %sw.bb1020, %sw.bb1018, %sw.bb1013, %sw.bb1008, %sw.bb1007, %sw.bb1002, %sw.bb1001, %sw.bb995, %sw.bb989, %sw.bb982, %sw.bb975, %sw.bb969, %sw.bb964, %sw.bb960, %sw.bb958, %sw.bb956, %sw.bb954, %sw.bb950, %sw.bb946, %sw.bb944, %sw.bb942, %sw.bb939, %sw.bb936, %sw.bb935, %sw.bb931, %sw.bb929, %sw.bb927, %sw.bb923, %sw.bb920, %sw.bb918, %sw.bb917, %sw.bb916, %sw.bb914, %sw.bb909, %sw.bb904, %sw.bb898, %sw.bb891, %sw.bb885, %sw.bb881, %sw.bb879, %sw.bb877, %sw.bb875, %sw.bb871, %sw.bb867, %sw.bb861, %sw.bb858, %sw.bb855, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2974, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2962, %sw.bb837, %sw.bb833, %sw.bb829, %sw.bb825, %sw.bb804, %sw.bb800, %sw.bb796, %if.end795, %sw.bb750, %sw.bb745, %sw.bb742, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2956, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2944, %sw.bb722, %sw.bb720, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2938, %sw.bb650, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2879, %sw.bb645, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2873, %sw.bb589, %if.end588, %sw.bb577, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2832, %sw.bb573, %sw.bb571, %sw.bb570, %sw.bb567, %sw.bb564, %sw.bb563, %sw.bb560, %sw.bb559, %sw.bb556, %sw.bb553, %sw.bb550, %sw.bb547, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2826, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2814, %sw.bb516, %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit, %sw.bb500, %sw.bb495, %if.end494, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2751, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2739, %sw.bb441, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2727, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2715, %sw.bb417, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit, %sw.bb401, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit, %sw.bb395, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2694, %sw.bb379, %sw.bb378, %sw.bb377, %sw.bb373, %sw.bb369, %sw.bb367, %sw.bb364, %sw.bb360, %sw.bb358, %sw.bb356, %sw.bb353, %sw.bb349, %sw.bb347, %sw.bb344, %sw.bb342, %sw.bb332, %sw.bb325, %sw.bb319, %sw.bb316, %sw.bb313, %sw.bb310, %sw.bb307, %sw.bb304, %sw.bb301, %sw.bb298, %sw.bb296, %sw.bb293, %sw.bb290, %sw.bb280, %sw.bb273, %sw.bb270, %sw.bb269, %sw.bb267, %sw.bb262, %sw.bb258, %sw.bb256, %sw.bb252, %sw.bb248, %sw.bb244, %sw.bb237, %sw.bb233, %sw.bb231, %sw.bb227, %sw.bb221, %sw.bb219, %sw.bb218, %sw.bb214, %sw.bb212, %sw.bb210, %sw.bb206, %sw.bb202, %sw.bb199, %sw.bb192, %sw.bb190, %sw.bb188, %sw.bb186, %sw.bb181, %sw.bb176, %sw.bb174, %sw.bb167, %sw.bb165, %sw.bb161, %sw.bb157, %sw.bb153, %sw.bb150, %sw.bb147, %sw.bb141, %sw.bb137, %sw.bb134, %sw.bb131, %sw.bb129, %sw.bb121, %sw.bb112, %sw.bb
+  %yyval.sroa.0.3 = phi ptr [ %yyval.sroa.0.0.copyload, %do.end106 ], [ %call1843, %sw.bb1840 ], [ %call1839, %sw.bb1838 ], [ %868, %sw.bb1836 ], [ %call1835, %sw.bb1832 ], [ %865, %sw.bb1830 ], [ %864, %sw.bb1828 ], [ %call1827, %sw.bb1826 ], [ %call1825, %sw.bb1822 ], [ %call1821, %sw.bb1818 ], [ %call1817, %sw.bb1816 ], [ %call1815, %sw.bb1813 ], [ %859, %sw.bb1811 ], [ %yyval.sroa.0.0.copyload, %sw.bb1810 ], [ %858, %sw.bb1808 ], [ %856, %sw.bb1803 ], [ %855, %sw.bb1801 ], [ %call1800, %sw.bb1798 ], [ %yyval.sroa.0.0.copyload, %sw.bb1797 ], [ %call1796, %sw.bb1794 ], [ %call1793, %sw.bb1790 ], [ %call1789, %sw.bb1785 ], [ %call1784, %sw.bb1781 ], [ %call1780, %sw.bb1776 ], [ %call1775, %sw.bb1773 ], [ %call1772, %sw.bb1768 ], [ %call1767, %sw.bb1764 ], [ %call1763, %sw.bb1761 ], [ %call1760, %sw.bb1756 ], [ %call1755, %sw.bb1751 ], [ %call1750, %sw.bb1747 ], [ %call1746, %sw.bb1743 ], [ %call1742, %sw.bb1740 ], [ %call1739, %sw.bb1737 ], [ %call1736, %sw.bb1734 ], [ %call1733, %sw.bb1731 ], [ %call1730, %sw.bb1728 ], [ %call1727, %sw.bb1724 ], [ %call1723, %sw.bb1720 ], [ %call1719, %sw.bb1716 ], [ %call1715, %sw.bb1712 ], [ %call1711, %sw.bb1709 ], [ %call1708, %sw.bb1706 ], [ %call1705, %sw.bb1704 ], [ %call1703, %sw.bb1702 ], [ %call1701, %sw.bb1693 ], [ %call1692, %sw.bb1690 ], [ %call1689, %sw.bb1686 ], [ %call1685, %sw.bb1682 ], [ %call1681, %sw.bb1673 ], [ %call1672, %sw.bb1666 ], [ %call1665, %sw.bb1662 ], [ %call1661, %sw.bb1660 ], [ %call1659, %sw.bb1655 ], [ %call1654, %sw.bb1651 ], [ %call1650, %sw.bb1647 ], [ %call1646, %sw.bb1644 ], [ %call1643, %sw.bb1641 ], [ %call1640, %sw.bb1635 ], [ %call1634, %sw.bb1629 ], [ %call1628, %sw.bb1623 ], [ %call1622, %sw.bb1618 ], [ %call1617, %sw.bb1612 ], [ %call1611, %sw.bb1607 ], [ %call1606, %sw.bb1601 ], [ %call1600, %sw.bb1596 ], [ %call1595, %sw.bb1590 ], [ %call1589, %sw.bb1585 ], [ %call1584, %sw.bb1579 ], [ %call1578, %sw.bb1574 ], [ %call1573, %sw.bb1568 ], [ %call1567, %sw.bb1563 ], [ %call1562, %sw.bb1561 ], [ %call1560, %sw.bb1559 ], [ %call1558, %sw.bb1557 ], [ %call1556, %sw.bb1554 ], [ %call1553, %sw.bb1549 ], [ %call1548, %sw.bb1547 ], [ %call1546, %sw.bb1545 ], [ %call1544, %sw.bb1543 ], [ %call1542, %sw.bb1541 ], [ %call1540, %sw.bb1539 ], [ %call1538, %sw.bb1537 ], [ %call1536, %sw.bb1535 ], [ %call1534, %sw.bb1533 ], [ %call1532, %sw.bb1522 ], [ %call1521, %sw.bb1514 ], [ %call1513, %sw.bb1506 ], [ %call1505, %sw.bb1501 ], [ %call1500, %sw.bb1490 ], [ %call1489, %sw.bb1482 ], [ %call1481, %sw.bb1474 ], [ %call1473, %sw.bb1469 ], [ %call1468, %sw.bb1466 ], [ %call1465, %sw.bb1463 ], [ %call1462, %sw.bb1461 ], [ %call1460, %sw.bb1458 ], [ %call1457, %sw.bb1456 ], [ %call1455, %sw.bb1452 ], [ %call1451, %sw.bb1448 ], [ %call1447, %sw.bb1444 ], [ %call1443, %sw.bb1441 ], [ %call1440, %sw.bb1439 ], [ %call1435, %sw.bb1428 ], [ %call1425, %sw.bb1418 ], [ %call1413, %sw.bb1393 ], [ %call1388, %sw.bb1369 ], [ %call1364, %sw.bb1344 ], [ %call1340, %sw.bb1329 ], [ %708, %sw.bb1327 ], [ %707, %sw.bb1325 ], [ %call1320, %sw.bb1317 ], [ %call1312, %sw.bb1309 ], [ %call1304, %sw.bb1301 ], [ %call1300, %sw.bb1299 ], [ %695, %sw.bb1297 ], [ %694, %sw.bb1295 ], [ %693, %sw.bb1293 ], [ %call1289, %sw.bb1286 ], [ %call1282, %sw.bb1279 ], [ %call1275, %sw.bb1272 ], [ %call1268, %sw.bb1265 ], [ %call1261, %sw.bb1258 ], [ %call1254, %sw.bb1251 ], [ %call1250, %sw.bb1249 ], [ %670, %sw.bb1247 ], [ %669, %sw.bb1245 ], [ %668, %sw.bb1243 ], [ %call1239, %sw.bb1236 ], [ %call1232, %sw.bb1229 ], [ %call1225, %sw.bb1222 ], [ %call1218, %sw.bb1215 ], [ %call1211, %sw.bb1208 ], [ %call1204, %sw.bb1201 ], [ %call1200, %sw.bb1199 ], [ %645, %sw.bb1197 ], [ %call1196, %sw.bb1195 ], [ %call1194, %sw.bb1192 ], [ %call1191, %sw.bb1190 ], [ %call1189, %sw.bb1186 ], [ %643, %sw.bb1184 ], [ %call1183, %sw.bb1180 ], [ %call1179, %sw.bb1176 ], [ %call1175, %sw.bb1172 ], [ %call1171, %sw.bb1168 ], [ %call1167, %sw.bb1164 ], [ %call1163, %sw.bb1161 ], [ %call1160, %sw.bb1158 ], [ %call1157, %sw.bb1153 ], [ %yyval.sroa.0.0.copyload, %sw.bb1152 ], [ %yyval.sroa.0.0.copyload, %sw.bb1151 ], [ %call1150, %sw.bb1147 ], [ %call1146, %sw.bb1143 ], [ %call1142, %sw.bb1138 ], [ %call1130, %sw.bb1126 ], [ %call1130, %if.then1136 ], [ %yyval.sroa.0.0.copyload, %sw.bb1125 ], [ %yyval.sroa.0.0.copyload, %sw.bb1124 ], [ %call1123, %sw.bb1120 ], [ %call1119, %sw.bb1118 ], [ %call1117, %sw.bb1114 ], [ %call1113, %sw.bb1112 ], [ %call1111, %sw.bb1108 ], [ %call1107, %sw.bb1104 ], [ %call1103, %sw.bb1100 ], [ %call1099, %sw.bb1096 ], [ %call1094, %if.end1095 ], [ %call1078, %sw.bb1075 ], [ %call1074, %sw.bb1071 ], [ %call1070, %sw.bb1067 ], [ %call1066, %sw.bb1063 ], [ %yyval.sroa.0.0.copyload, %if.end1062 ], [ %call1055, %sw.bb1048 ], [ %call1047, %sw.bb1044 ], [ %call1043, %sw.bb1040 ], [ %call1039, %sw.bb1036 ], [ %590, %sw.bb1034 ], [ %589, %sw.bb1032 ], [ %call1031, %sw.bb1030 ], [ %call1029, %sw.bb1026 ], [ %call1025, %sw.bb1022 ], [ %585, %sw.bb1020 ], [ %call1019, %sw.bb1018 ], [ %call1015, %sw.bb1013 ], [ %call1010, %sw.bb1008 ], [ %yyval.sroa.0.0.copyload, %sw.bb1007 ], [ %call1004, %sw.bb1002 ], [ %yyval.sroa.0.0.copyload, %sw.bb1001 ], [ %call998, %sw.bb995 ], [ %call992, %sw.bb989 ], [ %call986, %sw.bb982 ], [ %call979, %sw.bb975 ], [ %call972, %sw.bb969 ], [ %call966, %sw.bb964 ], [ %call963, %sw.bb960 ], [ %548, %sw.bb958 ], [ %547, %sw.bb956 ], [ %call955, %sw.bb954 ], [ %call953, %sw.bb950 ], [ %call949, %sw.bb946 ], [ %543, %sw.bb944 ], [ %call943, %sw.bb942 ], [ %call941, %sw.bb939 ], [ %call938, %sw.bb936 ], [ %yyval.sroa.0.0.copyload, %sw.bb935 ], [ %call934, %sw.bb931 ], [ %call930, %sw.bb929 ], [ %call928, %sw.bb927 ], [ %call926, %sw.bb923 ], [ %call922, %sw.bb920 ], [ %535, %sw.bb918 ], [ %yyval.sroa.0.0.copyload, %sw.bb917 ], [ %yyval.sroa.0.0.copyload, %sw.bb916 ], [ %call915, %sw.bb914 ], [ %call911, %sw.bb909 ], [ %call906, %sw.bb904 ], [ %call901, %sw.bb898 ], [ %call895, %sw.bb891 ], [ %call888, %sw.bb885 ], [ %call884, %sw.bb881 ], [ %513, %sw.bb879 ], [ %512, %sw.bb877 ], [ %call876, %sw.bb875 ], [ %call874, %sw.bb871 ], [ %call870, %sw.bb867 ], [ %call863, %sw.bb861 ], [ %call860, %sw.bb858 ], [ %call857, %sw.bb855 ], [ %491, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2974 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2962 ], [ %call840, %sw.bb837 ], [ %call836, %sw.bb833 ], [ %call832, %sw.bb829 ], [ %call828, %sw.bb825 ], [ %call819, %if.then812 ], [ %call823, %if.else820 ], [ %call807, %sw.bb804 ], [ %call803, %sw.bb800 ], [ %call799, %sw.bb796 ], [ %yyval.sroa.0.0.copyload, %if.end795 ], [ %460, %sw.bb750 ], [ %call749, %sw.bb745 ], [ %call744, %sw.bb742 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2956 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2944 ], [ %call725, %sw.bb722 ], [ %call721, %sw.bb720 ], [ %call710, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2938 ], [ %yyval.sroa.0.0.copyload, %sw.bb650 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2879 ], [ %call646, %sw.bb645 ], [ %call644, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2873 ], [ %yyval.sroa.0.0.copyload, %sw.bb589 ], [ %call582, %if.end588 ], [ %yyval.sroa.0.0.copyload, %sw.bb577 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2832 ], [ %yyval.sroa.0.0.copyload, %sw.bb573 ], [ %319, %sw.bb571 ], [ %yyval.sroa.0.0.copyload, %sw.bb570 ], [ %call569, %sw.bb567 ], [ %call566, %sw.bb564 ], [ %yyval.sroa.0.0.copyload, %sw.bb563 ], [ %call562, %sw.bb560 ], [ %yyval.sroa.0.0.copyload, %sw.bb559 ], [ %call558, %sw.bb556 ], [ %call555, %sw.bb553 ], [ %call552, %sw.bb550 ], [ %call549, %sw.bb547 ], [ %call529, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2826 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2814 ], [ %call517, %sw.bb516 ], [ %266, %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit ], [ %yyval.sroa.0.0.copyload, %sw.bb500 ], [ %call496, %sw.bb495 ], [ %call479, %if.end494 ], [ %213, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2751 ], [ %200, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2739 ], [ %yyval.sroa.0.0.copyload, %sw.bb441 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2727 ], [ %177, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2715 ], [ %yyval.sroa.0.0.copyload, %sw.bb417 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit ], [ %call404, %sw.bb401 ], [ %yyval.sroa.0.0.copyload, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit ], [ %call398, %sw.bb395 ], [ %call385, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2694 ], [ %call382, %sw.bb379 ], [ %yyval.sroa.0.0.copyload, %sw.bb378 ], [ %yyval.sroa.0.0.copyload, %sw.bb377 ], [ %call376, %sw.bb373 ], [ %call372, %sw.bb369 ], [ %call368, %sw.bb367 ], [ %call366, %sw.bb364 ], [ %call363, %sw.bb360 ], [ %call359, %sw.bb358 ], [ %call357, %sw.bb356 ], [ %call355, %sw.bb353 ], [ %call352, %sw.bb349 ], [ %call348, %sw.bb347 ], [ %call346, %sw.bb344 ], [ %134, %sw.bb342 ], [ %call335, %sw.bb332 ], [ %call326, %sw.bb325 ], [ %call324, %sw.bb319 ], [ %call318, %sw.bb316 ], [ %call315, %sw.bb313 ], [ %call312, %sw.bb310 ], [ %call309, %sw.bb307 ], [ %call306, %sw.bb304 ], [ %call303, %sw.bb301 ], [ %call300, %sw.bb298 ], [ %call297, %sw.bb296 ], [ %call295, %sw.bb293 ], [ %call292, %sw.bb290 ], [ %call283, %sw.bb280 ], [ %call274, %sw.bb273 ], [ %call272, %sw.bb270 ], [ %yyval.sroa.0.0.copyload, %sw.bb269 ], [ %call268, %sw.bb267 ], [ %call266, %sw.bb262 ], [ %call261, %sw.bb258 ], [ %call257, %sw.bb256 ], [ %call255, %sw.bb252 ], [ %call251, %sw.bb248 ], [ %call247, %sw.bb244 ], [ %call242, %sw.bb237 ], [ %call236, %sw.bb233 ], [ %call232, %sw.bb231 ], [ %call230, %sw.bb227 ], [ %call224, %sw.bb221 ], [ %yyval.sroa.0.0.copyload, %sw.bb219 ], [ %yyval.sroa.0.0.copyload, %sw.bb218 ], [ %call217, %sw.bb214 ], [ %86, %sw.bb212 ], [ %call211, %sw.bb210 ], [ %call209, %sw.bb206 ], [ %call205, %sw.bb202 ], [ %call201, %sw.bb199 ], [ %call196, %sw.bb192 ], [ %call191, %sw.bb190 ], [ %call189, %sw.bb188 ], [ %call187, %sw.bb186 ], [ %call183, %sw.bb181 ], [ %call178, %sw.bb176 ], [ %call175, %sw.bb174 ], [ %call172, %sw.bb167 ], [ %yyval.sroa.0.0.copyload, %sw.bb165 ], [ %call164, %sw.bb161 ], [ %call160, %sw.bb157 ], [ %call156, %sw.bb153 ], [ %yyval.sroa.0.0.copyload, %sw.bb150 ], [ %yyval.sroa.0.0.copyload, %sw.bb147 ], [ %call1847, %sw.bb1844 ], [ %call1851, %sw.bb1848 ], [ %874, %sw.bb1852 ], [ %yyval.sroa.0.0.copyload, %sw.bb141 ], [ %875, %sw.bb1854 ], [ %yyval.sroa.0.0.copyload, %sw.bb137 ], [ %yyval.sroa.0.0.copyload, %sw.bb134 ], [ %yyval.sroa.0.0.copyload, %sw.bb131 ], [ %yyval.sroa.0.0.copyload, %sw.bb129 ], [ %call123, %sw.bb121 ], [ %call115, %sw.bb112 ], [ %call108, %sw.bb ], [ %call762, %if.then760 ], [ %call768, %if.else763 ], [ %call781, %if.then779 ], [ %468, %if.else782 ], [ %yyval.sroa.0.0.copyload, %if.then.i.i2790 ], [ %yyval.sroa.0.0.copyload, %if.else.i.i2791 ], [ %yyval.sroa.0.0.copyload, %if.then.i.i2836 ], [ %yyval.sroa.0.0.copyload, %if.else.i.i2837 ]
+  %yyerrstatus.3 = phi i32 [ %yyerrstatus.13084, %do.end106 ], [ %yyerrstatus.13084, %sw.bb1840 ], [ 0, %sw.bb1838 ], [ 0, %sw.bb1836 ], [ 0, %sw.bb1832 ], [ %yyerrstatus.13084, %sw.bb1830 ], [ %yyerrstatus.13084, %sw.bb1828 ], [ %yyerrstatus.13084, %sw.bb1826 ], [ 0, %sw.bb1822 ], [ %yyerrstatus.13084, %sw.bb1818 ], [ 0, %sw.bb1816 ], [ 0, %sw.bb1813 ], [ %yyerrstatus.13084, %sw.bb1811 ], [ 0, %sw.bb1810 ], [ %yyerrstatus.13084, %sw.bb1808 ], [ %yyerrstatus.13084, %sw.bb1803 ], [ %yyerrstatus.13084, %sw.bb1801 ], [ %yyerrstatus.13084, %sw.bb1798 ], [ %yyerrstatus.13084, %sw.bb1797 ], [ %yyerrstatus.13084, %sw.bb1794 ], [ %yyerrstatus.13084, %sw.bb1790 ], [ %yyerrstatus.13084, %sw.bb1785 ], [ %yyerrstatus.13084, %sw.bb1781 ], [ %yyerrstatus.13084, %sw.bb1776 ], [ %yyerrstatus.13084, %sw.bb1773 ], [ %yyerrstatus.13084, %sw.bb1768 ], [ %yyerrstatus.13084, %sw.bb1764 ], [ %yyerrstatus.13084, %sw.bb1761 ], [ %yyerrstatus.13084, %sw.bb1756 ], [ %yyerrstatus.13084, %sw.bb1751 ], [ %yyerrstatus.13084, %sw.bb1747 ], [ %yyerrstatus.13084, %sw.bb1743 ], [ %yyerrstatus.13084, %sw.bb1740 ], [ %yyerrstatus.13084, %sw.bb1737 ], [ %yyerrstatus.13084, %sw.bb1734 ], [ %yyerrstatus.13084, %sw.bb1731 ], [ %yyerrstatus.13084, %sw.bb1728 ], [ %yyerrstatus.13084, %sw.bb1724 ], [ %yyerrstatus.13084, %sw.bb1720 ], [ %yyerrstatus.13084, %sw.bb1716 ], [ %yyerrstatus.13084, %sw.bb1712 ], [ %yyerrstatus.13084, %sw.bb1709 ], [ %yyerrstatus.13084, %sw.bb1706 ], [ %yyerrstatus.13084, %sw.bb1704 ], [ %yyerrstatus.13084, %sw.bb1702 ], [ %yyerrstatus.13084, %sw.bb1693 ], [ %yyerrstatus.13084, %sw.bb1690 ], [ %yyerrstatus.13084, %sw.bb1686 ], [ %yyerrstatus.13084, %sw.bb1682 ], [ 0, %sw.bb1673 ], [ %yyerrstatus.13084, %sw.bb1666 ], [ %yyerrstatus.13084, %sw.bb1662 ], [ %yyerrstatus.13084, %sw.bb1660 ], [ %yyerrstatus.13084, %sw.bb1655 ], [ %yyerrstatus.13084, %sw.bb1651 ], [ %yyerrstatus.13084, %sw.bb1647 ], [ %yyerrstatus.13084, %sw.bb1644 ], [ %yyerrstatus.13084, %sw.bb1641 ], [ %yyerrstatus.13084, %sw.bb1635 ], [ %yyerrstatus.13084, %sw.bb1629 ], [ %yyerrstatus.13084, %sw.bb1623 ], [ %yyerrstatus.13084, %sw.bb1618 ], [ %yyerrstatus.13084, %sw.bb1612 ], [ %yyerrstatus.13084, %sw.bb1607 ], [ %yyerrstatus.13084, %sw.bb1601 ], [ %yyerrstatus.13084, %sw.bb1596 ], [ %yyerrstatus.13084, %sw.bb1590 ], [ %yyerrstatus.13084, %sw.bb1585 ], [ %yyerrstatus.13084, %sw.bb1579 ], [ %yyerrstatus.13084, %sw.bb1574 ], [ %yyerrstatus.13084, %sw.bb1568 ], [ %yyerrstatus.13084, %sw.bb1563 ], [ %yyerrstatus.13084, %sw.bb1561 ], [ %yyerrstatus.13084, %sw.bb1559 ], [ %yyerrstatus.13084, %sw.bb1557 ], [ %yyerrstatus.13084, %sw.bb1554 ], [ %yyerrstatus.13084, %sw.bb1549 ], [ %yyerrstatus.13084, %sw.bb1547 ], [ %yyerrstatus.13084, %sw.bb1545 ], [ %yyerrstatus.13084, %sw.bb1543 ], [ %yyerrstatus.13084, %sw.bb1541 ], [ %yyerrstatus.13084, %sw.bb1539 ], [ %yyerrstatus.13084, %sw.bb1537 ], [ %yyerrstatus.13084, %sw.bb1535 ], [ %yyerrstatus.13084, %sw.bb1533 ], [ %yyerrstatus.13084, %sw.bb1522 ], [ %yyerrstatus.13084, %sw.bb1514 ], [ %yyerrstatus.13084, %sw.bb1506 ], [ %yyerrstatus.13084, %sw.bb1501 ], [ %yyerrstatus.13084, %sw.bb1490 ], [ %yyerrstatus.13084, %sw.bb1482 ], [ %yyerrstatus.13084, %sw.bb1474 ], [ %yyerrstatus.13084, %sw.bb1469 ], [ %yyerrstatus.13084, %sw.bb1466 ], [ %yyerrstatus.13084, %sw.bb1463 ], [ %yyerrstatus.13084, %sw.bb1461 ], [ %yyerrstatus.13084, %sw.bb1458 ], [ %yyerrstatus.13084, %sw.bb1456 ], [ %yyerrstatus.13084, %sw.bb1452 ], [ %yyerrstatus.13084, %sw.bb1448 ], [ %yyerrstatus.13084, %sw.bb1444 ], [ %yyerrstatus.13084, %sw.bb1441 ], [ %yyerrstatus.13084, %sw.bb1439 ], [ %yyerrstatus.13084, %sw.bb1428 ], [ %yyerrstatus.13084, %sw.bb1418 ], [ %yyerrstatus.13084, %sw.bb1393 ], [ %yyerrstatus.13084, %sw.bb1369 ], [ %yyerrstatus.13084, %sw.bb1344 ], [ %yyerrstatus.13084, %sw.bb1329 ], [ %yyerrstatus.13084, %sw.bb1327 ], [ %yyerrstatus.13084, %sw.bb1325 ], [ %yyerrstatus.13084, %sw.bb1317 ], [ %yyerrstatus.13084, %sw.bb1309 ], [ %yyerrstatus.13084, %sw.bb1301 ], [ 0, %sw.bb1299 ], [ 0, %sw.bb1297 ], [ %yyerrstatus.13084, %sw.bb1295 ], [ %yyerrstatus.13084, %sw.bb1293 ], [ %yyerrstatus.13084, %sw.bb1286 ], [ %yyerrstatus.13084, %sw.bb1279 ], [ %yyerrstatus.13084, %sw.bb1272 ], [ %yyerrstatus.13084, %sw.bb1265 ], [ %yyerrstatus.13084, %sw.bb1258 ], [ %yyerrstatus.13084, %sw.bb1251 ], [ 0, %sw.bb1249 ], [ 0, %sw.bb1247 ], [ %yyerrstatus.13084, %sw.bb1245 ], [ %yyerrstatus.13084, %sw.bb1243 ], [ %yyerrstatus.13084, %sw.bb1236 ], [ %yyerrstatus.13084, %sw.bb1229 ], [ %yyerrstatus.13084, %sw.bb1222 ], [ %yyerrstatus.13084, %sw.bb1215 ], [ %yyerrstatus.13084, %sw.bb1208 ], [ %yyerrstatus.13084, %sw.bb1201 ], [ 0, %sw.bb1199 ], [ 0, %sw.bb1197 ], [ %yyerrstatus.13084, %sw.bb1195 ], [ %yyerrstatus.13084, %sw.bb1192 ], [ %yyerrstatus.13084, %sw.bb1190 ], [ %yyerrstatus.13084, %sw.bb1186 ], [ %yyerrstatus.13084, %sw.bb1184 ], [ %yyerrstatus.13084, %sw.bb1180 ], [ %yyerrstatus.13084, %sw.bb1176 ], [ %yyerrstatus.13084, %sw.bb1172 ], [ %yyerrstatus.13084, %sw.bb1168 ], [ %yyerrstatus.13084, %sw.bb1164 ], [ %yyerrstatus.13084, %sw.bb1161 ], [ %yyerrstatus.13084, %sw.bb1158 ], [ %yyerrstatus.13084, %sw.bb1153 ], [ %yyerrstatus.13084, %sw.bb1152 ], [ %yyerrstatus.13084, %sw.bb1151 ], [ %yyerrstatus.13084, %sw.bb1147 ], [ %yyerrstatus.13084, %sw.bb1143 ], [ %yyerrstatus.13084, %sw.bb1138 ], [ %yyerrstatus.13084, %sw.bb1126 ], [ %yyerrstatus.13084, %if.then1136 ], [ %yyerrstatus.13084, %sw.bb1125 ], [ %yyerrstatus.13084, %sw.bb1124 ], [ %yyerrstatus.13084, %sw.bb1120 ], [ %yyerrstatus.13084, %sw.bb1118 ], [ %yyerrstatus.13084, %sw.bb1114 ], [ %yyerrstatus.13084, %sw.bb1112 ], [ %yyerrstatus.13084, %sw.bb1108 ], [ %yyerrstatus.13084, %sw.bb1104 ], [ 0, %sw.bb1100 ], [ %yyerrstatus.13084, %sw.bb1096 ], [ 0, %if.end1095 ], [ %yyerrstatus.13084, %sw.bb1075 ], [ %yyerrstatus.13084, %sw.bb1071 ], [ %yyerrstatus.13084, %sw.bb1067 ], [ %yyerrstatus.13084, %sw.bb1063 ], [ %yyerrstatus.13084, %if.end1062 ], [ %yyerrstatus.13084, %sw.bb1048 ], [ %yyerrstatus.13084, %sw.bb1044 ], [ %yyerrstatus.13084, %sw.bb1040 ], [ 0, %sw.bb1036 ], [ %yyerrstatus.13084, %sw.bb1034 ], [ %yyerrstatus.13084, %sw.bb1032 ], [ %yyerrstatus.13084, %sw.bb1030 ], [ 0, %sw.bb1026 ], [ %yyerrstatus.13084, %sw.bb1022 ], [ %yyerrstatus.13084, %sw.bb1020 ], [ %yyerrstatus.13084, %sw.bb1018 ], [ %yyerrstatus.13084, %sw.bb1013 ], [ %yyerrstatus.13084, %sw.bb1008 ], [ %yyerrstatus.13084, %sw.bb1007 ], [ %yyerrstatus.13084, %sw.bb1002 ], [ %yyerrstatus.13084, %sw.bb1001 ], [ %yyerrstatus.13084, %sw.bb995 ], [ %yyerrstatus.13084, %sw.bb989 ], [ %yyerrstatus.13084, %sw.bb982 ], [ %yyerrstatus.13084, %sw.bb975 ], [ %yyerrstatus.13084, %sw.bb969 ], [ %yyerrstatus.13084, %sw.bb964 ], [ 0, %sw.bb960 ], [ %yyerrstatus.13084, %sw.bb958 ], [ %yyerrstatus.13084, %sw.bb956 ], [ %yyerrstatus.13084, %sw.bb954 ], [ 0, %sw.bb950 ], [ %yyerrstatus.13084, %sw.bb946 ], [ %yyerrstatus.13084, %sw.bb944 ], [ %yyerrstatus.13084, %sw.bb942 ], [ %yyerrstatus.13084, %sw.bb939 ], [ %yyerrstatus.13084, %sw.bb936 ], [ %yyerrstatus.13084, %sw.bb935 ], [ %yyerrstatus.13084, %sw.bb931 ], [ %yyerrstatus.13084, %sw.bb929 ], [ %yyerrstatus.13084, %sw.bb927 ], [ %yyerrstatus.13084, %sw.bb923 ], [ %yyerrstatus.13084, %sw.bb920 ], [ %yyerrstatus.13084, %sw.bb918 ], [ %yyerrstatus.13084, %sw.bb917 ], [ %yyerrstatus.13084, %sw.bb916 ], [ %yyerrstatus.13084, %sw.bb914 ], [ %yyerrstatus.13084, %sw.bb909 ], [ %yyerrstatus.13084, %sw.bb904 ], [ %yyerrstatus.13084, %sw.bb898 ], [ %yyerrstatus.13084, %sw.bb891 ], [ %yyerrstatus.13084, %sw.bb885 ], [ 0, %sw.bb881 ], [ %yyerrstatus.13084, %sw.bb879 ], [ %yyerrstatus.13084, %sw.bb877 ], [ %yyerrstatus.13084, %sw.bb875 ], [ 0, %sw.bb871 ], [ %yyerrstatus.13084, %sw.bb867 ], [ %yyerrstatus.13084, %sw.bb861 ], [ %yyerrstatus.13084, %sw.bb858 ], [ %yyerrstatus.13084, %sw.bb855 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2974 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2962 ], [ %yyerrstatus.13084, %sw.bb837 ], [ %yyerrstatus.13084, %sw.bb833 ], [ %yyerrstatus.13084, %sw.bb829 ], [ %yyerrstatus.13084, %sw.bb825 ], [ %yyerrstatus.13084, %if.then812 ], [ %yyerrstatus.13084, %if.else820 ], [ %yyerrstatus.13084, %sw.bb804 ], [ %yyerrstatus.13084, %sw.bb800 ], [ 0, %sw.bb796 ], [ %yyerrstatus.13084, %if.end795 ], [ %yyerrstatus.13084, %sw.bb750 ], [ %yyerrstatus.13084, %sw.bb745 ], [ %yyerrstatus.13084, %sw.bb742 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2956 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2944 ], [ %yyerrstatus.13084, %sw.bb722 ], [ %yyerrstatus.13084, %sw.bb720 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2938 ], [ %yyerrstatus.13084, %sw.bb650 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2879 ], [ %yyerrstatus.13084, %sw.bb645 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2873 ], [ %yyerrstatus.13084, %sw.bb589 ], [ %yyerrstatus.13084, %if.end588 ], [ %yyerrstatus.13084, %sw.bb577 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2832 ], [ %yyerrstatus.13084, %sw.bb573 ], [ %yyerrstatus.13084, %sw.bb571 ], [ %yyerrstatus.13084, %sw.bb570 ], [ %yyerrstatus.13084, %sw.bb567 ], [ %yyerrstatus.13084, %sw.bb564 ], [ %yyerrstatus.13084, %sw.bb563 ], [ %yyerrstatus.13084, %sw.bb560 ], [ %yyerrstatus.13084, %sw.bb559 ], [ %yyerrstatus.13084, %sw.bb556 ], [ %yyerrstatus.13084, %sw.bb553 ], [ %yyerrstatus.13084, %sw.bb550 ], [ %yyerrstatus.13084, %sw.bb547 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2826 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit2814 ], [ %yyerrstatus.13084, %sw.bb516 ], [ %yyerrstatus.13084, %_ZNSt5stackIiSt5dequeIiSaIiEEE3topEv.exit ], [ %yyerrstatus.13084, %sw.bb500 ], [ %yyerrstatus.13084, %sw.bb495 ], [ %yyerrstatus.13084, %if.end494 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2751 ], [ 0, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2739 ], [ %yyerrstatus.13084, %sw.bb441 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit2727 ], [ 0, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2715 ], [ %yyerrstatus.13084, %sw.bb417 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc20impl_withexpressionsESt5dequeIS2_SaIS2_EEE4pushERKS2_.exit ], [ %yyerrstatus.13084, %sw.bb401 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE4pushEOS2_.exit ], [ %yyerrstatus.13084, %sw.bb395 ], [ %yyerrstatus.13084, %_ZNSt5stackIPN2kc13impl_filelineESt5dequeIS2_SaIS2_EEE3topEv.exit2694 ], [ %yyerrstatus.13084, %sw.bb379 ], [ %yyerrstatus.13084, %sw.bb378 ], [ %yyerrstatus.13084, %sw.bb377 ], [ %yyerrstatus.13084, %sw.bb373 ], [ %yyerrstatus.13084, %sw.bb369 ], [ %yyerrstatus.13084, %sw.bb367 ], [ %yyerrstatus.13084, %sw.bb364 ], [ %yyerrstatus.13084, %sw.bb360 ], [ %yyerrstatus.13084, %sw.bb358 ], [ %yyerrstatus.13084, %sw.bb356 ], [ %yyerrstatus.13084, %sw.bb353 ], [ %yyerrstatus.13084, %sw.bb349 ], [ %yyerrstatus.13084, %sw.bb347 ], [ %yyerrstatus.13084, %sw.bb344 ], [ %yyerrstatus.13084, %sw.bb342 ], [ %yyerrstatus.13084, %sw.bb332 ], [ %yyerrstatus.13084, %sw.bb325 ], [ %yyerrstatus.13084, %sw.bb319 ], [ %yyerrstatus.13084, %sw.bb316 ], [ %yyerrstatus.13084, %sw.bb313 ], [ %yyerrstatus.13084, %sw.bb310 ], [ %yyerrstatus.13084, %sw.bb307 ], [ %yyerrstatus.13084, %sw.bb304 ], [ %yyerrstatus.13084, %sw.bb301 ], [ %yyerrstatus.13084, %sw.bb298 ], [ %yyerrstatus.13084, %sw.bb296 ], [ %yyerrstatus.13084, %sw.bb293 ], [ %yyerrstatus.13084, %sw.bb290 ], [ %yyerrstatus.13084, %sw.bb280 ], [ %yyerrstatus.13084, %sw.bb273 ], [ %yyerrstatus.13084, %sw.bb270 ], [ %yyerrstatus.13084, %sw.bb269 ], [ %yyerrstatus.13084, %sw.bb267 ], [ %yyerrstatus.13084, %sw.bb262 ], [ %yyerrstatus.13084, %sw.bb258 ], [ %yyerrstatus.13084, %sw.bb256 ], [ %yyerrstatus.13084, %sw.bb252 ], [ %yyerrstatus.13084, %sw.bb248 ], [ %yyerrstatus.13084, %sw.bb244 ], [ %yyerrstatus.13084, %sw.bb237 ], [ %yyerrstatus.13084, %sw.bb233 ], [ %yyerrstatus.13084, %sw.bb231 ], [ %yyerrstatus.13084, %sw.bb227 ], [ %yyerrstatus.13084, %sw.bb221 ], [ %yyerrstatus.13084, %sw.bb219 ], [ %yyerrstatus.13084, %sw.bb218 ], [ 0, %sw.bb214 ], [ %yyerrstatus.13084, %sw.bb212 ], [ %yyerrstatus.13084, %sw.bb210 ], [ 0, %sw.bb206 ], [ %yyerrstatus.13084, %sw.bb202 ], [ %yyerrstatus.13084, %sw.bb199 ], [ %yyerrstatus.13084, %sw.bb192 ], [ %yyerrstatus.13084, %sw.bb190 ], [ %yyerrstatus.13084, %sw.bb188 ], [ %yyerrstatus.13084, %sw.bb186 ], [ %yyerrstatus.13084, %sw.bb181 ], [ %yyerrstatus.13084, %sw.bb176 ], [ %yyerrstatus.13084, %sw.bb174 ], [ %yyerrstatus.13084, %sw.bb167 ], [ %yyerrstatus.13084, %sw.bb165 ], [ %yyerrstatus.13084, %sw.bb161 ], [ %yyerrstatus.13084, %sw.bb157 ], [ %yyerrstatus.13084, %sw.bb153 ], [ %yyerrstatus.13084, %sw.bb150 ], [ %yyerrstatus.13084, %sw.bb147 ], [ %yyerrstatus.13084, %sw.bb1844 ], [ %yyerrstatus.13084, %sw.bb1848 ], [ %yyerrstatus.13084, %sw.bb1852 ], [ %yyerrstatus.13084, %sw.bb141 ], [ %yyerrstatus.13084, %sw.bb1854 ], [ %yyerrstatus.13084, %sw.bb137 ], [ %yyerrstatus.13084, %sw.bb134 ], [ %yyerrstatus.13084, %sw.bb131 ], [ %yyerrstatus.13084, %sw.bb129 ], [ %yyerrstatus.13084, %sw.bb121 ], [ %yyerrstatus.13084, %sw.bb112 ], [ %yyerrstatus.13084, %sw.bb ], [ %yyerrstatus.13084, %if.then760 ], [ %yyerrstatus.13084, %if.else763 ], [ %yyerrstatus.13084, %if.then779 ], [ %yyerrstatus.13084, %if.else782 ], [ %yyerrstatus.13084, %if.then.i.i2790 ], [ %yyerrstatus.13084, %if.else.i.i2791 ], [ %yyerrstatus.13084, %if.then.i.i2836 ], [ %yyerrstatus.13084, %if.else.i.i2837 ]
   %idx.neg = sub nsw i64 0, %conv97
-  %add.ptr1856 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13088, i64 %idx.neg
-  %yyssp.1.add = sub i64 %yyssp.1.idx3090, %conv97
+  %add.ptr1856 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.13080, i64 %idx.neg
+  %yyssp.1.add = sub i64 %yyssp.1.idx3082, %conv97
   %add.ptr1859.ptr = getelementptr inbounds i16, ptr %yyssa, i64 %yyssp.1.add
   %876 = load i32, ptr @yydebug, align 4, !tbaa !35
   %tobool1861.not = icmp eq i32 %876, 0
@@ -4913,21 +4913,21 @@ if.then1862:                                      ; preds = %sw.epilog
   %877 = load ptr, ptr @stderr, align 8, !tbaa !14
   %878 = call i64 @fwrite(ptr nonnull @.str.257, i64 9, i64 1, ptr %877) #18
   %cmp.not5.i = icmp slt i64 %yyssp.1.add, 0
-  br i1 %cmp.not5.i, label %_ZL14yy_stack_printPsS_.exit, label %for.body.i2971
+  br i1 %cmp.not5.i, label %_ZL14yy_stack_printPsS_.exit, label %for.body.i2976
 
-for.body.i2971:                                   ; preds = %if.then1862, %for.body.i2971
-  %bottom.addr.06.i = phi ptr [ %incdec.ptr.i, %for.body.i2971 ], [ %yyssa, %if.then1862 ]
+for.body.i2976:                                   ; preds = %if.then1862, %for.body.i2976
+  %bottom.addr.06.i = phi ptr [ %incdec.ptr.i, %for.body.i2976 ], [ %yyssa, %if.then1862 ]
   %879 = load ptr, ptr @stderr, align 8, !tbaa !14
   %880 = load i16, ptr %bottom.addr.06.i, align 2, !tbaa !37
-  %conv.i2970 = sext i16 %880 to i32
-  %call1.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %879, ptr noundef nonnull @.str.258, i32 noundef %conv.i2970) #18
+  %conv.i2975 = sext i16 %880 to i32
+  %call1.i = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %879, ptr noundef nonnull @.str.258, i32 noundef %conv.i2975) #18
   %incdec.ptr.i = getelementptr inbounds i16, ptr %bottom.addr.06.i, i64 1
   %cmp.not.i = icmp ugt ptr %incdec.ptr.i, %add.ptr1859.ptr
-  br i1 %cmp.not.i, label %_ZL14yy_stack_printPsS_.exit, label %for.body.i2971, !llvm.loop !134
+  br i1 %cmp.not.i, label %_ZL14yy_stack_printPsS_.exit, label %for.body.i2976, !llvm.loop !134
 
-_ZL14yy_stack_printPsS_.exit:                     ; preds = %for.body.i2971, %if.then1862
+_ZL14yy_stack_printPsS_.exit:                     ; preds = %for.body.i2976, %if.then1862
   %881 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %fputc.i2972 = call i32 @fputc(i32 10, ptr %881)
+  %fputc.i2977 = call i32 @fputc(i32 10, ptr %881)
   br label %do.end1865
 
 do.end1865:                                       ; preds = %_ZL14yy_stack_printPsS_.exit, %sw.epilog
@@ -4967,7 +4967,7 @@ if.else1888:                                      ; preds = %land.lhs.true1878, 
 
 yyerrlab:                                         ; preds = %yydefault, %if.then63
   %yytoken.5 = phi i32 [ %yytoken.3, %yydefault ], [ %yytoken.2, %if.then63 ]
-  switch i32 %yyerrstatus.13092, label %for.cond.preheader [
+  switch i32 %yyerrstatus.13084, label %for.cond.preheader [
     i32 0, label %if.then1895
     i32 3, label %if.then1899
   ]
@@ -4976,7 +4976,7 @@ if.then1895:                                      ; preds = %yyerrlab
   %888 = load i32, ptr @yynerrs, align 4, !tbaa !35
   %inc1896 = add nsw i32 %888, 1
   store i32 %inc1896, ptr @yynerrs, align 4, !tbaa !35
-  call void @_Z9yyerror_1PKci(ptr noundef nonnull @.str.20, i32 noundef %yystate.13093)
+  call void @_Z9yyerror_1PKci(ptr noundef nonnull @.str.20, i32 noundef %yystate.13086)
   unreachable
 
 if.then1899:                                      ; preds = %yyerrlab
@@ -4985,17 +4985,17 @@ if.then1899:                                      ; preds = %yyerrlab
   br i1 %cmp1900, label %while.cond.preheader, label %do.body1922
 
 while.cond.preheader:                             ; preds = %if.then1899
-  %yyssp.1.ptr.le = getelementptr inbounds i16, ptr %yyssa, i64 %yyssp.1.idx3090
-  %yyssp.23094 = getelementptr inbounds i16, ptr %yyssp.1.ptr.le, i64 -1
-  %cmp19043095 = icmp uge ptr %yyssa, %yyssp.23094
+  %yyssp.1.ptr.le = getelementptr inbounds i16, ptr %yyssa, i64 %yyssp.1.idx3082
+  %yyssp.23087 = getelementptr inbounds i16, ptr %yyssp.1.ptr.le, i64 -1
+  %cmp19043088 = icmp uge ptr %yyssa, %yyssp.23087
   %890 = load i32, ptr @yydebug, align 4
   %891 = icmp eq i32 %890, 0
-  %or.cond3130 = select i1 %cmp19043095, i1 true, i1 %891
+  %or.cond3130 = select i1 %cmp19043088, i1 true, i1 %891
   br i1 %or.cond3130, label %cleanup, label %do.body1905
 
 do.body1905:                                      ; preds = %while.cond.preheader, %do.end1915
   %892 = phi i32 [ %899, %do.end1915 ], [ 1, %while.cond.preheader ]
-  %yyssp.23096 = phi ptr [ %yyssp.2, %do.end1915 ], [ %yyssp.23094, %while.cond.preheader ]
+  %yyssp.23089 = phi ptr [ %yyssp.2, %do.end1915 ], [ %yyssp.23087, %while.cond.preheader ]
   %tobool1906.not = icmp eq i32 %892, 0
   br i1 %tobool1906.not, label %do.end1915, label %if.then1907
 
@@ -5003,25 +5003,25 @@ if.then1907:                                      ; preds = %do.body1905
   %893 = load ptr, ptr @stderr, align 8, !tbaa !14
   %call1908 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %893, ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.21) #18
   %894 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %895 = load i16, ptr %yyssp.23096, align 2, !tbaa !37
+  %895 = load i16, ptr %yyssp.23089, align 2, !tbaa !37
   %idxprom1909 = sext i16 %895 to i64
   %arrayidx1910 = getelementptr inbounds [611 x i8], ptr @_ZL6yystos, i64 0, i64 %idxprom1909
   %896 = load i8, ptr %arrayidx1910, align 1, !tbaa !39
-  %cmp.i2973 = icmp ult i8 %896, 66
-  %idxprom.i2974 = zext i8 %896 to i64
-  %arrayidx.i2975 = getelementptr inbounds [225 x ptr], ptr @_ZL7yytname, i64 0, i64 %idxprom.i2974
-  %897 = load ptr, ptr %arrayidx.i2975, align 8, !tbaa !14
-  %.str.29..str.30.i2976 = select i1 %cmp.i2973, ptr @.str.29, ptr @.str.30
-  %call3.i2977 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %894, ptr noundef nonnull %.str.29..str.30.i2976, ptr noundef %897) #18
-  %fputc.i2978 = call i32 @fputc(i32 41, ptr %894)
+  %cmp.i2978 = icmp ult i8 %896, 66
+  %idxprom.i2979 = zext i8 %896 to i64
+  %arrayidx.i2980 = getelementptr inbounds [225 x ptr], ptr @_ZL7yytname, i64 0, i64 %idxprom.i2979
+  %897 = load ptr, ptr %arrayidx.i2980, align 8, !tbaa !14
+  %.str.29..str.30.i2981 = select i1 %cmp.i2978, ptr @.str.29, ptr @.str.30
+  %call3.i2982 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %894, ptr noundef nonnull %.str.29..str.30.i2981, ptr noundef %897) #18
+  %fputc.i2983 = call i32 @fputc(i32 41, ptr %894)
   %898 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %fputc3001 = call i32 @fputc(i32 10, ptr %898)
+  %fputc2682 = call i32 @fputc(i32 10, ptr %898)
   %.pre = load i32, ptr @yydebug, align 4, !tbaa !35
   br label %do.end1915
 
 do.end1915:                                       ; preds = %if.then1907, %do.body1905
   %899 = phi i32 [ %.pre, %if.then1907 ], [ 0, %do.body1905 ]
-  %yyssp.2 = getelementptr inbounds i16, ptr %yyssp.23096, i64 -1
+  %yyssp.2 = getelementptr inbounds i16, ptr %yyssp.23089, i64 -1
   %cmp1904 = icmp ult ptr %yyssa, %yyssp.2
   br i1 %cmp1904, label %do.body1905, label %cleanup, !llvm.loop !135
 
@@ -5034,15 +5034,15 @@ if.then1924:                                      ; preds = %do.body1922
   %901 = load ptr, ptr @stderr, align 8, !tbaa !14
   %call1925 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %901, ptr noundef nonnull @.str.7, ptr noundef nonnull @.str.22) #18
   %902 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %cmp.i2979 = icmp slt i32 %yytoken.5, 66
-  %idxprom.i2980 = zext i32 %yytoken.5 to i64
-  %arrayidx.i2981 = getelementptr inbounds [225 x ptr], ptr @_ZL7yytname, i64 0, i64 %idxprom.i2980
-  %903 = load ptr, ptr %arrayidx.i2981, align 8, !tbaa !14
-  %.str.29..str.30.i2982 = select i1 %cmp.i2979, ptr @.str.29, ptr @.str.30
-  %call3.i2983 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %902, ptr noundef nonnull %.str.29..str.30.i2982, ptr noundef %903) #18
-  %fputc.i2984 = call i32 @fputc(i32 41, ptr %902)
+  %cmp.i2984 = icmp slt i32 %yytoken.5, 66
+  %idxprom.i2985 = zext i32 %yytoken.5 to i64
+  %arrayidx.i2986 = getelementptr inbounds [225 x ptr], ptr @_ZL7yytname, i64 0, i64 %idxprom.i2985
+  %903 = load ptr, ptr %arrayidx.i2986, align 8, !tbaa !14
+  %.str.29..str.30.i2987 = select i1 %cmp.i2984, ptr @.str.29, ptr @.str.30
+  %call3.i2988 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %902, ptr noundef nonnull %.str.29..str.30.i2987, ptr noundef %903) #18
+  %fputc.i2989 = call i32 @fputc(i32 41, ptr %902)
   %904 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %fputc3000 = call i32 @fputc(i32 10, ptr %904)
+  %fputc2681 = call i32 @fputc(i32 10, ptr %904)
   br label %do.end1929
 
 do.end1929:                                       ; preds = %if.then1924, %do.body1922
@@ -5053,9 +5053,9 @@ for.cond.preheader:                               ; preds = %yyerrlab, %do.end19
   br label %for.cond
 
 for.cond:                                         ; preds = %for.cond.preheader, %do.end1979
-  %905 = phi i16 [ %.pre3114, %do.end1979 ], [ %5, %for.cond.preheader ]
-  %yyvsp.3 = phi ptr [ %incdec.ptr19713073, %do.end1979 ], [ %yyvsp.13088, %for.cond.preheader ]
-  %yyssp.3.idx = phi i64 [ %yyssp.3.add3074, %do.end1979 ], [ %yyssp.1.idx3090, %for.cond.preheader ]
+  %905 = phi i16 [ %.pre3107, %do.end1979 ], [ %5, %for.cond.preheader ]
+  %yyvsp.3 = phi ptr [ %incdec.ptr19713113, %do.end1979 ], [ %yyvsp.13080, %for.cond.preheader ]
+  %yyssp.3.idx = phi i64 [ %yyssp.3.add3114, %do.end1979 ], [ %yyssp.1.idx3082, %for.cond.preheader ]
   %yyssp.3.ptr = getelementptr inbounds i16, ptr %yyssa, i64 %yyssp.3.idx
   %cmp1937 = icmp sgt i16 %905, -2
   br i1 %cmp1937, label %land.lhs.true1940, label %if.end1953
@@ -5084,9 +5084,9 @@ do.body1957:                                      ; preds = %if.end1953
   br i1 %tobool1958.not, label %do.end1967.thread, label %do.end1967
 
 do.end1967.thread:                                ; preds = %do.body1957
-  %yyssp.3.add3069 = add nsw i64 %yyssp.3.idx, -1
-  %incdec.ptr1972.ptr3070 = getelementptr inbounds i16, ptr %yyssa, i64 %yyssp.3.add3069
-  %909 = load i16, ptr %incdec.ptr1972.ptr3070, align 2, !tbaa !37
+  %yyssp.3.add3110 = add nsw i64 %yyssp.3.idx, -1
+  %incdec.ptr1972.ptr3111 = getelementptr inbounds i16, ptr %yyssa, i64 %yyssp.3.add3110
+  %909 = load i16, ptr %incdec.ptr1972.ptr3111, align 2, !tbaa !37
   br label %do.end1979
 
 do.end1967:                                       ; preds = %do.body1957
@@ -5097,50 +5097,50 @@ do.end1967:                                       ; preds = %do.body1957
   %idxprom1961 = sext i16 %912 to i64
   %arrayidx1962 = getelementptr inbounds [611 x i8], ptr @_ZL6yystos, i64 0, i64 %idxprom1961
   %913 = load i8, ptr %arrayidx1962, align 1, !tbaa !39
-  %cmp.i2985 = icmp ult i8 %913, 66
-  %idxprom.i2986 = zext i8 %913 to i64
-  %arrayidx.i2987 = getelementptr inbounds [225 x ptr], ptr @_ZL7yytname, i64 0, i64 %idxprom.i2986
-  %914 = load ptr, ptr %arrayidx.i2987, align 8, !tbaa !14
-  %.str.29..str.30.i2988 = select i1 %cmp.i2985, ptr @.str.29, ptr @.str.30
-  %call3.i2989 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %911, ptr noundef nonnull %.str.29..str.30.i2988, ptr noundef %914) #18
-  %fputc.i2990 = call i32 @fputc(i32 41, ptr %911)
+  %cmp.i2990 = icmp ult i8 %913, 66
+  %idxprom.i2991 = zext i8 %913 to i64
+  %arrayidx.i2992 = getelementptr inbounds [225 x ptr], ptr @_ZL7yytname, i64 0, i64 %idxprom.i2991
+  %914 = load ptr, ptr %arrayidx.i2992, align 8, !tbaa !14
+  %.str.29..str.30.i2993 = select i1 %cmp.i2990, ptr @.str.29, ptr @.str.30
+  %call3.i2994 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %911, ptr noundef nonnull %.str.29..str.30.i2993, ptr noundef %914) #18
+  %fputc.i2995 = call i32 @fputc(i32 41, ptr %911)
   %915 = load ptr, ptr @stderr, align 8, !tbaa !14
   %fputc = call i32 @fputc(i32 10, ptr %915)
-  %.pr = load i32, ptr @yydebug, align 4, !tbaa !35
+  %.pre3108 = load i32, ptr @yydebug, align 4, !tbaa !35
   %yyssp.3.add = add nsw i64 %yyssp.3.idx, -1
   %incdec.ptr1972.ptr = getelementptr inbounds i16, ptr %yyssa, i64 %yyssp.3.add
   %916 = load i16, ptr %incdec.ptr1972.ptr, align 2, !tbaa !37
-  %tobool1975.not = icmp eq i32 %.pr, 0
+  %tobool1975.not = icmp eq i32 %.pre3108, 0
   br i1 %tobool1975.not, label %do.end1979, label %if.then1976
 
 if.then1976:                                      ; preds = %do.end1967
   %917 = load ptr, ptr @stderr, align 8, !tbaa !14
   %918 = call i64 @fwrite(ptr nonnull @.str.257, i64 9, i64 1, ptr %917) #18
-  %cmp.not5.i2991 = icmp slt i64 %yyssp.3.idx, 1
-  br i1 %cmp.not5.i2991, label %_ZL14yy_stack_printPsS_.exit2999, label %for.body.i2997
+  %cmp.not5.i2996 = icmp slt i64 %yyssp.3.idx, 1
+  br i1 %cmp.not5.i2996, label %_ZL14yy_stack_printPsS_.exit3004, label %for.body.i3002
 
-for.body.i2997:                                   ; preds = %if.then1976, %for.body.i2997
-  %bottom.addr.06.i2992 = phi ptr [ %incdec.ptr.i2995, %for.body.i2997 ], [ %yyssa, %if.then1976 ]
+for.body.i3002:                                   ; preds = %if.then1976, %for.body.i3002
+  %bottom.addr.06.i2997 = phi ptr [ %incdec.ptr.i3000, %for.body.i3002 ], [ %yyssa, %if.then1976 ]
   %919 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %920 = load i16, ptr %bottom.addr.06.i2992, align 2, !tbaa !37
-  %conv.i2993 = sext i16 %920 to i32
-  %call1.i2994 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %919, ptr noundef nonnull @.str.258, i32 noundef %conv.i2993) #18
-  %incdec.ptr.i2995 = getelementptr inbounds i16, ptr %bottom.addr.06.i2992, i64 1
-  %cmp.not.i2996 = icmp ugt ptr %incdec.ptr.i2995, %incdec.ptr1972.ptr
-  br i1 %cmp.not.i2996, label %_ZL14yy_stack_printPsS_.exit2999, label %for.body.i2997, !llvm.loop !134
+  %920 = load i16, ptr %bottom.addr.06.i2997, align 2, !tbaa !37
+  %conv.i2998 = sext i16 %920 to i32
+  %call1.i2999 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %919, ptr noundef nonnull @.str.258, i32 noundef %conv.i2998) #18
+  %incdec.ptr.i3000 = getelementptr inbounds i16, ptr %bottom.addr.06.i2997, i64 1
+  %cmp.not.i3001 = icmp ugt ptr %incdec.ptr.i3000, %incdec.ptr1972.ptr
+  br i1 %cmp.not.i3001, label %_ZL14yy_stack_printPsS_.exit3004, label %for.body.i3002, !llvm.loop !134
 
-_ZL14yy_stack_printPsS_.exit2999:                 ; preds = %for.body.i2997, %if.then1976
+_ZL14yy_stack_printPsS_.exit3004:                 ; preds = %for.body.i3002, %if.then1976
   %921 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %fputc.i2998 = call i32 @fputc(i32 10, ptr %921)
+  %fputc.i3003 = call i32 @fputc(i32 10, ptr %921)
   br label %do.end1979
 
-do.end1979:                                       ; preds = %do.end1967.thread, %_ZL14yy_stack_printPsS_.exit2999, %do.end1967
-  %conv19733075.in = phi i16 [ %909, %do.end1967.thread ], [ %916, %_ZL14yy_stack_printPsS_.exit2999 ], [ %916, %do.end1967 ]
-  %yyssp.3.add3074 = phi i64 [ %yyssp.3.add3069, %do.end1967.thread ], [ %yyssp.3.add, %_ZL14yy_stack_printPsS_.exit2999 ], [ %yyssp.3.add, %do.end1967 ]
-  %incdec.ptr19713073 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.3, i64 -1
-  %idxprom1931.phi.trans.insert = sext i16 %conv19733075.in to i64
+do.end1979:                                       ; preds = %do.end1967.thread, %_ZL14yy_stack_printPsS_.exit3004, %do.end1967
+  %922 = phi i16 [ %909, %do.end1967.thread ], [ %916, %_ZL14yy_stack_printPsS_.exit3004 ], [ %916, %do.end1967 ]
+  %yyssp.3.add3114 = phi i64 [ %yyssp.3.add3110, %do.end1967.thread ], [ %yyssp.3.add, %_ZL14yy_stack_printPsS_.exit3004 ], [ %yyssp.3.add, %do.end1967 ]
+  %incdec.ptr19713113 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.3, i64 -1
+  %idxprom1931.phi.trans.insert = sext i16 %922 to i64
   %arrayidx1932.phi.trans.insert = getelementptr inbounds [611 x i16], ptr @_ZL6yypact, i64 0, i64 %idxprom1931.phi.trans.insert
-  %.pre3114 = load i16, ptr %arrayidx1932.phi.trans.insert, align 2, !tbaa !37
+  %.pre3107 = load i16, ptr %arrayidx1932.phi.trans.insert, align 2, !tbaa !37
   br label %for.cond, !llvm.loop !137
 
 for.end:                                          ; preds = %if.then1945
@@ -5149,19 +5149,19 @@ for.end:                                          ; preds = %if.then1945
   br i1 %cmp1980, label %cleanup, label %do.body1983
 
 do.body1983:                                      ; preds = %for.end
-  %922 = load i32, ptr @yydebug, align 4, !tbaa !35
-  %tobool1984.not = icmp eq i32 %922, 0
+  %923 = load i32, ptr @yydebug, align 4, !tbaa !35
+  %tobool1984.not = icmp eq i32 %923, 0
   br i1 %tobool1984.not, label %do.end1989, label %if.then1985
 
 if.then1985:                                      ; preds = %do.body1983
-  %923 = load ptr, ptr @stderr, align 8, !tbaa !14
-  %924 = call i64 @fwrite(ptr nonnull @.str.23, i64 22, i64 1, ptr %923) #18
+  %924 = load ptr, ptr @stderr, align 8, !tbaa !14
+  %925 = call i64 @fwrite(ptr nonnull @.str.23, i64 22, i64 1, ptr %924) #18
   br label %do.end1989
 
 do.end1989:                                       ; preds = %if.then1985, %do.body1983
   %incdec.ptr1990 = getelementptr inbounds %union.KC_YYSTYPE, ptr %yyvsp.3, i64 1
-  %925 = load i64, ptr @yylval, align 8
-  store i64 %925, ptr %incdec.ptr1990, align 8
+  %926 = load i64, ptr @yylval, align 8
+  store i64 %926, ptr %incdec.ptr1990, align 8
   br label %yynewstate
 
 yyoverflowlab:                                    ; preds = %yynewstate
@@ -5957,18 +5957,18 @@ declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #1
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %this, i64 noundef %__num_elements) local_unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
 entry:
-  %div55 = lshr i64 %__num_elements, 6
-  %0 = tail call i64 @llvm.umax.i64(i64 %div55, i64 5)
+  %div57 = lshr i64 %__num_elements, 6
+  %add = add nuw nsw i64 %div57, 1
+  %0 = tail call i64 @llvm.umax.i64(i64 %div57, i64 5)
   %.sroa.speculated = add nuw nsw i64 %0, 3
   %_M_map_size = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 1
   store i64 %.sroa.speculated, ptr %_M_map_size, align 8, !tbaa !148
-  %add = add nuw nsw i64 %div55, 1
   %mul.i.i.i = shl nuw nsw i64 %.sroa.speculated, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !5
   %sub = sub nsw i64 %.sroa.speculated, %add
-  %div1356 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1356
+  %div1348 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1348
   %add.ptr14 = getelementptr inbounds ptr, ptr %add.ptr, i64 %add
   br label %for.body.i
 
@@ -5980,8 +5980,8 @@ for.body.i:                                       ; preds = %entry, %invoke.cont
 invoke.cont.i:                                    ; preds = %for.body.i
   store ptr %call5.i.i.i10.i, ptr %__cur.013.i, align 8, !tbaa !14
   %incdec.ptr.i = getelementptr inbounds ptr, ptr %__cur.013.i, i64 1
-  %cmp.i48 = icmp ult ptr %incdec.ptr.i, %add.ptr14
-  br i1 %cmp.i48, label %for.body.i, label %try.cont, !llvm.loop !149
+  %cmp.i49 = icmp ult ptr %incdec.ptr.i, %add.ptr14
+  br i1 %cmp.i49, label %for.body.i, label %try.cont, !llvm.loop !149
 
 lpad.i:                                           ; preds = %for.body.i
   %1 = landingpad { ptr, i32 }
@@ -6048,15 +6048,15 @@ try.cont:                                         ; preds = %invoke.cont.i
   %_M_last.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 2
   store ptr %add.ptr.i, ptr %_M_last.i, align 8, !tbaa !141
   %_M_finish = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3
-  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div55
-  %_M_node.i49 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  store ptr %add.ptr27, ptr %_M_node.i49, align 8, !tbaa !76
+  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div57
+  %_M_node.i51 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  store ptr %add.ptr27, ptr %_M_node.i51, align 8, !tbaa !76
   %13 = load ptr, ptr %add.ptr27, align 8, !tbaa !14
-  %_M_first.i50 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %13, ptr %_M_first.i50, align 8, !tbaa !75
-  %add.ptr.i51 = getelementptr inbounds ptr, ptr %13, i64 64
-  %_M_last.i52 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i51, ptr %_M_last.i52, align 8, !tbaa !141
+  %_M_first.i52 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %13, ptr %_M_first.i52, align 8, !tbaa !75
+  %add.ptr.i53 = getelementptr inbounds ptr, ptr %13, i64 64
+  %_M_last.i54 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i53, ptr %_M_last.i54, align 8, !tbaa !141
   store ptr %12, ptr %_M_start, align 8, !tbaa !150
   %rem = and i64 %__num_elements, 63
   %add.ptr36 = getelementptr inbounds ptr, ptr %13, i64 %rem
@@ -6090,18 +6090,18 @@ declare noundef nonnull ptr @_Znwm(i64 noundef) local_unnamed_addr #12
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc19impl_idCexpressionsESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %this, i64 noundef %__num_elements) local_unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
 entry:
-  %div55 = lshr i64 %__num_elements, 6
-  %0 = tail call i64 @llvm.umax.i64(i64 %div55, i64 5)
+  %div57 = lshr i64 %__num_elements, 6
+  %add = add nuw nsw i64 %div57, 1
+  %0 = tail call i64 @llvm.umax.i64(i64 %div57, i64 5)
   %.sroa.speculated = add nuw nsw i64 %0, 3
   %_M_map_size = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 1
   store i64 %.sroa.speculated, ptr %_M_map_size, align 8, !tbaa !151
-  %add = add nuw nsw i64 %div55, 1
   %mul.i.i.i = shl nuw nsw i64 %.sroa.speculated, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !17
   %sub = sub nsw i64 %.sroa.speculated, %add
-  %div1356 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1356
+  %div1348 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1348
   %add.ptr14 = getelementptr inbounds ptr, ptr %add.ptr, i64 %add
   br label %for.body.i
 
@@ -6113,8 +6113,8 @@ for.body.i:                                       ; preds = %entry, %invoke.cont
 invoke.cont.i:                                    ; preds = %for.body.i
   store ptr %call5.i.i.i10.i, ptr %__cur.013.i, align 8, !tbaa !14
   %incdec.ptr.i = getelementptr inbounds ptr, ptr %__cur.013.i, i64 1
-  %cmp.i48 = icmp ult ptr %incdec.ptr.i, %add.ptr14
-  br i1 %cmp.i48, label %for.body.i, label %try.cont, !llvm.loop !152
+  %cmp.i49 = icmp ult ptr %incdec.ptr.i, %add.ptr14
+  br i1 %cmp.i49, label %for.body.i, label %try.cont, !llvm.loop !152
 
 lpad.i:                                           ; preds = %for.body.i
   %1 = landingpad { ptr, i32 }
@@ -6181,15 +6181,15 @@ try.cont:                                         ; preds = %invoke.cont.i
   %_M_last.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 2
   store ptr %add.ptr.i, ptr %_M_last.i, align 8, !tbaa !145
   %_M_finish = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3
-  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div55
-  %_M_node.i49 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  store ptr %add.ptr27, ptr %_M_node.i49, align 8, !tbaa !100
+  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div57
+  %_M_node.i51 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  store ptr %add.ptr27, ptr %_M_node.i51, align 8, !tbaa !100
   %13 = load ptr, ptr %add.ptr27, align 8, !tbaa !14
-  %_M_first.i50 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %13, ptr %_M_first.i50, align 8, !tbaa !99
-  %add.ptr.i51 = getelementptr inbounds ptr, ptr %13, i64 64
-  %_M_last.i52 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i51, ptr %_M_last.i52, align 8, !tbaa !145
+  %_M_first.i52 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %13, ptr %_M_first.i52, align 8, !tbaa !99
+  %add.ptr.i53 = getelementptr inbounds ptr, ptr %13, i64 64
+  %_M_last.i54 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i53, ptr %_M_last.i54, align 8, !tbaa !145
   store ptr %12, ptr %_M_start, align 8, !tbaa !153
   %rem = and i64 %__num_elements, 63
   %add.ptr36 = getelementptr inbounds ptr, ptr %13, i64 %rem
@@ -6210,18 +6210,18 @@ unreachable:                                      ; preds = %lpad.body
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIPN2kc13impl_filelineESaIS2_EE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %this, i64 noundef %__num_elements) local_unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
 entry:
-  %div55 = lshr i64 %__num_elements, 6
-  %0 = tail call i64 @llvm.umax.i64(i64 %div55, i64 5)
+  %div57 = lshr i64 %__num_elements, 6
+  %add = add nuw nsw i64 %div57, 1
+  %0 = tail call i64 @llvm.umax.i64(i64 %div57, i64 5)
   %.sroa.speculated = add nuw nsw i64 %0, 3
   %_M_map_size = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 1
   store i64 %.sroa.speculated, ptr %_M_map_size, align 8, !tbaa !154
-  %add = add nuw nsw i64 %div55, 1
   %mul.i.i.i = shl nuw nsw i64 %.sroa.speculated, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !23
   %sub = sub nsw i64 %.sroa.speculated, %add
-  %div1356 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1356
+  %div1348 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1348
   %add.ptr14 = getelementptr inbounds ptr, ptr %add.ptr, i64 %add
   br label %for.body.i
 
@@ -6233,8 +6233,8 @@ for.body.i:                                       ; preds = %entry, %invoke.cont
 invoke.cont.i:                                    ; preds = %for.body.i
   store ptr %call5.i.i.i10.i, ptr %__cur.013.i, align 8, !tbaa !14
   %incdec.ptr.i = getelementptr inbounds ptr, ptr %__cur.013.i, i64 1
-  %cmp.i48 = icmp ult ptr %incdec.ptr.i, %add.ptr14
-  br i1 %cmp.i48, label %for.body.i, label %try.cont, !llvm.loop !155
+  %cmp.i49 = icmp ult ptr %incdec.ptr.i, %add.ptr14
+  br i1 %cmp.i49, label %for.body.i, label %try.cont, !llvm.loop !155
 
 lpad.i:                                           ; preds = %for.body.i
   %1 = landingpad { ptr, i32 }
@@ -6301,15 +6301,15 @@ try.cont:                                         ; preds = %invoke.cont.i
   %_M_last.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 2
   store ptr %add.ptr.i, ptr %_M_last.i, align 8, !tbaa !139
   %_M_finish = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3
-  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div55
-  %_M_node.i49 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  store ptr %add.ptr27, ptr %_M_node.i49, align 8, !tbaa !61
+  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div57
+  %_M_node.i51 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  store ptr %add.ptr27, ptr %_M_node.i51, align 8, !tbaa !61
   %13 = load ptr, ptr %add.ptr27, align 8, !tbaa !14
-  %_M_first.i50 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %13, ptr %_M_first.i50, align 8, !tbaa !56
-  %add.ptr.i51 = getelementptr inbounds ptr, ptr %13, i64 64
-  %_M_last.i52 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i51, ptr %_M_last.i52, align 8, !tbaa !139
+  %_M_first.i52 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %13, ptr %_M_first.i52, align 8, !tbaa !56
+  %add.ptr.i53 = getelementptr inbounds ptr, ptr %13, i64 64
+  %_M_last.i54 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i53, ptr %_M_last.i54, align 8, !tbaa !139
   store ptr %12, ptr %_M_start, align 8, !tbaa !156
   %rem = and i64 %__num_elements, 63
   %add.ptr36 = getelementptr inbounds ptr, ptr %13, i64 %rem
@@ -6330,18 +6330,18 @@ unreachable:                                      ; preds = %lpad.body
 ; Function Attrs: uwtable
 define linkonce_odr dso_local void @_ZNSt11_Deque_baseIiSaIiEE17_M_initialize_mapEm(ptr noundef nonnull align 8 dereferenceable(80) %this, i64 noundef %__num_elements) local_unnamed_addr #2 comdat align 2 personality ptr @__gxx_personality_v0 {
 entry:
-  %div55 = lshr i64 %__num_elements, 7
-  %0 = tail call i64 @llvm.umax.i64(i64 %div55, i64 5)
+  %div57 = lshr i64 %__num_elements, 7
+  %add = add nuw nsw i64 %div57, 1
+  %0 = tail call i64 @llvm.umax.i64(i64 %div57, i64 5)
   %.sroa.speculated = add nuw nsw i64 %0, 3
   %_M_map_size = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 1
   store i64 %.sroa.speculated, ptr %_M_map_size, align 8, !tbaa !157
-  %add = add nuw nsw i64 %div55, 1
   %mul.i.i.i = shl nuw nsw i64 %.sroa.speculated, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !29
   %sub = sub nsw i64 %.sroa.speculated, %add
-  %div1356 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1356
+  %div1348 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div1348
   %add.ptr14 = getelementptr inbounds ptr, ptr %add.ptr, i64 %add
   br label %for.body.i
 
@@ -6353,8 +6353,8 @@ for.body.i:                                       ; preds = %entry, %invoke.cont
 invoke.cont.i:                                    ; preds = %for.body.i
   store ptr %call5.i.i.i10.i, ptr %__cur.013.i, align 8, !tbaa !14
   %incdec.ptr.i = getelementptr inbounds ptr, ptr %__cur.013.i, i64 1
-  %cmp.i48 = icmp ult ptr %incdec.ptr.i, %add.ptr14
-  br i1 %cmp.i48, label %for.body.i, label %try.cont, !llvm.loop !158
+  %cmp.i49 = icmp ult ptr %incdec.ptr.i, %add.ptr14
+  br i1 %cmp.i49, label %for.body.i, label %try.cont, !llvm.loop !158
 
 lpad.i:                                           ; preds = %for.body.i
   %1 = landingpad { ptr, i32 }
@@ -6421,15 +6421,15 @@ try.cont:                                         ; preds = %invoke.cont.i
   %_M_last.i = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 2
   store ptr %add.ptr.i, ptr %_M_last.i, align 8, !tbaa !143
   %_M_finish = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3
-  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div55
-  %_M_node.i49 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
-  store ptr %add.ptr27, ptr %_M_node.i49, align 8, !tbaa !87
+  %add.ptr27 = getelementptr inbounds ptr, ptr %add.ptr, i64 %div57
+  %_M_node.i51 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 3
+  store ptr %add.ptr27, ptr %_M_node.i51, align 8, !tbaa !87
   %13 = load ptr, ptr %add.ptr27, align 8, !tbaa !14
-  %_M_first.i50 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %13, ptr %_M_first.i50, align 8, !tbaa !86
-  %add.ptr.i51 = getelementptr inbounds i32, ptr %13, i64 128
-  %_M_last.i52 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i51, ptr %_M_last.i52, align 8, !tbaa !143
+  %_M_first.i52 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %13, ptr %_M_first.i52, align 8, !tbaa !86
+  %add.ptr.i53 = getelementptr inbounds i32, ptr %13, i64 128
+  %_M_last.i54 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i53, ptr %_M_last.i54, align 8, !tbaa !143
   store ptr %12, ptr %_M_start, align 8, !tbaa !159
   %rem = and i64 %__num_elements, 127
   %add.ptr36 = getelementptr inbounds i32, ptr %13, i64 %rem
@@ -6548,8 +6548,8 @@ entry:
 if.then:                                          ; preds = %entry
   %3 = load ptr, ptr %this, align 8, !tbaa !23
   %sub = sub i64 %2, %add4
-  %div110 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div110
+  %div88 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div88
   %cond = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr9 = getelementptr inbounds ptr, ptr %add.ptr, i64 %cond
   %cmp13 = icmp ult ptr %add.ptr9, %1
@@ -6567,16 +6567,16 @@ if.then.i.i.i.i.i:                                ; preds = %if.then14
   br label %if.end65
 
 if.else:                                          ; preds = %if.then
-  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i93
+  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i95
 
-if.then.i.i.i.i.i93:                              ; preds = %if.else
-  %sub.ptr.lhs.cast.i.i.i.i.i87 = ptrtoint ptr %add.ptr21 to i64
-  %sub.ptr.sub.i.i.i.i.i89 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i87, %sub.ptr.rhs.cast
-  %sub.ptr.div.i.i.i.i.i90 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i89, 3
-  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i90
+if.then.i.i.i.i.i95:                              ; preds = %if.else
+  %sub.ptr.lhs.cast.i.i.i.i.i89 = ptrtoint ptr %add.ptr21 to i64
+  %sub.ptr.sub.i.i.i.i.i91 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i89, %sub.ptr.rhs.cast
+  %sub.ptr.div.i.i.i.i.i92 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i91, 3
+  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i92
   %add.ptr29 = getelementptr inbounds ptr, ptr %add.ptr9, i64 %add
-  %add.ptr.i.i.i.i.i92 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i92, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i89, i1 false)
+  %add.ptr.i.i.i.i.i94 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i94, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i91, i1 false)
   br label %if.end65
 
 if.else31:                                        ; preds = %entry
@@ -6602,29 +6602,29 @@ _ZNSt11_Deque_baseIPN2kc13impl_filelineESaIS2_EE15_M_allocate_mapEm.exit: ; pred
   %mul.i.i.i = shl nuw nsw i64 %add38, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   %sub40 = sub i64 %add38, %add4
-  %div41109 = lshr i64 %sub40, 1
-  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div41109
+  %div4187 = lshr i64 %sub40, 1
+  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div4187
   %cond47 = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr48 = getelementptr inbounds ptr, ptr %add.ptr42, i64 %cond47
   %add.ptr55 = getelementptr inbounds ptr, ptr %0, i64 1
-  %tobool.not.i.i.i.i.i97 = icmp eq ptr %add.ptr55, %1
-  br i1 %tobool.not.i.i.i.i.i97, label %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit101, label %if.then.i.i.i.i.i98
+  %tobool.not.i.i.i.i.i99 = icmp eq ptr %add.ptr55, %1
+  br i1 %tobool.not.i.i.i.i.i99, label %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit103, label %if.then.i.i.i.i.i100
 
-if.then.i.i.i.i.i98:                              ; preds = %_ZNSt11_Deque_baseIPN2kc13impl_filelineESaIS2_EE15_M_allocate_mapEm.exit
-  %sub.ptr.lhs.cast.i.i.i.i.i94 = ptrtoint ptr %add.ptr55 to i64
-  %sub.ptr.sub.i.i.i.i.i96 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i94, %sub.ptr.rhs.cast
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i96, i1 false)
-  br label %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit101
+if.then.i.i.i.i.i100:                             ; preds = %_ZNSt11_Deque_baseIPN2kc13impl_filelineESaIS2_EE15_M_allocate_mapEm.exit
+  %sub.ptr.lhs.cast.i.i.i.i.i96 = ptrtoint ptr %add.ptr55 to i64
+  %sub.ptr.sub.i.i.i.i.i98 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i96, %sub.ptr.rhs.cast
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i98, i1 false)
+  br label %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit103
 
-_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit101: ; preds = %_ZNSt11_Deque_baseIPN2kc13impl_filelineESaIS2_EE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i98
+_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit103: ; preds = %_ZNSt11_Deque_baseIPN2kc13impl_filelineESaIS2_EE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i100
   %4 = load ptr, ptr %this, align 8, !tbaa !23
   tail call void @_ZdlPv(ptr noundef %4) #16
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !23
   store i64 %add38, ptr %_M_map_size, align 8, !tbaa !154
   br label %if.end65
 
-if.end65:                                         ; preds = %if.then.i.i.i.i.i93, %if.else, %if.then.i.i.i.i.i, %if.then14, %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit101
-  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit101 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i93 ]
+if.end65:                                         ; preds = %if.then.i.i.i.i.i, %if.then14, %if.then.i.i.i.i.i95, %if.else, %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit103
+  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPPN2kc13impl_filelineES4_ET0_T_S6_S5_.exit103 ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i95 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ]
   store ptr %__new_nstart.0, ptr %_M_node3, align 8, !tbaa !61
   %5 = load ptr, ptr %__new_nstart.0, align 8, !tbaa !14
   %_M_first.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 1
@@ -6636,11 +6636,11 @@ if.end65:                                         ; preds = %if.then.i.i.i.i.i93
   %add.ptr71 = getelementptr inbounds ptr, ptr %add.ptr70, i64 -1
   store ptr %add.ptr71, ptr %_M_node, align 8, !tbaa !61
   %6 = load ptr, ptr %add.ptr71, align 8, !tbaa !14
-  %_M_first.i103 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %6, ptr %_M_first.i103, align 8, !tbaa !56
-  %add.ptr.i104 = getelementptr inbounds ptr, ptr %6, i64 64
-  %_M_last.i105 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i104, ptr %_M_last.i105, align 8, !tbaa !139
+  %_M_first.i105 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %6, ptr %_M_first.i105, align 8, !tbaa !56
+  %add.ptr.i106 = getelementptr inbounds ptr, ptr %6, i64 64
+  %_M_last.i107 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_fileline *, std::allocator<kc::impl_fileline *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i106, ptr %_M_last.i107, align 8, !tbaa !139
   ret void
 }
 
@@ -6745,8 +6745,8 @@ entry:
 if.then:                                          ; preds = %entry
   %3 = load ptr, ptr %this, align 8, !tbaa !5
   %sub = sub i64 %2, %add4
-  %div110 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div110
+  %div88 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div88
   %cond = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr9 = getelementptr inbounds ptr, ptr %add.ptr, i64 %cond
   %cmp13 = icmp ult ptr %add.ptr9, %1
@@ -6764,16 +6764,16 @@ if.then.i.i.i.i.i:                                ; preds = %if.then14
   br label %if.end65
 
 if.else:                                          ; preds = %if.then
-  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i93
+  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i95
 
-if.then.i.i.i.i.i93:                              ; preds = %if.else
-  %sub.ptr.lhs.cast.i.i.i.i.i87 = ptrtoint ptr %add.ptr21 to i64
-  %sub.ptr.sub.i.i.i.i.i89 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i87, %sub.ptr.rhs.cast
-  %sub.ptr.div.i.i.i.i.i90 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i89, 3
-  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i90
+if.then.i.i.i.i.i95:                              ; preds = %if.else
+  %sub.ptr.lhs.cast.i.i.i.i.i89 = ptrtoint ptr %add.ptr21 to i64
+  %sub.ptr.sub.i.i.i.i.i91 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i89, %sub.ptr.rhs.cast
+  %sub.ptr.div.i.i.i.i.i92 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i91, 3
+  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i92
   %add.ptr29 = getelementptr inbounds ptr, ptr %add.ptr9, i64 %add
-  %add.ptr.i.i.i.i.i92 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i92, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i89, i1 false)
+  %add.ptr.i.i.i.i.i94 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i94, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i91, i1 false)
   br label %if.end65
 
 if.else31:                                        ; preds = %entry
@@ -6799,29 +6799,29 @@ _ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE15_M_allocate_mapEm.exit:
   %mul.i.i.i = shl nuw nsw i64 %add38, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   %sub40 = sub i64 %add38, %add4
-  %div41109 = lshr i64 %sub40, 1
-  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div41109
+  %div4187 = lshr i64 %sub40, 1
+  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div4187
   %cond47 = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr48 = getelementptr inbounds ptr, ptr %add.ptr42, i64 %cond47
   %add.ptr55 = getelementptr inbounds ptr, ptr %0, i64 1
-  %tobool.not.i.i.i.i.i97 = icmp eq ptr %add.ptr55, %1
-  br i1 %tobool.not.i.i.i.i.i97, label %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit101, label %if.then.i.i.i.i.i98
+  %tobool.not.i.i.i.i.i99 = icmp eq ptr %add.ptr55, %1
+  br i1 %tobool.not.i.i.i.i.i99, label %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit103, label %if.then.i.i.i.i.i100
 
-if.then.i.i.i.i.i98:                              ; preds = %_ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE15_M_allocate_mapEm.exit
-  %sub.ptr.lhs.cast.i.i.i.i.i94 = ptrtoint ptr %add.ptr55 to i64
-  %sub.ptr.sub.i.i.i.i.i96 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i94, %sub.ptr.rhs.cast
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i96, i1 false)
-  br label %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit101
+if.then.i.i.i.i.i100:                             ; preds = %_ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE15_M_allocate_mapEm.exit
+  %sub.ptr.lhs.cast.i.i.i.i.i96 = ptrtoint ptr %add.ptr55 to i64
+  %sub.ptr.sub.i.i.i.i.i98 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i96, %sub.ptr.rhs.cast
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i98, i1 false)
+  br label %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit103
 
-_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit101: ; preds = %_ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i98
+_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit103: ; preds = %_ZNSt11_Deque_baseIPN2kc20impl_withexpressionsESaIS2_EE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i100
   %4 = load ptr, ptr %this, align 8, !tbaa !5
   tail call void @_ZdlPv(ptr noundef %4) #16
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !5
   store i64 %add38, ptr %_M_map_size, align 8, !tbaa !148
   br label %if.end65
 
-if.end65:                                         ; preds = %if.then.i.i.i.i.i93, %if.else, %if.then.i.i.i.i.i, %if.then14, %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit101
-  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit101 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i93 ]
+if.end65:                                         ; preds = %if.then.i.i.i.i.i, %if.then14, %if.then.i.i.i.i.i95, %if.else, %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit103
+  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPPN2kc20impl_withexpressionsES4_ET0_T_S6_S5_.exit103 ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i95 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ]
   store ptr %__new_nstart.0, ptr %_M_node3, align 8, !tbaa !76
   %5 = load ptr, ptr %__new_nstart.0, align 8, !tbaa !14
   %_M_first.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 1
@@ -6833,11 +6833,11 @@ if.end65:                                         ; preds = %if.then.i.i.i.i.i93
   %add.ptr71 = getelementptr inbounds ptr, ptr %add.ptr70, i64 -1
   store ptr %add.ptr71, ptr %_M_node, align 8, !tbaa !76
   %6 = load ptr, ptr %add.ptr71, align 8, !tbaa !14
-  %_M_first.i103 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %6, ptr %_M_first.i103, align 8, !tbaa !75
-  %add.ptr.i104 = getelementptr inbounds ptr, ptr %6, i64 64
-  %_M_last.i105 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i104, ptr %_M_last.i105, align 8, !tbaa !141
+  %_M_first.i105 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %6, ptr %_M_first.i105, align 8, !tbaa !75
+  %add.ptr.i106 = getelementptr inbounds ptr, ptr %6, i64 64
+  %_M_last.i107 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_withexpressions *, std::allocator<kc::impl_withexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i106, ptr %_M_last.i107, align 8, !tbaa !141
   ret void
 }
 
@@ -6939,8 +6939,8 @@ entry:
 if.then:                                          ; preds = %entry
   %3 = load ptr, ptr %this, align 8, !tbaa !29
   %sub = sub i64 %2, %add4
-  %div110 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div110
+  %div88 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div88
   %cond = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr9 = getelementptr inbounds ptr, ptr %add.ptr, i64 %cond
   %cmp13 = icmp ult ptr %add.ptr9, %1
@@ -6958,16 +6958,16 @@ if.then.i.i.i.i.i:                                ; preds = %if.then14
   br label %if.end65
 
 if.else:                                          ; preds = %if.then
-  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i93
+  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i95
 
-if.then.i.i.i.i.i93:                              ; preds = %if.else
-  %sub.ptr.lhs.cast.i.i.i.i.i87 = ptrtoint ptr %add.ptr21 to i64
-  %sub.ptr.sub.i.i.i.i.i89 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i87, %sub.ptr.rhs.cast
-  %sub.ptr.div.i.i.i.i.i90 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i89, 3
-  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i90
+if.then.i.i.i.i.i95:                              ; preds = %if.else
+  %sub.ptr.lhs.cast.i.i.i.i.i89 = ptrtoint ptr %add.ptr21 to i64
+  %sub.ptr.sub.i.i.i.i.i91 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i89, %sub.ptr.rhs.cast
+  %sub.ptr.div.i.i.i.i.i92 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i91, 3
+  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i92
   %add.ptr29 = getelementptr inbounds ptr, ptr %add.ptr9, i64 %add
-  %add.ptr.i.i.i.i.i92 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i92, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i89, i1 false)
+  %add.ptr.i.i.i.i.i94 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i94, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i91, i1 false)
   br label %if.end65
 
 if.else31:                                        ; preds = %entry
@@ -6993,29 +6993,29 @@ _ZNSt11_Deque_baseIiSaIiEE15_M_allocate_mapEm.exit: ; preds = %if.else31
   %mul.i.i.i = shl nuw nsw i64 %add38, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   %sub40 = sub i64 %add38, %add4
-  %div41109 = lshr i64 %sub40, 1
-  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div41109
+  %div4187 = lshr i64 %sub40, 1
+  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div4187
   %cond47 = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr48 = getelementptr inbounds ptr, ptr %add.ptr42, i64 %cond47
   %add.ptr55 = getelementptr inbounds ptr, ptr %0, i64 1
-  %tobool.not.i.i.i.i.i97 = icmp eq ptr %add.ptr55, %1
-  br i1 %tobool.not.i.i.i.i.i97, label %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit101, label %if.then.i.i.i.i.i98
+  %tobool.not.i.i.i.i.i99 = icmp eq ptr %add.ptr55, %1
+  br i1 %tobool.not.i.i.i.i.i99, label %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit103, label %if.then.i.i.i.i.i100
 
-if.then.i.i.i.i.i98:                              ; preds = %_ZNSt11_Deque_baseIiSaIiEE15_M_allocate_mapEm.exit
-  %sub.ptr.lhs.cast.i.i.i.i.i94 = ptrtoint ptr %add.ptr55 to i64
-  %sub.ptr.sub.i.i.i.i.i96 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i94, %sub.ptr.rhs.cast
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i96, i1 false)
-  br label %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit101
+if.then.i.i.i.i.i100:                             ; preds = %_ZNSt11_Deque_baseIiSaIiEE15_M_allocate_mapEm.exit
+  %sub.ptr.lhs.cast.i.i.i.i.i96 = ptrtoint ptr %add.ptr55 to i64
+  %sub.ptr.sub.i.i.i.i.i98 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i96, %sub.ptr.rhs.cast
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i98, i1 false)
+  br label %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit103
 
-_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit101:             ; preds = %_ZNSt11_Deque_baseIiSaIiEE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i98
+_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit103:             ; preds = %_ZNSt11_Deque_baseIiSaIiEE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i100
   %4 = load ptr, ptr %this, align 8, !tbaa !29
   tail call void @_ZdlPv(ptr noundef %4) #16
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !29
   store i64 %add38, ptr %_M_map_size, align 8, !tbaa !157
   br label %if.end65
 
-if.end65:                                         ; preds = %if.then.i.i.i.i.i93, %if.else, %if.then.i.i.i.i.i, %if.then14, %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit101
-  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit101 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i93 ]
+if.end65:                                         ; preds = %if.then.i.i.i.i.i, %if.then14, %if.then.i.i.i.i.i95, %if.else, %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit103
+  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPiS1_ET0_T_S3_S2_.exit103 ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i95 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ]
   store ptr %__new_nstart.0, ptr %_M_node3, align 8, !tbaa !87
   %5 = load ptr, ptr %__new_nstart.0, align 8, !tbaa !14
   %_M_first.i = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 1
@@ -7027,11 +7027,11 @@ if.end65:                                         ; preds = %if.then.i.i.i.i.i93
   %add.ptr71 = getelementptr inbounds ptr, ptr %add.ptr70, i64 -1
   store ptr %add.ptr71, ptr %_M_node, align 8, !tbaa !87
   %6 = load ptr, ptr %add.ptr71, align 8, !tbaa !14
-  %_M_first.i103 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %6, ptr %_M_first.i103, align 8, !tbaa !86
-  %add.ptr.i104 = getelementptr inbounds i32, ptr %6, i64 128
-  %_M_last.i105 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i104, ptr %_M_last.i105, align 8, !tbaa !143
+  %_M_first.i105 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %6, ptr %_M_first.i105, align 8, !tbaa !86
+  %add.ptr.i106 = getelementptr inbounds i32, ptr %6, i64 128
+  %_M_last.i107 = getelementptr inbounds %"struct.std::_Deque_base<int, std::allocator<int>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i106, ptr %_M_last.i107, align 8, !tbaa !143
   ret void
 }
 
@@ -7133,8 +7133,8 @@ entry:
 if.then:                                          ; preds = %entry
   %3 = load ptr, ptr %this, align 8, !tbaa !17
   %sub = sub i64 %2, %add4
-  %div110 = lshr i64 %sub, 1
-  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div110
+  %div88 = lshr i64 %sub, 1
+  %add.ptr = getelementptr inbounds ptr, ptr %3, i64 %div88
   %cond = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr9 = getelementptr inbounds ptr, ptr %add.ptr, i64 %cond
   %cmp13 = icmp ult ptr %add.ptr9, %1
@@ -7152,16 +7152,16 @@ if.then.i.i.i.i.i:                                ; preds = %if.then14
   br label %if.end65
 
 if.else:                                          ; preds = %if.then
-  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i93
+  br i1 %tobool.not.i.i.i.i.i, label %if.end65, label %if.then.i.i.i.i.i95
 
-if.then.i.i.i.i.i93:                              ; preds = %if.else
-  %sub.ptr.lhs.cast.i.i.i.i.i87 = ptrtoint ptr %add.ptr21 to i64
-  %sub.ptr.sub.i.i.i.i.i89 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i87, %sub.ptr.rhs.cast
-  %sub.ptr.div.i.i.i.i.i90 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i89, 3
-  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i90
+if.then.i.i.i.i.i95:                              ; preds = %if.else
+  %sub.ptr.lhs.cast.i.i.i.i.i89 = ptrtoint ptr %add.ptr21 to i64
+  %sub.ptr.sub.i.i.i.i.i91 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i89, %sub.ptr.rhs.cast
+  %sub.ptr.div.i.i.i.i.i92 = ashr exact i64 %sub.ptr.sub.i.i.i.i.i91, 3
+  %.pre.i.i.i.i.i = sub nsw i64 0, %sub.ptr.div.i.i.i.i.i92
   %add.ptr29 = getelementptr inbounds ptr, ptr %add.ptr9, i64 %add
-  %add.ptr.i.i.i.i.i92 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
-  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i92, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i89, i1 false)
+  %add.ptr.i.i.i.i.i94 = getelementptr inbounds ptr, ptr %add.ptr29, i64 %.pre.i.i.i.i.i
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %add.ptr.i.i.i.i.i94, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i91, i1 false)
   br label %if.end65
 
 if.else31:                                        ; preds = %entry
@@ -7187,29 +7187,29 @@ _ZNSt11_Deque_baseIPN2kc19impl_idCexpressionsESaIS2_EE15_M_allocate_mapEm.exit: 
   %mul.i.i.i = shl nuw nsw i64 %add38, 3
   %call5.i.i4.i = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %mul.i.i.i) #21
   %sub40 = sub i64 %add38, %add4
-  %div41109 = lshr i64 %sub40, 1
-  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div41109
+  %div4187 = lshr i64 %sub40, 1
+  %add.ptr42 = getelementptr inbounds ptr, ptr %call5.i.i4.i, i64 %div4187
   %cond47 = select i1 %__add_at_front, i64 %__nodes_to_add, i64 0
   %add.ptr48 = getelementptr inbounds ptr, ptr %add.ptr42, i64 %cond47
   %add.ptr55 = getelementptr inbounds ptr, ptr %0, i64 1
-  %tobool.not.i.i.i.i.i97 = icmp eq ptr %add.ptr55, %1
-  br i1 %tobool.not.i.i.i.i.i97, label %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit101, label %if.then.i.i.i.i.i98
+  %tobool.not.i.i.i.i.i99 = icmp eq ptr %add.ptr55, %1
+  br i1 %tobool.not.i.i.i.i.i99, label %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit103, label %if.then.i.i.i.i.i100
 
-if.then.i.i.i.i.i98:                              ; preds = %_ZNSt11_Deque_baseIPN2kc19impl_idCexpressionsESaIS2_EE15_M_allocate_mapEm.exit
-  %sub.ptr.lhs.cast.i.i.i.i.i94 = ptrtoint ptr %add.ptr55 to i64
-  %sub.ptr.sub.i.i.i.i.i96 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i94, %sub.ptr.rhs.cast
-  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i96, i1 false)
-  br label %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit101
+if.then.i.i.i.i.i100:                             ; preds = %_ZNSt11_Deque_baseIPN2kc19impl_idCexpressionsESaIS2_EE15_M_allocate_mapEm.exit
+  %sub.ptr.lhs.cast.i.i.i.i.i96 = ptrtoint ptr %add.ptr55 to i64
+  %sub.ptr.sub.i.i.i.i.i98 = sub i64 %sub.ptr.lhs.cast.i.i.i.i.i96, %sub.ptr.rhs.cast
+  tail call void @llvm.memmove.p0.p0.i64(ptr nonnull align 8 %add.ptr48, ptr align 8 %1, i64 %sub.ptr.sub.i.i.i.i.i98, i1 false)
+  br label %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit103
 
-_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit101: ; preds = %_ZNSt11_Deque_baseIPN2kc19impl_idCexpressionsESaIS2_EE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i98
+_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit103: ; preds = %_ZNSt11_Deque_baseIPN2kc19impl_idCexpressionsESaIS2_EE15_M_allocate_mapEm.exit, %if.then.i.i.i.i.i100
   %4 = load ptr, ptr %this, align 8, !tbaa !17
   tail call void @_ZdlPv(ptr noundef %4) #16
   store ptr %call5.i.i4.i, ptr %this, align 8, !tbaa !17
   store i64 %add38, ptr %_M_map_size, align 8, !tbaa !151
   br label %if.end65
 
-if.end65:                                         ; preds = %if.then.i.i.i.i.i93, %if.else, %if.then.i.i.i.i.i, %if.then14, %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit101
-  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit101 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i93 ]
+if.end65:                                         ; preds = %if.then.i.i.i.i.i, %if.then14, %if.then.i.i.i.i.i95, %if.else, %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit103
+  %__new_nstart.0 = phi ptr [ %add.ptr48, %_ZSt4copyIPPPN2kc19impl_idCexpressionsES4_ET0_T_S6_S5_.exit103 ], [ %add.ptr9, %if.else ], [ %add.ptr9, %if.then.i.i.i.i.i95 ], [ %add.ptr9, %if.then14 ], [ %add.ptr9, %if.then.i.i.i.i.i ]
   store ptr %__new_nstart.0, ptr %_M_node3, align 8, !tbaa !100
   %5 = load ptr, ptr %__new_nstart.0, align 8, !tbaa !14
   %_M_first.i = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 2, i32 1
@@ -7221,11 +7221,11 @@ if.end65:                                         ; preds = %if.then.i.i.i.i.i93
   %add.ptr71 = getelementptr inbounds ptr, ptr %add.ptr70, i64 -1
   store ptr %add.ptr71, ptr %_M_node, align 8, !tbaa !100
   %6 = load ptr, ptr %add.ptr71, align 8, !tbaa !14
-  %_M_first.i103 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
-  store ptr %6, ptr %_M_first.i103, align 8, !tbaa !99
-  %add.ptr.i104 = getelementptr inbounds ptr, ptr %6, i64 64
-  %_M_last.i105 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
-  store ptr %add.ptr.i104, ptr %_M_last.i105, align 8, !tbaa !145
+  %_M_first.i105 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 1
+  store ptr %6, ptr %_M_first.i105, align 8, !tbaa !99
+  %add.ptr.i106 = getelementptr inbounds ptr, ptr %6, i64 64
+  %_M_last.i107 = getelementptr inbounds %"struct.std::_Deque_base<kc::impl_idCexpressions *, std::allocator<kc::impl_idCexpressions *>>::_Deque_impl_data", ptr %this, i64 0, i32 3, i32 2
+  store ptr %add.ptr.i106, ptr %_M_last.i107, align 8, !tbaa !145
   ret void
 }
 
@@ -7247,14 +7247,14 @@ entry:
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i64 @llvm.umax.i64(i64, i64) #15
-
 ; Function Attrs: nofree nounwind
 declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #1
 
 ; Function Attrs: nofree nounwind
 declare noundef i32 @fputc(i32 noundef, ptr nocapture noundef) local_unnamed_addr #1
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #15
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
 declare i32 @llvm.usub.sat.i32(i32, i32) #15

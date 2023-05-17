@@ -83,8 +83,8 @@ if.end15:                                         ; preds = %if.end, %if.then13
   %cmp16 = icmp slt i32 %8, %conv5
   %9 = load i32, ptr @G__align11.orlgth2, align 4
   %cmp19 = icmp slt i32 %9, %conv8
-  %or.cond401 = select i1 %cmp16, i1 true, i1 %cmp19
-  br i1 %or.cond401, label %if.then21, label %if.end81
+  %or.cond364 = select i1 %cmp16, i1 true, i1 %cmp19
+  br i1 %or.cond364, label %if.then21, label %if.end81
 
 if.then21:                                        ; preds = %if.end15
   %cmp22 = icmp sgt i32 %8, 0
@@ -219,9 +219,9 @@ if.end113:                                        ; preds = %lor.lhs.false88.if.
   %38 = ptrtoint ptr %37 to i64
   %39 = load ptr, ptr @G__align11.w2, align 8, !tbaa !9
   %40 = load ptr, ptr @G__align11.initverticalw, align 8, !tbaa !9
-  %seq2.val363 = load ptr, ptr %seq2, align 8, !tbaa !9
-  %seq1.val364 = load ptr, ptr %seq1, align 8, !tbaa !9
-  %41 = load i8, ptr %seq2.val363, align 1, !tbaa !11
+  %seq2.val367 = load ptr, ptr %seq2, align 8, !tbaa !9
+  %seq1.val368 = load ptr, ptr %seq1, align 8, !tbaa !9
+  %41 = load i8, ptr %seq2.val367, align 1, !tbaa !11
   %idxprom3.i = sext i8 %41 to i64
   %arrayidx4.i = getelementptr inbounds [128 x [128 x i32]], ptr @amino_dis, i64 0, i64 %idxprom3.i
   %tobool.not1.i = icmp eq i32 %conv5, 0
@@ -234,7 +234,7 @@ while.body.i.preheader:                           ; preds = %if.end113
 
 while.body.i.prol:                                ; preds = %while.body.i.preheader, %while.body.i.prol
   %match.addr.04.i.prol = phi ptr [ %incdec.ptr9.i.prol, %while.body.i.prol ], [ %40, %while.body.i.preheader ]
-  %seq2.03.i.prol = phi ptr [ %incdec.ptr.i.prol, %while.body.i.prol ], [ %seq1.val364, %while.body.i.preheader ]
+  %seq2.03.i.prol = phi ptr [ %incdec.ptr.i.prol, %while.body.i.prol ], [ %seq1.val368, %while.body.i.preheader ]
   %lgth2.addr.02.i.prol = phi i32 [ %dec.i.prol, %while.body.i.prol ], [ %conv5, %while.body.i.preheader ]
   %prol.iter = phi i32 [ %prol.iter.next, %while.body.i.prol ], [ 0, %while.body.i.preheader ]
   %dec.i.prol = add nsw i32 %lgth2.addr.02.i.prol, -1
@@ -252,7 +252,7 @@ while.body.i.prol:                                ; preds = %while.body.i.prehea
 
 while.body.i.prol.loopexit:                       ; preds = %while.body.i.prol, %while.body.i.preheader
   %match.addr.04.i.unr = phi ptr [ %40, %while.body.i.preheader ], [ %incdec.ptr9.i.prol, %while.body.i.prol ]
-  %seq2.03.i.unr = phi ptr [ %seq1.val364, %while.body.i.preheader ], [ %incdec.ptr.i.prol, %while.body.i.prol ]
+  %seq2.03.i.unr = phi ptr [ %seq1.val368, %while.body.i.preheader ], [ %incdec.ptr.i.prol, %while.body.i.prol ]
   %lgth2.addr.02.i.unr = phi i32 [ %conv5, %while.body.i.preheader ], [ %dec.i.prol, %while.body.i.prol ]
   %44 = icmp ult i32 %conv5, 4
   br i1 %44, label %match_calc.exit, label %while.body.i
@@ -298,88 +298,88 @@ while.body.i:                                     ; preds = %while.body.i.prol.l
   br i1 %tobool.not.i.3, label %match_calc.exit, label %while.body.i, !llvm.loop !16
 
 match_calc.exit:                                  ; preds = %while.body.i.prol.loopexit, %while.body.i, %if.end113
-  %53 = load i8, ptr %seq1.val364, align 1, !tbaa !11
-  %idxprom3.i365 = sext i8 %53 to i64
-  %arrayidx4.i366 = getelementptr inbounds [128 x [128 x i32]], ptr @amino_dis, i64 0, i64 %idxprom3.i365
-  %tobool.not1.i367 = icmp eq i32 %conv8, 0
-  br i1 %tobool.not1.i367, label %match_calc.exit379, label %while.body.i378.preheader
+  %53 = load i8, ptr %seq1.val368, align 1, !tbaa !11
+  %idxprom3.i369 = sext i8 %53 to i64
+  %arrayidx4.i370 = getelementptr inbounds [128 x [128 x i32]], ptr @amino_dis, i64 0, i64 %idxprom3.i369
+  %tobool.not1.i371 = icmp eq i32 %conv8, 0
+  br i1 %tobool.not1.i371, label %match_calc.exit383, label %while.body.i382.preheader
 
-while.body.i378.preheader:                        ; preds = %match_calc.exit
+while.body.i382.preheader:                        ; preds = %match_calc.exit
   %xtraiter522 = and i32 %conv8, 3
   %lcmp.mod523.not = icmp eq i32 %xtraiter522, 0
-  br i1 %lcmp.mod523.not, label %while.body.i378.prol.loopexit, label %while.body.i378.prol
+  br i1 %lcmp.mod523.not, label %while.body.i382.prol.loopexit, label %while.body.i382.prol
 
-while.body.i378.prol:                             ; preds = %while.body.i378.preheader, %while.body.i378.prol
-  %match.addr.04.i368.prol = phi ptr [ %incdec.ptr9.i376.prol, %while.body.i378.prol ], [ %37, %while.body.i378.preheader ]
-  %seq2.03.i369.prol = phi ptr [ %incdec.ptr.i372.prol, %while.body.i378.prol ], [ %seq2.val363, %while.body.i378.preheader ]
-  %lgth2.addr.02.i370.prol = phi i32 [ %dec.i371.prol, %while.body.i378.prol ], [ %conv8, %while.body.i378.preheader ]
-  %prol.iter524 = phi i32 [ %prol.iter524.next, %while.body.i378.prol ], [ 0, %while.body.i378.preheader ]
-  %dec.i371.prol = add nsw i32 %lgth2.addr.02.i370.prol, -1
-  %incdec.ptr.i372.prol = getelementptr inbounds i8, ptr %seq2.03.i369.prol, i64 1
-  %54 = load i8, ptr %seq2.03.i369.prol, align 1, !tbaa !11
-  %idxprom6.i373.prol = sext i8 %54 to i64
-  %arrayidx7.i374.prol = getelementptr inbounds i32, ptr %arrayidx4.i366, i64 %idxprom6.i373.prol
-  %55 = load i32, ptr %arrayidx7.i374.prol, align 4, !tbaa !5
-  %conv8.i375.prol = sitofp i32 %55 to float
-  %incdec.ptr9.i376.prol = getelementptr inbounds float, ptr %match.addr.04.i368.prol, i64 1
-  store float %conv8.i375.prol, ptr %match.addr.04.i368.prol, align 4, !tbaa !12
+while.body.i382.prol:                             ; preds = %while.body.i382.preheader, %while.body.i382.prol
+  %match.addr.04.i372.prol = phi ptr [ %incdec.ptr9.i380.prol, %while.body.i382.prol ], [ %37, %while.body.i382.preheader ]
+  %seq2.03.i373.prol = phi ptr [ %incdec.ptr.i376.prol, %while.body.i382.prol ], [ %seq2.val367, %while.body.i382.preheader ]
+  %lgth2.addr.02.i374.prol = phi i32 [ %dec.i375.prol, %while.body.i382.prol ], [ %conv8, %while.body.i382.preheader ]
+  %prol.iter524 = phi i32 [ %prol.iter524.next, %while.body.i382.prol ], [ 0, %while.body.i382.preheader ]
+  %dec.i375.prol = add nsw i32 %lgth2.addr.02.i374.prol, -1
+  %incdec.ptr.i376.prol = getelementptr inbounds i8, ptr %seq2.03.i373.prol, i64 1
+  %54 = load i8, ptr %seq2.03.i373.prol, align 1, !tbaa !11
+  %idxprom6.i377.prol = sext i8 %54 to i64
+  %arrayidx7.i378.prol = getelementptr inbounds i32, ptr %arrayidx4.i370, i64 %idxprom6.i377.prol
+  %55 = load i32, ptr %arrayidx7.i378.prol, align 4, !tbaa !5
+  %conv8.i379.prol = sitofp i32 %55 to float
+  %incdec.ptr9.i380.prol = getelementptr inbounds float, ptr %match.addr.04.i372.prol, i64 1
+  store float %conv8.i379.prol, ptr %match.addr.04.i372.prol, align 4, !tbaa !12
   %prol.iter524.next = add i32 %prol.iter524, 1
   %prol.iter524.cmp.not = icmp eq i32 %prol.iter524.next, %xtraiter522
-  br i1 %prol.iter524.cmp.not, label %while.body.i378.prol.loopexit, label %while.body.i378.prol, !llvm.loop !18
+  br i1 %prol.iter524.cmp.not, label %while.body.i382.prol.loopexit, label %while.body.i382.prol, !llvm.loop !18
 
-while.body.i378.prol.loopexit:                    ; preds = %while.body.i378.prol, %while.body.i378.preheader
-  %match.addr.04.i368.unr = phi ptr [ %37, %while.body.i378.preheader ], [ %incdec.ptr9.i376.prol, %while.body.i378.prol ]
-  %seq2.03.i369.unr = phi ptr [ %seq2.val363, %while.body.i378.preheader ], [ %incdec.ptr.i372.prol, %while.body.i378.prol ]
-  %lgth2.addr.02.i370.unr = phi i32 [ %conv8, %while.body.i378.preheader ], [ %dec.i371.prol, %while.body.i378.prol ]
+while.body.i382.prol.loopexit:                    ; preds = %while.body.i382.prol, %while.body.i382.preheader
+  %match.addr.04.i372.unr = phi ptr [ %37, %while.body.i382.preheader ], [ %incdec.ptr9.i380.prol, %while.body.i382.prol ]
+  %seq2.03.i373.unr = phi ptr [ %seq2.val367, %while.body.i382.preheader ], [ %incdec.ptr.i376.prol, %while.body.i382.prol ]
+  %lgth2.addr.02.i374.unr = phi i32 [ %conv8, %while.body.i382.preheader ], [ %dec.i375.prol, %while.body.i382.prol ]
   %56 = icmp ult i32 %conv8, 4
-  br i1 %56, label %match_calc.exit379, label %while.body.i378
+  br i1 %56, label %match_calc.exit383, label %while.body.i382
 
-while.body.i378:                                  ; preds = %while.body.i378.prol.loopexit, %while.body.i378
-  %match.addr.04.i368 = phi ptr [ %incdec.ptr9.i376.3, %while.body.i378 ], [ %match.addr.04.i368.unr, %while.body.i378.prol.loopexit ]
-  %seq2.03.i369 = phi ptr [ %incdec.ptr.i372.3, %while.body.i378 ], [ %seq2.03.i369.unr, %while.body.i378.prol.loopexit ]
-  %lgth2.addr.02.i370 = phi i32 [ %dec.i371.3, %while.body.i378 ], [ %lgth2.addr.02.i370.unr, %while.body.i378.prol.loopexit ]
-  %incdec.ptr.i372 = getelementptr inbounds i8, ptr %seq2.03.i369, i64 1
-  %57 = load i8, ptr %seq2.03.i369, align 1, !tbaa !11
-  %idxprom6.i373 = sext i8 %57 to i64
-  %arrayidx7.i374 = getelementptr inbounds i32, ptr %arrayidx4.i366, i64 %idxprom6.i373
-  %58 = load i32, ptr %arrayidx7.i374, align 4, !tbaa !5
-  %conv8.i375 = sitofp i32 %58 to float
-  %incdec.ptr9.i376 = getelementptr inbounds float, ptr %match.addr.04.i368, i64 1
-  store float %conv8.i375, ptr %match.addr.04.i368, align 4, !tbaa !12
-  %incdec.ptr.i372.1 = getelementptr inbounds i8, ptr %seq2.03.i369, i64 2
-  %59 = load i8, ptr %incdec.ptr.i372, align 1, !tbaa !11
-  %idxprom6.i373.1 = sext i8 %59 to i64
-  %arrayidx7.i374.1 = getelementptr inbounds i32, ptr %arrayidx4.i366, i64 %idxprom6.i373.1
-  %60 = load i32, ptr %arrayidx7.i374.1, align 4, !tbaa !5
-  %conv8.i375.1 = sitofp i32 %60 to float
-  %incdec.ptr9.i376.1 = getelementptr inbounds float, ptr %match.addr.04.i368, i64 2
-  store float %conv8.i375.1, ptr %incdec.ptr9.i376, align 4, !tbaa !12
-  %incdec.ptr.i372.2 = getelementptr inbounds i8, ptr %seq2.03.i369, i64 3
-  %61 = load i8, ptr %incdec.ptr.i372.1, align 1, !tbaa !11
-  %idxprom6.i373.2 = sext i8 %61 to i64
-  %arrayidx7.i374.2 = getelementptr inbounds i32, ptr %arrayidx4.i366, i64 %idxprom6.i373.2
-  %62 = load i32, ptr %arrayidx7.i374.2, align 4, !tbaa !5
-  %conv8.i375.2 = sitofp i32 %62 to float
-  %incdec.ptr9.i376.2 = getelementptr inbounds float, ptr %match.addr.04.i368, i64 3
-  store float %conv8.i375.2, ptr %incdec.ptr9.i376.1, align 4, !tbaa !12
-  %dec.i371.3 = add nsw i32 %lgth2.addr.02.i370, -4
-  %incdec.ptr.i372.3 = getelementptr inbounds i8, ptr %seq2.03.i369, i64 4
-  %63 = load i8, ptr %incdec.ptr.i372.2, align 1, !tbaa !11
-  %idxprom6.i373.3 = sext i8 %63 to i64
-  %arrayidx7.i374.3 = getelementptr inbounds i32, ptr %arrayidx4.i366, i64 %idxprom6.i373.3
-  %64 = load i32, ptr %arrayidx7.i374.3, align 4, !tbaa !5
-  %conv8.i375.3 = sitofp i32 %64 to float
-  %incdec.ptr9.i376.3 = getelementptr inbounds float, ptr %match.addr.04.i368, i64 4
-  store float %conv8.i375.3, ptr %incdec.ptr9.i376.2, align 4, !tbaa !12
-  %tobool.not.i377.3 = icmp eq i32 %dec.i371.3, 0
-  br i1 %tobool.not.i377.3, label %match_calc.exit379, label %while.body.i378, !llvm.loop !16
+while.body.i382:                                  ; preds = %while.body.i382.prol.loopexit, %while.body.i382
+  %match.addr.04.i372 = phi ptr [ %incdec.ptr9.i380.3, %while.body.i382 ], [ %match.addr.04.i372.unr, %while.body.i382.prol.loopexit ]
+  %seq2.03.i373 = phi ptr [ %incdec.ptr.i376.3, %while.body.i382 ], [ %seq2.03.i373.unr, %while.body.i382.prol.loopexit ]
+  %lgth2.addr.02.i374 = phi i32 [ %dec.i375.3, %while.body.i382 ], [ %lgth2.addr.02.i374.unr, %while.body.i382.prol.loopexit ]
+  %incdec.ptr.i376 = getelementptr inbounds i8, ptr %seq2.03.i373, i64 1
+  %57 = load i8, ptr %seq2.03.i373, align 1, !tbaa !11
+  %idxprom6.i377 = sext i8 %57 to i64
+  %arrayidx7.i378 = getelementptr inbounds i32, ptr %arrayidx4.i370, i64 %idxprom6.i377
+  %58 = load i32, ptr %arrayidx7.i378, align 4, !tbaa !5
+  %conv8.i379 = sitofp i32 %58 to float
+  %incdec.ptr9.i380 = getelementptr inbounds float, ptr %match.addr.04.i372, i64 1
+  store float %conv8.i379, ptr %match.addr.04.i372, align 4, !tbaa !12
+  %incdec.ptr.i376.1 = getelementptr inbounds i8, ptr %seq2.03.i373, i64 2
+  %59 = load i8, ptr %incdec.ptr.i376, align 1, !tbaa !11
+  %idxprom6.i377.1 = sext i8 %59 to i64
+  %arrayidx7.i378.1 = getelementptr inbounds i32, ptr %arrayidx4.i370, i64 %idxprom6.i377.1
+  %60 = load i32, ptr %arrayidx7.i378.1, align 4, !tbaa !5
+  %conv8.i379.1 = sitofp i32 %60 to float
+  %incdec.ptr9.i380.1 = getelementptr inbounds float, ptr %match.addr.04.i372, i64 2
+  store float %conv8.i379.1, ptr %incdec.ptr9.i380, align 4, !tbaa !12
+  %incdec.ptr.i376.2 = getelementptr inbounds i8, ptr %seq2.03.i373, i64 3
+  %61 = load i8, ptr %incdec.ptr.i376.1, align 1, !tbaa !11
+  %idxprom6.i377.2 = sext i8 %61 to i64
+  %arrayidx7.i378.2 = getelementptr inbounds i32, ptr %arrayidx4.i370, i64 %idxprom6.i377.2
+  %62 = load i32, ptr %arrayidx7.i378.2, align 4, !tbaa !5
+  %conv8.i379.2 = sitofp i32 %62 to float
+  %incdec.ptr9.i380.2 = getelementptr inbounds float, ptr %match.addr.04.i372, i64 3
+  store float %conv8.i379.2, ptr %incdec.ptr9.i380.1, align 4, !tbaa !12
+  %dec.i375.3 = add nsw i32 %lgth2.addr.02.i374, -4
+  %incdec.ptr.i376.3 = getelementptr inbounds i8, ptr %seq2.03.i373, i64 4
+  %63 = load i8, ptr %incdec.ptr.i376.2, align 1, !tbaa !11
+  %idxprom6.i377.3 = sext i8 %63 to i64
+  %arrayidx7.i378.3 = getelementptr inbounds i32, ptr %arrayidx4.i370, i64 %idxprom6.i377.3
+  %64 = load i32, ptr %arrayidx7.i378.3, align 4, !tbaa !5
+  %conv8.i379.3 = sitofp i32 %64 to float
+  %incdec.ptr9.i380.3 = getelementptr inbounds float, ptr %match.addr.04.i372, i64 4
+  store float %conv8.i379.3, ptr %incdec.ptr9.i380.2, align 4, !tbaa !12
+  %tobool.not.i381.3 = icmp eq i32 %dec.i375.3, 0
+  br i1 %tobool.not.i381.3, label %match_calc.exit383, label %while.body.i382, !llvm.loop !16
 
-match_calc.exit379:                               ; preds = %while.body.i378.prol.loopexit, %while.body.i378, %match_calc.exit
+match_calc.exit383:                               ; preds = %while.body.i382.prol.loopexit, %while.body.i382, %match_calc.exit
   %65 = load i32, ptr @outgap, align 4, !tbaa !5
   %cmp114 = icmp eq i32 %65, 1
   br i1 %cmp114, label %for.cond.preheader, label %if.end133
 
-for.cond.preheader:                               ; preds = %match_calc.exit379
+for.cond.preheader:                               ; preds = %match_calc.exit383
   br i1 %cmp9, label %for.cond122.preheader, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %for.cond.preheader
@@ -483,7 +483,7 @@ for.body126:                                      ; preds = %for.body126.prehead
   %exitcond440.not = icmp eq i64 %indvars.iv.next437, %wide.trip.count439
   br i1 %exitcond440.not, label %if.end133, label %for.body126, !llvm.loop !24
 
-if.end133:                                        ; preds = %for.body126, %middle.block474, %match_calc.exit379
+if.end133:                                        ; preds = %for.body126, %middle.block474, %match_calc.exit383
   br i1 %cmp11, label %for.end148, label %for.body138.lr.ph
 
 for.body138.lr.ph:                                ; preds = %if.end133
@@ -574,7 +574,7 @@ for.body138:                                      ; preds = %for.body138.prol.lo
   br i1 %exitcond446.not.1, label %for.end148, label %for.body138, !llvm.loop !26
 
 for.end148:                                       ; preds = %for.body138.prol.loopexit, %for.body138, %middle.block493, %for.cond122.preheader, %if.end133
-  br i1 %tobool.not1.i367, label %if.then151, label %if.else
+  br i1 %tobool.not1.i371, label %if.then151, label %if.else
 
 if.then151:                                       ; preds = %for.end148
   %102 = load ptr, ptr @G__align11.lastverticalw, align 8, !tbaa !9
@@ -596,7 +596,7 @@ if.end157:                                        ; preds = %if.else, %if.then15
   %106 = load i32, ptr @outgap, align 4, !tbaa !5
   %tobool158.not = icmp ne i32 %106, 0
   %add160 = zext i1 %tobool158.not to i32
-  %lasti.0 = add nsw i32 %conv5, %add160
+  %lasti.0 = add nsw i32 %add160, %conv5
   %cmp164427 = icmp sgt i32 %lasti.0, 1
   br i1 %cmp164427, label %for.body166.lr.ph, label %for.end227
 
@@ -604,8 +604,8 @@ for.body166.lr.ph:                                ; preds = %if.end157
   %107 = load ptr, ptr @G__align11.m, align 8, !tbaa !9
   %108 = load ptr, ptr @G__align11.mp, align 8, !tbaa !9
   %sub220 = shl i64 %call7, 32
-  %sext398 = add i64 %sub220, -4294967296
-  %idxprom221 = ashr exact i64 %sext398, 32
+  %sext361 = add i64 %sub220, -4294967296
+  %idxprom221 = ashr exact i64 %sext361, 32
   %109 = add i64 %call7, 1
   %wide.trip.count457 = zext i32 %lasti.0 to i64
   %wide.trip.count451 = and i64 %109, 4294967295
@@ -623,92 +623,92 @@ for.body166:                                      ; preds = %for.body166.lr.ph, 
   %arrayidx169 = getelementptr inbounds float, ptr %40, i64 %111
   %112 = load float, ptr %arrayidx169, align 4, !tbaa !12
   store float %112, ptr %currentw.0429, align 4, !tbaa !12
-  %arrayidx2.i = getelementptr inbounds i8, ptr %seq1.val364, i64 %indvars.iv453
+  %arrayidx2.i = getelementptr inbounds i8, ptr %seq1.val368, i64 %indvars.iv453
   %113 = load i8, ptr %arrayidx2.i, align 1, !tbaa !11
-  %idxprom3.i380 = sext i8 %113 to i64
-  %arrayidx4.i381 = getelementptr inbounds [128 x [128 x i32]], ptr @amino_dis, i64 0, i64 %idxprom3.i380
-  br i1 %tobool.not1.i367, label %match_calc.exit394.thread, label %while.body.i393.preheader
+  %idxprom3.i384 = sext i8 %113 to i64
+  %arrayidx4.i385 = getelementptr inbounds [128 x [128 x i32]], ptr @amino_dis, i64 0, i64 %idxprom3.i384
+  br i1 %tobool.not1.i371, label %match_calc.exit398.thread, label %while.body.i397.preheader
 
-while.body.i393.preheader:                        ; preds = %for.body166
-  br i1 %lcmp.mod529.not, label %while.body.i393.prol.loopexit, label %while.body.i393.prol
+while.body.i397.preheader:                        ; preds = %for.body166
+  br i1 %lcmp.mod529.not, label %while.body.i397.prol.loopexit, label %while.body.i397.prol
 
-while.body.i393.prol:                             ; preds = %while.body.i393.preheader, %while.body.i393.prol
-  %match.addr.04.i383.prol = phi ptr [ %incdec.ptr9.i391.prol, %while.body.i393.prol ], [ %previousw.0428, %while.body.i393.preheader ]
-  %seq2.03.i384.prol = phi ptr [ %incdec.ptr.i387.prol, %while.body.i393.prol ], [ %seq2.val363, %while.body.i393.preheader ]
-  %lgth2.addr.02.i385.prol = phi i32 [ %dec.i386.prol, %while.body.i393.prol ], [ %conv8, %while.body.i393.preheader ]
-  %prol.iter530 = phi i32 [ %prol.iter530.next, %while.body.i393.prol ], [ 0, %while.body.i393.preheader ]
-  %dec.i386.prol = add nsw i32 %lgth2.addr.02.i385.prol, -1
-  %incdec.ptr.i387.prol = getelementptr inbounds i8, ptr %seq2.03.i384.prol, i64 1
-  %114 = load i8, ptr %seq2.03.i384.prol, align 1, !tbaa !11
-  %idxprom6.i388.prol = sext i8 %114 to i64
-  %arrayidx7.i389.prol = getelementptr inbounds i32, ptr %arrayidx4.i381, i64 %idxprom6.i388.prol
-  %115 = load i32, ptr %arrayidx7.i389.prol, align 4, !tbaa !5
-  %conv8.i390.prol = sitofp i32 %115 to float
-  %incdec.ptr9.i391.prol = getelementptr inbounds float, ptr %match.addr.04.i383.prol, i64 1
-  store float %conv8.i390.prol, ptr %match.addr.04.i383.prol, align 4, !tbaa !12
+while.body.i397.prol:                             ; preds = %while.body.i397.preheader, %while.body.i397.prol
+  %match.addr.04.i387.prol = phi ptr [ %incdec.ptr9.i395.prol, %while.body.i397.prol ], [ %previousw.0428, %while.body.i397.preheader ]
+  %seq2.03.i388.prol = phi ptr [ %incdec.ptr.i391.prol, %while.body.i397.prol ], [ %seq2.val367, %while.body.i397.preheader ]
+  %lgth2.addr.02.i389.prol = phi i32 [ %dec.i390.prol, %while.body.i397.prol ], [ %conv8, %while.body.i397.preheader ]
+  %prol.iter530 = phi i32 [ %prol.iter530.next, %while.body.i397.prol ], [ 0, %while.body.i397.preheader ]
+  %dec.i390.prol = add nsw i32 %lgth2.addr.02.i389.prol, -1
+  %incdec.ptr.i391.prol = getelementptr inbounds i8, ptr %seq2.03.i388.prol, i64 1
+  %114 = load i8, ptr %seq2.03.i388.prol, align 1, !tbaa !11
+  %idxprom6.i392.prol = sext i8 %114 to i64
+  %arrayidx7.i393.prol = getelementptr inbounds i32, ptr %arrayidx4.i385, i64 %idxprom6.i392.prol
+  %115 = load i32, ptr %arrayidx7.i393.prol, align 4, !tbaa !5
+  %conv8.i394.prol = sitofp i32 %115 to float
+  %incdec.ptr9.i395.prol = getelementptr inbounds float, ptr %match.addr.04.i387.prol, i64 1
+  store float %conv8.i394.prol, ptr %match.addr.04.i387.prol, align 4, !tbaa !12
   %prol.iter530.next = add i32 %prol.iter530, 1
   %prol.iter530.cmp.not = icmp eq i32 %prol.iter530.next, %xtraiter528
-  br i1 %prol.iter530.cmp.not, label %while.body.i393.prol.loopexit, label %while.body.i393.prol, !llvm.loop !27
+  br i1 %prol.iter530.cmp.not, label %while.body.i397.prol.loopexit, label %while.body.i397.prol, !llvm.loop !27
 
-while.body.i393.prol.loopexit:                    ; preds = %while.body.i393.prol, %while.body.i393.preheader
-  %match.addr.04.i383.unr = phi ptr [ %previousw.0428, %while.body.i393.preheader ], [ %incdec.ptr9.i391.prol, %while.body.i393.prol ]
-  %seq2.03.i384.unr = phi ptr [ %seq2.val363, %while.body.i393.preheader ], [ %incdec.ptr.i387.prol, %while.body.i393.prol ]
-  %lgth2.addr.02.i385.unr = phi i32 [ %conv8, %while.body.i393.preheader ], [ %dec.i386.prol, %while.body.i393.prol ]
-  br i1 %110, label %match_calc.exit394, label %while.body.i393
+while.body.i397.prol.loopexit:                    ; preds = %while.body.i397.prol, %while.body.i397.preheader
+  %match.addr.04.i387.unr = phi ptr [ %previousw.0428, %while.body.i397.preheader ], [ %incdec.ptr9.i395.prol, %while.body.i397.prol ]
+  %seq2.03.i388.unr = phi ptr [ %seq2.val367, %while.body.i397.preheader ], [ %incdec.ptr.i391.prol, %while.body.i397.prol ]
+  %lgth2.addr.02.i389.unr = phi i32 [ %conv8, %while.body.i397.preheader ], [ %dec.i390.prol, %while.body.i397.prol ]
+  br i1 %110, label %match_calc.exit398, label %while.body.i397
 
-match_calc.exit394.thread:                        ; preds = %for.body166
+match_calc.exit398.thread:                        ; preds = %for.body166
   %arrayidx172469 = getelementptr inbounds float, ptr %40, i64 %indvars.iv453
   %116 = load float, ptr %arrayidx172469, align 4, !tbaa !12
   store float %116, ptr %previousw.0428, align 4, !tbaa !12
   br label %for.end219
 
-while.body.i393:                                  ; preds = %while.body.i393.prol.loopexit, %while.body.i393
-  %match.addr.04.i383 = phi ptr [ %incdec.ptr9.i391.3, %while.body.i393 ], [ %match.addr.04.i383.unr, %while.body.i393.prol.loopexit ]
-  %seq2.03.i384 = phi ptr [ %incdec.ptr.i387.3, %while.body.i393 ], [ %seq2.03.i384.unr, %while.body.i393.prol.loopexit ]
-  %lgth2.addr.02.i385 = phi i32 [ %dec.i386.3, %while.body.i393 ], [ %lgth2.addr.02.i385.unr, %while.body.i393.prol.loopexit ]
-  %incdec.ptr.i387 = getelementptr inbounds i8, ptr %seq2.03.i384, i64 1
-  %117 = load i8, ptr %seq2.03.i384, align 1, !tbaa !11
-  %idxprom6.i388 = sext i8 %117 to i64
-  %arrayidx7.i389 = getelementptr inbounds i32, ptr %arrayidx4.i381, i64 %idxprom6.i388
-  %118 = load i32, ptr %arrayidx7.i389, align 4, !tbaa !5
-  %conv8.i390 = sitofp i32 %118 to float
-  %incdec.ptr9.i391 = getelementptr inbounds float, ptr %match.addr.04.i383, i64 1
-  store float %conv8.i390, ptr %match.addr.04.i383, align 4, !tbaa !12
-  %incdec.ptr.i387.1 = getelementptr inbounds i8, ptr %seq2.03.i384, i64 2
-  %119 = load i8, ptr %incdec.ptr.i387, align 1, !tbaa !11
-  %idxprom6.i388.1 = sext i8 %119 to i64
-  %arrayidx7.i389.1 = getelementptr inbounds i32, ptr %arrayidx4.i381, i64 %idxprom6.i388.1
-  %120 = load i32, ptr %arrayidx7.i389.1, align 4, !tbaa !5
-  %conv8.i390.1 = sitofp i32 %120 to float
-  %incdec.ptr9.i391.1 = getelementptr inbounds float, ptr %match.addr.04.i383, i64 2
-  store float %conv8.i390.1, ptr %incdec.ptr9.i391, align 4, !tbaa !12
-  %incdec.ptr.i387.2 = getelementptr inbounds i8, ptr %seq2.03.i384, i64 3
-  %121 = load i8, ptr %incdec.ptr.i387.1, align 1, !tbaa !11
-  %idxprom6.i388.2 = sext i8 %121 to i64
-  %arrayidx7.i389.2 = getelementptr inbounds i32, ptr %arrayidx4.i381, i64 %idxprom6.i388.2
-  %122 = load i32, ptr %arrayidx7.i389.2, align 4, !tbaa !5
-  %conv8.i390.2 = sitofp i32 %122 to float
-  %incdec.ptr9.i391.2 = getelementptr inbounds float, ptr %match.addr.04.i383, i64 3
-  store float %conv8.i390.2, ptr %incdec.ptr9.i391.1, align 4, !tbaa !12
-  %dec.i386.3 = add nsw i32 %lgth2.addr.02.i385, -4
-  %incdec.ptr.i387.3 = getelementptr inbounds i8, ptr %seq2.03.i384, i64 4
-  %123 = load i8, ptr %incdec.ptr.i387.2, align 1, !tbaa !11
-  %idxprom6.i388.3 = sext i8 %123 to i64
-  %arrayidx7.i389.3 = getelementptr inbounds i32, ptr %arrayidx4.i381, i64 %idxprom6.i388.3
-  %124 = load i32, ptr %arrayidx7.i389.3, align 4, !tbaa !5
-  %conv8.i390.3 = sitofp i32 %124 to float
-  %incdec.ptr9.i391.3 = getelementptr inbounds float, ptr %match.addr.04.i383, i64 4
-  store float %conv8.i390.3, ptr %incdec.ptr9.i391.2, align 4, !tbaa !12
-  %tobool.not.i392.3 = icmp eq i32 %dec.i386.3, 0
-  br i1 %tobool.not.i392.3, label %match_calc.exit394, label %while.body.i393, !llvm.loop !16
+while.body.i397:                                  ; preds = %while.body.i397.prol.loopexit, %while.body.i397
+  %match.addr.04.i387 = phi ptr [ %incdec.ptr9.i395.3, %while.body.i397 ], [ %match.addr.04.i387.unr, %while.body.i397.prol.loopexit ]
+  %seq2.03.i388 = phi ptr [ %incdec.ptr.i391.3, %while.body.i397 ], [ %seq2.03.i388.unr, %while.body.i397.prol.loopexit ]
+  %lgth2.addr.02.i389 = phi i32 [ %dec.i390.3, %while.body.i397 ], [ %lgth2.addr.02.i389.unr, %while.body.i397.prol.loopexit ]
+  %incdec.ptr.i391 = getelementptr inbounds i8, ptr %seq2.03.i388, i64 1
+  %117 = load i8, ptr %seq2.03.i388, align 1, !tbaa !11
+  %idxprom6.i392 = sext i8 %117 to i64
+  %arrayidx7.i393 = getelementptr inbounds i32, ptr %arrayidx4.i385, i64 %idxprom6.i392
+  %118 = load i32, ptr %arrayidx7.i393, align 4, !tbaa !5
+  %conv8.i394 = sitofp i32 %118 to float
+  %incdec.ptr9.i395 = getelementptr inbounds float, ptr %match.addr.04.i387, i64 1
+  store float %conv8.i394, ptr %match.addr.04.i387, align 4, !tbaa !12
+  %incdec.ptr.i391.1 = getelementptr inbounds i8, ptr %seq2.03.i388, i64 2
+  %119 = load i8, ptr %incdec.ptr.i391, align 1, !tbaa !11
+  %idxprom6.i392.1 = sext i8 %119 to i64
+  %arrayidx7.i393.1 = getelementptr inbounds i32, ptr %arrayidx4.i385, i64 %idxprom6.i392.1
+  %120 = load i32, ptr %arrayidx7.i393.1, align 4, !tbaa !5
+  %conv8.i394.1 = sitofp i32 %120 to float
+  %incdec.ptr9.i395.1 = getelementptr inbounds float, ptr %match.addr.04.i387, i64 2
+  store float %conv8.i394.1, ptr %incdec.ptr9.i395, align 4, !tbaa !12
+  %incdec.ptr.i391.2 = getelementptr inbounds i8, ptr %seq2.03.i388, i64 3
+  %121 = load i8, ptr %incdec.ptr.i391.1, align 1, !tbaa !11
+  %idxprom6.i392.2 = sext i8 %121 to i64
+  %arrayidx7.i393.2 = getelementptr inbounds i32, ptr %arrayidx4.i385, i64 %idxprom6.i392.2
+  %122 = load i32, ptr %arrayidx7.i393.2, align 4, !tbaa !5
+  %conv8.i394.2 = sitofp i32 %122 to float
+  %incdec.ptr9.i395.2 = getelementptr inbounds float, ptr %match.addr.04.i387, i64 3
+  store float %conv8.i394.2, ptr %incdec.ptr9.i395.1, align 4, !tbaa !12
+  %dec.i390.3 = add nsw i32 %lgth2.addr.02.i389, -4
+  %incdec.ptr.i391.3 = getelementptr inbounds i8, ptr %seq2.03.i388, i64 4
+  %123 = load i8, ptr %incdec.ptr.i391.2, align 1, !tbaa !11
+  %idxprom6.i392.3 = sext i8 %123 to i64
+  %arrayidx7.i393.3 = getelementptr inbounds i32, ptr %arrayidx4.i385, i64 %idxprom6.i392.3
+  %124 = load i32, ptr %arrayidx7.i393.3, align 4, !tbaa !5
+  %conv8.i394.3 = sitofp i32 %124 to float
+  %incdec.ptr9.i395.3 = getelementptr inbounds float, ptr %match.addr.04.i387, i64 4
+  store float %conv8.i394.3, ptr %incdec.ptr9.i395.2, align 4, !tbaa !12
+  %tobool.not.i396.3 = icmp eq i32 %dec.i390.3, 0
+  br i1 %tobool.not.i396.3, label %match_calc.exit398, label %while.body.i397, !llvm.loop !16
 
-match_calc.exit394:                               ; preds = %while.body.i393, %while.body.i393.prol.loopexit
+match_calc.exit398:                               ; preds = %while.body.i397, %while.body.i397.prol.loopexit
   %arrayidx172 = getelementptr inbounds float, ptr %40, i64 %indvars.iv453
   %125 = load float, ptr %arrayidx172, align 4, !tbaa !12
   store float %125, ptr %previousw.0428, align 4, !tbaa !12
   br i1 %cmp11, label %for.end219, label %for.body184.preheader
 
-for.body184.preheader:                            ; preds = %match_calc.exit394
+for.body184.preheader:                            ; preds = %match_calc.exit398
   %126 = load float, ptr %currentw.0429, align 4, !tbaa !12
   %arrayidx176 = getelementptr inbounds ptr, ptr %36, i64 %indvars.iv453
   %127 = load ptr, ptr %arrayidx176, align 8, !tbaa !9
@@ -777,8 +777,8 @@ if.end208:                                        ; preds = %if.then206, %if.end
   %exitcond452.not = icmp eq i64 %indvars.iv.next448, %wide.trip.count451
   br i1 %exitcond452.not, label %for.end219, label %for.body184, !llvm.loop !28
 
-for.end219:                                       ; preds = %if.end208, %match_calc.exit394.thread, %match_calc.exit394
-  %wm.1.lcssa = phi float [ %wm.0430, %match_calc.exit394 ], [ %wm.0430, %match_calc.exit394.thread ], [ %wm.3, %if.end208 ]
+for.end219:                                       ; preds = %if.end208, %match_calc.exit398.thread, %match_calc.exit398
+  %wm.1.lcssa = phi float [ %wm.0430, %match_calc.exit398 ], [ %wm.0430, %match_calc.exit398.thread ], [ %wm.3, %if.end208 ]
   %arrayidx222 = getelementptr inbounds float, ptr %previousw.0428, i64 %idxprom221
   %138 = load float, ptr %arrayidx222, align 4, !tbaa !12
   %arrayidx224 = getelementptr inbounds float, ptr %105, i64 %indvars.iv453
@@ -791,9 +791,9 @@ for.end227:                                       ; preds = %for.end219, %if.end
   %wm.0.lcssa = phi float [ 0.000000e+00, %if.end157 ], [ %wm.1.lcssa, %for.end219 ]
   %139 = load ptr, ptr @G__align11.mseq1, align 8, !tbaa !9
   %140 = load ptr, ptr @G__align11.mseq2, align 8, !tbaa !9
-  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seq1.val364) #7
+  %call.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seq1.val368) #7
   %conv.i = trunc i64 %call.i to i32
-  %call2.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seq2.val363) #7
+  %call2.i = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %seq2.val367) #7
   %conv3.i = trunc i64 %call2.i to i32
   %cmp.not1.i = icmp slt i32 %conv.i, 0
   br i1 %cmp.not1.i, label %for.cond8.preheader.i, label %for.body.preheader.i
@@ -981,39 +981,39 @@ while.body.preheader.i:                           ; preds = %if.end62.i
   %177 = add i32 %iin.016.i, -2
   %xtraiter533 = and i32 %dec5.i, 1
   %lcmp.mod534.not = icmp eq i32 %xtraiter533, 0
-  br i1 %lcmp.mod534.not, label %while.body.i397.prol.loopexit, label %while.body.i397.prol
+  br i1 %lcmp.mod534.not, label %while.body.i401.prol.loopexit, label %while.body.i401.prol
 
-while.body.i397.prol:                             ; preds = %while.body.preheader.i
+while.body.i401.prol:                             ; preds = %while.body.preheader.i
   %178 = load ptr, ptr %seq1, align 8, !tbaa !9
   %179 = add nsw i64 %174, %175
   %arrayidx67.i.prol = getelementptr inbounds i8, ptr %178, i64 %179
   %180 = load i8, ptr %arrayidx67.i.prol, align 1, !tbaa !11
   %181 = load ptr, ptr %139, align 8, !tbaa !9
-  %incdec.ptr.i395.prol = getelementptr inbounds i8, ptr %181, i64 -1
-  store ptr %incdec.ptr.i395.prol, ptr %139, align 8, !tbaa !9
-  store i8 %180, ptr %incdec.ptr.i395.prol, align 1, !tbaa !11
+  %incdec.ptr.i399.prol = getelementptr inbounds i8, ptr %181, i64 -1
+  store ptr %incdec.ptr.i399.prol, ptr %139, align 8, !tbaa !9
+  store i8 %180, ptr %incdec.ptr.i399.prol, align 1, !tbaa !11
   %182 = load ptr, ptr %140, align 8, !tbaa !9
   %incdec.ptr70.i.prol = getelementptr inbounds i8, ptr %182, i64 -1
   store ptr %incdec.ptr70.i.prol, ptr %140, align 8, !tbaa !9
   store i8 45, ptr %incdec.ptr70.i.prol, align 1, !tbaa !11
   %indvars.iv.next26.i.prol = add nsw i64 %174, -1
-  br label %while.body.i397.prol.loopexit
+  br label %while.body.i401.prol.loopexit
 
-while.body.i397.prol.loopexit:                    ; preds = %while.body.i397.prol, %while.body.preheader.i
-  %indvars.iv25.i.unr = phi i64 [ %174, %while.body.preheader.i ], [ %indvars.iv.next26.i.prol, %while.body.i397.prol ]
+while.body.i401.prol.loopexit:                    ; preds = %while.body.i401.prol, %while.body.preheader.i
+  %indvars.iv25.i.unr = phi i64 [ %174, %while.body.preheader.i ], [ %indvars.iv.next26.i.prol, %while.body.i401.prol ]
   %183 = icmp eq i32 %177, %ifi.0.i
-  br i1 %183, label %while.end.loopexit.i, label %while.body.i397
+  br i1 %183, label %while.end.loopexit.i, label %while.body.i401
 
-while.body.i397:                                  ; preds = %while.body.i397.prol.loopexit, %while.body.i397
-  %indvars.iv25.i = phi i64 [ %indvars.iv.next26.i.1, %while.body.i397 ], [ %indvars.iv25.i.unr, %while.body.i397.prol.loopexit ]
+while.body.i401:                                  ; preds = %while.body.i401.prol.loopexit, %while.body.i401
+  %indvars.iv25.i = phi i64 [ %indvars.iv.next26.i.1, %while.body.i401 ], [ %indvars.iv25.i.unr, %while.body.i401.prol.loopexit ]
   %184 = load ptr, ptr %seq1, align 8, !tbaa !9
   %185 = add nsw i64 %indvars.iv25.i, %175
   %arrayidx67.i = getelementptr inbounds i8, ptr %184, i64 %185
   %186 = load i8, ptr %arrayidx67.i, align 1, !tbaa !11
   %187 = load ptr, ptr %139, align 8, !tbaa !9
-  %incdec.ptr.i395 = getelementptr inbounds i8, ptr %187, i64 -1
-  store ptr %incdec.ptr.i395, ptr %139, align 8, !tbaa !9
-  store i8 %186, ptr %incdec.ptr.i395, align 1, !tbaa !11
+  %incdec.ptr.i399 = getelementptr inbounds i8, ptr %187, i64 -1
+  store ptr %incdec.ptr.i399, ptr %139, align 8, !tbaa !9
+  store i8 %186, ptr %incdec.ptr.i399, align 1, !tbaa !11
   %188 = load ptr, ptr %140, align 8, !tbaa !9
   %incdec.ptr70.i = getelementptr inbounds i8, ptr %188, i64 -1
   store ptr %incdec.ptr70.i, ptr %140, align 8, !tbaa !9
@@ -1024,19 +1024,19 @@ while.body.i397:                                  ; preds = %while.body.i397.pro
   %arrayidx67.i.1 = getelementptr inbounds i8, ptr %189, i64 %190
   %191 = load i8, ptr %arrayidx67.i.1, align 1, !tbaa !11
   %192 = load ptr, ptr %139, align 8, !tbaa !9
-  %incdec.ptr.i395.1 = getelementptr inbounds i8, ptr %192, i64 -1
-  store ptr %incdec.ptr.i395.1, ptr %139, align 8, !tbaa !9
-  store i8 %191, ptr %incdec.ptr.i395.1, align 1, !tbaa !11
+  %incdec.ptr.i399.1 = getelementptr inbounds i8, ptr %192, i64 -1
+  store ptr %incdec.ptr.i399.1, ptr %139, align 8, !tbaa !9
+  store i8 %191, ptr %incdec.ptr.i399.1, align 1, !tbaa !11
   %193 = load ptr, ptr %140, align 8, !tbaa !9
   %incdec.ptr70.i.1 = getelementptr inbounds i8, ptr %193, i64 -1
   store ptr %incdec.ptr70.i.1, ptr %140, align 8, !tbaa !9
   store i8 45, ptr %incdec.ptr70.i.1, align 1, !tbaa !11
   %indvars.iv.next26.i.1 = add nsw i64 %indvars.iv25.i, -2
   %194 = and i64 %indvars.iv.next26.i.1, 4294967295
-  %tobool.not.i396.1 = icmp eq i64 %194, 0
-  br i1 %tobool.not.i396.1, label %while.end.loopexit.i, label %while.body.i397, !llvm.loop !34
+  %tobool.not.i400.1 = icmp eq i64 %194, 0
+  br i1 %tobool.not.i400.1, label %while.end.loopexit.i, label %while.body.i401, !llvm.loop !34
 
-while.end.loopexit.i:                             ; preds = %while.body.i397, %while.body.i397.prol.loopexit
+while.end.loopexit.i:                             ; preds = %while.body.i401, %while.body.i401.prol.loopexit
   %195 = add i32 %176, %k.017.i
   %196 = sub i32 %195, %ifi.0.i
   br label %while.end.i
@@ -1226,8 +1226,8 @@ if.end:                                           ; preds = %entry, %if.then
   %cmp10 = icmp slt i32 %3, %conv2
   %4 = load i32, ptr @G__align11_noalign.orlgth2, align 4
   %cmp13 = icmp slt i32 %4, %conv5
-  %or.cond298 = select i1 %cmp10, i1 true, i1 %cmp13
-  br i1 %or.cond298, label %if.then15, label %if.end71
+  %or.cond264 = select i1 %cmp10, i1 true, i1 %cmp13
+  br i1 %or.cond264, label %if.then15, label %if.end71
 
 if.then15:                                        ; preds = %if.end
   %cmp16 = icmp sgt i32 %3, 0
@@ -1298,9 +1298,9 @@ if.end71:                                         ; preds = %if.end, %if.end21
   %16 = ptrtoint ptr %15 to i64
   %17 = load ptr, ptr @G__align11_noalign.w2, align 8, !tbaa !9
   %18 = load ptr, ptr @G__align11_noalign.initverticalw, align 8, !tbaa !9
-  %seq2.val265 = load ptr, ptr %seq2, align 8, !tbaa !9
-  %seq1.val266 = load ptr, ptr %seq1, align 8, !tbaa !9
-  %19 = load i8, ptr %seq2.val265, align 1, !tbaa !11
+  %seq2.val267 = load ptr, ptr %seq2, align 8, !tbaa !9
+  %seq1.val268 = load ptr, ptr %seq1, align 8, !tbaa !9
+  %19 = load i8, ptr %seq2.val267, align 1, !tbaa !11
   %idxprom3.i = sext i8 %19 to i64
   %arrayidx4.i = getelementptr inbounds [128 x i32], ptr %scoremtx, i64 %idxprom3.i
   %tobool.not1.i = icmp eq i32 %conv2, 0
@@ -1313,7 +1313,7 @@ while.body.i.preheader:                           ; preds = %if.end71
 
 while.body.i.prol:                                ; preds = %while.body.i.preheader, %while.body.i.prol
   %match.addr.04.i.prol = phi ptr [ %incdec.ptr9.i.prol, %while.body.i.prol ], [ %18, %while.body.i.preheader ]
-  %seq2.03.i.prol = phi ptr [ %incdec.ptr.i.prol, %while.body.i.prol ], [ %seq1.val266, %while.body.i.preheader ]
+  %seq2.03.i.prol = phi ptr [ %incdec.ptr.i.prol, %while.body.i.prol ], [ %seq1.val268, %while.body.i.preheader ]
   %lgth2.addr.02.i.prol = phi i32 [ %dec.i.prol, %while.body.i.prol ], [ %conv2, %while.body.i.preheader ]
   %prol.iter = phi i32 [ %prol.iter.next, %while.body.i.prol ], [ 0, %while.body.i.preheader ]
   %dec.i.prol = add nsw i32 %lgth2.addr.02.i.prol, -1
@@ -1331,7 +1331,7 @@ while.body.i.prol:                                ; preds = %while.body.i.prehea
 
 while.body.i.prol.loopexit:                       ; preds = %while.body.i.prol, %while.body.i.preheader
   %match.addr.04.i.unr = phi ptr [ %18, %while.body.i.preheader ], [ %incdec.ptr9.i.prol, %while.body.i.prol ]
-  %seq2.03.i.unr = phi ptr [ %seq1.val266, %while.body.i.preheader ], [ %incdec.ptr.i.prol, %while.body.i.prol ]
+  %seq2.03.i.unr = phi ptr [ %seq1.val268, %while.body.i.preheader ], [ %incdec.ptr.i.prol, %while.body.i.prol ]
   %lgth2.addr.02.i.unr = phi i32 [ %conv2, %while.body.i.preheader ], [ %dec.i.prol, %while.body.i.prol ]
   %22 = icmp ult i32 %conv2, 4
   br i1 %22, label %match_calc_mtx.exit, label %while.body.i
@@ -1377,88 +1377,88 @@ while.body.i:                                     ; preds = %while.body.i.prol.l
   br i1 %tobool.not.i.3, label %match_calc_mtx.exit, label %while.body.i, !llvm.loop !38
 
 match_calc_mtx.exit:                              ; preds = %while.body.i.prol.loopexit, %while.body.i, %if.end71
-  %31 = load i8, ptr %seq1.val266, align 1, !tbaa !11
-  %idxprom3.i267 = sext i8 %31 to i64
-  %arrayidx4.i268 = getelementptr inbounds [128 x i32], ptr %scoremtx, i64 %idxprom3.i267
-  %tobool.not1.i269 = icmp eq i32 %conv5, 0
-  br i1 %tobool.not1.i269, label %match_calc_mtx.exit281, label %while.body.i280.preheader
+  %31 = load i8, ptr %seq1.val268, align 1, !tbaa !11
+  %idxprom3.i269 = sext i8 %31 to i64
+  %arrayidx4.i270 = getelementptr inbounds [128 x i32], ptr %scoremtx, i64 %idxprom3.i269
+  %tobool.not1.i271 = icmp eq i32 %conv5, 0
+  br i1 %tobool.not1.i271, label %match_calc_mtx.exit283, label %while.body.i282.preheader
 
-while.body.i280.preheader:                        ; preds = %match_calc_mtx.exit
+while.body.i282.preheader:                        ; preds = %match_calc_mtx.exit
   %xtraiter387 = and i32 %conv5, 3
   %lcmp.mod388.not = icmp eq i32 %xtraiter387, 0
-  br i1 %lcmp.mod388.not, label %while.body.i280.prol.loopexit, label %while.body.i280.prol
+  br i1 %lcmp.mod388.not, label %while.body.i282.prol.loopexit, label %while.body.i282.prol
 
-while.body.i280.prol:                             ; preds = %while.body.i280.preheader, %while.body.i280.prol
-  %match.addr.04.i270.prol = phi ptr [ %incdec.ptr9.i278.prol, %while.body.i280.prol ], [ %15, %while.body.i280.preheader ]
-  %seq2.03.i271.prol = phi ptr [ %incdec.ptr.i274.prol, %while.body.i280.prol ], [ %seq2.val265, %while.body.i280.preheader ]
-  %lgth2.addr.02.i272.prol = phi i32 [ %dec.i273.prol, %while.body.i280.prol ], [ %conv5, %while.body.i280.preheader ]
-  %prol.iter389 = phi i32 [ %prol.iter389.next, %while.body.i280.prol ], [ 0, %while.body.i280.preheader ]
-  %dec.i273.prol = add nsw i32 %lgth2.addr.02.i272.prol, -1
-  %incdec.ptr.i274.prol = getelementptr inbounds i8, ptr %seq2.03.i271.prol, i64 1
-  %32 = load i8, ptr %seq2.03.i271.prol, align 1, !tbaa !11
-  %idxprom6.i275.prol = sext i8 %32 to i64
-  %arrayidx7.i276.prol = getelementptr inbounds i32, ptr %arrayidx4.i268, i64 %idxprom6.i275.prol
-  %33 = load i32, ptr %arrayidx7.i276.prol, align 4, !tbaa !5
-  %conv8.i277.prol = sitofp i32 %33 to float
-  %incdec.ptr9.i278.prol = getelementptr inbounds float, ptr %match.addr.04.i270.prol, i64 1
-  store float %conv8.i277.prol, ptr %match.addr.04.i270.prol, align 4, !tbaa !12
+while.body.i282.prol:                             ; preds = %while.body.i282.preheader, %while.body.i282.prol
+  %match.addr.04.i272.prol = phi ptr [ %incdec.ptr9.i280.prol, %while.body.i282.prol ], [ %15, %while.body.i282.preheader ]
+  %seq2.03.i273.prol = phi ptr [ %incdec.ptr.i276.prol, %while.body.i282.prol ], [ %seq2.val267, %while.body.i282.preheader ]
+  %lgth2.addr.02.i274.prol = phi i32 [ %dec.i275.prol, %while.body.i282.prol ], [ %conv5, %while.body.i282.preheader ]
+  %prol.iter389 = phi i32 [ %prol.iter389.next, %while.body.i282.prol ], [ 0, %while.body.i282.preheader ]
+  %dec.i275.prol = add nsw i32 %lgth2.addr.02.i274.prol, -1
+  %incdec.ptr.i276.prol = getelementptr inbounds i8, ptr %seq2.03.i273.prol, i64 1
+  %32 = load i8, ptr %seq2.03.i273.prol, align 1, !tbaa !11
+  %idxprom6.i277.prol = sext i8 %32 to i64
+  %arrayidx7.i278.prol = getelementptr inbounds i32, ptr %arrayidx4.i270, i64 %idxprom6.i277.prol
+  %33 = load i32, ptr %arrayidx7.i278.prol, align 4, !tbaa !5
+  %conv8.i279.prol = sitofp i32 %33 to float
+  %incdec.ptr9.i280.prol = getelementptr inbounds float, ptr %match.addr.04.i272.prol, i64 1
+  store float %conv8.i279.prol, ptr %match.addr.04.i272.prol, align 4, !tbaa !12
   %prol.iter389.next = add i32 %prol.iter389, 1
   %prol.iter389.cmp.not = icmp eq i32 %prol.iter389.next, %xtraiter387
-  br i1 %prol.iter389.cmp.not, label %while.body.i280.prol.loopexit, label %while.body.i280.prol, !llvm.loop !39
+  br i1 %prol.iter389.cmp.not, label %while.body.i282.prol.loopexit, label %while.body.i282.prol, !llvm.loop !39
 
-while.body.i280.prol.loopexit:                    ; preds = %while.body.i280.prol, %while.body.i280.preheader
-  %match.addr.04.i270.unr = phi ptr [ %15, %while.body.i280.preheader ], [ %incdec.ptr9.i278.prol, %while.body.i280.prol ]
-  %seq2.03.i271.unr = phi ptr [ %seq2.val265, %while.body.i280.preheader ], [ %incdec.ptr.i274.prol, %while.body.i280.prol ]
-  %lgth2.addr.02.i272.unr = phi i32 [ %conv5, %while.body.i280.preheader ], [ %dec.i273.prol, %while.body.i280.prol ]
+while.body.i282.prol.loopexit:                    ; preds = %while.body.i282.prol, %while.body.i282.preheader
+  %match.addr.04.i272.unr = phi ptr [ %15, %while.body.i282.preheader ], [ %incdec.ptr9.i280.prol, %while.body.i282.prol ]
+  %seq2.03.i273.unr = phi ptr [ %seq2.val267, %while.body.i282.preheader ], [ %incdec.ptr.i276.prol, %while.body.i282.prol ]
+  %lgth2.addr.02.i274.unr = phi i32 [ %conv5, %while.body.i282.preheader ], [ %dec.i275.prol, %while.body.i282.prol ]
   %34 = icmp ult i32 %conv5, 4
-  br i1 %34, label %match_calc_mtx.exit281, label %while.body.i280
+  br i1 %34, label %match_calc_mtx.exit283, label %while.body.i282
 
-while.body.i280:                                  ; preds = %while.body.i280.prol.loopexit, %while.body.i280
-  %match.addr.04.i270 = phi ptr [ %incdec.ptr9.i278.3, %while.body.i280 ], [ %match.addr.04.i270.unr, %while.body.i280.prol.loopexit ]
-  %seq2.03.i271 = phi ptr [ %incdec.ptr.i274.3, %while.body.i280 ], [ %seq2.03.i271.unr, %while.body.i280.prol.loopexit ]
-  %lgth2.addr.02.i272 = phi i32 [ %dec.i273.3, %while.body.i280 ], [ %lgth2.addr.02.i272.unr, %while.body.i280.prol.loopexit ]
-  %incdec.ptr.i274 = getelementptr inbounds i8, ptr %seq2.03.i271, i64 1
-  %35 = load i8, ptr %seq2.03.i271, align 1, !tbaa !11
-  %idxprom6.i275 = sext i8 %35 to i64
-  %arrayidx7.i276 = getelementptr inbounds i32, ptr %arrayidx4.i268, i64 %idxprom6.i275
-  %36 = load i32, ptr %arrayidx7.i276, align 4, !tbaa !5
-  %conv8.i277 = sitofp i32 %36 to float
-  %incdec.ptr9.i278 = getelementptr inbounds float, ptr %match.addr.04.i270, i64 1
-  store float %conv8.i277, ptr %match.addr.04.i270, align 4, !tbaa !12
-  %incdec.ptr.i274.1 = getelementptr inbounds i8, ptr %seq2.03.i271, i64 2
-  %37 = load i8, ptr %incdec.ptr.i274, align 1, !tbaa !11
-  %idxprom6.i275.1 = sext i8 %37 to i64
-  %arrayidx7.i276.1 = getelementptr inbounds i32, ptr %arrayidx4.i268, i64 %idxprom6.i275.1
-  %38 = load i32, ptr %arrayidx7.i276.1, align 4, !tbaa !5
-  %conv8.i277.1 = sitofp i32 %38 to float
-  %incdec.ptr9.i278.1 = getelementptr inbounds float, ptr %match.addr.04.i270, i64 2
-  store float %conv8.i277.1, ptr %incdec.ptr9.i278, align 4, !tbaa !12
-  %incdec.ptr.i274.2 = getelementptr inbounds i8, ptr %seq2.03.i271, i64 3
-  %39 = load i8, ptr %incdec.ptr.i274.1, align 1, !tbaa !11
-  %idxprom6.i275.2 = sext i8 %39 to i64
-  %arrayidx7.i276.2 = getelementptr inbounds i32, ptr %arrayidx4.i268, i64 %idxprom6.i275.2
-  %40 = load i32, ptr %arrayidx7.i276.2, align 4, !tbaa !5
-  %conv8.i277.2 = sitofp i32 %40 to float
-  %incdec.ptr9.i278.2 = getelementptr inbounds float, ptr %match.addr.04.i270, i64 3
-  store float %conv8.i277.2, ptr %incdec.ptr9.i278.1, align 4, !tbaa !12
-  %dec.i273.3 = add nsw i32 %lgth2.addr.02.i272, -4
-  %incdec.ptr.i274.3 = getelementptr inbounds i8, ptr %seq2.03.i271, i64 4
-  %41 = load i8, ptr %incdec.ptr.i274.2, align 1, !tbaa !11
-  %idxprom6.i275.3 = sext i8 %41 to i64
-  %arrayidx7.i276.3 = getelementptr inbounds i32, ptr %arrayidx4.i268, i64 %idxprom6.i275.3
-  %42 = load i32, ptr %arrayidx7.i276.3, align 4, !tbaa !5
-  %conv8.i277.3 = sitofp i32 %42 to float
-  %incdec.ptr9.i278.3 = getelementptr inbounds float, ptr %match.addr.04.i270, i64 4
-  store float %conv8.i277.3, ptr %incdec.ptr9.i278.2, align 4, !tbaa !12
-  %tobool.not.i279.3 = icmp eq i32 %dec.i273.3, 0
-  br i1 %tobool.not.i279.3, label %match_calc_mtx.exit281, label %while.body.i280, !llvm.loop !38
+while.body.i282:                                  ; preds = %while.body.i282.prol.loopexit, %while.body.i282
+  %match.addr.04.i272 = phi ptr [ %incdec.ptr9.i280.3, %while.body.i282 ], [ %match.addr.04.i272.unr, %while.body.i282.prol.loopexit ]
+  %seq2.03.i273 = phi ptr [ %incdec.ptr.i276.3, %while.body.i282 ], [ %seq2.03.i273.unr, %while.body.i282.prol.loopexit ]
+  %lgth2.addr.02.i274 = phi i32 [ %dec.i275.3, %while.body.i282 ], [ %lgth2.addr.02.i274.unr, %while.body.i282.prol.loopexit ]
+  %incdec.ptr.i276 = getelementptr inbounds i8, ptr %seq2.03.i273, i64 1
+  %35 = load i8, ptr %seq2.03.i273, align 1, !tbaa !11
+  %idxprom6.i277 = sext i8 %35 to i64
+  %arrayidx7.i278 = getelementptr inbounds i32, ptr %arrayidx4.i270, i64 %idxprom6.i277
+  %36 = load i32, ptr %arrayidx7.i278, align 4, !tbaa !5
+  %conv8.i279 = sitofp i32 %36 to float
+  %incdec.ptr9.i280 = getelementptr inbounds float, ptr %match.addr.04.i272, i64 1
+  store float %conv8.i279, ptr %match.addr.04.i272, align 4, !tbaa !12
+  %incdec.ptr.i276.1 = getelementptr inbounds i8, ptr %seq2.03.i273, i64 2
+  %37 = load i8, ptr %incdec.ptr.i276, align 1, !tbaa !11
+  %idxprom6.i277.1 = sext i8 %37 to i64
+  %arrayidx7.i278.1 = getelementptr inbounds i32, ptr %arrayidx4.i270, i64 %idxprom6.i277.1
+  %38 = load i32, ptr %arrayidx7.i278.1, align 4, !tbaa !5
+  %conv8.i279.1 = sitofp i32 %38 to float
+  %incdec.ptr9.i280.1 = getelementptr inbounds float, ptr %match.addr.04.i272, i64 2
+  store float %conv8.i279.1, ptr %incdec.ptr9.i280, align 4, !tbaa !12
+  %incdec.ptr.i276.2 = getelementptr inbounds i8, ptr %seq2.03.i273, i64 3
+  %39 = load i8, ptr %incdec.ptr.i276.1, align 1, !tbaa !11
+  %idxprom6.i277.2 = sext i8 %39 to i64
+  %arrayidx7.i278.2 = getelementptr inbounds i32, ptr %arrayidx4.i270, i64 %idxprom6.i277.2
+  %40 = load i32, ptr %arrayidx7.i278.2, align 4, !tbaa !5
+  %conv8.i279.2 = sitofp i32 %40 to float
+  %incdec.ptr9.i280.2 = getelementptr inbounds float, ptr %match.addr.04.i272, i64 3
+  store float %conv8.i279.2, ptr %incdec.ptr9.i280.1, align 4, !tbaa !12
+  %dec.i275.3 = add nsw i32 %lgth2.addr.02.i274, -4
+  %incdec.ptr.i276.3 = getelementptr inbounds i8, ptr %seq2.03.i273, i64 4
+  %41 = load i8, ptr %incdec.ptr.i276.2, align 1, !tbaa !11
+  %idxprom6.i277.3 = sext i8 %41 to i64
+  %arrayidx7.i278.3 = getelementptr inbounds i32, ptr %arrayidx4.i270, i64 %idxprom6.i277.3
+  %42 = load i32, ptr %arrayidx7.i278.3, align 4, !tbaa !5
+  %conv8.i279.3 = sitofp i32 %42 to float
+  %incdec.ptr9.i280.3 = getelementptr inbounds float, ptr %match.addr.04.i272, i64 4
+  store float %conv8.i279.3, ptr %incdec.ptr9.i280.2, align 4, !tbaa !12
+  %tobool.not.i281.3 = icmp eq i32 %dec.i275.3, 0
+  br i1 %tobool.not.i281.3, label %match_calc_mtx.exit283, label %while.body.i282, !llvm.loop !38
 
-match_calc_mtx.exit281:                           ; preds = %while.body.i280.prol.loopexit, %while.body.i280, %match_calc_mtx.exit
+match_calc_mtx.exit283:                           ; preds = %while.body.i282.prol.loopexit, %while.body.i282, %match_calc_mtx.exit
   %43 = load i32, ptr @outgap, align 4, !tbaa !5
   %cmp72 = icmp eq i32 %43, 1
   br i1 %cmp72, label %for.cond.preheader, label %if.end91
 
-for.cond.preheader:                               ; preds = %match_calc_mtx.exit281
+for.cond.preheader:                               ; preds = %match_calc_mtx.exit283
   br i1 %cmp, label %for.cond80.preheader, label %for.body.preheader
 
 for.body.preheader:                               ; preds = %for.cond.preheader
@@ -1562,7 +1562,7 @@ for.body84:                                       ; preds = %for.body84.preheade
   %exitcond328.not = icmp eq i64 %indvars.iv.next325, %wide.trip.count327
   br i1 %exitcond328.not, label %if.end91, label %for.body84, !llvm.loop !43
 
-if.end91:                                         ; preds = %for.body84, %middle.block351, %match_calc_mtx.exit281
+if.end91:                                         ; preds = %for.body84, %middle.block351, %match_calc_mtx.exit283
   br i1 %cmp7, label %for.end104, label %for.body96.lr.ph
 
 for.body96.lr.ph:                                 ; preds = %if.end91
@@ -1658,7 +1658,7 @@ for.body96:                                       ; preds = %for.body96.prol.loo
   br i1 %exitcond334.not.3, label %for.end104, label %for.body96, !llvm.loop !46
 
 for.end104:                                       ; preds = %for.body96.prol.loopexit, %for.body96, %middle.block370, %for.cond80.preheader, %if.end91
-  br i1 %tobool.not1.i269, label %if.then107, label %if.else
+  br i1 %tobool.not1.i271, label %if.then107, label %if.else
 
 if.then107:                                       ; preds = %for.end104
   %82 = load ptr, ptr @G__align11_noalign.lastverticalw, align 8, !tbaa !9
@@ -1679,15 +1679,15 @@ if.end113:                                        ; preds = %if.else, %if.then10
   %85 = phi ptr [ %84, %if.else ], [ %82, %if.then107 ]
   %tobool.not = icmp ne i32 %43, 0
   %add115 = zext i1 %tobool.not to i32
-  %lasti.0 = add nsw i32 %conv2, %add115
+  %lasti.0 = add nsw i32 %add115, %conv2
   %cmp119316 = icmp sgt i32 %lasti.0, 1
   br i1 %cmp119316, label %for.body121.lr.ph, label %for.end171
 
 for.body121.lr.ph:                                ; preds = %if.end113
   %86 = load ptr, ptr @G__align11_noalign.m, align 8, !tbaa !9
   %sub164 = shl i64 %call4, 32
-  %sext297 = add i64 %sub164, -4294967296
-  %idxprom165 = ashr exact i64 %sext297, 32
+  %sext263 = add i64 %sub164, -4294967296
+  %idxprom165 = ashr exact i64 %sext263, 32
   %87 = add i64 %call4, 1
   %wide.trip.count344 = zext i32 %lasti.0 to i64
   %wide.trip.count338 = and i64 %87, 4294967295
@@ -1705,92 +1705,92 @@ for.body121:                                      ; preds = %for.body121.lr.ph, 
   %arrayidx124 = getelementptr inbounds float, ptr %18, i64 %89
   %90 = load float, ptr %arrayidx124, align 4, !tbaa !12
   store float %90, ptr %currentw.0317, align 4, !tbaa !12
-  %arrayidx2.i = getelementptr inbounds i8, ptr %seq1.val266, i64 %indvars.iv340
+  %arrayidx2.i = getelementptr inbounds i8, ptr %seq1.val268, i64 %indvars.iv340
   %91 = load i8, ptr %arrayidx2.i, align 1, !tbaa !11
-  %idxprom3.i282 = sext i8 %91 to i64
-  %arrayidx4.i283 = getelementptr inbounds [128 x i32], ptr %scoremtx, i64 %idxprom3.i282
-  br i1 %tobool.not1.i269, label %match_calc_mtx.exit296.thread, label %while.body.i295.preheader
+  %idxprom3.i284 = sext i8 %91 to i64
+  %arrayidx4.i285 = getelementptr inbounds [128 x i32], ptr %scoremtx, i64 %idxprom3.i284
+  br i1 %tobool.not1.i271, label %match_calc_mtx.exit298.thread, label %while.body.i297.preheader
 
-while.body.i295.preheader:                        ; preds = %for.body121
-  br i1 %lcmp.mod394.not, label %while.body.i295.prol.loopexit, label %while.body.i295.prol
+while.body.i297.preheader:                        ; preds = %for.body121
+  br i1 %lcmp.mod394.not, label %while.body.i297.prol.loopexit, label %while.body.i297.prol
 
-while.body.i295.prol:                             ; preds = %while.body.i295.preheader, %while.body.i295.prol
-  %match.addr.04.i285.prol = phi ptr [ %incdec.ptr9.i293.prol, %while.body.i295.prol ], [ %previousw.0318, %while.body.i295.preheader ]
-  %seq2.03.i286.prol = phi ptr [ %incdec.ptr.i289.prol, %while.body.i295.prol ], [ %seq2.val265, %while.body.i295.preheader ]
-  %lgth2.addr.02.i287.prol = phi i32 [ %dec.i288.prol, %while.body.i295.prol ], [ %conv5, %while.body.i295.preheader ]
-  %prol.iter395 = phi i32 [ %prol.iter395.next, %while.body.i295.prol ], [ 0, %while.body.i295.preheader ]
-  %dec.i288.prol = add nsw i32 %lgth2.addr.02.i287.prol, -1
-  %incdec.ptr.i289.prol = getelementptr inbounds i8, ptr %seq2.03.i286.prol, i64 1
-  %92 = load i8, ptr %seq2.03.i286.prol, align 1, !tbaa !11
-  %idxprom6.i290.prol = sext i8 %92 to i64
-  %arrayidx7.i291.prol = getelementptr inbounds i32, ptr %arrayidx4.i283, i64 %idxprom6.i290.prol
-  %93 = load i32, ptr %arrayidx7.i291.prol, align 4, !tbaa !5
-  %conv8.i292.prol = sitofp i32 %93 to float
-  %incdec.ptr9.i293.prol = getelementptr inbounds float, ptr %match.addr.04.i285.prol, i64 1
-  store float %conv8.i292.prol, ptr %match.addr.04.i285.prol, align 4, !tbaa !12
+while.body.i297.prol:                             ; preds = %while.body.i297.preheader, %while.body.i297.prol
+  %match.addr.04.i287.prol = phi ptr [ %incdec.ptr9.i295.prol, %while.body.i297.prol ], [ %previousw.0318, %while.body.i297.preheader ]
+  %seq2.03.i288.prol = phi ptr [ %incdec.ptr.i291.prol, %while.body.i297.prol ], [ %seq2.val267, %while.body.i297.preheader ]
+  %lgth2.addr.02.i289.prol = phi i32 [ %dec.i290.prol, %while.body.i297.prol ], [ %conv5, %while.body.i297.preheader ]
+  %prol.iter395 = phi i32 [ %prol.iter395.next, %while.body.i297.prol ], [ 0, %while.body.i297.preheader ]
+  %dec.i290.prol = add nsw i32 %lgth2.addr.02.i289.prol, -1
+  %incdec.ptr.i291.prol = getelementptr inbounds i8, ptr %seq2.03.i288.prol, i64 1
+  %92 = load i8, ptr %seq2.03.i288.prol, align 1, !tbaa !11
+  %idxprom6.i292.prol = sext i8 %92 to i64
+  %arrayidx7.i293.prol = getelementptr inbounds i32, ptr %arrayidx4.i285, i64 %idxprom6.i292.prol
+  %93 = load i32, ptr %arrayidx7.i293.prol, align 4, !tbaa !5
+  %conv8.i294.prol = sitofp i32 %93 to float
+  %incdec.ptr9.i295.prol = getelementptr inbounds float, ptr %match.addr.04.i287.prol, i64 1
+  store float %conv8.i294.prol, ptr %match.addr.04.i287.prol, align 4, !tbaa !12
   %prol.iter395.next = add i32 %prol.iter395, 1
   %prol.iter395.cmp.not = icmp eq i32 %prol.iter395.next, %xtraiter393
-  br i1 %prol.iter395.cmp.not, label %while.body.i295.prol.loopexit, label %while.body.i295.prol, !llvm.loop !47
+  br i1 %prol.iter395.cmp.not, label %while.body.i297.prol.loopexit, label %while.body.i297.prol, !llvm.loop !47
 
-while.body.i295.prol.loopexit:                    ; preds = %while.body.i295.prol, %while.body.i295.preheader
-  %match.addr.04.i285.unr = phi ptr [ %previousw.0318, %while.body.i295.preheader ], [ %incdec.ptr9.i293.prol, %while.body.i295.prol ]
-  %seq2.03.i286.unr = phi ptr [ %seq2.val265, %while.body.i295.preheader ], [ %incdec.ptr.i289.prol, %while.body.i295.prol ]
-  %lgth2.addr.02.i287.unr = phi i32 [ %conv5, %while.body.i295.preheader ], [ %dec.i288.prol, %while.body.i295.prol ]
-  br i1 %88, label %match_calc_mtx.exit296, label %while.body.i295
+while.body.i297.prol.loopexit:                    ; preds = %while.body.i297.prol, %while.body.i297.preheader
+  %match.addr.04.i287.unr = phi ptr [ %previousw.0318, %while.body.i297.preheader ], [ %incdec.ptr9.i295.prol, %while.body.i297.prol ]
+  %seq2.03.i288.unr = phi ptr [ %seq2.val267, %while.body.i297.preheader ], [ %incdec.ptr.i291.prol, %while.body.i297.prol ]
+  %lgth2.addr.02.i289.unr = phi i32 [ %conv5, %while.body.i297.preheader ], [ %dec.i290.prol, %while.body.i297.prol ]
+  br i1 %88, label %match_calc_mtx.exit298, label %while.body.i297
 
-match_calc_mtx.exit296.thread:                    ; preds = %for.body121
+match_calc_mtx.exit298.thread:                    ; preds = %for.body121
   %arrayidx127347 = getelementptr inbounds float, ptr %18, i64 %indvars.iv340
   %94 = load float, ptr %arrayidx127347, align 4, !tbaa !12
   store float %94, ptr %previousw.0318, align 4, !tbaa !12
   br label %for.end163
 
-while.body.i295:                                  ; preds = %while.body.i295.prol.loopexit, %while.body.i295
-  %match.addr.04.i285 = phi ptr [ %incdec.ptr9.i293.3, %while.body.i295 ], [ %match.addr.04.i285.unr, %while.body.i295.prol.loopexit ]
-  %seq2.03.i286 = phi ptr [ %incdec.ptr.i289.3, %while.body.i295 ], [ %seq2.03.i286.unr, %while.body.i295.prol.loopexit ]
-  %lgth2.addr.02.i287 = phi i32 [ %dec.i288.3, %while.body.i295 ], [ %lgth2.addr.02.i287.unr, %while.body.i295.prol.loopexit ]
-  %incdec.ptr.i289 = getelementptr inbounds i8, ptr %seq2.03.i286, i64 1
-  %95 = load i8, ptr %seq2.03.i286, align 1, !tbaa !11
-  %idxprom6.i290 = sext i8 %95 to i64
-  %arrayidx7.i291 = getelementptr inbounds i32, ptr %arrayidx4.i283, i64 %idxprom6.i290
-  %96 = load i32, ptr %arrayidx7.i291, align 4, !tbaa !5
-  %conv8.i292 = sitofp i32 %96 to float
-  %incdec.ptr9.i293 = getelementptr inbounds float, ptr %match.addr.04.i285, i64 1
-  store float %conv8.i292, ptr %match.addr.04.i285, align 4, !tbaa !12
-  %incdec.ptr.i289.1 = getelementptr inbounds i8, ptr %seq2.03.i286, i64 2
-  %97 = load i8, ptr %incdec.ptr.i289, align 1, !tbaa !11
-  %idxprom6.i290.1 = sext i8 %97 to i64
-  %arrayidx7.i291.1 = getelementptr inbounds i32, ptr %arrayidx4.i283, i64 %idxprom6.i290.1
-  %98 = load i32, ptr %arrayidx7.i291.1, align 4, !tbaa !5
-  %conv8.i292.1 = sitofp i32 %98 to float
-  %incdec.ptr9.i293.1 = getelementptr inbounds float, ptr %match.addr.04.i285, i64 2
-  store float %conv8.i292.1, ptr %incdec.ptr9.i293, align 4, !tbaa !12
-  %incdec.ptr.i289.2 = getelementptr inbounds i8, ptr %seq2.03.i286, i64 3
-  %99 = load i8, ptr %incdec.ptr.i289.1, align 1, !tbaa !11
-  %idxprom6.i290.2 = sext i8 %99 to i64
-  %arrayidx7.i291.2 = getelementptr inbounds i32, ptr %arrayidx4.i283, i64 %idxprom6.i290.2
-  %100 = load i32, ptr %arrayidx7.i291.2, align 4, !tbaa !5
-  %conv8.i292.2 = sitofp i32 %100 to float
-  %incdec.ptr9.i293.2 = getelementptr inbounds float, ptr %match.addr.04.i285, i64 3
-  store float %conv8.i292.2, ptr %incdec.ptr9.i293.1, align 4, !tbaa !12
-  %dec.i288.3 = add nsw i32 %lgth2.addr.02.i287, -4
-  %incdec.ptr.i289.3 = getelementptr inbounds i8, ptr %seq2.03.i286, i64 4
-  %101 = load i8, ptr %incdec.ptr.i289.2, align 1, !tbaa !11
-  %idxprom6.i290.3 = sext i8 %101 to i64
-  %arrayidx7.i291.3 = getelementptr inbounds i32, ptr %arrayidx4.i283, i64 %idxprom6.i290.3
-  %102 = load i32, ptr %arrayidx7.i291.3, align 4, !tbaa !5
-  %conv8.i292.3 = sitofp i32 %102 to float
-  %incdec.ptr9.i293.3 = getelementptr inbounds float, ptr %match.addr.04.i285, i64 4
-  store float %conv8.i292.3, ptr %incdec.ptr9.i293.2, align 4, !tbaa !12
-  %tobool.not.i294.3 = icmp eq i32 %dec.i288.3, 0
-  br i1 %tobool.not.i294.3, label %match_calc_mtx.exit296, label %while.body.i295, !llvm.loop !38
+while.body.i297:                                  ; preds = %while.body.i297.prol.loopexit, %while.body.i297
+  %match.addr.04.i287 = phi ptr [ %incdec.ptr9.i295.3, %while.body.i297 ], [ %match.addr.04.i287.unr, %while.body.i297.prol.loopexit ]
+  %seq2.03.i288 = phi ptr [ %incdec.ptr.i291.3, %while.body.i297 ], [ %seq2.03.i288.unr, %while.body.i297.prol.loopexit ]
+  %lgth2.addr.02.i289 = phi i32 [ %dec.i290.3, %while.body.i297 ], [ %lgth2.addr.02.i289.unr, %while.body.i297.prol.loopexit ]
+  %incdec.ptr.i291 = getelementptr inbounds i8, ptr %seq2.03.i288, i64 1
+  %95 = load i8, ptr %seq2.03.i288, align 1, !tbaa !11
+  %idxprom6.i292 = sext i8 %95 to i64
+  %arrayidx7.i293 = getelementptr inbounds i32, ptr %arrayidx4.i285, i64 %idxprom6.i292
+  %96 = load i32, ptr %arrayidx7.i293, align 4, !tbaa !5
+  %conv8.i294 = sitofp i32 %96 to float
+  %incdec.ptr9.i295 = getelementptr inbounds float, ptr %match.addr.04.i287, i64 1
+  store float %conv8.i294, ptr %match.addr.04.i287, align 4, !tbaa !12
+  %incdec.ptr.i291.1 = getelementptr inbounds i8, ptr %seq2.03.i288, i64 2
+  %97 = load i8, ptr %incdec.ptr.i291, align 1, !tbaa !11
+  %idxprom6.i292.1 = sext i8 %97 to i64
+  %arrayidx7.i293.1 = getelementptr inbounds i32, ptr %arrayidx4.i285, i64 %idxprom6.i292.1
+  %98 = load i32, ptr %arrayidx7.i293.1, align 4, !tbaa !5
+  %conv8.i294.1 = sitofp i32 %98 to float
+  %incdec.ptr9.i295.1 = getelementptr inbounds float, ptr %match.addr.04.i287, i64 2
+  store float %conv8.i294.1, ptr %incdec.ptr9.i295, align 4, !tbaa !12
+  %incdec.ptr.i291.2 = getelementptr inbounds i8, ptr %seq2.03.i288, i64 3
+  %99 = load i8, ptr %incdec.ptr.i291.1, align 1, !tbaa !11
+  %idxprom6.i292.2 = sext i8 %99 to i64
+  %arrayidx7.i293.2 = getelementptr inbounds i32, ptr %arrayidx4.i285, i64 %idxprom6.i292.2
+  %100 = load i32, ptr %arrayidx7.i293.2, align 4, !tbaa !5
+  %conv8.i294.2 = sitofp i32 %100 to float
+  %incdec.ptr9.i295.2 = getelementptr inbounds float, ptr %match.addr.04.i287, i64 3
+  store float %conv8.i294.2, ptr %incdec.ptr9.i295.1, align 4, !tbaa !12
+  %dec.i290.3 = add nsw i32 %lgth2.addr.02.i289, -4
+  %incdec.ptr.i291.3 = getelementptr inbounds i8, ptr %seq2.03.i288, i64 4
+  %101 = load i8, ptr %incdec.ptr.i291.2, align 1, !tbaa !11
+  %idxprom6.i292.3 = sext i8 %101 to i64
+  %arrayidx7.i293.3 = getelementptr inbounds i32, ptr %arrayidx4.i285, i64 %idxprom6.i292.3
+  %102 = load i32, ptr %arrayidx7.i293.3, align 4, !tbaa !5
+  %conv8.i294.3 = sitofp i32 %102 to float
+  %incdec.ptr9.i295.3 = getelementptr inbounds float, ptr %match.addr.04.i287, i64 4
+  store float %conv8.i294.3, ptr %incdec.ptr9.i295.2, align 4, !tbaa !12
+  %tobool.not.i296.3 = icmp eq i32 %dec.i290.3, 0
+  br i1 %tobool.not.i296.3, label %match_calc_mtx.exit298, label %while.body.i297, !llvm.loop !38
 
-match_calc_mtx.exit296:                           ; preds = %while.body.i295, %while.body.i295.prol.loopexit
+match_calc_mtx.exit298:                           ; preds = %while.body.i297, %while.body.i297.prol.loopexit
   %arrayidx127 = getelementptr inbounds float, ptr %18, i64 %indvars.iv340
   %103 = load float, ptr %arrayidx127, align 4, !tbaa !12
   store float %103, ptr %previousw.0318, align 4, !tbaa !12
   br i1 %cmp7, label %for.end163, label %for.body135.preheader
 
-for.body135.preheader:                            ; preds = %match_calc_mtx.exit296
+for.body135.preheader:                            ; preds = %match_calc_mtx.exit298
   %104 = load float, ptr %currentw.0317, align 4, !tbaa !12
   br label %for.body135
 
@@ -1833,8 +1833,8 @@ if.end154:                                        ; preds = %if.then153, %for.bo
   %exitcond339.not = icmp eq i64 %indvars.iv.next336, %wide.trip.count338
   br i1 %exitcond339.not, label %for.end163, label %for.body135, !llvm.loop !48
 
-for.end163:                                       ; preds = %if.end154, %match_calc_mtx.exit296.thread, %match_calc_mtx.exit296
-  %wm.1.lcssa = phi float [ %wm.0319, %match_calc_mtx.exit296 ], [ %wm.0319, %match_calc_mtx.exit296.thread ], [ %wm.3, %if.end154 ]
+for.end163:                                       ; preds = %if.end154, %match_calc_mtx.exit298.thread, %match_calc_mtx.exit298
+  %wm.1.lcssa = phi float [ %wm.0319, %match_calc_mtx.exit298 ], [ %wm.0319, %match_calc_mtx.exit298.thread ], [ %wm.3, %if.end154 ]
   %arrayidx166 = getelementptr inbounds float, ptr %previousw.0318, i64 %idxprom165
   %109 = load float, ptr %arrayidx166, align 4, !tbaa !12
   %arrayidx168 = getelementptr inbounds float, ptr %85, i64 %indvars.iv340

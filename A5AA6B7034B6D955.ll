@@ -60,7 +60,7 @@ for.body.i:                                       ; preds = %entry, %for.inc53.i
   %cond.i.i = lshr i32 %conv.i.i, %shr.i.i
   store i32 %cond.i.i, ptr @t, align 4, !tbaa !5
   store i32 %cond.i.i, ptr @m, align 4, !tbaa !5
-  %cmp11.i = icmp eq i32 %cond.i.i, %0
+  %cmp11.i = icmp eq i32 %0, %cond.i.i
   %conv12.i = zext i1 %cmp11.i to i32
   store i32 %conv12.i, ptr @o, align 4, !tbaa !5
   store i8 0, ptr @c, align 1, !tbaa !9

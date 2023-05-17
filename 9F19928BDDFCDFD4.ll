@@ -56,9 +56,9 @@ if.then.i.i:                                      ; preds = %if.then.i
   %1 = load i32, ptr @memory_ALIGN, align 4
   %rem2.i.i.i.i = urem i32 %mul.i, %1
   %tobool3.not.i.i.i.i = icmp eq i32 %rem2.i.i.i.i, 0
-  %sub6.i.i.i.i = add i32 %1, %mul.i
-  %add7.i.i.i.i = sub i32 %sub6.i.i.i.i, %rem2.i.i.i.i
-  %RealSize.1.i.i.i.i = select i1 %tobool3.not.i.i.i.i, i32 %mul.i, i32 %add7.i.i.i.i
+  %sub6.i.i.i.i = sub i32 %1, %rem2.i.i.i.i
+  %add7.i.i.i.i = select i1 %tobool3.not.i.i.i.i, i32 0, i32 %sub6.i.i.i.i
+  %RealSize.1.i.i.i.i = add i32 %add7.i.i.i.i, %mul.i
   %2 = load i32, ptr @memory_OFFSET, align 4
   %idx.ext.i.i = zext i32 %2 to i64
   %idx.neg.i.i = sub nsw i64 0, %idx.ext.i.i
@@ -82,7 +82,7 @@ if.then9.i.i:                                     ; preds = %if.then.i.i
 
 if.end13.i.i:                                     ; preds = %if.then9.i.i, %if.then.i.i
   %7 = load i32, ptr @memory_MARKSIZE, align 4
-  %add.i.i = add i32 %7, %RealSize.1.i.i.i.i
+  %add.i.i = add i32 %RealSize.1.i.i.i.i, %7
   %conv.i.i = zext i32 %add.i.i to i64
   %add14.i.i = add nuw nsw i64 %conv.i.i, 16
   %8 = load i64, ptr @memory_FREEDBYTES, align 8
@@ -182,8 +182,8 @@ while.cond.i:                                     ; preds = %part_DelayedInit.ex
   %arrayidx.i.i.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i.i
   %0 = load i32, ptr %arrayidx.i.i.i.i, align 4
   %1 = load i32, ptr %arrayidx.i.i.i, align 4
-  %cmp.i.i.i = icmp eq i32 %0, %1
-  br i1 %cmp.i.i.i, label %while.cond.part_DelayedInit.exit_crit_edge.i, label %if.then.i.i
+  %cmp.i.not.i.i = icmp eq i32 %0, %1
+  br i1 %cmp.i.not.i.i, label %while.cond.part_DelayedInit.exit_crit_edge.i, label %if.then.i.i
 
 while.cond.part_DelayedInit.exit_crit_edge.i:     ; preds = %while.cond.i
   %.pre.i = sext i32 %nf.0.i to i64
@@ -245,8 +245,8 @@ while.cond.i:                                     ; preds = %part_DelayedInit.ex
   %arrayidx.i.i.i.i = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i.i
   %0 = load i32, ptr %arrayidx.i.i.i.i, align 4
   %1 = load i32, ptr %arrayidx.i.i.i, align 4
-  %cmp.i.i.i = icmp eq i32 %0, %1
-  br i1 %cmp.i.i.i, label %while.cond.part_DelayedInit.exit_crit_edge.i, label %if.then.i.i
+  %cmp.i.not.i.i = icmp eq i32 %0, %1
+  br i1 %cmp.i.not.i.i, label %while.cond.part_DelayedInit.exit_crit_edge.i, label %if.then.i.i
 
 while.cond.part_DelayedInit.exit_crit_edge.i:     ; preds = %while.cond.i
   %.pre.i = sext i32 %nf.0.i to i64
@@ -296,8 +296,8 @@ while.cond.i48:                                   ; preds = %while.cond.i48.preh
   %arrayidx.i.i.i.i46 = getelementptr inbounds i32, ptr %p, i64 %idxprom.i.i.i.i45
   %6 = load i32, ptr %arrayidx.i.i.i.i46, align 4
   %7 = load i32, ptr %arrayidx.i.i.i, align 4
-  %cmp.i.i.i47 = icmp eq i32 %6, %7
-  br i1 %cmp.i.i.i47, label %while.cond.part_DelayedInit.exit_crit_edge.i50, label %if.then.i.i57
+  %cmp.i.not.i.i47 = icmp eq i32 %6, %7
+  br i1 %cmp.i.not.i.i47, label %while.cond.part_DelayedInit.exit_crit_edge.i50, label %if.then.i.i57
 
 while.cond.part_DelayedInit.exit_crit_edge.i50:   ; preds = %while.cond.i48
   %.pre.i49 = sext i32 %nf.0.i43 to i64

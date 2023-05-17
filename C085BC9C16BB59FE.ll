@@ -24,9 +24,9 @@ define dso_local i32 @main() local_unnamed_addr #1 {
 entry:
   %a.promoted = load i32, ptr @a, align 4, !tbaa !5
   %narrow.not.not.not.not = icmp ne i32 %a.promoted, 1
-  %cond.i.8 = zext i1 %narrow.not.not.not.not to i32
+  %conv13.8 = zext i1 %narrow.not.not.not.not to i32
   store i8 10, ptr @b, align 1, !tbaa !9
-  store i32 %cond.i.8, ptr @a, align 4, !tbaa !5
+  store i32 %conv13.8, ptr @a, align 4, !tbaa !5
   store i16 1, ptr @c, align 2, !tbaa !10
   br i1 %narrow.not.not.not.not, label %if.end, label %if.then
 

@@ -48,8 +48,8 @@ if.end:                                           ; preds = %entry, %if.then
   store ptr %call9, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 6), align 8, !tbaa !16
   %call12 = tail call noalias ptr @malloc(i64 noundef %mul) #9
   store ptr %call12, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 7), align 8, !tbaa !17
-  %cmp13279 = icmp sgt i32 %2, 0
-  br i1 %cmp13279, label %for.body.lr.ph, label %for.end
+  %cmp13282 = icmp sgt i32 %2, 0
+  br i1 %cmp13282, label %for.body.lr.ph, label %for.end
 
 for.body.lr.ph:                                   ; preds = %if.end
   %3 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 5), align 8
@@ -128,14 +128,14 @@ for.end:                                          ; preds = %if.end, %for.end.lo
   %17 = lshr i32 %sub69, 3
   %add72 = and i32 %17, 536870908
   %18 = add nuw nsw i32 %add72, 8
-  %narrow286 = select i1 %cmp65, i32 8, i32 %18
-  %cond74 = zext i32 %narrow286 to i64
+  %narrow279 = select i1 %cmp65, i32 8, i32 %18
+  %cond74 = zext i32 %narrow279 to i64
   %call77 = tail call noalias ptr @malloc(i64 noundef %cond74) #9
   %call78 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %call77, i32 noundef %16) #8
   store ptr %call78, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 9), align 8, !tbaa !23
   %19 = load i32, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 1), align 4, !tbaa !19
-  %cmp80283 = icmp sgt i32 %19, 0
-  br i1 %cmp80283, label %for.body82, label %for.end159
+  %cmp80286 = icmp sgt i32 %19, 0
+  br i1 %cmp80286, label %for.body82, label %for.end159
 
 for.body82:                                       ; preds = %for.end, %for.inc157
   %indvars.iv297 = phi i64 [ %indvars.iv.next298, %for.inc157 ], [ 0, %for.end ]
@@ -158,23 +158,23 @@ for.body82:                                       ; preds = %for.end, %for.inc15
   %27 = load ptr, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 4), align 8, !tbaa !15
   %arrayidx103 = getelementptr inbounds i32, ptr %27, i64 %indvars.iv297
   %28 = load i32, ptr %arrayidx103, align 4, !tbaa !18
-  %cmp104.not281 = icmp sgt i32 %26, %28
-  br i1 %cmp104.not281, label %for.end113, label %for.body106
+  %cmp104.not284 = icmp sgt i32 %26, %28
+  br i1 %cmp104.not284, label %for.end113, label %for.body106
 
 for.body106:                                      ; preds = %for.body82, %for.body106
-  %i.0282 = phi i32 [ %inc112, %for.body106 ], [ %26, %for.body82 ]
-  %and = and i32 %i.0282, 31
+  %i.0285 = phi i32 [ %inc112, %for.body106 ], [ %26, %for.body82 ]
+  %and = and i32 %i.0285, 31
   %shl = shl nuw i32 1, %and
-  %shr107 = ashr i32 %i.0282, 5
+  %shr107 = ashr i32 %i.0285, 5
   %add108 = add nsw i32 %shr107, 1
   %idxprom109 = sext i32 %add108 to i64
   %arrayidx110 = getelementptr inbounds i32, ptr %call96, i64 %idxprom109
   %29 = load i32, ptr %arrayidx110, align 4, !tbaa !18
   %or = or i32 %29, %shl
   store i32 %or, ptr %arrayidx110, align 4, !tbaa !18
-  %inc112 = add nsw i32 %i.0282, 1
+  %inc112 = add nsw i32 %i.0285, 1
   %30 = load i32, ptr %arrayidx103, align 4, !tbaa !18
-  %cmp104.not.not = icmp slt i32 %i.0282, %30
+  %cmp104.not.not = icmp slt i32 %i.0285, %30
   br i1 %cmp104.not.not, label %for.body106, label %for.end113
 
 for.end113:                                       ; preds = %for.body106, %for.body82
@@ -502,8 +502,8 @@ if.end170:                                        ; preds = %if.else163, %if.the
   %132 = lshr i32 %sub199, 3
   %add202 = and i32 %132, 536870908
   %133 = add nuw nsw i32 %add202, 8
-  %narrow287 = select i1 %cmp195, i32 8, i32 %133
-  %cond204 = zext i32 %narrow287 to i64
+  %narrow280 = select i1 %cmp195, i32 8, i32 %133
+  %cond204 = zext i32 %narrow280 to i64
   %call207 = tail call noalias ptr @malloc(i64 noundef %cond204) #9
   %call208 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %call207, i32 noundef %131) #8
   %134 = load i32, ptr @cube, align 8, !tbaa !13
@@ -515,8 +515,8 @@ if.end170:                                        ; preds = %if.else163, %if.the
   %136 = lshr i32 %sub214, 3
   %add217 = and i32 %136, 536870908
   %137 = add nuw nsw i32 %add217, 8
-  %narrow288 = select i1 %cmp210, i32 8, i32 %137
-  %cond219 = zext i32 %narrow288 to i64
+  %narrow281 = select i1 %cmp210, i32 8, i32 %137
+  %cond219 = zext i32 %narrow281 to i64
   %call222 = tail call noalias ptr @malloc(i64 noundef %cond219) #9
   %call223 = tail call ptr (ptr, i32, ...) @set_clear(ptr noundef %call222, i32 noundef %135) #8
   store ptr %call223, ptr getelementptr inbounds (%struct.cube_struct, ptr @cube, i64 0, i32 13), align 8, !tbaa !45

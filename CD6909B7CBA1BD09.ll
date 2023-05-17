@@ -34,26 +34,26 @@ entry:
   %0 = load ptr, ptr %c, align 8, !tbaa !5
   %infile_pos = getelementptr inbounds %struct.Classfile, ptr %c, i64 0, i32 2
   %call.i.i = tail call i32 @getc(ptr noundef %0)
+  %conv.i.i = trunc i32 %call.i.i to i16
   %call.i8.i = tail call i32 @getc(ptr noundef %0)
-  %conv2.i = and i32 %call.i8.i, 255
-  %conv.i = shl i32 %call.i.i, 8
-  %or.i = or i32 %conv2.i, %conv.i
-  %conv5.i = trunc i32 %or.i to i16
-  store i16 %conv5.i, ptr %this, align 8, !tbaa !16
-  %conv5.i.mask = shl i32 %or.i, 4
-  %1 = and i32 %conv5.i.mask, 1048560
-  %2 = zext i32 %1 to i64
-  %call2 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %2) #5
+  %conv.i9.i = trunc i32 %call.i8.i to i16
+  %conv3.i = shl i16 %conv.i.i, 8
+  %conv4.i = and i16 %conv.i9.i, 255
+  %or.i = or i16 %conv4.i, %conv3.i
+  store i16 %or.i, ptr %this, align 8, !tbaa !16
+  %conv = zext i16 %or.i to i64
+  %1 = shl nuw nsw i64 %conv, 4
+  %call2 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %1) #5
   %constant_pool = getelementptr inbounds %struct.ConstPool, ptr %this, i64 0, i32 1
   store ptr %call2, ptr %constant_pool, align 8, !tbaa !17
   store i8 0, ptr %call2, align 8, !tbaa !18
-  %conv5 = and i32 %or.i, 65535
+  %conv5 = zext i16 %or.i to i32
   %sub = add nsw i32 %conv5, -1
-  %tobool.not377 = icmp eq i32 %sub, 0
-  br i1 %tobool.not377, label %for.cond.cleanup, label %for.body.lr.ph
+  %tobool.not414 = icmp eq i32 %sub, 0
+  br i1 %tobool.not414, label %for.cond.cleanup, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %entry
-  %dec376 = add nsw i32 %conv5, -2
+  %dec413 = add nsw i32 %conv5, -2
   %outfile = getelementptr inbounds %struct.Classfile, ptr %c, i64 0, i32 1
   br label %for.body
 
@@ -61,31 +61,31 @@ for.cond.cleanup:                                 ; preds = %cleanup, %entry
   ret void
 
 for.body:                                         ; preds = %for.body.lr.ph, %cleanup
-  %dec381 = phi i32 [ %dec376, %for.body.lr.ph ], [ %dec, %cleanup ]
-  %i.0379 = phi i32 [ %sub, %for.body.lr.ph ], [ %i.2, %cleanup ]
-  %j.0378 = phi i32 [ 1, %for.body.lr.ph ], [ %j.2, %cleanup ]
-  %3 = load ptr, ptr %constant_pool, align 8, !tbaa !17
-  %inc = add nsw i32 %j.0378, 1
-  %idxprom = sext i32 %j.0378 to i64
-  %arrayidx = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom
-  %4 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i = tail call i32 @getc(ptr noundef %4)
-  %conv.i282 = trunc i32 %call.i to i8
-  store i8 %conv.i282, ptr %arrayidx, align 8, !tbaa !18
-  %5 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool11.not = icmp eq i32 %5, 0
+  %dec418 = phi i32 [ %dec413, %for.body.lr.ph ], [ %dec, %cleanup ]
+  %i.0416 = phi i32 [ %sub, %for.body.lr.ph ], [ %i.2, %cleanup ]
+  %j.0415 = phi i32 [ 1, %for.body.lr.ph ], [ %j.2, %cleanup ]
+  %2 = load ptr, ptr %constant_pool, align 8, !tbaa !17
+  %inc = add nsw i32 %j.0415, 1
+  %idxprom = sext i32 %j.0415 to i64
+  %arrayidx = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom
+  %3 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i = tail call i32 @getc(ptr noundef %3)
+  %conv.i = trunc i32 %call.i to i8
+  store i8 %conv.i, ptr %arrayidx, align 8, !tbaa !18
+  %4 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool11.not = icmp eq i32 %4, 0
   br i1 %tobool11.not, label %if.end16, label %if.then12
 
 if.then12:                                        ; preds = %for.body
-  %6 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %7 = load i32, ptr %infile_pos, align 8, !tbaa !22
-  %call15 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %6, ptr noundef nonnull @.str, i32 noundef %7, i32 noundef %j.0378)
+  %5 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %6 = load i32, ptr %infile_pos, align 8, !tbaa !22
+  %call15 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5, ptr noundef nonnull @.str, i32 noundef %6, i32 noundef %j.0415)
   %.pr = load i8, ptr %arrayidx, align 8, !tbaa !18
   br label %if.end16
 
 if.end16:                                         ; preds = %for.body, %if.then12
-  %8 = phi i8 [ %conv.i282, %for.body ], [ %.pr, %if.then12 ]
-  switch i8 %8, label %sw.default [
+  %7 = phi i8 [ %conv.i, %for.body ], [ %.pr, %if.then12 ]
+  switch i8 %7, label %sw.default [
     i8 1, label %sw.bb
     i8 2, label %sw.bb42
     i8 3, label %sw.bb49
@@ -101,351 +101,386 @@ if.end16:                                         ; preds = %for.body, %if.then1
   ]
 
 sw.bb:                                            ; preds = %if.end16
-  %9 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i283 = tail call i32 @getc(ptr noundef %9)
-  %call.i8.i284 = tail call i32 @getc(ptr noundef %9)
-  %conv2.i285 = and i32 %call.i8.i284, 255
-  %conv.i286 = shl i32 %call.i.i283, 8
-  %conv.i286.masked = and i32 %conv.i286, 65280
-  %conv22 = or i32 %conv2.i285, %conv.i286.masked
+  %8 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i282 = tail call i32 @getc(ptr noundef %8)
+  %conv.i.i283 = trunc i32 %call.i.i282 to i16
+  %call.i8.i284 = tail call i32 @getc(ptr noundef %8)
+  %conv.i9.i285 = trunc i32 %call.i8.i284 to i16
+  %conv3.i286 = shl i16 %conv.i.i283, 8
+  %conv4.i287 = and i16 %conv.i9.i285, 255
+  %or.i288 = or i16 %conv4.i287, %conv3.i286
+  %conv22 = zext i16 %or.i288 to i32
   %add = add nuw nsw i32 %conv22, 1
   %conv23 = zext i32 %add to i64
   %call24 = tail call noalias noundef nonnull ptr @_Znam(i64 noundef %conv23) #5
-  %10 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store ptr %call24, ptr %10, align 8, !tbaa !23
-  %11 = load i32, ptr %infile_pos, align 8, !tbaa !22
-  %add30 = add nsw i32 %11, %conv22
+  %9 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store ptr %call24, ptr %9, align 8, !tbaa !23
+  %10 = load i32, ptr %infile_pos, align 8, !tbaa !22
+  %add30 = add nsw i32 %10, %conv22
   store i32 %add30, ptr %infile_pos, align 8, !tbaa !22
-  %12 = load ptr, ptr %10, align 8, !tbaa !23
-  %conv31 = zext i32 %conv22 to i64
-  %13 = load ptr, ptr %c, align 8, !tbaa !5
-  %call33 = tail call i64 @fread(ptr noundef %12, i64 noundef %conv31, i64 noundef 1, ptr noundef %13)
-  %14 = load ptr, ptr %10, align 8, !tbaa !23
-  %arrayidx35 = getelementptr inbounds i8, ptr %14, i64 %conv31
+  %11 = load ptr, ptr %9, align 8, !tbaa !23
+  %conv31 = zext i16 %or.i288 to i64
+  %12 = load ptr, ptr %c, align 8, !tbaa !5
+  %call33 = tail call i64 @fread(ptr noundef %11, i64 noundef %conv31, i64 noundef 1, ptr noundef %12)
+  %13 = load ptr, ptr %9, align 8, !tbaa !23
+  %arrayidx35 = getelementptr inbounds i8, ptr %13, i64 %conv31
   store i8 0, ptr %arrayidx35, align 1, !tbaa !23
-  %15 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool36.not = icmp eq i32 %15, 0
+  %14 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool36.not = icmp eq i32 %14, 0
   br i1 %tobool36.not, label %cleanup, label %if.then37
 
 if.then37:                                        ; preds = %sw.bb
-  %16 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %17 = load ptr, ptr %10, align 8, !tbaa !23
-  %call39 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %16, ptr noundef nonnull @.str.1, ptr noundef %17)
+  %15 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %16 = load ptr, ptr %9, align 8, !tbaa !23
+  %call39 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %15, ptr noundef nonnull @.str.1, ptr noundef %16)
   br label %cleanup
 
 sw.bb42:                                          ; preds = %if.end16
-  %18 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool43.not = icmp eq i32 %18, 0
+  %17 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool43.not = icmp eq i32 %17, 0
   br i1 %tobool43.not, label %cleanup, label %if.then44
 
 if.then44:                                        ; preds = %sw.bb42
-  %19 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %20 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 8, i64 1, ptr %19)
+  %18 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %19 = tail call i64 @fwrite(ptr nonnull @.str.2, i64 8, i64 1, ptr %18)
   br label %cleanup
 
 sw.bb49:                                          ; preds = %if.end16
-  %21 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i.i = tail call i32 @getc(ptr noundef %21)
-  %call.i8.i.i = tail call i32 @getc(ptr noundef %21)
-  %call.i.i5.i = tail call i32 @getc(ptr noundef %21)
-  %call.i8.i6.i = tail call i32 @getc(ptr noundef %21)
-  %conv2.i7.i = and i32 %call.i8.i6.i, 255
-  %conv.i8.i = shl i32 %call.i.i5.i, 8
-  %conv.i8.masked.i = and i32 %conv.i8.i, 65280
-  %22 = or i32 %conv2.i7.i, %conv.i8.masked.i
-  %23 = shl i32 %call.i.i.i, 24
-  %conv2.i.i = shl i32 %call.i8.i.i, 16
-  %24 = and i32 %conv2.i.i, 16711680
-  %25 = or i32 %24, %23
-  %or11.i = or i32 %22, %25
-  %or.i289 = zext i32 %or11.i to i64
-  %26 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store i64 %or.i289, ptr %26, align 8, !tbaa !23
-  %27 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool53.not = icmp eq i32 %27, 0
+  %20 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i.i = tail call i32 @getc(ptr noundef %20)
+  %conv.i.i.i = zext i32 %call.i.i.i to i64
+  %call.i8.i.i = tail call i32 @getc(ptr noundef %20)
+  %conv3.i.i = shl nuw nsw i64 %conv.i.i.i, 8
+  %21 = and i32 %call.i8.i.i, 255
+  %conv4.i.i = zext i32 %21 to i64
+  %conv3.i.masked.i = and i64 %conv3.i.i, 65280
+  %conv.i289 = or i64 %conv3.i.masked.i, %conv4.i.i
+  %call.i.i5.i = tail call i32 @getc(ptr noundef %20)
+  %conv.i.i6.i = zext i32 %call.i.i5.i to i64
+  %call.i8.i7.i = tail call i32 @getc(ptr noundef %20)
+  %conv3.i9.i = shl nuw nsw i64 %conv.i.i6.i, 8
+  %22 = and i32 %call.i8.i7.i, 255
+  %conv4.i10.i = zext i32 %22 to i64
+  %conv3.i9.masked.i = and i64 %conv3.i9.i, 65280
+  %conv2.i = or i64 %conv3.i9.masked.i, %conv4.i10.i
+  %shl.i = shl nuw nsw i64 %conv.i289, 16
+  %or.i290 = or i64 %conv2.i, %shl.i
+  %23 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store i64 %or.i290, ptr %23, align 8, !tbaa !23
+  %24 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool53.not = icmp eq i32 %24, 0
   br i1 %tobool53.not, label %cleanup, label %if.then54
 
 if.then54:                                        ; preds = %sw.bb49
-  %28 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %call56 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %28, ptr noundef nonnull @.str.3, i64 noundef %or.i289)
+  %25 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %call56 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %25, ptr noundef nonnull @.str.3, i64 noundef %or.i290)
   br label %cleanup
 
 sw.bb59:                                          ; preds = %if.end16
-  %29 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i.i290 = tail call i32 @getc(ptr noundef %29)
-  %call.i8.i.i291 = tail call i32 @getc(ptr noundef %29)
-  %call.i.i5.i292 = tail call i32 @getc(ptr noundef %29)
-  %call.i8.i6.i293 = tail call i32 @getc(ptr noundef %29)
-  %conv2.i7.i294 = and i32 %call.i8.i6.i293, 255
-  %conv.i8.i295 = shl i32 %call.i.i5.i292, 8
-  %conv.i8.masked.i296 = and i32 %conv.i8.i295, 65280
-  %30 = or i32 %conv2.i7.i294, %conv.i8.masked.i296
-  %31 = shl i32 %call.i.i.i290, 24
-  %conv2.i.i297 = shl i32 %call.i8.i.i291, 16
-  %32 = and i32 %conv2.i.i297, 16711680
-  %33 = or i32 %32, %31
-  %or11.i298 = or i32 %30, %33
-  %or.i299 = zext i32 %or11.i298 to i64
-  %34 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store i64 %or.i299, ptr %34, align 8, !tbaa !23
-  %35 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool63.not = icmp eq i32 %35, 0
+  %26 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i.i291 = tail call i32 @getc(ptr noundef %26)
+  %conv.i.i.i292 = zext i32 %call.i.i.i291 to i64
+  %call.i8.i.i293 = tail call i32 @getc(ptr noundef %26)
+  %conv3.i.i294 = shl nuw nsw i64 %conv.i.i.i292, 8
+  %27 = and i32 %call.i8.i.i293, 255
+  %conv4.i.i295 = zext i32 %27 to i64
+  %conv3.i.masked.i296 = and i64 %conv3.i.i294, 65280
+  %conv.i297 = or i64 %conv3.i.masked.i296, %conv4.i.i295
+  %call.i.i5.i298 = tail call i32 @getc(ptr noundef %26)
+  %conv.i.i6.i299 = zext i32 %call.i.i5.i298 to i64
+  %call.i8.i7.i300 = tail call i32 @getc(ptr noundef %26)
+  %conv3.i9.i301 = shl nuw nsw i64 %conv.i.i6.i299, 8
+  %28 = and i32 %call.i8.i7.i300, 255
+  %conv4.i10.i302 = zext i32 %28 to i64
+  %conv3.i9.masked.i303 = and i64 %conv3.i9.i301, 65280
+  %conv2.i304 = or i64 %conv3.i9.masked.i303, %conv4.i10.i302
+  %shl.i305 = shl nuw nsw i64 %conv.i297, 16
+  %or.i306 = or i64 %conv2.i304, %shl.i305
+  %29 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store i64 %or.i306, ptr %29, align 8, !tbaa !23
+  %30 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool63.not = icmp eq i32 %30, 0
   br i1 %tobool63.not, label %cleanup, label %if.then64
 
 if.then64:                                        ; preds = %sw.bb59
-  %36 = bitcast i32 %or11.i298 to float
-  %37 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %conv66 = fpext float %36 to double
-  %call67 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %37, ptr noundef nonnull @.str.4, double noundef %conv66)
+  %31 = trunc i64 %or.i306 to i32
+  %32 = bitcast i32 %31 to float
+  %33 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %conv66 = fpext float %32 to double
+  %call67 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %33, ptr noundef nonnull @.str.4, double noundef %conv66)
   br label %cleanup
 
 sw.bb70:                                          ; preds = %if.end16
-  %38 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i.i300 = tail call i32 @getc(ptr noundef %38)
-  %call.i8.i.i301 = tail call i32 @getc(ptr noundef %38)
-  %call.i.i5.i302 = tail call i32 @getc(ptr noundef %38)
-  %call.i8.i6.i303 = tail call i32 @getc(ptr noundef %38)
-  %conv2.i7.i304 = and i32 %call.i8.i6.i303, 255
-  %conv.i8.i305 = shl i32 %call.i.i5.i302, 8
-  %conv.i8.masked.i306 = and i32 %conv.i8.i305, 65280
-  %39 = or i32 %conv2.i7.i304, %conv.i8.masked.i306
-  %40 = shl i32 %call.i.i.i300, 24
-  %conv2.i.i307 = shl i32 %call.i8.i.i301, 16
-  %41 = and i32 %conv2.i.i307, 16711680
-  %42 = or i32 %41, %40
-  %or11.i308 = or i32 %39, %42
-  %or.i309 = zext i32 %or11.i308 to i64
-  %43 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store i64 %or.i309, ptr %43, align 8, !tbaa !23
-  %44 = load ptr, ptr %constant_pool, align 8, !tbaa !17
-  %inc75 = add nsw i32 %j.0378, 2
+  %34 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i.i307 = tail call i32 @getc(ptr noundef %34)
+  %conv.i.i.i308 = zext i32 %call.i.i.i307 to i64
+  %call.i8.i.i309 = tail call i32 @getc(ptr noundef %34)
+  %conv3.i.i310 = shl nuw nsw i64 %conv.i.i.i308, 8
+  %35 = and i32 %call.i8.i.i309, 255
+  %conv4.i.i311 = zext i32 %35 to i64
+  %conv3.i.masked.i312 = and i64 %conv3.i.i310, 65280
+  %conv.i313 = or i64 %conv3.i.masked.i312, %conv4.i.i311
+  %call.i.i5.i314 = tail call i32 @getc(ptr noundef %34)
+  %conv.i.i6.i315 = zext i32 %call.i.i5.i314 to i64
+  %call.i8.i7.i316 = tail call i32 @getc(ptr noundef %34)
+  %conv3.i9.i317 = shl nuw nsw i64 %conv.i.i6.i315, 8
+  %36 = and i32 %call.i8.i7.i316, 255
+  %conv4.i10.i318 = zext i32 %36 to i64
+  %conv3.i9.masked.i319 = and i64 %conv3.i9.i317, 65280
+  %conv2.i320 = or i64 %conv3.i9.masked.i319, %conv4.i10.i318
+  %shl.i321 = shl nuw nsw i64 %conv.i313, 16
+  %or.i322 = or i64 %conv2.i320, %shl.i321
+  %37 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store i64 %or.i322, ptr %37, align 8, !tbaa !23
+  %38 = load ptr, ptr %constant_pool, align 8, !tbaa !17
+  %inc75 = add nsw i32 %j.0415, 2
   %idxprom76 = sext i32 %inc to i64
-  %arrayidx77 = getelementptr inbounds %struct.cp_info, ptr %44, i64 %idxprom76
+  %arrayidx77 = getelementptr inbounds %struct.cp_info, ptr %38, i64 %idxprom76
   store i8 0, ptr %arrayidx77, align 8, !tbaa !18
-  %45 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i.i310 = tail call i32 @getc(ptr noundef %45)
-  %call.i8.i.i311 = tail call i32 @getc(ptr noundef %45)
-  %call.i.i5.i312 = tail call i32 @getc(ptr noundef %45)
-  %call.i8.i6.i313 = tail call i32 @getc(ptr noundef %45)
-  %conv2.i7.i314 = and i32 %call.i8.i6.i313, 255
-  %conv.i8.i315 = shl i32 %call.i.i5.i312, 8
-  %conv.i8.masked.i316 = and i32 %conv.i8.i315, 65280
-  %46 = or i32 %conv2.i7.i314, %conv.i8.masked.i316
-  %47 = shl i32 %call.i.i.i310, 24
-  %conv2.i.i317 = shl i32 %call.i8.i.i311, 16
-  %48 = and i32 %conv2.i.i317, 16711680
-  %49 = or i32 %48, %47
-  %or11.i318 = or i32 %46, %49
-  %or.i319 = zext i32 %or11.i318 to i64
-  %50 = getelementptr inbounds %struct.cp_info, ptr %44, i64 %idxprom76, i32 1
-  store i64 %or.i319, ptr %50, align 8, !tbaa !23
-  %51 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool82.not = icmp eq i32 %51, 0
+  %39 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i.i323 = tail call i32 @getc(ptr noundef %39)
+  %conv.i.i.i324 = zext i32 %call.i.i.i323 to i64
+  %call.i8.i.i325 = tail call i32 @getc(ptr noundef %39)
+  %conv3.i.i326 = shl nuw nsw i64 %conv.i.i.i324, 8
+  %40 = and i32 %call.i8.i.i325, 255
+  %conv4.i.i327 = zext i32 %40 to i64
+  %conv3.i.masked.i328 = and i64 %conv3.i.i326, 65280
+  %conv.i329 = or i64 %conv3.i.masked.i328, %conv4.i.i327
+  %call.i.i5.i330 = tail call i32 @getc(ptr noundef %39)
+  %conv.i.i6.i331 = zext i32 %call.i.i5.i330 to i64
+  %call.i8.i7.i332 = tail call i32 @getc(ptr noundef %39)
+  %conv3.i9.i333 = shl nuw nsw i64 %conv.i.i6.i331, 8
+  %41 = and i32 %call.i8.i7.i332, 255
+  %conv4.i10.i334 = zext i32 %41 to i64
+  %conv3.i9.masked.i335 = and i64 %conv3.i9.i333, 65280
+  %conv2.i336 = or i64 %conv3.i9.masked.i335, %conv4.i10.i334
+  %shl.i337 = shl nuw nsw i64 %conv.i329, 16
+  %or.i338 = or i64 %conv2.i336, %shl.i337
+  %42 = getelementptr inbounds %struct.cp_info, ptr %38, i64 %idxprom76, i32 1
+  store i64 %or.i338, ptr %42, align 8, !tbaa !23
+  %43 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool82.not = icmp eq i32 %43, 0
   br i1 %tobool82.not, label %if.end91, label %if.then83
 
 if.then83:                                        ; preds = %sw.bb70
-  %52 = getelementptr %struct.cp_info, ptr %arrayidx77, i64 -1, i32 1
-  %53 = load i64, ptr %52, align 8, !tbaa !23
-  %tobool84.not = icmp eq i64 %53, 0
-  %54 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %44 = getelementptr %struct.cp_info, ptr %arrayidx77, i64 -1, i32 1
+  %45 = load i64, ptr %44, align 8, !tbaa !23
+  %tobool84.not = icmp eq i64 %45, 0
+  %46 = load ptr, ptr %outfile, align 8, !tbaa !21
   br i1 %tobool84.not, label %cond.false, label %cond.true
 
 cond.true:                                        ; preds = %if.then83
-  %call87 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %54, ptr noundef nonnull @.str.5, i64 noundef %53, i64 noundef %or.i319)
+  %call87 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %46, ptr noundef nonnull @.str.5, i64 noundef %45, i64 noundef %or.i338)
   br label %if.end91
 
 cond.false:                                       ; preds = %if.then83
-  %call89 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %54, ptr noundef nonnull @.str.6, i64 noundef %or.i319)
+  %call89 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %46, ptr noundef nonnull @.str.6, i64 noundef %or.i338)
   br label %if.end91
 
 if.end91:                                         ; preds = %sw.bb70, %cond.true, %cond.false
-  %dec92 = add nsw i32 %i.0379, -2
+  %dec92 = add nsw i32 %i.0416, -2
   br label %cleanup, !llvm.loop !24
 
 sw.bb96:                                          ; preds = %if.end16
-  %55 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i.i320 = tail call i32 @getc(ptr noundef %55)
-  %call.i8.i.i321 = tail call i32 @getc(ptr noundef %55)
-  %call.i.i5.i322 = tail call i32 @getc(ptr noundef %55)
-  %call.i8.i6.i323 = tail call i32 @getc(ptr noundef %55)
-  %conv2.i7.i324 = and i32 %call.i8.i6.i323, 255
-  %conv.i8.i325 = shl i32 %call.i.i5.i322, 8
-  %conv.i8.masked.i326 = and i32 %conv.i8.i325, 65280
-  %56 = or i32 %conv2.i7.i324, %conv.i8.masked.i326
-  %57 = shl i32 %call.i.i.i320, 24
-  %conv2.i.i327 = shl i32 %call.i8.i.i321, 16
-  %58 = and i32 %conv2.i.i327, 16711680
-  %59 = or i32 %58, %57
-  %or11.i328 = or i32 %56, %59
-  %or.i329 = zext i32 %or11.i328 to i64
-  %60 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  %add.ptr100 = getelementptr inbounds i64, ptr %60, i64 1
-  store i64 %or.i329, ptr %add.ptr100, align 8, !tbaa !26
-  %61 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i.i330 = tail call i32 @getc(ptr noundef %61)
-  %call.i8.i.i331 = tail call i32 @getc(ptr noundef %61)
-  %call.i.i5.i332 = tail call i32 @getc(ptr noundef %61)
-  %call.i8.i6.i333 = tail call i32 @getc(ptr noundef %61)
-  %conv2.i7.i334 = and i32 %call.i8.i6.i333, 255
-  %conv.i8.i335 = shl i32 %call.i.i5.i332, 8
-  %conv.i8.masked.i336 = and i32 %conv.i8.i335, 65280
-  %62 = or i32 %conv2.i7.i334, %conv.i8.masked.i336
-  %63 = shl i32 %call.i.i.i330, 24
-  %conv2.i.i337 = shl i32 %call.i8.i.i331, 16
-  %64 = and i32 %conv2.i.i337, 16711680
-  %65 = or i32 %64, %63
-  %or11.i338 = or i32 %62, %65
-  %or.i339 = zext i32 %or11.i338 to i64
-  store i64 %or.i339, ptr %60, align 8, !tbaa !23
-  %66 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool104.not = icmp eq i32 %66, 0
+  %47 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i.i339 = tail call i32 @getc(ptr noundef %47)
+  %conv.i.i.i340 = zext i32 %call.i.i.i339 to i64
+  %call.i8.i.i341 = tail call i32 @getc(ptr noundef %47)
+  %conv3.i.i342 = shl nuw nsw i64 %conv.i.i.i340, 8
+  %48 = and i32 %call.i8.i.i341, 255
+  %conv4.i.i343 = zext i32 %48 to i64
+  %conv3.i.masked.i344 = and i64 %conv3.i.i342, 65280
+  %conv.i345 = or i64 %conv3.i.masked.i344, %conv4.i.i343
+  %call.i.i5.i346 = tail call i32 @getc(ptr noundef %47)
+  %conv.i.i6.i347 = zext i32 %call.i.i5.i346 to i64
+  %call.i8.i7.i348 = tail call i32 @getc(ptr noundef %47)
+  %conv3.i9.i349 = shl nuw nsw i64 %conv.i.i6.i347, 8
+  %49 = and i32 %call.i8.i7.i348, 255
+  %conv4.i10.i350 = zext i32 %49 to i64
+  %conv3.i9.masked.i351 = and i64 %conv3.i9.i349, 65280
+  %conv2.i352 = or i64 %conv3.i9.masked.i351, %conv4.i10.i350
+  %shl.i353 = shl nuw nsw i64 %conv.i345, 16
+  %or.i354 = or i64 %conv2.i352, %shl.i353
+  %50 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  %add.ptr100 = getelementptr inbounds i64, ptr %50, i64 1
+  store i64 %or.i354, ptr %add.ptr100, align 8, !tbaa !26
+  %51 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i.i355 = tail call i32 @getc(ptr noundef %51)
+  %conv.i.i.i356 = zext i32 %call.i.i.i355 to i64
+  %call.i8.i.i357 = tail call i32 @getc(ptr noundef %51)
+  %conv3.i.i358 = shl nuw nsw i64 %conv.i.i.i356, 8
+  %52 = and i32 %call.i8.i.i357, 255
+  %conv4.i.i359 = zext i32 %52 to i64
+  %conv3.i.masked.i360 = and i64 %conv3.i.i358, 65280
+  %conv.i361 = or i64 %conv3.i.masked.i360, %conv4.i.i359
+  %call.i.i5.i362 = tail call i32 @getc(ptr noundef %51)
+  %conv.i.i6.i363 = zext i32 %call.i.i5.i362 to i64
+  %call.i8.i7.i364 = tail call i32 @getc(ptr noundef %51)
+  %conv3.i9.i365 = shl nuw nsw i64 %conv.i.i6.i363, 8
+  %53 = and i32 %call.i8.i7.i364, 255
+  %conv4.i10.i366 = zext i32 %53 to i64
+  %conv3.i9.masked.i367 = and i64 %conv3.i9.i365, 65280
+  %conv2.i368 = or i64 %conv3.i9.masked.i367, %conv4.i10.i366
+  %shl.i369 = shl nuw nsw i64 %conv.i361, 16
+  %or.i370 = or i64 %conv2.i368, %shl.i369
+  store i64 %or.i370, ptr %50, align 8, !tbaa !23
+  %54 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool104.not = icmp eq i32 %54, 0
   br i1 %tobool104.not, label %if.end111, label %if.then105
 
 if.then105:                                       ; preds = %sw.bb96
-  %67 = bitcast i64 %or.i339 to double
-  %68 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %conv107 = fptrunc double %67 to float
+  %55 = bitcast i64 %or.i370 to double
+  %56 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %conv107 = fptrunc double %55 to float
   %conv108 = fpext float %conv107 to double
-  %call109 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %68, ptr noundef nonnull @.str.7, double noundef %conv108)
+  %call109 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %56, ptr noundef nonnull @.str.7, double noundef %conv108)
   br label %if.end111
 
 if.end111:                                        ; preds = %sw.bb96, %if.then105
-  %69 = load ptr, ptr %constant_pool, align 8, !tbaa !17
-  %inc113 = add nsw i32 %j.0378, 2
+  %57 = load ptr, ptr %constant_pool, align 8, !tbaa !17
+  %inc113 = add nsw i32 %j.0415, 2
   %idxprom114 = sext i32 %inc to i64
-  %arrayidx115 = getelementptr inbounds %struct.cp_info, ptr %69, i64 %idxprom114
+  %arrayidx115 = getelementptr inbounds %struct.cp_info, ptr %57, i64 %idxprom114
   store i8 0, ptr %arrayidx115, align 8, !tbaa !18
-  %dec117 = add nsw i32 %i.0379, -2
+  %dec117 = add nsw i32 %i.0416, -2
   br label %cleanup, !llvm.loop !24
 
 sw.bb121:                                         ; preds = %if.end16
-  %70 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i340 = tail call i32 @getc(ptr noundef %70)
-  %call.i8.i341 = tail call i32 @getc(ptr noundef %70)
-  %conv2.i342 = and i32 %call.i8.i341, 255
-  %conv.i343 = shl i32 %call.i.i340, 8
-  %conv.i343.masked = and i32 %conv.i343, 65280
-  %71 = or i32 %conv2.i342, %conv.i343.masked
-  %conv125 = zext i32 %71 to i64
-  %72 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store i64 %conv125, ptr %72, align 8, !tbaa !23
-  %73 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool126.not = icmp eq i32 %73, 0
+  %58 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i371 = tail call i32 @getc(ptr noundef %58)
+  %conv.i.i372 = trunc i32 %call.i.i371 to i16
+  %call.i8.i373 = tail call i32 @getc(ptr noundef %58)
+  %conv.i9.i374 = trunc i32 %call.i8.i373 to i16
+  %conv3.i375 = shl i16 %conv.i.i372, 8
+  %conv4.i376 = and i16 %conv.i9.i374, 255
+  %or.i377 = or i16 %conv4.i376, %conv3.i375
+  %conv125 = zext i16 %or.i377 to i64
+  %59 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store i64 %conv125, ptr %59, align 8, !tbaa !23
+  %60 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool126.not = icmp eq i32 %60, 0
   br i1 %tobool126.not, label %cleanup, label %if.then127
 
 if.then127:                                       ; preds = %sw.bb121
-  %74 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %call130 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %74, ptr noundef nonnull @.str.8, i32 noundef %71)
+  %61 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %conv129 = zext i16 %or.i377 to i32
+  %call130 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %61, ptr noundef nonnull @.str.8, i32 noundef %conv129)
   br label %cleanup
 
 sw.bb133:                                         ; preds = %if.end16
-  %75 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i346 = tail call i32 @getc(ptr noundef %75)
-  %call.i8.i347 = tail call i32 @getc(ptr noundef %75)
-  %conv2.i348 = and i32 %call.i8.i347, 255
-  %conv.i349 = shl i32 %call.i.i346, 8
-  %conv.i349.masked = and i32 %conv.i349, 65280
-  %76 = or i32 %conv2.i348, %conv.i349.masked
-  %conv137 = zext i32 %76 to i64
-  %77 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store i64 %conv137, ptr %77, align 8, !tbaa !23
-  %78 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool138.not = icmp eq i32 %78, 0
+  %62 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i378 = tail call i32 @getc(ptr noundef %62)
+  %conv.i.i379 = trunc i32 %call.i.i378 to i16
+  %call.i8.i380 = tail call i32 @getc(ptr noundef %62)
+  %conv.i9.i381 = trunc i32 %call.i8.i380 to i16
+  %conv3.i382 = shl i16 %conv.i.i379, 8
+  %conv4.i383 = and i16 %conv.i9.i381, 255
+  %or.i384 = or i16 %conv4.i383, %conv3.i382
+  %conv137 = zext i16 %or.i384 to i64
+  %63 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store i64 %conv137, ptr %63, align 8, !tbaa !23
+  %64 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool138.not = icmp eq i32 %64, 0
   br i1 %tobool138.not, label %cleanup, label %if.then139
 
 if.then139:                                       ; preds = %sw.bb133
-  %79 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %call142 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %79, ptr noundef nonnull @.str.9, i32 noundef %76)
+  %65 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %conv141 = zext i16 %or.i384 to i32
+  %call142 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %65, ptr noundef nonnull @.str.9, i32 noundef %conv141)
   br label %cleanup
 
 sw.bb145:                                         ; preds = %if.end16, %if.end16, %if.end16
   %call146 = tail call noalias noundef nonnull dereferenceable(4) ptr @_Znwm(i64 noundef 4) #5
-  %80 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store ptr %call146, ptr %80, align 8, !tbaa !23
-  %81 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i352 = tail call i32 @getc(ptr noundef %81)
-  %call.i8.i353 = tail call i32 @getc(ptr noundef %81)
-  %conv2.i354 = and i32 %call.i8.i353, 255
-  %conv.i355 = shl i32 %call.i.i352, 8
-  %or.i356 = or i32 %conv2.i354, %conv.i355
-  %conv5.i357 = trunc i32 %or.i356 to i16
-  %82 = load ptr, ptr %80, align 8, !tbaa !23
-  store i16 %conv5.i357, ptr %82, align 2, !tbaa !28
-  %83 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i358 = tail call i32 @getc(ptr noundef %83)
-  %call.i8.i359 = tail call i32 @getc(ptr noundef %83)
-  %conv2.i360 = and i32 %call.i8.i359, 255
-  %conv.i361 = shl i32 %call.i.i358, 8
-  %or.i362 = or i32 %conv2.i360, %conv.i361
-  %conv5.i363 = trunc i32 %or.i362 to i16
-  %84 = load ptr, ptr %80, align 8, !tbaa !23
-  %name_and_type = getelementptr inbounds %struct.Ref, ptr %84, i64 0, i32 1
-  store i16 %conv5.i363, ptr %name_and_type, align 2, !tbaa !30
-  %85 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool156.not = icmp eq i32 %85, 0
+  %66 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store ptr %call146, ptr %66, align 8, !tbaa !23
+  %67 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i385 = tail call i32 @getc(ptr noundef %67)
+  %conv.i.i386 = trunc i32 %call.i.i385 to i16
+  %call.i8.i387 = tail call i32 @getc(ptr noundef %67)
+  %conv.i9.i388 = trunc i32 %call.i8.i387 to i16
+  %conv3.i389 = shl i16 %conv.i.i386, 8
+  %conv4.i390 = and i16 %conv.i9.i388, 255
+  %or.i391 = or i16 %conv4.i390, %conv3.i389
+  %68 = load ptr, ptr %66, align 8, !tbaa !23
+  store i16 %or.i391, ptr %68, align 2, !tbaa !28
+  %69 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i392 = tail call i32 @getc(ptr noundef %69)
+  %conv.i.i393 = trunc i32 %call.i.i392 to i16
+  %call.i8.i394 = tail call i32 @getc(ptr noundef %69)
+  %conv.i9.i395 = trunc i32 %call.i8.i394 to i16
+  %conv3.i396 = shl i16 %conv.i.i393, 8
+  %conv4.i397 = and i16 %conv.i9.i395, 255
+  %or.i398 = or i16 %conv4.i397, %conv3.i396
+  %70 = load ptr, ptr %66, align 8, !tbaa !23
+  %name_and_type = getelementptr inbounds %struct.Ref, ptr %70, i64 0, i32 1
+  store i16 %or.i398, ptr %name_and_type, align 2, !tbaa !30
+  %71 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool156.not = icmp eq i32 %71, 0
   br i1 %tobool156.not, label %cleanup, label %if.then157
 
 if.then157:                                       ; preds = %sw.bb145
-  %86 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %87 = load ptr, ptr %80, align 8, !tbaa !23
-  %88 = load i16, ptr %87, align 2, !tbaa !28
-  %conv160 = zext i16 %88 to i32
-  %name_and_type161 = getelementptr inbounds %struct.Ref, ptr %87, i64 0, i32 1
-  %89 = load i16, ptr %name_and_type161, align 2, !tbaa !30
-  %conv162 = zext i16 %89 to i32
-  %call163 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %86, ptr noundef nonnull @.str.10, i32 noundef %conv160, i32 noundef %conv162)
+  %72 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %73 = load ptr, ptr %66, align 8, !tbaa !23
+  %74 = load i16, ptr %73, align 2, !tbaa !28
+  %conv160 = zext i16 %74 to i32
+  %name_and_type161 = getelementptr inbounds %struct.Ref, ptr %73, i64 0, i32 1
+  %75 = load i16, ptr %name_and_type161, align 2, !tbaa !30
+  %conv162 = zext i16 %75 to i32
+  %call163 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %72, ptr noundef nonnull @.str.10, i32 noundef %conv160, i32 noundef %conv162)
   br label %cleanup
 
 sw.bb166:                                         ; preds = %if.end16
   %call168 = tail call noalias noundef nonnull dereferenceable(4) ptr @_Znwm(i64 noundef 4) #5
-  %90 = getelementptr inbounds %struct.cp_info, ptr %3, i64 %idxprom, i32 1
-  store ptr %call168, ptr %90, align 8, !tbaa !23
-  %91 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i364 = tail call i32 @getc(ptr noundef %91)
-  %call.i8.i365 = tail call i32 @getc(ptr noundef %91)
-  %conv2.i366 = and i32 %call.i8.i365, 255
-  %conv.i367 = shl i32 %call.i.i364, 8
-  %or.i368 = or i32 %conv2.i366, %conv.i367
-  %conv5.i369 = trunc i32 %or.i368 to i16
-  %92 = load ptr, ptr %90, align 8, !tbaa !23
-  store i16 %conv5.i369, ptr %92, align 2, !tbaa !31
-  %93 = load ptr, ptr %c, align 8, !tbaa !5
-  %call.i.i370 = tail call i32 @getc(ptr noundef %93)
-  %call.i8.i371 = tail call i32 @getc(ptr noundef %93)
-  %conv2.i372 = and i32 %call.i8.i371, 255
-  %conv.i373 = shl i32 %call.i.i370, 8
-  %or.i374 = or i32 %conv2.i372, %conv.i373
-  %conv5.i375 = trunc i32 %or.i374 to i16
-  %94 = load ptr, ptr %90, align 8, !tbaa !23
-  %signature_index = getelementptr inbounds %struct.NameAndType, ptr %94, i64 0, i32 1
-  store i16 %conv5.i375, ptr %signature_index, align 2, !tbaa !33
-  %95 = load i32, ptr @debugon, align 4, !tbaa !20
-  %tobool178.not = icmp eq i32 %95, 0
+  %76 = getelementptr inbounds %struct.cp_info, ptr %2, i64 %idxprom, i32 1
+  store ptr %call168, ptr %76, align 8, !tbaa !23
+  %77 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i399 = tail call i32 @getc(ptr noundef %77)
+  %conv.i.i400 = trunc i32 %call.i.i399 to i16
+  %call.i8.i401 = tail call i32 @getc(ptr noundef %77)
+  %conv.i9.i402 = trunc i32 %call.i8.i401 to i16
+  %conv3.i403 = shl i16 %conv.i.i400, 8
+  %conv4.i404 = and i16 %conv.i9.i402, 255
+  %or.i405 = or i16 %conv4.i404, %conv3.i403
+  %78 = load ptr, ptr %76, align 8, !tbaa !23
+  store i16 %or.i405, ptr %78, align 2, !tbaa !31
+  %79 = load ptr, ptr %c, align 8, !tbaa !5
+  %call.i.i406 = tail call i32 @getc(ptr noundef %79)
+  %conv.i.i407 = trunc i32 %call.i.i406 to i16
+  %call.i8.i408 = tail call i32 @getc(ptr noundef %79)
+  %conv.i9.i409 = trunc i32 %call.i8.i408 to i16
+  %conv3.i410 = shl i16 %conv.i.i407, 8
+  %conv4.i411 = and i16 %conv.i9.i409, 255
+  %or.i412 = or i16 %conv4.i411, %conv3.i410
+  %80 = load ptr, ptr %76, align 8, !tbaa !23
+  %signature_index = getelementptr inbounds %struct.NameAndType, ptr %80, i64 0, i32 1
+  store i16 %or.i412, ptr %signature_index, align 2, !tbaa !33
+  %81 = load i32, ptr @debugon, align 4, !tbaa !20
+  %tobool178.not = icmp eq i32 %81, 0
   br i1 %tobool178.not, label %cleanup, label %if.then179
 
 if.then179:                                       ; preds = %sw.bb166
-  %96 = load ptr, ptr %outfile, align 8, !tbaa !21
-  %97 = load ptr, ptr %90, align 8, !tbaa !23
-  %98 = load i16, ptr %97, align 2, !tbaa !31
-  %conv182 = zext i16 %98 to i32
-  %signature_index183 = getelementptr inbounds %struct.NameAndType, ptr %97, i64 0, i32 1
-  %99 = load i16, ptr %signature_index183, align 2, !tbaa !33
-  %conv184 = zext i16 %99 to i32
-  %call185 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %96, ptr noundef nonnull @.str.11, i32 noundef %conv182, i32 noundef %conv184)
+  %82 = load ptr, ptr %outfile, align 8, !tbaa !21
+  %83 = load ptr, ptr %76, align 8, !tbaa !23
+  %84 = load i16, ptr %83, align 2, !tbaa !31
+  %conv182 = zext i16 %84 to i32
+  %signature_index183 = getelementptr inbounds %struct.NameAndType, ptr %83, i64 0, i32 1
+  %85 = load i16, ptr %signature_index183, align 2, !tbaa !33
+  %conv184 = zext i16 %85 to i32
+  %call185 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %82, ptr noundef nonnull @.str.11, i32 noundef %conv182, i32 noundef %conv184)
   br label %cleanup
 
 sw.default:                                       ; preds = %if.end16
-  %100 = load ptr, ptr @stderr, align 8, !tbaa !34
-  %101 = load i16, ptr %this, align 8, !tbaa !16
-  %conv189 = zext i16 %101 to i32
-  %102 = load i32, ptr %infile_pos, align 8, !tbaa !22
-  %call191 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %100, ptr noundef nonnull @.str.12, i32 noundef %inc, i32 noundef %conv189, i32 noundef %102) #6
+  %86 = load ptr, ptr @stderr, align 8, !tbaa !34
+  %87 = load i16, ptr %this, align 8, !tbaa !16
+  %conv189 = zext i16 %87 to i32
+  %88 = load i32, ptr %infile_pos, align 8, !tbaa !22
+  %call191 = tail call i32 (ptr, ptr, ...) @fprintf(ptr noundef %86, ptr noundef nonnull @.str.12, i32 noundef %inc, i32 noundef %conv189, i32 noundef %88) #6
   tail call void (i32, ...) @_Z10fatalerroriz(i32 noundef 6)
   br label %cleanup
 
 cleanup:                                          ; preds = %if.end111, %if.end91, %sw.default, %sw.bb, %if.then37, %sw.bb42, %if.then44, %sw.bb49, %if.then54, %sw.bb59, %if.then64, %sw.bb121, %if.then127, %sw.bb133, %if.then139, %sw.bb145, %if.then157, %sw.bb166, %if.then179
   %j.2 = phi i32 [ %inc, %sw.default ], [ %inc, %if.then179 ], [ %inc, %sw.bb166 ], [ %inc, %if.then157 ], [ %inc, %sw.bb145 ], [ %inc, %if.then139 ], [ %inc, %sw.bb133 ], [ %inc, %if.then127 ], [ %inc, %sw.bb121 ], [ %inc113, %if.end111 ], [ %inc75, %if.end91 ], [ %inc, %if.then64 ], [ %inc, %sw.bb59 ], [ %inc, %if.then54 ], [ %inc, %sw.bb49 ], [ %inc, %if.then44 ], [ %inc, %sw.bb42 ], [ %inc, %if.then37 ], [ %inc, %sw.bb ]
-  %i.2 = phi i32 [ %dec381, %sw.default ], [ %dec381, %if.then179 ], [ %dec381, %sw.bb166 ], [ %dec381, %if.then157 ], [ %dec381, %sw.bb145 ], [ %dec381, %if.then139 ], [ %dec381, %sw.bb133 ], [ %dec381, %if.then127 ], [ %dec381, %sw.bb121 ], [ %dec117, %if.end111 ], [ %dec92, %if.end91 ], [ %dec381, %if.then64 ], [ %dec381, %sw.bb59 ], [ %dec381, %if.then54 ], [ %dec381, %sw.bb49 ], [ %dec381, %if.then44 ], [ %dec381, %sw.bb42 ], [ %dec381, %if.then37 ], [ %dec381, %sw.bb ]
+  %i.2 = phi i32 [ %dec418, %sw.default ], [ %dec418, %if.then179 ], [ %dec418, %sw.bb166 ], [ %dec418, %if.then157 ], [ %dec418, %sw.bb145 ], [ %dec418, %if.then139 ], [ %dec418, %sw.bb133 ], [ %dec418, %if.then127 ], [ %dec418, %sw.bb121 ], [ %dec117, %if.end111 ], [ %dec92, %if.end91 ], [ %dec418, %if.then64 ], [ %dec418, %sw.bb59 ], [ %dec418, %if.then54 ], [ %dec418, %sw.bb49 ], [ %dec418, %if.then44 ], [ %dec418, %sw.bb42 ], [ %dec418, %if.then37 ], [ %dec418, %sw.bb ]
   %dec = add nsw i32 %i.2, -1
   %tobool.not = icmp eq i32 %i.2, 0
   br i1 %tobool.not, label %for.cond.cleanup, label %for.body

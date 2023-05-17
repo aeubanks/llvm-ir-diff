@@ -55,22 +55,22 @@ entry:
   tail call void @_ZN9benchmark5State16StartKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   %cmp.not.i.not1012 = icmp eq i64 %1, 0
   %cmp.not.i.not10 = select i1 %tobool.not.i.i, i1 true, i1 %cmp.not.i.not1012
-  br i1 %cmp.not.i.not10, label %if.end.i, label %for.body.lr.ph, !prof !27
+  br i1 %cmp.not.i.not10, label %for.cond.cleanup, label %for.body.lr.ph, !prof !27
 
 for.body.lr.ph:                                   ; preds = %entry
   %started_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 3
   %batch_leftover_.i = getelementptr inbounds %"class.benchmark::State", ptr %state, i64 0, i32 1
   br label %for.body
 
-if.end.i:                                         ; preds = %_ZNK9benchmark5State10iterationsEv.exit, %entry
+for.cond.cleanup:                                 ; preds = %_ZN9benchmark5State13StateIteratorppEv.exit, %entry
   tail call void @_ZN9benchmark5State17FinishKeepRunningEv(ptr noundef nonnull align 8 dereferenceable(144) %state)
   ret void
 
-for.body:                                         ; preds = %for.body.lr.ph, %_ZNK9benchmark5State10iterationsEv.exit
-  %__begin1.sroa.0.011 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %_ZNK9benchmark5State10iterationsEv.exit ]
+for.body:                                         ; preds = %for.body.lr.ph, %_ZN9benchmark5State13StateIteratorppEv.exit
+  %__begin1.sroa.0.011 = phi i64 [ %1, %for.body.lr.ph ], [ %dec.i, %_ZN9benchmark5State13StateIteratorppEv.exit ]
   %2 = load i8, ptr %started_.i, align 8, !tbaa !28, !range !25, !noundef !26
   %tobool.not.i = icmp eq i8 %2, 0
-  br i1 %tobool.not.i, label %_ZNK9benchmark5State10iterationsEv.exit, label %if.end.i7, !prof !27
+  br i1 %tobool.not.i, label %_ZN9benchmark5State13StateIteratorppEv.exit, label %if.end.i7, !prof !27
 
 if.end.i7:                                        ; preds = %for.body
   %3 = load i64, ptr %max_iterations.i.i, align 8, !tbaa !29
@@ -78,14 +78,14 @@ if.end.i7:                                        ; preds = %for.body
   %sub.i = sub i64 %3, %4
   %5 = load i64, ptr %batch_leftover_.i, align 8, !tbaa !31
   %add.i = add i64 %sub.i, %5
-  br label %_ZNK9benchmark5State10iterationsEv.exit
+  br label %_ZN9benchmark5State13StateIteratorppEv.exit
 
-_ZNK9benchmark5State10iterationsEv.exit:          ; preds = %for.body, %if.end.i7
+_ZN9benchmark5State13StateIteratorppEv.exit:      ; preds = %if.end.i7, %for.body
   %retval.0.i = phi i64 [ %add.i, %if.end.i7 ], [ 0, %for.body ]
   tail call void asm sideeffect "", "r|m,~{memory},~{dirflag},~{fpsr},~{flags}"(i64 %retval.0.i) #4, !srcloc !32
   %dec.i = add i64 %__begin1.sroa.0.011, -1
   %cmp.not.i.not = icmp eq i64 %dec.i, 0
-  br i1 %cmp.not.i.not, label %if.end.i, label %for.body, !prof !27
+  br i1 %cmp.not.i.not, label %for.cond.cleanup, label %for.body, !prof !27
 }
 
 declare noundef ptr @_ZN9benchmark8internal25RegisterBenchmarkInternalEPNS0_9BenchmarkE(ptr noundef) local_unnamed_addr #0

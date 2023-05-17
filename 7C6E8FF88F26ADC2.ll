@@ -901,8 +901,8 @@ sw.bb4:                                           ; preds = %if.end
 sw.bb5:                                           ; preds = %if.end
   tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.156) #11
   %add.ptr8 = getelementptr inbounds i8, ptr %add.ptr, i64 4
-  %add.ptr8.val427 = load i32, ptr %add.ptr8, align 1
-  %trunc = trunc i32 %add.ptr8.val427 to i8
+  %add.ptr8.val431 = load i32, ptr %add.ptr8, align 1
+  %trunc = trunc i32 %add.ptr8.val431 to i8
   switch i8 %trunc, label %sw.default [
     i8 0, label %sw.bb10
     i8 1, label %sw.bb11
@@ -922,13 +922,13 @@ sw.bb12:                                          ; preds = %sw.bb5
   br label %sw.epilog
 
 sw.default:                                       ; preds = %sw.bb5
-  tail call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.161, i32 noundef %add.ptr8.val427) #11
+  tail call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.161, i32 noundef %add.ptr8.val431) #11
   br label %sw.epilog
 
 sw.epilog:                                        ; preds = %sw.default, %sw.bb12, %sw.bb11, %sw.bb10
-  %0 = trunc i32 %add.ptr8.val427 to i16
-  %trunc428 = and i16 %0, -256
-  switch i16 %trunc428, label %sw.default20 [
+  %0 = trunc i32 %add.ptr8.val431 to i16
+  %trunc426 = and i16 %0, -256
+  switch i16 %trunc426, label %sw.default20 [
     i16 0, label %sw.epilog29
     i16 256, label %sw.bb18
     i16 512, label %sw.bb19
@@ -1067,15 +1067,15 @@ vec.epilog.ph:                                    ; preds = %vector.main.loop.it
   %vec.epilog.resume.val = phi i64 [ %n.vec, %vec.epilog.iter.check ], [ 0, %vector.main.loop.iter.check ]
   %n.vec18 = and i64 %wide.trip.count.i, 2147483640
   %ind.end = shl nuw nsw i64 %n.vec18, 1
-  %invariant.gep54 = getelementptr i8, ptr %add.ptr49, i64 -1
+  %invariant.gep100 = getelementptr i8, ptr %add.ptr49, i64 -1
   br label %vec.epilog.vector.body
 
 vec.epilog.vector.body:                           ; preds = %vec.epilog.vector.body, %vec.epilog.ph
   %index22 = phi i64 [ %vec.epilog.resume.val, %vec.epilog.ph ], [ %index.next27, %vec.epilog.vector.body ]
   %offset.idx23 = shl i64 %index22, 1
   %15 = or i64 %offset.idx23, 1
-  %gep55 = getelementptr i8, ptr %invariant.gep54, i64 %15
-  %wide.vec24 = load <16 x i8>, ptr %gep55, align 1, !tbaa !5
+  %gep101 = getelementptr i8, ptr %invariant.gep100, i64 %15
+  %wide.vec24 = load <16 x i8>, ptr %gep101, align 1, !tbaa !5
   %strided.vec25 = shufflevector <16 x i8> %wide.vec24, <16 x i8> poison, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
   %strided.vec26 = shufflevector <16 x i8> %wide.vec24, <16 x i8> poison, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
   %16 = shl <8 x i8> %strided.vec26, <i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4>
@@ -1186,8 +1186,8 @@ if.else64:                                        ; preds = %if.then56
   %cmp69.not = icmp ult i32 %add.ptr67.val, %length
   %add72 = add i32 %add.ptr67.val, %add.ptr59.val
   %cmp73.not = icmp ult i32 %add72, %length
-  %or.cond429 = and i1 %cmp69.not, %cmp73.not
-  br i1 %or.cond429, label %if.end79, label %if.then75
+  %or.cond427 = and i1 %cmp69.not, %cmp73.not
+  br i1 %or.cond427, label %if.end79, label %if.then75
 
 if.then75:                                        ; preds = %if.else64
   tail call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.172) #11
@@ -1200,23 +1200,189 @@ if.then77:                                        ; preds = %if.then75
 
 if.end79:                                         ; preds = %if.else64
   %idx.ext80 = zext i32 %add.ptr67.val to i64
-  %add.ptr81 = getelementptr inbounds i8, ptr %mfile, i64 %idx.ext80
-  %call82 = tail call fastcc ptr @sis_utf16_decode(ptr noundef %add.ptr81, i32 noundef %add.ptr59.val)
-  %tobool83.not = icmp eq ptr %call82, null
-  br i1 %tobool83.not, label %if.else85, label %if.then84
+  %add.ptr81 = getelementptr i8, ptr %mfile, i64 %idx.ext80
+  %tobool.not.i432 = icmp ne i32 %add.ptr59.val, 0
+  %rem.i433 = and i32 %add.ptr59.val, 1
+  %tobool1.not.i434 = icmp eq i32 %rem.i433, 0
+  %or.cond.i435 = and i1 %tobool.not.i432, %tobool1.not.i434
+  br i1 %or.cond.i435, label %if.end.i442, label %if.then.i436
 
-if.then84:                                        ; preds = %if.end79
-  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.173, ptr noundef nonnull %call82) #11
+if.then.i436:                                     ; preds = %if.end79
+  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.193, i32 noundef %add.ptr59.val) #11
+  br label %if.else85
+
+if.end.i442:                                      ; preds = %if.end79
+  %div47.i437 = lshr i32 %add.ptr59.val, 1
+  %add.i438 = add nuw nsw i32 %div47.i437, 1
+  %conv.i439 = zext i32 %add.i438 to i64
+  %call.i440 = tail call ptr @cli_calloc(i64 noundef %conv.i439, i64 noundef 1) #11
+  %tobool2.not.i441 = icmp eq ptr %call.i440, null
+  br i1 %tobool2.not.i441, label %if.else85, label %iter.check37
+
+iter.check37:                                     ; preds = %if.end.i442
+  %35 = add i32 %add.ptr59.val, -1
+  %36 = lshr i32 %35, 1
+  %37 = add nuw nsw i32 %36, 1
+  %wide.trip.count.i443 = zext i32 %37 to i64
+  %min.iters.check35 = icmp ult i32 %add.ptr59.val, 15
+  br i1 %min.iters.check35, label %for.body.i457.preheader, label %vector.memcheck28
+
+vector.memcheck28:                                ; preds = %iter.check37
+  %scevgep29 = getelementptr i8, ptr %call.i440, i64 %wide.trip.count.i443
+  %38 = and i32 %35, -2
+  %39 = zext i32 %38 to i64
+  %40 = add nuw nsw i64 %39, %idx.ext80
+  %41 = add nuw nsw i64 %40, 2
+  %scevgep30 = getelementptr i8, ptr %mfile, i64 %41
+  %bound031 = icmp ult ptr %call.i440, %scevgep30
+  %bound132 = icmp ult ptr %add.ptr81, %scevgep29
+  %found.conflict33 = and i1 %bound031, %bound132
+  br i1 %found.conflict33, label %for.body.i457.preheader, label %vector.main.loop.iter.check39
+
+vector.main.loop.iter.check39:                    ; preds = %vector.memcheck28
+  %min.iters.check38 = icmp ult i32 %add.ptr59.val, 31
+  br i1 %min.iters.check38, label %vec.epilog.ph54, label %vector.ph40
+
+vector.ph40:                                      ; preds = %vector.main.loop.iter.check39
+  %n.vec42 = and i64 %wide.trip.count.i443, 2147483632
+  %invariant.gep102 = getelementptr i8, ptr %add.ptr81, i64 -1
+  br label %vector.body44
+
+vector.body44:                                    ; preds = %vector.body44, %vector.ph40
+  %index45 = phi i64 [ 0, %vector.ph40 ], [ %index.next50, %vector.body44 ]
+  %offset.idx46 = shl i64 %index45, 1
+  %42 = or i64 %offset.idx46, 1
+  %gep103 = getelementptr i8, ptr %invariant.gep102, i64 %42
+  %wide.vec47 = load <32 x i8>, ptr %gep103, align 1, !tbaa !5
+  %strided.vec48 = shufflevector <32 x i8> %wide.vec47, <32 x i8> poison, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
+  %strided.vec49 = shufflevector <32 x i8> %wide.vec47, <32 x i8> poison, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
+  %43 = shl <16 x i8> %strided.vec49, <i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4>
+  %44 = getelementptr inbounds i8, ptr %call.i440, i64 %index45
+  %45 = add <16 x i8> %strided.vec48, %43
+  %46 = icmp eq <16 x i8> %45, <i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37>
+  %47 = select <16 x i1> %46, <16 x i8> <i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95>, <16 x i8> %45
+  store <16 x i8> %47, ptr %44, align 1, !tbaa !5, !alias.scope !42, !noalias !45
+  %index.next50 = add nuw i64 %index45, 16
+  %48 = icmp eq i64 %index.next50, %n.vec42
+  br i1 %48, label %middle.block34, label %vector.body44, !llvm.loop !47
+
+middle.block34:                                   ; preds = %vector.body44
+  %cmp.n43 = icmp eq i64 %n.vec42, %wide.trip.count.i443
+  br i1 %cmp.n43, label %if.then84, label %vec.epilog.iter.check53
+
+vec.epilog.iter.check53:                          ; preds = %middle.block34
+  %ind.end61 = shl nuw nsw i64 %n.vec42, 1
+  %n.vec.remaining55 = and i64 %wide.trip.count.i443, 8
+  %min.epilog.iters.check56.not.not = icmp eq i64 %n.vec.remaining55, 0
+  br i1 %min.epilog.iters.check56.not.not, label %for.body.i457.preheader, label %vec.epilog.ph54
+
+vec.epilog.ph54:                                  ; preds = %vector.main.loop.iter.check39, %vec.epilog.iter.check53
+  %vec.epilog.resume.val57 = phi i64 [ %n.vec42, %vec.epilog.iter.check53 ], [ 0, %vector.main.loop.iter.check39 ]
+  %n.vec59 = and i64 %wide.trip.count.i443, 2147483640
+  %ind.end60 = shl nuw nsw i64 %n.vec59, 1
+  %invariant.gep104 = getelementptr i8, ptr %add.ptr81, i64 -1
+  br label %vec.epilog.vector.body65
+
+vec.epilog.vector.body65:                         ; preds = %vec.epilog.vector.body65, %vec.epilog.ph54
+  %index66 = phi i64 [ %vec.epilog.resume.val57, %vec.epilog.ph54 ], [ %index.next71, %vec.epilog.vector.body65 ]
+  %offset.idx67 = shl i64 %index66, 1
+  %49 = or i64 %offset.idx67, 1
+  %gep105 = getelementptr i8, ptr %invariant.gep104, i64 %49
+  %wide.vec68 = load <16 x i8>, ptr %gep105, align 1, !tbaa !5
+  %strided.vec69 = shufflevector <16 x i8> %wide.vec68, <16 x i8> poison, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
+  %strided.vec70 = shufflevector <16 x i8> %wide.vec68, <16 x i8> poison, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
+  %50 = shl <8 x i8> %strided.vec70, <i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4>
+  %51 = getelementptr inbounds i8, ptr %call.i440, i64 %index66
+  %52 = add <8 x i8> %strided.vec69, %50
+  %53 = icmp eq <8 x i8> %52, <i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37>
+  %54 = select <8 x i1> %53, <8 x i8> <i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95>, <8 x i8> %52
+  store <8 x i8> %54, ptr %51, align 1, !tbaa !5, !alias.scope !48, !noalias !51
+  %index.next71 = add nuw i64 %index66, 8
+  %55 = icmp eq i64 %index.next71, %n.vec59
+  br i1 %55, label %vec.epilog.middle.block51, label %vec.epilog.vector.body65, !llvm.loop !53
+
+vec.epilog.middle.block51:                        ; preds = %vec.epilog.vector.body65
+  %cmp.n64 = icmp eq i64 %n.vec59, %wide.trip.count.i443
+  br i1 %cmp.n64, label %if.then84, label %for.body.i457.preheader
+
+for.body.i457.preheader:                          ; preds = %vector.memcheck28, %iter.check37, %vec.epilog.iter.check53, %vec.epilog.middle.block51
+  %indvars.iv51.i445.ph = phi i64 [ 0, %iter.check37 ], [ 0, %vector.memcheck28 ], [ %ind.end61, %vec.epilog.iter.check53 ], [ %ind.end60, %vec.epilog.middle.block51 ]
+  %indvars.iv.i446.ph = phi i64 [ 0, %iter.check37 ], [ 0, %vector.memcheck28 ], [ %n.vec42, %vec.epilog.iter.check53 ], [ %n.vec59, %vec.epilog.middle.block51 ]
+  %56 = lshr i32 %35, 1
+  %57 = zext i32 %56 to i64
+  %58 = and i64 %57, 1
+  %lcmp.mod86.not.not = icmp eq i64 %58, 0
+  br i1 %lcmp.mod86.not.not, label %for.body.i457.prol, label %for.body.i457.prol.loopexit
+
+for.body.i457.prol:                               ; preds = %for.body.i457.preheader
+  %59 = or i64 %indvars.iv51.i445.ph, 1
+  %arrayidx.i447.prol = getelementptr inbounds i8, ptr %add.ptr81, i64 %59
+  %60 = load i8, ptr %arrayidx.i447.prol, align 1, !tbaa !5
+  %shl.i448.prol = shl i8 %60, 4
+  %arrayidx10.i449.prol = getelementptr inbounds i8, ptr %call.i440, i64 %indvars.iv.i446.ph
+  store i8 %shl.i448.prol, ptr %arrayidx10.i449.prol, align 1, !tbaa !5
+  %arrayidx12.i450.prol = getelementptr inbounds i8, ptr %add.ptr81, i64 %indvars.iv51.i445.ph
+  %61 = load i8, ptr %arrayidx12.i450.prol, align 1, !tbaa !5
+  %add17.i451.prol = add i8 %61, %shl.i448.prol
+  %cmp22.i452.prol = icmp eq i8 %add17.i451.prol, 37
+  %spec.select.i453.prol = select i1 %cmp22.i452.prol, i8 95, i8 %add17.i451.prol
+  store i8 %spec.select.i453.prol, ptr %arrayidx10.i449.prol, align 1, !tbaa !5
+  %indvars.iv.next52.i454.prol = add nuw nsw i64 %indvars.iv51.i445.ph, 2
+  %indvars.iv.next.i455.prol = or i64 %indvars.iv.i446.ph, 1
+  br label %for.body.i457.prol.loopexit
+
+for.body.i457.prol.loopexit:                      ; preds = %for.body.i457.prol, %for.body.i457.preheader
+  %indvars.iv51.i445.unr = phi i64 [ %indvars.iv51.i445.ph, %for.body.i457.preheader ], [ %indvars.iv.next52.i454.prol, %for.body.i457.prol ]
+  %indvars.iv.i446.unr = phi i64 [ %indvars.iv.i446.ph, %for.body.i457.preheader ], [ %indvars.iv.next.i455.prol, %for.body.i457.prol ]
+  %62 = icmp eq i64 %indvars.iv.i446.ph, %57
+  br i1 %62, label %if.then84, label %for.body.i457
+
+for.body.i457:                                    ; preds = %for.body.i457.prol.loopexit, %for.body.i457
+  %indvars.iv51.i445 = phi i64 [ %indvars.iv.next52.i454.1, %for.body.i457 ], [ %indvars.iv51.i445.unr, %for.body.i457.prol.loopexit ]
+  %indvars.iv.i446 = phi i64 [ %indvars.iv.next.i455.1, %for.body.i457 ], [ %indvars.iv.i446.unr, %for.body.i457.prol.loopexit ]
+  %63 = or i64 %indvars.iv51.i445, 1
+  %arrayidx.i447 = getelementptr inbounds i8, ptr %add.ptr81, i64 %63
+  %64 = load i8, ptr %arrayidx.i447, align 1, !tbaa !5
+  %shl.i448 = shl i8 %64, 4
+  %arrayidx10.i449 = getelementptr inbounds i8, ptr %call.i440, i64 %indvars.iv.i446
+  store i8 %shl.i448, ptr %arrayidx10.i449, align 1, !tbaa !5
+  %arrayidx12.i450 = getelementptr inbounds i8, ptr %add.ptr81, i64 %indvars.iv51.i445
+  %65 = load i8, ptr %arrayidx12.i450, align 1, !tbaa !5
+  %add17.i451 = add i8 %65, %shl.i448
+  %cmp22.i452 = icmp eq i8 %add17.i451, 37
+  %spec.select.i453 = select i1 %cmp22.i452, i8 95, i8 %add17.i451
+  store i8 %spec.select.i453, ptr %arrayidx10.i449, align 1, !tbaa !5
+  %indvars.iv.next52.i454 = add nuw nsw i64 %indvars.iv51.i445, 2
+  %indvars.iv.next.i455 = add nuw nsw i64 %indvars.iv.i446, 1
+  %66 = or i64 %indvars.iv.next52.i454, 1
+  %arrayidx.i447.1 = getelementptr inbounds i8, ptr %add.ptr81, i64 %66
+  %67 = load i8, ptr %arrayidx.i447.1, align 1, !tbaa !5
+  %shl.i448.1 = shl i8 %67, 4
+  %arrayidx10.i449.1 = getelementptr inbounds i8, ptr %call.i440, i64 %indvars.iv.next.i455
+  store i8 %shl.i448.1, ptr %arrayidx10.i449.1, align 1, !tbaa !5
+  %arrayidx12.i450.1 = getelementptr inbounds i8, ptr %add.ptr81, i64 %indvars.iv.next52.i454
+  %68 = load i8, ptr %arrayidx12.i450.1, align 1, !tbaa !5
+  %add17.i451.1 = add i8 %68, %shl.i448.1
+  %cmp22.i452.1 = icmp eq i8 %add17.i451.1, 37
+  %spec.select.i453.1 = select i1 %cmp22.i452.1, i8 95, i8 %add17.i451.1
+  store i8 %spec.select.i453.1, ptr %arrayidx10.i449.1, align 1, !tbaa !5
+  %indvars.iv.next52.i454.1 = add nuw nsw i64 %indvars.iv51.i445, 4
+  %indvars.iv.next.i455.1 = add nuw nsw i64 %indvars.iv.i446, 2
+  %exitcond.not.i456.1 = icmp eq i64 %indvars.iv.next.i455.1, %wide.trip.count.i443
+  br i1 %exitcond.not.i456.1, label %if.then84, label %for.body.i457, !llvm.loop !54
+
+if.then84:                                        ; preds = %for.body.i457.prol.loopexit, %for.body.i457, %vec.epilog.middle.block51, %middle.block34
+  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.173, ptr noundef nonnull %call.i440) #11
   br label %if.end88
 
-if.else85:                                        ; preds = %if.end79
+if.else85:                                        ; preds = %if.then.i436, %if.end.i442
   tail call void (ptr, ...) @cli_warnmsg(ptr noundef nonnull @.str.174) #11
   br label %if.end88
 
 if.end88:                                         ; preds = %if.then63, %if.else85, %if.then84, %if.end54
-  %dname.0 = phi ptr [ null, %if.then63 ], [ %call82, %if.then84 ], [ null, %if.else85 ], [ null, %if.end54 ]
-  %35 = load i8, ptr @cli_leavetemps_flag, align 1, !tbaa !5
-  %tobool89.not = icmp eq i8 %35, 0
+  %dname.0 = phi ptr [ null, %if.then63 ], [ %call.i440, %if.then84 ], [ null, %if.else85 ], [ null, %if.end54 ]
+  %69 = load i8, ptr @cli_leavetemps_flag, align 1, !tbaa !5
+  %tobool89.not = icmp eq i8 %69, 0
   br i1 %tobool89.not, label %if.then90, label %if.end97
 
 if.then90:                                        ; preds = %if.end88
@@ -1272,8 +1438,8 @@ if.then122:                                       ; preds = %if.then118
   br label %cleanup
 
 if.end124:                                        ; preds = %if.then118, %if.end114
-  %cmp126452.not = icmp eq i16 %nlangs, 0
-  br i1 %cmp126452.not, label %for.end, label %for.body.lr.ph
+  %cmp126482.not = icmp eq i16 %nlangs, 0
+  br i1 %cmp126482.not, label %for.end, label %for.body.lr.ph
 
 for.body.lr.ph:                                   ; preds = %if.end124
   %add.ptr130 = getelementptr inbounds i8, ptr %add.ptr, i64 24
@@ -1289,8 +1455,8 @@ for.body.lr.ph:                                   ; preds = %if.end124
 
 for.body:                                         ; preds = %for.body.lr.ph, %for.inc
   %indvars.iv = phi i64 [ 0, %for.body.lr.ph ], [ %indvars.iv.next, %for.inc ]
-  %36 = shl nsw i64 %indvars.iv, 2
-  %add.ptr133 = getelementptr inbounds i8, ptr %add.ptr130, i64 %36
+  %70 = shl nsw i64 %indvars.iv, 2
+  %add.ptr133 = getelementptr inbounds i8, ptr %add.ptr130, i64 %70
   %add.ptr133.val = load i32, ptr %add.ptr133, align 1
   %add.ptr144 = getelementptr inbounds i8, ptr %add.ptr133, i64 %idx.ext143
   %add.ptr144.val = load i32, ptr %add.ptr144, align 1
@@ -1307,8 +1473,8 @@ if.else149:                                       ; preds = %for.body
   br i1 %cmp150, label %if.then152, label %if.end157
 
 if.then152:                                       ; preds = %if.else149
-  %37 = load i8, ptr %ifile, align 1, !tbaa !5
-  %tobool153.not = icmp eq i8 %37, 0
+  %71 = load i8, ptr %ifile, align 1, !tbaa !5
+  %tobool153.not = icmp eq i8 %71, 0
   br i1 %tobool153.not, label %if.then154, label %if.else155
 
 if.then154:                                       ; preds = %if.then152
@@ -1324,8 +1490,8 @@ if.end157:                                        ; preds = %if.else149
   %cmp158.not = icmp uge i32 %add.ptr133.val, %length
   %add161 = add i32 %add.ptr144.val, %add.ptr133.val
   %cmp162 = icmp ugt i32 %add161, %length
-  %or.cond430 = or i1 %cmp158.not, %cmp162
-  br i1 %or.cond430, label %if.then164, label %if.end165
+  %or.cond428 = or i1 %cmp158.not, %cmp162
+  br i1 %or.cond428, label %if.then164, label %if.end165
 
 if.then164:                                       ; preds = %if.end157
   call void (ptr, ...) @cli_errmsg(ptr noundef nonnull @.str.179) #11
@@ -1360,65 +1526,65 @@ if.then186:                                       ; preds = %if.then171
 
 if.end187:                                        ; preds = %if.then171
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.181, i32 noundef %add.ptr133.val) #11
-  %38 = load i64, ptr %osize, align 8, !tbaa !26
-  %conv189 = trunc i64 %38 to i32
+  %72 = load i64, ptr %osize, align 8, !tbaa !26
+  %conv189 = trunc i64 %72 to i32
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.182, i32 noundef %conv189) #11
-  %39 = load ptr, ptr %limits, align 8, !tbaa !17
-  %tobool190.not = icmp eq ptr %39, null
+  %73 = load ptr, ptr %limits, align 8, !tbaa !17
+  %tobool190.not = icmp eq ptr %73, null
   br i1 %tobool190.not, label %if.end206, label %land.lhs.true
 
 land.lhs.true:                                    ; preds = %if.end187
-  %maxfilesize = getelementptr inbounds %struct.cl_limits, ptr %39, i64 0, i32 5
-  %40 = load i64, ptr %maxfilesize, align 8, !tbaa !42
-  %tobool192.not = icmp eq i64 %40, 0
+  %maxfilesize = getelementptr inbounds %struct.cl_limits, ptr %73, i64 0, i32 5
+  %74 = load i64, ptr %maxfilesize, align 8, !tbaa !55
+  %tobool192.not = icmp eq i64 %74, 0
   br i1 %tobool192.not, label %if.end206, label %land.lhs.true193
 
 land.lhs.true193:                                 ; preds = %land.lhs.true
-  %41 = load i64, ptr %osize, align 8, !tbaa !26
-  %cmp196 = icmp ugt i64 %41, %40
+  %75 = load i64, ptr %osize, align 8, !tbaa !26
+  %cmp196 = icmp ugt i64 %75, %74
   br i1 %cmp196, label %if.then198, label %if.end206
 
 if.then198:                                       ; preds = %land.lhs.true193
-  %conv199 = trunc i64 %41 to i32
-  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.183, i32 noundef %conv199, i64 noundef %40) #11
-  %42 = load i32, ptr %options, align 8, !tbaa !22
-  %and202 = and i32 %42, 256
+  %conv199 = trunc i64 %75 to i32
+  call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.183, i32 noundef %conv199, i64 noundef %74) #11
+  %76 = load i32, ptr %options, align 8, !tbaa !22
+  %and202 = and i32 %76, 256
   %tobool203.not = icmp eq i32 %and202, 0
   br i1 %tobool203.not, label %if.end206, label %if.then204
 
 if.then204:                                       ; preds = %if.then198
-  %43 = load ptr, ptr %ctx, align 8, !tbaa !23
-  store ptr @.str.184, ptr %43, align 8, !tbaa !24
+  %77 = load ptr, ptr %ctx, align 8, !tbaa !23
+  store ptr @.str.184, ptr %77, align 8, !tbaa !24
   call void @free(ptr noundef %subdir.0) #11
   call void @free(ptr noundef nonnull %call166) #11
   br label %cleanup
 
 if.end206:                                        ; preds = %if.then198, %land.lhs.true193, %land.lhs.true, %if.end187
-  %44 = load i64, ptr %osize, align 8, !tbaa !26
+  %78 = load i64, ptr %osize, align 8, !tbaa !26
   %mul207 = mul nuw nsw i64 %conv172, 3
-  %cmp208.not = icmp ugt i64 %44, %mul207
+  %cmp208.not = icmp ugt i64 %78, %mul207
   br i1 %cmp208.not, label %lor.lhs.false210, label %if.then222
 
 lor.lhs.false210:                                 ; preds = %if.end206
-  %45 = load ptr, ptr %limits, align 8, !tbaa !17
-  %tobool212.not = icmp eq ptr %45, null
+  %79 = load ptr, ptr %limits, align 8, !tbaa !17
+  %tobool212.not = icmp eq ptr %79, null
   br i1 %tobool212.not, label %if.end224, label %land.lhs.true213
 
 land.lhs.true213:                                 ; preds = %lor.lhs.false210
-  %maxfilesize215 = getelementptr inbounds %struct.cl_limits, ptr %45, i64 0, i32 5
-  %46 = load i64, ptr %maxfilesize215, align 8, !tbaa !42
-  %tobool216.not = icmp ne i64 %46, 0
-  %cmp220 = icmp ugt i64 %44, %46
-  %or.cond431 = and i1 %tobool216.not, %cmp220
-  br i1 %or.cond431, label %if.then222, label %if.end224
+  %maxfilesize215 = getelementptr inbounds %struct.cl_limits, ptr %79, i64 0, i32 5
+  %80 = load i64, ptr %maxfilesize215, align 8, !tbaa !55
+  %tobool216.not = icmp ne i64 %80, 0
+  %cmp220 = icmp ugt i64 %78, %80
+  %or.cond429 = and i1 %tobool216.not, %cmp220
+  br i1 %or.cond429, label %if.then222, label %if.end224
 
 if.then222:                                       ; preds = %land.lhs.true213, %if.end206
   store i64 %mul207, ptr %osize, align 8, !tbaa !26
   br label %if.end224
 
 if.end224:                                        ; preds = %if.then222, %land.lhs.true213, %lor.lhs.false210
-  %47 = phi i64 [ %mul207, %if.then222 ], [ %44, %land.lhs.true213 ], [ %44, %lor.lhs.false210 ]
-  %call225 = call ptr @cli_malloc(i64 noundef %47) #11
+  %81 = phi i64 [ %mul207, %if.then222 ], [ %78, %land.lhs.true213 ], [ %78, %lor.lhs.false210 ]
+  %call225 = call ptr @cli_malloc(i64 noundef %81) #11
   %tobool226.not = icmp eq ptr %call225, null
   br i1 %tobool226.not, label %if.then227, label %if.end228
 
@@ -1443,15 +1609,15 @@ if.then234:                                       ; preds = %if.end228
   br label %cleanup
 
 if.end235:                                        ; preds = %if.end228
-  %48 = load i64, ptr %osize, align 8, !tbaa !26
-  %cmp237.not = icmp eq i64 %48, %conv184
+  %82 = load i64, ptr %osize, align 8, !tbaa !26
+  %cmp237.not = icmp eq i64 %82, %conv184
   br i1 %cmp237.not, label %if.end246, label %if.then239
 
 if.then239:                                       ; preds = %if.end235
-  %conv240 = trunc i64 %48 to i32
+  %conv240 = trunc i64 %82 to i32
   call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.187, i32 noundef %conv240) #11
-  %49 = load i64, ptr %osize, align 8, !tbaa !26
-  %conv241 = trunc i64 %49 to i32
+  %83 = load i64, ptr %osize, align 8, !tbaa !26
+  %conv241 = trunc i64 %83 to i32
   br label %if.end246
 
 if.else243:                                       ; preds = %if.end169
@@ -1522,7 +1688,7 @@ if.then278:                                       ; preds = %if.end276
 for.inc:                                          ; preds = %if.end276, %if.then278, %if.then186, %if.else155, %if.then148
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond.not = icmp eq i64 %indvars.iv.next, %wide.trip.count
-  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !43
+  br i1 %exitcond.not, label %for.end, label %for.body, !llvm.loop !56
 
 for.end:                                          ; preds = %for.inc, %if.end124
   call void @free(ptr noundef %subdir.0) #11
@@ -1539,183 +1705,6 @@ declare i32 @cli_scandir(ptr noundef, ptr noundef) local_unnamed_addr #3
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
-
-; Function Attrs: nounwind uwtable
-define internal fastcc ptr @sis_utf16_decode(ptr nocapture noundef readonly %str, i32 noundef %length) unnamed_addr #0 {
-entry:
-  %tobool.not = icmp ne i32 %length, 0
-  %rem = and i32 %length, 1
-  %tobool1.not = icmp eq i32 %rem, 0
-  %or.cond = and i1 %tobool.not, %tobool1.not
-  br i1 %or.cond, label %if.end, label %if.then
-
-if.then:                                          ; preds = %entry
-  tail call void (ptr, ...) @cli_dbgmsg(ptr noundef nonnull @.str.193, i32 noundef %length) #11
-  br label %cleanup
-
-if.end:                                           ; preds = %entry
-  %div47 = lshr i32 %length, 1
-  %add = add nuw nsw i32 %div47, 1
-  %conv = zext i32 %add to i64
-  %call = tail call ptr @cli_calloc(i64 noundef %conv, i64 noundef 1) #11
-  %tobool2.not = icmp eq ptr %call, null
-  br i1 %tobool2.not, label %cleanup, label %iter.check
-
-iter.check:                                       ; preds = %if.end
-  %0 = add i32 %length, -1
-  %1 = lshr i32 %0, 1
-  %2 = add nuw nsw i32 %1, 1
-  %wide.trip.count = zext i32 %2 to i64
-  %min.iters.check = icmp ult i32 %length, 15
-  br i1 %min.iters.check, label %for.body.preheader, label %vector.memcheck
-
-vector.memcheck:                                  ; preds = %iter.check
-  %scevgep = getelementptr i8, ptr %call, i64 %wide.trip.count
-  %3 = and i32 %0, -2
-  %4 = zext i32 %3 to i64
-  %5 = add nuw nsw i64 %4, 2
-  %scevgep57 = getelementptr i8, ptr %str, i64 %5
-  %bound0 = icmp ult ptr %call, %scevgep57
-  %bound1 = icmp ugt ptr %scevgep, %str
-  %found.conflict = and i1 %bound0, %bound1
-  br i1 %found.conflict, label %for.body.preheader, label %vector.main.loop.iter.check
-
-vector.main.loop.iter.check:                      ; preds = %vector.memcheck
-  %min.iters.check58 = icmp ult i32 %length, 31
-  br i1 %min.iters.check58, label %vec.epilog.ph, label %vector.ph
-
-vector.ph:                                        ; preds = %vector.main.loop.iter.check
-  %n.vec = and i64 %wide.trip.count, 2147483632
-  %invariant.gep = getelementptr i8, ptr %str, i64 -1
-  br label %vector.body
-
-vector.body:                                      ; preds = %vector.body, %vector.ph
-  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
-  %offset.idx = shl i64 %index, 1
-  %6 = or i64 %offset.idx, 1
-  %gep = getelementptr i8, ptr %invariant.gep, i64 %6
-  %wide.vec = load <32 x i8>, ptr %gep, align 1, !tbaa !5
-  %strided.vec = shufflevector <32 x i8> %wide.vec, <32 x i8> poison, <16 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14, i32 16, i32 18, i32 20, i32 22, i32 24, i32 26, i32 28, i32 30>
-  %strided.vec59 = shufflevector <32 x i8> %wide.vec, <32 x i8> poison, <16 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15, i32 17, i32 19, i32 21, i32 23, i32 25, i32 27, i32 29, i32 31>
-  %7 = shl <16 x i8> %strided.vec59, <i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4>
-  %8 = getelementptr inbounds i8, ptr %call, i64 %index
-  %9 = add <16 x i8> %strided.vec, %7
-  %10 = icmp eq <16 x i8> %9, <i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37>
-  %11 = select <16 x i1> %10, <16 x i8> <i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95>, <16 x i8> %9
-  store <16 x i8> %11, ptr %8, align 1, !tbaa !5, !alias.scope !44, !noalias !47
-  %index.next = add nuw i64 %index, 16
-  %12 = icmp eq i64 %index.next, %n.vec
-  br i1 %12, label %middle.block, label %vector.body, !llvm.loop !49
-
-middle.block:                                     ; preds = %vector.body
-  %cmp.n = icmp eq i64 %n.vec, %wide.trip.count
-  br i1 %cmp.n, label %cleanup, label %vec.epilog.iter.check
-
-vec.epilog.iter.check:                            ; preds = %middle.block
-  %ind.end62 = shl nuw nsw i64 %n.vec, 1
-  %n.vec.remaining = and i64 %wide.trip.count, 8
-  %min.epilog.iters.check.not.not = icmp eq i64 %n.vec.remaining, 0
-  br i1 %min.epilog.iters.check.not.not, label %for.body.preheader, label %vec.epilog.ph
-
-vec.epilog.ph:                                    ; preds = %vector.main.loop.iter.check, %vec.epilog.iter.check
-  %vec.epilog.resume.val = phi i64 [ %n.vec, %vec.epilog.iter.check ], [ 0, %vector.main.loop.iter.check ]
-  %n.vec61 = and i64 %wide.trip.count, 2147483640
-  %ind.end = shl nuw nsw i64 %n.vec61, 1
-  %invariant.gep71 = getelementptr i8, ptr %str, i64 -1
-  br label %vec.epilog.vector.body
-
-vec.epilog.vector.body:                           ; preds = %vec.epilog.vector.body, %vec.epilog.ph
-  %index65 = phi i64 [ %vec.epilog.resume.val, %vec.epilog.ph ], [ %index.next70, %vec.epilog.vector.body ]
-  %offset.idx66 = shl i64 %index65, 1
-  %13 = or i64 %offset.idx66, 1
-  %gep72 = getelementptr i8, ptr %invariant.gep71, i64 %13
-  %wide.vec67 = load <16 x i8>, ptr %gep72, align 1, !tbaa !5
-  %strided.vec68 = shufflevector <16 x i8> %wide.vec67, <16 x i8> poison, <8 x i32> <i32 0, i32 2, i32 4, i32 6, i32 8, i32 10, i32 12, i32 14>
-  %strided.vec69 = shufflevector <16 x i8> %wide.vec67, <16 x i8> poison, <8 x i32> <i32 1, i32 3, i32 5, i32 7, i32 9, i32 11, i32 13, i32 15>
-  %14 = shl <8 x i8> %strided.vec69, <i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4, i8 4>
-  %15 = getelementptr inbounds i8, ptr %call, i64 %index65
-  %16 = add <8 x i8> %strided.vec68, %14
-  %17 = icmp eq <8 x i8> %16, <i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37, i8 37>
-  %18 = select <8 x i1> %17, <8 x i8> <i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95, i8 95>, <8 x i8> %16
-  store <8 x i8> %18, ptr %15, align 1, !tbaa !5, !alias.scope !50, !noalias !53
-  %index.next70 = add nuw i64 %index65, 8
-  %19 = icmp eq i64 %index.next70, %n.vec61
-  br i1 %19, label %vec.epilog.middle.block, label %vec.epilog.vector.body, !llvm.loop !55
-
-vec.epilog.middle.block:                          ; preds = %vec.epilog.vector.body
-  %cmp.n64 = icmp eq i64 %n.vec61, %wide.trip.count
-  br i1 %cmp.n64, label %cleanup, label %for.body.preheader
-
-for.body.preheader:                               ; preds = %vector.memcheck, %iter.check, %vec.epilog.iter.check, %vec.epilog.middle.block
-  %indvars.iv51.ph = phi i64 [ 0, %iter.check ], [ 0, %vector.memcheck ], [ %ind.end62, %vec.epilog.iter.check ], [ %ind.end, %vec.epilog.middle.block ]
-  %indvars.iv.ph = phi i64 [ 0, %iter.check ], [ 0, %vector.memcheck ], [ %n.vec, %vec.epilog.iter.check ], [ %n.vec61, %vec.epilog.middle.block ]
-  %20 = lshr i32 %0, 1
-  %21 = zext i32 %20 to i64
-  %22 = and i64 %21, 1
-  %lcmp.mod.not.not = icmp eq i64 %22, 0
-  br i1 %lcmp.mod.not.not, label %for.body.prol, label %for.body.prol.loopexit
-
-for.body.prol:                                    ; preds = %for.body.preheader
-  %23 = or i64 %indvars.iv51.ph, 1
-  %arrayidx.prol = getelementptr inbounds i8, ptr %str, i64 %23
-  %24 = load i8, ptr %arrayidx.prol, align 1, !tbaa !5
-  %shl.prol = shl i8 %24, 4
-  %arrayidx10.prol = getelementptr inbounds i8, ptr %call, i64 %indvars.iv.ph
-  store i8 %shl.prol, ptr %arrayidx10.prol, align 1, !tbaa !5
-  %arrayidx12.prol = getelementptr inbounds i8, ptr %str, i64 %indvars.iv51.ph
-  %25 = load i8, ptr %arrayidx12.prol, align 1, !tbaa !5
-  %add17.prol = add i8 %25, %shl.prol
-  %cmp22.prol = icmp eq i8 %add17.prol, 37
-  %spec.select.prol = select i1 %cmp22.prol, i8 95, i8 %add17.prol
-  store i8 %spec.select.prol, ptr %arrayidx10.prol, align 1, !tbaa !5
-  %indvars.iv.next52.prol = add nuw nsw i64 %indvars.iv51.ph, 2
-  %indvars.iv.next.prol = or i64 %indvars.iv.ph, 1
-  br label %for.body.prol.loopexit
-
-for.body.prol.loopexit:                           ; preds = %for.body.prol, %for.body.preheader
-  %indvars.iv51.unr = phi i64 [ %indvars.iv51.ph, %for.body.preheader ], [ %indvars.iv.next52.prol, %for.body.prol ]
-  %indvars.iv.unr = phi i64 [ %indvars.iv.ph, %for.body.preheader ], [ %indvars.iv.next.prol, %for.body.prol ]
-  %26 = icmp eq i64 %indvars.iv.ph, %21
-  br i1 %26, label %cleanup, label %for.body
-
-for.body:                                         ; preds = %for.body.prol.loopexit, %for.body
-  %indvars.iv51 = phi i64 [ %indvars.iv.next52.1, %for.body ], [ %indvars.iv51.unr, %for.body.prol.loopexit ]
-  %indvars.iv = phi i64 [ %indvars.iv.next.1, %for.body ], [ %indvars.iv.unr, %for.body.prol.loopexit ]
-  %27 = or i64 %indvars.iv51, 1
-  %arrayidx = getelementptr inbounds i8, ptr %str, i64 %27
-  %28 = load i8, ptr %arrayidx, align 1, !tbaa !5
-  %shl = shl i8 %28, 4
-  %arrayidx10 = getelementptr inbounds i8, ptr %call, i64 %indvars.iv
-  store i8 %shl, ptr %arrayidx10, align 1, !tbaa !5
-  %arrayidx12 = getelementptr inbounds i8, ptr %str, i64 %indvars.iv51
-  %29 = load i8, ptr %arrayidx12, align 1, !tbaa !5
-  %add17 = add i8 %29, %shl
-  %cmp22 = icmp eq i8 %add17, 37
-  %spec.select = select i1 %cmp22, i8 95, i8 %add17
-  store i8 %spec.select, ptr %arrayidx10, align 1, !tbaa !5
-  %indvars.iv.next52 = add nuw nsw i64 %indvars.iv51, 2
-  %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %30 = or i64 %indvars.iv.next52, 1
-  %arrayidx.1 = getelementptr inbounds i8, ptr %str, i64 %30
-  %31 = load i8, ptr %arrayidx.1, align 1, !tbaa !5
-  %shl.1 = shl i8 %31, 4
-  %arrayidx10.1 = getelementptr inbounds i8, ptr %call, i64 %indvars.iv.next
-  store i8 %shl.1, ptr %arrayidx10.1, align 1, !tbaa !5
-  %arrayidx12.1 = getelementptr inbounds i8, ptr %str, i64 %indvars.iv.next52
-  %32 = load i8, ptr %arrayidx12.1, align 1, !tbaa !5
-  %add17.1 = add i8 %32, %shl.1
-  %cmp22.1 = icmp eq i8 %add17.1, 37
-  %spec.select.1 = select i1 %cmp22.1, i8 95, i8 %add17.1
-  store i8 %spec.select.1, ptr %arrayidx10.1, align 1, !tbaa !5
-  %indvars.iv.next52.1 = add nuw nsw i64 %indvars.iv51, 4
-  %indvars.iv.next.1 = add nuw nsw i64 %indvars.iv, 2
-  %exitcond.not.1 = icmp eq i64 %indvars.iv.next.1, %wide.trip.count
-  br i1 %exitcond.not.1, label %cleanup, label %for.body, !llvm.loop !56
-
-cleanup:                                          ; preds = %for.body.prol.loopexit, %for.body, %middle.block, %vec.epilog.middle.block, %if.end, %if.then
-  %retval.0 = phi ptr [ null, %if.then ], [ null, %if.end ], [ %call, %vec.epilog.middle.block ], [ %call, %middle.block ], [ %call, %for.body ], [ %call, %for.body.prol.loopexit ]
-  ret ptr %retval.0
-}
 
 ; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #8
@@ -1799,18 +1788,18 @@ attributes #12 = { nounwind willreturn memory(read) }
 !39 = distinct !{!39, !37}
 !40 = distinct !{!40, !16, !33, !34}
 !41 = distinct !{!41, !16, !33}
-!42 = !{!21, !10, i64 24}
-!43 = distinct !{!43, !16}
-!44 = !{!45}
-!45 = distinct !{!45, !46}
-!46 = distinct !{!46, !"LVerDomain"}
-!47 = !{!48}
-!48 = distinct !{!48, !46}
-!49 = distinct !{!49, !16, !33, !34}
-!50 = !{!51}
-!51 = distinct !{!51, !52}
-!52 = distinct !{!52, !"LVerDomain"}
-!53 = !{!54}
-!54 = distinct !{!54, !52}
-!55 = distinct !{!55, !16, !33, !34}
-!56 = distinct !{!56, !16, !33}
+!42 = !{!43}
+!43 = distinct !{!43, !44}
+!44 = distinct !{!44, !"LVerDomain"}
+!45 = !{!46}
+!46 = distinct !{!46, !44}
+!47 = distinct !{!47, !16, !33, !34}
+!48 = !{!49}
+!49 = distinct !{!49, !50}
+!50 = distinct !{!50, !"LVerDomain"}
+!51 = !{!52}
+!52 = distinct !{!52, !50}
+!53 = distinct !{!53, !16, !33, !34}
+!54 = distinct !{!54, !16, !33}
+!55 = !{!21, !10, i64 24}
+!56 = distinct !{!56, !16}

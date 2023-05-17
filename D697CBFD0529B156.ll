@@ -47,17 +47,17 @@ _ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit: ; pr
 cleanup.cont:                                     ; preds = %entry, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit
   %FinishedEvent = getelementptr inbounds %struct.CVirtThread, ptr %this, i64 0, i32 2
   %1 = load i32, ptr %FinishedEvent, align 8, !tbaa !5
-  %cmp.i.not.i22 = icmp eq i32 %1, 0
-  br i1 %cmp.i.not.i22, label %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit26, label %cleanup.cont9
+  %cmp.i.not.i23 = icmp eq i32 %1, 0
+  br i1 %cmp.i.not.i23, label %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit27, label %cleanup.cont9
 
-_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit26: ; preds = %cleanup.cont
-  %call2.i23 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %FinishedEvent)
-  %cmp4.not.not = icmp eq i32 %call2.i23, 0
+_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit27: ; preds = %cleanup.cont
+  %call2.i24 = tail call i32 @AutoResetEvent_CreateNotSignaled(ptr noundef nonnull %FinishedEvent)
+  %cmp4.not.not = icmp eq i32 %call2.i24, 0
   br i1 %cmp4.not.not, label %cleanup.cont9, label %return
 
-cleanup.cont9:                                    ; preds = %cleanup.cont, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit26
+cleanup.cont9:                                    ; preds = %cleanup.cont, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit27
   %call.i = tail call i32 @Event_Reset(ptr noundef nonnull %StartEvent)
-  %call.i27 = tail call i32 @Event_Reset(ptr noundef nonnull %FinishedEvent)
+  %call.i28 = tail call i32 @Event_Reset(ptr noundef nonnull %FinishedEvent)
   %ExitEvent = getelementptr inbounds %struct.CVirtThread, ptr %this, i64 0, i32 4
   store i8 0, ptr %ExitEvent, align 8, !tbaa !11
   %_created.i = getelementptr inbounds %struct.CVirtThread, ptr %this, i64 0, i32 3, i32 0, i32 1
@@ -67,11 +67,11 @@ cleanup.cont9:                                    ; preds = %cleanup.cont, %_ZN8
 
 if.end16:                                         ; preds = %cleanup.cont9
   %Thread = getelementptr inbounds %struct.CVirtThread, ptr %this, i64 0, i32 3
-  %call.i28 = tail call i32 @Thread_Create(ptr noundef nonnull %Thread, ptr noundef nonnull @_ZL11CoderThreadPv, ptr noundef nonnull %this)
+  %call.i29 = tail call i32 @Thread_Create(ptr noundef nonnull %Thread, ptr noundef nonnull @_ZL11CoderThreadPv, ptr noundef nonnull %this)
   br label %return
 
-return:                                           ; preds = %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit26, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit, %cleanup.cont9, %if.end16
-  %retval.2 = phi i32 [ %call2.i, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit ], [ %call2.i23, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit26 ], [ %call.i28, %if.end16 ], [ 0, %cleanup.cont9 ]
+return:                                           ; preds = %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit27, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit, %cleanup.cont9, %if.end16
+  %retval.2 = phi i32 [ %call2.i, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit ], [ %call2.i24, %_ZN8NWindows16NSynchronization15CAutoResetEvent18CreateIfNotCreatedEv.exit27 ], [ %call.i29, %if.end16 ], [ 0, %cleanup.cont9 ]
   ret i32 %retval.2
 }
 
@@ -82,8 +82,8 @@ entry:
   %call.i7 = tail call i32 @Event_Wait(ptr noundef nonnull %StartEvent)
   %ExitEvent = getelementptr inbounds %struct.CVirtThread, ptr %p, i64 0, i32 4
   %0 = load i8, ptr %ExitEvent, align 8, !tbaa !11, !range !19, !noundef !20
-  %tobool.not8.not = icmp eq i8 %0, 0
-  br i1 %tobool.not8.not, label %cleanup.lr.ph, label %return
+  %tobool.not.not8 = icmp eq i8 %0, 0
+  br i1 %tobool.not.not8, label %cleanup.lr.ph, label %return
 
 cleanup.lr.ph:                                    ; preds = %entry
   %FinishedEvent = getelementptr inbounds %struct.CVirtThread, ptr %p, i64 0, i32 2

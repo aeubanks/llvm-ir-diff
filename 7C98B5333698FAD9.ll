@@ -71,7 +71,7 @@ if.then8:                                         ; preds = %if.end
   %5 = load ptr, ptr @stderr, align 8, !tbaa !5
   %call10 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %5, ptr noundef nonnull @.str.7, ptr noundef nonnull %call, i32 noundef 0, i32 noundef 0) #12
   %6 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc57 = call i32 @fputc(i32 10, ptr %6)
+  %fputc55 = call i32 @fputc(i32 10, ptr %6)
   call void @exit(i32 noundef 1) #13
   unreachable
 
@@ -91,14 +91,14 @@ if.then21:                                        ; preds = %for.body
   %8 = load ptr, ptr @stderr, align 8, !tbaa !5
   %call23 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %8, ptr noundef nonnull @.str.9, i32 noundef 0, i32 noundef 0, i32 noundef 0) #12
   %9 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc58 = call i32 @fputc(i32 10, ptr %9)
+  %fputc56 = call i32 @fputc(i32 10, ptr %9)
   call void @exit(i32 noundef 1) #13
   unreachable
 
 if.end25:                                         ; preds = %for.body
   %call26 = call ptr @strtok(ptr noundef null, ptr noundef nonnull @.str.8) #11
-  %call.i55 = call i64 @strtol(ptr nocapture noundef nonnull %call26, ptr noundef null, i32 noundef 10) #11
-  %sub28 = add nsw i64 %call.i55, -1
+  %call.i58 = call i64 @strtol(ptr nocapture noundef nonnull %call26, ptr noundef null, i32 noundef 10) #11
+  %sub28 = add nsw i64 %call.i58, -1
   %module = getelementptr inbounds %struct._Module, ptr %call19, i64 0, i32 1
   store i64 %sub28, ptr %module, align 8, !tbaa !11
   store ptr null, ptr %call19, align 8, !tbaa !13
@@ -119,13 +119,13 @@ if.then33:                                        ; preds = %while.body
   %11 = load ptr, ptr @stderr, align 8, !tbaa !5
   %call35 = call i32 (ptr, ptr, ...) @fprintf(ptr noundef %11, ptr noundef nonnull @.str.9, i32 noundef 0, i32 noundef 0, i32 noundef 0) #12
   %12 = load ptr, ptr @stderr, align 8, !tbaa !5
-  %fputc59 = call i32 @fputc(i32 10, ptr %12)
+  %fputc57 = call i32 @fputc(i32 10, ptr %12)
   call void @exit(i32 noundef 1) #13
   unreachable
 
 if.end37:                                         ; preds = %while.body
-  %call.i56 = call i64 @strtol(ptr nocapture noundef nonnull %call2963, ptr noundef null, i32 noundef 10) #11
-  %sub39 = add nsw i64 %call.i56, -1
+  %call.i59 = call i64 @strtol(ptr nocapture noundef nonnull %call2963, ptr noundef null, i32 noundef 10) #11
+  %sub39 = add nsw i64 %call.i59, -1
   %module40 = getelementptr inbounds %struct._Module, ptr %call31, i64 0, i32 1
   store i64 %sub39, ptr %module40, align 8, !tbaa !11
   store ptr null, ptr %call31, align 8, !tbaa !13

@@ -49,8 +49,8 @@ entry:
   br i1 %cmp300, label %for.body.lr.ph, label %for.cond35.preheader
 
 for.body.lr.ph:                                   ; preds = %entry
-  %sext294 = shl i64 %call4, 32
-  %conv30 = ashr exact i64 %sext294, 32
+  %sext293 = shl i64 %call4, 32
+  %conv30 = ashr exact i64 %sext293, 32
   %wide.trip.count = zext i32 %icyc to i64
   br label %for.body
 
@@ -59,8 +59,8 @@ for.cond35.preheader:                             ; preds = %for.inc, %entry
   br i1 %cmp36302, label %for.body38.lr.ph, label %for.end51
 
 for.body38.lr.ph:                                 ; preds = %for.cond35.preheader
-  %sext293 = shl i64 %call7, 32
-  %conv42 = ashr exact i64 %sext293, 32
+  %sext292 = shl i64 %call7, 32
+  %conv42 = ashr exact i64 %sext292, 32
   %wide.trip.count321 = zext i32 %jcyc to i64
   br label %for.body38
 
@@ -304,8 +304,8 @@ for.cond.preheader.i:                             ; preds = %for.end105
   br i1 %cmp300, label %for.body.lr.ph.i, label %for.cond29.preheader.i
 
 for.body.lr.ph.i:                                 ; preds = %for.cond.preheader.i
-  %sext292 = shl i64 %call4, 32
-  %conv23.i = ashr exact i64 %sext292, 32
+  %sext294 = shl i64 %call4, 32
+  %conv23.i = ashr exact i64 %sext294, 32
   %wide.trip.count217.i = zext i32 %icyc to i64
   br label %for.body.i
 
@@ -1751,7 +1751,7 @@ for.body449.i:                                    ; preds = %for.inc675.i, %for.
   %cmp526.i = icmp eq i32 %jumpi.074.i, %indvars199.i
   %360 = zext i32 %imid.077.i to i64
   %cmp530.i = icmp eq i64 %indvars.iv197.i, %360
-  %or.cond1.i = select i1 %cmp526.i, i1 true, i1 %cmp530.i
+  %or.cond1237.i = select i1 %cmp526.i, i1 true, i1 %cmp530.i
   %cmp538.i = icmp eq i32 %imid.077.i, %indvars199.i
   %arrayidx558.i = getelementptr inbounds ptr, ptr %call131.i, i64 %idxprom460.i
   %361 = load ptr, ptr %arrayidx558.i, align 8, !tbaa !9
@@ -1808,7 +1808,7 @@ if.then523.i:                                     ; preds = %if.end517.i
   br label %if.end525.i
 
 if.end525.i:                                      ; preds = %if.then523.i, %if.end517.i
-  br i1 %or.cond1.i, label %if.then532.i, label %if.end537.i
+  br i1 %or.cond1237.i, label %if.then532.i, label %if.end537.i
 
 if.then532.i:                                     ; preds = %if.end525.i
   %arrayidx534.i = getelementptr inbounds i32, ptr %call96.i, i64 %indvars.iv179.i
@@ -2307,8 +2307,8 @@ entry:
   br i1 %cmp300, label %for.body.lr.ph, label %for.cond35.preheader
 
 for.body.lr.ph:                                   ; preds = %entry
-  %sext294 = shl i64 %call4, 32
-  %conv30 = ashr exact i64 %sext294, 32
+  %sext293 = shl i64 %call4, 32
+  %conv30 = ashr exact i64 %sext293, 32
   %wide.trip.count = zext i32 %icyc to i64
   br label %for.body
 
@@ -2317,8 +2317,8 @@ for.cond35.preheader:                             ; preds = %for.inc, %entry
   br i1 %cmp36302, label %for.body38.lr.ph, label %for.end51
 
 for.body38.lr.ph:                                 ; preds = %for.cond35.preheader
-  %sext293 = shl i64 %call7, 32
-  %conv42 = ashr exact i64 %sext293, 32
+  %sext292 = shl i64 %call7, 32
+  %conv42 = ashr exact i64 %sext292, 32
   %wide.trip.count321 = zext i32 %jcyc to i64
   br label %for.body38
 
@@ -2562,8 +2562,8 @@ for.cond.preheader.i:                             ; preds = %for.end105
   br i1 %cmp300, label %for.body.lr.ph.i, label %for.cond29.preheader.i
 
 for.body.lr.ph.i:                                 ; preds = %for.cond.preheader.i
-  %sext292 = shl i64 %call4, 32
-  %conv23.i = ashr exact i64 %sext292, 32
+  %sext294 = shl i64 %call4, 32
+  %conv23.i = ashr exact i64 %sext294, 32
   %wide.trip.count217.i = zext i32 %icyc to i64
   br label %for.body.i
 
@@ -4009,7 +4009,7 @@ for.body449.i:                                    ; preds = %for.inc675.i, %for.
   %cmp526.i = icmp eq i32 %jumpi.074.i, %indvars199.i
   %360 = zext i32 %imid.077.i to i64
   %cmp530.i = icmp eq i64 %indvars.iv197.i, %360
-  %or.cond1.i = select i1 %cmp526.i, i1 true, i1 %cmp530.i
+  %or.cond1234.i = select i1 %cmp526.i, i1 true, i1 %cmp530.i
   %cmp538.i = icmp eq i32 %imid.077.i, %indvars199.i
   %arrayidx558.i = getelementptr inbounds ptr, ptr %call131.i, i64 %idxprom460.i
   %361 = load ptr, ptr %arrayidx558.i, align 8, !tbaa !9
@@ -4066,7 +4066,7 @@ if.then523.i:                                     ; preds = %if.end517.i
   br label %if.end525.i
 
 if.end525.i:                                      ; preds = %if.then523.i, %if.end517.i
-  br i1 %or.cond1.i, label %if.then532.i, label %if.end537.i
+  br i1 %or.cond1234.i, label %if.then532.i, label %if.end537.i
 
 if.then532.i:                                     ; preds = %if.end525.i
   %arrayidx534.i = getelementptr inbounds i32, ptr %call96.i, i64 %indvars.iv179.i
@@ -5572,14 +5572,14 @@ while.end:                                        ; preds = %for.end66, %for.bod
   ret void
 }
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.smax.i32(i32, i32) #10
-
 ; Function Attrs: nofree nounwind
-declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #11
+declare noundef i64 @fwrite(ptr nocapture noundef, i64 noundef, i64 noundef, ptr nocapture noundef) local_unnamed_addr #10
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare <4 x float> @llvm.fmuladd.v4f32(<4 x float>, <4 x float>, <4 x float>) #10
+declare i32 @llvm.smax.i32(i32, i32) #11
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare <4 x float> @llvm.fmuladd.v4f32(<4 x float>, <4 x float>, <4 x float>) #11
 
 attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
@@ -5591,8 +5591,8 @@ attributes #6 = { mustprogress nounwind willreturn allockind("free") memory(argm
 attributes #7 = { mustprogress nofree nounwind willreturn memory(argmem: readwrite) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #8 = { nofree nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #9 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #11 = { nofree nounwind }
+attributes #10 = { nofree nounwind }
+attributes #11 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #12 = { nounwind }
 attributes #13 = { nounwind willreturn memory(read) }
 attributes #14 = { cold }

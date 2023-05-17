@@ -589,7 +589,7 @@ do.body226:                                       ; preds = %do.body226, %do.end
   br i1 %cmp241.not, label %do.end243, label %do.body226, !llvm.loop !45
 
 do.end243:                                        ; preds = %do.body226
-  %call244 = call ptr @Ppmd8_MakeEscFreq(ptr noundef %p, i32 noundef %conv197, ptr noundef nonnull %freqSum) #4
+  %call244 = call ptr @Ppmd8_MakeEscFreq(ptr noundef nonnull %p, i32 noundef %conv197, ptr noundef nonnull %freqSum) #4
   %92 = load i32, ptr %freqSum, align 4, !tbaa !46
   %add245 = add i32 %92, %add235
   store i32 %add245, ptr %freqSum, align 4, !tbaa !46

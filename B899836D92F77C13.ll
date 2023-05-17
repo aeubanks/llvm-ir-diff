@@ -14,7 +14,7 @@ entry:
 
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local void @bar() local_unnamed_addr #1 {
-entry:
+foo.exit:
   ret void
 }
 

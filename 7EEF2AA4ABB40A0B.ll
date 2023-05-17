@@ -6,16 +6,16 @@ target triple = "x86_64-unknown-linux-gnu"
 ; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
 define dso_local i64 @f(i16 noundef signext %a, i16 noundef signext %b) local_unnamed_addr #0 {
 entry:
-  %conv = sext i16 %a to i32
-  %conv1 = sext i16 %b to i32
-  %div2 = sdiv i32 %conv, %conv1
+  %div.lhs.trunc = sext i16 %a to i32
+  %div.rhs.trunc = sext i16 %b to i32
+  %div2 = sdiv i32 %div.lhs.trunc, %div.rhs.trunc
   %div.sext = sext i32 %div2 to i64
   ret i64 %div.sext
 }
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+if.else:
   tail call void @exit(i32 noundef 0) #3
   unreachable
 }

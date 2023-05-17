@@ -4524,7 +4524,7 @@ land.lhs.true29:                                  ; preds = %land.lhs.true
   br i1 %cmp33.not, label %if.end37, label %if.then35
 
 if.then35:                                        ; preds = %land.lhs.true29
-  %puts186 = call i32 @puts(ptr nonnull dereferenceable(1) @str.232)
+  %puts185 = call i32 @puts(ptr nonnull dereferenceable(1) @str.232)
   br label %if.end37
 
 if.end37:                                         ; preds = %if.then35, %land.lhs.true29, %land.lhs.true, %if.end
@@ -4536,8 +4536,8 @@ if.end37:                                         ; preds = %if.then35, %land.lh
 
 if.then42:                                        ; preds = %if.end37
   %arrayidx44 = getelementptr inbounds i8, ptr %3, i64 2
-  %call.i185 = call i64 @strtol(ptr nocapture noundef nonnull %arrayidx44, ptr noundef null, i32 noundef 10) #24
-  %conv46 = trunc i64 %call.i185 to i32
+  %call.i186 = call i64 @strtol(ptr nocapture noundef nonnull %arrayidx44, ptr noundef null, i32 noundef 10) #24
+  %conv46 = trunc i64 %call.i186 to i32
   br label %if.end47
 
 if.else:                                          ; preds = %if.end37

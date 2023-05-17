@@ -33,10 +33,10 @@ while.cond.preheader:                             ; preds = %entry
 
 if.then4:                                         ; preds = %entry
   %3 = load i32, ptr @mem_array_ents, align 4, !tbaa !5
-  %cmp.i = icmp slt i32 %3, 20
-  br i1 %cmp.i, label %if.end.i, label %if.then6
+  %cmp.i = icmp sgt i32 %3, 19
+  br i1 %cmp.i, label %if.then6, label %AddMemArray.exit.thread
 
-if.end.i:                                         ; preds = %if.then4
+AddMemArray.exit.thread:                          ; preds = %if.then4
   %idxprom.i = sext i32 %3 to i64
   %arrayidx.i = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.i
   store i64 %1, ptr %arrayidx.i, align 8, !tbaa !9
@@ -67,32 +67,32 @@ while.end:                                        ; preds = %while.cond
   %rem24 = urem i64 %adj_addr.0, %conv23
   %cmp25 = icmp eq i64 %rem24, 0
   %add29 = select i1 %cmp25, i64 %conv17, i64 0
-  %spec.select61 = add i64 %adj_addr.0, %add29
+  %spec.select53 = add i64 %add29, %adj_addr.0
   br label %if.end31
 
 if.end31:                                         ; preds = %while.end, %if.then11
-  %adj_addr.1 = phi i64 [ %spec.select, %if.then11 ], [ %spec.select61, %while.end ]
+  %adj_addr.1 = phi i64 [ %spec.select, %if.then11 ], [ %spec.select53, %while.end ]
   %4 = inttoptr i64 %adj_addr.1 to ptr
   %5 = load i32, ptr @mem_array_ents, align 4, !tbaa !5
-  %cmp.i53 = icmp slt i32 %5, 20
-  br i1 %cmp.i53, label %if.end.i58, label %if.then34
+  %cmp.i54 = icmp sgt i32 %5, 19
+  br i1 %cmp.i54, label %if.then34, label %AddMemArray.exit61.thread
 
-if.end.i58:                                       ; preds = %if.end31
-  %idxprom.i54 = sext i32 %5 to i64
-  %arrayidx.i55 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.i54
-  store i64 %1, ptr %arrayidx.i55, align 8, !tbaa !9
-  %arrayidx2.i56 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %idxprom.i54
-  store i64 %adj_addr.1, ptr %arrayidx2.i56, align 8, !tbaa !9
-  %inc.i57 = add nsw i32 %5, 1
-  store i32 %inc.i57, ptr @mem_array_ents, align 4, !tbaa !5
+AddMemArray.exit61.thread:                        ; preds = %if.end31
+  %idxprom.i55 = sext i32 %5 to i64
+  %arrayidx.i56 = getelementptr inbounds [20 x i64], ptr @mem_array, i64 0, i64 %idxprom.i55
+  store i64 %1, ptr %arrayidx.i56, align 8, !tbaa !9
+  %arrayidx2.i57 = getelementptr inbounds [2 x [20 x i64]], ptr @mem_array, i64 0, i64 1, i64 %idxprom.i55
+  store i64 %adj_addr.1, ptr %arrayidx2.i57, align 8, !tbaa !9
+  %inc.i58 = add nsw i32 %5, 1
+  store i32 %inc.i58, ptr @mem_array_ents, align 4, !tbaa !5
   br label %cleanup
 
 if.then34:                                        ; preds = %if.end31
   store i32 2, ptr %errorcode, align 4, !tbaa !5
   br label %cleanup
 
-cleanup:                                          ; preds = %if.end.i58, %if.end.i, %if.then34, %if.then6
-  %retval.0 = phi ptr [ %call, %if.then6 ], [ %call, %if.end.i ], [ %4, %if.then34 ], [ %4, %if.end.i58 ]
+cleanup:                                          ; preds = %AddMemArray.exit61.thread, %AddMemArray.exit.thread, %if.then34, %if.then6
+  %retval.0 = phi ptr [ %call, %if.then6 ], [ %4, %if.then34 ], [ %call, %AddMemArray.exit.thread ], [ %4, %AddMemArray.exit61.thread ]
   ret ptr %retval.0
 }
 

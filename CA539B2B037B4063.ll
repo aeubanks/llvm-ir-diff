@@ -354,19 +354,19 @@ if.end95:                                         ; preds = %catch83
   call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %message) #8
   %49 = getelementptr inbounds i8, ptr %message, i64 8
   store i64 0, ptr %49, align 8
-  %call.i.i182 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #9
-          to label %_ZN11CStringBaseIwEC2Ev.exit unwind label %lpad96
+  %call.i.i198 = invoke noalias noundef nonnull dereferenceable(16) ptr @_Znam(i64 noundef 16) #9
+          to label %invoke.cont97 unwind label %lpad96
 
-_ZN11CStringBaseIwEC2Ev.exit:                     ; preds = %if.end95
+invoke.cont97:                                    ; preds = %if.end95
   %_capacity.i = getelementptr inbounds %class.CStringBase.0, ptr %message, i64 0, i32 2
-  store ptr %call.i.i182, ptr %message, align 8, !tbaa !16
-  store i32 0, ptr %call.i.i182, align 4, !tbaa !19
+  store ptr %call.i.i198, ptr %message, align 8, !tbaa !16
+  store i32 0, ptr %call.i.i198, align 4, !tbaa !19
   store i32 4, ptr %_capacity.i, align 4, !tbaa !21
   %50 = load i32, ptr %14, align 4, !tbaa !12
   %call101 = invoke noundef zeroext i1 @_ZN8NWindows6NError15MyFormatMessageEjR11CStringBaseIwE(i32 noundef %50, ptr noundef nonnull align 8 dereferenceable(16) %message)
           to label %invoke.cont100 unwind label %lpad99
 
-invoke.cont100:                                   ; preds = %_ZN11CStringBaseIwEC2Ev.exit
+invoke.cont100:                                   ; preds = %invoke.cont97
   %51 = load ptr, ptr @g_StdStream, align 8, !tbaa !5
   %call103 = invoke noundef nonnull align 8 dereferenceable(16) ptr @_ZN13CStdOutStreamlsEPFRS_S0_E(ptr noundef nonnull align 8 dereferenceable(16) %51, ptr noundef nonnull @_Z4endlR13CStdOutStream)
           to label %invoke.cont102 unwind label %lpad99
@@ -410,19 +410,19 @@ lpad96:                                           ; preds = %if.end95
           cleanup
   br label %ehcleanup117
 
-lpad99:                                           ; preds = %invoke.cont112, %invoke.cont108, %invoke.cont106, %invoke.cont104, %invoke.cont102, %invoke.cont100, %_ZN11CStringBaseIwEC2Ev.exit
+lpad99:                                           ; preds = %invoke.cont112, %invoke.cont108, %invoke.cont106, %invoke.cont104, %invoke.cont102, %invoke.cont100, %invoke.cont97
   %55 = landingpad { ptr, i32 }
           cleanup
   %56 = load ptr, ptr %message, align 8, !tbaa !16
-  %isnull.i183 = icmp eq ptr %56, null
-  br i1 %isnull.i183, label %ehcleanup117, label %delete.notnull.i184
+  %isnull.i199 = icmp eq ptr %56, null
+  br i1 %isnull.i199, label %ehcleanup117, label %delete.notnull.i200
 
-delete.notnull.i184:                              ; preds = %lpad99
+delete.notnull.i200:                              ; preds = %lpad99
   call void @_ZdaPv(ptr noundef nonnull %56) #10
   br label %ehcleanup117
 
-ehcleanup117:                                     ; preds = %delete.notnull.i184, %lpad99, %lpad96
-  %.pn189 = phi { ptr, i32 } [ %54, %lpad96 ], [ %55, %lpad99 ], [ %55, %delete.notnull.i184 ]
+ehcleanup117:                                     ; preds = %delete.notnull.i200, %lpad99, %lpad96
+  %.pn185 = phi { ptr, i32 } [ %54, %lpad96 ], [ %55, %lpad99 ], [ %55, %delete.notnull.i200 ]
   call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %message) #8
   br label %ehcleanup120
 
@@ -437,7 +437,7 @@ lpad118:                                          ; preds = %cleanup
   br label %ehcleanup169
 
 ehcleanup120:                                     ; preds = %ehcleanup117, %lpad85
-  %.pn191 = phi { ptr, i32 } [ %47, %lpad85 ], [ %.pn189, %ehcleanup117 ]
+  %.pn187 = phi { ptr, i32 } [ %47, %lpad85 ], [ %.pn185, %ehcleanup117 ]
   invoke void @__cxa_end_catch()
           to label %ehcleanup169 unwind label %terminate.lpad
 
@@ -486,10 +486,10 @@ cleanup168:                                       ; preds = %cleanup168.sink.spl
   ret i32 %retval.1
 
 ehcleanup169:                                     ; preds = %lpad162, %lpad158, %lpad150, %lpad144, %lpad136, %lpad126, %lpad118, %ehcleanup120, %lpad67, %lpad58, %lpad52, %lpad43, %lpad16, %lpad74, %lpad33, %lpad24, %lpad19
-  %.pn199.pn = phi { ptr, i32 } [ %46, %lpad74 ], [ %41, %lpad33 ], [ %40, %lpad24 ], [ %39, %lpad19 ], [ %38, %lpad16 ], [ %43, %lpad52 ], [ %42, %lpad43 ], [ %45, %lpad67 ], [ %44, %lpad58 ], [ %57, %lpad118 ], [ %.pn191, %ehcleanup120 ], [ %59, %lpad136 ], [ %58, %lpad126 ], [ %61, %lpad150 ], [ %60, %lpad144 ], [ %63, %lpad162 ], [ %62, %lpad158 ]
+  %.pn195.pn = phi { ptr, i32 } [ %46, %lpad74 ], [ %41, %lpad33 ], [ %40, %lpad24 ], [ %39, %lpad19 ], [ %38, %lpad16 ], [ %43, %lpad52 ], [ %42, %lpad43 ], [ %45, %lpad67 ], [ %44, %lpad58 ], [ %57, %lpad118 ], [ %.pn187, %ehcleanup120 ], [ %59, %lpad136 ], [ %58, %lpad126 ], [ %61, %lpad150 ], [ %60, %lpad144 ], [ %63, %lpad162 ], [ %62, %lpad158 ]
   call void @_ZN13NConsoleClose18CCtrlHandlerSetterD1Ev(ptr noundef nonnull align 8 dereferenceable(24) %ctrlHandlerSetter) #8
   call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %ctrlHandlerSetter) #8
-  resume { ptr, i32 } %.pn199.pn
+  resume { ptr, i32 } %.pn195.pn
 
 terminate.lpad:                                   ; preds = %lpad158, %lpad144, %lpad126, %ehcleanup120, %lpad58, %lpad43, %lpad16
   %64 = landingpad { ptr, i32 }

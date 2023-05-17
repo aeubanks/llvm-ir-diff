@@ -768,16 +768,16 @@ entry:
   tail call void @fill_all_from_fields(ptr noundef nonnull %call, i32 noundef 0) #12
   %puts108 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.21)
   %10 = load i32, ptr @NumNodes, align 4, !tbaa !30
-  %puts109 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
+  %puts110 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.22)
   %11 = load i32, ptr @NumNodes, align 4, !tbaa !30
-  %cmp112 = icmp sgt i32 %11, 0
-  br i1 %cmp112, label %for.body.preheader, label %for.end55
+  %cmp113 = icmp sgt i32 %11, 0
+  br i1 %cmp113, label %for.body.preheader, label %for.end55
 
 for.body.preheader:                               ; preds = %entry
-  %.fr = freeze i32 %10
-  %12 = add i32 %.fr, 1
+  %.fr109 = freeze i32 %10
+  %12 = add i32 %.fr109, 1
   %13 = icmp ult i32 %12, 3
-  %div8 = select i1 %13, i32 %.fr, i32 0
+  %div8 = select i1 %13, i32 %.fr109, i32 0
   %14 = sext i32 %div8 to i64
   %wide.trip.count = zext i32 %11 to i64
   %xtraiter = and i64 %wide.trip.count, 1
@@ -839,9 +839,9 @@ for.body.epil:                                    ; preds = %for.end55.loopexit.
   br label %for.end55
 
 for.end55:                                        ; preds = %for.body.epil, %for.end55.loopexit.unr-lcssa, %entry
-  %puts110 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
+  %puts111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.23)
   store i32 0, ptr @NumMisses, align 4, !tbaa !30
-  %puts111 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
+  %puts112 = tail call i32 @puts(ptr nonnull dereferenceable(1) @str.24)
   ret ptr %call2
 }
 

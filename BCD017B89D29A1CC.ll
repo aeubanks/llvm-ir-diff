@@ -55,7 +55,7 @@ if.end9:                                          ; preds = %if.then8, %if.end4
 
 ; Function Attrs: noreturn nounwind uwtable
 define dso_local i32 @main() local_unnamed_addr #1 {
-entry:
+if.end21:
   store i32 3, ptr @count, align 4, !tbaa !5
   tail call void @exit(i32 noundef 0) #3
   unreachable

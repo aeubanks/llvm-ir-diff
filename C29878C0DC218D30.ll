@@ -416,15 +416,15 @@ for.body225.us:                                   ; preds = %for.body225.lr.ph, 
   %67 = load i32, ptr %arrayidx259.us, align 4, !tbaa !12
   %sub262.us = sub nsw i32 %67, %64
   %add263.us = add nsw i32 %sub262.us, 1
-  %cmp264.us.inv = icmp slt i32 %sub262.us, 0
-  %spec.select8515.us = select i1 %cmp264.us.inv, i32 0, i32 %add263.us
+  %cmp264.inv.us = icmp slt i32 %sub262.us, 0
+  %spec.select8515.us = select i1 %cmp264.inv.us, i32 0, i32 %add263.us
   %mul275.us = mul nsw i32 %spec.select8515.us, %sub257.us
   %add276.us = add nsw i32 %sub253.us, %mul275.us
   %68 = load i32, ptr %imax258.us, align 4, !tbaa !12
   %sub281.us = sub nsw i32 %68, %62
   %add282.us = add nsw i32 %sub281.us, 1
-  %cmp283.us.inv = icmp slt i32 %sub281.us, 0
-  %cond293.us = select i1 %cmp283.us.inv, i32 0, i32 %add282.us
+  %cmp283.inv.us = icmp slt i32 %sub281.us, 0
+  %cond293.us = select i1 %cmp283.inv.us, i32 0, i32 %add282.us
   %mul294.us = mul nsw i32 %add276.us, %cond293.us
   %add295.us = add nsw i32 %sub249.us, %mul294.us
   %69 = load i32, ptr %stride2, align 4, !tbaa !12
@@ -4081,7 +4081,7 @@ declare void @hypre_Free(ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: nounwind uwtable
 define dso_local i32 @hypre_StructMatvec(double noundef %alpha, ptr noundef %A, ptr noundef %x, double noundef %beta, ptr nocapture noundef readonly %y) local_unnamed_addr #0 {
-entry:
+hypre_StructMatvecDestroy.exit:
   %send_boxes.i = alloca ptr, align 8
   %recv_boxes.i = alloca ptr, align 8
   %send_processes.i = alloca ptr, align 8
